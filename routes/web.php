@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::group(['prefix' => 'admin'], function(){
+
+    // auth 
+    Route::get('/', [LoginController::class, 'index']);
+    Auth::routes(['register' => false, 'request' => false, 'reset' => false]);
+	Route::group(['middleware' => 'auth:web'], function () {
+
+        // dashboard
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // user
+        Route::resource('user', UserController::class);
+    });
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
