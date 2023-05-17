@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StateController;
+use App\Http\Controllers\Admin\TownshipController;
+use App\Http\Controllers\Admin\IndustryController;
+use App\Http\Controllers\Admin\OwnershipTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +33,17 @@ Route::group(['prefix' => 'admin'], function(){
         // dashboard
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-        // user
-        Route::resource('user', UserController::class);
+        // state
+        Route::resource('state', StateController::class);
+
+        // township 
+        Route::resource('township', TownshipController::class);
+
+        // industry 
+        Route::resource('industry', IndustryController::class);
+
+        // ownershiptype 
+        Route::resource('ownership-type', OwnershipTypeController::class);
     });
 });
 
