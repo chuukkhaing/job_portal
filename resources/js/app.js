@@ -26,4 +26,11 @@ $(document).ready(function(){
     $(".select_2").select2({
         placeholder: "Choose..."
     });
+
+    $('.icp').on('click', function () {
+        $('.icp-dd').iconpicker();
+    });
+    $('.icp').on('iconpickerSelected', function (e) {
+        $('#icon').val(e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue));
+    });
 });

@@ -1,0 +1,1 @@
+fontawesome-iconpicker-3.0.0

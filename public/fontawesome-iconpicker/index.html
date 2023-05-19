@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Font Awesome Icon Picker plugin for Bootstrap</title>
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="dist/css/fontawesome-iconpicker.min.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <style>
+        footer {
+            font-style: italic;
+            background: #f7f7f7;
+            padding: 60px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        pre {
+            text-align: left;
+        }
+
+        .form-control, .form-group {
+            position: relative;
+        }
+
+        p.lead {
+            max-width: 800px;
+            margin: 0 auto 20px auto;
+        }
+
+        div.lead {
+            margin: 30px 0;
+        }
+
+        a.action-placement {
+            margin: 0 4px 4px 4px;
+            display: inline-block;
+            /*border-bottom: 1px dotted #428BCA;*/
+            text-decoration: none;
+        }
+
+        a.action-placement.active {
+            color: #5CB85C;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .lead iframe {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container" style="text-align: center">
+    <h1 class="page-header">Font Awesome Icon Picker</h1>
+
+    <div class="panel panel-default">
+        
+        <div class="panel-body">
+            
+            <div class="row">
+                <div class="col-md-5">
+                    
+                    <div class="form-group">
+                        <label>Inside dropdowns</label>
+                        
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary iconpicker-component"><i
+                                    class="fa fa-fw fa-heart"></i></button>
+                            <button type="button" class="icp icp-dd btn btn-primary dropdown-toggle"
+                                    data-selected="fa-car" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-danger action-destroy">Destroy instances</button>
+            <button class="btn btn-default action-create">Create instances</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="dist/js/fontawesome-iconpicker.js"></script>
+<script>
+    $(function () {
+        
+        // Live binding of buttons
+        
+        $('.action-create').on('click', function () {
+            
+
+            $('.icp-dd').iconpicker({
+                //title: 'Dropdown with picker',
+                //component:'.btn > i'
+            });
+            
+        }).trigger('click');
+
+
+        // Events sample:
+        // This event is only triggered when the actual input value is changed
+        // by user interaction
+        
+    });
+</script>
+</body>
+
+</html>

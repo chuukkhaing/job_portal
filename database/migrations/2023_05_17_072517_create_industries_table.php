@@ -16,6 +16,7 @@ class CreateIndustriesTable extends Migration
         Schema::create('industries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('icon')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

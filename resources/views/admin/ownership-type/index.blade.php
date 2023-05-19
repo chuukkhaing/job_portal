@@ -8,9 +8,9 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
-            <h6 class="col font-weight-bold text-primary">Industries</h6>
+            <h6 class="col font-weight-bold text-primary">Ownership Types</h6>
             <div class="col">
-                <a href="{{ route('industry.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('ownership-type.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -26,22 +26,20 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Industrial Name</th>
-                            <th>Icon</th>
+                            <th>Ownership Type</th>
                             <th>Active Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($industries as $key => $industry)
+                        @foreach($ownershipTypes as $key => $ownershipType)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $industry->name }}</td>
-                            <td><i class="{{ $industry->icon }}"></i></td>
-                            <td>@if($industry->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
+                            <td>{{ $ownershipType->name }}</td>
+                            <td>@if($ownershipType->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
-                                <a href="{{ route('industry.edit', $industry->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                <form method="POST" action="{{ route('industry.destroy', $industry->id) }}" class="d-inline">
+                                <a href="{{ route('ownership-type.edit', $ownershipType->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                <form method="POST" action="{{ route('ownership-type.destroy', $ownershipType->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>

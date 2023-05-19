@@ -22,11 +22,31 @@
         <div class="card-body">
             <form action="{{ route('industry.store') }}" method="post">
                 @csrf 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="name">Industrial Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Industrial name" required value="{{ old('name') }}">
                 </div>
-                
+                <div class="form-group">
+                    <label for="icon">Choose Icon <span class="text-danger">*</span></label><br>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary iconpicker-component"><i
+                                class="fa fa-fw fa-heart"></i></button>
+                        <button type="button" class="icp icp-dd btn btn-primary dropdown-toggle"
+                                data-selected="fa-car" data-toggle="dropdown">
+                        </button>
+                        <div class="dropdown-menu"></div>
+                    </div>
+                    <input type="hidden" name="icon" value="" id="icon">
+                </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                     <input type="radio" name="is_active" id="active" class="from-control" value="1" checked required> <label for="active"> Active</label><br>

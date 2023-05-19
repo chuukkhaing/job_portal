@@ -39,8 +39,12 @@ class IndustryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'icon' => 'required'
+        ]);
         $industry = Industry::create([
             'name' => $request->name,
+            'icon' => $request->icon,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
             'created_at' => now()
