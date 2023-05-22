@@ -1,0 +1,35 @@
+<?php
+
+return [
+    'value' => [
+        'Rotating Home Page Logo',
+        'Sector Banner',
+        'Hilighted Banner',
+        'Leading Employer Banner',
+        'Specific Content for Social Media',
+        'Testimonials',
+        'Employer News Letter and Employee News Letter',
+        'Video Content Creation',
+        'Employer Profile with Photo',
+        'Employer Branding Video',
+        'Best Match Sorting of Applicants',
+        'Questionnaire Screening',
+        'Auto Reply Message',
+        'Website Integration',
+        'Advance Applicant Management',
+        'CV Unlocking',
+        'Recommended Profile',
+        'Employer User Group by Admin Access',
+        'Profile Save',
+        'Advance Matching by Job posting',
+        'Unlock and Save Profile under (5 years working Experience)',
+        'Unlock and Save Profile Above (5 years working Experience)',
+        'Posting the job',
+        'Pre Qualifyation Question',
+        'Promote the job to Featured Job',
+        'Top Job (Top of Search Result)',
+        'Invite to apply (Suitable candidates)',
+        'Job Alert to Candidates',
+        'Anonymous Posting',
+    ]
+];

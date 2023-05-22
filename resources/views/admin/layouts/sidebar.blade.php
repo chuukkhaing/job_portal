@@ -37,7 +37,7 @@
     </li>
 
     <!-- Nav Item - Company Attribute Menu -->
-    <li class="nav-item {{ Request::is('admin/industry*') ? 'active' : '' }} {{ Request::is('admin/township*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/industry*') ? 'active' : '' }} {{ Request::is('admin/ownership-type*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#companyAttribute"
             aria-expanded="true" aria-controls="companyAttribute">
             <i class="fas fa-network-wired"></i>
@@ -47,6 +47,21 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('admin/industry*') ? 'active' : '' }}" href="{{ route('industry.index') }}">Industries</a>
                 <a class="collapse-item {{ Request::is('admin/ownership-type*') ? 'active' : '' }}" href="{{ route('ownership-type.index') }}">Ownership Type</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Package Menu -->
+    <li class="nav-item {{ Request::is('admin/package-item*') ? 'active' : '' }} {{ Request::is('admin/package-type*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#package"
+            aria-expanded="true" aria-controls="package">
+            <i class="fas fa-cubes"></i>
+            <span>Packages</span>
+        </a>
+        <div id="package" class="collapse {{ Request::is('admin/package-item*') ? 'show' : '' }} {{ Request::is('admin/package*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('admin/package-item*') ? 'active' : '' }}" href="{{ route('package-item.index') }}">Package Items</a>
+                <a class="collapse-item {{ Request::is('admin/package-type*') ? 'active' : '' }}" href="{{ route('package-type.index') }}">Package Type</a>
             </div>
         </div>
     </li>
