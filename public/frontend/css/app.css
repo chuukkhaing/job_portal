@@ -1,0 +1,91 @@
+body {
+    font-family: 'Source Sans Pro';
+}
+.navbar {
+    background: #0355D0;
+    padding: 0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    padding: 0 100px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'Source Sans Pro';
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    font-weight: 600;
+    color: #ffffff;
+    border-bottom: 5px solid #FB5404;
+}
+
+.carousel-item img{
+    max-height: 544px;
+}
+
+.popular-job-category {
+    font-family: 'Source Sans Pro';
+}
+
+#popular-job-category-title {
+    font-family: 'Source Sans Pro';
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 31px;
+    color: #0355D0;
+}
+
+#popular-job-category-sub-title {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #64646B;
+}
+
+#job-category-box {
+    border: 1px solid #E8EFF7;
+    border-radius: 4px;
+    padding: 10px 0;
+}
+
+#job-category-icon {
+    padding: 15px 0;
+}
+
+#job-category-icon i {
+    font-size: 35px;
+    line-height: 62px;
+    color: #FB5404;
+    width: 65px;
+    height: 65px;
+}
+
+#job-category-name-title {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #181722;
+}
+
+#job-category-name-position {
+    font-family: 'Source Sans Pro';
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: #46454E;
+}
+
+#job-category-box:hover {
+    background: #FFF1EB;
+    border: 1px solid #FFF1EB;
+}
+#job-category-box:hover #job-category-icon i{
+    background: #FB5404;
+    border-radius: 100%;
+    color: #FFFFFF;
+}

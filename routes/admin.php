@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\OwnershipTypeController;
 use App\Http\Controllers\Admin\PackageItemController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\EmployerController;
+use App\Http\Controllers\Admin\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,5 +50,11 @@ Route::group([], function(){
 
         // packages
         Route::resource('package-type', PackageController::class);
+
+        // employer 
+        Route::resource('employer', EmployerController::class);
+
+        // slider 
+        Route::resource('slider', SliderController::class);
     });
 });

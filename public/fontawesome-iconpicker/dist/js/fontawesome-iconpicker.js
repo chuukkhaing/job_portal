@@ -3907,6 +3907,10 @@
         }, {
             title: "fab fa-youtube-square",
             searchTerms: []
-        } ]
+        },
+        {
+            title: "fas fa-tower-cell",
+            searchTerms: [ "tower", "telecom", "network" ]
+        }  ]
     });
 });

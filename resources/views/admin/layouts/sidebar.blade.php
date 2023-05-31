@@ -66,6 +66,22 @@
         </div>
     </li>
 
+    <!-- Nav Item - Employer Menu -->
+    <li class="nav-item {{ Request::is('admin/employer*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('employer.index') }}">
+            <i class="fas fa-user-tie"></i>
+            <span>Employers</span>
+        </a>
+    </li>
+
+    <!-- Nav Item - Slider Menu -->
+    <li class="nav-item {{ Request::is('admin/slider*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('slider.index') }}">
+            <i class="fas fa-images"></i>
+            <span>Sliders</span>
+        </a>
+    </li>
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Addons
