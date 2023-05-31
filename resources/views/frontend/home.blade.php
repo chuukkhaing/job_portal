@@ -49,6 +49,9 @@
                 </div>
             </div>
             @endforeach
+            <div class="text-center py-5">
+                <a href="http://" class="btn btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
+            </div>
         </div>
     </div>
 </div>
