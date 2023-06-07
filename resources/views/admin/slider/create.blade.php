@@ -58,8 +58,8 @@
                 
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
-                    <input type="radio" name="is_active" id="active" class="from-control" value="1" checked required> <label for="active"> Active</label><br>
-                    <input type="radio" name="is_active" id="in_active" class="from-control" value="0"> <label for="in_active"> In Active</label>
+                    <input type="radio" name="is_active" id="active" class="" value="1" checked required> <label for="active"> Active</label><br>
+                    <input type="radio" name="is_active" id="in_active" class="" value="0"> <label for="in_active"> In Active</label>
                 </div>
                 <button class="btn btn-primary btn-icon-split btn-sm" type="submit">
                     <span class="icon text-white-50">

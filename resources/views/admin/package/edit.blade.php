@@ -32,7 +32,7 @@
                     <div class="row">
                     @foreach($package_items as $package_item)
                         <div class="col-4">
-                            <input type="checkbox" name="package_item_id[]" id="package_item_id_{{ $package_item->id }}" value="{{ $package_item->id }}" @foreach ($package_with_items as $key => $package_with_item) @if($package_with_item == $package_item->id) checked @endif @endforeach class="from-control"> <label for="package_item_id_{{ $package_item->id }}"> {{ $package_item->name }}</label><br>
+                            <input type="checkbox" name="package_item_id[]" id="package_item_id_{{ $package_item->id }}" value="{{ $package_item->id }}" @foreach ($package_with_items as $key => $package_with_item) @if($package_with_item == $package_item->id) checked @endif @endforeach class="form-control"> <label for="package_item_id_{{ $package_item->id }}"> {{ $package_item->name }}</label><br>
                         </div>
                     @endforeach
                     </div>
@@ -55,8 +55,8 @@
                 </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
-                    <input type="radio" name="is_active" id="active" class="from-control" value="1" @if($package->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
-                                <input type="radio" name="is_active" id="in_active" class="from-control" value="0" @if($package->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
+                    <input type="radio" name="is_active" id="active" class="" value="1" @if($package->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
+                                <input type="radio" name="is_active" id="in_active" class="" value="0" @if($package->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
                 </div>
                 <button class="btn btn-primary btn-icon-split btn-sm" type="submit">
                     <span class="icon text-white-50">

@@ -48,4 +48,8 @@ $(document).ready(function(){
     $("#imageUpload").change(function() {
         readURL(this);
     });
+
+    $('.summernote').summernote({
+        height: 200
+    });
 });

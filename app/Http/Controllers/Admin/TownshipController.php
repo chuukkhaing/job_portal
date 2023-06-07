@@ -72,7 +72,9 @@ class TownshipController extends Controller
      */
     public function edit($id)
     {
-        //
+        $township = Townhip::findOrFail($id);
+        $states = State::whereNull('deleted_at')->get();
+        return view ('admin.township.edit', compact('states', 'township'));
     }
 
     /**
@@ -84,7 +86,17 @@ class TownshipController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $township = Townhip::findOrFail($id);
+        $township = $township->update([
+            'state_id' => $request->state_id,
+            'name' => $request->name,
+            'is_active' => $request->is_active,
+            'updated_by' => Auth::user()->id,
+            'updated_at' => now()
+        ]);
+
+        Alert::success('Success', 'Township Updated Successfully!');
+        return redirect()->route('township.index');
     }
 
     /**

@@ -94,9 +94,141 @@
                     </div>
 
                     <div class="col-6 form-group">
+                        <label for="package_id">Choose Package </label>
+                        <select name="package_id" id="package_id" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach ($packages as $package)
+                            <option value="{{ $package->id }}">{{ $package->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description"><strong>Description</strong></label>
+                        <textarea class="summernote form-control" id="description" name="description">{{ old('description') }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address"><strong>Address</strong></label>
+                        <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}" placeholder="Enter Company Address" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="no_of_offices">Number of Offices </label>
+                        <select name="no_of_offices" id="no_of_offices" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach (config('number.offices') as $office)
+                            <option value="{{ $office }}">{{ $office }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="no_of_employees">Number of Employees </label>
+                        <select name="no_of_employees" id="no_of_employees" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach (config('number.employees') as $employee)
+                            <option value="{{ $employee }}">{{ $employee }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="website"><strong>Website</strong></label>
+                        <input type="url" class="form-control" id="website" name="website" placeholder="Enter Company Website" value="{{ old('website') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="established_in">Established In </label>
+                        <select name="established_in" id="established_in" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach (config('number.years') as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="fax"><strong>Fax</strong></label>
+                        <input type="text" class="form-control" name="fax" id="fax" placeholder="Enter Fax" value="{{ old('fax') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="phone"><strong>Phone</strong></label>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone" value="{{ old('phone') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="facebook"><strong>facebook</strong></label>
+                        <input type="url" class="form-control" name="facebook" id="facebook" placeholder="Enter Facebook" value="{{ old('facebook') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="twitter"><strong>Twitter</strong></label>
+                        <input type="url" class="form-control" name="twitter" id="twitter" placeholder="Enter Twitter" value="{{ old('twitter') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="linkedin"><strong>Linkedin</strong></label>
+                        <input type="url" class="form-control" name="linkedin" id="linkedin" placeholder="Enter Linkedin" value="{{ old('linkedin') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="instagram"><strong>Instagram</strong></label>
+                        <input type="url" class="form-control" name="instagram" id="instagram" placeholder="Enter Instagram" value="{{ old('instagram') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="youtube"><strong>Youtube</strong></label>
+                        <input type="url" class="form-control" name="youtube" id="youtube" placeholder="Enter Youtube" value="{{ old('youtube') }}" />
+                    </div>
+
+                    <div class="col-6"></div>
+
+                    <div class="col-6 form-group">
+                        <label for="state_id">Choose State </label>
+                        <select name="state_id" id="state_id" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach ($states as $state)
+                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="township_id">Choose Township </label>
+                        <select name="township_id" id="township_id" class="form-control select_2">
+                            <option value=""></option>
+                            @foreach ($townships as $township)
+                            <option value="{{ $township->id }}">{{ $township->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="contact_person_name"><strong>Contact Person Name</strong></label>
+                        <input type="text" class="form-control" name="contact_person_name" id="contact_person_name" placeholder="Enter Contact Person Name" value="{{ old('contact_person_name') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="contact_person_phone"><strong>Contact Person Phone</strong></label>
+                        <input type="text" class="form-control" name="contact_person_phone" id="contact_person_phone" placeholder="Enter Contact Person Phone" value="{{ old('contact_person_phone') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="contact_person_email"><strong>Contact Person Email</strong></label>
+                        <input type="email" class="form-control" name="contact_person_email" id="contact_person_email" placeholder="Enter Contact Person Email" value="{{ old('contact_person_email') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
+                        <label for="map"><strong>Google Map</strong></label>
+                        <input type="text" class="form-control" name="map" id="map" placeholder="Enter Google Map" value="{{ old('map') }}" />
+                    </div>
+
+                    <div class="col-6 form-group">
                         <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
-                        <input type="radio" name="is_active" id="active" class="from-control" value="1" checked required> <label for="active"> Active</label><br>
-                        <input type="radio" name="is_active" id="in_active" class="from-control" value="0"> <label for="in_active"> In Active</label>
+                        <input type="radio" name="is_active" id="active" class="" value="1" checked required> <label for="active"> Active</label><br>
+                        <input type="radio" name="is_active" id="in_active" class="" value="0"> <label for="in_active"> In Active</label>
                     </div>
                 </div>
 
