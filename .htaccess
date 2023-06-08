@@ -1,0 +1,7 @@
+RewriteEngine on
+#Redirect trailing slashes if not a folder
+RewriteCondn %{REQUEST_FILENAME} ! -d
+RewriteCondn %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L, R=301]
+RewriteCondn %{Request_URI} !^public
+RewriteRule ^(.*)$ public/$1 [L]
