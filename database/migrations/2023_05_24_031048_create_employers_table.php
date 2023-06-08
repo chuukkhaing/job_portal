@@ -36,8 +36,8 @@ class CreateEmployersTable extends Migration
 			$table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
-			$table->bigInteger('state_id')->default(0);
-			$table->bigInteger('township_id')->default(0);
+			$table->bigInteger('state_id')->nullable();
+			$table->bigInteger('township_id')->nullable();
             $table->string('contact_person_name')->nullable();
             $table->string('contact_person_phone')->nullable();
             $table->string('contact_person_email')->nullable();
@@ -45,7 +45,7 @@ class CreateEmployersTable extends Migration
 			$table->string('slug')->nullable();
 			$table->rememberToken();
 			$table->text('map')->nullable();
-			$table->bigInteger('package_id')->default(0);
+			$table->bigInteger('package_id')->nullable();
 			$table->datetime('package_start_date')->nullable();
 			$table->datetime('package_end_date')->nullable();
 			$table->datetime('register_at')->nullable();

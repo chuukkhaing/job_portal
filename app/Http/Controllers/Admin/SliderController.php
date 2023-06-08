@@ -29,7 +29,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $employers = Employer::whereNull('deleted_at')->get();
+        $employers = Employer::whereNull('deleted_at')->whereIsActive(1)->get();
         return view ('admin.slider.create', compact('employers'));
     }
 
@@ -58,7 +58,6 @@ class SliderController extends Controller
                 'image' => $image,
                 'is_active' => $request->is_active,
                 'created_by' => Auth::user()->id,
-                'created_at' => now()
             ]);
 
         Alert::success('Success', 'New Slider Created Successfully!');
@@ -103,7 +102,6 @@ class SliderController extends Controller
             'name' => $request->name,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
-            'updated_at' => now()
         ]);
 
         Alert::success('Success', 'Slider Updated Successfully!');

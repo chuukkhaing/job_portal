@@ -47,7 +47,6 @@ class PackageItemController extends Controller
             'point' => $request->point,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
-            'created_at' => now()
         ]);
 
         Alert::success('Success', 'New Package Item Created Successfully!');
@@ -95,7 +94,6 @@ class PackageItemController extends Controller
             'point' => $request->point,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
-            'updated_at' => now()
         ]);
 
         Alert::success('Success', 'Package Item Updated Successfully!');

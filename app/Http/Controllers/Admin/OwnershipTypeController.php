@@ -43,7 +43,6 @@ class OwnershipTypeController extends Controller
             'name' => $request->name,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
-            'created_at' => now()
         ]);
 
         Alert::success('Success', 'New Ownership Type Created Successfully!');
@@ -87,7 +86,6 @@ class OwnershipTypeController extends Controller
             'name' => $request->name,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
-            'updated_at' => now()
         ]);
 
         Alert::success('Success', 'Ownership Type Updated Successfully!');

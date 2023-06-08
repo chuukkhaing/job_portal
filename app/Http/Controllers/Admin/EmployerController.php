@@ -55,6 +55,8 @@ class EmployerController extends Controller
             $logo = date('YmdHi').$file->getClientOriginalName();
             $path = $file-> move(public_path('storage/employer_logo/'), $logo);
         }
+
+        $package = Package::findOrFail($request->package_id);
         
         $employer = Employer::create([
             'logo' => $logo,
@@ -86,11 +88,16 @@ class EmployerController extends Controller
             'is_active' => $request->is_active,
             'map' => $request->map,
             'package_id' => $request->package_id,
-            
+            'package_start_date' => $request->package_start_date,
+            'package_end_date' => date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days')),
+            'register_at' => now(),
+            'is_active' => $request->is_active,
+            'created_by' => Auth::user()->id,
         ]);
         
 
-        return redirect()->route('company.index')->with('message', 'New Company Created successfully.');
+        Alert::success('Success', 'New Employer Created Successfully!');
+        return redirect()->route('employer.index');
     }
 
     /**
@@ -112,7 +119,13 @@ class EmployerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employer = Employer::findOrFail($id);
+        $industries = Industry::whereNull('deleted_at')->get();
+        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->get();
+        $townships = Township::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->get();
+        return view ('admin.employer.edit', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages'));
     }
 
     /**
@@ -136,5 +149,14 @@ class EmployerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTownship($id)
+    {
+        $townships = Township::whereStateId($id)->whereNull('deleted_at')->whereIsActive(1)->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $townships
+        ]);
     }
 }

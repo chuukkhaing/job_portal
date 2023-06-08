@@ -27,7 +27,7 @@
                     <select name="employer_id" id="employer_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($employers as $employer)
-                        <option value="{{ $employer->id }}">{{ $employer->name }} @if(isset($employer->name)) ({{ $employer->name }} ) @endif</option>
+                        <option value="{{ $employer->id }}">{{ $employer->name }}</option>
                         @endforeach
                     </select>
                 </div>

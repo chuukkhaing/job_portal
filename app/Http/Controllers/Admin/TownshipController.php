@@ -46,7 +46,6 @@ class TownshipController extends Controller
             'name' => $request->name,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
-            'created_at' => now()
         ]);
 
         Alert::success('Success', 'New Township Created Successfully!');
@@ -92,7 +91,6 @@ class TownshipController extends Controller
             'name' => $request->name,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
-            'updated_at' => now()
         ]);
 
         Alert::success('Success', 'Township Updated Successfully!');

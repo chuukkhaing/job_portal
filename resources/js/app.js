@@ -24,7 +24,8 @@ $(document).ready(function(){
     $('#dataTable').dataTable();
 
     $(".select_2").select2({
-        placeholder: "Choose..."
+        placeholder: "Choose...",
+        allowClear: true
     });
 
     $('.icp').on('click', function () {

@@ -53,6 +53,7 @@ Route::group([], function(){
 
         // employer 
         Route::resource('employer', EmployerController::class);
+        Route::get('employer/get-township/{id}', [EmployerController::class, 'getTownship']);
 
         // slider 
         Route::resource('slider', SliderController::class);
