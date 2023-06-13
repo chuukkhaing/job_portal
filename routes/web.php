@@ -13,7 +13,7 @@ use App\Http\Controllers\Frontend\HomeController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Home 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

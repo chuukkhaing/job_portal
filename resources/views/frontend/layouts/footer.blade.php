@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.3s">
+<div class="container-fluid py-5 wow fadeInUp border-top" data-wow-delay="0.3s">
     <div class="container pt-5">
         <div class="row g-5 pt-4">
             <div class="col-lg-4 col-md-6">
