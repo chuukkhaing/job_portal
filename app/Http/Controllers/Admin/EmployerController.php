@@ -94,7 +94,6 @@ class EmployerController extends Controller
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
-        
 
         Alert::success('Success', 'New Employer Created Successfully!');
         return redirect()->route('employer.index');
@@ -137,7 +136,66 @@ class EmployerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $employer = Employer::findOrFail($id);
+        $logo = $employer->logo;
+
+        if($request->imageRemove == 'empty') {
+            $logo = Null;
+        }
+
+        if($request->hasFile('logo')) {
+            $file    = $request->file('logo');
+            $logo = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
+        }
+
+        if($request->password) {
+            $password = Hash::make($request->password);
+        }else {
+            $password = $employer->password;
+        }
+
+        $package = Package::findOrFail($request->package_id);
+        
+        $employer = $employer->update([
+            'logo' => $logo,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $password,
+            'ceo' => $request->ceo,
+            'industry_id' => $request->industry_id,
+            'ownership_type_id' => $request->ownership_type_id,
+            'type_of_employer' => $request->type_of_employer,
+            'description' => $request->description,
+            'address' => $request->address,
+            'no_of_offices' => $request->no_of_offices,
+            'website' => $request->website,
+            'no_of_employees' => $request->no_of_employees,
+            'established_in' => $request->established_in,
+            'fax' => $request->fax,
+            'phone' => $request->phone,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'linkedin' => $request->linkedin,
+            'instagram' => $request->instagram,
+            'youtube' => $request->youtube,
+            'state_id' => $request->state_id,
+            'township_id' => $request->township_id,
+            'contact_person_name' => $request->contact_person_name,
+            'contact_person_phone' => $request->contact_person_phone,
+            'contact_person_email' => $request->contact_person_email,
+            'is_active' => $request->is_active,
+            'map' => $request->map,
+            'package_id' => $request->package_id,
+            'package_start_date' => $request->package_start_date,
+            'package_end_date' => date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days')),
+            'register_at' => now(),
+            'is_active' => $request->is_active,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        Alert::success('Success', 'Employer Updated Successfully!');
+        return redirect()->route('employer.index');
     }
 
     /**

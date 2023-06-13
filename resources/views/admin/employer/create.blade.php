@@ -43,7 +43,6 @@
                         <div id="imagePreview" style="background-image: url(https://placehold.jp/150x150.png);">
                         </div>
                     </div>
-                    <input type="hidden" name="logo_empty" value="">
                 </div>
                 
                 <div class="row">
@@ -294,6 +293,11 @@
                 $("#township_id").empty();
             }
         });
+
+        $(".logo-remove").click(function(){
+            $("#imageUpload").val('');
+            $('#imagePreview').css('background-image', 'url(https://placehold.jp/150x150.png)');
+        })
     });
 </script>
 @endsection

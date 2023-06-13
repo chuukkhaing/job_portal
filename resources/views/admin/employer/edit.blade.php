@@ -37,6 +37,9 @@
                         <input type="file" class="form-control" name="logo" id="imageUpload" accept="image/*" />
                         <label for="imageUpload"></label>
                     </div>
+                    <div class="logo-remove">
+                        <label for="imageRemove"></label>
+                    </div>
                     <div class="logo-preview">
                         @if($employer->logo)
                         <div id="imagePreview" style="background-image: url({{url('storage/employer_logo/'.$employer->logo)}});">
@@ -45,6 +48,7 @@
                         @endif
                         </div>
                     </div>
+                    <input type="hidden" name="imageRemove" value="" id="imageRemove">
                 </div>
                 
                 <div class="row">
@@ -60,7 +64,7 @@
 
                     <div class="col-6 form-group">
                         <label for="password">Password <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" required value="">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="">
                     </div>
 
                     <div class="col-6 form-group">
@@ -295,6 +299,12 @@
                 $("#township_id").empty();
             }
         });
+
+        $(".logo-remove").click(function(){
+            $("#imageUpload").val('');
+            $('#imagePreview').css('background-image', 'url(https://placehold.jp/150x150.png)');
+            $("#imageRemove").val('empty');
+        })
     });
 </script>
 @endsection

@@ -32,7 +32,7 @@
                     <div class="row">
                     @foreach($package_items as $package_item)
                         <div class="col-4">
-                            <input type="checkbox" name="package_item_id[]" id="package_item_id_{{ $package_item->id }}" value="{{ $package_item->id }}" @foreach ($package_with_items as $key => $package_with_item) @if($package_with_item == $package_item->id) checked @endif @endforeach class="form-control"> <label for="package_item_id_{{ $package_item->id }}"> {{ $package_item->name }}</label><br>
+                            <input type="checkbox" name="package_item_id[]" id="package_item_id_{{ $package_item->id }}" value="{{ $package_item->id }}" @foreach ($package_with_items as $key => $package_with_item) @if($package_with_item == $package_item->id) checked @endif @endforeach class=""> <label for="package_item_id_{{ $package_item->id }}"> {{ $package_item->name }}</label><br>
                         </div>
                     @endforeach
                     </div>
