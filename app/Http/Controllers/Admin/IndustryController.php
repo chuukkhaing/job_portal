@@ -88,6 +88,7 @@ class IndustryController extends Controller
         $industry = Industry::findOrFail($id);
         $industry = $industry->update([
             'name' => $request->name,
+            'icon' => $request->icon,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);

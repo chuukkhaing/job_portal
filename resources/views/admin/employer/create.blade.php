@@ -36,10 +36,14 @@
                         <input type="file" class="form-control" name="logo" id="imageUpload" accept="image/*" />
                         <label for="imageUpload"></label>
                     </div>
+                    <div class="logo-remove">
+                        <label for="imageRemove"></label>
+                    </div>
                     <div class="logo-preview">
                         <div id="imagePreview" style="background-image: url(https://placehold.jp/150x150.png);">
                         </div>
                     </div>
+                    <input type="hidden" name="logo_empty" value="">
                 </div>
                 
                 <div class="row">

@@ -27,11 +27,22 @@
                     <label for="name">Industrial Name <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" name="name" id="name" placeholder="Enter Industrial name" required value="{{ $industry->name }}">
                 </div>
-                
+                <div class="form-group">
+                    <label for="icon">Choose Icon <span class="text-danger">*</span></label><br>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary iconpicker-component"><i
+                                class="{{ $industry->icon }}"></i></button>
+                        <button type="button" class="icp icp-dd btn btn-primary dropdown-toggle"
+                                data-selected="fa-car" data-toggle="dropdown">
+                        </button>
+                        <div class="dropdown-menu"></div>
+                    </div>
+                    <input type="hidden" name="icon" value="{{ $industry->icon }}" id="icon">
+                </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                     <input type="radio" name="is_active" id="active" class="" value="1" @if($industry->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
-                                <input type="radio" name="is_active" id="in_active" class="" value="0" @if($industry->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
+                    <input type="radio" name="is_active" id="in_active" class="" value="0" @if($industry->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
                 </div>
                 <button class="btn btn-primary btn-icon-split btn-sm" type="submit">
                     <span class="icon text-white-50">
