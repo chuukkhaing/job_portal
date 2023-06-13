@@ -40,6 +40,7 @@
                             <td>{{ $employer->email }}</td>
                             <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                <a href="{{ route('employer.show', $employer->id) }}" class="btn btn-success btn-circle btn-sm"><i class="fas fa-eye"></i></a>
                                 <a href="{{ route('employer.edit', $employer->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                                 <form method="POST" action="{{ route('employer.destroy', $employer->id) }}" class="d-inline">
                                     @csrf 

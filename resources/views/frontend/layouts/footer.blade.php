@@ -1,54 +1,71 @@
 <!-- Footer Start -->
-<div class="container-fluid bg-dark text-light py-5 wow fadeInUp" data-wow-delay="0.3s">
+<div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.3s">
     <div class="container pt-5">
         <div class="row g-5 pt-4">
-            <div class="col-lg-3 col-md-6">
-                <h3 class="text-white mb-4">Quick Links</h3>
-                <div class="d-flex flex-column justify-content-start">
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                    <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
+            <div class="col-lg-4 col-md-6">
+                <img src="{{ asset('img/logo/ic-logo.png') }}" class="w-75" alt="{{ config('app.name', 'Laravel') }}">
+                <div class="py-4">
+                    <p class="text-dark"><strong>Call us</strong></p>
+                    <a class="footer-phone" href="tel:+959784569632"><strong>09 784569632</strong></a>
+                </div>
+                <div class="py-4">
+                    <p class="footer-address">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <h3 class="text-white mb-4">Popular Links</h3>
-                <div class="d-flex flex-column justify-content-start">
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Home</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>About Us</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Our Services</a>
-                    <a class="text-light mb-2" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Latest Blog</a>
-                    <a class="text-light" href="#"><i class="bi bi-arrow-right text-primary me-2"></i>Contact Us</a>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h3 class="text-white mb-4">Get In Touch</h3>
-                <p class="mb-2"><i class="bi bi-geo-alt text-primary me-2"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="bi bi-envelope-open text-primary me-2"></i>info@example.com</p>
-                <p class="mb-0"><i class="bi bi-telephone text-primary me-2"></i>+012 345 67890</p>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <h3 class="text-white mb-4">Follow Us</h3>
-                <div class="d-flex">
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-twitter fw-normal"></i></a>
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded me-2" href="#"><i class="fab fa-linkedin-in fw-normal"></i></a>
-                    <a class="btn btn-lg btn-primary btn-lg-square rounded" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 p-0">
+                        <h6 class="mb-4">For Jobseekers</h6>
+                        <hr class="footer-hr">
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">Browse Jobs</a>
+                            <a class="footer-links mb-2" href="#">About Us</a>
+                            <a class="footer-links mb-2" href="#">Our Services</a>
+                            <a class="footer-links mb-2" href="#">Latest Blog</a>
+                            <a class="footer-links " href="#">Contact Us</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 p-0">
+                        <h6 class="mb-4">For Employers</h6>
+                        <hr class="footer-hr">
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">All Employers</a>
+                            <a class="footer-links mb-2" href="#">Employers Dashboard</a>
+                            <a class="footer-links mb-2" href="#">Submit Job</a>
+                            <a class="footer-links " href="#">Job Package</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 p-0">
+                        <h6 class="mb-4">About Us</h6>
+                        <hr class="footer-hr">
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">Contact Us</a>
+                            <a class="footer-links mb-2" href="#">About Us</a>
+                            <a class="footer-links mb-2" href="#">Terms</a>
+                            <a class="footer-links mb-2" href="#">Packages</a>
+                            <a class="footer-links " href="#">FAQs</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 p-0">
+                        <h6 class="mb-4">Helpful Resources</h6>
+                        <hr class="footer-hr">
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">Site Map</a>
+                            <a class="footer-links mb-2" href="#">Terms Of Use</a>
+                            <a class="footer-links mb-2" href="#">Privacy Center</a>
+                            <a class="footer-links mb-2" href="#">Security Center</a>
+                            <a class="footer-links " href="#">Accessibility Center</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container-fluid text-light py-4" style="background: #051225;">
+<div class="container-fluid text-light py-4 footer-copyright">
     <div class="container">
-        <div class="row g-0">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="mb-md-0">&copy; <a class="text-white border-bottom" href="#">Your Site Name</a>. All Rights Reserved.</p>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-                <p class="mb-0">Designed by <a class="text-white border-bottom" href="https://htmlcodex.com">HTML Codex</a></p>
-            </div>
+        <div class="row g-0 text-center">
+            <p class="mb-md-0 fw-bold">Copyright &copy; {{ date("Y") }} Infinity Careers. All Rights Reserved. Design by: <a class="copyright-link" href="{{ url('/') }}">IGS</a></p>
         </div>
     </div>
 </div>

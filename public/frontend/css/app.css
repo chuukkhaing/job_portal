@@ -102,3 +102,23 @@ body {
     background: #02409C;
     color: #FFFFFF;
 }
+.footer-hr {
+    border: 1px solid #FB5404; 
+    opacity: 1;
+}
+.footer-links {
+    color:#46454E;
+}
+.footer-address {
+    color: #181722;
+}
+.footer-phone {
+    color:#0355D0;
+}
+.footer-copyright {
+    background: #0355D0;
+}
+.copyright-link {
+    color: #ffffff;
+    text-decoration: underline;
+}
