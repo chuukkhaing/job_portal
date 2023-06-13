@@ -33,7 +33,7 @@
                 @endif
                 <div class="form-group">
                     <label for="name">Package Name <span class="text-danger">*</span></label>
-                    <input type="number" class="form-control" name="name" id="name" placeholder="Enter Package Name" required value="{{ old('name') }}">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Package Name" required value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="package-item-name">Package Item Name <span class="text-danger">*</span></label><br>

@@ -86,9 +86,7 @@ class PackageItemController extends Controller
     public function update(Request $request, $id)
     {
         $package_item = PackageItem::findOrFail($id);
-        $request->validate([
-            'name' => 'unique:package_items'
-        ]);
+        
         $package_item = $package_item->update([
             'name' => $request->name,
             'point' => $request->point,
