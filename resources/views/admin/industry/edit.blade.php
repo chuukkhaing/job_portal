@@ -33,7 +33,7 @@
                         <button type="button" class="btn btn-primary iconpicker-component"><i
                                 class="{{ $industry->icon }}"></i></button>
                         <button type="button" class="icp icp-dd btn btn-primary dropdown-toggle"
-                                data-selected="fa-car" data-toggle="dropdown">
+                                data-selected="{{ $industry->icon }}" data-toggle="dropdown">
                         </button>
                         <div class="dropdown-menu"></div>
                     </div>
