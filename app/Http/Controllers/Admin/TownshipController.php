@@ -48,8 +48,8 @@ class TownshipController extends Controller
             'created_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'New Township Created Successfully!');
-        return redirect()->route('township.index');
+        Alert::success('Success', 'New City Created Successfully!');
+        return redirect()->route('city.index');
     }
 
     /**
@@ -93,8 +93,8 @@ class TownshipController extends Controller
             'updated_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'Township Updated Successfully!');
-        return redirect()->route('township.index');
+        Alert::success('Success', 'City Updated Successfully!');
+        return redirect()->route('city.index');
     }
 
     /**

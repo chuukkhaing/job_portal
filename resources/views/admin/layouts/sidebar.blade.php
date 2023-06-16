@@ -22,16 +22,16 @@
     <hr class="sidebar-divider">
 
     <!-- Nav Item - Location Menu -->
-    <li class="nav-item {{ Request::is('admin/state*') ? 'active' : '' }} {{ Request::is('admin/township*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/state*') ? 'active' : '' }} {{ Request::is('admin/city*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#location"
             aria-expanded="true" aria-controls="location">
             <i class="fas fa-map-marked-alt"></i>
             <span>Locations</span>
         </a>
-        <div id="location" class="collapse {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/township*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="location" class="collapse {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/city*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('admin/state*') ? 'active' : '' }}" href="{{ route('state.index') }}">States & Regions</a>
-                <a class="collapse-item {{ Request::is('admin/township*') ? 'active' : '' }}" href="{{ route('township.index') }}">Townships</a>
+                <a class="collapse-item {{ Request::is('admin/city*') ? 'active' : '' }}" href="{{ route('city.index') }}">Cities</a>
             </div>
         </div>
     </li>

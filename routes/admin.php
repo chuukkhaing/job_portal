@@ -37,8 +37,8 @@ Route::group([], function(){
         // state
         Route::resource('state', StateController::class);
 
-        // township 
-        Route::resource('township', TownshipController::class);
+        // city 
+        Route::resource('city', TownshipController::class);
 
         // industry 
         Route::resource('industry', IndustryController::class);

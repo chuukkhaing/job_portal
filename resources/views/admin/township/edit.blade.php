@@ -8,9 +8,9 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
-            <h6 class="col font-weight-bold text-primary">Township Edit</h6>
+            <h6 class="col font-weight-bold text-primary">City Edit</h6>
             <div class="col">
-                <a href="{{ route('township.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('city.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-reply"></i>
                     </span>
@@ -20,7 +20,7 @@
             
         </div>
         <div class="card-body">
-            <form action="{{ route('township.update',$tonwship->id) }}" method="post">
+            <form action="{{ route('city.update',$tonwship->id) }}" method="post">
                 @csrf 
                 <div class="form-group">
                     <label for="state_id">Choose State or Region <span class="text-danger">*</span></label>
@@ -32,8 +32,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="state">Township Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" id="state" placeholder="Enter township name" required value="{{ $tonwship->name }}">
+                    <label for="state">City Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="name" id="state" placeholder="Enter city name" required value="{{ $tonwship->name }}">
                 </div>
                 
                 <div class="form-group">
