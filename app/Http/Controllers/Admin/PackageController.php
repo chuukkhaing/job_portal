@@ -30,7 +30,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        $package_items = PackageItem::whereNull('deleted_at')->get();
+        $package_items = PackageItem::whereNull('deleted_at')->whereIsActive(1)->get();
         return view ('admin.package.create', compact('package_items'));
     }
 
@@ -85,7 +85,7 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = Package::findOrFail($id);
-        $package_items = PackageItem::whereNull('deleted_at')->get();
+        $package_items = PackageItem::whereNull('deleted_at')->whereIsActive(1)->get();
         $package_with_items = PackageWithPackageItem::wherePackageId($id)->pluck('package_item_id')->toArray();
         return view ('admin.package.edit', compact('package', 'package_items', 'package_with_items'));
     }

@@ -29,7 +29,7 @@ class TownshipController extends Controller
      */
     public function create()
     {
-        $states = State::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->whereIsActive(1)->get();
         return view ('admin.township.create', compact('states'));
     }
 
@@ -72,7 +72,7 @@ class TownshipController extends Controller
     public function edit($id)
     {
         $township = Townhip::findOrFail($id);
-        $states = State::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->whereIsActive(1)->get();
         return view ('admin.township.edit', compact('states', 'township'));
     }
 

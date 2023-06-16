@@ -16,6 +16,7 @@ class CreateFunctionalAreasTable extends Migration
         Schema::create('functional_areas', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->bigInteger('functional_area_id')->default(0);
 			$table->tinyInteger('is_active')->default(0);
 			$table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);
