@@ -17,7 +17,7 @@ class FunctionalAreaController extends Controller
      */
     public function index()
     {
-        $functional_areas = FunctionalArea::whereNull('deleted_at')->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->get();
         return view ('admin.functional-area.index', compact('functional_areas'));
     }
 
