@@ -51,6 +51,20 @@
         </div>
     </li>
 
+    <!-- Nav Item - Job Attribute Menu -->
+    <li class="nav-item {{ Request::is('admin/functional-area*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jobAttribute"
+            aria-expanded="true" aria-controls="jobAttribute">
+            <i class="fas fa-briefcase"></i>
+            <span>Job Attributes</span>
+        </a>
+        <div id="jobAttribute" class="collapse {{ Request::is('admin/functional-area*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('admin/functional-area*') ? 'active' : '' }}" href="{{ route('functional-area.index') }}">Functional Areas</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Nav Item - Package Menu -->
     <li class="nav-item {{ Request::is('admin/package-item*') ? 'active' : '' }} {{ Request::is('admin/package-type*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#package"

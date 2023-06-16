@@ -19,10 +19,10 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="#">Browse Jobs</a>
-                            <a class="footer-links mb-2" href="#">About Us</a>
-                            <a class="footer-links mb-2" href="#">Our Services</a>
-                            <a class="footer-links mb-2" href="#">Latest Blog</a>
-                            <a class="footer-links " href="#">Contact Us</a>
+                            <a class="footer-links mb-2" href="#">Browse Jobseekers</a>
+                            <a class="footer-links mb-2" href="#">Jobseekers Dashboard</a>
+                            <a class="footer-links mb-2" href="#">Job Alert</a>
+                            <a class="footer-links " href="#">My Bookmarks</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">

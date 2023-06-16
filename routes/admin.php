@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PackageItemController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\FunctionalAreaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,9 @@ Route::group([], function(){
         // employer 
         Route::resource('employer', EmployerController::class);
         Route::get('employer/get-township/{id}', [EmployerController::class, 'getTownship']);
+
+        // function area
+        Route::resource('functional-area', FunctionalAreaController::class);
 
         // slider 
         Route::resource('slider', SliderController::class);
