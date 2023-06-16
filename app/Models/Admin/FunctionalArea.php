@@ -10,4 +10,9 @@ class FunctionalArea extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function MainFunctinalArea()
+    {
+        return $this->belongsTo(self::class, 'functional_area_id');
+    }
 }

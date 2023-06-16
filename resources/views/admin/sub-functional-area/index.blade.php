@@ -8,9 +8,9 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
-            <h6 class="col font-weight-bold text-primary">Main Functional Areas</h6>
+            <h6 class="col font-weight-bold text-primary">Sub Functional Areas</h6>
             <div class="col">
-                <a href="{{ route('main-functional-area.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('sub-functional-area.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -26,6 +26,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Sub Functional Area Name</th>
                             <th>Main Functional Area Name</th>
                             <th>Active Status</th>
                             <th>Action</th>
@@ -36,10 +37,11 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $functional_area->name }}</td>
+                            <td class="text-success">{{ $functional_area->MainFunctinalArea->name }}</td>
                             <td>@if($functional_area->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
-                                <a href="{{ route('main-functional-area.edit', $functional_area->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                <form method="POST" action="{{ route('main-functional-area.destroy', $functional_area->id) }}" class="d-inline">
+                                <a href="{{ route('sub-functional-area.edit', $functional_area->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                <form method="POST" action="{{ route('sub-functional-area.destroy', $functional_area->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>

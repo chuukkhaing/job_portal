@@ -52,15 +52,16 @@
     </li>
 
     <!-- Nav Item - Job Attribute Menu -->
-    <li class="nav-item {{ Request::is('admin/functional-area*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/main-functional-area*') ? 'active' : '' }} {{ Request::is('admin/sub-functional-area*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jobAttribute"
             aria-expanded="true" aria-controls="jobAttribute">
-            <i class="fas fa-briefcase"></i>
-            <span>Job Attributes</span>
+            <i class="fas fa-arrows-up-down-left-right"></i>
+            <span>Functional Areas</span>
         </a>
-        <div id="jobAttribute" class="collapse {{ Request::is('admin/functional-area*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="jobAttribute" class="collapse {{ Request::is('admin/main-functional-area*') ? 'show' : '' }} {{ Request::is('admin/sub-functional-area*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ Request::is('admin/functional-area*') ? 'active' : '' }}" href="{{ route('functional-area.index') }}">Functional Areas</a>
+                <a class="collapse-item {{ Request::is('admin/main-functional-area*') ? 'active' : '' }}" href="{{ route('main-functional-area.index') }}">Main Functional Areas</a>
+                <a class="collapse-item {{ Request::is('admin/sub-functional-area*') ? 'active' : '' }}" href="{{ route('sub-functional-area.index') }}">Sub Functional Areas</a>
             </div>
         </div>
     </li>

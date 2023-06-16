@@ -8,7 +8,7 @@ use App\Models\Admin\FunctionalArea;
 use Alert;
 use Auth;
 
-class FunctionalAreaController extends Controller
+class SubFunctionalAreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class FunctionalAreaController extends Controller
      */
     public function index()
     {
-        $functional_areas = FunctionalArea::whereNull('deleted_at')->get();
-        return view ('admin.functional-area.index', compact('functional_areas'));
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->get();
+        return view ('admin.sub-functional-area.index', compact('functional_areas'));
     }
 
     /**
@@ -28,7 +28,8 @@ class FunctionalAreaController extends Controller
      */
     public function create()
     {
-        return view ('admin.functional-area.create');
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        return view ('admin.sub-functional-area.create', compact('functional_areas'));
     }
 
     /**
@@ -41,12 +42,13 @@ class FunctionalAreaController extends Controller
     {
         $functional_area = FunctionalArea::create([
             'name' => $request->name,
+            'functional_area_id' => $request->functional_area_id,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'New Main Functional Area Created Successfully!');
-        return redirect()->route('main-functional-area.index');
+        Alert::success('Success', 'New Sub Functional Area Created Successfully!');
+        return redirect()->route('sub-functional-area.index');
     }
 
     /**
@@ -69,7 +71,8 @@ class FunctionalAreaController extends Controller
     public function edit($id)
     {
         $functional_area = FunctionalArea::findOrFail($id);
-        return view ('admin.functional-area.edit', compact('functional_area'));
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        return view ('admin.sub-functional-area.edit', compact('functional_area', 'functional_areas'));
     }
 
     /**
@@ -84,12 +87,13 @@ class FunctionalAreaController extends Controller
         $functional_area = FunctionalArea::findOrFail($id);
         $functional_area = $functional_area->update([
             'name' => $request->name,
+            'functional_area_id' => $request->functional_area_id,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'Main Functional Area Updated Successfully!');
-        return redirect()->route('main-functional-area.index');
+        Alert::success('Success', 'Sub Functional Area Updated Successfully!');
+        return redirect()->route('sub-functional-area.index');
     }
 
     /**
@@ -108,16 +112,16 @@ class FunctionalAreaController extends Controller
                 'deleted_by' => Auth::user()->id
             ]);
             if ($functional_area) {
-                Alert::success('Success', 'Delete Main Functional Area Successfully!');
-                return redirect()->route('functional-area.index');
+                Alert::success('Success', 'Delete Sub Functional Area Successfully!');
+                return redirect()->route('sub-functional-area.index');
             }
             else {
-                Alert::error('Failed', 'Main Functional Area deleted failed');
+                Alert::error('Failed', 'Sub Functional Area deleted failed');
                 return back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
-                Alert::error('Failed', 'Cannot delete this Main Functional Area');
+                Alert::error('Failed', 'Cannot delete this Sub Functional Area');
                 return back();
             } 
         }
