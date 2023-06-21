@@ -15,7 +15,6 @@
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> 
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
 
     <!-- Icon Font Stylesheet -->

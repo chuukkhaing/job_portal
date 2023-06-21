@@ -1,5 +1,5 @@
 <!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand p-0">
             <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="{{ config('app.name', 'Laravel') }}">
@@ -14,6 +14,9 @@
                 <a href="{{ route('home') }}" class="nav-item nav-link">Job Category</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Companies</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Contact Us</a>
+                <a class="nav-item nav-link d-none d-lg-block">|</a>
+                <a href="{{ route('home') }}" class="nav-item nav-link">Sign In</a>
+                <span class="nav-item nav-link"><a href="{{ route('register') }}" class="header-btn">Register</a></span>
             </div>
         </div>
     </div>

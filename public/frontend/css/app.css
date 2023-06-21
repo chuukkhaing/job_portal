@@ -6,7 +6,82 @@ body {
     padding: 0;
 }
 
-.navbar-light .navbar-nav .nav-link {
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #ffffff;
+}
+
+.header-btn {
+    background: #FB5404;
+    border-radius: 50px;
+    color: #ffffff;
+    padding: 10px 24px;
+}
+
+.header-btn:hover {
+    color: #ffffff;
+}
+
+.register-header h2 {
+    color: #0355D0;
+}
+
+.open-quote {
+    background: #D0E8FF;
+    border-radius: 8px;
+    color: #181722;
+    padding: 12px 15px;
+}
+
+.hr-speech p {
+    color: #46454E;
+    font-weight: 400;
+}
+
+.hr-name {
+    color: #46454E;
+    font-weight: 600;
+}
+
+.hr-position {
+    color: #46454E;
+    font-weight: 400;
+}
+
+.register-box {
+    border-radius: 16px;
+}
+
+.register-btn .nav-link {
+    border-radius: 8px;
+    padding: 16px 10px;
+    color: #46454E;
+    background: #E8EFF7;
+    font-size: 0.9rem;
+}
+
+.register-btn .nav-link.active {
+    background: #0355D0;
+    color: #ffffff;
+}
+
+.register-form-input {
+    border: 1px solid #95B6D8;
+    border-radius: 8px;
+}
+
+.input-group-text i {
+    color: #64646B;
+}
+
+.register-form-input .form-control:focus {
+    box-shadow: none;
+}
+
+.terms_link a {
+    color: #0355D0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
     padding: 0 100px;
     font-weight: 400;
     font-size: 16px;
@@ -16,7 +91,7 @@ body {
     font-family: 'Source Sans Pro';
 }
 
-.navbar-light .navbar-nav .nav-link.active {
+.navbar-dark .navbar-nav .nav-link.active {
     font-weight: 600;
     color: #ffffff;
     border-bottom: 5px solid #FB5404;
