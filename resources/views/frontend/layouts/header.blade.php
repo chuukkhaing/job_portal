@@ -16,7 +16,7 @@
                 <a href="{{ route('home') }}" class="nav-item nav-link">Contact Us</a>
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Sign In</a>
-                <span class="nav-item nav-link"><a href="{{ route('register') }}" class="header-btn">Register</a></span>
+                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Register</a></span>
             </div>
         </div>
     </div>

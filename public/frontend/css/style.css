@@ -87,6 +87,13 @@ h6,
     right: 45px;
     bottom: 45px;
     z-index: 99;
+    background: #0355D0;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.back-to-top:hover {
+    color: #ffffff;
 }
 
 .top-shape::before {

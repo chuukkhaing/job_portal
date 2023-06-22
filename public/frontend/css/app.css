@@ -80,6 +80,28 @@ body {
 .terms_link a {
     color: #0355D0;
 }
+.signIn_link {
+    color: #0355D0;
+    font-weight: 600;
+}
+
+.btn-signup {
+    background: #0355D0;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.btn-signup:hover {
+    color: #ffffff;
+}
+
+.btn-googlesignup {
+    background: #E8EFF7;
+    color: #181722;
+    border-radius: 8px;
+    padding: 16px;
+}
 
 .navbar-dark .navbar-nav .nav-link {
     padding: 0 100px;

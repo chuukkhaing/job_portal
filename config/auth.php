@@ -42,7 +42,7 @@ return [
         ],
         'seeker' => [
             'driver' => 'session',
-            'provider' => 'job_seekers',
+            'provider' => 'seekers',
         ],
     ],
 
@@ -70,7 +70,7 @@ return [
         ],
         'seekers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Seeker\JobSeeker::class,
+            'model' => App\Models\Seeker\Seeker::class,
         ],
 
         // 'users' => [
@@ -97,6 +97,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'seekers' => [
+            'provider' => 'seekers',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

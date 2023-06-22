@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "092e5cb6eb612ad8726d1b7592a5cccf",
+    "content-hash": "b2c41956bc5933b1e5671d7127c9c76d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -116,6 +116,43 @@
                 }
             ],
             "time": "2023-01-15T23:15:59+00:00"
+        },
+        {
+            "name": "cyberwings/myanmar-phone-number-php",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnreginald/myanmar-phone-number-php.git",
+                "reference": "c86d5894b416ef78a22c0bd171aefd5ee7b96589"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnreginald/myanmar-phone-number-php/zipball/c86d5894b416ef78a22c0bd171aefd5ee7b96589",
+                "reference": "c86d5894b416ef78a22c0bd171aefd5ee7b96589",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CyberWings\\": "src/CyberWings/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Htet Wai Yan Soe",
+                    "email": "johnthelinux@gmail.com"
+                }
+            ],
+            "description": "PHP port of ( https://github.com/Melomap/mm_phonenumber ) to check valid myanmar mobile numbers, get mobile operator's name, sanitize mobile numbers and get mobile network types.",
+            "support": {
+                "issues": "https://github.com/johnreginald/myanmar-phone-number-php/issues",
+                "source": "https://github.com/johnreginald/myanmar-phone-number-php/tree/master"
+            },
+            "time": "2018-09-01T14:59:26+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -2706,6 +2743,47 @@
                 "source": "https://github.com/bobthecow/psysh/tree/v0.11.17"
             },
             "time": "2023-05-05T20:02:42+00:00"
+        },
+        {
+            "name": "pyaesoneaung/myanmar-phone-validation-rules",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PyaeSoneAungRgn/myanmar-phone-validation-rules.git",
+                "reference": "fe2d7915fbaf75faf3ae7473c0f3ed73ecb8c913"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PyaeSoneAungRgn/myanmar-phone-validation-rules/zipball/fe2d7915fbaf75faf3ae7473c0f3ed73ecb8c913",
+                "reference": "fe2d7915fbaf75faf3ae7473c0f3ed73ecb8c913",
+                "shasum": ""
+            },
+            "require": {
+                "cyberwings/myanmar-phone-number-php": "^0.0.3",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PyaeSoneAung\\MyanmarPhoneValidationRules\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pyae Sone Aung",
+                    "email": "pyaesoneaungrgn@gmail.com"
+                }
+            ],
+            "description": "Myanmar Phone Number Validation Rules For Laravel",
+            "support": {
+                "issues": "https://github.com/PyaeSoneAungRgn/myanmar-phone-validation-rules/issues",
+                "source": "https://github.com/PyaeSoneAungRgn/myanmar-phone-validation-rules/tree/v1.0.2"
+            },
+            "time": "2023-03-17T02:18:52+00:00"
         },
         {
             "name": "ralouphie/getallheaders",

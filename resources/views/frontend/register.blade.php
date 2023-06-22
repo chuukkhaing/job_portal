@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="col-12 col-md-6 p-3 p-lg-5">
-            <div class="shadow-lg p-3 mb-5 bg-body register-box">
+            <div class="shadow-lg p-0 p-lg-3 mb-5 bg-body register-box">
                 <div class="p-3">
                     <ul class="nav register-btn mb-3 row" id="pills-tab" role="tablist">
                         <li class="nav-item col" role="presentation">
@@ -48,40 +48,53 @@
                         <div class="tab-pane fade show active" id="pills-seeker" role="tabpanel" aria-labelledby="pills-seeker-tab">
                             <div class="py-3">
                                 <article class="mx-auto">
-                                    <form>
-                                        
+                                    <form action="{{ route('seeker-register') }}" method="post">
+                                        @csrf
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                            </svg>
+                                            <div>
+                                            {{ implode('', $errors->all(':message')) }}
+                                            </div>
+                                        </div>
+                                        @endif
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                                             </div>
-                                            <input name="email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}">
+                                            <input name="email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}" required>
                                         </div>
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
                                             </div>
-                                            <input name="phone" class="form-control border-0" placeholder="Enter Phone" type="number" value="{{ old('phone') }}">
+                                            <input name="phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
                                         </div>
                                         
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
                                             </div>
-                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password">
+                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" required>
                                         </div>
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirm-password">
+                                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed" required>
                                         </div>   
-                                        <div class="form-group input-group p-2 my-3">     
-                                            <input type="checkbox" name="terms" id="terms" class="" > <label for="terms" class="ms-1 terms_link"> I agree with the <a href="#">Terms & Conditions</a> of Infinity</label>                              
+                                        <div class="form-group input-group my-3">     
+                                            <input type="checkbox" name="terms" id="terms" class="" required> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="#">Terms & Conditions</a> of Infinity</label>                              
                                         </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                                        <div class="form-group p-2">
+                                            <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
                                         </div>      
-                                        <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+                                        <div class="form-group p-2">
+                                            <a href="" class="btn col-12 btn-googlesignup"> <img src="{{ asset('frontend/img/logo/google-icon.png') }}" alt=""> Sign up with Google </a>
+                                        </div>    
+                                        <p class="text-center">Already Registered ? <a href="" class="signIn_link">Sign In</a> </p>                                                                 
                                     </form>
                                 </article>
                             </div>
