@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Seeker\SeekerRegisterController;
+use App\Http\Controllers\Seeker\SeekerVerifyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([], function(){
 
-    // auth 
+    Route::post('register', [SeekerRegisterController::class, 'register'])->name('seeker-register');
+
+    Route::get('email/verify', [SeekerVerifyController::class, 'notice'])->name('seeker-verify-notice');
+    Route::get('email/resend', [SeekerVerifyController::class, 'resend'])->name('seeker-resend');
+    Route::get('verify/{id}', [SeekerVerifyController::class,'VerifyEmail'])->name('seeker-verify');
+
     
 	Route::group(['middleware' => 'auth:seeker'], function () {
 

@@ -46,6 +46,7 @@
     <!-- Spinner End -->
     <!-- Header Start  -->
     @include('frontend.layouts.header')
+    @include('frontend.layouts.alert')
     <!-- Header End  -->
     @yield('content')
     <!-- Footer Start  -->

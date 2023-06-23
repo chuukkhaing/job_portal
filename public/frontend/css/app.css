@@ -80,6 +80,9 @@ body {
 .terms_link a {
     color: #0355D0;
 }
+.email-resend-btn {
+    color: #0355D0;
+}
 .signIn_link {
     color: #0355D0;
     font-weight: 600;

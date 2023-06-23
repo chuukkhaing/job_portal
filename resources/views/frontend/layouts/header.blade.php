@@ -15,8 +15,12 @@
                 <a href="{{ route('home') }}" class="nav-item nav-link">Companies</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Contact Us</a>
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
+                @auth('seeker')
+                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">My Account</a></span>
+                @else
                 <a href="{{ route('home') }}" class="nav-item nav-link">Sign In</a>
                 <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Register</a></span>
+                @endauth
             </div>
         </div>
     </div>

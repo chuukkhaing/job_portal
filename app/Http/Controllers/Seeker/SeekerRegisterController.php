@@ -3,72 +3,46 @@
 namespace App\Http\Controllers\Seeker;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use Illuminate\Support\Str;
 use App\Models\Seeker\Seeker;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
 use App\Mail\SeekerVerificationEmail;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 
 class SeekerRegisterController extends Controller
 {
-    use RegistersUsers;
-
-    protected $redirectTo = RouteServiceProvider::HOME;
-
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest');
-        $this->middleware('guest:seeker');
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'phone' => ['nullable', new MyanmarPhone],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
-            'password' => ['required', 'string', 'min:8', 'same:confirmed'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-
     public function frontendRegister() 
     {
-        return view ('frontend.register');
+        if(auth()->guard('seeker')->user()) {
+            return redirect()->route ('home');
+        }else {
+            return view ('frontend.register');
+        }
     }
 
     protected function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $this->validate($request, [
+            'phone' => ['nullable', new MyanmarPhone],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
+            'password' => ['required', 'string', 'min:8', 'same:confirmed'],
+        ]);
         $seeker = Seeker::create([
             'email' => $request['email'],
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
+            'email_verification_token' => Str::random(32)
         ]);
-        \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
+        if($seeker) {
+            \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
 
-        session()->flash('message', 'Please check your email to activate your account');
-       
-        return redirect()->back();
+            return redirect()->route('seeker-verify-notice')->with('success','Please check your email to activate your account.');
+        }
     }
 }

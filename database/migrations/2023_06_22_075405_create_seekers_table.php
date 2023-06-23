@@ -19,6 +19,7 @@ class CreateSeekersTable extends Migration
 			$table->string('last_name')->nullable();
 			$table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_verification_token')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('country')->nullable();
@@ -44,11 +45,8 @@ class CreateSeekersTable extends Migration
             $table->bigInteger('number_of_profile_view')->default(0);
             $table->longtext('summary')->nullable();
             $table->boolean('is_verify')->default(0);
+            $table->boolean('email_verified')->default(0);
             $table->datetime('register_at')->nullable();
-            $table->integer('created_by')->default(0);
-            $table->integer('updated_by')->default(0);
-            $table->integer('deleted_by')->default(0);
-            $table->softDeletes();
             $table->timestamps();
         });
     }
