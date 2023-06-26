@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Seeker\Seeker;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\SeekerVerificationEmail;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 
 class SeekerRegisterController extends Controller
@@ -17,6 +18,12 @@ class SeekerRegisterController extends Controller
      *
      * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('guest');
+        $this->middleware('guest:seeker');
+    }
+
     public function frontendRegister() 
     {
         if(auth()->guard('seeker')->user()) {
