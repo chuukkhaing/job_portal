@@ -79,6 +79,7 @@ body {
 
 .terms_link a {
     color: #0355D0;
+    font-weight: 600;
 }
 .email-resend-btn {
     color: #0355D0;
@@ -221,4 +222,48 @@ body {
 .copyright-link {
     color: #ffffff;
     text-decoration: underline;
+}
+.img-profile {
+    width: 35px;
+}
+.register-header h5 {
+    color: #46454E;
+}
+.forger_password {
+    color: #46454E;
+    font-weight: 600;
+}
+#seekerTab {
+    border: 1px solid #95B6D8;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 0;
+}
+#seekerTab li{
+    padding: 16px 0;
+}
+.nav-item .active {
+    color: #0355D0;
+    font-weight: 700;
+    padding: 16px 0;
+    border-bottom: 4px solid #FB5404;
+}
+.seeker-single-tab{
+    color: #181722;
+}
+#edit-profile-header {
+    border: 1px solid #95B6D8;
+    border-radius: 0 0 8px 8px;
+    border-top: 0;
+}
+#edit-profile-header h5{
+    color: #0355D0;
+    font-weight: 600 !important;
+}
+#edit-profile-body {
+    border: 1px solid #95B6D8;
+    border-radius: 8px;
+}
+#edit-profile-body h5 {
+    color: #181722;
+    font-weight: 600 !important;
 }

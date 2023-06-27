@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Seeker;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Seeker\Seeker;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Auth;
 
 class SeekerLoginController extends Controller
 {
@@ -16,7 +19,6 @@ class SeekerLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -29,22 +31,51 @@ class SeekerLoginController extends Controller
         $this->middleware('guest:seeker')->except('logout');
     }
 
-    // public function showAdminLoginForm()
-    // {
-    //     return view('auth.login', ['url' => route('admin.login-view'), 'title'=>'Admin']);
-    // }
+    public function frontendLogin()
+    {
+        return view ('frontend.login');
+    }
 
-    // public function adminLogin(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'email'   => 'required|email',
-    //         'password' => 'required|min:6'
-    //     ]);
+    public function login(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
 
-    //     if (\Auth::guard('admin')->attempt($request->only(['email','password']), $request->get('remember'))){
-    //         return redirect()->intended('/admin/dashboard');
-    //     }
+        if (\Auth::guard('seeker')->attempt($request->only(['email','password']), $request->get('remember'))){
+            return redirect()->route('home')->with('success','Login Successfully.');
+        }
 
-    //     return back()->withInput($request->only('email', 'remember'));
-    // }
+        return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function VerifyEmail($token = null)
+    {
+        if($token == null) {
+            return redirect()->route('home')->with('error','Invlid token.');
+        }
+
+        $seeker = Seeker::where('email_verification_token',$token)->first();
+        
+        if($seeker == null )
+        {
+            return redirect()->route('home')->with('error','Invlid token.');
+        }
+        if($seeker->email_verified == 1) {
+            return redirect()->route('home')->with('error','Your account was already activated.');
+        } else {
+            $seeker_update = $seeker->update([
+                'email_verified' => 1,
+                'email_verified_at' => Carbon::now(),
+                'is_active' => 1,
+                'register_at' => Carbon::now(),
+                'email_verification_token' => ''
+            ]);
+            Auth::guard('seeker')->login($seeker);
+            if(Auth::guard('seeker')->user()) {
+                return redirect()->route('home')->with('success','Your account is activated.');
+            }
+        }
+    }
 }

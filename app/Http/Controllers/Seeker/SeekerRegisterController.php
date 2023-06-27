@@ -26,11 +26,7 @@ class SeekerRegisterController extends Controller
 
     public function frontendRegister() 
     {
-        if(auth()->guard('seeker')->user()) {
-            return redirect()->route ('home');
-        }else {
-            return view ('frontend.register');
-        }
+        return view ('frontend.register');
     }
 
     protected function register(Request $request)
@@ -49,7 +45,28 @@ class SeekerRegisterController extends Controller
         if($seeker) {
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
 
-            return redirect()->route('seeker-verify-notice')->with('success','Please check your email to activate your account.');
+            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success','Please check your email to activate your account.');
+        }
+    }
+
+    public function notice($id)
+    {
+        $seeker = Seeker::findOrFail($id);
+        if($seeker) {
+            return view ('seeker.verify.notice', compact('id'));
+        }
+    }
+
+    public function resend($id)
+    {
+        $seeker = Seeker::findOrFail($id);
+        $seeker_update = $seeker->update([
+            'email_verification_token' => Str::random(32)
+        ]);
+        if($seeker) {
+            \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
+
+            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success','Successfully resend!Please check your email to activate your account.');
         }
     }
 }

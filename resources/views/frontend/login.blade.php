@@ -5,18 +5,17 @@
     <div class="row">
         <div class="col-12 col-md-6 p-3 p-lg-5">
             <div class="register-header py-3">
-                <h2 class="">Join our job seeker community and find your dream job</h2>
+                <h2 class="">Welcome Back!</h2>
+                <h5>Please sign in to continue your job search journey</h5>
             </div>
             <div class="hr-speech py-3">
                 <div class="open-quote d-inline-block my-3">
                     <i class="fa-solid fa-quote-left"></i>
                 </div>
                 <p class="py-3">
-                "I was struggling to find job openings that matched my skills and experience until I stumbled upon this job seeker website. <br><br>
+                "Compose a text review on the sign-in form for job seekers website to provide feedback on the recommended tips to increase the chances of getting good job offers."<br><br>
 
-                The website's user interface is also very intuitive and easy to use. I was able to apply for jobs quickly and easily through the website, and I even received a few job offers within a few weeks of using the website. <br><br>
-
-                I highly recommend this website to anyone looking for their next career opportunity."
+                "Include relevant skills, keep your profile up-to-date, and use keywords to increase your chances of being noticed by potential employers on the job seeker website."
                 </p>
             </div>
             <div class="row">
@@ -56,35 +55,25 @@
                                             </div>
                                             <input name="email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}" required>
                                         </div>
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
-                                            </div>
-                                            <input name="phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
-                                        </div>
                                         
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
-                                            </div>
-                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" required>
-                                        </div>
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed" required>
-                                        </div>   
-                                        <div class="form-group input-group my-3">     
-                                            <input type="checkbox" name="terms" id="terms" class="" required> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="#">Terms & Conditions</a> of Infinity</label>                              
+                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" required>
+                                        </div>
+                                        
+                                        <div class="my-3">     
+                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
+                                            <div class="float-end"><a href="#" style="font-size: 0.9rem" class="ms-1 forger_password">Forget Password? </a></div>          
                                         </div>
                                         <div class="form-group p-2">
-                                            <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
+                                            <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
                                         </div>      
                                         <div class="form-group p-2">
-                                            <a href="" class="btn col-12 btn-googlesignup"> <img src="{{ asset('frontend/img/logo/google-icon.png') }}" alt=""> Sign Up with Google </a>
+                                            <a href="" class="btn col-12 btn-googlesignup"> <img src="{{ asset('frontend/img/logo/google-icon.png') }}" alt=""> Sign In with Google </a>
                                         </div>    
-                                        <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                        <p class="text-center">Don’t have an account yet ? <a href="{{ route('register-form') }}" class="signIn_link">Sign Up</a> </p>                                                                 
                                     </form>
                                 </article>
                             </div>

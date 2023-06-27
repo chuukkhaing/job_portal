@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Seeker\SeekerRegisterController;
+use App\Http\Controllers\Seeker\SeekerLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,4 @@ use App\Http\Controllers\Seeker\SeekerRegisterController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/register-form', [SeekerRegisterController::class, 'frontendRegister'])->name('register-form');
+Route::get('/login-form', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
