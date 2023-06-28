@@ -207,6 +207,43 @@
                 </div>
             </div>
         </div>
+        <div class="p-5 pb-0">
+            <h5>Education</h5>
+            <div class="my-2 row">
+                <button type="button" class="btn profile-save-btn m-2 col-6" data-bs-toggle="modal" data-bs-target="#educationModal">
+                    <i class="fa-solid fa-plus"></i> Add Education
+                </button>
+            </div>
+            <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="educationModalLabel">Add Education Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            <div class="row">
+                                <div class="form-group mt-1 col-12 col-md-6">
+                                    <label for="degree" class="seeker_label my-2">Degree <span class="text-danger">*</span></label><br>
+                                    <select name="degree" id="degree" class="form-control seeker_input" required>
+                                        <option value="">Choose...</option>
+                                        @foreach(config('seekerdegree') as $degree)
+                                        <option value="{{ $degree }}" >{{ $degree }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 @section('script')
