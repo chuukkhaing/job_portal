@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Models\Seeker\Seeker;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Seeker\SeekerPercentage;
 use Auth;
 
 class SeekerLoginController extends Controller
@@ -69,9 +70,14 @@ class SeekerLoginController extends Controller
                 'email_verified' => 1,
                 'email_verified_at' => Carbon::now(),
                 'is_active' => 1,
-                'register_at' => Carbon::now(),
                 'email_verification_token' => ''
             ]);
+            foreach(config('seekerPercentTitle')['name'] as $title) {
+                $seeker_percent = SeekerPercentage::create([
+                    'seeker_id' => $seeker->id,
+                    'title' => $title
+                ]);
+            }
             Auth::guard('seeker')->login($seeker);
             if(Auth::guard('seeker')->user()) {
                 return redirect()->route('home')->with('success','Your account is activated.');

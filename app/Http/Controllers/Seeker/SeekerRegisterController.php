@@ -9,6 +9,7 @@ use App\Models\Seeker\Seeker;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\SeekerVerificationEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Carbon\Carbon;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 
 class SeekerRegisterController extends Controller
@@ -40,7 +41,8 @@ class SeekerRegisterController extends Controller
             'email' => $request['email'],
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
-            'email_verification_token' => Str::random(32)
+            'email_verification_token' => Str::random(32),
+            'register_at' => Carbon::now(),
         ]);
         if($seeker) {
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));

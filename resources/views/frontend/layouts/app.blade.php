@@ -25,7 +25,10 @@
     <link href="{{ asset('frontend/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    <!-- datepicker  -->
+    <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <!-- select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- Template Stylesheet -->
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
@@ -58,9 +61,12 @@
     <script src="{{ asset('frontend/lib/tempusdominus/js/moment.min.js') }}"></script>
     <script src="{{ asset('frontend/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
     <script src="{{ asset('frontend/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
+    <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <!-- select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Template Javascript -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>

@@ -28,6 +28,14 @@
     $('.time').datetimepicker({
         format: 'LT'
     });
+    $('#date_of_birth').datepicker({
+        uiLibrary: 'bootstrap5'
+    });
+
+    $(".select_2").select2({
+        placeholder: "Choose...",
+        allowClear: true
+    });
     
 })(jQuery);
 

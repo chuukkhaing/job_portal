@@ -28,6 +28,8 @@ Route::group([], function(){
     Route::post('login', [SeekerLoginController::class,'login'])->name('seeker-login');
     
 	Route::group(['middleware' => 'auth:seeker'], function () {
-        Route::get('profile', [SeekerProfileController::class,'index'])->name('seeker.profile');
+        Route::resource('profile', SeekerProfileController::class);
+        Route::get('/get-township/{id}', [SeekerProfileController::class, 'getTownship']);
+        Route::get('/get-sub-functional-area/{id}', [SeekerProfileController::class, 'getSubFunctionalArea']);
     });
 });
