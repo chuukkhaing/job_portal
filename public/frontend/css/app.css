@@ -225,6 +225,7 @@ body {
 }
 .img-profile {
     width: 35px;
+    cursor: pointer;
 }
 .register-header h5 {
     color: #46454E;
@@ -346,4 +347,7 @@ span.select2.select2-container.select2-container--default.select2-container--foc
 }
 .form-control {
     color: #000000
+}
+.close-btn {
+    border-radius: 8px;
 }

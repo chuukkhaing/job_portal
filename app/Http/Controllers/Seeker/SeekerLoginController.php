@@ -45,7 +45,7 @@ class SeekerLoginController extends Controller
         ]);
 
         if (\Auth::guard('seeker')->attempt($request->only(['email','password']), $request->get('remember'))){
-            return redirect()->route('home')->with('success','Login Successfully.');
+            return redirect()->route('profile.index')->with('success','Login Successfully.');
         }
 
         return back()->withInput($request->only('email', 'remember'));

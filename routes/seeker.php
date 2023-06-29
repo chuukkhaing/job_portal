@@ -18,7 +18,7 @@ use App\Http\Controllers\Seeker\SeekerProfileController;
 */
 
 Route::group([], function(){
-
+    Route::get('/', [SeekerLoginController::class, 'frontendLogin']);
     Route::post('register', [SeekerRegisterController::class, 'register'])->name('seeker-register');
 
     Route::get('email/verify/{id}', [SeekerRegisterController::class, 'notice'])->name('seeker-verify-notice');
@@ -31,5 +31,7 @@ Route::group([], function(){
         Route::resource('profile', SeekerProfileController::class);
         Route::get('/get-township/{id}', [SeekerProfileController::class, 'getTownship']);
         Route::get('/get-sub-functional-area/{id}', [SeekerProfileController::class, 'getSubFunctionalArea']);
+
+        Route::post('/education/store', [SeekerProfileController::class], 'education')->name('education.store');
     });
 });

@@ -32,6 +32,12 @@
         uiLibrary: 'bootstrap5'
     });
 
+    $('#year').datepicker({
+        uiLibrary: 'bootstrap5',
+        minViewMode: 2,
+         format: 'yyyy'
+    });
+
     $(".select_2").select2({
         placeholder: "Choose...",
         allowClear: true

@@ -39,7 +39,7 @@ class CreateSeekersTable extends Migration
             $table->string('sub_functional_area_id')->nullable();
             $table->string('job_type')->nullable();
             $table->string('career_level')->nullable();
-            $table->string('preferred_salary')->nullable();
+            $table->biginteger('preferred_salary')->nullable();
             $table->integer('industry_id')->nullable();
             $table->boolean('is_active')->default(1);
             $table->boolean('is_immediate_available')->default(0);

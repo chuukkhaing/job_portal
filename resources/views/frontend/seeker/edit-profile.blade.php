@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="email" class="seeker_label my-2">Mail <span class="text-danger">*</span></label>
-                    <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->email }}" placeholder="Mail Address" requried>
+                    <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->email }}" placeholder="Mail Address" required>
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="password" class="seeker_label my-2">Password</label>
@@ -52,11 +52,11 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="first_name" class="seeker_label my-2">First Name <span class="text-danger">*</span></label>
-                    <input type="text" name="first_name" id="first_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->first_name }}" requried placeholder="First Name">
+                    <input type="text" name="first_name" id="first_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->first_name }}" required placeholder="First Name">
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="last_name" class="seeker_label my-2">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" name="last_name" id="last_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->last_name }}" requried placeholder="Last Name">
+                    <input type="text" name="last_name" id="last_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->last_name }}" required placeholder="Last Name">
                 </div>
             </div>
             <div class="row">
@@ -192,7 +192,7 @@
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="preferred_salary" class="seeker_label my-2">Preferred Salary<span class="text-danger">*</span></label>
-                    <input type="number" name="preferred_salary" id="preferred_salary" class="form-control seeker_input" required placeholder="Preferred Salary - MMK" value="{{ Auth::guard('seeker')->user()->preferred_salary }}">
+                    <input type="number" name="preferred_salary" id="preferred_salary" class="form-control seeker_input" required placeholder="Preferred Salary - MMK" value="{{ number_format(Auth::guard('seeker')->user()->preferred_salary) }} - MMK">
                 </div>
             </div>
             <div class="row">
@@ -207,43 +207,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-5 pb-0">
-            <h5>Education</h5>
-            <div class="my-2 row">
-                <button type="button" class="btn profile-save-btn m-2 col-6" data-bs-toggle="modal" data-bs-target="#educationModal">
-                    <i class="fa-solid fa-plus"></i> Add Education
-                </button>
-            </div>
-            <div class="modal fade" id="educationModal" tabindex="-1" aria-labelledby="educationModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="educationModalLabel">Add Education Detail</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="post">
-                            <div class="row">
-                                <div class="form-group mt-1 col-12 col-md-6">
-                                    <label for="degree" class="seeker_label my-2">Degree <span class="text-danger">*</span></label><br>
-                                    <select name="degree" id="degree" class="form-control seeker_input" required>
-                                        <option value="">Choose...</option>
-                                        @foreach(config('seekerdegree') as $degree)
-                                        <option value="{{ $degree }}" >{{ $degree }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('frontend.seeker.education')
     </div>
 </form>
 @section('script')

@@ -120,4 +120,9 @@ class SeekerProfileController extends Controller
 
         return true;
     }
+
+    public function education(Request $request)
+    {
+        dd($request->all());
+    }
 }
