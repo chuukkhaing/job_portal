@@ -208,9 +208,10 @@
             </div>
         </div>
         @include('frontend.seeker.education')
+        @include('frontend.seeker.career-history')
     </div>
 </form>
-@section('script')
+@push('scripts')
 <script>
     $(document).ready(function() {
         $("#seeker_profile_upload").change(function() {
@@ -348,4 +349,4 @@
         })
     })
 </script>
-@endsection
+@endpush

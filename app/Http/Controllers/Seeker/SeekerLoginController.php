@@ -15,6 +15,8 @@ class SeekerLoginController extends Controller
 {
     use AuthenticatesUsers;
 
+    protected $redirectTo = '/seeker/profile';
+
     /**
      * Where to redirect users after login.
      *

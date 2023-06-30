@@ -32,7 +32,7 @@
                     <select name="functional_area_id" id="functional_area_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($functional_areas as $main_functional_area)
-                        <option value="{{ $main_functional_area->id }}" @if($main_functional_area->id == $functional_area->functional_area_id) selected @endif>{{ $main_functional_area->name }} @if(isset($main_functional_area->name)) ({{ $main_functional_area->name }} ) @endif</option>
+                        <option value="{{ $main_functional_area->id }}" @if($main_functional_area->id == $functional_area->functional_area_id) selected @endif>{{ $main_functional_area->name }}</option>
                         @endforeach
                     </select>
                 </div>

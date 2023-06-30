@@ -11,6 +11,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Admin\Industry;
+use App\Models\Seeker\SeekerEducation;
 use Auth;
 use Hash;
 use Arr;
@@ -35,7 +36,9 @@ class SeekerProfileController extends Controller
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
         $industries = Industry::whereNull('deleted_at')->get();
-        return view ('frontend.seeker.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries'));
+        $years = range(1900, date('Y'));
+        $educations = SeekerEducation::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        return view ('frontend.seeker.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'years', 'educations'));
     }
 
     public function getTownship($id)
@@ -99,7 +102,7 @@ class SeekerProfileController extends Controller
         {
             $seeker_percent = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Personal Information')->first();
             $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 18
+                'percentage' => 15
             ]);
             $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
             $seeker_update = $seeker->update([
@@ -121,8 +124,83 @@ class SeekerProfileController extends Controller
         return true;
     }
 
-    public function education(Request $request)
+    public function educationStore(Request $request)
     {
-        dd($request->all());
+        $education = SeekerEducation::create([
+            'seeker_id' => $request->seeker_id,
+            'degree' => $request->degree,
+            'major_subject' => $request->major_subject,
+            'location' => $request->location,
+            'from' => $request->from,
+            'to' => $request->to
+        ]);
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        $seeker_educations= SeekerEducation::whereSeekerId($seeker->id)->get();
+        if($seeker_educations->count() > 0) {
+            $seeker_percent = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Education')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 10
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'education' => $education,
+            'msg' => 'Education Create successfully!',
+        ]);
+    }
+
+    public function educationEdit($id)
+    {
+        $education = SeekerEducation::findOrFail($id);
+        return response()->json([
+            'status' => 'success',
+            'education' => $education
+        ]);
+    }
+
+    public function educationUpdate($id, Request $request)
+    {
+        $education = SeekerEducation::findOrFail($id);
+        $education_update = $education->update([
+            'seeker_id' => $request->seeker_id,
+            'degree' => $request->degree,
+            'major_subject' => $request->major_subject,
+            'location' => $request->location,
+            'from' => $request->from,
+            'to' => $request->to
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'education' => $education,
+            'msg' => 'Education Update successfully!',
+        ]);
+    }
+
+    public function educationDestory($id, Request $request)
+    {
+        $education = SeekerEducation::findOrFail($id)->delete();
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        $seeker_educations_count = SeekerEducation::whereSeekerId($seeker->id)->count();
+        if($seeker_educations_count == 0) {
+            $seeker_percent = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Education')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 0
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent
+            ]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Education deleted successfully!',
+            'seeker_educations_count' => $seeker_educations_count
+        ]);
     }
 }

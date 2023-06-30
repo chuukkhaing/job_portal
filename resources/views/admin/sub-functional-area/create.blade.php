@@ -31,7 +31,7 @@
                     <select name="functional_area_id" id="functional_area_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($functional_areas as $functional_area)
-                        <option value="{{ $functional_area->id }}">{{ $functional_area->name }} @if(isset($functional_area->name)) ({{ $functional_area->name }} ) @endif</option>
+                        <option value="{{ $functional_area->id }}">{{ $functional_area->name }}</option>
                         @endforeach
                     </select>
                 </div>
