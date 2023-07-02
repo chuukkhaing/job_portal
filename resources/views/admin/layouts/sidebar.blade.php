@@ -36,17 +36,31 @@
         </div>
     </li>
 
-    <!-- Nav Item - Company Attribute Menu -->
+    <!-- Nav Item - Employer Attribute Menu -->
     <li class="nav-item {{ Request::is('admin/industry*') ? 'active' : '' }} {{ Request::is('admin/ownership-type*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#companyAttribute"
-            aria-expanded="true" aria-controls="companyAttribute">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employerAttribute"
+            aria-expanded="true" aria-controls="employerAttribute">
             <i class="fas fa-network-wired"></i>
-            <span>Company Attributes</span>
+            <span>Employer Attributes</span>
         </a>
-        <div id="companyAttribute" class="collapse {{ Request::is('admin/industry*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="employerAttribute" class="collapse {{ Request::is('admin/industry*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('admin/industry*') ? 'active' : '' }}" href="{{ route('industry.index') }}">Industries</a>
                 <a class="collapse-item {{ Request::is('admin/ownership-type*') ? 'active' : '' }}" href="{{ route('ownership-type.index') }}">Ownership Type</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Seeker Attribute Menu -->
+    <li class="nav-item {{ Request::is('admin/skill*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#seekerAttribute"
+            aria-expanded="true" aria-controls="seekerAttribute">
+            <i class="fa-solid fa-user-pen"></i>
+            <span>Seeker Attributes</span>
+        </a>
+        <div id="seekerAttribute" class="collapse {{ Request::is('admin/skill*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('admin/skill*') ? 'active' : '' }}" href="{{ route('skill.index') }}">Skills</a>
             </div>
         </div>
     </li>

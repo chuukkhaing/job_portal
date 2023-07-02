@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="container my-2" id="edit-profile-body">
-        <div class="p-5 pb-0">
+        <div class="px-5 m-0 pb-0 pt-5">
             <h5>Account Information</h5>
             <div class="my-2 row">
                 <div class="col-12 col-md-6">
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-5 pb-0">
+        <div class="px-5 m-0 pb-0 pt-5">
             <h5>Personal Information</h5>
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
@@ -62,7 +62,12 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="date_of_birth" class="seeker_label my-2">Date of Birth <span class="text-danger">*</span></label>
-                    <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->date_of_birth }}" required placeholder="Date of Birth">
+                    <div class="datepicker date input-group" id="date_of_birth">
+                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}" required placeholder="Date of Birth">
+                        <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="phone" class="seeker_label my-2">Phone <span class="text-danger">*</span></label>
@@ -141,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-5 pb-0">
+        <div class="px-5 m-0 pb-0 pt-5">
             <h5>Career of Choice</h5>
             <div class="row">
                 
@@ -192,7 +197,7 @@
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="preferred_salary" class="seeker_label my-2">Preferred Salary<span class="text-danger">*</span></label>
-                    <input type="number" name="preferred_salary" id="preferred_salary" class="form-control seeker_input" required placeholder="Preferred Salary - MMK" value="{{ number_format(Auth::guard('seeker')->user()->preferred_salary) }} - MMK">
+                    <input type="number" name="preferred_salary" id="preferred_salary" class="form-control seeker_input" required placeholder="Preferred Salary - MMK" value="{{ (Auth::guard('seeker')->user()->preferred_salary) }}">
                 </div>
             </div>
             <div class="row">
@@ -207,13 +212,24 @@
                 </div>
             </div>
         </div>
+        @include('frontend.seeker.cv_attach')
         @include('frontend.seeker.education')
         @include('frontend.seeker.career-history')
+        @include('frontend.seeker.skill')
+        @include('frontend.seeker.language')
+        @include('frontend.seeker.reference')
     </div>
 </form>
 @push('scripts')
 <script>
     $(document).ready(function() {
+
+        $('#date_of_birth').datepicker({
+            language: "es",
+            autoclose: true,
+            format: "dd-mm-yyyy"
+        });
+
         $("#seeker_profile_upload").change(function() {
             var imgControlName = "#ProfilePreview";
             readURL(this, imgControlName);

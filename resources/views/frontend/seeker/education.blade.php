@@ -1,5 +1,5 @@
-<div class="p-5 pb-0">
-    <h5>Education</h5>
+<div class="px-5 m-0 pb-0 pt-5">
+    <h5>Educations</h5>
     <div class="my-2 row">
         <table id="edu-table" class="@if($educations->count() == 0) d-none @endif table border-1 table-responsive">
             <thead>
@@ -67,24 +67,24 @@
                             <input type="text" name="location" id="location" class="form-control seeker_input" placeholder="Location" value="">
                             <span class="text-danger" id="location-error"></span>
                         </div>
-                        <div class="form-group mt-1 col-6 col-md-3">
+                        <div class="form-group mt-1 px-1 col-6 col-md-3">
                             <label for="from" class="seeker_label my-2">Start Year <span class="text-danger">*</span></label>
-                            <select name="from" id="from" class="form-control seeker_input">
-                                <option value="">Select Year</option>
-                                @foreach($years as $year)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
+                            <div class="datepicker date input-group year">
+                                <input type="text" name="from" id="from" class="form-control seeker_input" value="" placeholder="Start Year">
+                                <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
                             <span class="text-danger" id="from-error"></span>
                         </div>
-                        <div class="form-group mt-1 col-6 col-md-3">
+                        <div class="form-group mt-1 px-1 col-6 col-md-3">
                             <label for="to" class="seeker_label my-2">End Year <span class="text-danger">*</span></label>
-                            <select name="to" id="to" class="form-control seeker_input">
-                                <option value="">Select Year</option>
-                                @foreach($years as $year)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
+                            <div class="datepicker date input-group year">
+                                <input type="text" name="to" id="to" class="form-control seeker_input" value="" placeholder="End Year">
+                                <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
                             <span class="text-danger" id="to-error"></span>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger close-btn" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn profile-save-btn" id="save-edu">Save changes</button>
+                    <span class="btn profile-save-btn" id="save-edu">Save changes</span>
                 </div>
                 
             </div>
@@ -132,23 +132,23 @@
                             <span class="text-danger" id="edit-location-error"></span>
                         </div>
                         <div class="form-group mt-1 col-6 col-md-3">
-                            <label for="from" class="seeker_label my-2">Start Year <span class="text-danger">*</span></label>
-                            <select name="from" id="edit-from" class="form-control seeker_input">
-                                <option value="">Select Year</option>
-                                @foreach($years as $year)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
+                            <label for="edit-from" class="seeker_label my-2">Start Year <span class="text-danger">*</span></label>
+                            <div class="datepicker date input-group year">
+                                <input type="text" name="edit-from" id="edit-from" class="form-control seeker_input" value="" placeholder="Start Year">
+                                <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
                             <span class="text-danger" id="edit-from-error"></span>
                         </div>
                         <div class="form-group mt-1 col-6 col-md-3">
-                            <label for="to" class="seeker_label my-2">End Year <span class="text-danger">*</span></label>
-                            <select name="to" id="edit-to" class="form-control seeker_input">
-                                <option value="">Select Year</option>
-                                @foreach($years as $year)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
+                            <label for="edit-to" class="seeker_label my-2">End Year <span class="text-danger">*</span></label>
+                            <div class="datepicker date input-group year">
+                                <input type="text" name="edit-to" id="edit-to" class="form-control seeker_input" value="" placeholder="Start Year">
+                                <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
                             <span class="text-danger" id="edit-to-error"></span>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger update-close-btn" data-bs-dismiss="modal">Close</button>
-                    <button class="btn profile-save-btn" id="update-edu">Updaat changes</button>
+                    <span class="btn profile-save-btn" id="update-edu">Update changes</span>
                 </div>
                 
             </div>
@@ -165,6 +165,15 @@
 </div>
 @push('scripts')
 <script>
+    $(document).ready(function() {
+        $('.year').datepicker({
+            format: "yyyy",
+            viewMode: "years", 
+            minViewMode: "years",
+            autoclose: true
+        });
+        
+    })
     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -203,7 +212,7 @@
             $("#to-error").html('');
         }
         if(from != '' && to != '' && from > to) {
-            $("#to-error").html('End Year need to greater Start Year.');
+            $("#to-error").html('End Year must be greater than Start Year.');
         }
         if(degree != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from)
         {
@@ -277,7 +286,7 @@
                 $("#edit-to-error").html('');
             }
             if(edit_from != '' && edit_to != '' && edit_from > edit_to) {
-                $("#edit-to-error").html('End Year need to greater Start Year.');
+                $("#edit-to-error").html('End Year need to greater than Start Year.');
             }
             if(edit_degree != '' && edit_major_subject != '' && edit_location != '' && edit_from != '' && edit_to != '' && edit_to > edit_from) {
                 $('.update-close-btn').click();

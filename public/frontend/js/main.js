@@ -20,24 +20,6 @@
         }
     });
 
-
-    // Date and time picker
-    $('.date').datetimepicker({
-        format: 'L'
-    });
-    $('.time').datetimepicker({
-        format: 'LT'
-    });
-    $('#date_of_birth').datepicker({
-        uiLibrary: 'bootstrap5'
-    });
-
-    // $('#year').datepicker({
-    //     uiLibrary: 'bootstrap5',
-    //     minViewMode: 2,
-    //      format: 'yyyy'
-    // });
-
     $(".select_2").select2({
         placeholder: "Choose...",
         allowClear: true

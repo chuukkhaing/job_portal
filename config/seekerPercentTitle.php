@@ -9,5 +9,6 @@ return [
         'Skills',
         'Language',
         'Reference',
+        'Resume Attachment'
     ]
 ];

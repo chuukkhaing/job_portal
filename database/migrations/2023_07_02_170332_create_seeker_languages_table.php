@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeekerEducationTable extends Migration
+class CreateSeekerLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateSeekerEducationTable extends Migration
      */
     public function up()
     {
-        Schema::create('seeker_education', function (Blueprint $table) {
+        Schema::create('seeker_languages', function (Blueprint $table) {
             $table->id();
             $table->biginteger('seeker_id');
-            $table->string('degree')->nullable();
-            $table->string('major_subject')->nullable();
-            $table->string('location')->nullable();
-            $table->integer('from')->nullable();
-            $table->integer('to')->nullable();
+            $table->string('name')->nullable();
+            $table->string('level')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateSeekerEducationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seeker_education');
+        Schema::dropIfExists('seeker_languages');
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PackageItemController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\FunctionalAreaController;
 use App\Http\Controllers\Admin\SubFunctionalAreaController;
 
@@ -63,5 +64,9 @@ Route::group([], function(){
 
         // slider 
         Route::resource('slider', SliderController::class);
+
+        // skill 
+        Route::resource('skill', SkillController::class);
+        Route::get('/get-sub-functional-area/{id}', [SkillController::class, 'getSubFunctionalArea']);
     });
 });
