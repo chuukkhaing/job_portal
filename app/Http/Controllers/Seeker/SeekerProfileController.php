@@ -15,7 +15,7 @@ use App\Models\Seeker\SeekerEducation;
 use App\Models\Seeker\SeekerExperience;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Admin\Skill;
-use App\MOdels\Seeker\SeekerSkill;
+use App\Models\Seeker\SeekerSkill;
 use App\MOdels\Seeker\SeekerReference;
 use App\MOdels\Seeker\SeekerAttach;
 use Auth;
