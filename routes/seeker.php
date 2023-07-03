@@ -60,6 +60,5 @@ Route::group([], function(){
         Route::post('/seekerAttach/destory/{id}', [SeekerProfileController::class, 'seekerAttachDestory'])->name('seekerAttach.destroy');
 
         Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
-        Route::get('/get-seeker-percent/{id}', [SeekerProfileController::class, 'getSeekerPercent'])->name('get.seekerpercent');
     });
 });

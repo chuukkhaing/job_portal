@@ -70,7 +70,7 @@
         
         if(cv_attach != undefined)
         {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: fd,

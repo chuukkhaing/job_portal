@@ -129,7 +129,7 @@
         
         if(language_name != '' && language_level != '')
         {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -140,6 +140,8 @@
                 url: '{{ route("language.store") }}',
             }).done(function(response){
                 if(response.status == 'success') {
+                    $('#language-table').removeClass('d-none');
+                    $('#language-table').append('<tr class="language-tr-'+response.language.id+'"><td class="language-name-'+response.language.id+'">'+response.language.name+'</td><td class="language-level-'+response.language.id+'">'+response.language.level+'</td><td><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a onclick="deleteLanguage('+response.language.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     alert(response.msg)
                 }
             })
@@ -193,7 +195,7 @@
                 $(".edit_language_level-error").html('');
             }
             if(edit_language_name != '' && edit_language_level != '') {
-                $('.close-btn').click();
+                $('.btn-close').click();
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -204,6 +206,8 @@
                     url: 'language/update/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
+                        $('.language-name-'+id).html(response.language.name);
+                        $('.language-level-'+id).html(response.language.level);
                         alert(response.msg)
                     }
                 })

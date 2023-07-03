@@ -9,7 +9,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="skill-tbody">
                 @foreach($skills as $skill)
                 <tr class="skill-tr-{{ $skill->id }}">
                     <td class="skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctinalArea->name }}</td>
@@ -115,7 +115,7 @@
         
         if(skill_main_functional_area_id != '' && skill_id != '')
         {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -127,11 +127,22 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#skill-table").removeClass('d-none');
-                    $("#skill-table").html('');
+                    $("#skill-tbody").html('');
+                    var function_name = '';
+                    var skill_name_org = '';
                     $(response.skills).each(function(index, skill) {
-                        $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+skill.MainFunctionalArea.name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill.name+'</td><td><a onclick="deleteSkill('+skill.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                        $(response.skill_functions).each(function(key, function_area) {
+                            if(skill.main_functional_area_id == function_area.id){
+                                function_name = function_area.name;
+                            }
+                        })
+                        $(response.skill_names).each(function(key, skill_name) {
+                            if(skill.skill_id == skill_name.id){
+                                skill_name_org = skill_name.name;
+                            }
+                        })
+                        $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+function_name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill_name_org+'</td><td><a onclick="deleteSkill('+skill.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     })
-                    // $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+skill.MainFunctionalArea.name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill.name+'</td><td><a onclick="deleteSkill({{ $skill->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     alert(response.msg)
                 }
             })

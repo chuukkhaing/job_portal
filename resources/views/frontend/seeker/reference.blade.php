@@ -156,7 +156,7 @@
         
         if(ref_name != '' && ref_position != '' && ref_company != '' && ref_contact != '')
         {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -169,6 +169,8 @@
                 url: '{{ route("reference.store") }}',
             }).done(function(response){
                 if(response.status == 'success') {
+                    $('#reference-table').removeClass('d-none');
+                    $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteReference('+response.reference.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     alert(response.msg)
                 }
             })
@@ -236,7 +238,7 @@
                 $("#edit_ref_contact-error").html('');
             }
             if(edit_ref_name != '' && edit_ref_position != '' && edit_ref_company != '' && edit_ref_contact != '') {
-                $('.close-btn').click();
+                $('.btn-close').click();
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -249,6 +251,10 @@
                     url: 'reference/update/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
+                        $('.reference-name-'+id).html(response.reference.name);
+                        $('.reference-company-'+id).html(response.reference.company);
+                        $('.reference-contact-'+id).html(response.reference.contact);
+                        $('.reference-position-'+id).html(response.reference.position);
                         alert(response.msg)
                     }
                 })

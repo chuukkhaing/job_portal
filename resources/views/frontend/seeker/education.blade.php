@@ -216,7 +216,7 @@
         }
         if(degree != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from)
         {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -289,7 +289,7 @@
                 $("#edit-to-error").html('End Year need to greater than Start Year.');
             }
             if(edit_degree != '' && edit_major_subject != '' && edit_location != '' && edit_from != '' && edit_to != '' && edit_to > edit_from) {
-                $('.update-close-btn').click();
+                $('.btn-close').click();
                 $.ajax({
                     type: 'POST',
                     data: {

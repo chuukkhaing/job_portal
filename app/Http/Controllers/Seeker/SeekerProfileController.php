@@ -269,10 +269,15 @@ class SeekerProfileController extends Controller
                 'percentage' => $total_percent
             ]);
         }
-
+        $exp_functions = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        $exp_industries = Industry::whereNull('deleted_at')->get();
         return response()->json([
             'status' => 'success',
             'experience' => $experience,
+            'exp_functions' => $exp_functions,
+            'sub_exp_functions' => $sub_exp_functions,
+            'exp_industries' => $exp_industries,
             'msg' => 'Experience Create successfully!',
         ]);
     }
@@ -306,9 +311,15 @@ class SeekerProfileController extends Controller
             'is_current_job' => $request->is_current_job,
             'country' => $request->exp_country
         ]);
+        $exp_functions = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        $exp_industries = Industry::whereNull('deleted_at')->get();
         return response()->json([
             'status' => 'success',
             'experience' => $experience,
+            'exp_functions' => $exp_functions,
+            'sub_exp_functions' => $sub_exp_functions,
+            'exp_industries' => $exp_industries,
             'msg' => 'Experience Update successfully!',
         ]);
     }
@@ -359,6 +370,8 @@ class SeekerProfileController extends Controller
         }
         $seeker = Seeker::findOrFail($request->seeker_id);
         $seeker_skills= SeekerSkill::whereSeekerId($seeker->id)->get();
+        $skill_functions = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $skill_names = Skill::whereNull('deleted_at')->whereIsActive(1)->get();
         if($seeker_skills->count() > 0) {
             $seeker_percent = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Skills')->first();
             $seeker_percent_update = $seeker_percent->update([
@@ -373,6 +386,8 @@ class SeekerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'skills' => $seeker_skills,
+            'skill_functions' => $skill_functions,
+            'skill_names' => $skill_names,
             'msg' => 'Skill Create successfully!',
         ]);
     }
@@ -422,6 +437,7 @@ class SeekerProfileController extends Controller
 
         return response()->json([
             'status' => 'success',
+            'language' => $language,
             'msg' => 'Language Create successfully!',
         ]);
     }
@@ -497,6 +513,7 @@ class SeekerProfileController extends Controller
 
         return response()->json([
             'status' => 'success',
+            'reference' => $reference,
             'msg' => 'Reference Create successfully!',
         ]);
     }
@@ -616,16 +633,6 @@ class SeekerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Update successfully!',
-        ]);
-    }
-
-    public function getSeekerPercent($id)
-    {
-        $seeker = Seeker::findOrFail($id);
-        
-        return response()->json([
-            'status' => 'success',
-            'seeker' => $seeker,
         ]);
     }
 }

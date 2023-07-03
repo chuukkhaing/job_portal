@@ -51,19 +51,8 @@
         }
     });
     
-    $('#profile-dashboard').click(function() {
-        
-        var seeker_id = {{ Auth::guard("seeker")->user()->id }};
-        $.ajax({
-            type: 'GET',
-            url: 'get-seeker-percent/'+seeker_id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                if(response.status == 'success') {
-                    $('.animate').attr("style", '--p:'+response.seeker.percentage)
-                }
-            }
-        })
+    $('#profile-dashboard-tab').click(function() {
+        window.location.reload();
     })
 </script>
 @endpush

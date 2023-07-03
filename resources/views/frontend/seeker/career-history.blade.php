@@ -16,7 +16,7 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="exp-tbody">
                 @foreach($experiences as $experience)
                 @if($experience->is_experience == 0)
                 <tr class="exp-tr-{{ $experience->id }}">
@@ -399,7 +399,7 @@
 
     $('#save-exp').click(function() {
         if($("#is_experience").val() == 0) {
-            $('.close-btn').click();
+            $('.btn-close').click();
             $.ajax({
                 type: 'POST',
                 data: {
@@ -411,7 +411,8 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#exp-table").removeClass('d-none');
-                    $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#exp-tbody").html('');
+                    $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#add_career_history").addClass('d-none');
                     alert(response.msg)
                 }
@@ -467,7 +468,7 @@
             if($("#current_job").is(":checked")){
                 if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '')
                 {
-                    $('.close-btn').click();
+                    $('.btn-close').click();
                     $.ajax({
                         type: 'POST',
                         data: {
@@ -487,8 +488,26 @@
                         url: '{{ route("experience.store") }}',
                     }).done(function(response){
                         if(response.status == 'success') {
-                            // $("#exp-table").removeClass('d-none');
-                            // $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td>'+response.experience.degree+'</td><td>'+response.experience.major_subject+'</td><td>'+response.experience.location+'</td><td>'+response.experience.from+'</td><td>'+response.experience.to+'</td><td><a onclick="editEdu('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").removeClass('d-none');
+                            var exp_main_function = '';
+                            var exp_sub_function_name = '';
+                            var exp_industry_name = '';
+                            $(response.exp_functions).each(function(index, exp_function) {
+                                if(exp_function.id == response.experience.main_functional_area_id) {
+                                    exp_main_function = exp_function.name
+                                }
+                            })
+                            $(response.sub_exp_functions).each(function(index, exp_sub_function) {
+                                if(exp_sub_function.id == response.experience.sub_functional_area_id) {
+                                    exp_sub_function_name = exp_sub_function.name
+                                }
+                            })
+                            $(response.exp_industries).each(function(index, exp_industry) {
+                                if(exp_industry.id == response.experience.industry_id) {
+                                    exp_industry_name = exp_industry.name
+                                }
+                            })
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg)
                         }
                     })
@@ -504,7 +523,7 @@
                 }
                 if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_end_date != '')
                 {
-                    $('.close-btn').click();
+                    $('.btn-close').click();
                     $.ajax({
                         type: 'POST',
                         data: {
@@ -524,8 +543,26 @@
                         url: '{{ route("experience.store") }}',
                     }).done(function(response){
                         if(response.status == 'success') {
-                            // $("#exp-table").removeClass('d-none');
-                            // $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td>'+response.experience.degree+'</td><td>'+response.experience.major_subject+'</td><td>'+response.experience.location+'</td><td>'+response.experience.from+'</td><td>'+response.experience.to+'</td><td><a onclick="editEdu('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").removeClass('d-none');
+                            var exp_main_function = '';
+                            var exp_sub_function_name = '';
+                            var exp_industry_name = '';
+                            $(response.exp_functions).each(function(index, exp_function) {
+                                if(exp_function.id == response.experience.main_functional_area_id) {
+                                    exp_main_function = exp_function.name
+                                }
+                            })
+                            $(response.sub_exp_functions).each(function(index, exp_sub_function) {
+                                if(exp_sub_function.id == response.experience.sub_functional_area_id) {
+                                    exp_sub_function_name = exp_sub_function.name
+                                }
+                            })
+                            $(response.exp_industries).each(function(index, exp_industry) {
+                                if(exp_industry.id == response.experience.industry_id) {
+                                    exp_industry_name = exp_industry.name
+                                }
+                            })
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg)
                         }
                     })
@@ -537,38 +574,38 @@
     function editExp(id)
     {
         $("#experienceEditModal").modal('show');
-            $.ajax({
-                type: 'GET',
-                url: 'experience/edit/'+id,
-            }).done(function(response){
-                if(response.status == 'success') {
-                    $("#edit_is_experience").val(response.experience.is_experience);
-                    $("#edit_exp_job_title").val(response.experience.job_title);
-                    $("#edit_exp_company").val(response.experience.company);
-                    $("#edit_exp_main_functional_area_id").val(response.experience.main_functional_area_id);
-                    $("#edit_exp_sub_functional_area_id").val(response.experience.sub_functional_area_id);
-                    $("#edit_exp_career_level").val(response.experience.career_level);
-                    $("#edit_exp_industry_id").val(response.experience.industry_id);
-                    $("#edit_exp_country").val(response.experience.country);
-                    $("#edit_exp_start_date").val(response.experience.start_date);
-                    $("#edit_exp_end_date").val(response.experience.end_date);
-                    if(response.experience.is_current_job) {
-                        $("#edit_current_job").prop('checked',true);
-                    }else {
-                        $("#edit_current_job").prop('checked',false);
-                        $("#edit_end_date_field").removeClass('d-none');
-                    }
-                    if(response.experience.is_experience == 0) {
-                        $(".no-experience").addClass('d-none');
-                    }else {
-                        $(".no-experience").removeClass('d-none');
-                    }
+        $.ajax({
+            type: 'GET',
+            url: 'experience/edit/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $("#edit_is_experience").val(response.experience.is_experience);
+                $("#edit_exp_job_title").val(response.experience.job_title);
+                $("#edit_exp_company").val(response.experience.company);
+                $("#edit_exp_main_functional_area_id").val(response.experience.main_functional_area_id);
+                $("#edit_exp_sub_functional_area_id").val(response.experience.sub_functional_area_id);
+                $("#edit_exp_career_level").val(response.experience.career_level);
+                $("#edit_exp_industry_id").val(response.experience.industry_id);
+                $("#edit_exp_country").val(response.experience.country);
+                $("#edit_exp_start_date").val(response.experience.start_date);
+                $("#edit_exp_end_date").val(response.experience.end_date);
+                if(response.experience.is_current_job) {
+                    $("#edit_current_job").prop('checked',true);
+                }else {
+                    $("#edit_current_job").prop('checked',false);
+                    $("#edit_end_date_field").removeClass('d-none');
                 }
-            })
+                if(response.experience.is_experience == 0) {
+                    $(".no-experience").addClass('d-none');
+                }else {
+                    $(".no-experience").removeClass('d-none');
+                }
+            }
+        })
 
-            $("#update-exp").click(function() {
-                if($("#edit_is_experience").val() == 0) {
-                $('.close-btn').click();
+        $("#update-exp").click(function() {
+            if($("#edit_is_experience").val() == 0) {
+                $('.btn-close').click();
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -580,7 +617,8 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#exp-table").removeClass('d-none');
-                        $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#exp-tbody").html('');
+                        $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#add_career_history").addClass('d-none');
                         alert(response.msg)
                     }
@@ -636,7 +674,7 @@
                 if($("#edit_current_job").is(":checked")){
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '')
                     {
-                        $('.close-btn').click();
+                        $('.btn-close').click();
                         $.ajax({
                             type: 'POST',
                             data: {
@@ -656,8 +694,27 @@
                             url: 'experience/update/'+id,
                         }).done(function(response){
                             if(response.status == 'success') {
-                                // $("#exp-table").removeClass('d-none');
-                                // $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td>'+response.experience.degree+'</td><td>'+response.experience.major_subject+'</td><td>'+response.experience.location+'</td><td>'+response.experience.from+'</td><td>'+response.experience.to+'</td><td><a onclick="editEdu('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $(".exp-tr-"+id).html('');
+                                var exp_main_function = '';
+                                var exp_sub_function_name = '';
+                                var exp_industry_name = '';
+                                $(response.exp_functions).each(function(index, exp_function) {
+                                    if(exp_function.id == response.experience.main_functional_area_id) {
+                                        exp_main_function = exp_function.name
+                                    }
+                                })
+                                $(response.sub_exp_functions).each(function(index, exp_sub_function) {
+                                    if(exp_sub_function.id == response.experience.sub_functional_area_id) {
+                                        exp_sub_function_name = exp_sub_function.name
+                                    }
+                                })
+                                $(response.exp_industries).each(function(index, exp_industry) {
+                                    if(exp_industry.id == response.experience.industry_id) {
+                                        exp_industry_name = exp_industry.name
+                                    }
+                                })
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#add_career_history").removeClass('d-none');
                                 alert(response.msg)
                             }
                         })
@@ -673,7 +730,7 @@
                     }
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '')
                     {
-                        $('.close-btn').click();
+                        $('.btn-close').click();
                         $.ajax({
                             type: 'POST',
                             data: {
@@ -693,9 +750,28 @@
                             url: 'experience/update/'+id,
                         }).done(function(response){
                             if(response.status == 'success') {
-                                // $("#exp-table").removeClass('d-none');
-                                // $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td>'+response.experience.degree+'</td><td>'+response.experience.major_subject+'</td><td>'+response.experience.location+'</td><td>'+response.experience.from+'</td><td>'+response.experience.to+'</td><td><a onclick="editEdu('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                                alert(response.msg)
+                                $(".exp-tr-"+id).html('');
+                                var exp_main_function = '';
+                                var exp_sub_function_name = '';
+                                var exp_industry_name = '';
+                                $(response.exp_functions).each(function(index, exp_function) {
+                                    if(exp_function.id == response.experience.main_functional_area_id) {
+                                        exp_main_function = exp_function.name
+                                    }
+                                })
+                                $(response.sub_exp_functions).each(function(index, exp_sub_function) {
+                                    if(exp_sub_function.id == response.experience.sub_functional_area_id) {
+                                        exp_sub_function_name = exp_sub_function.name
+                                    }
+                                })
+                                $(response.exp_industries).each(function(index, exp_industry) {
+                                    if(exp_industry.id == response.experience.industry_id) {
+                                        exp_industry_name = exp_industry.name
+                                    }
+                                })
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                alert(response.msg);
+                                $("#add_career_history").removeClass('d-none');
                             }
                         })
                     }
@@ -715,6 +791,7 @@
         }).done(function(response){
             if(response.status == 'success') {
                 $(".exp-tr-"+id).empty();
+                $("#add_career_history").removeClass('d-none');
                 if(response.seeker_experiences_count == 0) {
                     $("#exp-table").addClass('d-none');
                 }

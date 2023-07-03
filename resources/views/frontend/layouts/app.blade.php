@@ -39,6 +39,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
+    @stack('css')
 </head>
 <body>
     <!-- Spinner Start -->
