@@ -372,6 +372,7 @@ class SeekerProfileController extends Controller
 
         return response()->json([
             'status' => 'success',
+            'skills' => $seeker_skills,
             'msg' => 'Skill Create successfully!',
         ]);
     }
@@ -556,14 +557,14 @@ class SeekerProfileController extends Controller
         $cv= date('YmdHi').$file->getClientOriginalName();
         $path = $file-> move(public_path('storage/seeker/cv'), $cv);
 
-        $reference = seekerAttach::create([
+        $attach = seekerAttach::create([
             'seeker_id' => $request->seeker_id,
             'name' => $cv,
         ]);
 
         $seeker = Seeker::findOrFail($request->seeker_id);
-        $seeker_references= seekerAttach::whereSeekerId($seeker->id)->get();
-        if($seeker_references->count() > 0) {
+        $seeker_attachs= seekerAttach::whereSeekerId($seeker->id)->get();
+        if($seeker_attachs->count() > 0) {
             $seeker_percent = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
             $seeker_percent_update = $seeker_percent->update([
                 'percentage' => 10
@@ -576,6 +577,7 @@ class SeekerProfileController extends Controller
 
         return response()->json([
             'status' => 'success',
+            'attach' => $attach,
             'msg' => 'CV Upload successfully!',
         ]);
     }
@@ -602,6 +604,28 @@ class SeekerProfileController extends Controller
             'status' => 'success',
             'msg' => 'cv deleted successfully!',
             'seeker_cvs_count' => $seeker_cvs_count
+        ]);
+    }
+
+    public function immediateAvailableUpdate($id, Request $request)
+    {
+        $seeker = Seeker::findOrFail($id);
+        $seeker->update([
+            'is_immediate_available' => $request->is_immediate_available
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Update successfully!',
+        ]);
+    }
+
+    public function getSeekerPercent($id)
+    {
+        $seeker = Seeker::findOrFail($id);
+        
+        return response()->json([
+            'status' => 'success',
+            'seeker' => $seeker,
         ]);
     }
 }

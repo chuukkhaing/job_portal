@@ -117,7 +117,7 @@
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="state_id_field">
                     <label for="state_id" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
-                    <select name="state_id" id="state_id" class="select_2 form-control seeker_input">
+                    <select name="state_id" id="state_id" class="select_2 form-control seeker_input" style="width: 100%">
                         <option value="">Choose...</option>
                         @foreach($states as $state)
                         <option value="{{ $state->id }}" @if(Auth::guard('seeker')->user()->state_id == $state->id) selected @endif>{{ $state->name }}</option>
@@ -127,7 +127,7 @@
             
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="township_id_field">
                     <label for="township_id" class="seeker_label my-2">Township <span class="text-danger">*</span></label><br>
-                    <select name="township_id" id="township_id" class="select_2 form-control seeker_input">
+                    <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
                         <option value="">Choose...</option>
                         @foreach($townships as $township)
                         <option value="{{ $township->id }}" @if(Auth::guard('seeker')->user()->township_id == $township->id) selected @endif>{{ $township->name }}</option>
@@ -152,7 +152,7 @@
                 
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="main_functional_area_id" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
-                    <select name="main_functional_area_id" id="main_functional_area_id" class="select_2 form-control seeker_input" required>
+                    <select name="main_functional_area_id" id="main_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                         <option value="">Choose...</option>
                         @foreach($functional_areas as $functional_area)
                         <option value="{{ $functional_area->id }}" @if(Auth::guard('seeker')->user()->main_functional_area_id == $functional_area->id) selected @endif>{{ $functional_area->name }}</option>
@@ -162,7 +162,7 @@
             
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="sub_functional_area_id" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
-                    <select name="sub_functional_area_id" id="sub_functional_area_id" class="select_2 form-control seeker_input" required>
+                    <select name="sub_functional_area_id" id="sub_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                         <option value="">Choose...</option>
                         @foreach($sub_functional_areas as $sub_functional_area)
                         <option value="{{ $sub_functional_area->id }}" @if(Auth::guard('seeker')->user()->sub_functional_area_id == $sub_functional_area->id) selected @endif>{{ $sub_functional_area->name }}</option>
@@ -177,7 +177,7 @@
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="job_type" class="seeker_label my-2">Job Type <span class="text-danger">*</span></label>
-                    <select name="job_type" id="job_type" class="select_2 form-control seeker_input" required>
+                    <select name="job_type" id="job_type" class="select_2 form-control seeker_input" style="width: 100%" required>
                         <option value="">Choose...</option>
                         @foreach(config('jobtype') as $jobtype)
                         <option value="{{ $jobtype }}" @if(Auth::guard('seeker')->user()->job_type == $jobtype) selected @endif>{{ $jobtype }}</option>
@@ -188,7 +188,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="career_level" class="seeker_label my-2">Career Level <span class="text-danger">*</span></label>
-                    <select name="career_level" id="career_level" class="select_2 form-control seeker_input" required>
+                    <select name="career_level" id="career_level" class="select_2 form-control seeker_input" style="width: 100%" required>
                         <option value="">Choose...</option>
                         @foreach(config('careerlevel') as $careerlevel)
                         <option value="{{ $careerlevel }}" @if(Auth::guard('seeker')->user()->career_level == $careerlevel) selected @endif>{{ $careerlevel }}</option>
@@ -203,7 +203,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
-                    <select name="industry_id" id="industry_id" class="select_2 form-control seeker_input" required>
+                    <select name="industry_id" id="industry_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                         <option value="">Choose...</option>
                         @foreach($industries as $industry)
                         <option value="{{ $industry->id }}" @if(Auth::guard('seeker')->user()->industry_id == $industry->id) selected @endif>{{ $industry->name }}</option>

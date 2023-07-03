@@ -247,6 +247,7 @@ body {
     font-weight: 700;
     padding: 16px 0;
     border-bottom: 4px solid #FB5404;
+    text-decoration: none;
 }
 .seeker-single-tab{
     color: #181722;
@@ -361,3 +362,77 @@ span.select2.select2-container.select2-container--default.select2-container--foc
 .update-close-btn {
     border-radius: 8px;
 }
+.seeker-name {
+    font-weight: 600;
+    color: #181722;
+    font-size: 20px;
+}
+a:hover {
+    text-decoration: none;
+}
+.seeker-icon {
+    color: #666666;
+    font-size: 18px;
+}
+.seeker-info {
+    color: #8A8988;
+}
+.profile-count {
+    color: #46454E;
+    font-weight: 600;
+    font-size: 16px;
+}
+.profile-number {
+    color: #0355D0;
+    font-weight: 600;
+    font-size: 39px;
+}
+.border-right-profile {
+    border-right: 1px solid #95B6D8;
+}
+
+@property --p{
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+  }
+  
+  .pie {
+    --b:10px;
+    --c:#0355D0;
+    --w:130px;
+    --z: #E8EFF7;
+    width:var(--w);
+    aspect-ratio:1;
+    position:relative;
+    display:inline-grid;
+    place-content:center;
+    font-size:25px;
+    font-weight:bold;
+  }
+  .pie:before,
+  .pie:after {
+    content:"";
+    position:absolute;
+    border-radius:50%;
+  }
+  .pie:before {
+    inset: 0;
+    background:
+      radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+      conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+    -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+            mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+  }
+  .pie:after {
+    inset:calc(50% - var(--b)/2);
+    background:var(--c);
+    transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+  }
+  .animate {
+    animation:p 1s .5s both;
+  }
+  @keyframes p {
+    from{--p:0}
+  }
+  

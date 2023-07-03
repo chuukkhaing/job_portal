@@ -81,9 +81,7 @@
                                         <div class="form-group p-2">
                                             <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
                                         </div>      
-                                        <div class="form-group p-2">
-                                            <a href="" class="btn col-12 btn-googlesignup"> <img src="{{ asset('frontend/img/logo/google-icon.png') }}" alt=""> Sign Up with Google </a>
-                                        </div>    
+                                         
                                         <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
                                     </form>
                                 </article>

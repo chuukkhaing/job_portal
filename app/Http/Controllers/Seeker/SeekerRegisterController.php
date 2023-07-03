@@ -40,6 +40,7 @@ class SeekerRegisterController extends Controller
         $seeker = Seeker::create([
             'email' => $request['email'],
             'phone' => $request['phone'],
+            'date_of_birth' => null,
             'password' => Hash::make($request['password']),
             'email_verification_token' => Str::random(32),
             'register_at' => Carbon::now(),

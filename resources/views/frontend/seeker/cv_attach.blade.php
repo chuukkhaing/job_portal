@@ -79,6 +79,8 @@
                 url: '{{ route("seekerAttach.store") }}',
             }).done(function(response){
                 if(response.status == 'success') {
+                    $("#cv-table").removeClass('d-none');
+                    $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a onclick="deleteCV('+response.attach.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     alert(response.msg)
                 }
             })

@@ -18,7 +18,7 @@ use App\Http\Controllers\Seeker\SeekerProfileController;
 */
 
 Route::group([], function(){
-    Route::get('/', [SeekerLoginController::class, 'frontendLogin']);
+    Route::get('/', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
     Route::post('register', [SeekerRegisterController::class, 'register'])->name('seeker-register');
 
     Route::get('email/verify/{id}', [SeekerRegisterController::class, 'notice'])->name('seeker-verify-notice');
@@ -59,5 +59,7 @@ Route::group([], function(){
         Route::post('/seekerAttach/store', [SeekerProfileController::class, 'seekerAttachStore'])->name('seekerAttach.store');
         Route::post('/seekerAttach/destory/{id}', [SeekerProfileController::class, 'seekerAttachDestory'])->name('seekerAttach.destroy');
 
+        Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
+        Route::get('/get-seeker-percent/{id}', [SeekerProfileController::class, 'getSeekerPercent'])->name('get.seekerpercent');
     });
 });
