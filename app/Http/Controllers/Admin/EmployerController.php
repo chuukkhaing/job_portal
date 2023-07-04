@@ -56,7 +56,11 @@ class EmployerController extends Controller
             $path = $file-> move(public_path('storage/employer_logo/'), $logo);
         }
 
-        $package = Package::findOrFail($request->package_id);
+        $package_end_date = Null;
+        if($request->package_id) {
+            $package = Package::findOrFail($request->package_id);
+            $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
+        }
         
         $employer = Employer::create([
             'logo' => $logo,
@@ -89,7 +93,7 @@ class EmployerController extends Controller
             'map' => $request->map,
             'package_id' => $request->package_id,
             'package_start_date' => $request->package_start_date,
-            'package_end_date' => date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days')),
+            'package_end_date' => $package_end_date,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
@@ -156,7 +160,11 @@ class EmployerController extends Controller
             $password = $employer->password;
         }
 
-        $package = Package::findOrFail($request->package_id);
+        $package_end_date = Null;
+        if($request->package_id) {
+            $package = Package::findOrFail($request->package_id);
+            $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
+        }
         
         $employer = $employer->update([
             'logo' => $logo,
@@ -189,7 +197,7 @@ class EmployerController extends Controller
             'map' => $request->map,
             'package_id' => $request->package_id,
             'package_start_date' => $request->package_start_date,
-            'package_end_date' => date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days')),
+            'package_end_date' => $package_end_date,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,

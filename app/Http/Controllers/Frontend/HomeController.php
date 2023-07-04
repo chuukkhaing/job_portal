@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Slider;
 use App\Models\Admin\Industry;
+use App\Models\Admin\Employer;
 
 class HomeController extends Controller
 {
@@ -13,6 +14,7 @@ class HomeController extends Controller
     {
         $sliders = Slider::whereNull('deleted_at')->whereIsActive(1)->orderBy('serial_no')->get();
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get()->take(8);
-        return view ('frontend.home', compact('sliders', 'industries'));
+        $employers = Employer::whereNull('deleted_at')->whereIsActive(1)->get()->take(6);
+        return view ('frontend.home', compact('sliders', 'industries', 'employers'));
     }
 }

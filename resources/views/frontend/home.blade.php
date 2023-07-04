@@ -57,4 +57,26 @@
 </div>
 @endif
 <!-- Popular Job Category End  -->
+
+<!-- Top Employer Start  -->
+@if($employers->count() > 0)
+<div class="container">
+    <div class="popular-job-category">
+        <div id="header-popular-job-category" class="text-center py-5">
+            <h3 id="popular-job-category-title">Top Employers</h3>
+        </div>
+        <div id="body-popular-job-category" class="row col-12 pb-5">
+            @foreach($employers as $employer)
+            <div class="col-md-2 col-4 text-center">
+                <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
+                <div id="job-category-name">
+                <span id="job-category-name-position">{{ $employer->name }}</span>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endif
+<!-- Top Employer End  -->
 @endsection
