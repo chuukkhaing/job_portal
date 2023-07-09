@@ -22,6 +22,10 @@ class Authenticate extends Middleware
             if (! $request->expectsJson()) {
                 return route('login-form');
             }
+        }elseif($request->route()->getPrefix() == 'employer') {
+            if (! $request->expectsJson()) {
+                return route('login-form');
+            }
         }
         
     }

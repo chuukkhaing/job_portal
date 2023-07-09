@@ -30,8 +30,8 @@
         </li>
     </ul>
     <div class="tab-content" id="seekerTabContent">
-        <div class="tab-pane fade p-0 show active" id="profile-dashboard" role="tabpanel" aria-labelledby="profile-dashboard-tab">@include('frontend.seeker.profile-dashboard')</div>
-        <div class="tab-pane fade p-0" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">@include('frontend.seeker.edit-profile')</div>
+        <div class="tab-pane fade p-0 show active" id="profile-dashboard" role="tabpanel" aria-labelledby="profile-dashboard-tab">@include('seeker.profile.profile-dashboard')</div>
+        <div class="tab-pane fade p-0" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">@include('seeker.profile.edit-profile')</div>
         <div class="tab-pane fade p-0" id="job-application" role="tabpanel" aria-labelledby="job-application-tab">Job Applications</div>
         <div class="tab-pane fade p-0" id="fav-job" role="tabpanel" aria-labelledby="fav-job-tab">Favourite Jobs</div>
         <div class="tab-pane fade p-0" id="job-alert" role="tabpanel" aria-labelledby="job-alert-tab">Job Alerts</div>

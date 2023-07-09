@@ -58,7 +58,7 @@
             <i class="fa-solid fa-user-pen"></i>
             <span>Seeker Attributes</span>
         </a>
-        <div id="seekerAttribute" class="collapse {{ Request::is('admin/skill*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="seekerAttribute" class="collapse {{ Request::is('admin/skill*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('admin/skill*') ? 'active' : '' }}" href="{{ route('skill.index') }}">Skills</a>
             </div>
@@ -96,8 +96,8 @@
     </li>
 
     <!-- Nav Item - Employer Menu -->
-    <li class="nav-item {{ Request::is('admin/employer*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('employer.index') }}">
+    <li class="nav-item {{ Request::is('admin/employers*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('employers.index') }}">
             <i class="fas fa-user-tie"></i>
             <span>Employers</span>
         </a>

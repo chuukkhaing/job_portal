@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\SeekerVerificationEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Carbon\Carbon;
+use App\Models\Admin\Industry;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 
 class SeekerRegisterController extends Controller
@@ -27,7 +28,8 @@ class SeekerRegisterController extends Controller
 
     public function frontendRegister() 
     {
-        return view ('frontend.register');
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
+        return view ('frontend.register', compact('industries'));
     }
 
     protected function register(Request $request)

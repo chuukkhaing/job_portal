@@ -24,6 +24,11 @@
         placeholder: "Choose...",
         allowClear: true
     });
+
+    $("#industry_id").select2({
+        placeholder: 'Select Industry',
+        allowClear: true
+    });
     
 })(jQuery);
 

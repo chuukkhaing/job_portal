@@ -44,7 +44,10 @@ class CreateEmployersTable extends Migration
             $table->boolean('is_active')->default(1);
 			$table->string('slug')->nullable();
 			$table->rememberToken();
-			$table->text('map')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('email_verification_token')->nullable();
+            $table->boolean('email_verified')->default(0);
+            $table->text('map')->nullable();
 			$table->bigInteger('package_id')->nullable();
 			$table->datetime('package_start_date')->nullable();
 			$table->datetime('package_end_date')->nullable();

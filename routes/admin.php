@@ -55,8 +55,8 @@ Route::group([], function(){
         Route::resource('package-type', PackageController::class);
 
         // employer 
-        Route::resource('employer', EmployerController::class);
-        Route::get('employer/get-township/{id}', [EmployerController::class, 'getTownship']);
+        Route::resource('employers', EmployerController::class);
+        Route::get('employers/get-township/{id}', [EmployerController::class, 'getTownship']);
 
         // function area
         Route::resource('main-functional-area', FunctionalAreaController::class);

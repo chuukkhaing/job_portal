@@ -76,7 +76,38 @@
                                 </article>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pills-employer" role="tabpanel" aria-labelledby="pills-employer-tab">...</div>
+                        <div class="tab-pane fade" id="pills-employer" role="tabpanel" aria-labelledby="pills-employer-tab">
+                            <div class="py-3">
+                                <article class="mx-auto">
+                                    <form action="{{ route('employer-login') }}" method="post">
+                                        @csrf
+                                        <div class="form-group input-group register-form-input p-2 my-3">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
+                                            </div>
+                                            <input name="company_email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('company_email') }}" required>
+                                        </div>
+                                        
+                                        <div class="form-group input-group register-form-input p-2 my-3">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                                            </div>
+                                            <input class="form-control border-0" placeholder="Create password" type="password" name="company_password" required>
+                                        </div>
+                                        
+                                        <div class="my-3">     
+                                            <input type="checkbox" name="company_remember" id="remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
+                                            <div class="float-end"><a href="#" style="font-size: 0.9rem" class="ms-1 forger_password">Forget Password? </a></div>          
+                                        </div>
+                                        <div class="form-group p-2">
+                                            <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
+                                        </div>      
+                                         
+                                        <p class="text-center">Don’t have an account yet ? <a href="{{ route('register-form') }}" class="signIn_link">Sign Up</a> </p>                                                                 
+                                    </form>
+                                </article>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

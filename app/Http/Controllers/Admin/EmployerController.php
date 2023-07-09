@@ -100,7 +100,7 @@ class EmployerController extends Controller
         ]);
 
         Alert::success('Success', 'New Employer Created Successfully!');
-        return redirect()->route('employer.index');
+        return redirect()->route('employers.index');
     }
 
     /**
@@ -193,7 +193,6 @@ class EmployerController extends Controller
             'contact_person_name' => $request->contact_person_name,
             'contact_person_phone' => $request->contact_person_phone,
             'contact_person_email' => $request->contact_person_email,
-            'is_active' => $request->is_active,
             'map' => $request->map,
             'package_id' => $request->package_id,
             'package_start_date' => $request->package_start_date,
@@ -204,7 +203,7 @@ class EmployerController extends Controller
         ]);
 
         Alert::success('Success', 'Employer Updated Successfully!');
-        return redirect()->route('employer.index');
+        return redirect()->route('employers.index');
     }
 
     /**

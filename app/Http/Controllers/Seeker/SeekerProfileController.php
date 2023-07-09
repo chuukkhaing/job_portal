@@ -49,7 +49,7 @@ class SeekerProfileController extends Controller
         $languages = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $references = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $cvs = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        return view ('frontend.seeker.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs'));
+        return view ('seeker.profile.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs'));
     }
 
     public function getTownship($id)
@@ -94,8 +94,8 @@ class SeekerProfileController extends Controller
         }
         $date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
         
-        if(!empty($input['password'])){ 
-            $password = Hash::make($input['password']);
+        if($request->password){ 
+            $password = Hash::make($request->password);
         }else{
             $password = $seeker->password;    
         }

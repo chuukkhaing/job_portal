@@ -10,7 +10,7 @@
         <div class="row card-header py-3 m-0">
             <h6 class="col font-weight-bold text-primary">Employers</h6>
             <div class="col">
-                <a href="{{ route('employer.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('employers.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -40,9 +40,9 @@
                             <td>{{ $employer->email }}</td>
                             <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
-                                <a href="{{ route('employer.show', $employer->id) }}" class="btn btn-success btn-circle btn-sm"><i class="fas fa-eye"></i></a>
-                                <a href="{{ route('employer.edit', $employer->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                <form method="POST" action="{{ route('employer.destroy', $employer->id) }}" class="d-inline">
+                                <a href="{{ route('employers.show', $employer->id) }}" class="btn btn-success btn-circle btn-sm"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('employers.edit', $employer->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                <form method="POST" action="{{ route('employers.destroy', $employer->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>

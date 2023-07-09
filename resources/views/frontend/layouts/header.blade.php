@@ -17,9 +17,15 @@
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
                 @auth('seeker')
                 <div class="btn-group">
+                    @if(Auth::guard('seeker')->user()->image)
+                    <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="{{ auth()->guard('seeker')->user()->email }}" class="img-profile rounded-circle">
+                    </a>
+                    @else
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('img/profile.svg') }}" alt="{{ auth()->guard('seeker')->user()->email }}" class="img-profile rounded-circle">
                     </a>
+                    @endif
                     <ul class="dropdown-menu profile-dropdown">
                         <li>
                             <a class="dropdown-item" href="{{ route('profile.index') }}">
@@ -38,10 +44,33 @@
                         </li>
                     </ul>
                 </div>
+                @elseauth('employer')
+                <div class="btn-group">
+                    <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('img/profile.svg') }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu profile-dropdown">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('employer-profile.index') }}">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                My Account
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('employer.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                            <form id="logout-form" action="{{ route('employer.logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
+                    </ul>
+                </div>
                 @elseauth('web')
                 <a href="{{ route('dashboard') }}" class="nav-item nav-link">Admin</a>
                 @else
-                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('seeker') ? 'active' : '' }}">Sign In</a>
+                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Sign In</a>
                 <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Register</a></span>
                 @endauth
             </div>

@@ -10,7 +10,7 @@
         <div class="row card-header py-3 m-0">
             <h6 class="col font-weight-bold text-primary">Employer Detail</h6>
             <div class="col">
-                <a href="{{ route('employer.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('employers.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-reply"></i>
                     </span>
@@ -120,7 +120,7 @@
                         <td><strong>{{ $employer->State->name ?? '-' }}</strong></td>
                     </tr>
                     <tr>
-                        <td width="200px">Township</td>
+                        <td width="200px">City</td>
                         <td><strong>{{ $employer->Township->name ?? '-' }}</strong></td>
                     </tr>
                     <tr>

@@ -27,7 +27,7 @@
                     <select name="state_id" id="state_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($states as $state)
-                        <option value="{{ $state->id }}" @if($state->id == $tonwship->state_id) selected @endif>{{ $state->name }} @if(isset($state->name)) ({{ $state->name }} ) @endif</option>
+                        <option value="{{ $state->id }}" @if($state->id == $tonwship->state_id) selected @endif>{{ $state->name }}</option>
                         @endforeach
                     </select>
                 </div>

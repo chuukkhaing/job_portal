@@ -28,6 +28,9 @@ class RedirectIfAuthenticated
             if ($guard == "seeker" && Auth::guard($guard)->check()) {
                 return redirect('/login-form');
             }
+            if ($guard == "employer" && Auth::guard($guard)->check()) {
+                return redirect('/login-form');
+            }
             if (Auth::guard($guard)->check()) {
                 return redirect('/');
             }

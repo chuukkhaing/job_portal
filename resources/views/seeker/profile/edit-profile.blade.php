@@ -126,7 +126,7 @@
                 </div>
             
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="township_id_field">
-                    <label for="township_id" class="seeker_label my-2">Township <span class="text-danger">*</span></label><br>
+                    <label for="township_id" class="seeker_label my-2">City <span class="text-danger">*</span></label><br>
                     <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
                         <option value="">Choose...</option>
                         @foreach($townships as $township)
@@ -212,12 +212,12 @@
                 </div>
             </div>
         </div>
-        @include('frontend.seeker.cv_attach')
-        @include('frontend.seeker.education')
-        @include('frontend.seeker.career-history')
-        @include('frontend.seeker.skill')
-        @include('frontend.seeker.language')
-        @include('frontend.seeker.reference')
+        @include('seeker.profile.cv_attach')
+        @include('seeker.profile.education')
+        @include('seeker.profile.career-history')
+        @include('seeker.profile.skill')
+        @include('seeker.profile.language')
+        @include('seeker.profile.reference')
     </div>
 </form>
 @push('scripts')

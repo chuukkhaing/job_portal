@@ -18,7 +18,6 @@ use App\Http\Controllers\Seeker\SeekerProfileController;
 */
 
 Route::group([], function(){
-    Route::get('/', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
     Route::post('register', [SeekerRegisterController::class, 'register'])->name('seeker-register');
 
     Route::get('email/verify/{id}', [SeekerRegisterController::class, 'notice'])->name('seeker-verify-notice');
