@@ -87,7 +87,7 @@
             </div>
             <div class="px-5 m-0 pb-0 ex3">
                 @foreach($jobPosts as $jobPost)
-                <div class="m-0 pb-0 seeker-job-list border rounded">
+                <div class="m-0 mb-2 pb-0 seeker-job-list border rounded">
                     <div class="row">
                         <div class="col-2">
                             @if($jobPost->Employer->logo)
