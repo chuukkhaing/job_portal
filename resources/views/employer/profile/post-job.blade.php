@@ -176,7 +176,7 @@
                     <textarea name="requirement_and_skill" id="requirement_and_skill" class="form-control seeker_input" cols="30" rows="2"></textarea>
                 </div>
                 <div class="col-12 col-md-6 text-end">
-                    <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+                    <button type="submit" class="btn profile-save-btn">Post Job</button>
                 </div>
             </div>
         </div>

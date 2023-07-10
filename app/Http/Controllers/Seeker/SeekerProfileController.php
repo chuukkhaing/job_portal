@@ -18,6 +18,7 @@ use App\Models\Admin\Skill;
 use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
+use App\Models\Employer\JobPost;
 use Auth;
 use Hash;
 use Arr;
@@ -49,7 +50,8 @@ class SeekerProfileController extends Controller
         $languages = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $references = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $cvs = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        return view ('seeker.profile.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs'));
+        $jobPosts = JobPost::whereIsActive(1)->get();
+        return view ('seeker.profile.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts'));
     }
 
     public function getTownship($id)

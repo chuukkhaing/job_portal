@@ -117,7 +117,7 @@
                                             <input class="form-control border-0" placeholder="Confirm password" type="password" name="company_confirmed" required>
                                         </div>   
                                         <div class="form-group input-group input-group my-3">     
-                                            <input type="checkbox" name="terms" id="terms" class="" required> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="#">Terms & Conditions</a> of Infinity</label>                              
+                                            <input type="checkbox" name="employer_terms" id="employer_terms" class="" required> <label style="font-size: 0.9rem" for="employer_terms" class="ms-1 terms_link"> I agree with the <a href="#">Terms & Conditions</a> of Infinity</label>                              
                                         </div>
                                         <div class="form-group p-2">
                                             <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>

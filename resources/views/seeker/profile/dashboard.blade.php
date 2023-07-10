@@ -2,7 +2,14 @@
 @section('content')
 
 <div class="container m-auto">
-    
+    <div class="seeker-dashboard-header text-center py-5">
+        @if(Auth::guard('seeker')->user()->image)
+        <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+        @else
+        <img src="{{ asset('img/undraw_profile_1.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+        @endif
+        <div class="seeker-name p-0" style="color: #fff">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
+    </div>
     <ul class="nav d-flex justify-content-between p-5" id="seekerTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a href="#" class="seeker-single-tab active" id="profile-dashboard-tab" data-bs-toggle="tab" data-bs-target="#profile-dashboard" role="tab" aria-controls="profile-dashboard" aria-selected="true">Profile Dashboard</a>

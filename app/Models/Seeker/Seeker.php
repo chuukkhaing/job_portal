@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Seeker\SeekerPercentage;
 
 class Seeker extends Authenticatable
 {
@@ -26,4 +27,9 @@ class Seeker extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function SeekerPercentage()
+    {
+        return $this->hasMany(SeekerPercentage::class, 'seeker_id', 'id');
+    }
 }

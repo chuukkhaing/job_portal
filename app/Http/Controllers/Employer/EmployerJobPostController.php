@@ -53,6 +53,7 @@ class EmployerJobPostController extends Controller
         }
         
         $jobPost = JobPost::create([
+            'employer_id' => Auth::guard('employer')->user()->id,
             'job_title' => $request->job_title,
             'main_functional_area_id' => $request->main_functional_area_id,
             'sub_functional_area_id' => $request->sub_functional_area_id,

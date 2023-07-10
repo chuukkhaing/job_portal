@@ -82,7 +82,7 @@ class SeekerLoginController extends Controller
             }
             Auth::guard('seeker')->login($seeker);
             if(Auth::guard('seeker')->user()) {
-                return redirect()->route('home')->with('success','Your account is activated.');
+                return redirect()->route('profile.index')->with('success','Your account is activated.');
             }
         }
     }

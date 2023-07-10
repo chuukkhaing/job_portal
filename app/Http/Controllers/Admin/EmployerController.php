@@ -50,6 +50,7 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
+        $logo = Null;
         if ($request->hasFile('logo')) {
             $file    = $request->file('logo');
             $logo = date('YmdHi').$file->getClientOriginalName();

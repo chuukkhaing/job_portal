@@ -237,6 +237,16 @@ body {
 }
 #seekerTab, #employerTab {
     border: 1px solid #95B6D8;
+    /* border-radius: 8px 8px 0 0; */
+    border-bottom: 0;
+}
+.seeker-dashboard-header {
+    background-image: url('../../img/seeker/Jobseeker-profile-bg-SVG.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 160px;
+    border: 1px solid #95B6D8;
     border-radius: 8px 8px 0 0;
     border-bottom: 0;
 }
@@ -449,3 +459,43 @@ a:hover {
 .industry_id .select2-container .select2-selection--single .select2-selection__rendered {
     padding-left: 8px;
 }
+#edit-profile-text {
+    background: #FFE0E5;
+    border-radius: 8px 8px 0 0;
+}
+.profile-status {
+    background: #0355D0;
+    border-radius: 0 0 8px 0;
+}
+.progress {
+    height: 0.5rem;
+    background: #95B6D8;
+}
+.progress-bar {
+    width: 0;
+    background: #FFFFFF;
+    border-radius: 0.25rem;
+    animation: progress 1.5s ease-in-out forwards;
+} 
+
+@keyframes progress {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+} 
+@keyframes show  {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.ex3 {
+    height: 110px;
+    overflow: auto;
+  }
+  

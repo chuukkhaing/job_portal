@@ -231,7 +231,7 @@
         });
 
         $("#seeker_profile_upload").change(function() {
-            var imgControlName = "#ProfilePreview";
+            var imgControlName = ".seeker-profile";
             readURL(this, imgControlName);
         });
 
@@ -248,7 +248,7 @@
         }
 
         $('.profile-remove').click(function() {
-            $('#ProfilePreview').attr('src', document.location.origin+'/img/undraw_profile_1.svg');
+            $('.seeker-profile').attr('src', document.location.origin+'/img/undraw_profile_1.svg');
             $('.profile-remove').addClass('d-none');
             $('#seeker_profile_upload').val('');
             $('#imageStatus').val('empty');

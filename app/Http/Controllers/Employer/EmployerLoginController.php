@@ -71,7 +71,7 @@ class EmployerLoginController extends Controller
             
             Auth::guard('employer')->login($employer);
             if(Auth::guard('employer')->user()) {
-                return redirect()->route('home')->with('success','Your account is activated.');
+                return redirect()->route('employer-profile.index')->with('success','Your account is activated.');
             }
         }
     }

@@ -24,7 +24,11 @@
                 <table class="table table-bordered">
                     <tr>
                         <td width="200px">Logo</td>
+                        @if($employer->logo)
                         <td><img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" alt="{{ $employer->name }}" class="img-fluid" width="200px"></td>
+                        @else
+                        <td>-</td>
+                        @endif
                     </tr>
                     
                     <tr>
@@ -37,19 +41,19 @@
                     </tr>
                     <tr>
                         <td width="200px">CEO</td>
-                        <td><strong>{{ $employer->ceo }}</strong></td>
+                        <td><strong>{{ $employer->ceo ?? '-' }}</strong></td>
                     </tr>
                     <tr>
                         <td width="200px">Industry</td>
-                        <td><strong>{{ $employer->Industry->name }}</strong></td>
+                        <td><strong>{{ $employer->Industry->name ?? '-' }}</strong></td>
                     </tr>
                     <tr>
                         <td width="200px">Ownership Type</td>
-                        <td><strong>{{ $employer->OwnershipType->name }}</strong></td>
+                        <td><strong>{{ $employer->OwnershipType->name ?? '-' }}</strong></td>
                     </tr>
                     <tr>
                         <td width="200px">Type of Employer</td>
-                        <td><strong>{{ $employer->type_of_employer }}</strong></td>
+                        <td><strong>{{ $employer->type_of_employer ?? '-' }}</strong></td>
                     </tr>
                     
                     <tr>
