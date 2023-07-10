@@ -82,10 +82,11 @@
     </div>
     <div class="row p-0">
         <div class="col-12 col-md-9">
-            <div class="px-5 m-0 pb-0 pt-5">
+            <div class="p-5 m-0">
                 <h5 style="color: #0355D0">Recommended Jobs</h5>
             </div>
             <div class="px-5 m-0 pb-0 ex3">
+                @if($jobPosts->count() >0)
                 @foreach($jobPosts as $jobPost)
                 <div class="m-0 mb-2 pb-0 seeker-job-list border rounded">
                     <div class="row">
@@ -96,7 +97,7 @@
                             <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                             @endif
                         </div>
-                        <div class="col-8">
+                        <div class="col-7">
                             <span class="jobpost-attr">{{ $jobPost->Employer->name }}</span>
                             <h5>{{ $jobPost->job_title }}</h5>
                             @if($jobPost->state_id)
@@ -117,7 +118,7 @@
                             @endif
                             @endif
                         </div>
-                        <div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3">
+                        <div class="col-3 d-flex align-items-end flex-column bd-highlight mb-3">
                             <div class="text-end px-3 p-2 bd-highlight job-post-fav"><i class="fa-regular fa-heart"></i></div>
                             <div class="mt-auto p-1 bd-highlight">
                             <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
@@ -126,6 +127,7 @@
                     </div>
                 </div>
                 @endforeach
+                @endif
             </div>
         </div>
         <div class="col-md-3 p-3 profile-status">
