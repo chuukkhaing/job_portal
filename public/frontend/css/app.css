@@ -495,7 +495,15 @@ a:hover {
     }
 }
 .ex3 {
-    height: 110px;
+    max-height: 765px;
     overflow: auto;
-  }
+}
+
+.jobpost-attr {
+    color: #696968;
+    font-size: 14px;
+}
+.job-post-fav {
+    color: #6494C6
+}
   

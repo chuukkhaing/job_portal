@@ -85,23 +85,45 @@
             <div class="px-5 m-0 pb-0 pt-5">
                 <h5 style="color: #0355D0">Recommended Jobs</h5>
             </div>
-            @foreach($jobPosts as $jobPost)
-            <div class="px-5 m-0 pb-0 seeker-job-list border rounded ex3">
-                <div class="row">
-                    <div class="col-2">
-                        @if($jobPost->Employer->logo)
-                        <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                        @else 
-                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                        @endif
-                    </div>
-                    <div class="col-10">
-                        <span>{{ $jobPost->Employer->name }}</span>
-                        <p>{{ $jobPost->job_title }}</p>
+            <div class="px-5 m-0 pb-0 ex3">
+                @foreach($jobPosts as $jobPost)
+                <div class="m-0 pb-0 seeker-job-list border rounded">
+                    <div class="row">
+                        <div class="col-2">
+                            @if($jobPost->Employer->logo)
+                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                            @else 
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                            @endif
+                        </div>
+                        <div class="col-8">
+                            <span class="jobpost-attr">{{ $jobPost->Employer->name }}</span>
+                            <h5>{{ $jobPost->job_title }}</h5>
+                            @if($jobPost->state_id)
+                            <span class="jobpost-attr">{{ $jobPost->State->name }} ,</span>
+                            @endif
+                            @if($jobPost->township_id)
+                            <span class="jobpost-attr">{{ $jobPost->Township->name }}</span>
+                            @endif
+                            @if($jobPost->country == 'Other') 
+                            <span class="jobpost-attr">Other Country</span>
+                            @endif
+                            @if($jobPost->salary_status)
+                            <p style="color: #181722">{{ $jobPost->salary_status }}</p>
+                            @elseif($jobPost->salary_range)
+                            <p style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
+                            @endif
+                        </div>
+                        <div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3">
+                            <div class="text-end px-3 p-2 bd-highlight job-post-fav"><i class="fa-regular fa-heart"></i></div>
+                            <div class="mt-auto p-2 bd-highlight">
+                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
         <div class="col-md-3 p-3 profile-status">
             <h5 class="text-white">Your Status</h5>
