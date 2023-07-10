@@ -109,7 +109,7 @@ class FunctionalAreaController extends Controller
             ]);
             if ($functional_area) {
                 Alert::success('Success', 'Delete Main Functional Area Successfully!');
-                return redirect()->route('functional-area.index');
+                return redirect()->route('main-functional-area.index');
             }
             else {
                 Alert::error('Failed', 'Main Functional Area deleted failed');
