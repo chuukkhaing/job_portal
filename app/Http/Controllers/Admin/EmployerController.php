@@ -224,7 +224,7 @@ class EmployerController extends Controller
             ]);
             if ($employer) {
                 Alert::success('Success', 'Delete Employer Successfully!');
-                return redirect()->route('functional-area.index');
+                return redirect()->route('employers.index');
             }
             else {
                 Alert::error('Failed', 'Employer deleted failed');
