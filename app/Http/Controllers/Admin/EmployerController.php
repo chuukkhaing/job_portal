@@ -215,7 +215,27 @@ class EmployerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employer = Employer::findOrFail($id);
+        
+        try {
+            $employer = Employer::findOrFail($id)->update([
+                'deleted_at' => now(),
+                'deleted_by' => Auth::user()->id
+            ]);
+            if ($employer) {
+                Alert::success('Success', 'Delete Employer Successfully!');
+                return redirect()->route('functional-area.index');
+            }
+            else {
+                Alert::error('Failed', 'Employer deleted failed');
+                return back();
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                Alert::error('Failed', 'Cannot delete this Employer');
+                return back();
+            } 
+        }
     }
 
     public function getTownship($id)
