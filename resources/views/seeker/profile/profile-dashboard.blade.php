@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-2 d-flex align-items-end flex-column bd-highlight mb-3">
                             <div class="text-end px-3 p-2 bd-highlight job-post-fav"><i class="fa-regular fa-heart"></i></div>
-                            <div class="mt-auto p-2 bd-highlight">
+                            <div class="mt-auto p-1 bd-highlight">
                             <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
                             </div>
                         </div>
