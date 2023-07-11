@@ -44,7 +44,7 @@
                     </div>
                     <div id="job-category-name">
                     <span id="job-category-name-title" class="d-block">{{ $industry->name }}</span>
-                    <span id="job-category-name-position">4 open positions</span>
+                    <span id="job-category-name-position">{{ $industry->JobPost->count() }} open positions</span>
                     </div>
                 </div>
             </div>

@@ -53,6 +53,15 @@
             </a>
         </div>
         @endforeach
+        <div class="row">
+            <div class="col pt-2">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                {{ $jobsApplyBySeeker->appends(request()->all())->links('pagination::bootstrap-4') }}
+                </ul>
+            </nav>
+            </div>
+        </div>
     </div>
 </div>
 @endif

@@ -29,6 +29,8 @@
         placeholder: 'Select Industry',
         allowClear: true
     });
+
+    $('.summernote').summernote();
     
 })(jQuery);
 

@@ -161,19 +161,19 @@
                 </div>
                 <div class="form-group mt-1 col-12">
                     <label for="job_description" class="seeker_label my-2">Job Description</label>
-                    <textarea name="job_description" id="job_description" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                    <textarea name="job_description" id="job_description" class="form-control seeker_input summernote" cols="30" rows="2"></textarea>
                 </div>
                 <div class="form-group mt-1 col-12">
                     <label for="benefit" class="seeker_label my-2">Job Benefitss</label>
-                    <textarea name="benefit" id="benefit" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                    <textarea name="benefit" id="benefit" class="form-control seeker_input summernote" cols="30" rows="2"></textarea>
                 </div>
                 <div class="form-group mt-1 col-12">
                     <label for="job_higlight" class="seeker_label my-2">Job Higlighted</label>
-                    <textarea name="job_higlight" id="job_higlight" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                    <textarea name="job_higlight" id="job_higlight" class="form-control seeker_input summernote" cols="30" rows="2"></textarea>
                 </div>
                 <div class="form-group mt-1 col-12">
                     <label for="requirement_and_skill" class="seeker_label my-2">Requirement and Skills</label>
-                    <textarea name="requirement_and_skill" id="requirement_and_skill" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                    <textarea name="requirement_and_skill" id="requirement_and_skill" class="form-control seeker_input summernote" cols="30" rows="2"></textarea>
                 </div>
                 <div class="col-12 mb-2 text-center">
                     <button type="submit" class="btn profile-save-btn">Post Job</button>
