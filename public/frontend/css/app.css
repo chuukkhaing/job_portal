@@ -537,3 +537,15 @@ a:hover {
 .jobpost-body p {
     color: #64646B;
 }
+.seeker-job-list {
+    border: 1px solid #B7CEE5;
+}
+.seeker-job-list:hover {
+    border-left: 5px solid #0355D0;
+    background: #EBF5FF;
+}
+
+.seeker-job-list.active{
+    border-left: 5px solid #0355D0;
+    background: #EBF5FF;
+}

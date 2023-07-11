@@ -91,7 +91,7 @@
                 @if($jobPosts->count() >0)
                 @foreach($jobPosts as $jobPost)
                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                    <div class="m-0 mb-2 pb-0 seeker-job-list border rounded">
+                    <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
                         <div class="row">
                             <div class="col-2">
                                 @if($jobPost->Employer->logo)

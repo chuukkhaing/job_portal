@@ -10,7 +10,7 @@ class JobPostDetailController extends Controller
     public function jobPostDetail($slug)
     {
         $jobpost = JobPost::whereSlug($slug)->first();
-        $jobposts = JobPost::whereIsActive(1)->get();
+        $jobposts = JobPost::whereIsActive(1)->where('id','!=', $jobpost->id)->get();
         return view ('frontend.jobpost.detail', compact('jobpost', 'jobposts'));
     }
 }
