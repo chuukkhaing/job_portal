@@ -30,7 +30,7 @@
                         <li>
                             <a class="dropdown-item" href="{{ route('profile.index') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                My Account
+                                My Profile
                             </a>
                         </li>
                         <li>
@@ -46,14 +46,20 @@
                 </div>
                 @elseauth('employer')
                 <div class="btn-group">
+                    @if(Auth::guard('employer')->user()->logo)
+                    <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('/storage/employer_logo/'.Auth::guard('employer')->user()->logo) }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
+                    </a>
+                    @else
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('img/profile.svg') }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
                     </a>
+                    @endif
                     <ul class="dropdown-menu profile-dropdown">
                         <li>
                             <a class="dropdown-item" href="{{ route('employer-profile.index') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                My Account
+                                My Profile
                             </a>
                         </li>
                         <li>

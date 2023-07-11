@@ -52,7 +52,8 @@ class SeekerProfileController extends Controller
         $references = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $cvs = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $jobPosts = JobPost::whereIsActive(1)->get();
-        return view ('seeker.profile.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts'));
+        $jobsApplyBySeeker = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        return view ('seeker.profile.dashboard', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts', 'jobsApplyBySeeker'));
     }
 
     public function getTownship($id)

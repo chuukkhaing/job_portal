@@ -27,11 +27,11 @@
                                 <span class="jobpost-attr">Other Country</span>
                                 @endif
                                 @if($jobpost->salary_status == 'Negotiable')
-                                <p style="color: #181722">Negotiate</p>
+                                <p class="p-0 m-0" style="color: #181722">Negotiate</p>
                                 @endif
                                 @if($jobpost->salary_status != 'Hide' && $jobpost->salary_status != 'Negotiable')
                                 @if($jobpost->salary_range)
-                                <p style="color: #181722">{{ $jobpost->salary_range }} {{ $jobpost->currency }}</p>
+                                <p class="p-0 m-0" style="color: #181722">{{ $jobpost->salary_range }} {{ $jobpost->currency }}</p>
                                 @endif
                                 @endif
                             </div>
@@ -69,11 +69,11 @@
                                 <span class="jobpost-attr">Other Country</span>
                                 @endif
                                 @if($jobPost_detail->salary_status == 'Negotiable')
-                                <p style="color: #181722">Negotiate</p>
+                                <p class="p-0 m-0" style="color: #181722">Negotiate</p>
                                 @endif
                                 @if($jobPost_detail->salary_status != 'Hide' && $jobPost_detail->salary_status != 'Negotiable')
                                 @if($jobPost_detail->salary_range)
-                                <p style="color: #181722">{{ $jobPost_detail->salary_range }} {{ $jobPost_detail->currency }}</p>
+                                <p class="p-0 m-0" style="color: #181722">{{ $jobPost_detail->salary_range }} {{ $jobPost_detail->currency }}</p>
                                 @endif
                                 @endif
                             </div>
@@ -107,16 +107,26 @@
                             <span class="jobpost-attr">Other Country</span>
                             @endif
                             @if($jobpost->salary_status == 'Negotiable')
-                            <p style="color: #181722">Negotiate</p>
+                            <p class="p-0 m-0" style="color: #181722">Negotiate</p>
                             @endif
                             @if($jobpost->salary_status != 'Hide' && $jobpost->salary_status != 'Negotiable')
                             @if($jobpost->salary_range)
-                            <p style="color: #181722">{{ $jobpost->salary_range }} {{ $jobpost->currency }}</p>
+                            <p class="p-0 m-0" style="color: #181722">{{ $jobpost->salary_range }} {{ $jobpost->currency }}</p>
                             @endif
                             @endif
                         </div>
                         <div class="col-5 text-end">
-                            <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="btn vertical-tab profile-save-btn apply-btn mb-2"><i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> Apply Job</a>
+                            @php
+                            $disabled = '';
+                            $btn_text = 'Apply Job';
+                            foreach(Auth::guard('seeker')->user()->JobApply as $seeker_job){
+                                if($seeker_job->job_post_id == $jobpost->id){
+                                    $disabled = 'disabled';
+                                    $btn_text = 'Applied';
+                                }
+                            }
+                            @endphp
+                            <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="{{ $disabled }} btn vertical-tab profile-save-btn apply-btn mb-2"><i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> {{ $btn_text }}</a>
                             <a href="" class="btn btn-save-job mb-2"><i class="fa-regular fa-heart"></i> Save Job</a>
                         </div>
                     </div>

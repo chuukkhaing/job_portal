@@ -11,6 +11,7 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\Package;
 use App\Models\Admin\FunctionalArea;
+use App\Models\Employer\JobPost;
 use Auth;
 
 class EmployerProfileController extends Controller
@@ -40,7 +41,8 @@ class EmployerProfileController extends Controller
         $packages = Package::whereNull('deleted_at')->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas'));
+        $jobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->get();
+        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts'));
     }
 
     /**

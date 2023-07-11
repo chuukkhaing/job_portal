@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Seeker\SeekerPercentage;
+use App\Models\Seeker\JobApply;
 
 class Seeker extends Authenticatable
 {
@@ -31,5 +32,10 @@ class Seeker extends Authenticatable
     function SeekerPercentage()
     {
         return $this->hasMany(SeekerPercentage::class, 'seeker_id', 'id');
+    }
+
+    function JobApply()
+    {
+        return $this->hasMany(JobApply::class, 'seeker_id', 'id');
     }
 }

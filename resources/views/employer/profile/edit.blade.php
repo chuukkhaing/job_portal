@@ -1,8 +1,8 @@
-<div class="container my-2" id="edit-profile-header">
+<div class="container" id="edit-profile-header">
     <form action="{{ route('employer-profile.update', $employer->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
             <div class="row">
-                <div class="coll-12 col-md-6">
+                <div class="col-12 col-md-6">
                     <h5>Employer Information</h5>
                     <span>Upload photos,profile information, social links and contact address details</span>
                 </div>

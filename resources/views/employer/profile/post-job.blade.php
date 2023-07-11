@@ -1,4 +1,4 @@
-<div class="container my-2" id="edit-profile-header">
+<div class="container" id="edit-profile-header">
     <form action="{{ route('employer-job-post.store') }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
         
@@ -175,7 +175,7 @@
                     <label for="requirement_and_skill" class="seeker_label my-2">Requirement and Skills</label>
                     <textarea name="requirement_and_skill" id="requirement_and_skill" class="form-control seeker_input" cols="30" rows="2"></textarea>
                 </div>
-                <div class="col-12 col-md-6 text-end">
+                <div class="col-12 mb-2 text-center">
                     <button type="submit" class="btn profile-save-btn">Post Job</button>
                 </div>
             </div>

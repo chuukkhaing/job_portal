@@ -113,11 +113,11 @@
                                 <span class="jobpost-attr">Other Country</span>
                                 @endif
                                 @if($jobPost->salary_status == 'Negotiable')
-                                <p style="color: #181722">Negotiate</p>
+                                <p class="p-0 m-0" style="color: #181722">Negotiate</p>
                                 @endif
                                 @if($jobPost->salary_status != 'Hide' && $jobPost->salary_status != 'Negotiable')
                                 @if($jobPost->salary_range)
-                                <p style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
+                                <p class="p-0 m-0" style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
                                 @endif
                                 @endif
                             </div>
