@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-4 my-5">
+        <div class="col-12 col-md-5 my-5">
             <div class="ex3">
                 <a href="{{ route('jobpost-detail', $jobpost->slug) }}">
                     <div class="m-0 mb-2 pb-0 seeker-job-list active rounded">
@@ -90,7 +90,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-12 col-md-8 my-5 ex3">
+        <div class="col-12 col-md-7 my-5 ex3">
             <div class="jobpost-header p-0 m-0">
                 <div class="p-3">
                     <div class="row">
@@ -119,6 +119,9 @@
                             @php
                             $disabled = '';
                             $btn_text = 'Apply Job';
+                            @endphp
+                            @auth('seeker')
+                            @php
                             foreach(Auth::guard('seeker')->user()->JobApply as $seeker_job){
                                 if($seeker_job->job_post_id == $jobpost->id){
                                     $disabled = 'disabled';
@@ -126,8 +129,15 @@
                                 }
                             }
                             @endphp
+                            @endauth
+                            @auth('seeker')
                             <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="{{ $disabled }} btn vertical-tab profile-save-btn apply-btn mb-2"><i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> {{ $btn_text }}</a>
                             <a href="" class="btn btn-save-job mb-2"><i class="fa-regular fa-heart"></i> Save Job</a>
+                            @elseauth('employer')
+                            @else
+                            <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="{{ $disabled }} btn vertical-tab profile-save-btn apply-btn mb-2"><i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> {{ $btn_text }}</a>
+                            <a href="" class="btn btn-save-job mb-2"><i class="fa-regular fa-heart"></i> Save Job</a>
+                            @endguest
                         </div>
                     </div>
                 </div>

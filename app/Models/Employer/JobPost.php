@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Employer;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
-
+use App\Models\Admin\Industry;
 
 class JobPost extends Model
 {
@@ -25,5 +25,9 @@ class JobPost extends Model
     function Township()
     {
         return $this->belongsTo(Township::class, 'township_id', 'id');
+    }
+    function Industry()
+    {
+        return $this->belongsTo(Industry::class, 'industry_id', 'id');
     }
 }
