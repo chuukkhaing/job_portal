@@ -518,3 +518,22 @@ a:hover {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	background-color: #1860AA;
 }
+.jobpost-header {
+    background: #EBF5FF;
+}
+.apply-btn {
+    border-radius: 50px;
+}
+.btn-save-job {
+    border-radius: 50px;
+    border: 1px solid #1860AA;
+    background-color: #ffffff;
+    color: #1860AA;
+}
+.jobpost-body h5 {
+    color: #46454E;
+    font-weight: 900 !important;
+}
+.jobpost-body p {
+    color: #64646B;
+}

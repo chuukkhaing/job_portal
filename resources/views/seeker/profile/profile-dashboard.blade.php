@@ -72,6 +72,7 @@
     </div>
 </div>
 <div class="container my-2" id="edit-profile-body">
+    @if(Auth::guard('seeker')->user()->percentage < 80)
     <div class="row px-0 py-3" id="edit-profile-text">
         <div class="col-12 col-md-9">
         <div>Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications. </div>
@@ -80,6 +81,7 @@
         <a href="#edit-profile-tab" class="btn vertical-tab profile-save-btn">Update Infinity Careers Profile</a>
         </div>
     </div>
+    @endif
     <div class="row p-0">
         <div class="col-12 col-md-9">
             <div class="p-5 m-0">
@@ -88,44 +90,46 @@
             <div class="px-5 m-0 pb-0 ex3">
                 @if($jobPosts->count() >0)
                 @foreach($jobPosts as $jobPost)
-                <div class="m-0 mb-2 pb-0 seeker-job-list border rounded">
-                    <div class="row">
-                        <div class="col-2">
-                            @if($jobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                            @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                            @endif
-                        </div>
-                        <div class="col-7">
-                            <span class="jobpost-attr">{{ $jobPost->Employer->name }}</span>
-                            <h5>{{ $jobPost->job_title }}</h5>
-                            @if($jobPost->state_id)
-                            <span class="jobpost-attr">{{ $jobPost->State->name }} ,</span>
-                            @endif
-                            @if($jobPost->township_id)
-                            <span class="jobpost-attr">{{ $jobPost->Township->name }}</span>
-                            @endif
-                            @if($jobPost->country == 'Other') 
-                            <span class="jobpost-attr">Other Country</span>
-                            @endif
-                            @if($jobPost->salary_status == 'Negotiable')
-                            <p style="color: #181722">Negotiate</p>
-                            @endif
-                            @if($jobPost->salary_status != 'Hide' && $jobPost->salary_status != 'Negotiable')
-                            @if($jobPost->salary_range)
-                            <p style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
-                            @endif
-                            @endif
-                        </div>
-                        <div class="col-3 d-flex align-items-end flex-column bd-highlight mb-3">
-                            <div class="text-end px-3 p-2 bd-highlight job-post-fav"><i class="fa-regular fa-heart"></i></div>
-                            <div class="mt-auto p-1 bd-highlight">
-                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                    <div class="m-0 mb-2 pb-0 seeker-job-list border rounded">
+                        <div class="row">
+                            <div class="col-2">
+                                @if($jobPost->Employer->logo)
+                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                                @else 
+                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                                @endif
+                            </div>
+                            <div class="col-7">
+                                <span class="jobpost-attr">{{ $jobPost->Employer->name }}</span>
+                                <h5>{{ $jobPost->job_title }}</h5>
+                                @if($jobPost->state_id)
+                                <span class="jobpost-attr">{{ $jobPost->State->name }} ,</span>
+                                @endif
+                                @if($jobPost->township_id)
+                                <span class="jobpost-attr">{{ $jobPost->Township->name }}</span>
+                                @endif
+                                @if($jobPost->country == 'Other') 
+                                <span class="jobpost-attr">Other Country</span>
+                                @endif
+                                @if($jobPost->salary_status == 'Negotiable')
+                                <p style="color: #181722">Negotiate</p>
+                                @endif
+                                @if($jobPost->salary_status != 'Hide' && $jobPost->salary_status != 'Negotiable')
+                                @if($jobPost->salary_range)
+                                <p style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
+                                @endif
+                                @endif
+                            </div>
+                            <div class="col-3 d-flex align-items-end flex-column bd-highlight mb-3">
+                                <div class="text-end px-3 p-2 bd-highlight job-post-fav"><i class="fa-regular fa-heart"></i></div>
+                                <div class="mt-auto p-1 bd-highlight">
+                                <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
                 @endforeach
                 @endif
             </div>

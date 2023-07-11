@@ -16,6 +16,7 @@ class CreateJobPostsTable extends Migration
         Schema::create('job_posts', function (Blueprint $table) {
             $table->id();
             $table->integer('employer_id')->nullable();
+            $table->string('slug')->nullable();
             $table->string('job_title');
             $table->integer('main_functional_area_id')->nullable();
             $table->integer('sub_functional_area_id')->nullable();

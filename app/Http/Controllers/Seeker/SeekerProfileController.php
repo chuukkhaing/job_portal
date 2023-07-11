@@ -19,6 +19,7 @@ use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
 use App\Models\Employer\JobPost;
+use App\Models\Seeker\JobApply;
 use Auth;
 use Hash;
 use Arr;
@@ -636,5 +637,21 @@ class SeekerProfileController extends Controller
             'status' => 'success',
             'msg' => 'Update successfully!',
         ]);
+    }
+
+    public function jobPostApply($id) 
+    {
+        $jobpost = JobPost::findOrFail($id);
+        if(Auth::guard('seeker')->user()->percentage < 80) {
+            return redirect()->route('profile.index');
+        }else{
+            $jobApply = JobApply::create([
+                'employer_id' => $jobpost->employer_id,
+                'job_post_id' => $id,
+                'seeker_id' => Auth::guard('seeker')->user()->id
+            ]);
+            return redirect()->back()->with('success', 'Job Apply Successfully!');
+        }
+
     }
 }

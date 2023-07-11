@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
 use Auth;
+use Str;
 
 class EmployerJobPostController extends Controller
 {
@@ -74,7 +75,10 @@ class EmployerJobPostController extends Controller
             'job_higlight' => $request->job_higlight,
             'requirement_and_skill' => $request->requirement_and_skill,
         ]);
-
+        $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
+        $jobPost->update([
+            'slug' => $slug
+        ]);
         return redirect()->back()->with('success','Create Job Post Successfully.');
     }
 

@@ -59,5 +59,7 @@ Route::group([], function(){
         Route::post('/seekerAttach/destory/{id}', [SeekerProfileController::class, 'seekerAttachDestory'])->name('seekerAttach.destroy');
 
         Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
+
+        Route::get('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
     });
 });
