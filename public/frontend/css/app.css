@@ -554,3 +554,13 @@ a.disabled {
     pointer-events: none;
     cursor: default;
 }
+.employer-image-text {
+    color: #46454E;
+    font-weight: 600 !important;
+}
+.employer-logo-upload {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+}

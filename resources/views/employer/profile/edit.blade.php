@@ -10,30 +10,46 @@
                     <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
                 </div>
             </div>
-            <div class="py-5">
+            <div class="py-3">
                 @csrf 
                 @method('put')
                 
                 <h5>Company Profile Photo</h5>
-                <div class="logo-upload form-group">
-                    <div class="logo-edit">
-                        <input type="file" class="form-control seeker_input" name="logo" id="imageUpload" accept="image/*" />
-                        <label class="seeker_label" for="imageUpload"></label>
-                    </div>
-                    <div class="logo-remove">
-                        <label class="seeker_label" for="imageRemove"></label>
-                    </div>
-                    <div class="logo-preview">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="py-3">
+                            <span class="employer-image-text">Company Logo</span>
+                        </div>
                         @if($employer->logo)
-                        <div id="imagePreview" style="background-image: url({{url('storage/employer_logo/'.$employer->logo)}});">
+                        <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="">
                         @else
-                        <div id="imagePreview" style="background-image: url(https://placehold.jp/150x150.png);">
+                        <img src="https://placehold.jp/150x150.png" alt="">
                         @endif
+                        <div class="py-3 text-center">
+                            <label for="imageUpload" style="color: #696968">Tap to Change</label>
+                            <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
+                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->logo) @else d-none @endif  profile-remove"><i class="fa-solid fa-xmark"></i></button>
+                            <input type="hidden" name="imageStatus" id="imageStatus" value="">
                         </div>
                     </div>
-                    <input type="hidden" name="imageRemove" value="" id="imageRemove">
+                    <div class="col-8">
+                        <div class="py-3">
+                            <span class="employer-image-text">Company Background Photo</span>
+                        </div>
+                        <div>
+                            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100" alt="">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="py-3">
+                            <span class="employer-image-text">Company QR</span>
+                        </div>
+                        <div>
+                            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100" alt="">
+                        </div>
+                    </div>
                 </div>
-                <h5>Company Profile Information</h5>
+                <h5 class="py-3">Company Profile Information</h5>
                 <div class="row">
                     <div class="col-6 form-group">
                         <label class="seeker_label" for="name">Company Name <span class="text-danger">*</span></label>
@@ -84,7 +100,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <h5>Company Detail Information</h5>
+                    <h5 class="py-3">Company Detail Information</h5>
                     <div class="form-group">
                         <label class="seeker_label" for="description"><strong>Description</strong></label>
                         <textarea class="summernote form-control" id="description" name="description">{!! $employer->description !!}</textarea>
@@ -134,7 +150,7 @@
                         <label class="seeker_label" for="phone"><strong>Phone</strong></label>
                         <input type="text" class="form-control seeker_input" name="phone" id="phone" placeholder="Enter Phone" value="{{ $employer->phone }}" />
                     </div>
-                    <h5>Company Social Link</h5>
+                    <h5 class="py-3">Company Social Link</h5>
                     <div class="col-6 form-group">
                         <label class="seeker_label" for="facebook"><strong>facebook</strong></label>
                         <input type="url" class="form-control seeker_input" name="facebook" id="facebook" placeholder="Enter Facebook" value="{{ $employer->facebook }}" />
@@ -161,7 +177,7 @@
                     </div>
 
                     
-                    <h5>Company Address Detail</h5>
+                    <h5 class="py-3">Company Address Detail</h5>
                     <div class="col-6 form-group">
                         <label class="seeker_label" for="state_id">Choose State </label>
                         <select name="state_id" id="state_id" class="form-control seeker_input select_2" style="width:100%">
@@ -209,3 +225,23 @@
         </div>
     </form>
 </div>
+@push('scripts')
+<script>
+    $('.employer-logo-upload').change(function() {
+        var employer_logo = '.employer-logo';
+        readURL(this, employer_logo);
+    });
+
+    function readURL(input, employer_logo) {
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $(employer_logo).attr('src', e.target.result);
+            // $('.profile-remove').removeClass('d-none');
+            // $('#imageStatus').val('');
+        };
+        reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+@endpush
