@@ -25,7 +25,9 @@ Route::group([], function(){
     Route::get('verify/{id}', [SeekerLoginController::class,'VerifyEmail'])->name('seeker-verify');
     Route::post('logout', [SeekerProfileController::class,'logout'])->name('seeker.logout');
     Route::post('login', [SeekerLoginController::class,'login'])->name('seeker-login');
-    
+    Route::get('forgot-password', [SeekerRegisterController::class, 'forgotPassword'])->name('seeker-forgot');
+    Route::post('forgot-password', [SeekerRegisterController::class, 'getEmail'])->name('seeker-forgot.post');
+
 	Route::group(['middleware' => 'auth:seeker'], function () {
         Route::resource('profile', SeekerProfileController::class);
         Route::get('/get-township/{id}', [SeekerProfileController::class, 'getTownship']);

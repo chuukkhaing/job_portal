@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Models\Seeker\Seeker;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\SeekerVerificationEmail;
+use App\Mail\SeekerResetPassword;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Carbon\Carbon;
 use App\Models\Admin\Industry;
@@ -73,5 +74,21 @@ class SeekerRegisterController extends Controller
 
             return redirect()->route('seeker-verify-notice', $seeker->id)->with('success','Successfully resend!Please check your email to activate your account.');
         }
+    }
+
+    public function forgotPassword()
+    {
+        return view ('frontend.forgot-password');
+    }
+
+    public function getEmail(Request $request)
+    {
+        $seeker = Seeker::whereEmail($request->email)->first();
+        if($seeker) {
+            \Mail::to($seeker->email)->send(new SeekerResetPassword($seeker));
+        }else {
+            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+        }
+        return view ('frontend.forgot-password');
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Admin\Employer;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\Industry;
+use App\Models\Seeker\JobApply;
 
 class JobPost extends Model
 {
@@ -29,5 +30,9 @@ class JobPost extends Model
     function Industry()
     {
         return $this->belongsTo(Industry::class, 'industry_id', 'id');
+    }
+    function JobApply()
+    {
+        return $this->hasMany(JobApply::class, 'job_post_id', 'id');
     }
 }

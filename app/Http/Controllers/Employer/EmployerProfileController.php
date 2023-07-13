@@ -42,7 +42,8 @@ class EmployerProfileController extends Controller
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
         $jobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->paginate(10);
-        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts'));
+        $jobApplicants = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->get();
+        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants'));
     }
 
     /**
