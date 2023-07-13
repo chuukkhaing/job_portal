@@ -100,7 +100,7 @@ class EmployerProfileController extends Controller
         $employer = Employer::findOrFail($id);
         $logo = $employer->logo;
 
-        if($request->imageRemove == 'empty') {
+        if($request->logoStatus == 'empty') {
             $logo = Null;
         }
 

@@ -28,11 +28,11 @@
                         <div class="py-3 text-center">
                             <label for="imageUpload" style="color: #696968">Tap to Change</label>
                             <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
-                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->logo) @else d-none @endif  profile-remove"><i class="fa-solid fa-xmark"></i></button>
-                            <input type="hidden" name="imageStatus" id="imageStatus" value="">
+                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
+                            <input type="hidden" name="logoStatus" id="logoStatus" value="">
                         </div>
                     </div>
-                    <div class="col-8">
+                    {{--<div class="col-8">
                         <div class="py-3">
                             <span class="employer-image-text">Company Background Photo</span>
                         </div>
@@ -47,7 +47,7 @@
                         <div>
                             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100" alt="">
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
                 <h5 class="py-3">Company Profile Information</h5>
                 <div class="row">
@@ -237,11 +237,18 @@
         var reader = new FileReader();
         reader.onload = function (e) {
             $(employer_logo).attr('src', e.target.result);
-            // $('.profile-remove').removeClass('d-none');
-            // $('#imageStatus').val('');
+            $('.employer-logo-remove').removeClass('d-none');
+            $('#logoStatus').val('');
         };
         reader.readAsDataURL(input.files[0]);
         }
     }
+
+    $('.employer-logo-remove').click(function() {
+        $('.employer-logo').attr('src', document.location.origin+'/img/undraw_profile_2.svg');
+        $('.employer-logo-remove').addClass('d-none');
+        $('.employer-logo-upload').val('');
+        $('#logoStatus').val('empty');
+    })
 </script>
 @endpush
