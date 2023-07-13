@@ -245,7 +245,7 @@
     }
 
     $('.employer-logo-remove').click(function() {
-        $('.employer-logo').attr('src', document.location.origin+'/img/undraw_profile_2.svg');
+        $('.employer-logo').attr('src', 'https://placehold.jp/150x150.png');
         $('.employer-logo-remove').addClass('d-none');
         $('.employer-logo-upload').val('');
         $('#logoStatus').val('empty');
