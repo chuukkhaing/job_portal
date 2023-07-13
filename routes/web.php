@@ -23,3 +23,5 @@ Route::get('/register-form', [SeekerRegisterController::class, 'frontendRegister
 Route::get('/login-form', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
 
 Route::get('/job-post/{slug}', [JobPostDetailController::class, 'jobPostDetail'])->name('jobpost-detail');
+
+Route::get('/job-categories', [HomeController::class, 'jobCategory'])->name('job-categories');

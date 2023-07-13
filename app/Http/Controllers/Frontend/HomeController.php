@@ -18,8 +18,14 @@ class HomeController extends Controller
         $jobPosts = JobPost::select('industry_id', DB::raw('count(*) as total'))
                  ->groupBy('industry_id')
                  ->orderBy('total')
-                 ->get();
+                 ->get()->take(8);
         $employers = Employer::whereNull('deleted_at')->whereNotNull('logo')->orderBy('updated_at','desc')->whereIsActive(1)->get()->take(6);
         return view ('frontend.home', compact('sliders', 'jobPosts', 'employers'));
+    }
+
+    public function jobCategory()
+    {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
+        return view ('frontend.all-categories', compact('industries'));
     }
 }

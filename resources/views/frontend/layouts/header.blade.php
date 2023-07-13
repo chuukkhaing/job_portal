@@ -11,7 +11,7 @@
             <div class="navbar-nav ms-auto py-0 d-flex align-items-center">
                 <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Find Jobs</a>
-                <a href="{{ route('home') }}" class="nav-item nav-link">Job Category</a>
+                <a href="{{ route('job-categories') }}" class="nav-item nav-link {{ Request::is('job-categories') ? 'active' : '' }}">Job Category</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Companies</a>
                 <a href="{{ route('home') }}" class="nav-item nav-link">Contact Us</a>
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
