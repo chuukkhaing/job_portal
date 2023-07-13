@@ -33,7 +33,7 @@
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
-            <span id="popular-job-category-sub-title">20 jobs live - 10 added today</span>
+            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
         </div>
         <div id="body-popular-job-category" class="row">
             @foreach($jobPosts as $jobPost)
@@ -44,7 +44,7 @@
                     </div>
                     <div id="job-category-name">
                     <span id="job-category-name-title" class="d-block">{{ $jobPost->Industry->name }}</span>
-                    <span id="job-category-name-position">{{ $jobPost->Industry->JobPost->count() }} open positions</span>
+                    <span id="job-category-name-position">{{ $jobPost->total }} open positions</span>
                     </div>
                 </div>
             </div>
