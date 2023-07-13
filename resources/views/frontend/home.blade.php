@@ -28,7 +28,7 @@
 <!-- Carousel End -->
 
 <!-- Popular Job Category Start  -->
-@if($industries->count() > 0)
+@if($jobPosts->count() > 0)
 <div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
@@ -36,15 +36,15 @@
             <span id="popular-job-category-sub-title">20 jobs live - 10 added today</span>
         </div>
         <div id="body-popular-job-category" class="row">
-            @foreach($industries as $industry)
+            @foreach($jobPosts as $jobPost)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <div id="job-category-box" class="text-center">
                     <div id="job-category-icon">
-                    <i class="{{ $industry->icon }}"></i>
+                    <i class="{{ $jobPost->Industry->icon }}"></i>
                     </div>
                     <div id="job-category-name">
-                    <span id="job-category-name-title" class="d-block">{{ $industry->name }}</span>
-                    <span id="job-category-name-position">{{ $industry->JobPost->count() }} open positions</span>
+                    <span id="job-category-name-title" class="d-block">{{ $jobPost->Industry->name }}</span>
+                    <span id="job-category-name-position">{{ $jobPost->Industry->JobPost->count() }} open positions</span>
                     </div>
                 </div>
             </div>

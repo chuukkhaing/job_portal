@@ -21,9 +21,9 @@
                             <span class="employer-image-text">Company Logo</span>
                         </div>
                         @if($employer->logo)
-                        <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="">
+                        <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="employer-logo">
                         @else
-                        <img src="https://placehold.jp/150x150.png" alt="">
+                        <img src="https://placehold.jp/150x150.png" class="img-responsive w-100 employer-logo" alt="employer-logo">
                         @endif
                         <div class="py-3 text-center">
                             <label for="imageUpload" style="color: #696968">Tap to Change</label>
