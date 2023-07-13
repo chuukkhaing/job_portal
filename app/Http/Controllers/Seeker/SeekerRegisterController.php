@@ -83,6 +83,9 @@ class SeekerRegisterController extends Controller
 
     public function getEmail(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|exists:seekers',
+        ]);
         $seeker = Seeker::whereEmail($request->email)->first();
         if($seeker) {
             \Mail::to($seeker->email)->send(new SeekerResetPassword($seeker));
