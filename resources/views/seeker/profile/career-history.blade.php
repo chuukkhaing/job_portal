@@ -508,7 +508,16 @@
                                 }
                             })
                             $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                            alert(response.msg)
+                            alert(response.msg);
+                            $("#exp_job_title").val('');
+                            $("#exp_company").val('');
+                            $("#exp_main_functional_area_id").val('');
+                            $("#exp_sub_functional_area_id").val('');
+                            $("#exp_career_level").val('');
+                            $("#exp_industry_id").val('');
+                            $("#exp_start_date").val('');
+                            $("#exp_end_date").val('');
+                            $("#exp_country").val('');
                         }
                     })
                 }

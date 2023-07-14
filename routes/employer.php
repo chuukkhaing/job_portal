@@ -33,5 +33,7 @@ Route::group([], function(){
         Route::get('/get-sub-functional-area/{id}', [EmployerProfileController::class, 'getSubFunctionalArea']);
         
         Route::resource('employer-job-post', EmployerJobPostController::class);
+
+        Route::get('get-jobpost/{id}', [EmployerJobPostController::class, 'getJobPost']);
     });
 });

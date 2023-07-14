@@ -232,7 +232,12 @@
                 if(response.status == 'success') {
                     $("#edu-table").removeClass('d-none');
                     $("#edu-table").append('<tr data-id="'+response.education.id+'"><td>'+response.education.degree+'</td><td>'+response.education.major_subject+'</td><td>'+response.education.location+'</td><td>'+response.education.from+'</td><td>'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.education.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg)
+                    alert(response.msg);
+                    $("#degree").val('');
+                    $("#major_subject").val('');
+                    $("#location").val('');
+                    $("#from").val('');
+                    $("#to").val('');
                 }
             })
         }

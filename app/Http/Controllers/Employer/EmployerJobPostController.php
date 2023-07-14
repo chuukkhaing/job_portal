@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
+use App\Models\Seeker\JobApply;
 use Auth;
 use Str;
 
@@ -125,5 +126,16 @@ class EmployerJobPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getJobPost($id)
+    {
+        $jobPost = JobPost::findOrFail($id);
+        $jobApply = JobApply::whereJobPostId($id)->get();
+        return response()->json([
+            'status' => 'success',
+            'jobPost' => $jobPost,
+            'jobApply' => $jobApply
+        ]);
     }
 }

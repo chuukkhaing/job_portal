@@ -126,8 +126,8 @@
                     </select>
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
-                    <label for="salary_status" class="seeker_label my-2">Salary Status <span class="text-danger">*</span></label>
-                    <select name="salary_status" id="salary_status" class="select_2 form-control seeker_input" style="width: 100%" required>
+                    <label for="salary_status" class="seeker_label my-2">Salary Status</label>
+                    <select name="salary_status" id="salary_status" class="select_2 form-control seeker_input" style="width: 100%">
                         <option value="">Choose...</option>
                         <option value="Hide">Hide</option>
                         <option value="Negotiable">Negotiable</option>

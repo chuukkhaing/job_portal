@@ -77,14 +77,14 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="gender" class="seeker_label my-2">Gender</label>
-                    <select name="gender" id="gender" class="form-control seeker_input">
+                    <select name="gender" id="gender" class="form-control seeker_input select_2" style="width: 100%">
                         <option value="Male" @if(Auth::guard('seeker')->user()->gender == "Male") selected @endif>Male</option>
                         <option value="Female" @if(Auth::guard('seeker')->user()->gender == "Female") selected @endif>Female</option>
                     </select>
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="marital_status" class="seeker_label my-2">Marital Status</label>
-                    <select name="marital_status" id="marital_status" class="form-control seeker_input">
+                    <select name="marital_status" id="marital_status" class="form-control seeker_input select_2" style="width: 100%">
                         <option value="Single" @if(Auth::guard('seeker')->user()->marital_status == "Single") selected @endif>Single</option>
                         <option value="Married" @if(Auth::guard('seeker')->user()->marital_status == "Married") selected @endif>Married</option>
                     </select>
@@ -93,7 +93,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="nationality" class="seeker_label my-2">Nationality <span class="text-danger">*</span></label>
-                    <select name="nationality" id="nationality" class="form-control seeker_input" required>
+                    <select name="nationality" id="nationality" class="form-control seeker_input select_2" style="width: 100%" required>
                         <option value="Myanmar" @if(Auth::guard('seeker')->user()->nationality == "Myanmar") selected @endif>Myanmar</option>
                         <option value="Other" @if(Auth::guard('seeker')->user()->nationality == "Other") selected @endif>Other</option>
                     </select>
@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                    <select name="country" id="country" class="form-control seeker_input" required>
+                    <select name="country" id="country" class="form-control seeker_input select_2" style="width: 100%" required>
                         <option value="Myanmar" @if(Auth::guard('seeker')->user()->country == "Myanmar") selected @endif>Myanmar</option>
                         <option value="Other" @if(Auth::guard('seeker')->user()->country == "Other") selected @endif>Other</option>
                     </select>
@@ -126,7 +126,7 @@
                 </div>
             
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="township_id_field">
-                    <label for="township_id" class="seeker_label my-2">City <span class="text-danger">*</span></label><br>
+                    <label for="township_id" class="seeker_label my-2">City/ Township <span class="text-danger">*</span></label><br>
                     <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
                         <option value="">Choose...</option>
                         @foreach($townships as $township)
@@ -134,13 +134,13 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group mt-1 col-12">
+                <div class="form-group mt-1 col-6">
                     <label for="address_detail" class="seeker_label my-2">Address Detail</label>
                     <textarea name="address_detail" id="address_detail" class="form-control seeker_input" cols="30" rows="2">{{ Auth::guard('seeker')->user()->address_detail }}</textarea>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group mt-1 col-12">
+                <div class="form-group mt-1 col-6">
                     <label for="summary" class="seeker_label my-2">Summary</label>
                     <textarea name="summary" id="summary" class="form-control seeker_input" cols="30" rows="2">{{ Auth::guard('seeker')->user()->summary }}</textarea>
                 </div>
