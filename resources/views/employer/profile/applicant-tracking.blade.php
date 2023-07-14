@@ -5,20 +5,20 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Job Name</th>
-                        <th>Views</th>
+                        <th>Job Title</th>
+                        
                         <th># Apps</th>
-                        <th>CV Views</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($jobApplicants as $key => $jobApplicant)
                     <tr>
                         <td>{{ $key+1 }}</td>
-                        <td>{{ $jobApplicant->job_title }}</td>
-                        <td></td>
-                        <td>{{ $jobApplicant->JobApply->count() }}</td>
-                        <td></td>
+                        <td><a href="{{ route('jobpost-detail', $jobApplicant->slug) }}">{{ $jobApplicant->job_title }}</a></td>
+                        
+                        <td><a href="">{{ $jobApplicant->JobApply->count() }} CVs</a></td>
+                        
                     </tr>
                     @endforeach
                 </tbody>
@@ -26,3 +26,8 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+    
+</script>
+@endpush

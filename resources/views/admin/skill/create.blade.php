@@ -20,12 +20,8 @@
             
         </div>
         <div class="card-body">
-            <form action="{{ route('skill.store') }}" method="post">
+            <form action="{{ route('skill.store') }}" method="post" enctype="multipart/form-data">
                 @csrf 
-                <div class="form-group">
-                    <label for="name">Skill Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter skill name" required value="{{ old('name') }}">
-                </div>
                 <div class="form-group">
                     <label for="main_functional_area_id">Choose Main Functional Area <span class="text-danger">*</span></label>
                     <select name="main_functional_area_id" id="main_functional_area_id" class="select_2 form-control" required>
@@ -34,6 +30,11 @@
                         <option value="{{ $functional_area->id }}">{{ $functional_area->name }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="skill_excel">Import Skill Excel</label><br>
+                    <a href="{{url('/assets/sample/skill_simple_data_import_format.xlsx')}}" class="btn btn-info btn-sm mb-2"> <i class="fas fa-download"></i> Download Simple Excel Template </a>
+                    <input type="file" name="skill_excel" id="skill_excel" class="form-control" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                 </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>

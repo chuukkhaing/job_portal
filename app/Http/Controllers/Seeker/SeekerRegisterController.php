@@ -88,6 +88,9 @@ class SeekerRegisterController extends Controller
         ]);
         $seeker = Seeker::whereEmail($request->email)->first();
         if($seeker) {
+            $seeker_update = $seeker->update([
+                'email_verification_token' => Str::random(32)
+            ]);
             \Mail::to($seeker->email)->send(new SeekerResetPassword($seeker));
         }else {
             return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");

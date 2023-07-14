@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Admin\Skill;
+use App\Imports\SkillImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Alert;
 use Auth;
 
@@ -41,13 +43,8 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        $skill = Skill::create([
-            'name' => $request->name,
-            'main_functional_area_id' => $request->main_functional_area_id,
-            'is_active' => $request->is_active,
-            'created_by' => Auth::user()->id,
-        ]);
-
+        Excel::import(new SkillImport($request->main_functional_area_id, $request->is_active), request()->file('skill_excel'));
+        
         Alert::success('Success', 'New Skill Created Successfully!');
         return redirect()->route('skill.index');
     }
