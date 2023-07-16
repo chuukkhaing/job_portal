@@ -174,7 +174,7 @@
                         <div class="mb-4">
                             <h5>Language</h5>
                             <hr>
-                            <div class="app_receive_lang"></div>
+                            <div class="app_receive_lang"></div><hr>
                         </div>
                         <div class="mb-4">
                             <h5>Reference</h5>
@@ -274,7 +274,7 @@
                     }
                     if(response.languages) {
                         $(response.languages).each(function(lang_index, lang_value){
-                            $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div><hr>')
+                            $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
                         })
                     }
                     if(response.references) {
