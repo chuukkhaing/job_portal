@@ -17,7 +17,13 @@
                         <td>{{ $key+1 }}</td>
                         <td><a href="{{ route('jobpost-detail', $jobApplicant->slug) }}">{{ $jobApplicant->job_title }}</a></td>
                         
-                        <td><a href="#" onclick="getCVList({{$jobApplicant->id}})">{{ $jobApplicant->JobApply->count() }} CVs</a></td>
+                        <td>
+                            @if($jobApplicant->JobApply->count() > 0)
+                            <a href="#" onclick="getCVList({{$jobApplicant->id}})">{{ $jobApplicant->JobApply->count() }} CVs</a>
+                            @else 
+                            {{ $jobApplicant->JobApply->count() }} CVs
+                            @endif
+                        </td>
                         
                     </tr>
                     @endforeach
@@ -31,22 +37,22 @@
                     <div class="my-4">
                         <ul class="cv-item p-0">
                             <li class="cv-status active">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( <span id="receive-cv-length"></span> )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( <span id="receive-cv-length">0</span> )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Viewed Application ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Viewed Application ( 0 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Shorted Listed ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Shorted Listed ( 0 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Interview ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Interview ( 0 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Hire ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Hire ( 0 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Not Suitable ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Not Suitable ( 0 )</span>
                             </li>
                         </ul>
                     </div>
