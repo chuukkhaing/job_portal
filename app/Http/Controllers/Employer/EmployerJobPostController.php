@@ -8,6 +8,7 @@ use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
 use Auth;
 use Str;
+use DB;
 
 class EmployerJobPostController extends Controller
 {
@@ -131,7 +132,12 @@ class EmployerJobPostController extends Controller
     public function getJobPost($id)
     {
         $jobPost = JobPost::findOrFail($id);
-        $jobApply = JobApply::whereJobPostId($id)->get();
+        // $jobApply = JobApply::whereJobPostId($id)->get();
+        $jobApply = DB::table('job_applies as a')
+                    ->join('seekers as b', 'a.seeker_id', '=','b.id')
+                    ->select('a.*','b.first_name', 'b.last_name', 'b.updated_at as applied_date')
+                    ->get();
+        // dd($jobApply);
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,

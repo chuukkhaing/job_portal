@@ -34,21 +34,36 @@
                                 <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( <span id="receive-cv-length"></span> )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Viewed Application ( 150 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Shorted Listed ( 150 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Interview ( 150 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Hire ( 150 )</span>
                             </li>
                             <li class="cv-status">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( 150 )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Not Suitable ( 150 )</span>
                             </li>
                         </ul>
+                    </div>
+                    <div class="my-4">
+                        <div class="table-responsive">
+                            <table class="table border-0 applicant-receive-table">
+                                <thead>
+                                    <tr>
+                                        <th>Candidate Name</th>
+                                        <th>Applied Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
                 <div class="col-9" style="background: white">
@@ -58,10 +73,15 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>
 @push('scripts')
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>   
+   
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
 <script>
     function getCVList(id) {
         $(".employer-single-tab").removeClass('active');
@@ -83,7 +103,13 @@
         }).done(function(response){
             if(response.status == 'success') {
                 $("#receive-cv-length").text(response.jobApply.length);
-                
+                $(response.jobApply).each(function(index,value) {
+                    var active = '';
+                    if(index == 0) {
+                        active = 'active'
+                    }
+                    $(".applicant-receive-table").append('<tr><td class="'+active+'">'+value.first_name+' '+value.last_name+'</td><td class="text-end">'+moment(value.applied_date).format("DD/MM/YYYY")+'</td></tr>')
+                })
             }
         })
     }

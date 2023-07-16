@@ -110,7 +110,14 @@
             <span>Sliders</span>
         </a>
     </li>
-
+    
+    <!-- Nav Item - Feedback Menu -->
+    <li class="nav-item {{ Request::is('admin/feedback*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('feedback.index') }}">
+            <i class="fas fa-comments"></i>
+            <span>Seeker/Employer Contact</span>
+        </a>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

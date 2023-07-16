@@ -37,6 +37,17 @@ body {
     font-weight: 400;
 }
 
+.hr-speech a {
+    color: #fff;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
+    padding: 4px 9px;
+}
+
 .hr-name {
     color: #46454E;
     font-weight: 600;
@@ -49,6 +60,33 @@ body {
 
 .register-box {
     border-radius: 16px;
+}
+
+.contact-box {
+    border-radius: 16px 0 0 16px;
+    background: #0355D0;
+    color: #fff;
+}
+
+.contact-form-box {
+    border-radius: 0 16px 16px 0;
+    border: 1px solid #88C3FF;
+}
+
+.contact-form-header h2 {
+    color: #0355D0;
+}
+
+.contact-header h2 {
+    color: #fff;
+}
+
+.contact-icon {
+    background: #42A1FF;
+    border-radius: 8px;
+    color: #fff;
+    padding: 12px 15px;
+    font-size: 16px;
 }
 
 .register-btn .nav-link {
@@ -576,4 +614,13 @@ a.disabled {
     color: #0355D0;
     border-radius: 5px;
     font-weight: 600;
+}
+.applicant-receive-table {
+    font-size: 13px;
+}
+.applicant-receive-table thead {
+    background: #E8E8E9;
+}
+.applicant-receive-table .active {
+    color: #0355D0;
 }

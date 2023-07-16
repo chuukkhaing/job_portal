@@ -49,7 +49,7 @@
                         </div>
                         <div class="form-group mt-1 col-12 col-md-6">
                             <label for="skill_id" class="seeker_label my-2">Skill Name <span class="text-danger">*</span></label><br>
-                            <select name="skill_id[]" id="skill_id" class="form-control seeker_input select_2" width="100%" multiple>
+                            <select name="skill_id[]" id="skill_id" class="form-control seeker_input select_2" style="width:100%" multiple>
                                 <option value="">Choose...</option>
                                 
                             </select><br>
@@ -144,6 +144,9 @@
                         $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+function_name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill_name_org+'</td><td><a onclick="deleteSkill('+skill.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     })
                     alert(response.msg)
+                    $("#skill_main_functional_area_id").val('');
+                    $('#skill_id').val("");
+                    $("#skill_id").trigger("change");
                 }
             })
         }

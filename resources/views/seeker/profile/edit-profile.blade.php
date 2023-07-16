@@ -196,7 +196,7 @@
                     </select>
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
-                    <label for="preferred_salary" class="seeker_label my-2">Preferred Salary<span class="text-danger">*</span></label>
+                    <label for="preferred_salary" class="seeker_label my-2">Preferred Salary (MMK)<span class="text-danger">*</span></label>
                     <input type="number" name="preferred_salary" id="preferred_salary" class="form-control seeker_input" required placeholder="Preferred Salary - MMK" value="{{ (Auth::guard('seeker')->user()->preferred_salary) }}">
                 </div>
             </div>

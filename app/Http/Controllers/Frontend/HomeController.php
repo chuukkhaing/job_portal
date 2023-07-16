@@ -8,6 +8,8 @@ use App\Models\Admin\Slider;
 use App\Models\Admin\Industry;
 use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
+use App\Models\Admin\FeedBack;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use DB;
 
 class HomeController extends Controller
@@ -31,5 +33,28 @@ class HomeController extends Controller
         $live_job = JobPost::whereIsActive(1)->count();
         $today_job = JobPost::whereIsActive(1)->where('updated_at',date('Y-m-d', strtotime(now())))->count();
         return view ('frontend.all-categories', compact('industries', 'live_job', 'today_job'));
+    }
+
+    public function contactUs()
+    {
+        return view ('frontend.contact');
+    }
+
+    public function contactUsCreate(Request $request)
+    {
+        $request->validate([
+            'phone' => ['nullable', new MyanmarPhone],
+        ]);
+
+        $feedback = FeedBack::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'description' => $request->description
+        ]);
+
+        if($feedback) {
+            return redirect()->back()->with('success','Thank you for your interesting.');
+        }
     }
 }

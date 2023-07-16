@@ -1,7 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-
 <!-- Popular Job Category Start  -->
 @if($industries->count() > 0)
 <div class="container">

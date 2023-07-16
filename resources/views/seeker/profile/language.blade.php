@@ -162,7 +162,9 @@
                 if(response.seeker_languages_count == 0) {
                     $("#language-table").addClass('d-none');
                 }
-                alert(response.msg)
+                alert(response.msg);
+                $("#language_name").val('');
+                $("#language_level").val('');
             }
         })
     }

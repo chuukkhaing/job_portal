@@ -67,9 +67,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="is_experienct" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label>
-                            <select name="is_experienct" id="is_experience" class="form-control seeker_input">
-                                <option value="1">Experience</option>
+                            <label for="is_experienct" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
+                            <select name="is_experienct" id="is_experience" class="seeker_input" style="width: 100%">
+                                <option value="1" selected>Experience</option>
                                 <option value="0">No Experience</option>
                             </select>
                         </div>
@@ -134,9 +134,9 @@
                     <div class="row no-experience">
                         
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                            <select name="exp_country" id="exp_country" class="form-control seeker_input" >
-                                <option value="Myanmar" >Myanmar</option>
+                            <label for="exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label><br>
+                            <select name="exp_country" id="exp_country" class="seeker_input" style="width: 100%">
+                                <option value="Myanmar" selected>Myanmar</option>
                                 <option value="Other" >Other</option>
                             </select>
                             <span class="text-danger exp_country-error"></span>
@@ -190,8 +190,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="edit_is_experience" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label>
-                            <select name="edit_is_experience" id="edit_is_experience" class="form-control seeker_input">
+                            <label for="edit_is_experience" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
+                            <select name="edit_is_experience" id="edit_is_experience" class="seeker_input" style="width: 100%">
                                 <option value="1">Experience</option>
                                 <option value="0">No Experience</option>
                             </select>
@@ -257,8 +257,8 @@
                     <div class="row no-experience">
                         
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="edit_exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                            <select name="edit_exp_country" id="edit_exp_country" class="form-control seeker_input" >
+                            <label for="edit_exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label><br>
+                            <select name="edit_exp_country" id="edit_exp_country" class="seeker_input" style="width: 100%">
                                 <option value="Myanmar" >Myanmar</option>
                                 <option value="Other" >Other</option>
                             </select>
@@ -414,7 +414,17 @@
                     $("#exp-tbody").html('');
                     $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#add_career_history").addClass('d-none');
-                    alert(response.msg)
+                    alert(response.msg);
+                    $("#is_experience").val(1);
+                    $("#exp_job_title").val('');
+                    $("#exp_company").val('');
+                    $("#exp_main_functional_area_id").val('');
+                    $("#exp_sub_functional_area_id").val('');
+                    $("#exp_career_level").val('');
+                    $("#exp_industry_id").val('');
+                    $("#exp_start_date").val('');
+                    $("#exp_end_date").val('');
+                    $("#exp_country").val('Myanmar');
                 }
             })
         }else {
@@ -509,6 +519,7 @@
                             })
                             $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg);
+                            $("#is_experience").val(1);
                             $("#exp_job_title").val('');
                             $("#exp_company").val('');
                             $("#exp_main_functional_area_id").val('');
@@ -517,7 +528,7 @@
                             $("#exp_industry_id").val('');
                             $("#exp_start_date").val('');
                             $("#exp_end_date").val('');
-                            $("#exp_country").val('');
+                            $("#exp_country").val('Myanmar');
                         }
                     })
                 }
@@ -573,6 +584,16 @@
                             })
                             $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg)
+                            $("#is_experience").val(1);
+                            $("#exp_job_title").val('');
+                            $("#exp_company").val('');
+                            $("#exp_main_functional_area_id").val('');
+                            $("#exp_sub_functional_area_id").val('');
+                            $("#exp_career_level").val('');
+                            $("#exp_industry_id").val('');
+                            $("#exp_start_date").val('');
+                            $("#exp_end_date").val('');
+                            $("#exp_country").val('Myanmar');
                         }
                     })
                 }

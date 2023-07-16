@@ -171,7 +171,11 @@
                 if(response.status == 'success') {
                     $('#reference-table').removeClass('d-none');
                     $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteReference('+response.reference.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg)
+                    alert(response.msg);
+                    $("#ref_name").val('');
+                    $("#ref_position").val('');
+                    $("#ref_company").val('');
+                    $("#ref_contact").val('');
                 }
             })
         }
