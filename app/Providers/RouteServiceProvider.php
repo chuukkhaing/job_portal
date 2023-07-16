@@ -55,7 +55,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('seeker')
                 ->namespace($this->namespace)
                 ->middleware('web')
-                ->group(base_path('routes/seeker_route.php'));
+                ->group(base_path('routes/seeker.php'));
             Route::prefix('employer')
                 ->namespace($this->namespace)
                 ->middleware('web')
