@@ -227,8 +227,13 @@
                         $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }
                     $('.app_receive_pic').attr('src',document.location.origin+'/storage/seeker/profile/'+response.seeker.id+'/'+response.seeker.image);
-                    $("#app_receive_address").text(response.seeker.address_detail);
-                    $("#app_receive_phone").text(response.seeker.phone);
+                    if(response.seeker.address_detail) {
+                        $("#app_receive_address").text(response.seeker.address_detail);
+                    }
+                    if(response.seeker.phone) {
+                        $("#app_receive_phone").text(response.seeker.phone);
+                    }
+                    
                     $("#app_receive_email").text(response.seeker.email);
                     $(".app_receive_dob").text(moment(response.seeker.date_of_birth).format("DD/MM/YYYY"));
                     if(response.seeker.nrc) {
