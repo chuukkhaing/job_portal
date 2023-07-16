@@ -76,8 +76,8 @@
             </div>
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
-                    <label for="gender" class="seeker_label my-2">Gender</label>
-                    <select name="gender" id="gender" class="form-control seeker_input select_2" style="width: 100%">
+                    <label for="gender" class="seeker_label my-2">Gender  <span class="text-danger">*</span></label>
+                    <select name="gender" id="gender" class="form-control seeker_input select_2" required style="width: 100%">
                         <option value="Male" @if(Auth::guard('seeker')->user()->gender == "Male") selected @endif>Male</option>
                         <option value="Female" @if(Auth::guard('seeker')->user()->gender == "Female") selected @endif>Female</option>
                     </select>

@@ -6,6 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
+use App\models\Seeker\Seeker;
+use App\models\Seeker\SeekerEducation;
+use App\models\Seeker\SeekerExperience;
+use App\models\Seeker\SeekerSkill;
+use App\models\Seeker\SeekerLanguage;
+use App\models\Seeker\SeekerReference;
 use Auth;
 use Str;
 use DB;
@@ -132,16 +138,39 @@ class EmployerJobPostController extends Controller
     public function getJobPost($id)
     {
         $jobPost = JobPost::findOrFail($id);
-        // $jobApply = JobApply::whereJobPostId($id)->get();
-        $jobApply = DB::table('job_applies as a')
-                    ->join('seekers as b', 'a.seeker_id', '=','b.id')
-                    ->select('a.*','b.first_name', 'b.last_name', 'b.updated_at as applied_date')
+        $jobApply = JobApply::whereJobPostId($id)->get();
+        $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
+        $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
+        $experiences = DB::table('seeker_experiences as a')
+                        ->join('industries as b','a.industry_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                        ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                        ->get();
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        $skills = DB::table('seeker_skills as a')
+                    ->join('skills as b','a.skill_id','=','b.id')
+                    ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                    ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
                     ->get();
-        // dd($jobApply);
+        $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+        $references = SeekerReference::whereSeekerId($seeker->id)->get();
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
-            'jobApply' => $jobApply
+            'jobApply' => $jobApply,
+            'seeker' => $seeker,
+            'educations' => $educations,
+            'experiences' => $experiences,
+            'skills' => $skills,
+            'skill_main_functional_areas' => $skill_main_functional_areas,
+            'languages' => $languages,
+            'references' => $references
         ]);
     }
 }

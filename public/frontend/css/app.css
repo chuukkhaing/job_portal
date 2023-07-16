@@ -77,6 +77,10 @@ body {
     color: #0355D0;
 }
 
+.bg-yellow {
+    background: yellow;
+}
+
 .contact-header h2 {
     color: #fff;
 }
