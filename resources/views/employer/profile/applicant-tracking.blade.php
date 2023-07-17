@@ -228,18 +228,23 @@
             if(response.status == 'success') {
                 $("#receive-cv-length").text(response.jobApply.length);
                 $("#receive-job-title").text(response.jobPost.job_title);
+                $(".applicant-receive-table-tr").empty();
                 $(response.jobApply).each(function(index,value) {
                     var active = '';
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
                     }
-                    $(".applicant-receive-table").append('<tr><td class="'+active+'">'+response.seeker.first_name+' '+response.seeker.last_name+'</td><td class="text-end">'+moment(value.applied_date).format("DD/MM/YYYY")+'</td></tr>');
+                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
                     if(response.seeker.gender == 'Female') {
                         $(".app_receive_name").text('Ms.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }else {
                         $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }
-                    $('.app_receive_pic').attr('src',document.location.origin+'/storage/seeker/profile/'+response.seeker.id+'/'+response.seeker.image);
+                    if(response.seeker.image){
+                        $('.app_receive_pic').attr('src',document.location.origin+'/storage/seeker/profile/'+response.seeker.id+'/'+response.seeker.image);
+                    }else {
+                        $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
+                    }
                     if(response.seeker.address_detail) {
                         $("#app_receive_address").text(response.seeker.address_detail);
                     }
@@ -262,11 +267,13 @@
                         $(".app_receive_career_des").text(response.seeker.summary)
                     }
                     if(response.educations) {
+                        $('.app_receive_education').empty();
                         $(response.educations).each(function(edu_index, edu_value){
                             $('.app_receive_education').append('<div class="my-3"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div><hr>')
                         })
                     }
                     if(response.experiences) {
+                        $('.app_receive_experience').empty();
                         $(response.experiences).each(function(exp_index, exp_value) {
                             if(exp_value.is_experience == 0) {
                                 $('.app_receive_experience').append('<div class="my-3">No Experience</div>')
@@ -276,6 +283,7 @@
                         })
                     }
                     if(response.skill_main_functional_areas) {
+                        $(".app_receive_skill").empty();
                         $(response.skill_main_functional_areas).each(function(skill_function_index, skill_function_value) {
                             $(".app_receive_skill").append('<h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul><hr>')
                             $(response.skills).each(function(skill_index, skill_value) {
@@ -286,11 +294,105 @@
                         })
                     }
                     if(response.languages) {
+                        $('.app_receive_lang').empty();
                         $(response.languages).each(function(lang_index, lang_value){
                             $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
                         })
                     }
                     if(response.references) {
+                        $(response.references).empty();
+                        $(response.references).each(function(ref_index, ref_value){
+                            $('.app_receive_ref').append('<div class="my-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div><hr>')
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    function getRelatedApplicantInfo(id, jobPostId)
+    {
+        $.ajax({
+            type: 'GET',
+            url: 'get-jobpost-info/'+id+'/'+jobPostId,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $("#receive-cv-length").text(response.jobApply.length);
+                $("#receive-job-title").text(response.jobPost.job_title);
+                $(".applicant-receive-table-tr").empty();
+                $(response.jobApply).each(function(index,value) {
+                    var active = '';
+                    if(value.seeker_id == response.seeker.id) {
+                        active = 'active'
+                    }
+                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
+                    if(response.seeker.gender == 'Female') {
+                        $(".app_receive_name").text('Ms.'+response.seeker.first_name+' '+response.seeker.last_name);
+                    }else {
+                        $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
+                    }
+                    if(response.seeker.image){
+                        $('.app_receive_pic').attr('src',document.location.origin+'/storage/seeker/profile/'+response.seeker.id+'/'+response.seeker.image);
+                    }else {
+                        $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
+                    }
+                    
+                    if(response.seeker.address_detail) {
+                        $("#app_receive_address").text(response.seeker.address_detail);
+                    }
+                    if(response.seeker.phone) {
+                        $("#app_receive_phone").text(response.seeker.phone);
+                    }
+                    
+                    $("#app_receive_email").text(response.seeker.email);
+                    $(".app_receive_dob").text(moment(response.seeker.date_of_birth).format("DD/MM/YYYY"));
+                    if(response.seeker.nrc) {
+                        $(".app_receive_nrc").text(response.seeker.nrc);
+                    }else {
+                        $(".app_receive_nrc").text(response.seeker.id_card);
+                    }
+                    $(".app_receive_nationality").text(response.seeker.nationality);
+                    $(".app_receive_gender").text(response.seeker.gender);
+                    $(".app_receive_marital_status").text(response.seeker.marital_status);
+                    $(".app_receive_expected_salary").text((Number(response.seeker.preferred_salary)).toLocaleString()+' MMK');
+                    if(response.seeker.summary) {
+                        $(".app_receive_career_des").text(response.seeker.summary)
+                    }
+                    if(response.educations) {
+                        $('.app_receive_education').empty();
+                        $(response.educations).each(function(edu_index, edu_value){
+                            $('.app_receive_education').append('<div class="my-3"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div><hr>')
+                        })
+                    }
+                    if(response.experiences) {
+                        $('.app_receive_experience').empty();
+                        $(response.experiences).each(function(exp_index, exp_value) {
+                            if(exp_value.is_experience == 0) {
+                                $('.app_receive_experience').append('<div class="my-3">No Experience</div>')
+                            }else {
+                                $('.app_receive_experience').append('<div class="my-3"><p>'+exp_value.job_title+'<span class="bg-yellow"> (Position Title)</span></p><p>'+exp_value.company+'<span class="bg-yellow"> (Company)</span></p><p>'+exp_value.industry_name+'<span class="bg-yellow"> (Industry)</span></p><p>'+exp_value.main_functional_area_name+' - '+exp_value.sub_functional_area_name+'<span class="bg-yellow"> (Job Function)</span></p><p>'+exp_value.country+'<span class="bg-yellow"> (Country)</span></p></div><hr>')
+                            }
+                        })
+                    }
+                    if(response.skill_main_functional_areas) {
+                        $(".app_receive_skill").empty();
+                        $(response.skill_main_functional_areas).each(function(skill_function_index, skill_function_value) {
+                            $(".app_receive_skill").append('<h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul><hr>')
+                            $(response.skills).each(function(skill_index, skill_value) {
+                                if(skill_function_value.main_functional_area_id == skill_value.main_functional_area_id) {
+                                    $('#skill_'+skill_value.main_functional_area_id).append('<li>'+skill_value.skill_name+'</li>')
+                                }
+                            })
+                        })
+                    }
+                    if(response.languages) {
+                        $('.app_receive_lang').empty();
+                        $(response.languages).each(function(lang_index, lang_value){
+                            $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
+                        })
+                    }
+                    if(response.references) {
+                        $('.app_receive_ref').empty();
                         $(response.references).each(function(ref_index, ref_value){
                             $('.app_receive_ref').append('<div class="my-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div><hr>')
                         })

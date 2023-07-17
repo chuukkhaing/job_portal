@@ -643,3 +643,6 @@ a.disabled {
 .app_receive_experience h4 {
     font-size: 18px;
 }
+.applicant-receive-table-tr {
+    cursor: pointer;
+}
