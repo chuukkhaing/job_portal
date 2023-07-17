@@ -140,6 +140,7 @@ class EmployerJobPostController extends Controller
         $jobPost = JobPost::findOrFail($id);
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
+                    ->whereJobPost($id)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
                     ->get();
         $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
@@ -185,6 +186,7 @@ class EmployerJobPostController extends Controller
         $jobPost = JobPost::findOrFail($jobPostId);
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
+                    ->whereJobPost($jobPostId)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
                     ->get();
         $seeker = Seeker::findOrFail($id);
