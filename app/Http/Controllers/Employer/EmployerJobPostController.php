@@ -12,6 +12,7 @@ use App\Models\Seeker\SeekerExperience;
 use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
+use App\Models\Seeker\SeekerAttach;
 use Auth;
 use Str;
 use DB;
@@ -153,7 +154,7 @@ class EmployerJobPostController extends Controller
                         ->select('a.*','b.name as state_name','c.name as township_name')
                         ->first();
         }
-        
+        $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
         if($experiences->is_experience == 1) {
@@ -190,7 +191,8 @@ class EmployerJobPostController extends Controller
             'skills' => $skills,
             'skill_main_functional_areas' => $skill_main_functional_areas,
             'languages' => $languages,
-            'references' => $references
+            'references' => $references,
+            'seeker_attach' => $seeker_attach
         ]);
     }
 
@@ -214,6 +216,7 @@ class EmployerJobPostController extends Controller
         }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
         if($experiences->is_experience == 1) {
             $experiences = DB::table('seeker_experiences as a')
                         ->where('a.seeker_id','=',$seeker->id)
@@ -248,7 +251,8 @@ class EmployerJobPostController extends Controller
             'skills' => $skills,
             'skill_main_functional_areas' => $skill_main_functional_areas,
             'languages' => $languages,
-            'references' => $references
+            'references' => $references,
+            'seeker_attach' => $seeker_attach
         ]);
     }
 }
