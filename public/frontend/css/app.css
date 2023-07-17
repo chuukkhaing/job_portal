@@ -628,3 +628,18 @@ a.disabled {
 .applicant-receive-table .active {
     color: #0355D0;
 }
+.app_receive_education h4 {
+    font-size: 18px;
+}
+.app_receive_skill h4 {
+    font-size: 18px;
+}
+.app_receive_language h4 {
+    font-size: 18px;
+}
+.app_receive_reference h4 {
+    font-size: 18px;
+}
+.app_receive_experience h4 {
+    font-size: 18px;
+}

@@ -73,7 +73,8 @@
                     </div>
                 </div>
                 <div class="col-9" style="background: white">
-                    <h5 class="text-dark">Profile Overview</h5>
+                    <h5 class="text-dark d-inline-block">Profile Overview</h5>
+                    <button class="btn btn-primary float-end precious-btn">Back</button>
                     <div class="mt-4">
                         <div class="mb-4">
                             <h5 class="job-title" id="receive-job-title"></h5>
@@ -207,6 +208,12 @@
         $("#cv-list-section").removeClass('d-none');
         getRelatedApplicantList(id);
     }
+    $(".precious-btn").click(function() {
+        $(".employer-single-tab").addClass('active');
+        $("#applicant-tracking-tab").removeClass('active');
+        $("#applicant-tracking-section").removeClass('d-none');
+        $("#cv-list-section").addClass('d-none');
+    })
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
