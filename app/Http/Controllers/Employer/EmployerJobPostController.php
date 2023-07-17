@@ -16,6 +16,7 @@ use App\Models\Seeker\SeekerAttach;
 use Auth;
 use Str;
 use DB;
+use PDF;
 
 class EmployerJobPostController extends Controller
 {
@@ -254,5 +255,21 @@ class EmployerJobPostController extends Controller
             'references' => $references,
             'seeker_attach' => $seeker_attach
         ]);
+    }
+
+    public function icFormatCVDownload($id)
+    {
+        $seeker = Seeker::findOrFail($id);
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        view()->share('seeker',$seeker);
+
+        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
+        return $pdf->download($seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
     }
 }

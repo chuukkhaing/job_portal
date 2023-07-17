@@ -36,5 +36,6 @@ Route::group([], function(){
 
         Route::get('get-jobpost/{id}', [EmployerJobPostController::class, 'getJobPost']);
         Route::get('get-jobpost-info/{id}/{jobPostId}', [EmployerJobPostController::class, 'getJobPostInfo']);
+        Route::get('download-ic-cv/{id}',[EmployerJobPostController::class, 'icFormatCVDownload']);
     });
 });

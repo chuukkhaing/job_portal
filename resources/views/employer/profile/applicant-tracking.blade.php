@@ -80,7 +80,7 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item download_seeker_cv" href="" download>Download Seeker's CV</a></li>
-                                <li><a class="dropdown-item" href="#">Download IC Format CV</a></li>
+                                <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                             </ul>
                         </div>
                         <button class="btn btn-primary precious-btn">Back</button>
@@ -259,7 +259,8 @@
                         active = 'active'
                     }
                     $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
-                    $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name)
+                    $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
+                    $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id)
                     if(response.seeker.gender == 'Female') {
                         $(".app_receive_name").text('Ms.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }else {
@@ -370,6 +371,9 @@
                         active = 'active'
                     }
                     $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
+                    $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
+                    $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id)
+                    
                     if(response.seeker.gender == 'Female') {
                         $(".app_receive_name").text('Ms.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }else {
