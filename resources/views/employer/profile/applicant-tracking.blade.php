@@ -6,9 +6,8 @@
                     <tr>
                         <th>No.</th>
                         <th>Job Title</th>
-                        
                         <th># Apps</th>
-                        
+                        <th>Posted Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -16,7 +15,6 @@
                     <tr>
                         <td>{{ $key+1 }}</td>
                         <td><a href="{{ route('jobpost-detail', $jobApplicant->slug) }}">{{ $jobApplicant->job_title }}</a></td>
-                        
                         <td>
                             @if($jobApplicant->JobApply->count() > 0)
                             <a href="#" onclick="getCVList({{$jobApplicant->id}})">{{ $jobApplicant->JobApply->count() }} CVs</a>
@@ -24,7 +22,7 @@
                             {{ $jobApplicant->JobApply->count() }} CVs
                             @endif
                         </td>
-                        
+                        <td>{{ date('d-m-Y', strtotime($jobApplicant->created_at)) }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -37,7 +35,7 @@
                     <div class="my-4">
                         <ul class="cv-item p-0">
                             <li class="cv-status active">
-                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Receive ( <span id="receive-cv-length">0</span> )</span>
+                                <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Application Received ( <span id="receive-cv-length">0</span> )</span>
                             </li>
                             <li class="cv-status">
                                 <i class="fa-solid fa-inbox"></i> <span>&nbsp;&nbsp;Viewed Application ( 0 )</span>
@@ -58,11 +56,11 @@
                     </div>
                     <div class="my-4">
                         <div class="table-responsive">
-                            <table class="table border-0 applicant-receive-table">
+                            <table class="table border-0 applicant-receive-table" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Candidate Name</th>
-                                        <th>Applied Date</th>
+                                        <th>Seeker Name</th>
+                                        <th class="text-end">Applied Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,8 +90,8 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5>Personal Information</h5>
-                            <hr>
+                            <h5 class="text-decoration-underline">Personal Information</h5>
+                            
                             <div class="row my-3">
                                 <div class="col">
                                     <span>Name</span>
@@ -150,6 +148,16 @@
                             </div>
                             <div class="row my-3">
                                 <div class="col">
+                                    <span>Address Detail</span>
+                                    <span class="float-end">:</span>
+                                </div>
+                                <div class="col">
+                                    <span id="app_receive_address_detail">-</span>
+                                </div>
+                            </div>
+                            
+                            <div class="row my-3">
+                                <div class="col">
                                     <span>Expected Salary</span>
                                     <span class="float-end">:</span>
                                 </div>
@@ -159,34 +167,34 @@
                             </div>
                         </div>
                         <div class="mb-4">
-                            <h5>Career Description</h5>
-                            <hr>
+                            <h5 class="text-decoration-underline">Career Description</h5>
+                            
                             <p class="app_receive_career_des">-</p>
                         </div>
                         <div class="mb-4">
-                            <h5>Education</h5>
-                            <hr>
-                            <div class="app_receive_education"></div>
+                            <h5 class="text-decoration-underline">Education</h5>
+                            
+                            <div class="app_receive_education">-</div>
                         </div>
                         <div class="mb-4">
-                            <h5>Career History</h5>
-                            <hr>
-                            <div class="app_receive_experience"></div>
+                            <h5 class="text-decoration-underline">Career History</h5>
+                            
+                            <div class="app_receive_experience">-</div>
                         </div>
                         <div class="mb-4">
-                            <h5>Skill</h5>
-                            <hr>
-                            <div class="app_receive_skill"></div>
+                            <h5 class="text-decoration-underline">Skill</h5>
+                            
+                            <div class="app_receive_skill">-</div>
                         </div>
                         <div class="mb-4">
-                            <h5>Language</h5>
-                            <hr>
-                            <div class="app_receive_lang"></div><hr>
+                            <h5 class="text-decoration-underline">Language</h5>
+                            
+                            <div class="app_receive_lang">-</div>
                         </div>
                         <div class="mb-4">
-                            <h5>Reference</h5>
-                            <hr>
-                            <div class="app_receive_ref"></div>
+                            <h5 class="text-decoration-underline">Reference</h5>
+                            
+                            <div class="app_receive_ref">-</div>
                         </div>
                     </div>
                 </div>
@@ -229,7 +237,9 @@
                 $("#receive-cv-length").text(response.jobApply.length);
                 $("#receive-job-title").text(response.jobPost.job_title);
                 $(".applicant-receive-table-tr").empty();
-                $(response.jobApply).each(function(index,value) {
+                if(response.jobApply.length > 0) {
+                    $('.dataTables_empty').addClass('d-none');
+                    $(response.jobApply).each(function(index,value) {
                     var active = '';
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
@@ -246,12 +256,16 @@
                         $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
                     }
                     if(response.seeker.address_detail) {
-                        $("#app_receive_address").text(response.seeker.address_detail);
+                        $("#app_receive_address_detail").text(response.seeker.address_detail);
                     }
                     if(response.seeker.phone) {
                         $("#app_receive_phone").text(response.seeker.phone);
                     }
-                    
+                    if(response.seeker.country == "Other") {
+                        $('#app_receive_address').text('Country - Other');
+                    }else {
+                        $('#app_receive_address').text(response.seeker.township_name+', '+response.seeker.state_name+', '+response.seeker.country);
+                    }
                     $("#app_receive_email").text(response.seeker.email);
                     $(".app_receive_dob").text(moment(response.seeker.date_of_birth).format("DD/MM/YYYY"));
                     if(response.seeker.nrc) {
@@ -269,43 +283,56 @@
                     if(response.educations) {
                         $('.app_receive_education').empty();
                         $(response.educations).each(function(edu_index, edu_value){
-                            $('.app_receive_education').append('<div class="my-3"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div><hr>')
+                            $('.app_receive_education').append('<div class="my-3 px-3 border-bottom"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div>')
                         })
+                    }else {
+                        $('.app_receive_education').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.experiences) {
                         $('.app_receive_experience').empty();
                         $(response.experiences).each(function(exp_index, exp_value) {
                             if(exp_value.is_experience == 0) {
-                                $('.app_receive_experience').append('<div class="my-3">No Experience</div>')
+                                $('.app_receive_experience').append('<div class="my-3 px-3">No Experience</div>')
                             }else {
-                                $('.app_receive_experience').append('<div class="my-3"><p>'+exp_value.job_title+'<span class="bg-yellow"> (Position Title)</span></p><p>'+exp_value.company+'<span class="bg-yellow"> (Company)</span></p><p>'+exp_value.industry_name+'<span class="bg-yellow"> (Industry)</span></p><p>'+exp_value.main_functional_area_name+' - '+exp_value.sub_functional_area_name+'<span class="bg-yellow"> (Job Function)</span></p><p>'+exp_value.country+'<span class="bg-yellow"> (Country)</span></p></div><hr>')
+                                $('.app_receive_experience').append('<div class="my-3 px-3"><p>'+exp_value.job_title+'<span class="bg-yellow"> (Position Title)</span></p><p>'+exp_value.company+'<span class="bg-yellow"> (Company)</span></p><p>'+exp_value.industry_name+'<span class="bg-yellow"> (Industry)</span></p><p>'+exp_value.main_functional_area_name+' - '+exp_value.sub_functional_area_name+'<span class="bg-yellow"> (Job Function)</span></p><p>'+exp_value.country+'<span class="bg-yellow"> (Country)</span></p></div>')
                             }
                         })
+                    }else {
+                        $('.app_receive_experience').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.skill_main_functional_areas) {
                         $(".app_receive_skill").empty();
                         $(response.skill_main_functional_areas).each(function(skill_function_index, skill_function_value) {
-                            $(".app_receive_skill").append('<h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul><hr>')
+                            $(".app_receive_skill").append('<div class="px-3"><h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul></div>')
                             $(response.skills).each(function(skill_index, skill_value) {
                                 if(skill_function_value.main_functional_area_id == skill_value.main_functional_area_id) {
                                     $('#skill_'+skill_value.main_functional_area_id).append('<li>'+skill_value.skill_name+'</li>')
                                 }
                             })
                         })
+                    }else {
+                        $('.app_receive_skill').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.languages) {
                         $('.app_receive_lang').empty();
                         $(response.languages).each(function(lang_index, lang_value){
-                            $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
+                            $('.app_receive_lang').append('<div class="px-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
                         })
+                    }else {
+                        $('.app_receive_lang').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.references) {
-                        $(response.references).empty();
+                        $('.app_receive_ref').empty();
                         $(response.references).each(function(ref_index, ref_value){
-                            $('.app_receive_ref').append('<div class="my-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div><hr>')
+                            $('.app_receive_ref').append('<div class="my-3 px-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div>')
                         })
+                    }else {
+                        $('.app_receive_ref').append('<div class="my-3 px-3">-</div>')
                     }
                 })
+                }else {
+                    $('.dataTables_empty').removeClass('d-none')
+                }
             }
         })
     }
@@ -320,7 +347,9 @@
                 $("#receive-cv-length").text(response.jobApply.length);
                 $("#receive-job-title").text(response.jobPost.job_title);
                 $(".applicant-receive-table-tr").empty();
-                $(response.jobApply).each(function(index,value) {
+                if(response.jobApply.length > 0) {
+                    $('.dataTables_empty').addClass('d-none');
+                    $(response.jobApply).each(function(index,value) {
                     var active = '';
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
@@ -336,14 +365,17 @@
                     }else {
                         $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
                     }
-                    
                     if(response.seeker.address_detail) {
-                        $("#app_receive_address").text(response.seeker.address_detail);
+                        $("#app_receive_address_detail").text(response.seeker.address_detail);
                     }
                     if(response.seeker.phone) {
                         $("#app_receive_phone").text(response.seeker.phone);
                     }
-                    
+                    if(response.seeker.country == "Other") {
+                        $('#app_receive_address').text('Country - Other');
+                    }else {
+                        $('#app_receive_address').text(response.seeker.township_name+', '+response.seeker.state_name+', '+response.seeker.country);
+                    }
                     $("#app_receive_email").text(response.seeker.email);
                     $(".app_receive_dob").text(moment(response.seeker.date_of_birth).format("DD/MM/YYYY"));
                     if(response.seeker.nrc) {
@@ -361,43 +393,56 @@
                     if(response.educations) {
                         $('.app_receive_education').empty();
                         $(response.educations).each(function(edu_index, edu_value){
-                            $('.app_receive_education').append('<div class="my-3"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div><hr>')
+                            $('.app_receive_education').append('<div class="my-3 px-3 border-bottom"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div>')
                         })
+                    }else {
+                        $('.app_receive_education').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.experiences) {
                         $('.app_receive_experience').empty();
                         $(response.experiences).each(function(exp_index, exp_value) {
                             if(exp_value.is_experience == 0) {
-                                $('.app_receive_experience').append('<div class="my-3">No Experience</div>')
+                                $('.app_receive_experience').append('<div class="my-3 px-3">No Experience</div>')
                             }else {
-                                $('.app_receive_experience').append('<div class="my-3"><p>'+exp_value.job_title+'<span class="bg-yellow"> (Position Title)</span></p><p>'+exp_value.company+'<span class="bg-yellow"> (Company)</span></p><p>'+exp_value.industry_name+'<span class="bg-yellow"> (Industry)</span></p><p>'+exp_value.main_functional_area_name+' - '+exp_value.sub_functional_area_name+'<span class="bg-yellow"> (Job Function)</span></p><p>'+exp_value.country+'<span class="bg-yellow"> (Country)</span></p></div><hr>')
+                                $('.app_receive_experience').append('<div class="my-3 px-3"><p>'+exp_value.job_title+'<span class="bg-yellow"> (Position Title)</span></p><p>'+exp_value.company+'<span class="bg-yellow"> (Company)</span></p><p>'+exp_value.industry_name+'<span class="bg-yellow"> (Industry)</span></p><p>'+exp_value.main_functional_area_name+' - '+exp_value.sub_functional_area_name+'<span class="bg-yellow"> (Job Function)</span></p><p>'+exp_value.country+'<span class="bg-yellow"> (Country)</span></p></div>')
                             }
                         })
+                    }else {
+                        $('.app_receive_experience').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.skill_main_functional_areas) {
                         $(".app_receive_skill").empty();
                         $(response.skill_main_functional_areas).each(function(skill_function_index, skill_function_value) {
-                            $(".app_receive_skill").append('<h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul><hr>')
+                            $(".app_receive_skill").append('<div class="px-3"><h4>'+skill_function_value.main_functional_area_name+'</h4><ul id="skill_'+skill_function_value.main_functional_area_id+'"></ul></div>')
                             $(response.skills).each(function(skill_index, skill_value) {
                                 if(skill_function_value.main_functional_area_id == skill_value.main_functional_area_id) {
                                     $('#skill_'+skill_value.main_functional_area_id).append('<li>'+skill_value.skill_name+'</li>')
                                 }
                             })
                         })
+                    }else {
+                        $('.app_receive_skill').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.languages) {
                         $('.app_receive_lang').empty();
                         $(response.languages).each(function(lang_index, lang_value){
-                            $('.app_receive_lang').append('<div class="my-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
+                            $('.app_receive_lang').append('<div class="px-3 row"><div class="col-2"><h4>'+lang_value.name+'</h4></div><div class="col-2"><span>'+lang_value.level+'</span></div> </div>')
                         })
+                    }else {
+                        $('.app_receive_lang').append('<div class="my-3 px-3">-</div>')
                     }
                     if(response.references) {
                         $('.app_receive_ref').empty();
                         $(response.references).each(function(ref_index, ref_value){
-                            $('.app_receive_ref').append('<div class="my-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div><hr>')
+                            $('.app_receive_ref').append('<div class="my-3 px-3"><h4>'+ref_value.name+'</h4><p>'+ref_value.position+'</p><p>'+ref_value.company+'</p><p>'+ref_value.contact+'</p> </div>')
                         })
+                    }else {
+                        $('.app_receive_ref').append('<div class="my-3 px-3">-</div>')
                     }
                 })
+                }else {
+                    $('.dataTables_empty').removeClass('d-none')
+                }
             }
         })
     }

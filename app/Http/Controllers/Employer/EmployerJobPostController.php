@@ -142,16 +142,29 @@ class EmployerJobPostController extends Controller
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$id)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
+                    ->orderBy('b.created_at','desc')
                     ->get();
         $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
+        if($seeker->country == 'Myanmar') {
+            $seeker = DB::table('seekers as a')
+                        ->join('states as b', 'a.state_id', '=', 'b.id')
+                        ->join('townships as c', 'a.township_id', '=', 'c.id')
+                        ->where('a.id','=',$jobApply->first()->seeker_id)
+                        ->select('a.*','b.name as state_name','c.name as township_name')
+                        ->get();
+        }
+        
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-        $experiences = DB::table('seeker_experiences as a')
+        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        if($experiences->is_experience == 1) {
+            $experiences = DB::table('seeker_experiences as a')
                         ->where('a.seeker_id','=',$seeker->id)
                         ->join('industries as b','a.industry_id','=','b.id')
                         ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                         ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
                         ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
                         ->get();
+        }
         $skill_main_functional_areas = DB::table('seeker_skills as a')
                         ->where('a.seeker_id','=',$seeker->id)
                         ->join('skills as b','a.skill_id','=','b.id')
@@ -188,16 +201,28 @@ class EmployerJobPostController extends Controller
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$jobPostId)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
+                    ->orderBy('b.created_at','desc')
                     ->get();
         $seeker = Seeker::findOrFail($id);
+        if($seeker->country == 'Myanmar') {
+            $seeker = DB::table('seekers as a')
+                        ->join('states as b', 'a.state_id', '=', 'b.id')
+                        ->join('townships as c', 'a.township_id', '=', 'c.id')
+                        ->where('a.id','=',$jobApply->first()->seeker_id)
+                        ->select('a.*','b.name as state_name','c.name as township_name')
+                        ->get();
+        }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-        $experiences = DB::table('seeker_experiences as a')
+        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        if($experiences->is_experience == 1) {
+            $experiences = DB::table('seeker_experiences as a')
                         ->where('a.seeker_id','=',$seeker->id)
                         ->join('industries as b','a.industry_id','=','b.id')
                         ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                         ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
                         ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
                         ->get();
+        }
         $skill_main_functional_areas = DB::table('seeker_skills as a')
                         ->where('a.seeker_id','=',$seeker->id)
                         ->join('skills as b','a.skill_id','=','b.id')
