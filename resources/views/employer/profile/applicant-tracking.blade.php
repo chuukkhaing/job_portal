@@ -209,8 +209,8 @@
         getRelatedApplicantList(id);
     }
     $(".precious-btn").click(function() {
-        $(".employer-single-tab").addClass('active');
-        $("#applicant-tracking-tab").removeClass('active');
+        $(".employer-single-tab").removeClass('active');
+        $("#applicant-tracking-tab").addClass('active');
         $("#applicant-tracking-section").removeClass('d-none');
         $("#cv-list-section").addClass('d-none');
     })
