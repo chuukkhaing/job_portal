@@ -151,7 +151,7 @@ class EmployerJobPostController extends Controller
                         ->join('townships as c', 'a.township_id', '=', 'c.id')
                         ->where('a.id','=',$jobApply->first()->seeker_id)
                         ->select('a.*','b.name as state_name','c.name as township_name')
-                        ->get();
+                        ->first();
         }
         
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
@@ -210,7 +210,7 @@ class EmployerJobPostController extends Controller
                         ->join('townships as c', 'a.township_id', '=', 'c.id')
                         ->where('a.id','=',$jobApply->first()->seeker_id)
                         ->select('a.*','b.name as state_name','c.name as township_name')
-                        ->get();
+                        ->first();
         }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
