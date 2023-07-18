@@ -1,5 +1,5 @@
 body {
-    font-family: 'Source Sans Pro';
+    font-family: 'inherit';
 }
 .navbar {
     background: #0355D0;
@@ -619,9 +619,7 @@ a.disabled {
     border-radius: 5px;
     font-weight: 600;
 }
-.applicant-receive-table {
-    font-size: 13px;
-}
+
 .applicant-receive-table thead {
     background: #E8E8E9;
 }
@@ -661,4 +659,7 @@ a.disabled {
     top: 0;
     background: url(../../img/background/istockphoto-1279104620-612x612.jpg);
     background-size: cover;
+}
+.container {
+    max-width: 90%
 }

@@ -1,4 +1,4 @@
-<div class="container px-5" id="edit-profile-header">
+<div class="container-fluid px-5" id="edit-profile-header">
     <div class="row">
         <div class="col-12">
             <div class="row pb-5">
@@ -38,7 +38,7 @@
         </div>
     </div>
 </div>
-<div class="container my-2" id="edit-profile-body">
+<div class="container-fluid my-2" id="edit-profile-body">
     <div class="col-12 row">
         <div class="col p-5">
             <div class="border-right-profile">
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="container my-2" id="edit-profile-body">
+<div class="container-fluid my-2" id="edit-profile-body">
     @if(Auth::guard('seeker')->user()->percentage < 80)
     <div class="row px-0 py-3" id="edit-profile-text">
         <div class="col-12 col-md-9">

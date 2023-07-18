@@ -1,4 +1,4 @@
-<div class="container" id="edit-profile-header">
+<div class="container-fluid" id="edit-profile-header">
     <form action="{{ route('employer-profile.update', $employer->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
             <div class="row">
