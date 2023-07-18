@@ -259,7 +259,8 @@ class SeekerProfileController extends Controller
             'end_date' => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : Null,
             'is_experience' => $request->is_experience,
             'is_current_job' => $request->is_current_job,
-            'country' => $request->exp_country
+            'country' => $request->exp_country,
+            'job_responsibility' => $request->exp_job_responsibility
         ]);
         $seeker = Seeker::findOrFail($request->seeker_id);
         $seeker_exps= SeekerExperience::whereSeekerId($seeker->id)->get();
@@ -313,7 +314,8 @@ class SeekerProfileController extends Controller
             'end_date' => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : Null,
             'is_experience' => $request->is_experience,
             'is_current_job' => $request->is_current_job,
-            'country' => $request->exp_country
+            'country' => $request->exp_country,
+            'job_responsibility' => $request->exp_job_responsibility
         ]);
         $exp_functions = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();

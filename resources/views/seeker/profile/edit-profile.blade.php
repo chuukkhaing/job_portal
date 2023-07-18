@@ -218,6 +218,11 @@
         @include('seeker.profile.skill')
         @include('seeker.profile.language')
         @include('seeker.profile.reference')
+        <div class="row mb-4">
+            <div class="col-12 text-end">
+                <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+            </div>
+        </div>
     </div>
 </form>
 @push('scripts')

@@ -11,6 +11,7 @@
                     <th>Career Level</th>
                     <th>Industry</th>
                     <th>Country</th>
+                    <th>Job Responsibility</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Action</th>
@@ -35,6 +36,7 @@
                     <td class="exp-career_lavel-{{$experience->id}}">{{ $experience->career_level }}</td>
                     <td class="exp-industry_id-{{$experience->id}}">{{ $experience->Industry->name }}</td>
                     <td class="exp-country-{{$experience->id}}">{{ $experience->country }}</td>
+                    <td class="exp-job-responsibility-{{$experience->id}}">{{ $experience->job_responsibility }}</td>
                     <td class="exp-start_date-{{$experience->id}}">{{ date('d-m-Y', strtotime($experience->start_date)) }}</td>
                     @if($experience->is_current_job == 1)
                     <td class="exp-end_date-{{$experience->id}}">Current Job</td>
@@ -141,8 +143,14 @@
                             </select>
                             <span class="text-danger exp_country-error"></span>
                         </div>
+                        <div class="col-12 col-md-6"></div>
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <br><br>
+                            <label for="exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
+                            <textarea name="exp_job_responsibility" id="exp_job_responsibility" cols="30" rows="5" class="seeker_input" style="width: 100%"></textarea>
+                            <span class="text-danger exp_job_responsibility-error"></span>
+                        </div>
+                        <div class="col-12 col-md-6"></div>
+                        <div class="form-group mt-1 col-12 col-md-6">
                             <input type="checkbox" name="current_job" id="current_job" checked="1">
                             <label for="current_job" class="seeker_label my-2">Current Job </label>
                         </div>
@@ -264,8 +272,14 @@
                             </select>
                             <span class="text-danger edit_exp_country-error"></span>
                         </div>
+                        <div class="col-12 col-md-6"></div>
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <br><br>
+                            <label for="edit_exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
+                            <textarea name="edit_exp_job_responsibility" id="edit_exp_job_responsibility" cols="30" rows="5" class="seeker_input" style="width: 100%"></textarea>
+                            <span class="text-danger edit_exp_job_responsibility-error"></span>
+                        </div>
+                        <div class="col-12 col-md-6"></div>
+                        <div class="form-group mt-1 col-12 col-md-6">
                             <input type="checkbox" name="edit_current_job" id="edit_current_job" checked="1">
                             <label for="edit_current_job" class="seeker_label my-2">Current Job </label>
                         </div>
@@ -425,6 +439,7 @@
                     $("#exp_start_date").val('');
                     $("#exp_end_date").val('');
                     $("#exp_country").val('Myanmar');
+                    $("#exp_job_responsibility").val('');
                 }
             })
         }else {
@@ -438,6 +453,7 @@
             var exp_start_date = $("#exp_start_date").val();
             var exp_end_date = $("#exp_end_date").val();
             var exp_country = $("#exp_country").val();
+            var exp_job_responsibility = $("#exp_job_responsibility").val();
 
             if(exp_job_title == '') {
                 $(".exp_job_title-error").html("Job Title need to fill.")
@@ -464,6 +480,11 @@
             }else{
                 $(".exp_career_level-error").html("")
             }
+            if(exp_job_responsibility == '') {
+                $(".exp_job_responsibility-error").html("Job Responsibility need to fill.")
+            }else{
+                $(".exp_job_responsibility-error").html("")
+            }
             if(exp_industry_id == '') {
                 $(".exp_industry_id-error").html("Industry need to fill.")
             }else{
@@ -476,7 +497,7 @@
                 $(".exp_start_date-error").html("")
             }
             if($("#current_job").is(":checked")){
-                if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '')
+                if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_job_responsibility != '')
                 {
                     $('.btn-close').click();
                     $.ajax({
@@ -493,7 +514,8 @@
                             'seeker_id' : seeker_id,
                             'is_experience' : $("#is_experience").val(),
                             'is_current_job' : 1,
-                            'exp_country' : exp_country
+                            'exp_country' : exp_country,
+                            'exp_job_responsibility' : exp_job_responsibility
                         },
                         url: '{{ route("experience.store") }}',
                     }).done(function(response){
@@ -517,7 +539,7 @@
                                     exp_industry_name = exp_industry.name
                                 }
                             })
-                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg);
                             $("#is_experience").val(1);
                             $("#exp_job_title").val('');
@@ -529,6 +551,7 @@
                             $("#exp_start_date").val('');
                             $("#exp_end_date").val('');
                             $("#exp_country").val('Myanmar');
+                            $("#exp_job_responsibility").val('');
                         }
                     })
                 }
@@ -541,7 +564,7 @@
                 if(exp_start_date != '' && exp_end_date != '' && exp_start_date > exp_end_date) {
                     $(".exp_end_date-error").html('End Date must be greater than Start Date.');
                 }
-                if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_end_date != '')
+                if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_end_date != '' && exp_job_responsibility != '')
                 {
                     $('.btn-close').click();
                     $.ajax({
@@ -558,7 +581,8 @@
                             'seeker_id' : seeker_id,
                             'is_experience' : $("#is_experience").val(),
                             'is_current_job' : 0,
-                            'exp_country' : exp_country
+                            'exp_country' : exp_country,
+                            'exp_job_responsibility' : exp_job_responsibility
                         },
                         url: '{{ route("experience.store") }}',
                     }).done(function(response){
@@ -582,7 +606,7 @@
                                     exp_industry_name = exp_industry.name
                                 }
                             })
-                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             alert(response.msg)
                             $("#is_experience").val(1);
                             $("#exp_job_title").val('');
@@ -594,6 +618,7 @@
                             $("#exp_start_date").val('');
                             $("#exp_end_date").val('');
                             $("#exp_country").val('Myanmar');
+                            $("#exp_job_responsibility").val('');
                         }
                     })
                 }
@@ -617,6 +642,7 @@
                 $("#edit_exp_career_level").val(response.experience.career_level);
                 $("#edit_exp_industry_id").val(response.experience.industry_id);
                 $("#edit_exp_country").val(response.experience.country);
+                $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
                 $("#edit_exp_start_date").val(response.experience.start_date);
                 $("#edit_exp_end_date").val(response.experience.end_date);
                 if(response.experience.is_current_job) {
@@ -664,6 +690,7 @@
                 var edit_exp_start_date = $("#edit_exp_start_date").val();
                 var edit_exp_end_date = $("#edit_exp_end_date").val();
                 var edit_exp_country = $("#edit_exp_country").val();
+                var edit_exp_job_responsibility = $("#edit_exp_job_responsibility").val();
 
                 if(edit_exp_job_title == '') {
                     $(".edit_exp_job_title-error").html("Job Title need to fill.")
@@ -690,6 +717,11 @@
                 }else{
                     $(".edit_exp_career_level-error").html("")
                 }
+                if(edit_exp_job_responsibility == '') {
+                    $(".edit_exp_job_responsibility-error").html("Job Responsibility need to fill.")
+                }else{
+                    $(".edit_exp_job_responsibility-error").html("")
+                }
                 if(edit_exp_industry_id == '') {
                     $(".edit_exp_industry_id-error").html("Industry need to fill.")
                 }else{
@@ -702,7 +734,7 @@
                     $(".edit_exp_start_date-error").html("")
                 }
                 if($("#edit_current_job").is(":checked")){
-                    if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '')
+                    if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_job_responsibility != '')
                     {
                         $('.btn-close').click();
                         $.ajax({
@@ -719,7 +751,8 @@
                                 'seeker_id' : seeker_id,
                                 'is_experience' : $("#edit_is_experience").val(),
                                 'is_current_job' : 1,
-                                'exp_country' : edit_exp_country
+                                'exp_country' : edit_exp_country,
+                                'exp_job_responsibility' : edit_exp_job_responsibility
                             },
                             url: 'experience/update/'+id,
                         }).done(function(response){
@@ -743,7 +776,7 @@
                                         exp_industry_name = exp_industry.name
                                     }
                                 })
-                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 $("#add_career_history").removeClass('d-none');
                                 alert(response.msg)
                             }
@@ -758,7 +791,7 @@
                     if(edit_exp_start_date != '' && exp_end_date != '' && exp_start_date > exp_end_date) {
                         $(".edit_exp_end_date-error").html('End Date must be greater than Start Date.');
                     }
-                    if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '')
+                    if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_job_responsibility != '')
                     {
                         $('.btn-close').click();
                         $.ajax({
@@ -775,7 +808,8 @@
                                 'seeker_id' : seeker_id,
                                 'is_experience' : $("#edit_is_experience").val(),
                                 'is_current_job' : 0,
-                                'exp_country' : edit_exp_country
+                                'exp_country' : edit_exp_country,
+                                'exp_job_responsibility' : edit_exp_job_responsibility
                             },
                             url: 'experience/update/'+id,
                         }).done(function(response){
@@ -799,7 +833,7 @@
                                         exp_industry_name = exp_industry.name
                                     }
                                 })
-                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 alert(response.msg);
                                 $("#add_career_history").removeClass('d-none');
                             }

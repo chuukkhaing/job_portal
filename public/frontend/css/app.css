@@ -646,3 +646,6 @@ a.disabled {
 .applicant-receive-table-tr {
     cursor: pointer;
 }
+#edit-profile-body table {
+    font-size: 14px;
+}

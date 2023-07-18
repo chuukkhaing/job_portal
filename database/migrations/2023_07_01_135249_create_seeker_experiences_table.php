@@ -21,6 +21,7 @@ class CreateSeekerExperiencesTable extends Migration
             $table->integer('main_functional_area_id')->nullable();
             $table->integer('sub_functional_area_id')->nullable();
             $table->string('career_level')->nullable();
+            $table->longtext('job_responsibility')->nullable();
             $table->integer('industry_id')->nullable();
             $table->string('country')->nullable();
             $table->date('start_date')->nullable();
