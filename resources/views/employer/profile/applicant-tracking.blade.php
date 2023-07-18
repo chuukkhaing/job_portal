@@ -261,7 +261,7 @@
             if(response.status == 'success') {
                 $("#receive-cv-length").text(response.jobApply.length);
                 $("#receive-job-title").text(response.jobPost.job_title);
-                $(".applicant-receive-table tbody tr").empty();
+                $(".applicant-receive-table-tr").remove();
                 
                 if(response.jobApply.length > 0) {
                     $('.dataTables_empty').addClass('d-none');
@@ -378,7 +378,7 @@
             if(response.status == 'success') {
                 $("#receive-cv-length").text(response.jobApply.length);
                 $("#receive-job-title").text(response.jobPost.job_title);
-                $(".applicant-receive-table tbody tr").empty();
+                $(".applicant-receive-table-tr").remove();
                 if(response.jobApply.length > 0) {
                     $('.dataTables_empty').addClass('d-none');
                     $(response.jobApply).each(function(index,value) {
