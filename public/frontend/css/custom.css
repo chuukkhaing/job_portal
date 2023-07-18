@@ -58,6 +58,21 @@ input.form-control.search-slt.location {
     }
 }
 
+@media (max-width: 575.98px) {    
+
+    .form-group.has-search {
+        margin-bottom: 1rem;
+    }
+
+    input.form-control.search-slt.job-title {
+        border-radius: 0px;
+    }
+    
+    input.form-control.search-slt.location {
+        border-radius: 0px;
+    }
+}
+
 .has-search .form-control {
     padding-left: 2.375rem;
 }
