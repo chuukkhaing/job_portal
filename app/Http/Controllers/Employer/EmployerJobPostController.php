@@ -143,8 +143,8 @@ class EmployerJobPostController extends Controller
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$id)
-                    ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
-                    ->orderBy('b.created_at','desc')
+                    ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'a.created_at as seeker_applied_date')
+                    ->orderBy('a.created_at','desc')
                     ->get();
         $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
         if($seeker->country == 'Myanmar') {
@@ -203,8 +203,8 @@ class EmployerJobPostController extends Controller
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$jobPostId)
-                    ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'b.created_at as seeker_applied_date')
-                    ->orderBy('b.created_at','desc')
+                    ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'a.created_at as seeker_applied_date')
+                    ->orderBy('a.created_at','desc')
                     ->get();
         $seeker = Seeker::findOrFail($id);
         if($seeker->country == 'Myanmar') {
