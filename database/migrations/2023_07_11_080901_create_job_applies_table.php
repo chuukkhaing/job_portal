@@ -18,6 +18,7 @@ class CreateJobAppliesTable extends Migration
             $table->integer('employer_id')->nullable();
             $table->integer('seeker_id')->nullable();
             $table->integer('job_post_id')->nullable();
+            $table->string('status')->default('received');
             $table->timestamps();
         });
     }

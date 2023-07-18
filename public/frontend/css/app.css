@@ -649,3 +649,16 @@ a.disabled {
 #edit-profile-body table {
     font-size: 14px;
 }
+.seeker_attachment {
+    position: relative;
+}
+.overlay {
+    width: 98%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    filter: blur(13px);
+    top: 0;
+    background: url(../../img/background/istockphoto-1279104620-612x612.jpg);
+    background-size: cover;
+}

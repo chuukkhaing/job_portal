@@ -235,7 +235,14 @@
                         <p>{{ $exp->company }}</p>
                         <p>{{ $exp->Industry->name }}</p>
                         <p>{{ $exp->MainFunctinalArea->name }} - {{ $exp->SubFunctinalArea->name }}</p>
-                        <p>{{ $exp->country }}</p><hr>
+                        <p>{{ $exp->country }}</p>
+                        @if($exp->job_responsibility)
+                        <div>
+                            <h4>Job Responsibility</h4>
+                            <ul><li>{!! rtrim(str_replace(".",".</li><li>","$exp->job_responsibility"), '</li><li>') !!}</li></ul>
+                        </div>
+                        @endif
+                        <hr>
                     @endif
                     @endforeach
                 </div>
