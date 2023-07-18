@@ -30,47 +30,47 @@
 <!-- Carousel End -->
 
 <section class="search-sec">
-<div class="container">
-    <div class="col-lg-12">
-    <div class="row">
-        <div class="col-lg-3 col-md-3 p-0">
-            <div class="form-group has-search">
-                <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword">
-            </div>
-        </div>
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 p-0">
+                    <div class="form-group has-search">
+                        <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
+                        <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword">
+                    </div>
+                </div>
 
-        <div class="col-lg-3 col-md-3 p-0">
-            <div class="form-group has-search search-slt function-area">
-                <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
-                <select class="form-control" id="function-area" multiple="multiple">
-                    <optgroup label="Group 1">
-                        <option value="1-1">Option 1.1</option>
-                        <option value="1-2">Option 1.2</option>
-                        <option value="1-3">Option 1.3</option>
-                    </optgroup>
-                    <optgroup label="Group 2">
-                        <option value="2-1">Option 2.1</option>
-                        <option value="2-2">Option 2.2</option>
-                        <option value="2-3">Option 2.3</option>
-                    </optgroup>
-                </select>
-            </div>
-        </div>
+                <div class="col-lg-3 col-md-3 p-0">
+                    <div class="form-group has-search search-slt function-area">
+                        <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
+                        <select class="form-control" id="function-area" multiple="multiple">
+                            <optgroup label="Group 1">
+                                <option value="1-1">Option 1.1</option>
+                                <option value="1-2">Option 1.2</option>
+                                <option value="1-3">Option 1.3</option>
+                            </optgroup>
+                            <optgroup label="Group 2">
+                                <option value="2-1">Option 2.1</option>
+                                <option value="2-2">Option 2.2</option>
+                                <option value="2-3">Option 2.3</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
 
-        <div class="col-lg-3 col-md-3 p-0">
-            <div class="form-group has-search">
-                <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                <input type="text" class="form-control search-slt location" placeholder="location">
-            </div>
-        </div>
+                <div class="col-lg-3 col-md-3 p-0">
+                    <div class="form-group has-search">
+                        <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
+                        <input type="text" class="form-control search-slt location" placeholder="location">
+                    </div>
+                </div>
 
-        <div class="col-lg-2 col-md-3 p-0">
-            <button type="button" class="btn wrn-btn pull-right">Search Jobs</button>
+                <div class="col-lg-2 col-md-3 p-0">
+                    <button type="button" class="btn wrn-btn pull-right">Search Jobs</button>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-</div>
 </section>
 
 <!-- Popular Job Category Start  -->
