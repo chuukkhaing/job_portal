@@ -270,7 +270,7 @@
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
                     }
-                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
+                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr"><td class="'+active+'" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id)
                     if(response.seeker.gender == 'Female') {
@@ -386,7 +386,7 @@
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
                     }
-                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
+                    $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr"><td class="'+active+'" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end" onclick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id)
                     
