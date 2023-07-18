@@ -113,7 +113,7 @@
                 <div class="row">
                     <div class="col">
                         <p class="app_receive_name">@if($seeker->gender == 'Female') Ms.@else Mr.@endif {{ $seeker->first_name ?? '-' }} {{ $seeker->last_name ?? '-' }}</p>
-                        <p id="app_receive_address">@if($seeker->country == 'Myanmar') {{ $seeker->Township->name }}, {{ $seeker->State->name }}, {{ $seeker->country }}@else Country - {{ $seeker->country }} @endif</p>
+                        <p id="app_receive_address">@if($seeker->country == 'Myanmar') {{ $seeker->Township->name ?? '' }}, {{ $seeker->State->name ?? '' }}, {{ $seeker->country }}@else Country - {{ $seeker->country }} @endif</p>
                         <p id="app_receive_phone">{{ $seeker->phone ?? '-' }}</p>
                         <p id="app_receive_email">{{ $seeker->email ?? '-' }}</p>
                     </div>
