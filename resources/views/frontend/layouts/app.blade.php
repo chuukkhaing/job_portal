@@ -42,7 +42,10 @@
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
+    <!-- Multiselect Stylesheet -->
+    <link href="{{ asset('dist/css/bootstrap-multiselect.css') }}" rel="stylesheet">    
     @stack('css')
 </head>
 <body>
@@ -86,6 +89,8 @@
     <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <!-- Template Javascript -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <!-- Multiselect Javascript -->
+    <script type="text/javascript" src="{{ asset('dist/js/bootstrap-multiselect.js') }}"></script>
     @stack('scripts')
     
 </body>
