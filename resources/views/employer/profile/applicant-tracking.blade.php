@@ -80,7 +80,7 @@
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item download_seeker_cv" href="" download>Download Seeker's CV</a></li>
-                                <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
+                                <li><a class="dropdown-item download_ic_cv" href="#">Download Profile</a></li>
                             </ul>
                         </div>
                         <button class="btn btn-primary precious-btn">Back</button>
