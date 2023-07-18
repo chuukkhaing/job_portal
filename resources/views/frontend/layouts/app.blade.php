@@ -45,7 +45,7 @@
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/app.css') }}" rel="stylesheet">
     <!-- Multiselect Stylesheet -->
-    <link href="{{ asset('dist/css/bootstrap-multiselect.css') }}" rel="stylesheet">    
+    <link href="{{ asset('frontend/dist/css/bootstrap-multiselect.css') }}" rel="stylesheet">    
     @stack('css')
 </head>
 <body>
@@ -90,7 +90,7 @@
     <!-- Template Javascript -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <!-- Multiselect Javascript -->
-    <script type="text/javascript" src="{{ asset('dist/js/bootstrap-multiselect.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/dist/js/bootstrap-multiselect.js') }}"></script>
     @stack('scripts')
     
 </body>
