@@ -217,7 +217,7 @@ class EmployerJobPostController extends Controller
         }
         // $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         // $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
-        // $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
+        $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
         // if($experiences->is_experience == 1) {
         //     $experiences = DB::table('seeker_experiences as a')
         //                 ->where('a.seeker_id','=',$seeker->id)

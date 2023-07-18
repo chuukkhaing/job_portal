@@ -74,7 +74,7 @@
                     <h5 class="text-dark d-inline-block">Profile Overview</h5>
                     <div class="d-inline-block float-end">
                         <div class="dropdown d-inline-block">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-download"></i>
                             </a>
 
@@ -83,7 +83,7 @@
                                 <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary precious-btn">Back</button>
+                        <button class="btn btn-primary btn-sm precious-btn">Back</button>
                     </div>
                     
                     <div class="mt-4">
@@ -146,6 +146,7 @@
                     $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
+                    $("#seeker-org-attach").attr('src','')
                     $("#seeker-org-attach").attr('src', document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name+'#toolbar=0&navpanes=0&scrollbar=0&page=1');
                 })
                 }else {
@@ -174,8 +175,9 @@
                     }
                     $(".applicant-receive-table").append('<tr class="applicant-receive-table-tr" onClick="getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+')"><td class="'+active+'">'+value.seeker_first_name+' '+value.seeker_last_name+'</td><td class="text-end">'+moment(value.seeker_applied_date).format("DD/MM/YYYY")+'</td></tr>');
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
-                    $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id)
-                    
+                    $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
+                    $("#seeker-org-attach").attr('src','')
+                    $("#seeker-org-attach").attr('src', document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name+'#toolbar=0&navpanes=0&scrollbar=0&page=1');
                     
                 })
                 }else {
