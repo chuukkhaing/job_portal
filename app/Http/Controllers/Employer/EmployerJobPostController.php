@@ -156,43 +156,43 @@ class EmployerJobPostController extends Controller
                         ->first();
         }
         $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
-        // $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-        // $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
-        // if($experiences->is_experience == 1) {
-        //     $experiences = DB::table('seeker_experiences as a')
-        //                 ->where('a.seeker_id','=',$seeker->id)
-        //                 ->join('industries as b','a.industry_id','=','b.id')
-        //                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //                 ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
-        //                 ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
-        //                 ->get();
-        // }
-        // $skill_main_functional_areas = DB::table('seeker_skills as a')
-        //                 ->where('a.seeker_id','=',$seeker->id)
-        //                 ->join('skills as b','a.skill_id','=','b.id')
-        //                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //                 ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-        //                 ->groupBy('a.main_functional_area_id')
-        //                 ->get();
-        // $skills = DB::table('seeker_skills as a')
-        //             ->where('a.seeker_id','=',$seeker->id)
-        //             ->join('skills as b','a.skill_id','=','b.id')
-        //             ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //             ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-        //             ->get();
-        // $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
-        // $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
+        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        if($experiences->is_experience == 1) {
+            $experiences = DB::table('seeker_experiences as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('industries as b','a.industry_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                        ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                        ->get();
+        }
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        $skills = DB::table('seeker_skills as a')
+                    ->where('a.seeker_id','=',$seeker->id)
+                    ->join('skills as b','a.skill_id','=','b.id')
+                    ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                    ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                    ->get();
+        $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+        $references = SeekerReference::whereSeekerId($seeker->id)->get();
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
             'jobApply' => $jobApply,
             'seeker' => $seeker,
-            // 'educations' => $educations,
-            // 'experiences' => $experiences,
-            // 'skills' => $skills,
-            // 'skill_main_functional_areas' => $skill_main_functional_areas,
-            // 'languages' => $languages,
-            // 'references' => $references,
+            'educations' => $educations,
+            'experiences' => $experiences,
+            'skills' => $skills,
+            'skill_main_functional_areas' => $skill_main_functional_areas,
+            'languages' => $languages,
+            'references' => $references,
             'seeker_attach' => $seeker_attach
         ]);
     }
@@ -215,44 +215,44 @@ class EmployerJobPostController extends Controller
                         ->select('a.*','b.name as state_name','c.name as township_name')
                         ->first();
         }
-        // $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-        // $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
+        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
         $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
-        // if($experiences->is_experience == 1) {
-        //     $experiences = DB::table('seeker_experiences as a')
-        //                 ->where('a.seeker_id','=',$seeker->id)
-        //                 ->join('industries as b','a.industry_id','=','b.id')
-        //                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //                 ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
-        //                 ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
-        //                 ->get();
-        // }
-        // $skill_main_functional_areas = DB::table('seeker_skills as a')
-        //                 ->where('a.seeker_id','=',$seeker->id)
-        //                 ->join('skills as b','a.skill_id','=','b.id')
-        //                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //                 ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-        //                 ->groupBy('a.main_functional_area_id')
-        //                 ->get();
-        // $skills = DB::table('seeker_skills as a')
-        //             ->where('a.seeker_id','=',$seeker->id)
-        //             ->join('skills as b','a.skill_id','=','b.id')
-        //             ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-        //             ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-        //             ->get();
-        // $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
-        // $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        if($experiences->is_experience == 1) {
+            $experiences = DB::table('seeker_experiences as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('industries as b','a.industry_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                        ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                        ->get();
+        }
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        $skills = DB::table('seeker_skills as a')
+                    ->where('a.seeker_id','=',$seeker->id)
+                    ->join('skills as b','a.skill_id','=','b.id')
+                    ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                    ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                    ->get();
+        $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+        $references = SeekerReference::whereSeekerId($seeker->id)->get();
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
             'jobApply' => $jobApply,
             'seeker' => $seeker,
-            // 'educations' => $educations,
-            // 'experiences' => $experiences,
-            // 'skills' => $skills,
-            // 'skill_main_functional_areas' => $skill_main_functional_areas,
-            // 'languages' => $languages,
-            // 'references' => $references,
+            'educations' => $educations,
+            'experiences' => $experiences,
+            'skills' => $skills,
+            'skill_main_functional_areas' => $skill_main_functional_areas,
+            'languages' => $languages,
+            'references' => $references,
             'seeker_attach' => $seeker_attach
         ]);
     }

@@ -13,6 +13,8 @@ use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\JobApply;
+use App\Models\Admin\State;
+use App\Models\Admin\Township;
 
 class Seeker extends Authenticatable
 {
@@ -67,5 +69,15 @@ class Seeker extends Authenticatable
     function SeekerReference()
     {
         return $this->hasMany(SeekerReference::class, 'seeker_id', 'id');
+    }
+
+    function State()
+    {
+        return $this->belongsTo(State::class, 'state_id', 'id');
+    }
+
+    function Township()
+    {
+        return $this->belongsTo(Township::class, 'township_id', 'id');
     }
 }
