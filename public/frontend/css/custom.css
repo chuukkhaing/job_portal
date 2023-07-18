@@ -1,0 +1,103 @@
+
+/*search box css start here*/
+.search-sec{
+    padding: 2rem;
+}
+.search-slt{
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #fff;
+    height: calc(3rem + 2px) !important;
+    border-radius:0;
+}
+
+input.form-control.search-slt.job-title {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+input.form-control.search-slt.location {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.wrn-btn{
+    font-size: 16px;
+    background: #FB5404;
+    font-weight: 400;
+    color: #ffffff;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0;
+    border-radius: 50px;
+    padding: 10px 50px;
+}
+
+.form-group.has-search {
+    margin-bottom: 0rem;
+}
+
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        top: -114px;
+        background: rgb(23 23 28 / 51%);
+        z-index: 100;
+    }
+}
+
+@media (max-width: 992px){
+    .search-sec{
+        background: #1A4668;
+    }
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+  
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 15%;
+    text-align: center;
+    pointer-events: none;
+    height: 50px;
+    font-size: 15px;
+  }
+  
+.fa-search:before {
+    content: "\f002";
+    line-height: 3rem;
+}
+
+.fa-map-marker:before {
+    content: "\f041";
+    line-height: 3rem;
+}
+
+.fa-shopping-bag:before {
+    content: "\f290";
+    line-height: 3rem;
+}
+
+.function-area button.multiselect.dropdown-toggle.custom-select.text-center {
+    border: none;
+    border-radius: 0px;
+    height: calc(2em + 0.8rem + 3px);
+}
+
+.function-area .btn-group {
+    width: 100% !important;
+}
+
+.function-area .multiselect-container.dropdown-menu.show {
+    width: 100%;
+    border-radius: 0;
+}
