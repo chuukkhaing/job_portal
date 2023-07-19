@@ -33,11 +33,11 @@
     $('.summernote').summernote();
 
     $('#dataTable').dataTable();
-    $('.applicant-receive-table').dataTable({
-        ordering:  false,
-        "dom": 'rtip',
-        // "searching": true
-    });
+    // $('.applicant-receive-table').dataTable({
+    //     ordering:  false,
+    //     "dom": 'rtip',
+    //     // "searching": true
+    // });
     
 })(jQuery);
 

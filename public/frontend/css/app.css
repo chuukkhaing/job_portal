@@ -1,5 +1,8 @@
 body {
-    font-family: 'Source Sans Pro';
+    font-family: 'inherit';
+}
+.container {
+    width: 90%;
 }
 .navbar {
     background: #0355D0;

@@ -137,51 +137,78 @@ class EmployerJobPostController extends Controller
         //
     }
 
-    public function getJobPost($id)
+    public function getJobPost($id, $status)
     {
         $jobPost = JobPost::findOrFail($id);
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$id)
+                    ->where('a.status',$status)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'a.created_at as seeker_applied_date')
-                    ->orderBy('a.created_at','desc')
+                    ->orderBy('seeker_applied_date','desc')
                     ->get();
-        $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
-        if($seeker->country == 'Myanmar') {
-            $seeker = DB::table('seekers as a')
-                        ->join('states as b', 'a.state_id', '=', 'b.id')
-                        ->join('townships as c', 'a.township_id', '=', 'c.id')
-                        ->where('a.id','=',$seeker->id)
-                        ->select('a.*','b.name as state_name','c.name as township_name')
-                        ->first();
-        }
-        $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
-        $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
-        if($experiences->is_experience == 1) {
-            $experiences = DB::table('seeker_experiences as a')
-                        ->where('a.seeker_id','=',$seeker->id)
-                        ->join('industries as b','a.industry_id','=','b.id')
-                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-                        ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
-                        ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
-                        ->get();
-        }
-        $skill_main_functional_areas = DB::table('seeker_skills as a')
+        $seeker = 'no-seeker';
+        $seeker_attach = [];
+        $educations = [];
+        $experiences = [];
+        $skill_main_functional_areas = [];
+        $skills = [];
+        $languages = [];
+        $references = [];
+        if($jobApply->count() > 0){
+            $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
+            if($seeker->country == 'Myanmar') {
+                $seeker = DB::table('seekers as a')
+                            ->join('states as b', 'a.state_id', '=', 'b.id')
+                            ->join('townships as c', 'a.township_id', '=', 'c.id')
+                            ->where('a.id','=',$seeker->id)
+                            ->select('a.*','b.name as state_name','c.name as township_name')
+                            ->first();
+            }
+            $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
+            $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
+            $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+            if($experiences->is_experience == 1) {
+                $experiences = DB::table('seeker_experiences as a')
+                            ->where('a.seeker_id','=',$seeker->id)
+                            ->join('industries as b','a.industry_id','=','b.id')
+                            ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                            ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                            ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                            ->get();
+            }
+            $skill_main_functional_areas = DB::table('seeker_skills as a')
+                            ->where('a.seeker_id','=',$seeker->id)
+                            ->join('skills as b','a.skill_id','=','b.id')
+                            ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                            ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                            ->groupBy('a.main_functional_area_id')
+                            ->get();
+            $skills = DB::table('seeker_skills as a')
                         ->where('a.seeker_id','=',$seeker->id)
                         ->join('skills as b','a.skill_id','=','b.id')
                         ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                         ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-                        ->groupBy('a.main_functional_area_id')
                         ->get();
-        $skills = DB::table('seeker_skills as a')
-                    ->where('a.seeker_id','=',$seeker->id)
-                    ->join('skills as b','a.skill_id','=','b.id')
-                    ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-                    ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
-                    ->get();
-        $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
-        $references = SeekerReference::whereSeekerId($seeker->id)->get();
+            $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+            $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        }
+        
+        $received = JobApply::whereStatus('received')->whereJobPostId($id)->count();
+        $viewed = JobApply::whereStatus('viewed')->whereJobPostId($id)->count();
+        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($id)->count();
+        $interview = JobApply::whereStatus('interview')->whereJobPostId($id)->count();
+        $hire = JobApply::whereStatus('hire')->whereJobPostId($id)->count();
+        $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($id)->count();
+        $count = [];
+        $count = [
+            'received' => $received,
+            'viewed' => $viewed,
+            'shortlisted' => $shortlisted,
+            'interview' => $interview,
+            'hire' => $hire,
+            'notsuitable' => $notsuitable,
+        ];
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
@@ -193,18 +220,20 @@ class EmployerJobPostController extends Controller
             'skill_main_functional_areas' => $skill_main_functional_areas,
             'languages' => $languages,
             'references' => $references,
-            'seeker_attach' => $seeker_attach
+            'seeker_attach' => $seeker_attach,
+            'count' => $count
         ]);
     }
 
-    public function getJobPostInfo($id, $jobPostId)
+    public function getJobPostInfo($id, $jobPostId, $status)
     {
         $jobPost = JobPost::findOrFail($jobPostId);
         $jobApply = DB::table('job_applies as a')
                     ->join('seekers as b','a.seeker_id','=','b.id')
                     ->where('a.job_post_id','=',$jobPostId)
+                    ->where('a.status','=',$status)
                     ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'a.created_at as seeker_applied_date')
-                    ->orderBy('a.created_at','desc')
+                    ->orderBy('seeker_applied_date','desc')
                     ->get();
         $seeker = Seeker::findOrFail($id);
         if($seeker->country == 'Myanmar') {
@@ -242,6 +271,21 @@ class EmployerJobPostController extends Controller
                     ->get();
         $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
         $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        $received = JobApply::whereStatus('received')->whereJobPostId($jobPostId)->count();
+        $viewed = JobApply::whereStatus('viewed')->whereJobPostId($jobPostId)->count();
+        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
+        $interview = JobApply::whereStatus('interview')->whereJobPostId($jobPostId)->count();
+        $hire = JobApply::whereStatus('hire')->whereJobPostId($jobPostId)->count();
+        $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($jobPostId)->count();
+        $count = [];
+        $count = [
+            'received' => $received,
+            'viewed' => $viewed,
+            'shortlisted' => $shortlisted,
+            'interview' => $interview,
+            'hire' => $hire,
+            'notsuitable' => $notsuitable,
+        ];
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
@@ -253,7 +297,8 @@ class EmployerJobPostController extends Controller
             'skill_main_functional_areas' => $skill_main_functional_areas,
             'languages' => $languages,
             'references' => $references,
-            'seeker_attach' => $seeker_attach
+            'seeker_attach' => $seeker_attach,
+            'count' => $count
         ]);
     }
 
@@ -271,5 +316,83 @@ class EmployerJobPostController extends Controller
 
         $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
         return $pdf->download($seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
+    }
+
+    public function changeStatus($jobPostId, $seekerId, $status)
+    {
+        $jobPost = JobPost::findOrFail($jobPostId);
+        $changeStatus = JobApply::whereSeekerId($seekerId)->whereJobPostId($jobPostId)->update(['status'=>$status]);
+        $jobApply = DB::table('job_applies as a')
+                    ->join('seekers as b','a.seeker_id','=','b.id')
+                    ->where('a.job_post_id','=',$jobPostId)
+                    ->where('a.status','=',$status)
+                    ->select('a.*', 'b.first_name as seeker_first_name', 'b.last_name as seeker_last_name', 'a.created_at as seeker_applied_date')
+                    ->orderBy('seeker_applied_date','desc')
+                    ->get();
+        $seeker = Seeker::findOrFail($seekerId);
+        if($seeker->country == 'Myanmar') {
+            $seeker = DB::table('seekers as a')
+                        ->join('states as b', 'a.state_id', '=', 'b.id')
+                        ->join('townships as c', 'a.township_id', '=', 'c.id')
+                        ->where('a.id','=',$seekerId)
+                        ->select('a.*','b.name as state_name','c.name as township_name')
+                        ->first();
+        }
+        $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
+        $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+        $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
+        if($experiences->is_experience == 1) {
+            $experiences = DB::table('seeker_experiences as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('industries as b','a.industry_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                        ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                        ->get();
+        }
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        $skills = DB::table('seeker_skills as a')
+                    ->where('a.seeker_id','=',$seeker->id)
+                    ->join('skills as b','a.skill_id','=','b.id')
+                    ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                    ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                    ->get();
+        $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+        $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        $received = JobApply::whereStatus('received')->whereJobPostId($jobPostId)->count();
+        $viewed = JobApply::whereStatus('viewed')->whereJobPostId($jobPostId)->count();
+        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
+        $interview = JobApply::whereStatus('interview')->whereJobPostId($jobPostId)->count();
+        $hire = JobApply::whereStatus('hire')->whereJobPostId($jobPostId)->count();
+        $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($jobPostId)->count();
+        $count = [];
+        $count = [
+            'received' => $received,
+            'viewed' => $viewed,
+            'shortlisted' => $shortlisted,
+            'interview' => $interview,
+            'hire' => $hire,
+            'notsuitable' => $notsuitable,
+        ];
+        return response()->json([
+            'status' => 'success',
+            'jobPost' => $jobPost,
+            'jobApply' => $jobApply,
+            'seeker' => $seeker,
+            'educations' => $educations,
+            'experiences' => $experiences,
+            'skills' => $skills,
+            'skill_main_functional_areas' => $skill_main_functional_areas,
+            'languages' => $languages,
+            'references' => $references,
+            'seeker_attach' => $seeker_attach,
+            'count' => $count
+        ]);
     }
 }
