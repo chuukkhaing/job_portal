@@ -72,6 +72,9 @@
                 </div>
                 <div class="col-8 no-seeker">
                     <h5 class="text-dark d-inline-block">No Seeker</h5>
+                    <div class="d-inline-block float-end">
+                    <button class="btn btn-primary btn-sm precious-btn">Back</button>
+                    </div>
                 </div>
                 <div class="col-8 profile-overview">
                     <h5 class="text-dark d-inline-block">Profile Overview</h5>
