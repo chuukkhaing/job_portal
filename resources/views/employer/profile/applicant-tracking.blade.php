@@ -276,6 +276,7 @@
             url: 'get-jobpost/'+id+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                table.rows().remove();
                 getSeekerData(response)
             }
         })
@@ -450,6 +451,7 @@
             url: 'get-jobpost-info/'+id+'/'+jobPostId+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                table.rows().remove();
                 getSeekerData(response)
             }
         })
@@ -463,7 +465,10 @@
             url: 'change-status/'+jobPostId+'/'+seekerId+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                table.rows().remove();
                 getSeekerData(response)
+                CVColor(status)
+                
             }
         })
     }
