@@ -117,3 +117,44 @@ input.form-control.search-slt.location {
     width: 100%;
     border-radius: 0;
 }
+
+/*Trending Jobs css start here*/
+.Scroll {
+    height:649px;
+    overflow-y: scroll;
+}
+
+#trending-job-title {
+    font-family: 'SourceSansPro-SemiBold';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #181722;
+    margin: 0px;
+}
+
+#trending-job-sub-title {
+    font-family: 'SourceSansPro-Regular';
+    font-weight: 400;
+    font-size: 16px;
+    color: #0355d0;
+}
+
+.trending-job-list {
+    /* border: 1px solid #B7CEE5; */
+    border: none;
+}
+
+.trending-job-list:hover {
+    border-left: 5px solid #0355D0;
+    background: #EBF5FF;
+}
+
+.trending-job-list.active{
+    border-left: 5px solid #0355D0;
+    background: #EBF5FF;
+}
+
+.text-orange {
+    color: #FB5404;
+}
