@@ -66,9 +66,9 @@
                                     <span class="employer-image-text">Company Logo</span> <span style="color: #696968">120 x 120</span>
                                 </div>
                                 @if($employer->logo)
-                                <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive employer-logo" width="150px" height="150px" alt="employer-logo">
+                                <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="employer-logo">
                                 @else
-                                <img src="https://placehold.jp/120x120.png" class="img-responsive employer-logo" alt="employer-logo" width="150px" height="150px">
+                                <img src="https://placehold.jp/120x120.png" class="img-responsive w-100 employer-logo" alt="employer-logo">
                                 @endif
                                 <div class="py-3 text-center">
                                     <label for="imageUpload" style="color: #696968">Tap to Change</label>
@@ -98,9 +98,9 @@
                                     <span class="employer-image-text">Company QR</span>
                                 </div>
                                 @if($employer->qr)
-                                <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="img-responsive employer-qr" width="150px" height="150px" alt="employer-qr">
+                                <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="img-responsive w-100 employer-qr" alt="employer-qr">
                                 @else
-                                <img src="https://placehold.jp/120x120.png" class="img-responsive employer-qr" alt="employer-qr" width="150px" height="150px">
+                                <img src="https://placehold.jp/120x120.png" class="img-responsive w-100 employer-qr" alt="employer-qr">
                                 @endif
                                 <div class="py-3 text-center">
                                     <label for="qrUpload" style="color: #696968">Tap to Change</label>
@@ -236,7 +236,7 @@
                         </div>
                         <div class="py-2">
                             <div class="row">
-                                
+
                             </div>
                         </div>
                     </div>
