@@ -37,8 +37,6 @@
     //     ordering:  false,
     //     "dom": 'rtip',
     //     // "searching": true
-    //     // "dom": 'Pftip',
-    //     // "searching": true
     // });
     
 })(jQuery);

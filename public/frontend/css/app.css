@@ -1,6 +1,9 @@
 body {
     font-family: 'inherit';
 }
+.container {
+    width: 90%;
+}
 .navbar {
     background: #0355D0;
     padding: 0;
