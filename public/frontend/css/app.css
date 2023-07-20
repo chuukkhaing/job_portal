@@ -2,7 +2,7 @@ body {
     font-family: 'inherit';
 }
 .container {
-    width: 90%;
+    max-width: 90%;
 }
 .navbar {
     background: #0355D0;
@@ -662,7 +662,4 @@ a.disabled {
     top: 0;
     background: url(../../img/background/istockphoto-1279104620-612x612.jpg);
     background-size: cover;
-}
-.container {
-    max-width: 90%
 }
