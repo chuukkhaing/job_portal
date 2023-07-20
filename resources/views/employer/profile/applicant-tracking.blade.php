@@ -237,6 +237,20 @@
         </div>
     </div>
 </div>
+<div id="" class="loading hide-loader">
+    <div class="loader">
+        <div class="spinner-grow text-primary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-dark m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <div class="spinner-grow text-secondary m-1" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
@@ -274,11 +288,13 @@
     });
     function getRelatedApplicantList(id,status)
     {
+        $(".loading").removeClass('hide-loader')
         $.ajax({
             type: 'GET',
             url: 'get-jobpost/'+id+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                $(".loading").addClass('hide-loader')
                 table.rows().remove();
                 getSeekerData(response)
             }
@@ -448,12 +464,14 @@
 
     function getRelatedApplicantInfo(id, jobPostId, status)
     {
+        $(".loading").removeClass('hide-loader')
         table.rows().remove();
         $.ajax({
             type: 'GET',
             url: 'get-jobpost-info/'+id+'/'+jobPostId+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                $(".loading").addClass('hide-loader')
                 table.rows().remove();
                 getSeekerData(response)
             }
@@ -462,12 +480,13 @@
 
     function changeStatus (seekerId, jobPostId, status)
     {
-        
+        $(".loading").removeClass('hide-loader')
         $.ajax({
             type: 'GET',
             url: 'change-status/'+jobPostId+'/'+seekerId+'/'+status,
         }).done(function(response){
             if(response.status == 'success') {
+                $(".loading").addClass('hide-loader')
                 table.rows().remove();
                 getSeekerData(response)
                 CVColor(status)
