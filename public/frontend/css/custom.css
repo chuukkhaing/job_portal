@@ -136,7 +136,7 @@ input.form-control.search-slt.location {
 #trending-job-sub-title {
     font-family: 'SourceSansPro-Regular';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
     color: #0355d0;
 }
 
@@ -146,7 +146,7 @@ input.form-control.search-slt.location {
 }
 
 .trending-job-list:hover {
-    border-left: 5px solid #0355D0;
+    /* border-left: 5px solid #0355D0; */
     background: #EBF5FF;
 }
 
@@ -157,4 +157,8 @@ input.form-control.search-slt.location {
 
 .text-orange {
     color: #FB5404;
+}
+
+.fz13{
+    font-size: 13px;
 }
