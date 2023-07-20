@@ -119,9 +119,21 @@ input.form-control.search-slt.location {
 }
 
 /*Trending Jobs css start here*/
-.Scroll {
-    height:649px;
-    overflow-y: scroll;
+.trending-scroll {
+    height:640px;
+    overflow: auto;
+}
+.trending-scroll::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #E8EFF7;
+    border-radius: 50px;
+}
+.trending-scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #1860AA;
 }
 
 #trending-job-title {
