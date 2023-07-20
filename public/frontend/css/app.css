@@ -674,7 +674,7 @@ a.disabled {
     position: fixed;
     top: 0;
     left: 0;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(1px);
 }
 .hide-loader{
     display:none;
