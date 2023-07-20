@@ -181,10 +181,11 @@
                                 <h5 class="py-3">Company Address Detail</h5>
                                 <div class="form-group col-6">
                                     <label for="country" class="seeker_label">Country </label>
-                                    <select name="country" id="country" class="form-control seeker_input select_2" style="width: 100%" required>
+                                    <select name="country" id="country" class="form-control seeker_input select_2" style="width: 100%">
                                         <option value="Myanmar">Myanmar</option>
                                         <option value="Other">Other</option>
                                     </select>
+                                    <small class="text-danger d-none error-country">Need to Choose Country</small>
                                 </div>
 
                                 <div class="form-group col-6">
@@ -200,8 +201,11 @@
                                         <option value="{{ $state->id }}">{{ $state->name }}</option>
                                         @endforeach
                                     </select>
+                                    <small class="text-danger d-none error-state">Need to Choose State</small>
                                 </div>
-                                <div class="col-6"></div>
+                                <div class="col-6">
+                                    <a id="addNewAddress" onclick="addNewAddress()" class="btn btn-outline-primary float-end rounded-3"><i class="fa-solid fa-plus"></i> Add New Address</a>
+                                </div>
                                 <div class="form-group col-6" id="township_id_field">
                                     <label for="township_id" class="seeker_label">City/ Township </label><br>
                                     <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
@@ -210,6 +214,7 @@
                                         <option value="{{ $township->id }}">{{ $township->name }}</option>
                                         @endforeach
                                     </select>
+                                    <small class="text-danger d-none error-township">Need to Choose Township</small>
                                 </div>
 
                             </div>
@@ -317,6 +322,43 @@
         $('.employer-qr-remove').addClass('d-none');
         $('.employer-qr-upload').val('');
         $('#qrStatus').val('empty');
+    })
+
+    function addNewAddress() {
+        var country = $("#country").val();
+        var state = $("#state_id").val();
+        var township = $("#township_id").val();
+        var address_detail = $("#address_detail").val();
+
+        if(country == null)
+        {
+            $('.error-country').removeClass('d-none');
+        }else {
+            $('.error-country').addClass('d-none');
+        }
+        if(country == 'Myanmar') {
+            if(state == '') {
+                $('.error-state').removeClass('d-none');
+            }else {
+                $('.error-state').addClass('d-none');
+            }
+
+            if(township == '') {
+                $('.error-township').removeClass('d-none');
+            }else {
+                $('.error-township').addClass('d-none');
+            }
+        }
+    }
+
+    $("#country").change(function() {
+        if($(this).val() == "Myanmar") {
+            $("#state_id_field").removeClass('d-none');
+            $("#township_id_field").removeClass('d-none');
+        }else {
+            $("#state_id_field").addClass('d-none');
+            $("#township_id_field").addClass('d-none');
+        }
     })
 </script>
 @endpush
