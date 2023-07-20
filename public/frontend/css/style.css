@@ -79,6 +79,7 @@ h6,
     transition: opacity .5s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
+    backdrop-filter: blur(3px);
 }
 
 .back-to-top {
