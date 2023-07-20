@@ -26,7 +26,7 @@
                         </div>
                         <div class="py-2">
                             <div class="table-responsive">
-                                <table class="table border">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>Users</th>
@@ -179,9 +179,33 @@
                                 </div>
 
                                 <h5 class="py-3">Company Address Detail</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered employer-address @if($employer->EmployerAddress->count() > 0) @else d-none @endif">
+                                        <thead>
+                                            <tr>
+                                                <th>Country</th>
+                                                <th>State</th>
+                                                <th>Township</th>
+                                                <th>Address Detail</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($employer->EmployerAddress as $address)
+                                            <tr class="address-tr-{{ $address->id }}">
+                                                <td>{{ $address->country }}</td>
+                                                <td>{{ $address->State->name ?? '-' }}</td>
+                                                <td>{{ $address->Township->name ?? '-' }}</td>
+                                                <td>{{ $address->address_detail ?? '-' }}</td>
+                                                <td><a onclick="deleteAddress({{ $address->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                                 <div class="form-group col-6">
                                     <label for="country" class="seeker_label">Country </label>
-                                    <select name="country" id="country" class="form-control seeker_input select_2" style="width: 100%">
+                                    <select name="country" id="country_address" class="form-control seeker_input" style="width: 100%">
                                         <option value="Myanmar">Myanmar</option>
                                         <option value="Other">Other</option>
                                     </select>
@@ -229,19 +253,19 @@
                     </div>
                     <div class="col-11">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-9">
                                 <div class="py-2">
                                     <h5>Add Testimonials to Elevate Your Profile</h5>
                                     <span>Discover how incorporating testimonials can enhance your profile, showcasing your credibility and building trust with potential clients or employers.</span>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                
+                            <div class="col-3">
+                                <a onclick="addTestimonial()" class="btn btn-primary float-end"><i class="fa-solid fa-plus"></i> Add</a>
                             </div>
                         </div>
                         <div class="py-2">
-                            <div class="row">
-
+                            <div class="row" style="background: #F5F9FF; border: 1px solid #E8EFF7">
+                                
                             </div>
                         </div>
                     </div>
@@ -325,7 +349,7 @@
     })
 
     function addNewAddress() {
-        var country = $("#country").val();
+        var country = $("#country_address").val();
         var state = $("#state_id").val();
         var township = $("#township_id").val();
         var address_detail = $("#address_detail").val();
@@ -348,10 +372,87 @@
             }else {
                 $('.error-township').addClass('d-none');
             }
+            if(country != null && state != '' && township != '') {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'country' : country,
+                        'state_id' : state,
+                        'township_id' : township,
+                        'address_detail' : address_detail,
+                        'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                    },
+                    url: '{{ route("employer-address.store") }}',
+                }).done(function(response){
+                    if(response.status = 'success') {
+                        $('.employer-address').removeClass('d-none');
+                        var addressDetail = '';
+                        if(response.data.address_detail == null ) {
+                            addressDetail = '-';
+                        }else {
+                            addressDetail = response.data.address_detail;
+                        }
+                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+response.data.township_name+'</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#country_address").val('');
+                        $("#state_id").val('');
+                        $("#township_id").val('');
+                        $("#address_detail").val('');
+                        $('.error-state').addClass('d-none');
+                        $('.error-township').addClass('d-none');
+                        $('.error-country').addClass('d-none');
+                        $("#state_id_field").removeClass('d-none');
+                        $("#township_id_field").removeClass('d-none');
+                    }
+                })
+            }else {
+                $('.error-state').removeClass('d-none');
+                $('.error-township').removeClass('d-none');
+                $('.error-country').removeClass('d-none');
+            }
+        }
+        else {
+            
+            if(country != null) {
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'country' : country,
+                        'state_id' : state,
+                        'township_id' : township,
+                        'address_detail' : address_detail,
+                        'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                    },
+                    url: '{{ route("employer-address.store") }}',
+                }).done(function(response){
+                    if(response.status = 'success') {
+                        $('.employer-address').removeClass('d-none');
+                        var addressDetail = '';
+                        if(response.data.address_detail == null ) {
+                            addressDetail = '-';
+                        }else {
+                            addressDetail = response.data.address_detail;
+                        }
+                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>-</td><td>-</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#country_address").val('');
+                        $("#state_id").val('');
+                        $("#township_id").val('');
+                        $("#address_detail").val('');
+                        $('.error-state').addClass('d-none');
+                        $('.error-township').addClass('d-none');
+                        $('.error-country').addClass('d-none');
+                        $("#state_id_field").removeClass('d-none');
+                        $("#township_id_field").removeClass('d-none');
+                    }
+                })
+            }else {
+                $('.error-state').removeClass('d-none');
+                $('.error-township').removeClass('d-none');
+                $('.error-country').removeClass('d-none');
+            }
         }
     }
 
-    $("#country").change(function() {
+    $("#country_address").change(function() {
         if($(this).val() == "Myanmar") {
             $("#state_id_field").removeClass('d-none');
             $("#township_id_field").removeClass('d-none');
@@ -360,5 +461,52 @@
             $("#township_id_field").addClass('d-none');
         }
     })
+
+    $.ajaxSetup({
+        headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $('#state_id').change(function(e){
+        e.preventDefault();
+        if($(this).val() != "") {
+            var state_id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: 'get-township/'+state_id,
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $("#township_id").empty();
+                    $("#township_id").append('<option value="">Choose</option>')
+                    $.each(response.data, function(index, township) {
+                    
+                    $("#township_id").append('<option value=' + township.id + '>' + township.name +'</option>');
+                    })
+                }
+            })
+        }else {
+            $("#township_id").empty();
+        }
+    });
+
+    function deleteAddress(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ Auth::guard("employer")->user()->id }}
+            },
+            url: 'employer-address/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $(".address-tr-"+id).empty();
+                if(response.address_count == 0) {
+                    $(".employer-address").addClass('d-none');
+                }
+                alert(response.msg)
+            }
+        })
+    }
 </script>
 @endpush

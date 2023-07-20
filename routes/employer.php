@@ -31,6 +31,8 @@ Route::group([], function(){
         Route::resource('employer-profile', EmployerProfileController::class);
         Route::get('/get-township/{id}', [EmployerProfileController::class, 'getTownship']);
         Route::get('/get-sub-functional-area/{id}', [EmployerProfileController::class, 'getSubFunctionalArea']);
+        Route::post('/employer-address',[EmployerProfileController::class, 'employerAddressStore'])->name('employer-address.store');
+        Route::post('employer-address/destory/{id}', [EmployerProfileController::class, 'employerAddressDestroy']);
         
         Route::resource('employer-job-post', EmployerJobPostController::class);
 

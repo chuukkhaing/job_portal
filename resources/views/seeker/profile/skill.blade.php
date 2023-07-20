@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>Skills</h5>
-    <div class="my-2 row">
-        <table id="skill-table" class="@if($skills->count() == 0) d-none @endif table border-1 table-responsive">
+    <div class="my-2 row table-responsive">
+        <table id="skill-table" class="@if($skills->count() == 0) d-none @endif table table-bordered ">
             <thead>
                 <tr>
                     <th>Main Functional Area Name</th>

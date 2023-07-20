@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>CV Upload</h5>
     <div class="my-2 row">
-        <table id="cv-table" class="@if($cvs->count() == 0) d-none @endif table border-1 table-responsive">
+        <table id="cv-table" class="table-bordered @if($cvs->count() == 0) d-none @endif table table-responsive">
             
             <tbody>
                 @foreach($cvs as $cv)

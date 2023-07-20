@@ -702,3 +702,6 @@ a.disabled {
     line-height: 72px;
     text-align: center;
 }
+.table-bordered thead{
+    background: #95B6D8;
+}

@@ -12,6 +12,8 @@ use App\Models\Admin\Township;
 use App\Models\Admin\Package;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPost;
+use App\Models\Employer\EmployerAddress;
+use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 
@@ -186,6 +188,45 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $sub_functional_areas
+        ]);
+    }
+
+    public function employerAddressStore(Request $request)
+    {
+        $address_create = EmployerAddress::create([
+            'employer_id' => $request->employer_id,
+            'country' => $request->country,
+            'state_id' => $request->state_id,
+            'township_id' => $request->township_id,
+            'address_detail' => $request->address_detail
+        ]);
+        if($address_create->country == 'Myanmar') {
+            $address = DB::table('employer_addresses as a')
+                ->join('states as b','a.state_id','=','b.id')
+                ->join('townships as c','a.township_id','=','c.id')
+                ->where('a.id','=',$address_create->id)
+                ->select('a.*','b.name as state_name','c.name as township_name')
+                ->first();
+        }else {
+            $address = $address_create;
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $address
+        ]);
+    }
+
+    public function employerAddressDestroy($id, Request $request)
+    {
+        $address = EmployerAddress::findOrFail($id)->delete();
+        $employer = Employer::findOrFail($request->employer_id);
+        $address_count = EmployerAddress::whereEmployerId($employer->id)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Address deleted successfully!',
+            'address_count' => $address_count
         ]);
     }
 }

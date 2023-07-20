@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>Educations</h5>
     <div class="my-2 row">
-        <table id="edu-table" class="@if($educations->count() == 0) d-none @endif table border-1 table-responsive">
+        <table id="edu-table" class="table-bordered @if($educations->count() == 0) d-none @endif table table-responsive">
             <thead>
                 <tr>
                     <th>Degree</th>

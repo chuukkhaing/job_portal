@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>Career History</h5>
     <div class="my-2 row">
-        <table id="exp-table" class="@if($experiences->count() == 0) d-none @endif table border-1 table-responsive">
+        <table id="exp-table" class="table-bordered @if($experiences->count() == 0) d-none @endif table table-responsive">
             <thead>
                 <tr>
                     <th>Job Title</th>

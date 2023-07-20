@@ -1,7 +1,7 @@
 <div class="container-fluid bg-light" id="edit-profile-header">
     <div class="px-5 m-0 pb-0 pt-5">
         <div class="table-responsive" id="applicant-tracking-section">
-            <table class="table border-0" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="my-4">
                         <div class="table-responsive seeker_table">
-                            <table class="table border-0 applicant-receive-table" width="100%" cellspacing="0">
+                            <table class="table table-bordered applicant-receive-table" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Job Seeker Name</th>
