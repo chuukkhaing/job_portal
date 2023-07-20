@@ -148,7 +148,7 @@
         </div>
     </div>  
 
-    <div class="row pt-4 pb-4 Scroll">
+    <div class="row pt-4 pb-4 trending-scroll">
         <div class="col-12 col-md-4">
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
