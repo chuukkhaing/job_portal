@@ -120,7 +120,7 @@ input.form-control.search-slt.location {
 
 /*Trending Jobs css start here*/
 .trending-scroll {
-    height:640px;
+    height:600px;
     overflow: auto;
 }
 .trending-scroll::-webkit-scrollbar
