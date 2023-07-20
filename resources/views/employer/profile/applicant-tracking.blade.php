@@ -1,4 +1,4 @@
-<div class="container-fluid" id="edit-profile-header">
+<div class="container-fluid bg-light" id="edit-profile-header">
     <div class="px-5 m-0 pb-0 pt-5">
         <div class="table-responsive" id="applicant-tracking-section">
             <table class="table border-0" id="dataTable" width="100%" cellspacing="0">
@@ -7,6 +7,11 @@
                         <th>No.</th>
                         <th>Job Title</th>
                         <th># Apps</th>
+                        <th>Not Suitable</th>
+                        <th>Shorted List</th>
+                        <th>Hired</th>
+                        {{--<th>Note</th>
+                        <th>QR</th>--}}
                         <th>Posted Date</th>
                     </tr>
                 </thead>
@@ -19,9 +24,32 @@
                             @if($jobApplicant->JobApply->count() > 0)
                             <a href="#" onclick="getCVList({{$jobApplicant->id}},'received')">{{ $jobApplicant->JobApply->count() }} CVs</a>
                             @else 
-                            {{ $jobApplicant->JobApply->count() }} CVs
+                            {{ $jobApplicant->JobApply->count() }} CV
                             @endif
                         </td>
+                        <td>
+                            @if($jobApplicant->JobApply->where('status','not-suitable')->count() > 0)
+                            <a href="#" class="text-danger" onclick="getCVList({{$jobApplicant->id}},'not-suitable')">{{ $jobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>
+                            @else 
+                            <span class="text-danger">{{ $jobApplicant->JobApply->where('status','not-suitable')->count() }} CV</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($jobApplicant->JobApply->where('status','short-listed')->count() > 0)
+                            <a href="#" class="text-warning" onclick="getCVList({{$jobApplicant->id}},'short-listed')">{{ $jobApplicant->JobApply->where('status','short-listed')->count() }} CVs</a>
+                            @else 
+                            <span class="text-warning">{{ $jobApplicant->JobApply->where('status','short-listed')->count() }} CV</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($jobApplicant->JobApply->where('status','hire')->count() > 0)
+                            <a href="#" class="text-success" onclick="getCVList({{$jobApplicant->id}},'hire')">{{ $jobApplicant->JobApply->where('status','hire')->count() }} CVs</a>
+                            @else 
+                            <span class="text-success">{{ $jobApplicant->JobApply->where('status','hire')->count() }} CV</span>
+                            @endif
+                        </td>
+                        {{--<td></td>
+                        <td></td>--}}
                         <td>{{ date('d-m-Y', strtotime($jobApplicant->created_at)) }}</td>
                     </tr>
                     @endforeach
@@ -59,7 +87,7 @@
                             <table class="table border-0 applicant-receive-table" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>Seeker Name</th>
+                                        <th>Job Seeker Name</th>
                                         <th class="text-end">Applied Date</th>
                                     </tr>
                                 </thead>
@@ -118,7 +146,7 @@
                         <div class="mb-4">
                             <h5 class="text-decoration-underline">Personal Information</h5>
                             
-                            {{--<div class="row my-3">
+                            <div class="row my-3">
                                 <div class="col">
                                     <span>Name</span>
                                     <span class="float-end">:</span>
@@ -126,7 +154,7 @@
                                 <div class="col">
                                     <span class="app_receive_name"></span>
                                 </div>
-                            </div>--}}
+                            </div>
                             <div class="row my-3">
                                 <div class="col">
                                     <span>Date Of Birth</span>
@@ -276,10 +304,7 @@
         CVColor(status);
     }
     $(".precious-btn").click(function() {
-        $(".employer-single-tab").removeClass('active');
-        $("#applicant-tracking-tab").addClass('active');
-        $("#applicant-tracking-section").removeClass('d-none');
-        $("#cv-list-section").addClass('d-none');
+        window.location.reload();
     })
     $.ajaxSetup({
         headers: {

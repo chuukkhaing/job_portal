@@ -63,7 +63,11 @@
     </div>
     <!-- Spinner End -->
     <!-- Header Start  -->
+    @auth('employer')
+    @include('frontend.layouts.employer-header')
+    @else
     @include('frontend.layouts.header')
+    @endauth
     @include('frontend.layouts.alert')
     <!-- Header End  -->
     @yield('content')

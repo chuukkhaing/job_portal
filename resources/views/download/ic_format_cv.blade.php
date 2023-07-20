@@ -129,7 +129,7 @@
             <div class="mb-4">
                 <h5 class="text-decoration-underline">Personal Information</h5>
                 
-                {{--<div class="row my-3">
+                <div class="row my-3">
                     <div class="col">
                         <span>Name</span>
                         <span class="float-end">:</span>
@@ -137,7 +137,7 @@
                     <div class="col">
                         <span class="app_receive_name">@if($seeker->gender == 'Female') Ms.@else Mr.@endif {{ $seeker->first_name ?? '-' }} {{ $seeker->last_name ?? '-' }}</span>
                     </div>
-                </div>--}}
+                </div>
                 <div class="row my-3">
                     <div class="col">
                         <span>Date Of Birth</span>

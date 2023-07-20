@@ -16,6 +16,8 @@ class CreateEmployersTable extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->string('logo')->nullable();
+            $table->string('background')->nullable();
+            $table->string('qr')->nullable();
             $table->string('name')->nullable();
 			$table->string('email')->nullable();
             $table->string('password');
@@ -36,8 +38,6 @@ class CreateEmployersTable extends Migration
 			$table->string('linkedin')->nullable();
             $table->string('instagram')->nullable();
             $table->string('youtube')->nullable();
-			$table->bigInteger('state_id')->nullable();
-			$table->bigInteger('township_id')->nullable();
             $table->string('contact_person_name')->nullable();
             $table->string('contact_person_phone')->nullable();
             $table->string('contact_person_email')->nullable();

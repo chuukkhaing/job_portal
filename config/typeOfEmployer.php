@@ -2,7 +2,7 @@
 
 return [
     'value' => [
-        'Ownership',
-        'Agency'
+        'Direct Employer',
+        'Assigned Employer'
     ]
 ];

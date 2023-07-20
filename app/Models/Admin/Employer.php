@@ -46,14 +46,4 @@ class Employer extends Authenticatable
     {
         return $this->belongsTo(OwnershipType::class);
     }
-
-    public function State()
-    {
-        return $this->belongsTo(State::class);
-    }
-
-    public function Township()
-    {
-        return $this->belongsTo(Township::class);
-    }
 }

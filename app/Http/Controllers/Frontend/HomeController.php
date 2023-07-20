@@ -9,6 +9,7 @@ use App\Models\Admin\Industry;
 use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
 use App\Models\Admin\FeedBack;
+use App\Models\Admin\FunctionalArea;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use DB;
 
@@ -24,7 +25,8 @@ class HomeController extends Controller
         $employers = Employer::whereNull('deleted_at')->whereNotNull('logo')->orderBy('updated_at','desc')->whereIsActive(1)->get()->take(6);
         $live_job = JobPost::whereIsActive(1)->count();
         $today_job = JobPost::whereIsActive(1)->where('updated_at',date('Y-m-d', strtotime(now())))->count();
-        return view ('frontend.home', compact('sliders', 'jobPosts', 'employers', 'live_job', 'today_job'));
+        $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->get();
+        return view ('frontend.home', compact('sliders', 'jobPosts', 'employers', 'live_job', 'today_job', 'functional_areas'));
     }
 
     public function jobCategory()

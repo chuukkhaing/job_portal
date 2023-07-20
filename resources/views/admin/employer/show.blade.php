@@ -119,14 +119,7 @@
                         <td width="200px">Youtube</td>
                         <td><strong>{{ $employer->youtube ?? '-' }}</strong></td>
                     </tr>
-                    <tr>
-                        <td width="200px">State</td>
-                        <td><strong>{{ $employer->State->name ?? '-' }}</strong></td>
-                    </tr>
-                    <tr>
-                        <td width="200px">City</td>
-                        <td><strong>{{ $employer->Township->name ?? '-' }}</strong></td>
-                    </tr>
+                    
                     <tr>
                         <td width="200px">Contact Person Name</td>
                         <td><strong>{{ $employer->contact_person_name ?? '-' }}</strong></td>

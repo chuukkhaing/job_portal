@@ -200,26 +200,6 @@
                     <div class="col-6"></div>
 
                     <div class="col-6 form-group">
-                        <label for="state_id">Choose State </label>
-                        <select name="state_id" id="state_id" class="form-control select_2">
-                            <option value=""></option>
-                            @foreach ($states as $state)
-                            <option value="{{ $state->id }}" @if($state->id == $employer->state_id) selected @endif>{{ $state->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-6 form-group">
-                        <label for="township_id">Choose Township </label>
-                        <select name="township_id" id="township_id" class="form-control select_2">
-                            <option value=""></option>
-                            @foreach ($townships as $township)
-                            <option value="{{ $township->id }}" @if($township->id == $employer->township_id) selected @endif>{{ $township->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="col-6 form-group">
                         <label for="contact_person_name"><strong>Contact Person Name</strong></label>
                         <input type="text" class="form-control" name="contact_person_name" id="contact_person_name" placeholder="Enter Contact Person Name" value="{{ $employer->contact_person_name }}" />
                     </div>
