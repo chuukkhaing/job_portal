@@ -155,15 +155,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="trending-image">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -176,15 +176,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -197,15 +197,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -218,15 +218,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -239,15 +239,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -259,15 +259,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -279,15 +279,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -299,15 +299,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -319,15 +319,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -339,15 +339,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -359,15 +359,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -379,15 +379,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -399,15 +399,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -419,15 +419,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
-                        <div>
+                    <div class="col-9 p-0">
+                        <div class="fz13">
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -439,15 +439,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -459,15 +459,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -479,15 +479,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
@@ -499,15 +499,15 @@
                     <div class="col-3 text-center">
                         <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
-                    <div class="col-9">
+                    <div class="col-9 p-0">
                         <div>
                             <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
                             <span id="trending-job-sub-title">AYA Bank</span>
                         </div>
 
-                        <div>
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>AYA Bank, aya</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Bank</span>
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
                         </div>
                     </div>
                 </div>
