@@ -260,11 +260,64 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                                <a onclick="addTestimonial()" class="btn btn-primary float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
+                                <a onclick="addTestimonial()" class="btn profile-save-btn float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
                             </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered employer-testimonial @if($employer->EmployerTestimonial->count() > 0) @else d-none @endif">
+                                <thead>
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Title</th>
+                                        <th>Remark</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($employer->EmployerTestimonial as $test)
+                                    <tr class="test-tr-{{ $test->id }}">
+                                        <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" alt="Testimonial Image"> @else - @endif</td>
+                                        <td>{{ $test->name ?? '-' }}</td>
+                                        <td>{{ $test->title ?? '-' }}</td>
+                                        <td>{{ $test->remark ?? '-' }}</td>
+                                        <td><a onclick="deleteTest({{ $test->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <div class="py-2">
                             <div class="row" style="background: #F5F9FF; border: 1px solid #E8EFF7">
+                                <div class="d-flex align-items-center py-3">
+                                    <div class="test-image-box d-inline-block">
+                                        <img src="https://placehold.co/120x120/#E4E3E2" class="test-image-preview">
+                                        <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle d-none test-image-remove"><i class="fa-solid fa-xmark"></i></button>
+                                        
+                                    </div>
+                                    <div class="px-3">
+                                        <label for="test-image" class="btn btn-outline-secondary"><i class="fa-solid fa-plus"></i> Upload Photo</label><br>
+                                        <input type="file" name="test-image" id="test-image" accept="image/*" class="d-none">
+                                        <span class="text-muted">120 * 120 pixels</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="test-name" class="seeker_label">Name <span class="text-danger">*</span></label>
+                                        <input type="text" name="test-name" id="test-name" class="form-control seeker_input" placeholder="Name" value="">
+                                        <span class="text-danger test-name-error d-none">Testimonial Name Need to Fill.</span>
+                                    </div>
+                                    <div class="form-group col-12 col-md-6">
+                                        <label for="test-title" class="seeker_label">Title <span class="text-danger">*</span></label>
+                                        <input type="text" name="test-title" id="test-title" class="form-control seeker_input" placeholder="Title" value="">
+                                        <span class="text-danger test-title-error d-none">Testimonial Title Need to Fill.</span>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <label for="test-remark" class="seeker_label">Remark</label>
+                                        <textarea name="test-remark" id="test-remark" cols="30" rows="5" class="form-control seeker_input"></textarea>
+                                    </div>
+                                </div>
                                 
                             </div>
                         </div>
@@ -507,6 +560,69 @@
                 alert(response.msg)
             }
         })
+    }
+
+    $("#test-image").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('.test-image-preview').attr('src', e.target.result);
+                $('.test-image-remove').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+        }
+    })
+    
+    $('.test-image-remove').click(function() {
+        $('.test-image-preview').attr('src', 'https://placehold.co/120x120/#E4E3E2');
+        $('.test-image-remove').addClass('d-none');
+        $('#test-image').val('');
+        
+    })
+    function addTestimonial()
+    {
+        var test_name = $("#test-name").val();
+        var test_title = $("#test-title").val();
+        var test_remark = $("#test-remark").val();
+        var test_image = $("#test-image")[0].files[0];
+        if(test_name == '') {
+            $(".test-name-error").removeClass('d-none');
+        }else {
+            $(".test-name-error").addClass('d-none');
+        }
+        if(test_title == '') {
+            $(".test-title-error").removeClass('d-none');
+        }else {
+            $(".test-title-error").addClass('d-none');
+        }
+        if(test_name != '' && test_title != '') {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    'name' : test_name,
+                    'title' : test_title,
+                    'image' : test_image,
+                    'remark' : test_remark,
+                    'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                },
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-testimonial.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    var remark = '-';
+                    if(response.data.remark) {
+                        remark = response.data.remark;
+                    }
+                    var image = '-';
+                    if(response.data.image){
+                        image = '<img src="'+window.origin+'/storage/employer_testimonial/'+response.data.image+'" alt="Testimonial Image">';
+                    }
+                    $(".employer-testimonial").append('<tr class="test-tr-'+response.data.id+'"><td>'+image+'</td><td>'+response.data.name+'</td><td>'+response.data.title+'</td><td>'+remark+'</td><td><a onclick="deleteTest('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                }
+            })
+        }
     }
 </script>
 @endpush

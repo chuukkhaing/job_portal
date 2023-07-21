@@ -101,7 +101,7 @@
                 <div class="col-8 no-seeker">
                     <h5 class="text-dark d-inline-block">No Seeker</h5>
                     <div class="d-inline-block float-end">
-                    <button class="btn btn-primary btn-sm precious-btn">Back</button>
+                    <button class="btn profile-save-btn btn-sm precious-btn">Back</button>
                     </div>
                 </div>
                 <div class="col-8 profile-overview">
@@ -117,7 +117,7 @@
                                 <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                             </ul>
                         </div>
-                        <button class="btn btn-primary btn-sm precious-btn">Back</button>
+                        <button class="btn profile-save-btn btn-sm precious-btn">Back</button>
                     </div>
                     <div class="">
                         <button type="button" class="btn btn-sm btn-received btn-status btn-outline-primary" data-id="received">Application Received</button>

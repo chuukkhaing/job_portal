@@ -13,6 +13,7 @@ use App\Models\Admin\Package;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPost;
 use App\Models\Employer\EmployerAddress;
+use App\Models\Employer\EmployerTestimonial;
 use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
@@ -226,6 +227,28 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'msg' => 'Address deleted successfully!',
             'address_count' => $address_count
+        ]);
+    }
+
+    public function employerTestimonialStore(Request $request)
+    {
+        $image = Null;
+        if ($request->hasFile('image')) {
+            $file    = $request->file('image');
+            $image = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_testimonial/'), $image);
+        }
+        $test_create = EmployerTestimonial::create([
+            'employer_id' => $request->employer_id,
+            'name' => $request->name,
+            'title' => $request->title,
+            'remark' => $request->remark,
+            'image' => $image
+        ]);
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $test_create
         ]);
     }
 }

@@ -745,3 +745,30 @@ a.disabled {
 .employer-dashboard-header {
     border-radius: 8px 8px 0 0;
 }
+.economy {
+    background: #E5EFFF;
+    color: #0565FF;
+}
+.standard {
+    background: #FAEBF4;
+    color: #C72C91;
+}
+.premium {
+    background: #FEF1E7;
+    color: #F58220;
+}
+.test-image-box {
+    width: 120px;
+    height: 120px;
+    background: #E4E3E2;
+    border-radius: 8px;
+}
+.test-image-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+}
+.test-image-remove {
+    top: 110px;
+    left: 120px
+}

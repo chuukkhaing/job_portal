@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Employer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class EmployerTestimonial extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

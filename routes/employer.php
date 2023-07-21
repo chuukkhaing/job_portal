@@ -33,6 +33,7 @@ Route::group([], function(){
         Route::get('/get-sub-functional-area/{id}', [EmployerProfileController::class, 'getSubFunctionalArea']);
         Route::post('/employer-address',[EmployerProfileController::class, 'employerAddressStore'])->name('employer-address.store');
         Route::post('employer-address/destory/{id}', [EmployerProfileController::class, 'employerAddressDestroy']);
+        Route::post('/employer-testimonial',[EmployerProfileController::class, 'employerTestimonialStore'])->name('employer-testimonial.store');
         
         Route::resource('employer-job-post', EmployerJobPostController::class);
 

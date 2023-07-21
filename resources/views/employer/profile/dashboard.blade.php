@@ -11,10 +11,30 @@
             @endif
         </div>
         <div class="col-10 p-3">
-            <h5 class="fw-bold">Upgrade Your Package</h5>
+            <div class="mb-4">
+                <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
+                <div class="float-end">
+                    <a href="http://" class="btn btn-outline-primary">Add-on Features</a>
+                    <a href="http://" class="btn profile-save-btn">Package Details</a>
+                </div>
+            </div>
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
-            <div>
-                
+            <div class="row">
+                <div class="col-4 p-1">
+                    <div class="economy p-3">
+                        Economy
+                    </div>
+                </div>
+                <div class="col-4 p-1">
+                    <div class="standard p-3">
+                        Standard
+                    </div>
+                </div>
+                <div class="col-4 p-1">
+                    <div class="premium p-3">
+                        Premium
+                    </div>
+                </div>
             </div>
         </div>
     </div>
