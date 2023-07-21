@@ -153,7 +153,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="trending-image">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="trending-image">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -174,7 +174,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -195,7 +195,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -216,7 +216,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -237,7 +237,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -257,7 +257,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -277,7 +277,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -297,7 +297,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -317,7 +317,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -337,7 +337,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -357,7 +357,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -377,7 +377,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -397,7 +397,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -417,7 +417,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div class="fz13">
@@ -437,27 +437,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -477,7 +457,7 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -497,7 +477,27 @@
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                    </div>
+                    <div class="col-9 p-0">
+                        <div>
+                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
+                            <span id="trending-job-sub-title">AYA Bank</span>
+                        </div>
+
+                        <div class="fz13">
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
+                <div class="row">
+                    <div class="col-3 text-center">
+                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                     </div>
                     <div class="col-9 p-0">
                         <div>
@@ -516,6 +516,186 @@
     </div>
 </div>
 <!-- Trending Jobs End  -->
+
+<!-- Featured Jobs Start  -->
+<div class="container">
+    <div class="popular-job-category">
+        <div id="header-popular-job-category" class="text-center pt-5">
+            <h3 id="popular-job-category-title">Featured Jobs</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <div class="lc-block">
+                    <div id="carouselLogos" class="carousel slide py-5" data-bs-ride="carousel">
+
+                        <div class="carousel-inner px-4">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Computer Network ...</h3>
+                                                <span id="trending-job-sub-title">Paniagua Enterprises In..</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Solutions Architect</h3>
+                                                <span id="trending-job-sub-title">Subfloor Specialties USA</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Computer Network ...</h3>
+                                                <span id="trending-job-sub-title">Paniagua Enterprises In..</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
+                                        <div class="row px-3">
+                                            <div class="col-3">
+                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                            </div>
+                                            <div class="col-9 p-0 pt-3">
+                                                <h3 id="trending-job-title">Solutions Architect</h3>
+                                                <span id="trending-job-sub-title">Subfloor Specialties USA</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row px-3 text-center mt-4">
+                                <a class="carousel-control-prev w-auto d-inline me-4" href="#carouselLogos" data-bs-slide="prev">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                                    </svg>
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                                <a class="carousel-control-next w-auto d-inline" href="#carouselLogos" data-bs-slide="next">
+                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                                    </svg>
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /lc-block -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 ps-0 pe-3">          
+            <div class="gradient-img">
+                <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
+            </div>
+            <div class="gradient-text">
+                <span class="ps-3 pt-3">For Employers</span>
+            </div>      
+        </div>
+
+        <div class="col-md-3 ps-0 pe-3">          
+            <div class="gradient-img">
+                <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
+            </div>
+            <div class="gradient-text">
+                <span class="ps-3 pt-3">For Jobseekers</span>
+            </div>      
+        </div>
+
+        <div class="col-md-3 ps-0 pe-3">          
+            <div class="gradient-img">
+                <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
+            </div>
+            <div class="gradient-text">
+                <span class="ps-3 pt-3">For Jobseekers</span>
+            </div>      
+        </div>
+
+        <div class="col-md-3 ps-0 pe-3">          
+            <div class="gradient-img">
+                <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
+            </div>
+            <div class="gradient-text">
+                <span class="ps-3 pt-3">For Jobseekers</span>
+            </div>      
+        </div>
+ </div>
+</div>
+<!-- Featured Jobs End  -->
 
 @endsection
 
