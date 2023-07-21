@@ -42,7 +42,7 @@
     </div>
     
     <div class="row mt-1 p-0 bg-light">
-        <div class="container">
+        <div class="px-5">
             <div class="row">
                 <div class="col-8 my-5">
                     <div id="last-job-post" class="p-5 ">

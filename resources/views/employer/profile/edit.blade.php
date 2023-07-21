@@ -37,9 +37,9 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{ $employer->email }}</td>
+                                            <td>{{ $employer->is_active }}</td>
+                                            <td>Admin</td>
                                             <td></td>
                                         </tr>
                                     </tbody>
@@ -260,7 +260,7 @@
                                 </div>
                             </div>
                             <div class="col-3">
-                                <a onclick="addTestimonial()" class="btn btn-primary float-end"><i class="fa-solid fa-plus"></i> Add</a>
+                                <a onclick="addTestimonial()" class="btn btn-primary float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
                             </div>
                         </div>
                         <div class="py-2">
