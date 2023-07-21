@@ -46,13 +46,13 @@
             <div class="row">
                 <div class="col-8 my-5">
                     <div id="last-job-post" class="p-5 ">
-                        <h5 class="text-dark fw-bold">Last Job Posts</h5>
+                        <h5 class="fw-bold">Last Job Posts</h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
                             <div class="col-8 p-2">
                                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                    <span class="text-dark fw-bold fs-6">{{ $jobPost->job_title }}</span><br>
-                                    <span class="fw-bold text-primary">{{ $jobPost->State->name }}</span>
+                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span><br>
+                                    <span class=" text-primary">{{ $jobPost->State->name }}</span>
                                 </a>
                             </div>
                             <div class="col-4 p-2 d-flex align-items-end flex-row-reverse bd-highlight">
@@ -67,12 +67,12 @@
                 </div>
                 <div class="col-4 my-5">
                     <div id="last-job-post" class="py-5 px-3 ">
-                        <h5 class="text-dark fw-bold">Job applied ranking</h5>
+                        <h5 class="fw-bold">Job applied ranking</h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
                             <div class="col-12 p-3">
                                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                    <span class="text-dark fw-bold fs-6">{{ $jobPost->job_title }}</span>
+                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
                                     <span class="title float-end text-dark">{{ $jobPost->JobApply->count() }}</span>
                                     <div class="progress">
                                         <div class="apply-progress-bar" role="progressbar" aria-valuenow="{{ $jobPost->JobApply->count() }}" aria-valuemin="0" aria-valuemax="100" style="max-width: {{ $jobPost->JobApply->count() }}%">
