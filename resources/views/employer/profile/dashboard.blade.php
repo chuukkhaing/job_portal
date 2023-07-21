@@ -2,7 +2,22 @@
 @section('content')
 
 <div class="container employer-dashboard m-auto">
-    
+    <div class="row employer-dashboard-header bg-light m-0">
+        <div class="col-2 p-3">
+            @if($employer->logo)
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo">
+            @else
+            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo">
+            @endif
+        </div>
+        <div class="col-10 p-3">
+            <h5 class="fw-bold">Upgrade Your Package</h5>
+            <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
+            <div>
+                
+            </div>
+        </div>
+    </div>
     <ul class="nav nav-tabs d-flex justify-content-between p-3 my-1 bg-light" id="employerTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a href="#employer-dashboard" class="employer-single-tab active" id="employer-dashboard-tab" data-bs-toggle="tab" data-bs-target="#employer-dashboard" role="tab" aria-controls="employer-dashboard" aria-selected="true">Dashboard</a>

@@ -66,6 +66,7 @@
         var employer_job_tab = new bootstrap.Tab(employer_job)
 
         employer_job_tab.show();
+        $('#postAJob').trigger('click');
     }
 </script>
 @endpush

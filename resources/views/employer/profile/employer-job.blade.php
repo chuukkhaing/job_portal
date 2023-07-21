@@ -5,7 +5,7 @@
                 <h5>Manage Job</h5>
             </div>
             <div class="col-12 col-md-6 text-end">
-                <button onclick="postAJob()" class="btn btn-sm profile-save-btn"><i class="fa-solid fa-plus"></i> Post a Job</button>
+                <button onclick="postAJob()" id="postAJob" class="btn btn-sm profile-save-btn"><i class="fa-solid fa-plus"></i> Post a Job</button>
                 <button onclick="backToManageJob()" class="btn btn-primary btn-sm back-to-jobs-btn d-none"><i class="fa-solid fa-rotate-left"></i> Back</button>
             </div>
         </div>
