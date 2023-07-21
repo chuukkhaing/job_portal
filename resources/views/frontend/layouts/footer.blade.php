@@ -44,9 +44,10 @@
                     </div>
                     
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">Helpful Resources</h6>
+                        <h6 class="mb-4">Follow Us</h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">Linkedin</a>
                             <a class="footer-links mb-2" href="#">Linkedin</a>
                             <a class="footer-links mb-2" href="#">Telegram</a>
                             <a class="footer-links mb-2" href="#">Viber</a>
