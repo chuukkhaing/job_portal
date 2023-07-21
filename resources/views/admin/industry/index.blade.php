@@ -14,7 +14,9 @@
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
+                    @can('industry-create')
                     <span class="text">Add New</span>
+                    @endcan
                 </a>
             </div>
             
@@ -40,12 +42,16 @@
                             <td><i class="{{ $industry->icon }}"></i></td>
                             <td>@if($industry->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                @can('industry-edit')
                                 <a href="{{ route('industry.edit', $industry->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                                @can('industry-delete')
                                 <form method="POST" action="{{ route('industry.destroy', $industry->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

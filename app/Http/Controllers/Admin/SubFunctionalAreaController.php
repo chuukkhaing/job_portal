@@ -15,6 +15,14 @@ class SubFunctionalAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:sub-functional-area-list|sub-functional-area-create|sub-functional-area-edit|sub-functional-area-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:sub-functional-area-create', ['only' => ['create','store']]);
+        $this->middleware('permission:sub-functional-area-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:sub-functional-area-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->get();

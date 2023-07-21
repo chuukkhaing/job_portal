@@ -15,6 +15,14 @@ class FunctionalAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:main-functional-area-list|main-functional-area-create|main-functional-area-edit|main-functional-area-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:main-functional-area-create', ['only' => ['create','store']]);
+        $this->middleware('permission:main-functional-area-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:main-functional-area-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->get();

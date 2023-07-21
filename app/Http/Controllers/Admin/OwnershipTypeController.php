@@ -15,6 +15,14 @@ class OwnershipTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:ownership-type-list|ownership-type-create|ownership-type-edit|ownership-type-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:ownership-type-create', ['only' => ['create','store']]);
+        $this->middleware('permission:ownership-type-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:ownership-type-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();

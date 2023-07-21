@@ -15,6 +15,14 @@ class IndustryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:industry-list|industry-create|industry-edit|industry-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:industry-create', ['only' => ['create','store']]);
+        $this->middleware('permission:industry-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:industry-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $industries = Industry::whereNull('deleted_at')->get();

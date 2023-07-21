@@ -15,6 +15,14 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:state-list|state-create|state-edit|state-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:state-create', ['only' => ['create','store']]);
+        $this->middleware('permission:state-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:state-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $states = State::whereNull('deleted_at')->get();

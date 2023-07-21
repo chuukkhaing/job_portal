@@ -14,7 +14,9 @@
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
+                    @can('township-create')
                     <span class="text">Add New</span>
+                    @endcan
                 </a>
             </div>
             
@@ -40,12 +42,16 @@
                             <td>{{ $township->name }}</td>
                             <td>@if($township->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                @can('township-edit')
                                 <a href="{{ route('city.edit', $township->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                                @can('township-delete')
                                 <form method="POST" action="{{ route('city.destroy', $township->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

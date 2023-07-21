@@ -14,7 +14,9 @@
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
+                    @can('slider-create')
                     <span class="text">Add New</span>
+                    @endcan
                 </a>
             </div>
             
@@ -40,12 +42,16 @@
                             <td><a href="{{ route('employers.show', $slider->Employer->id) }}">{{ $slider->Employer->name }}</a></td>
                             <td>@if($slider->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                @can('slider-edit')
                                 <a href="{{ route('slider.edit', $slider->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                                @can('slider-delete')
                                 <form method="POST" action="{{ route('slider.destroy', $slider->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

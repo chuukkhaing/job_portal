@@ -1,5 +1,5 @@
 <!-- Footer Start -->
-<div class="container-fluid py-5 wow fadeInUp border-top" data-wow-delay="0.3s">
+<div class="container-fluid py-5 mt-5 wow fadeInUp border-top" data-wow-delay="0.3s">
     <div class="container pt-5">
         <div class="row g-5 pt-4">
             <div class="col-lg-4 col-md-6">
@@ -15,46 +15,41 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 p-0">
+                        <h6 class="mb-4">About Us</h6>
+                        <hr class="footer-hr">
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="{{ route('contact-us') }}">Contact Us</a>
+                            <a class="footer-links mb-2" href="#">About Us</a>
+                            <a class="footer-links mb-2" href="#">Terms of Use</a>
+                            <a class="footer-links mb-2" href="#">Privacy Policies</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 p-0">
                         <h6 class="mb-4">For Jobseekers</h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
+                            <a class="footer-links mb-2" href="#">Registration</a>
                             <a class="footer-links mb-2" href="#">Browse Jobs</a>
-                            <a class="footer-links mb-2" href="#">Browse Jobseekers</a>
-                            <a class="footer-links mb-2" href="#">Jobseekers Dashboard</a>
-                            <a class="footer-links mb-2" href="#">Job Alert</a>
-                            <a class="footer-links " href="#">My Bookmarks</a>
+                            <a class="footer-links mb-2" href="#">Job Function</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
                         <h6 class="mb-4">For Employers</h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">All Employers</a>
-                            <a class="footer-links mb-2" href="#">Employers Dashboard</a>
-                            <a class="footer-links mb-2" href="#">Submit Job</a>
-                            <a class="footer-links " href="#">Job Package</a>
+                            <a class="footer-links mb-2" href="#">Post a Job</a>
+                            <a class="footer-links mb-2" href="#">Advertise with Us</a>
+                            <a class="footer-links mb-2" href="#">News & Blogs</a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">About Us</h6>
-                        <hr class="footer-hr">
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">Contact Us</a>
-                            <a class="footer-links mb-2" href="#">About Us</a>
-                            <a class="footer-links mb-2" href="#">Terms</a>
-                            <a class="footer-links mb-2" href="#">Packages</a>
-                            <a class="footer-links " href="#">FAQs</a>
-                        </div>
-                    </div>
+                    
                     <div class="col-lg-3 col-md-6 p-0">
                         <h6 class="mb-4">Helpful Resources</h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">Site Map</a>
-                            <a class="footer-links mb-2" href="#">Terms Of Use</a>
-                            <a class="footer-links mb-2" href="#">Privacy Center</a>
-                            <a class="footer-links mb-2" href="#">Security Center</a>
-                            <a class="footer-links " href="#">Accessibility Center</a>
+                            <a class="footer-links mb-2" href="#">Linkedin</a>
+                            <a class="footer-links mb-2" href="#">Telegram</a>
+                            <a class="footer-links mb-2" href="#">Viber</a>
                         </div>
                     </div>
                 </div>

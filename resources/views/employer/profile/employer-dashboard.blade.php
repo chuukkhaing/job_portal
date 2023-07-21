@@ -95,7 +95,10 @@
 <script>
     function seeAllPost(employerJob)
     {
-        var employerJobTab = document.querySelector('#employerTab li a[href="'+employerJob+'"]')
+        localStorage.setItem('target',employerJob)
+    
+        var employer_tab = localStorage.getItem('target');
+        var employerJobTab = document.querySelector('#employerTab li a[href="'+employer_tab+'"]')
         var showTab = new bootstrap.Tab(employerJobTab)
 
         showTab.show()

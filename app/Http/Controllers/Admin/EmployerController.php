@@ -21,6 +21,14 @@ class EmployerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:employer-list|employer-create|employer-edit|employer-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:employer-create', ['only' => ['create','store']]);
+        $this->middleware('permission:employer-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:employer-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $employers = Employer::whereNull('deleted_at')->get();

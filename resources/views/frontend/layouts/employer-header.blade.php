@@ -11,7 +11,7 @@
             <div class="navbar-nav ms-auto py-0 d-flex align-items-center">
                 <span>Package Expire Date :</span>
                 <span>Date</span>
-                <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Post a Job</a>
+                <a onclick="postJobHeader()" class="btn bg-light" style="color: #0355D0; margin: 10px">Post a Job</a>
                 
                 @auth('employer')
                 <div class="btn-group">
@@ -53,3 +53,19 @@
     </div>
 </nav>
 <!-- Navbar End -->
+@push('scripts')
+<script>
+    function postJobHeader()
+    {
+        url = window.origin+'/employer/employer-profile'
+        window.location = url;
+        localStorage.setItem('target','#employer-job')
+    
+        var employer_id = localStorage.getItem('target');
+        var employer_job = document.querySelector('#employerTab li a[href="'+employer_id+'"]')
+        var employer_job_tab = new bootstrap.Tab(employer_job)
+
+        employer_job_tab.show();
+    }
+</script>
+@endpush

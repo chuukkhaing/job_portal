@@ -15,6 +15,14 @@ class PackageItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:package-item-list|package-item-create|package-item-edit|package-item-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:package-item-create', ['only' => ['create','store']]);
+        $this->middleware('permission:package-item-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:package-item-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $package_items = PackageItem::whereNull('deleted_at')->get();

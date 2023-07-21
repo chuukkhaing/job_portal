@@ -17,6 +17,14 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:package-type-list|package-type-create|package-type-edit|package-type-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:package-type-create', ['only' => ['create','store']]);
+        $this->middleware('permission:package-type-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:package-type-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $packages = Package::whereNull('deleted_at')->get();

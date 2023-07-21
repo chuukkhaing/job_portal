@@ -14,7 +14,9 @@
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
+                    @can('package-item-create')
                     <span class="text">Add New</span>
+                    @endcan
                 </a>
             </div>
             
@@ -40,12 +42,16 @@
                             <td>{{ $package_item->point }}</td>
                             <td>@if($package_item->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                @can('package-item-edit')
                                 <a href="{{ route('package-item.edit', $package_item->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                                @can('package-item-delete')
                                 <form method="POST" action="{{ route('package-item.destroy', $package_item->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

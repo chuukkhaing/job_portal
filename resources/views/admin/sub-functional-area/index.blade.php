@@ -14,7 +14,9 @@
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
+                    @can('sub-functional-area-create')
                     <span class="text">Add New</span>
+                    @endcan
                 </a>
             </div>
             
@@ -40,12 +42,16 @@
                             <td class="text-success">{{ $functional_area->MainFunctinalArea->name }}</td>
                             <td>@if($functional_area->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
+                                @can('sub-functional-area-edit')
                                 <a href="{{ route('sub-functional-area.edit', $functional_area->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                                @can('main-functional-area-delete')
                                 <form method="POST" action="{{ route('sub-functional-area.destroy', $functional_area->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

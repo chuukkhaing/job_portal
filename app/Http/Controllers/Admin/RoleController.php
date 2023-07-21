@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\FeedBack;
-use Alert;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+use DB;
 
-class FeedbackController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,16 +17,16 @@ class FeedbackController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:seeker-employer-contact-list|seeker-employer-contact-create|seeker-employer-contact-edit|seeker-employer-contact-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:seeker-employer-contact-create', ['only' => ['create','store']]);
-        $this->middleware('permission:seeker-employer-contact-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:seeker-employer-contact-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
     public function index()
     {
-        $feedbacks = FeedBack::get();
-        return view ('admin.feedback.index', compact('feedbacks'));
+        $roles = Role::orderBy('id','DESC')->paginate(5);
+        return view('admin.roles.index',compact('roles'));
     }
 
     /**
@@ -35,7 +36,8 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        $permission = Permission::get();
+        return view('admin.roles.create',compact('permission'));
     }
 
     /**
@@ -91,23 +93,6 @@ class FeedbackController extends Controller
      */
     public function destroy($id)
     {
-        $feedback = FeedBack::findOrFail($id);
-        
-        try {
-            $feedback = FeedBack::findOrFail($id)->delete();
-            if ($feedback) {
-                Alert::success('Success', 'Delete Seeker/Employer Contact Successfully!');
-                return redirect()->route('feedback.index');
-            }
-            else {
-                Alert::error('Failed', 'Seeker/Employer Contact deleted failed');
-                return back();
-            }
-        } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->getCode() == 23000) {
-                Alert::error('Failed', 'Cannot delete this Seeker/Employer Contact');
-                return back();
-            } 
-        }
+        //
     }
 }

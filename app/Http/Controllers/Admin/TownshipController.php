@@ -16,6 +16,14 @@ class TownshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:township-list|township-create|township-edit|township-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:township-create', ['only' => ['create','store']]);
+        $this->middleware('permission:township-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:township-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $townships = Township::whereNull('deleted_at')->get();

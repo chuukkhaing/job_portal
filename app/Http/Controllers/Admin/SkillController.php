@@ -18,6 +18,14 @@ class SkillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:skill-list|skill-create|skill-edit|skill-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:skill-create', ['only' => ['create','store']]);
+        $this->middleware('permission:skill-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:skill-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $skills = Skill::whereNull('deleted_at')->get();

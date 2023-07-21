@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\Admin\FunctionalAreaController;
 use App\Http\Controllers\Admin\SubFunctionalAreaController;
 use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,12 @@ Route::group([], function(){
 
         // dashboard
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // role
+        Route::resource('roles', RoleController::class);
+
+        // user
+        Route::resource('users', UserController::class);
 
         // state
         Route::resource('state', StateController::class);

@@ -26,10 +26,10 @@ class RedirectIfAuthenticated
                 return redirect('/admin');
             }
             if ($guard == "seeker" && Auth::guard($guard)->check()) {
-                return redirect('/login-form');
+                return redirect('/seeker/profile');
             }
             if ($guard == "employer" && Auth::guard($guard)->check()) {
-                return redirect('/login-form');
+                return redirect('/employer/profile');
             }
             if (Auth::guard($guard)->check()) {
                 return redirect('/');
