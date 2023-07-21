@@ -8,6 +8,7 @@ use App\Models\Admin\Package;
 use App\Models\Admin\Industry;
 use App\Models\Admin\OwnershipType;
 use App\Models\Employer\EmployerAddress;
+use App\Models\Employer\JobPost;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -49,5 +50,10 @@ class Employer extends Authenticatable
     public function EmployerAddress()
     {
         return $this->hasMany(EmployerAddress::class, 'employer_id', 'id');
+    }
+
+    public function JobPost()
+    {
+        return $this->hasMany(JobPost::class, 'employer_id', 'id');
     }
 }

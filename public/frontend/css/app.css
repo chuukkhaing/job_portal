@@ -705,3 +705,34 @@ a.disabled {
 .table-bordered thead{
     background: #95B6D8;
 }
+.opening-job-icon {
+    color: #0355D0;
+    font-size: 25px;
+    width: 64px;
+    height: 64px;
+    background: #E1EBF4;
+    border-radius: 50px;
+    padding: 14px 19px;
+}
+.overview-title {
+    color: #64748B;
+}
+.points-icon {
+    color: #FB5404;
+    font-size: 25px;
+    width: 64px;
+    height: 64px;
+    background: #FFE2D6;
+    border-radius: 50px;
+    padding: 14px 19px;
+}
+#last-job-post {
+    border-radius: 8px;
+    border: 1px solid #88C3FF;
+}
+.apply-progress-bar {
+    width: 0;
+    background: #0355D0;
+    border-radius: 0.25rem;
+    animation: progress 1.5s ease-in-out forwards;
+}
