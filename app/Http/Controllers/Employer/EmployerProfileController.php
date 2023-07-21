@@ -147,8 +147,6 @@ class EmployerProfileController extends Controller
             'background' => $background,
             'qr' => $qr,
             'name' => $request->name,
-            'email' => $request->email,
-            'password' => $password,
             'industry_id' => $request->industry_id,
             'ownership_type_id' => $request->ownership_type_id,
             'type_of_employer' => $request->type_of_employer,
