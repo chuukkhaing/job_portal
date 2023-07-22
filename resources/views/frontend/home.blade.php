@@ -856,17 +856,3 @@
 <!-- Explore the Marketplace End  -->
 
 @endsection
-
-@push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#function-area').multiselect({
-                enableClickableOptGroups: true,
-                enableCollapsibleOptGroups: true,
-                enableFiltering: true,
-                includeSelectAllOption: true,
-                nonSelectedText: "Select function area",
-            });
-        });
-    </script>
-@endpush

@@ -266,6 +266,64 @@ a.interview-btn:hover {
     color: #0355D0;
 }
 
+/* Find Jobs css start here*/
+.find-jobs-search{
+    position: relative;
+    background: rgb(3 85 208);
+    z-index: 100;
+    background-image: url('../../img/findjobs_banner.svg');
+}
+
+.find-jobs-header {
+    font-family: 'SourceSansPro';
+}
+
+.job-trending-scroll {
+    height:600px;
+    overflow: auto;
+}
+
+.right-trending-title {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.job-content {
+    border-radius: 8px;
+    border: solid 1px #b7cee5;
+    background-color: #fff;
+}
+
+.job-content.mb-3:hover {
+    border: 2px solid #0355d0;
+}
+
+.btn.job-btn {
+    background-color: #e8eff7;
+    border-color: #e8eff7;
+    border-radius: 50px;
+}
+
+.job-company {
+    color: #696968;
+    line-height: 1.5;
+}
+
+.job-title {
+    font-size: 20px;
+    color: #181722;
+    line-height: 1.5;
+}
+
+.job-location {
+    color: #696968;
+    line-height: 1.5;
+}
+
+.job-salary {
+    color: #181722;
+}
+
 
 /* @media css start */
 @media (min-width: 992px){
