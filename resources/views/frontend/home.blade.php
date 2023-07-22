@@ -41,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
+                <div class="col-lg-4 col-md-3 p-0">
                     <div class="form-group has-search search-slt function-area">
                         <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
                         <select class="form-control" id="function-area" multiple="multiple">
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="col-lg-2 col-md-3 p-0">
-                    <button type="button" class="btn wrn-btn pull-right">Search Jobs</button>
+                    <button type="button" class="btn pull-right search-job-btn">Search Jobs</button>
                 </div>
             </div>
         </div>
