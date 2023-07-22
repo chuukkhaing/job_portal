@@ -658,7 +658,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3 ps-0 pe-3">          
+        <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
@@ -667,7 +667,7 @@
             </div>      
         </div>
 
-        <div class="col-md-3 ps-0 pe-3">          
+        <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
@@ -676,7 +676,7 @@
             </div>      
         </div>
 
-        <div class="col-md-3 ps-0 pe-3">          
+        <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
@@ -685,7 +685,7 @@
             </div>      
         </div>
 
-        <div class="col-md-3 ps-0 pe-3">          
+        <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
@@ -696,6 +696,80 @@
  </div>
 </div>
 <!-- Featured Jobs End  -->
+
+<!-- Job Interview Start -->
+<div class="container-fluid mt-5 p-0">
+    <div class="row" id="job-interview">
+        <div class="offset-lg-1 col-lg-6 p-5">
+
+            <h3 class="job-interview-title pt-4">Are You Looking For Job!</h3>
+
+            <p class="job-interview-content pt-3 pb-5">Looking for a job can be a daunting task, but with a little focus and effort, you can increase your chances of success. Define your job search goals, tailor your resume and cover letter, network with others in your industry, use job search engines to find opportunities, and prepare for interviews. With these tips, you can streamline your search and find the job that's right for you.</p>
+            
+            <a href="#" class="interview-btn">Get Started Today </a>
+        </div>
+    </div>
+</div>
+<!-- Job Interview End -->
+
+<!-- Additional Services Start  -->
+<div class="container">
+    <div class="additional-service">
+        <div id="header-additional-service" class="text-center pt-5 pb-3">
+            <h3 id="additional-service-title">Additional Services</h3>
+        </div>
+        <div id="body-additional-service" class="row">
+            <div class="col-lg-4 col-md-4 p-2">
+                <div id="additional-service-box" class="text-center">
+                    <div id="additional-service-icon">
+                        <i class="fa-solid fa-message"></i>
+                    </div>
+
+                    <div id="additional-service-name">
+                        <h4>{{ 'Solve Problems Real Time' }}</h4>
+                    </div>
+
+                    <div id="additional-service-content">
+                        <p class="px-5">Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 p-2">
+                <div id="additional-service-box" class="text-center">
+                    <div id="additional-service-icon">
+                        <i class='fa fa-lock'></i>
+                    </div>
+
+                    <div id="additional-service-name">
+                        <h4>{{ 'Secured & Safe Payments' }}</h4>
+                    </div>
+
+                    <div id="additional-service-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 p-2">
+                <div id="additional-service-box" class="text-center">
+                    <div id="additional-service-icon">
+                        <i class="fa-solid fa-message"></i>
+                    </div>
+
+                    <div id="additional-service-name">
+                        <h4>{{ '24//7 Customer Support' }}</h4>
+                    </div>
+
+                    <div id="additional-service-content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Additional Services End  -->
 
 @endsection
 
