@@ -180,14 +180,14 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
-                                <select name="gender" id="gender" class="form-control seeker_input" required>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
+                                <input type="checkbox" name="gender" id="male">
+                                <label for="male">Male</label><br>
+                                <input type="checkbox" name="gender" id="female">
+                                <label for="female">Female</label>
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                                <select name="job_post_country" id="job_post_country" class="form-control seeker_input" required>
+                                <select name="job_post_country" id="job_post_country" class="seeker_input" required style="width: 100%">
                                     <option value="Myanmar">Myanmar</option>
                                     <option value="Other">Other</option>
                                 </select>
@@ -234,12 +234,12 @@
                                 <input type="text" name="reruiter_name" id="reruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('reruiter_name') }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="reruiter_phone" class="seeker_label my-2">Email <span class="text-danger">*</span></label>
-                                <input type="email" name="reruiter_email" id="reruiter_email" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('reruiter_name') }}">
+                                <label for="reruiter_phone" class="seeker_label my-2">Email </label>
+                                <input type="email" name="reruiter_email" id="reruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('reruiter_name') }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="reruiter_phone" class="seeker_label my-2">Phone <span class="text-danger">*</span></label>
-                                <input type="number" name="reruiter_phone" id="reruiter_phone" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('reruiter_name') }}">
+                                <label for="reruiter_phone" class="seeker_label my-2">Phone </label>
+                                <input type="number" name="reruiter_phone" id="reruiter_phone" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('reruiter_name') }}">
                             </div>
                         </div>
                     </div>
@@ -285,6 +285,97 @@
                                 <div>International Standards </div>
                                 <div>Make a Differnce </div>
                                 <div>Join an Experience Team </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <div class="step">
+                        Step 4
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="py-2">
+                        <h5>Open Job Question</h5>
+                        <span>Explore a set of thought-provoking interview questions that help evaluate candidates' skills, qualifications, and alignment with our company's values</span>
+                    </div>
+                    <div class="py-2">
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label for="job_post_question" class="seeker_label">Create Question</label>
+                                <input type="text" name="job_post_question" id="job_post_question" class="form-control seeker_input" required placeholder="Write Question" value="">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-12 col-md-6">
+                                <label for="job_post_answer" class="seeker_label my-2">Selecter Answer Type</label><br>
+                                <select name="job_post_answer" id="job_post_answer" class="seeker_input" style="width: 100%" required>
+                                    <option value="text_answer">Text Answer</option>
+                                    <option value="multiple_choice">Multiple Choice</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                            <a class="btn btn-outline-primary rounded-3"><i class="fa-solid fa-plus"></i> Create Question</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <div class="step">
+                        Step 5
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="py-2">
+                        <h5>Job Post Ranking Made Easy</h5>
+                        <span>Discover effective techniques to rank and prioritize job posts, ensuring you attract the most qualified candidates</span>
+                    </div>
+                    <div class="py-2">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="job_post_type_check_box p-3">
+                                    <input type="radio" name="job_post" required id="standard_job_post" vale="standard"><br>
+                                    <label for="standard_job_post">
+                                        <h5>Standard Post</h5>
+                                        <div class="standard_check_box d-flex align-items-center justify-content-center">
+                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            
+                                            
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="job_post_type_check_box p-3">
+                                    <input type="radio" name="job_post" required id="feature_job_post" value="feature"><br>
+                                    <label for="feature_job_post">
+                                        <h5>Feature Job Post</h5>
+                                        <div class="standard_check_box d-flex align-items-center justify-content-center">
+                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            
+                                            
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="job_post_type_check_box p-3">
+                                    <input type="radio" name="job_post" required id="trending_job_post" value="trending"><br>
+                                    <label for="trending_job_post">
+                                        <h5>Trending Job Post</h5>
+                                        <div class="standard_check_box d-flex align-items-center justify-content-center">
+                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            
+                                            
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

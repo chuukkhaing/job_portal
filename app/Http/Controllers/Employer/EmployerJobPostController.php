@@ -13,6 +13,7 @@ use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 use Str;
 use DB;
@@ -48,6 +49,9 @@ class EmployerJobPostController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'recruiter_phone' => ['nullable', new MyanmarPhone],
+        ]);
         $gender = Null;
         if($request->male == 'on' && $request->female == 'on') {
             $gender = 'Male/Female';
@@ -62,7 +66,16 @@ class EmployerJobPostController extends Controller
         }else {
             $salary_range = $request->usd_salary;
         }
-        
+        if($request->hide_salary == 'on') {
+            $hide_salary = 1;
+        }else{
+            $hide_salary = 0;
+        }
+        if($request->hide_company == 'on') {
+            $hide_company = 1;
+        }else{
+            $hide_company = 0;
+        }
         $jobPost = JobPost::create([
             'employer_id' => Auth::guard('employer')->user()->id,
             'job_title' => $request->job_title,
@@ -76,14 +89,20 @@ class EmployerJobPostController extends Controller
             'gender' => $gender,
             'currency' => $request->currency,
             'salary_range' => $salary_range,
-            'salary_status' => $request->salary_status,
+            'hide_salary' => $hide_salary,
+            'hide_company' => $hide_company,
+            'no_of_candidate' => $request->no_of_candidate,
+            'recruiter_name' => $request->reruiter_name,
+            'recruiter_email' => $request->reruiter_email,
+            'recruiter_phone' => $request->reruiter_phone,
             'country' => $request->job_post_country,
             'state_id' => $request->job_post_state_id,
             'township_id' => $request->job_post_township_id,
             'job_description' => $request->job_description,
+            'job_requirement' => $request->job_requirement,
             'benefit' => $request->benefit,
-            'job_higlight' => $request->job_higlight,
-            'requirement_and_skill' => $request->requirement_and_skill,
+            'job_higlight' => $request->higlight,
+            'job_post' => $request->job_post,
         ]);
         $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
         $jobPost->update([

@@ -28,15 +28,21 @@ class CreateJobPostsTable extends Migration
             $table->string('gender')->nullable();
             $table->string('currency')->nullable();
             $table->string('salary_range')->nullable();
-            $table->string('salary_status')->nullable();
             $table->string('country')->nullable();
             $table->integer('state_id')->nullable();
             $table->integer('township_id')->nullable();
             $table->longtext('job_description')->nullable();
+            $table->longtext('job_requirement')->nullable();
             $table->longtext('benefit')->nullable();
             $table->longtext('job_higlight')->nullable();
-            $table->longtext('requirement_and_skill')->nullable();
+            $table->boolean('hide_salary')->default(0);
+            $table->boolean('hide_company')->default(0);
+            $table->integer('no_of_candidate')->nullable();
             $table->boolean('is_active')->default(1);
+            $table->string('recruiter_name')->nullable();
+            $table->string('recruiter_email')->nullable();
+            $table->string('recruiter_phone')->nullable();
+            $table->string('job_post');
             $table->timestamps();
         });
     }

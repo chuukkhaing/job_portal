@@ -776,3 +776,12 @@ a.disabled {
     right: 10px;
     top: -10px;
 }
+.standard_check_box {
+    width: 310px;
+    height: 120px;
+    background: #0355D0;
+}
+.job_post_type_check_box {
+    border-radius: 8px;
+    border: 1px solid #B7CEE5;
+}
