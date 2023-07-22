@@ -35,6 +35,8 @@ Route::group([], function(){
         Route::post('employer-address/destory/{id}', [EmployerProfileController::class, 'employerAddressDestroy']);
         Route::post('/employer-testimonial',[EmployerProfileController::class, 'employerTestimonialStore'])->name('employer-testimonial.store');
         Route::post('employer-testimonial/destory/{id}', [EmployerProfileController::class, 'employerTestimonialDestroy']);
+        Route::post('/employer-media',[EmployerProfileController::class, 'employerMediaStore'])->name('employer-media.store');
+        Route::post('employer-media/destory/{id}', [EmployerProfileController::class, 'employerMediaDestroy']);
         
         Route::resource('employer-job-post', EmployerJobPostController::class);
 

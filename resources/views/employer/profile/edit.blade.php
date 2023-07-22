@@ -323,6 +323,144 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-1">
+                        <div class="step">
+                            Step 4
+                        </div>
+                    </div>
+                    <div class="col-11">
+                        <div class="row mb-2">
+                            <div class="col-9">
+                                <div class="py-2">
+                                    <h5>Upload Company Photos and Videos</h5>
+                                    <span>Showcase Your Career with Up to 8 Photos or Videos on Our Job Website</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-3">
+                                <label for="upload_image_1">
+                                @if(isset($employer_image_media[0]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[0]->name) }}" width="280px" height="140px" id="image_upload_preview_1" alt="{{ $employer_image_media[0]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_1" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_1" id="upload_image_1" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[0])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[0])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_2">
+                                @if(isset($employer_image_media[1]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[1]->name) }}" width="280px" height="140px" id="image_upload_preview_2" alt="{{ $employer_image_media[1]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_2" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_2" id="upload_image_2" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[1])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[1])) "{{ $employer_image_media[1]->id}}" @else "" @endif id="image_upload_remove_2"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_3">
+                                @if(isset($employer_image_media[2]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[2]->name) }}" width="280px" height="140px" id="image_upload_preview_3" alt="{{ $employer_image_media[2]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_3" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_3" id="upload_image_3" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[2])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[2])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_3"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_4">
+                                @if(isset($employer_image_media[3]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[3]->name) }}" width="280px" height="140px" id="image_upload_preview_4" alt="{{ $employer_image_media[3]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_4" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_4" id="upload_image_4" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[3])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[3])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_4"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_5">
+                                @if(isset($employer_image_media[4]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[4]->name) }}" width="280px" height="140px" id="image_upload_preview_5" alt="{{ $employer_image_media[4]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_5" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_5" id="upload_image_5" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[4])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[4])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_5"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_6">
+                                @if(isset($employer_image_media[5]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[5]->name) }}" width="280px" height="140px" id="image_upload_preview_6" alt="{{ $employer_image_media[5]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_6" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_6" id="upload_image_6" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[5])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[5])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_6"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_7">
+                                @if(isset($employer_image_media[6]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[6]->name) }}" width="280px" height="140px" id="image_upload_preview_7" alt="{{ $employer_image_media[6]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_7" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_7" id="upload_image_7" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[6])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[6])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_7"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="col-3">
+                                <label for="upload_image_8">
+                                @if(isset($employer_image_media[7]))
+                                <img src="{{ asset('storage/employer_media/'.$employer_image_media[7]->name) }}" width="280px" height="140px" id="image_upload_preview_8" alt="{{ $employer_image_media[7]->name }}">
+                                @else
+                                <img src="https://placehold.co/280x140/#E4E3E2"width="280px" height="140px" id="image_upload_preview_8" alt="">
+                                @endif
+                                </label>
+                                <input type="file" name="upload_image_8" id="upload_image_8" accept="image/*" class="d-none">
+                                <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[7])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[7])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_8"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
+                                <tbody>
+                                    @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
+                                    <tr class="media-tr-{{ $link->id }}">
+                                        <td>{{ $link->name ?? '-' }}</td>
+                                        <td><a onclick="deleteMedia({{ $link->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row d-flex align-items-end">
+                            <div class="col-6 form-group video_add mb-4">
+                                <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
+                                <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube link">
+                                <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
+                            </div>
+                            <div class="col-6 form-group mb-4">
+                                <a onclick="addLink()" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1">
+                        <div class="step">
+                            Step 5
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </form>
@@ -649,5 +787,419 @@
             }
         })
     }
+
+    function addLink()
+    {
+        if($("#video_link").val() == '') {
+            $(".video-link-error").removeClass('d-none');
+        }else {
+            $(".video-link-error").addClass('d-none');
+            var fd = new FormData();
+            fd.append("video_link", $("#video_link").val());
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $("#video_link").val('');
+                    $(".employer-media").removeClass('d-none');
+                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a onclick="deleteMedia('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                }
+            })
+        }
+        
+    }
+
+    function deleteMedia(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $(".media-tr-"+id).empty();
+                if(response.media_count == 0) {
+                    $(".employer-media").addClass('d-none');
+                }
+                alert(response.msg)
+            }
+        })
+    }
+
+    $("#upload_image_1").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_1').attr('src', e.target.result);
+                $('#image_upload_remove_1').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_1")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_1').click(function() {
+        $('#image_upload_preview_1').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_1').addClass('d-none');
+        $('#upload_image_1').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_2").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_2').attr('src', e.target.result);
+                $('#image_upload_remove_2').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_2")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_2').click(function() {
+        $('#image_upload_preview_2').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_2').addClass('d-none');
+        $('#upload_image_2').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_3").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_3').attr('src', e.target.result);
+                $('#image_upload_remove_3').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_3")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_3').click(function() {
+        $('#image_upload_preview_3').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_3').addClass('d-none');
+        $('#upload_image_3').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_4").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_4').attr('src', e.target.result);
+                $('#image_upload_remove_4').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_4")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_4').click(function() {
+        $('#image_upload_preview_4').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_4').addClass('d-none');
+        $('#upload_image_4').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_5").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_5').attr('src', e.target.result);
+                $('#image_upload_remove_5').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_5")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_5').click(function() {
+        $('#image_upload_preview_5').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_5').addClass('d-none');
+        $('#upload_image_5').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_6").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_6').attr('src', e.target.result);
+                $('#image_upload_remove_6').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_6")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_6').click(function() {
+        $('#image_upload_preview_6').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_6').addClass('d-none');
+        $('#upload_image_6').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_7").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_7').attr('src', e.target.result);
+                $('#image_upload_remove_7').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_7")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_7').click(function() {
+        $('#image_upload_preview_7').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_7').addClass('d-none');
+        $('#upload_image_7').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
+
+    $("#upload_image_8").change(function(){
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_upload_preview_8').attr('src', e.target.result);
+                $('#image_upload_remove_8').removeClass('d-none');
+                
+            };
+            reader.readAsDataURL(this.files[0]);
+            var fd = new FormData();
+            fd.append("upload_image", $("#upload_image_8")[0].files[0]);
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    
+                }
+            })
+        }
+    })
+
+    $('#image_upload_remove_8').click(function() {
+        $('#image_upload_preview_8').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+        $('#image_upload_remove_8').addClass('d-none');
+        $('#upload_image_8').val('');
+        var id = $(this).attr('attr-id');
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-media/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                
+                alert(response.msg)
+            }
+        })
+    })
 </script>
 @endpush

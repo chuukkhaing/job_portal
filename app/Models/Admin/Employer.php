@@ -9,6 +9,7 @@ use App\Models\Admin\Industry;
 use App\Models\Admin\OwnershipType;
 use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerTestimonial;
+use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\JobPost;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,6 +57,11 @@ class Employer extends Authenticatable
     public function EmployerTestimonial()
     {
         return $this->hasMany(EmployerTestimonial::class, 'employer_id', 'id');
+    }
+
+    public function EmployerMedia()
+    {
+        return $this->hasMany(EmployerMedia::class, 'employer_id', 'id');
     }
 
     public function JobPost()

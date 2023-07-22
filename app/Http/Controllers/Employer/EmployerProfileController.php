@@ -13,7 +13,9 @@ use App\Models\Admin\Package;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPost;
 use App\Models\Employer\EmployerAddress;
+use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\EmployerTestimonial;
+use File;
 use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
@@ -48,7 +50,8 @@ class EmployerProfileController extends Controller
         $jobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->paginate(10);
         $jobApplicants = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->get();
         $lastJobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->orderBy('updated_at','desc')->get()->take(5);
-        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants', 'lastJobPosts'));
+        $employer_image_media = EmployerMedia::whereEmployerId($employer->id)->whereType('Image')->get();
+        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants', 'lastJobPosts','employer_image_media'));
     }
 
     /**
@@ -112,12 +115,15 @@ class EmployerProfileController extends Controller
         $qr = $employer->qr;
 
         if($request->logoStatus == 'empty') {
+            File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$logo));
             $logo = Null;
         }
         if($request->backgroundStatus == 'empty') {
+            File::deleteDirectory(public_path('storage/employer_background/'.'/'.$background));
             $background = Null;
         }
         if($request->qrStatus == 'empty') {
+            File::deleteDirectory(public_path('storage/employer_qr/'.'/'.$qr));
             $qr = Null;
         }
 
@@ -254,7 +260,10 @@ class EmployerProfileController extends Controller
 
     public function employerTestimonialDestroy($id, Request $request)
     {
-        $test = EmployerTestimonial::findOrFail($id)->delete();
+
+        $test = EmployerTestimonial::findOrFail($id);
+        File::deleteDirectory(public_path('storage/employer_testimonial/'.'/'.$test->image));
+        $test = $test->delete();
         $employer = Employer::findOrFail($request->employer_id);
         $test_count = EmployerTestimonial::whereEmployerId($employer->id)->count();
 
@@ -262,6 +271,50 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'msg' => 'Testimonial deleted successfully!',
             'test_count' => $test_count
+        ]);
+    }
+
+    public function employerMediaStore(Request $request)
+    {
+        if ($request->hasFile('upload_image')) {
+            $file    = $request->file('upload_image');
+            $image = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_media/'), $image);
+            $media_create = EmployerMedia::create([
+                'employer_id' => $request->employer_id,
+                'name' => $image,
+                'type' => 'Image',
+            ]);
+        }
+        if ($request->video_link) {
+            $media_create = EmployerMedia::create([
+                'employer_id' => $request->employer_id,
+                'name' => $request->video_link,
+                'type' => 'Video Link',
+            ]);
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $media_create
+        ]);
+    }
+
+    public function employerMediaDestroy($id, Request $request)
+    {
+
+        $media = EmployerMedia::findOrFail($id);
+        if($media->type == 'Image'){
+            File::deleteDirectory(public_path('storage/employer_media/'.'/'.$media->name));
+        }
+        $media = $media->delete();
+        $employer = Employer::findOrFail($request->employer_id);
+        $media_count = EmployerMedia::whereEmployerId($employer->id)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Media deleted successfully!',
+            'media_count' => $media_count
         ]);
     }
 }

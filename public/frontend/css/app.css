@@ -772,3 +772,7 @@ a.disabled {
     top: 110px;
     left: 120px
 }
+.image_upload_remove {
+    right: 10px;
+    top: -10px;
+}
