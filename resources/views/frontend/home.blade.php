@@ -771,6 +771,90 @@
 </div>
 <!-- Additional Services End  -->
 
+<!-- Explore the Marketplace Start  -->
+<div class="container">
+    <div class="explore-marketplace">
+        <div id="header-explore-marketplace" class="text-center py-5">
+            <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>
+        </div>
+
+        <div id="body-explore-marketplace" class="row py-3">
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-building-columns bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Banking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-display bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Computer</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-graduation-cap bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Education</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-martini-glass-citrus bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Food</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-pen-to-square bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Writing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <div id="explore-marketplace-box" class="text-center">
+                    <div class="explore-marketplace-icon pt-4">
+                        <i class="fa-solid fa-wifi bg-white rounded-circle p-3"></i>
+                    </div>
+
+                    <div class="explore-marketplace-title pt-1">
+                        <span class="text-white">Wifi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Explore the Marketplace End  -->
+
 @endsection
 
 @push('scripts')

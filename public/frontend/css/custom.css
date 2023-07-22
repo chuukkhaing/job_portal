@@ -225,6 +225,35 @@ input.form-control.search-slt.location {
     color: #46454e;
 }
 
+/* Explore the Marketplace css start here*/
+#explore-marketplace-title {
+    font-family: 'Source Sans Pro';
+    font-size: 25px;
+    line-height: 31px;
+    color: #0355D0;
+}
+
+#explore-marketplace-box {
+    width: 144px;
+    height: 144px;
+    flex-grow: 0;
+    border-radius: 24px;
+    background-image: linear-gradient(to bottom, #000046 -59%, #1cb5e0 124%);
+}
+
+.explore-marketplace-icon i {
+    font-size: 40px;
+}
+
+.explore-marketplace-title {
+    font-family: 'SourceSansPro';
+    font-size: 18px;
+}
+
+#explore-marketplace-box:hover{
+    color: #0355D0;
+}
+
 
 /* @media css start */
 
