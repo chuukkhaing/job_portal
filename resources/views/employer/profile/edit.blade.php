@@ -73,7 +73,7 @@
                                 <div class="py-3 text-center">
                                     <label for="imageUpload" style="color: #696968">Tap to Change</label>
                                     <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
-                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
+                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
                                     <input type="hidden" name="logoStatus" id="logoStatus" value="">
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                 <div class="py-3 text-center">
                                     <label for="backgroundUpload" style="color: #696968">Tap to Change</label>
                                     <input type="file" class="employer-background-upload" name="background" id="backgroundUpload" accept="image/*" />
-                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
+                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
                                     <input type="hidden" name="backgroundStatus" id="backgroundStatus" value="">
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 <div class="py-3 text-center">
                                     <label for="qrUpload" style="color: #696968">Tap to Change</label>
                                     <input type="file" class="employer-qr-upload" name="qr" id="qrUpload" accept="image/*" />
-                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('employer')->user()->qr) @else d-none @endif employer-qr-remove"><i class="fa-solid fa-xmark"></i></button>
+                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->qr) @else d-none @endif employer-qr-remove"><i class="fa-solid fa-xmark"></i></button>
                                     <input type="hidden" name="qrStatus" id="qrStatus" value="">
                                 </div>
                             </div>
@@ -277,7 +277,7 @@
                                 <tbody>
                                     @foreach($employer->EmployerTestimonial as $test)
                                     <tr class="test-tr-{{ $test->id }}">
-                                        <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" alt="Testimonial Image"> @else - @endif</td>
+                                        <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" width="80px" height="80px" alt="Testimonial Image"> @else - @endif</td>
                                         <td>{{ $test->name ?? '-' }}</td>
                                         <td>{{ $test->title ?? '-' }}</td>
                                         <td>{{ $test->remark ?? '-' }}</td>
@@ -433,7 +433,7 @@
                         'state_id' : state,
                         'township_id' : township,
                         'address_detail' : address_detail,
-                        'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                        'employer_id' : {{ $employer->id }}
                     },
                     url: '{{ route("employer-address.store") }}',
                 }).done(function(response){
@@ -473,7 +473,7 @@
                         'state_id' : state,
                         'township_id' : township,
                         'address_detail' : address_detail,
-                        'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                        'employer_id' : {{ $employer->id }}
                     },
                     url: '{{ route("employer-address.store") }}',
                 }).done(function(response){
@@ -548,7 +548,7 @@
         $.ajax({
             type: 'POST',
             data: {
-                'employer_id' : {{ Auth::guard("employer")->user()->id }}
+                'employer_id' : {{ $employer->id }}
             },
             url: 'employer-address/destory/'+id,
         }).done(function(response){
@@ -585,7 +585,7 @@
         var test_name = $("#test-name").val();
         var test_title = $("#test-title").val();
         var test_remark = $("#test-remark").val();
-        var test_image = $("#test-image")[0].files[0];
+        
         if(test_name == '') {
             $(".test-name-error").removeClass('d-none');
         }else {
@@ -597,32 +597,57 @@
             $(".test-title-error").addClass('d-none');
         }
         if(test_name != '' && test_title != '') {
+            var fd = new FormData();
+            var test_image = $("#test-image")[0].files[0];
+            fd.append('test_image',test_image);
+            fd.append('test_name',test_name);
+            fd.append('test_title',test_title);
+            fd.append('test_remark',test_remark);
+            fd.append('employer_id',{{ $employer->id }});
             $.ajax({
                 type: 'POST',
-                data: {
-                    'name' : test_name,
-                    'title' : test_title,
-                    'image' : test_image,
-                    'remark' : test_remark,
-                    'employer_id' : {{ Auth::guard("employer")->user()->id }}
-                },
+                data: fd,
                 contentType: false,
                 processData: false,
                 url: '{{ route("employer-testimonial.store") }}'
             }).done(function(response){
                 if(response.status == 'success') {
+                    $('.employer-testimonial').removeClass('d-none');
                     var remark = '-';
                     if(response.data.remark) {
                         remark = response.data.remark;
                     }
                     var image = '-';
                     if(response.data.image){
-                        image = '<img src="'+window.origin+'/storage/employer_testimonial/'+response.data.image+'" alt="Testimonial Image">';
+                        image = '<img src="'+window.origin+'/storage/employer_testimonial/'+response.data.image+'" width="80px" height="80px" alt="Testimonial Image">';
                     }
                     $(".employer-testimonial").append('<tr class="test-tr-'+response.data.id+'"><td>'+image+'</td><td>'+response.data.name+'</td><td>'+response.data.title+'</td><td>'+remark+'</td><td><a onclick="deleteTest('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#test-name").val('');
+                    $("#test-title").val('');
+                    $("#test-remark").val('');
+                    $('.test-image-preview').attr('src', 'https://placehold.co/120x120/#E4E3E2');
                 }
             })
         }
+    }
+
+    function deleteTest(id)
+    {
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : {{ $employer->id }}
+            },
+            url: 'employer-testimonial/destory/'+id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $(".test-tr-"+id).empty();
+                if(response.test_count == 0) {
+                    $(".employer-testimonial").addClass('d-none');
+                }
+                alert(response.msg)
+            }
+        })
     }
 </script>
 @endpush

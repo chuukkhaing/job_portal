@@ -18,14 +18,14 @@
                         <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
                             <div class="row p-3">
                                 <div class="col-2 d-flex align-items-center ps-5">
-                                    @if(Auth::guard('employer')->user()->logo)
-                                    <img src="{{ asset('storage/employer_logo/'.Auth::guard('employer')->user()->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                                    @if($employer->logo)
+                                    <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                                     @else 
                                     <img src="{{ asset('img/person.png') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
                                     @endif
                                 </div>
                                 <div class="col-6">
-                                    <span class="jobpost-attr">{{ Auth::guard('employer')->user()->name }}</span>
+                                    <span class="jobpost-attr">{{ $employer->name }}</span>
                                     <h5>{{ $jobPost->job_title }}</h5>
                                     @if($jobPost->salary_status == 'Negotiable')
                                     <p class="p-0 m-0" style="color: #181722">Negotiate</p>

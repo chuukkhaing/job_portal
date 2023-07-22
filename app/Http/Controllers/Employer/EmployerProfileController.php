@@ -233,22 +233,35 @@ class EmployerProfileController extends Controller
     public function employerTestimonialStore(Request $request)
     {
         $image = Null;
-        if ($request->hasFile('image')) {
-            $file    = $request->file('image');
+        if ($request->hasFile('test_image')) {
+            $file    = $request->file('test_image');
             $image = date('YmdHi').$file->getClientOriginalName();
             $path = $file-> move(public_path('storage/employer_testimonial/'), $image);
         }
         $test_create = EmployerTestimonial::create([
             'employer_id' => $request->employer_id,
-            'name' => $request->name,
-            'title' => $request->title,
-            'remark' => $request->remark,
+            'name' => $request->test_name,
+            'title' => $request->test_title,
+            'remark' => $request->test_remark,
             'image' => $image
         ]);
         
         return response()->json([
             'status' => 'success',
             'data' => $test_create
+        ]);
+    }
+
+    public function employerTestimonialDestroy($id, Request $request)
+    {
+        $test = EmployerTestimonial::findOrFail($id)->delete();
+        $employer = Employer::findOrFail($request->employer_id);
+        $test_count = EmployerTestimonial::whereEmployerId($employer->id)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Testimonial deleted successfully!',
+            'test_count' => $test_count
         ]);
     }
 }
