@@ -41,7 +41,7 @@
         </div>
     </div>
     
-    <div class="row mt-1 p-0 bg-light">
+    <div class="row mt-1 p-0 bg-light" style="border-radius: 8px">
         <div class="px-5">
             <div class="row">
                 <div class="col-8 my-5">

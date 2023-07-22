@@ -16,6 +16,7 @@ use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\EmployerTestimonial;
 use File;
+use Str;
 use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
@@ -148,7 +149,7 @@ class EmployerProfileController extends Controller
         }else {
             $password = $employer->password;
         }
-
+        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
             'logo' => $logo,
             'background' => $background,
@@ -157,11 +158,13 @@ class EmployerProfileController extends Controller
             'industry_id' => $request->industry_id,
             'ownership_type_id' => $request->ownership_type_id,
             'type_of_employer' => $request->type_of_employer,
-            'description' => $request->description,
             'no_of_offices' => $request->no_of_offices,
             'website' => $request->website,
             'no_of_employees' => $request->no_of_employees,
             'phone' => $request->phone,
+            'slug' => $slug,
+            'summary' => $request->company_summary,
+            'value' => $request->company_value,
             'updated_by' => $id,
         ]);
 
@@ -316,5 +319,17 @@ class EmployerProfileController extends Controller
             'msg' => 'Media deleted successfully!',
             'media_count' => $media_count
         ]);
+    }
+
+    public function jobPostCreate()
+    {
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $packages = Package::whereNull('deleted_at')->get();
+        $industries = Industry::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->get();
+        $townships = Township::whereNull('deleted_at')->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
     }
 }

@@ -5,8 +5,7 @@
                 <h5>Manage Job</h5>
             </div>
             <div class="col-12 col-md-6 text-end">
-                <button onclick="postAJob()" id="postAJob" class="btn btn-sm profile-save-btn"><i class="fa-solid fa-plus"></i> Post a Job</button>
-                <button onclick="backToManageJob()" class="btn profile-save-btn btn-sm back-to-jobs-btn d-none"><i class="fa-solid fa-rotate-left"></i> Back</button>
+                <a href="{{ route('job-post.create') }}" class="btn btn-sm profile-save-btn"><i class="fa-solid fa-plus"></i> Post a Job</a>
             </div>
         </div>
         <div id="jobPostList">
@@ -70,25 +69,5 @@
             </div>
             @endif
         </div>
-        <div id="jobPostCreate" class="d-none">
-        @include('employer.profile.post-job')
-        </div>
     </div>
 </div>
-@push('scripts')
-<script>
-    function postAJob()
-    {
-        $('#jobPostList').addClass('d-none');
-        $('#jobPostCreate').removeClass('d-none');
-        $('.back-to-jobs-btn').removeClass('d-none');
-    }
-
-    function backToManageJob()
-    {
-        $('#jobPostList').removeClass('d-none');
-        $('#jobPostCreate').addClass('d-none');
-        $('.back-to-jobs-btn').addClass('d-none');
-    }
-</script>
-@endpush

@@ -316,11 +316,11 @@ body {
 .seeker-single-tab, .employer-single-tab{
     color: #181722;
 }
-/* #edit-profile-header {
-    border: 1px solid #95B6D8;
-    border-radius: 0 0 8px 8px;
-    border-top: 0;
-} */
+#edit-profile-header {
+    /* border: 1px solid #95B6D8; */
+    border-radius: 8px;
+    /* border-top: 0; */
+}
 #edit-profile-header h5{
     color: #0355D0;
     font-weight: 600 !important;

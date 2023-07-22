@@ -6,5 +6,5 @@ return [
     'Contract',
     'Freelance',
     'Internship',
-    'remote',
+    'Remote',
 ];

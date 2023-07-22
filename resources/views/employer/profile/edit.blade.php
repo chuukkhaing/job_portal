@@ -32,18 +32,21 @@
                                             <th>Users</th>
                                             <th>Status</th>
                                             <th>Access</th>
-                                            <th>Action</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>{{ $employer->email }}</td>
-                                            <td>{{ $employer->is_active }}</td>
-                                            <td>Admin</td>
-                                            <td></td>
+                                            <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
+                                            <td>{{ $employer->employer_id ? 'Member' : 'Admin' }}</td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div class="text-end">
+                                <a href="" class="btn profile-save-btn">Manage User</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -459,7 +462,29 @@
                             Step 5
                         </div>
                     </div>
-                    
+                    <div class="col-11">
+                        <div class="row mb-2">
+                            <div class="col-9">
+                                <div class="py-2">
+                                    <h5>Company Vision, Mission, and Values</h5>
+                                    <span>Learn About What Drives Us - Our Purpose, Goals, and Principles That Guide Our Company Forward</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 form-group">
+                                    <label for="company_summary" class="seeker_label">Company Summary</label>
+                                    <textarea name="company_summary" id="company_summary" cols="30" rows="5" class="seeker_input form-control">{{ $employer->summary }}</textarea>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label for="company_value" class="seeker_label">Company Value</label>
+                                    <textarea name="company_value" id="company_value" cols="30" rows="5" class="seeker_input form-control">{{ $employer->value }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
