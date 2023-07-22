@@ -43,36 +43,6 @@ input.form-control.search-slt.location {
     margin-bottom: 0rem;
 }
 
-@media (min-width: 992px){
-    .search-sec{
-        position: relative;
-        top: -114px;
-        background: rgb(23 23 28 / 51%);
-        z-index: 100;
-    }
-}
-
-@media (max-width: 992px){
-    .search-sec{
-        background: #1A4668;
-    }
-}
-
-@media (max-width: 575.98px) {    
-
-    .form-group.has-search {
-        margin-bottom: 1rem;
-    }
-
-    input.form-control.search-slt.job-title {
-        border-radius: 0px;
-    }
-    
-    input.form-control.search-slt.location {
-        border-radius: 0px;
-    }
-}
-
 .has-search .form-control {
     padding-left: 2.375rem;
 }
@@ -153,12 +123,10 @@ input.form-control.search-slt.location {
 }
 
 .trending-job-list {
-    /* border: 1px solid #B7CEE5; */
     border: none;
 }
 
 .trending-job-list:hover {
-    /* border-left: 5px solid #0355D0; */
     background: #EBF5FF;
 }
 
@@ -196,4 +164,96 @@ input.form-control.search-slt.location {
     position: absolute;
     color: #fff;
     font-weight: bold;
+}
+
+/* Job Interview css start here*/
+#job-interview {
+    background-image: url('../../frontend/img/job-interview/job-interview-bg.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 425px;
+    width: 100%;
+}
+
+.job-interview-title {
+    color: #fff;
+    font-size: 25px;
+    font-family: 'SourceSansPro';
+}
+
+.job-interview-content {
+    color: #fff;
+    font-family: 'SourceSansPro';
+}
+
+.interview-btn {
+    font-family: 'SourceSansPro';
+    background: #fc712d;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+/* Additional Service css start here*/
+#additional-service-title {
+    font-family: 'Source Sans Pro';
+    font-size: 25px;
+    line-height: 31px;
+    color: #0355D0;
+}
+
+#additional-service-box {
+    padding: 10px 0;
+}
+
+#additional-service-icon {
+    padding: 15px 0;
+}
+
+#additional-service-icon i {
+    font-size: 35px;
+    line-height: 62px;
+    color: #FB5404;
+    width: 65px;
+    height: 65px;
+}
+
+#additional-service-name h4 {
+    font-size: 20px;
+    color: #46454e;
+}
+
+
+/* @media css start */
+
+@media (min-width: 992px){
+    .search-sec{
+        position: relative;
+        top: -114px;
+        background: rgb(23 23 28 / 51%);
+        z-index: 100;
+    }
+}
+
+@media (max-width: 992px){
+    .search-sec{
+        background: #1A4668;
+    }
+}
+
+@media (max-width: 575.98px) {    
+
+    .form-group.has-search {
+        margin-bottom: 1rem;
+    }
+
+    input.form-control.search-slt.job-title {
+        border-radius: 0px;
+    }
+    
+    input.form-control.search-slt.location {
+        border-radius: 0px;
+    }
 }
