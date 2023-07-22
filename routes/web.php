@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Seeker\SeekerRegisterController;
-use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\JobPostDetailController;
+use App\Http\Controllers\Seeker\SeekerLoginController;
+use App\Http\Controllers\Seeker\SeekerRegisterController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,11 @@ use App\Http\Controllers\JobPostDetailController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-// Home 
+ */
+// Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find-jobs');
 
 Route::get('/register-form', [SeekerRegisterController::class, 'frontendRegister'])->name('register-form');
 Route::get('/login-form', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
