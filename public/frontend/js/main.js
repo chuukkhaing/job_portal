@@ -30,7 +30,7 @@
         allowClear: true
     });
 
-    $('.summernote').summernote();
+    // $('.summernote').summernote();
 
     $('#dataTable').dataTable();
     // $('.applicant-receive-table').dataTable({

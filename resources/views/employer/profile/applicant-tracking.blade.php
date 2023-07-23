@@ -7,6 +7,7 @@
                         <th>No.</th>
                         <th>Job Title</th>
                         <th># Apps</th>
+                        <th>Contact Name</th>
                         <th>Not Suitable</th>
                         <th>Shorted List</th>
                         <th>Hired</th>
@@ -27,6 +28,7 @@
                             {{ $jobApplicant->JobApply->count() }} CV
                             @endif
                         </td>
+                        <td>{{ $jobApplicant->recruiter_name }}</td>
                         <td>
                             @if($jobApplicant->JobApply->where('status','not-suitable')->count() > 0)
                             <a href="#" class="text-danger" onclick="getCVList({{$jobApplicant->id}},'not-suitable')">{{ $jobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>

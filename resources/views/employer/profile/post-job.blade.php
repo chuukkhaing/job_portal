@@ -4,11 +4,13 @@
 <div class="container employer-dashboard m-auto">
     <div class="row employer-dashboard-header bg-light m-0">
         <div class="col-2 p-3">
+            <a href="{{ route('employer-profile.index') }}">
             @if($employer->logo)
             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo">
             @else
             <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo">
             @endif
+            </a>
         </div>
         <div class="col-10 p-3">
             <div class="mb-4">
@@ -180,9 +182,9 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
-                                <input type="checkbox" name="gender" id="male">
+                                <input type="checkbox" name="male" id="male">
                                 <label for="male">Male</label><br>
-                                <input type="checkbox" name="gender" id="female">
+                                <input type="checkbox" name="female" id="female">
                                 <label for="female">Female</label>
                             </div>
                             <div class="form-group col-12 col-md-6">
@@ -230,16 +232,16 @@
                     <div class="py-2">
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
-                                <label for="reruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
-                                <input type="text" name="reruiter_name" id="reruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('reruiter_name') }}">
+                                <label for="recruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
+                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('recruiter_name') }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="reruiter_phone" class="seeker_label my-2">Email </label>
-                                <input type="email" name="reruiter_email" id="reruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('reruiter_name') }}">
+                                <label for="recruiter_email" class="seeker_label my-2">Email </label>
+                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_name') }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="reruiter_phone" class="seeker_label my-2">Phone </label>
-                                <input type="number" name="reruiter_phone" id="reruiter_phone" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('reruiter_name') }}">
+                                <label for="recruiter_phone" class="seeker_label my-2">Phone </label>
+                                <input type="number" name="recruiter_phone" id="recruiter_phone" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_phone') }}">
                             </div>
                         </div>
                     </div>
@@ -268,7 +270,7 @@
                             </div>
                             <div class="col-8 form-group">
                                 <label for="benefit" class="seeker_label">Benefits</label>
-                                <textarea name="benefit" id="benefit" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control"></textarea>
                             </div>
                             <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                 <div>Bonus + Commison </div>
@@ -278,7 +280,7 @@
                             </div>
                             <div class="col-8 form-group">
                                 <label for="highlight" class="seeker_label">Highlight</label>
-                                <textarea name="highlight" id="highlight" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control"></textarea>
                             </div>
                             <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                 <div>Fun Working Enviroment </div>
@@ -301,25 +303,41 @@
                         <h5>Open Job Question</h5>
                         <span>Explore a set of thought-provoking interview questions that help evaluate candidates' skills, qualifications, and alignment with our company's values</span>
                     </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered job-post-question d-none">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Answer</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="py-2">
                         <div class="row">
                             <div class="col-6 form-group">
                                 <label for="job_post_question" class="seeker_label">Create Question</label>
-                                <input type="text" name="job_post_question" id="job_post_question" class="form-control seeker_input" required placeholder="Write Question" value="">
+                                <input type="text" name="job_post_question" id="job_post_question" class="form-control seeker_input"  placeholder="Write Question" value="">
+                                <span class="text-danger job-post-question-error d-none">Please Fill the Question.</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_post_answer" class="seeker_label my-2">Selecter Answer Type</label><br>
-                                <select name="job_post_answer" id="job_post_answer" class="seeker_input" style="width: 100%" required>
-                                    <option value="text_answer">Text Answer</option>
-                                    <option value="multiple_choice">Multiple Choice</option>
+                                <select name="job_post_answer" id="job_post_answer" class="seeker_input" style="width: 100%" >
+                                    <option value="Text Answer">Text Answer</option>
+                                    <option value="Multiple Choice">Multiple Choice</option>
                                 </select>
+                                <span class="text-danger job-post-answer-error d-none">Need to Choose Answer Type.</span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                            <a class="btn btn-outline-primary rounded-3"><i class="fa-solid fa-plus"></i> Create Question</a>
+                            <a class="btn btn-outline-primary rounded-3" onclick="createQuestion()"><i class="fa-solid fa-plus"></i> Create Question</a>
                             </div>
                         </div>
                     </div>
@@ -340,7 +358,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box p-3">
-                                    <input type="radio" name="job_post" required id="standard_job_post" vale="standard"><br>
+                                    <input type="radio" name="job_post" required id="standard_job_post" vlaue="standard"><br>
                                     <label for="standard_job_post">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -446,7 +464,7 @@
                 var job_post_state_id = $(this).val();
                 $.ajax({
                     type: 'GET',
-                    url: 'get-township/'+job_post_state_id,
+                    url: '/employer/get-township/'+job_post_state_id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#job_post_township_id").empty();
@@ -468,7 +486,7 @@
                 var main_functional_area_id = $(this).val();
                 $.ajax({
                     type: 'GET',
-                    url: 'get-sub-functional-area/'+main_functional_area_id,
+                    url: '/employer/get-sub-functional-area/'+main_functional_area_id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#sub_functional_area_id").empty();
@@ -484,5 +502,31 @@
             }
         });
     })
+    function createQuestion()
+    {
+        var question = $("#job_post_question").val();
+        var answer_type = $("#job_post_answer").val();
+
+        if(question == '') {
+            $('.job-post-question-error').removeClass('d-none');
+        }else {
+            $('.job-post-question-error').addClass('d-none');
+        }
+        if(answer_type == '') {
+            $('.job-post-answer-error').removeClass('d-none');
+        }else {
+            $('.job-post-answer-error').addClass('d-none');
+        }
+        if(question != '' && answer_type != '') {
+            $('.job-post-question').removeClass('d-none');
+            $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+            $("#job_post_question").val('');
+            $("#job_post_answer").val('Text Answer');
+        }
+    }
+
+    $(".job-post-question").on("click", "#DeleteButton", function() {
+        $(this).closest("tr").remove();
+    });
 </script>
 @endpush

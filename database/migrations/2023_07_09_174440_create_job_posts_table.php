@@ -34,7 +34,7 @@ class CreateJobPostsTable extends Migration
             $table->longtext('job_description')->nullable();
             $table->longtext('job_requirement')->nullable();
             $table->longtext('benefit')->nullable();
-            $table->longtext('job_higlight')->nullable();
+            $table->longtext('job_highlight')->nullable();
             $table->boolean('hide_salary')->default(0);
             $table->boolean('hide_company')->default(0);
             $table->integer('no_of_candidate')->nullable();
@@ -42,6 +42,8 @@ class CreateJobPostsTable extends Migration
             $table->string('recruiter_name')->nullable();
             $table->string('recruiter_email')->nullable();
             $table->string('recruiter_phone')->nullable();
+            $table->string('status')->nullable();
+            $table->date('expired_at')->nullable();
             $table->string('job_post');
             $table->timestamps();
         });

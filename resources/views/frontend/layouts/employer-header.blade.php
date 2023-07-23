@@ -11,7 +11,7 @@
             <div class="navbar-nav ms-auto py-0 d-flex align-items-center">
                 <span>Package Expire Date :</span>
                 <span>Date</span>
-                <a href="{{ route('job-post.create') }}" class="btn bg-light" style="color: #0355D0; margin: 10px">Post a Job</a>
+                <a href="{{ route('employer-job-post.create') }}" class="btn bg-light" style="color: #0355D0; margin: 10px">Post a Job</a>
                 
                 @auth('employer')
                 <div class="btn-group">

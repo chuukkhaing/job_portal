@@ -320,16 +320,4 @@ class EmployerProfileController extends Controller
             'media_count' => $media_count
         ]);
     }
-
-    public function jobPostCreate()
-    {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        $packages = Package::whereNull('deleted_at')->get();
-        $industries = Industry::whereNull('deleted_at')->get();
-        $states = State::whereNull('deleted_at')->get();
-        $townships = Township::whereNull('deleted_at')->get();
-        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
-    }
 }

@@ -13,6 +13,13 @@ use App\Models\Seeker\SeekerSkill;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
+use App\Models\Admin\Employer;
+use App\Models\Admin\Package;
+use App\Models\Admin\Industry;
+use App\Models\Admin\State;
+use App\Models\Admin\Township;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Employer\JobPostQuestion;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 use Str;
@@ -38,7 +45,14 @@ class EmployerJobPostController extends Controller
      */
     public function create()
     {
-        //
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $packages = Package::whereNull('deleted_at')->get();
+        $industries = Industry::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->get();
+        $townships = Township::whereNull('deleted_at')->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
     }
 
     /**
@@ -92,22 +106,35 @@ class EmployerJobPostController extends Controller
             'hide_salary' => $hide_salary,
             'hide_company' => $hide_company,
             'no_of_candidate' => $request->no_of_candidate,
-            'recruiter_name' => $request->reruiter_name,
-            'recruiter_email' => $request->reruiter_email,
-            'recruiter_phone' => $request->reruiter_phone,
+            'recruiter_name' => $request->recruiter_name,
+            'recruiter_email' => $request->recruiter_email,
+            'recruiter_phone' => $request->recruiter_phone,
             'country' => $request->job_post_country,
             'state_id' => $request->job_post_state_id,
             'township_id' => $request->job_post_township_id,
             'job_description' => $request->job_description,
             'job_requirement' => $request->job_requirement,
             'benefit' => $request->benefit,
-            'job_higlight' => $request->higlight,
+            'job_highlight' => $request->highlight,
             'job_post' => $request->job_post,
+            'status' => 'Pending',
         ]);
         $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
-        $jobPost->update([
+        $jobPost_slug = $jobPost->update([
             'slug' => $slug
         ]);
+        foreach($request->questions as $key => $question) {
+            foreach($request->answer_types as $answer_key => $answer_type) {
+                if($key == $answer_key) {
+                    $question_create = JobPostQuestion::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'question' => $question,
+                        'answer' => $answer_type
+                    ]);
+                }
+            }
+        }
         return redirect()->back()->with('success','Create Job Post Successfully.');
     }
 
