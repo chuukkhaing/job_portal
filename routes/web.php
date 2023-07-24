@@ -21,6 +21,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find-jobs');
 
+Route::get('/companies', [HomeController::class, 'companies'])->name('companies');
+
 Route::get('/register-form', [SeekerRegisterController::class, 'frontendRegister'])->name('register-form');
 Route::get('/login-form', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');
 

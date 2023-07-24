@@ -64,4 +64,9 @@ class HomeController extends Controller
     {
         return view('frontend.find-jobs');
     }
+
+    public function companies()
+    {
+        return view('frontend.company');
+    }
 }
