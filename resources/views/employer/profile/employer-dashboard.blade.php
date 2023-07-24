@@ -51,8 +51,11 @@
                             @foreach($lastJobPosts as $jobPost)
                             <div class="col-8 p-2">
                                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span><br>
+                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
+                                    @if($jobPost->country == 'Myanmar')
+                                    <br>
                                     <span class=" text-primary">{{ $jobPost->State->name }}</span>
+                                    @endif
                                 </a>
                             </div>
                             <div class="col-4 p-2 d-flex align-items-end flex-row-reverse bd-highlight">
