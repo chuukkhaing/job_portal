@@ -154,33 +154,33 @@
                                     <option value="MMK" @if('MMK' == $jobPost->currency) selected @endif>MMK</option>
                                 </select>
                             </div>
-                            <div class="form-group col-12 col-md-6 mmk_salary d-none">
+                            <div class="form-group col-12 col-md-6 mmk_salary @if($jobPost->currency == 'USD') d-none @endif">
                                 <label for="mmk_salary" class="seeker_label my-2">Salary Range</label>
                                 <select name="mmk_salary" id="mmk_salary" class="select_2 form-control seeker_input" style="width: 100%" >
                                     <option value="">Choose...</option>
                                     <option value="Less than 2 lakh" @if('Less than 2 lakh' == $jobPost->salary_range) selected @endif>Less than 2 lakh</option>
-                                    <option value="2 to 4 Lakh">2 to 4 Lakh</option>
-                                    <option value="4 to 6 Lakh">4 to 6 Lakh</option>
-                                    <option value="6 to 8 Lakh">6 to 8 Lakh</option>
-                                    <option value="8 to 10 Lakh">8 to 10 Lakh</option>
-                                    <option value="10 to 15 Lakh">10 to 15 Lakh</option>
-                                    <option value="15 to 20 Lakh">15 to 20 Lakh</option>
-                                    <option value="20 to 40 Lakh">20 to 40 Lakh</option>
-                                    <option value="Over 40 Lakh">Over 40 Lakh</option>
-                                    <option value="Incentive/ comission only">Incentive/ comission only</option>
+                                    <option value="2 to 4 Lakh" @if('2 to 4 Lakh' == $jobPost->salary_range) selected @endif>2 to 4 Lakh</option>
+                                    <option value="4 to 6 Lakh" @if('4 to 6 Lakh' == $jobPost->salary_range) selected @endif>4 to 6 Lakh</option>
+                                    <option value="6 to 8 Lakh" @if('6 to 8 Lakh' == $jobPost->salary_range) selected @endif>6 to 8 Lakh</option>
+                                    <option value="8 to 10 Lakh" @if('8 to 10 Lakhh' == $jobPost->salary_range) selected @endif>8 to 10 Lakh</option>
+                                    <option value="10 to 15 Lakh" @if('10 to 15 Lakh' == $jobPost->salary_range) selected @endif>10 to 15 Lakh</option>
+                                    <option value="15 to 20 Lakh" @if('15 to 20 Lakh' == $jobPost->salary_range) selected @endif>15 to 20 Lakh</option>
+                                    <option value="20 to 40 Lakh" @if('20 to 40 Lakh' == $jobPost->salary_range) selected @endif>20 to 40 Lakh</option>
+                                    <option value="Over 40 Lakh" @if('Over 40 Lakh' == $jobPost->salary_range) selected @endif>Over 40 Lakh</option>
+                                    <option value="Incentive/ comission only" @if('Incentive/ comission only' == $jobPost->salary_range) selected @endif>Incentive/ comission only</option>
                                 </select>
                             </div>
-                            <div class="form-group col-12 col-md-6 usd_salary d-none">
+                            <div class="form-group col-12 col-md-6 usd_salary @if($jobPost->currency == 'MMK') d-none @endif">
                                 <label for="usd_salary" class="seeker_label my-2">Salary Range</label>
                                 <select name="usd_salary" id="usd_salary" class="select_2 form-control seeker_input" style="width: 100%" >
                                     <option value="">Choose...</option>
-                                    <option value="Less Than 300">Less Than 300</option>
-                                    <option value="300 to 500">300 to 500</option>
-                                    <option value="500 to 800">500 to 800</option>
-                                    <option value="800 to 1500">800 to 1500</option>
-                                    <option value="1500 to 3000">3000 to 1500</option>
-                                    <option value="3000 to 5000">3000 to 5000</option>
-                                    <option value="Over 5000">Over 5000</option>
+                                    <option value="Less Than 300" @if('Less Than 300' == $jobPost->salary_range) selected @endif>Less Than 300</option>
+                                    <option value="300 to 500" @if('300 to 500' == $jobPost->salary_range) selected @endif>300 to 500</option>
+                                    <option value="500 to 800" @if('500 to 800' == $jobPost->salary_range) selected @endif>500 to 800</option>
+                                    <option value="800 to 1500" @if('800 to 1500' == $jobPost->salary_range) selected @endif>800 to 1500</option>
+                                    <option value="1500 to 3000" @if('1500 to 3000' == $jobPost->salary_range) selected @endif>3000 to 1500</option>
+                                    <option value="3000 to 5000" @if('3000 to 5000' == $jobPost->salary_range) selected @endif>3000 to 5000</option>
+                                    <option value="Over 5000" @if('Over 5000' == $jobPost->salary_range) selected @endif>Over 5000</option>
                                 </select>
                             </div>
                             <div class="form-group mt-3 col-12 col-md-6">
