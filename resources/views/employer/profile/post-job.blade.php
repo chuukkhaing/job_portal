@@ -246,7 +246,7 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_email" class="seeker_label my-2">Email </label>
-                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_name') }}">
+                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_email') }}">
                             </div>
                             
                         </div>

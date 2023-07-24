@@ -50,10 +50,10 @@
         </div>
     </div>
     <div class="container-fluid bg-light mt-1 py-5" id="edit-profile-header">
-    <form action="{{ route('employer-job-post.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('employer-job-post.update', $jobPost->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
-        
             @csrf 
+            @method('PUT')
             <div class="row">
                 <div class="col-1">
                     <div class="step">
@@ -184,41 +184,41 @@
                                 </select>
                             </div>
                             <div class="form-group mt-3 col-12 col-md-6">
-                                <input type="checkbox" name="hide_salary" id="hide_salary">
+                                <input type="checkbox" name="hide_salary" id="hide_salary" @if($jobPost->hide_salary == 1) checked @endif>
                                 <label for="hide_salary">Hide Salary</label><br>
-                                <input type="checkbox" name="hide_company_name" id="hide_company_name">
+                                <input type="checkbox" name="hide_company_name" id="hide_company_name" @if($jobPost->hide_company_name == 1) checked @endif>
                                 <label for="hide_company_name">Hide Company (Make confidential Job)</label>
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
-                                <input type="checkbox" name="male" id="male">
+                                <input type="checkbox" name="male" id="male" @if($jobPost->gender == 'Male' || $jobPost->gender == 'Male/Female') checked @endif>
                                 <label for="male">Male</label><br>
-                                <input type="checkbox" name="female" id="female">
+                                <input type="checkbox" name="female" id="female" @if($jobPost->gender == 'Female' || $jobPost->gender == 'Male/Female') checked @endif>
                                 <label for="female">Female</label>
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
                                 <select name="job_post_country" id="job_post_country" class="seeker_input" required style="width: 100%">
-                                    <option value="Myanmar">Myanmar</option>
-                                    <option value="Other">Other</option>
+                                    <option value="Myanmar" @if($jobPost->country == 'Myanmar') selected @endif>Myanmar</option>
+                                    <option value="Other" @if($jobPost->country == 'Other') selected @endif>Other</option>
                                 </select>
                             </div>
-                            <div class="form-group col-12 col-md-6" id="job_post_state_id_field">
+                            <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_state_id_field">
                                 <label for="job_post_state_id" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
                                 <select name="job_post_state_id" id="job_post_state_id" class="select_2 form-control seeker_input" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($states as $state)
-                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                    <option value="{{ $state->id }}" @if($jobPost->state_id == $state->id) selected @endif>{{ $state->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         
-                            <div class="form-group col-12 col-md-6" id="job_post_township_id_field">
+                            <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_township_id_field">
                                 <label for="job_post_township_id" class="seeker_label my-2">City <span class="text-danger">*</span></label><br>
                                 <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($townships as $township)
-                                    <option value="{{ $township->id }}">{{ $township->name }}</option>
+                                    <option value="{{ $township->id }}" @if($jobPost->township_id == $township->id) selected @endif>{{ $township->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -242,11 +242,11 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
-                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ old('recruiter_name') }}">
+                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ $jobPost->recruiter_name }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_email" class="seeker_label my-2">Email </label>
-                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_name') }}">
+                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ $jobPost->recruiter_email }}">
                             </div>
                             
                         </div>
@@ -266,26 +266,27 @@
                     </div>
                     <div class="py-2">
                         <div class="row">
-                            
                             <div class="form-group col-12 col-md-6">
                                 <label for="skill_id" class="seeker_label my-2">Skill Name <span class="text-danger">*</span></label><br>
                                 <select name="skills[]" id="skill_id" class="form-control seeker_input select_2" style="width:100%" multiple>
                                     <option value="">Choose...</option>
-                                    
+                                    @foreach($jobPost->JobPostSkill as $skill)
+                                    <option value="{{ $skill->skill_id }}" selected >{{ $skill->Skill->name }}</option>
+                                    @endforeach
                                 </select><br>
                             </div>
                             <div class="col-6"></div>
                             <div class="col-6 form-group">
                                 <label for="job_description" class="seeker_label">Job Description</label>
-                                <textarea name="job_description" id="job_description" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="job_description" id="job_description" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_description }}</textarea>
                             </div>
                             <div class="col-6 form-group">
                                 <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                <textarea name="job_requirement" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="job_requirement" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_requirement }}</textarea>
                             </div>
                             <div class="col-8 form-group">
                                 <label for="benefit" class="seeker_label">Benefits</label>
-                                <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control">{{ $jobPost->benefit }}</textarea>
                             </div>
                             <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                 <div>Bonus + Commison </div>
@@ -295,7 +296,7 @@
                             </div>
                             <div class="col-8 form-group">
                                 <label for="highlight" class="seeker_label">Highlight</label>
-                                <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control">{{ $jobPost->job_highlight }}</textarea>
                             </div>
                             <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                 <div>Fun Working Enviroment </div>
@@ -319,7 +320,7 @@
                         <span>Explore a set of thought-provoking interview questions that help evaluate candidates' skills, qualifications, and alignment with our company's values</span>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-bordered job-post-question d-none">
+                        <table class="table table-bordered job-post-question @if($jobPost->JobPostQuestion->count() > 0) @else d-none @endif">
                             <thead>
                                 <tr>
                                     <th>Question</th>
@@ -328,7 +329,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach($jobPost->JobPostQuestion as $question)
+                                <tr>
+                                    <td><input type="text" name="questions[]" value="{{ $question->question }}" readonly class="border-0"></td>
+                                    <td><input type="text" name="answer_types[]" value="{{ $question->answer }}" readonly class="border-0"></td>
+                                    <td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -373,7 +380,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard"><br>
+                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard" @if($jobPost->job_post_type == 'sandard') checked @endif><br>
                                     <label for="standard_job_post" class="w-100">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
@@ -384,7 +391,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="feature_job_post" value="feature"><br>
+                                    <input type="radio" name="job_post_type" required id="feature_job_post" value="feature" @if($jobPost->job_post_type == 'feature') checked @endif><br>
                                     <label for="feature_job_post" class="w-100">
                                         <h5>Feature Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -395,7 +402,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="trending_job_post" value="trending"><br>
+                                    <input type="radio" name="job_post_type" required id="trending_job_post" value="trending" @if($jobPost->job_post_type == 'trending') checked @endif><br>
                                     <label for="trending_job_post" class="w-100">
                                         <h5>Trending Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -410,7 +417,7 @@
             </div>
         </div>
         <div class="col-12 mb-2 text-center">
-            <button type="submit" class="btn profile-save-btn">Post Job</button>
+            <button type="submit" class="btn profile-save-btn">Update Job</button>
         </div>
     </form>
     </div>

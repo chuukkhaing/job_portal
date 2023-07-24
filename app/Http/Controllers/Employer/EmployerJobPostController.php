@@ -144,7 +144,7 @@ class EmployerJobPostController extends Controller
                 ]);
             }
         }
-        return redirect()->back()->with('success','Create Job Post Successfully.');
+        return redirect()->route('employer-profile.index')->with('success','Create Job Post Successfully.');
     }
 
     /**
@@ -186,7 +186,88 @@ class EmployerJobPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jobPost = JobPost::findOrFail($id);
+        $gender = $jobPost->gender;
+        if($request->male == 'on' && $request->female == 'on') {
+            $gender = 'Male/Female';
+        }elseif($request->male == 'on' && $request->female == '') {
+            $gender = 'Male';
+        }elseif($request->male == '' && $request->female == 'on') {
+            $gender = 'Female';
+        }
+        $salary_range = $jobPost->salary_range;
+        if($request->mmk_salary) {
+            $salary_range = $request->mmk_salary;
+        }else {
+            $salary_range = $request->usd_salary;
+        }
+        if($request->hide_salary == 'on') {
+            $hide_salary = 1;
+        }else{
+            $hide_salary = 0;
+        }
+        if($request->hide_company == 'on') {
+            $hide_company = 1;
+        }else{
+            $hide_company = 0;
+        }
+        $jobPost_update = $jobPost->update([
+            'job_title' => $request->job_title,
+            'main_functional_area_id' => $request->main_functional_area_id,
+            'sub_functional_area_id' => $request->sub_functional_area_id,
+            'industry_id' => $request->job_post_industry_id,
+            'career_level' => $request->career_level,
+            'job_type' => $request->job_type,
+            'experience_level' => $request->experience_level,
+            'degree' => $request->degree,
+            'gender' => $gender,
+            'currency' => $request->currency,
+            'salary_range' => $salary_range,
+            'hide_salary' => $hide_salary,
+            'hide_company' => $hide_company,
+            'no_of_candidate' => $request->no_of_candidate,
+            'recruiter_name' => $request->recruiter_name,
+            'recruiter_email' => $request->recruiter_email,
+            'country' => $request->job_post_country,
+            'state_id' => $request->job_post_state_id,
+            'township_id' => $request->job_post_township_id,
+            'job_description' => $request->job_description,
+            'job_requirement' => $request->job_requirement,
+            'benefit' => $request->benefit,
+            'job_highlight' => $request->highlight,
+            'job_post_type' => $request->job_post_type,
+            'status' => 'Pending',
+        ]);
+        $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
+        $jobPost_slug = $jobPost->update([
+            'slug' => $slug
+        ]);
+        if($request->questions) {
+            $delete_question = JobPostQuestion::whereJobPostId($jobPost->id)->delete();
+            foreach($request->questions as $key => $question) {
+                foreach($request->answer_types as $answer_key => $answer_type) {
+                    if($key == $answer_key) {
+                        $question_create = JobPostQuestion::create([
+                            'employer_id' => Auth::guard('employer')->user()->id,
+                            'job_post_id' => $jobPost->id,
+                            'question' => $question,
+                            'answer' => $answer_type
+                        ]);
+                    }
+                }
+            }
+        }
+        if($request->skills) {
+            $delete_skill = JobPostSkill::whereJobPostId($jobPost->id)->delete();
+            foreach($request->skills as $key => $skill) {
+                $skill_create = JobPostSkill::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'skill_id' => $skill,
+                ]);
+            }
+        }
+        return redirect()->route('employer-profile.index')->with('success','Update Job Post Successfully.');
     }
 
     /**

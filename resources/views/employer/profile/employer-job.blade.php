@@ -71,7 +71,7 @@
                                 <div class="mt-auto p-2 bd-highlight ">
                                     <a href="{{ route('employer-job-post.edit', $jobPost->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                     <div class="d-inline-block form-switch">
-                                        <input class="form-check-input form-switch" type="checkbox" @if($jobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $jobPost->id }}" onclick="changeJobPostStatus({{ $jobPost->id }}, {{ $jobPost->is_active }})">
+                                        <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($jobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $jobPost->id }}" onclick="changeJobPostStatus({{ $jobPost->id }}, {{ $jobPost->is_active }})">
                                         <label for="job_post_is_active">Activate/Deactivate</label>
                                     </div>
                                 </div>

@@ -93,7 +93,8 @@ class SliderController extends Controller
     public function edit($id)
     {
         $slider = Slider::findOrFail($id);
-        return view ('admin.slider.edit', compact('slider'));
+        $employers = Employer::whereNull('deleted_at')->whereIsActive(1)->get();
+        return view ('admin.slider.edit', compact('slider','employers'));
     }
 
     /**
@@ -106,14 +107,32 @@ class SliderController extends Controller
     public function update(Request $request, $id)
     {
         $slider = Slider::findOrFail($id);
-        $slider = $slider->update([
-            'name' => $request->name,
-            'is_active' => $request->is_active,
-            'updated_by' => Auth::user()->id,
-        ]);
+        $serial_no_exist = 0;
+        if($slider->serial_no != $request->serial_no) {
+            $serial_no_exist = Slider::whereIsActive(1)->whereSerialNo($request->serial_no)->whereNull('deleted_at')->count();
+        }
+        
+        if($serial_no_exist > 0) {
+            Alert::warning('Warning', 'This Serial No.'.$request->serial_no.' was already exists. Please Try Again!');
+            return redirect()->back();
+        }else {
+            $image = $slider->image;
+            if($request->file('image')){
+                $file= $request->file('image');
+                $image= date('YmdHi').$file->getClientOriginalName();
+                $path = $file-> move(public_path('storage/slider'), $image);
+            }
+            $slider_update = $slider->update([
+                'employer_id' => $request->employer_id,
+                'serial_no' => $request->serial_no,
+                'image' => $image,
+                'is_active' => $request->is_active,
+                'updated_by' => Auth::user()->id,
+            ]);
 
-        Alert::success('Success', 'Slider Updated Successfully!');
+        Alert::success('Success', 'Slider Update Successfully!');
         return redirect()->route('slider.index');
+        }
     }
 
     /**

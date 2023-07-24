@@ -9,6 +9,8 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\Industry;
 use App\Models\Seeker\JobApply;
+use App\Models\Employer\JobPostSkill;
+use App\Models\Employer\JobPostQuestion;
 
 class JobPost extends Model
 {
@@ -34,5 +36,13 @@ class JobPost extends Model
     function JobApply()
     {
         return $this->hasMany(JobApply::class, 'job_post_id', 'id');
+    }
+    function JobPostSkill()
+    {
+        return $this->hasMany(JobPostSkill::class, 'job_post_id', 'id');
+    }
+    function JobPostQuestion()
+    {
+        return $this->hasMany(JobPostQuestion::class, 'job_post_id', 'id');
     }
 }

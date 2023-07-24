@@ -784,3 +784,14 @@ a.disabled {
     border-radius: 8px;
     border: 1px solid #B7CEE5;
 }
+.form-switch .employer-form-check:checked {
+    background-color: #FB5404;
+    border-color: #FB5404;
+}
+.form-switch .employer-form-check {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"%3e%3ccircle r="3" fill="%23fff"/%3e%3c/svg%3e');
+    background-color: #0255CF;
+}
+.form-switch .employer-form-check:focus {
+    background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"%3e%3ccircle r="3" fill="%23fff"/%3e%3c/svg%3e');
+}
