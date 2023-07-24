@@ -23,18 +23,27 @@
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
             <div class="row">
                 <div class="col-4 p-1">
-                    <div class="economy p-3">
+                    <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy") style="border: 1px solid #0565FF" @endif>
                         Economy
+                        @if($employer->Package && $employer->Package->name == "Economy")
+                        <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="standard p-3">
+                    <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard") style="border: 1px solid #C72C91" @endif>
                         Standard
+                        @if($employer->Package && $employer->Package->name == "Standard")
+                        <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="premium p-3">
+                    <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium") style="border: 1px solid #F58220" @endif>
                         Premium
+                        @if($employer->Package && $employer->Package->name == "Premium")
+                        <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -41,6 +41,7 @@ class CreateEmployersTable extends Migration
 			$table->datetime('package_end_date')->nullable();
             $table->integer('package_point');
             $table->integer('add_on_point');
+            $table->integer('purchased_point');
 			$table->datetime('register_at')->nullable();
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

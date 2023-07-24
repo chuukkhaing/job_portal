@@ -1,5 +1,5 @@
 <div class="container-fluid" id="edit-profile-header">
-    <div class="row mt-1 px-5 pb-0 pt-5 bg-light" style="border-radius: 8px">
+    <div class="row mt-1 px-5 py-5 bg-light" style="border-radius: 8px">
         <div class="row">
             <div class="col-12 col-md-6">
                 <h5>Manage Job</h5>
@@ -10,7 +10,7 @@
         </div>
         <div id="jobPostList">
             @if($jobPosts->count() > 0)
-            <div class="row m-0 pb-0 pt-5">
+            <div class="row m-0 py-5">
                 @foreach($jobPosts as $jobPost)
                 <div class="col-12 p-1">
                     <a href="{{ route('jobpost-detail', $jobPost->slug) }}">

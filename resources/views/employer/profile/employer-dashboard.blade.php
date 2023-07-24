@@ -30,7 +30,7 @@
             <div class="row ms-0 p-3 bg-light">
                 <div class="col-8">
                     <p class="overview-title">Purchased Points</p>
-                    <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->count() }}</span>
+                    <span class="fw-bold fs-3">{{ $employer->purchased_point }}</span>
                 </div>
                 <div class="col-4">
                     <div class="points-icon float-end">

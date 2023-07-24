@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light" id="edit-profile-header">
+<div class="container-fluid bg-light py-5" id="edit-profile-header">
     <div class="px-5 m-0 pb-0 pt-5">
         <div class="table-responsive" id="applicant-tracking-section">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

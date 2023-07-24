@@ -81,6 +81,7 @@ class EmployerController extends Controller
             'package_start_date' => date('Y-m-d', strtotime($request->package_start_date)),
             'package_end_date' => $package_end_date,
             'package_point' => $package->point,
+            'purchased_point' => $package->point,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
@@ -150,10 +151,22 @@ class EmployerController extends Controller
             $password = $employer->password;
         }
 
-        $package_end_date = Null;
-        if($request->package_id) {
-            $package = Package::findOrFail($request->package_id);
-            $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
+        $package_id = $employer->package_id;
+        $package_start_date = $employer->package_start_date;
+        $package_end_date = $employer->package_end_date;
+        $package_point = $employer->package_point;
+        $purchased_point = $employer->purchased_point;
+
+        if($request->package_id != $employer->package_id) {
+            $package_end_date = Null;
+            if($request->package_id) {
+                $package = Package::findOrFail($request->package_id);
+                $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
+            }
+            $package_id = $request->package_id;
+            $package_start_date = date('Y-m-d', strtotime($request->package_start_date));
+            $package_point = $employer->package_point + $package->point;
+            $purchased_point = $employer->purchased_point + $package->point;
         }
         
         $employer = $employer->update([
@@ -161,10 +174,11 @@ class EmployerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $password,
-            'package_id' => $request->package_id,
-            'package_start_date' => date('Y-m-d', strtotime($request->package_start_date)),
+            'package_id' => $package_id,
+            'package_start_date' => $package_start_date,
             'package_end_date' => $package_end_date,
-            'package_point' => $package->point,
+            'package_point' => $package_point,
+            'purchased_point' => $purchased_point,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
