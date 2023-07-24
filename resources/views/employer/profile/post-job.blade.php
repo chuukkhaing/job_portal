@@ -241,7 +241,7 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_phone" class="seeker_label my-2">Phone </label>
-                                <input type="number" name="recruiter_phone" id="recruiter_phone" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_phone') }}">
+                                <input type="number" name="recruiter_phone" id="recruiter_phone" class="form-control seeker_input"  placeholder="09xxxxxxxxx" value="{{ old('recruiter_phone') }}">
                             </div>
                         </div>
                     </div>
@@ -358,7 +358,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box p-3">
-                                    <input type="radio" name="job_post" required id="standard_job_post" vlaue="standard"><br>
+                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard"><br>
                                     <label for="standard_job_post">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -371,7 +371,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="job_post_type_check_box p-3">
-                                    <input type="radio" name="job_post" required id="feature_job_post" value="feature"><br>
+                                    <input type="radio" name="job_post_type" required id="feature_job_post" value="feature"><br>
                                     <label for="feature_job_post">
                                         <h5>Feature Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -384,7 +384,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="job_post_type_check_box p-3">
-                                    <input type="radio" name="job_post" required id="trending_job_post" value="trending"><br>
+                                    <input type="radio" name="job_post_type" required id="trending_job_post" value="trending"><br>
                                     <label for="trending_job_post">
                                         <h5>Trending Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">

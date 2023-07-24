@@ -44,7 +44,7 @@ class CreateJobPostsTable extends Migration
             $table->string('recruiter_phone')->nullable();
             $table->string('status')->nullable();
             $table->date('expired_at')->nullable();
-            $table->string('job_post');
+            $table->string('job_post_type');
             $table->timestamps();
         });
     }
