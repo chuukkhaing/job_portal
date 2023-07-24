@@ -42,12 +42,8 @@ class EmployerController extends Controller
      */
     public function create()
     {
-        $industries = Industry::whereNull('deleted_at')->get();
-        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
-        $states = State::whereNull('deleted_at')->get();
-        $townships = Township::whereNull('deleted_at')->get();
         $packages = Package::whereNull('deleted_at')->get();
-        return view ('admin.employer.create', compact('industries', 'ownershipTypes', 'states', 'townships', 'packages'));
+        return view ('admin.employer.create', compact('packages'));
     }
 
     /**
@@ -58,6 +54,10 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
+            'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
+        ]);
         $logo = Null;
         if ($request->hasFile('logo')) {
             $file    = $request->file('logo');
@@ -76,33 +76,11 @@ class EmployerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'ceo' => $request->ceo,
-            'industry_id' => $request->industry_id,
-            'ownership_type_id' => $request->ownership_type_id,
-            'type_of_employer' => $request->type_of_employer,
-            'description' => $request->description,
-            'address' => $request->address,
-            'no_of_offices' => $request->no_of_offices,
-            'website' => $request->website,
-            'no_of_employees' => $request->no_of_employees,
-            'established_in' => $request->established_in,
-            'fax' => $request->fax,
-            'phone' => $request->phone,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'linkedin' => $request->linkedin,
-            'instagram' => $request->instagram,
-            'youtube' => $request->youtube,
-            'state_id' => $request->state_id,
-            'township_id' => $request->township_id,
-            'contact_person_name' => $request->contact_person_name,
-            'contact_person_phone' => $request->contact_person_phone,
-            'contact_person_email' => $request->contact_person_email,
             'is_active' => $request->is_active,
-            'map' => $request->map,
             'package_id' => $request->package_id,
-            'package_start_date' => $request->package_start_date,
+            'package_start_date' => date('Y-m-d', strtotime($request->package_start_date)),
             'package_end_date' => $package_end_date,
+            'package_point' => $package->point,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
@@ -120,8 +98,7 @@ class EmployerController extends Controller
      */
     public function show($id)
     {
-        $employer = Employer::findOrFail($id);
-        return view ('admin.employer.show', compact('employer'));
+        // 
     }
 
     /**
@@ -150,6 +127,10 @@ class EmployerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,'.$id],
+            'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
+        ]);
         $employer = Employer::findOrFail($id);
         $logo = $employer->logo;
 
@@ -180,32 +161,10 @@ class EmployerController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $password,
-            'ceo' => $request->ceo,
-            'industry_id' => $request->industry_id,
-            'ownership_type_id' => $request->ownership_type_id,
-            'type_of_employer' => $request->type_of_employer,
-            'description' => $request->description,
-            'address' => $request->address,
-            'no_of_offices' => $request->no_of_offices,
-            'website' => $request->website,
-            'no_of_employees' => $request->no_of_employees,
-            'established_in' => $request->established_in,
-            'fax' => $request->fax,
-            'phone' => $request->phone,
-            'facebook' => $request->facebook,
-            'twitter' => $request->twitter,
-            'linkedin' => $request->linkedin,
-            'instagram' => $request->instagram,
-            'youtube' => $request->youtube,
-            'state_id' => $request->state_id,
-            'township_id' => $request->township_id,
-            'contact_person_name' => $request->contact_person_name,
-            'contact_person_phone' => $request->contact_person_phone,
-            'contact_person_email' => $request->contact_person_email,
-            'map' => $request->map,
             'package_id' => $request->package_id,
-            'package_start_date' => $request->package_start_date,
+            'package_start_date' => date('Y-m-d', strtotime($request->package_start_date)),
             'package_end_date' => $package_end_date,
+            'package_point' => $package->point,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,

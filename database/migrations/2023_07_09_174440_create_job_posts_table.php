@@ -45,6 +45,7 @@ class CreateJobPostsTable extends Migration
             $table->string('status')->nullable();
             $table->date('expired_at')->nullable();
             $table->string('job_post_type');
+            $table->integer('total_point');
             $table->timestamps();
         });
     }

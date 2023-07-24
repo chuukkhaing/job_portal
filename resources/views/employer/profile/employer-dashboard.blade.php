@@ -1,10 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid p-5">
     <div class="row">
         <div class=" col-4">
             <div class="row me-0 p-3 bg-light">
                 <div class="col-8">
                     <p class="overview-title">Opening Jobs</p>
-                    <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->count() }}</span>
+                    <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}</span>
                 </div>
                 <div class="col-4">
                     <div class="opening-job-icon float-end">
@@ -17,7 +17,7 @@
             <div class="row p-3 bg-light">
                 <div class="col-8">
                     <p class="overview-title">Point Balance</p>
-                    <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->count() }}</span>
+                    <span class="fw-bold fs-3">{{ $employer->package_point }}</span>
                 </div>
                 <div class="col-4">
                     <div class="points-icon float-end">
@@ -40,13 +40,13 @@
             </div>
         </div>
     </div>
-    
+    @if($lastJobPosts->count() > 0)
     <div class="row mt-1 p-0 bg-light" style="border-radius: 8px">
         <div class="px-5">
             <div class="row">
                 <div class="col-8 my-5">
                     <div id="last-job-post" class="p-5 ">
-                        <h5 class="fw-bold">Last Job Posts</h5>
+                        <h5 class="fw-bold">Last Job Posts </h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
                             <div class="col-8 p-2">
@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    
+    @endif
 </div>
 @push('scripts')
 <script>

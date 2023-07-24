@@ -9,8 +9,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0 d-flex align-items-center">
-                <span>Package Expire Date :</span>
-                <span>Date</span>
+                @if(Auth::guard('employer')->user()->package_end_date)
+                <span class="fw-bold" style="color: #B2B1B0">Package Expire Date :</span>
+                <span class="text-light fw-bold">{{ date('F d, Y', strtotime(Auth::guard('employer')->user()->package_end_date)) }}</span>
+                @endif
                 <a href="{{ route('employer-job-post.create') }}" class="btn bg-light" style="color: #0355D0; margin: 10px">Post a Job</a>
                 
                 @auth('employer')
