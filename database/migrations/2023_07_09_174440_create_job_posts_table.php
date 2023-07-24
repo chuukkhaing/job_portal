@@ -41,7 +41,6 @@ class CreateJobPostsTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->string('recruiter_name')->nullable();
             $table->string('recruiter_email')->nullable();
-            $table->string('recruiter_phone')->nullable();
             $table->string('status')->nullable();
             $table->date('expired_at')->nullable();
             $table->string('job_post_type');

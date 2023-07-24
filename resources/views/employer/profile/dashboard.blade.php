@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-<div class="container employer-dashboard m-auto">
+<div class="container employer-dashboard mt-3">
     <div class="row employer-dashboard-header bg-light m-0">
         <div class="col-2 p-3">
             <a href="{{ route('employer-profile.index') }}">

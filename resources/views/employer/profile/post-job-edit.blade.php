@@ -69,14 +69,14 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
-                                <input type="text" name="job_title" id="job_title" class="form-control seeker_input" required placeholder="Job Title" value="{{ old('job_title') }}">
+                                <input type="text" name="job_title" id="job_title" class="form-control seeker_input" required placeholder="Job Title" value="{{ $jobPost->job_title }}">
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_post_industry_id" class="seeker_label my-2">Job Industry <span class="text-danger">*</span></label>
                                 <select name="job_post_industry_id" id="job_post_industry_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach($industries as $industry)
-                                    <option value="{{ $industry->id }}" >{{ $industry->name }}</option>
+                                    <option value="{{ $industry->id }}" @if($industry->id == $jobPost->industry_id) selected @endif>{{ $industry->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,7 +85,7 @@
                                 <select name="main_functional_area_id" id="main_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach($functional_areas as $functional_area)
-                                    <option value="{{ $functional_area->id }}" >{{ $functional_area->name }}</option>
+                                    <option value="{{ $functional_area->id }}" @if($functional_area->id == $jobPost->main_functional_area_id) selected @endif>{{ $functional_area->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -94,7 +94,7 @@
                                 <select name="sub_functional_area_id" id="sub_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach($sub_functional_areas as $sub_functional_area)
-                                    <option value="{{ $sub_functional_area->id }}" >{{ $sub_functional_area->name }}</option>
+                                    <option value="{{ $sub_functional_area->id }}" @if($sub_functional_area->id == $jobPost->sub_functional_area_id) selected @endif>{{ $sub_functional_area->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -104,7 +104,7 @@
                                 <select name="career_level" id="career_level" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach(config('careerlevel') as $careerlevel)
-                                    <option value="{{ $careerlevel }}" >{{ $careerlevel }}</option>
+                                    <option value="{{ $careerlevel }}" @if($careerlevel == $jobPost->career_level) selected @endif>{{ $careerlevel }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -113,7 +113,7 @@
                                 <select name="job_type" id="job_type" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach(config('jobtype') as $jobtype)
-                                    <option value="{{ $jobtype }}" >{{ $jobtype }}</option>
+                                    <option value="{{ $jobtype }}" @if($jobtype == $jobPost->job_type) selected @endif>{{ $jobtype }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -121,15 +121,15 @@
                                 <label for="experience_level" class="seeker_label my-2">Experience Level <span class="text-danger">*</span></label>
                                 <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
-                                    <option value="Less than 1 year">Less than 1 year</option>
-                                    <option value="1 year">1 year</option>
-                                    <option value="2 years">2 years</option>
-                                    <option value="3 years">3 years</option>
-                                    <option value="4 years">4 years</option>
-                                    <option value="5 years">5 years</option>
-                                    <option value="6 years">6 years</option>
-                                    <option value="7 years">7 years</option>
-                                    <option value="8 years">8 years</option>
+                                    <option value="Less than 1 year" @if('Less than 1 year' == $jobPost->experience_level) selected @endif>Less than 1 year</option>
+                                    <option value="1 year" @if('1 year' == $jobPost->experience_level) selected @endif>1 year</option>
+                                    <option value="2 years" @if('2 years' == $jobPost->experience_level) selected @endif>2 years</option>
+                                    <option value="3 years" @if('3 years' == $jobPost->experience_level) selected @endif>3 years</option>
+                                    <option value="4 years" @if('4 years' == $jobPost->experience_level) selected @endif>4 years</option>
+                                    <option value="5 years" @if('5 years' == $jobPost->experience_level) selected @endif>5 years</option>
+                                    <option value="6 years" @if('6 years' == $jobPost->experience_level) selected @endif>6 years</option>
+                                    <option value="7 years" @if('7 years' == $jobPost->experience_level) selected @endif>7 years</option>
+                                    <option value="8 years" @if('8 years' == $jobPost->experience_level) selected @endif>8 years</option>
                                 </select>
                             </div>
                             <div class="form-group col-12 col-md-6">
@@ -137,28 +137,28 @@
                                 <select name="degree" id="degree" class="select_2 form-control seeker_input" style="width: 100%" required>
                                     <option value="">Choose...</option>
                                     @foreach(config('seekerdegree') as $degree)
-                                    <option value="{{ $degree }}" >{{ $degree }}</option>
+                                    <option value="{{ $degree }}" @if($degree == $jobPost->degree) selected @endif>{{ $degree }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="no_of_candidate" class="seeker_label my-2">No. of Candidate <span class="text-danger">*</span></label><br>
-                                <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input" required placeholder="No. of Candidate" value="{{ old('no_of_candidate') }}">
+                                <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input" required placeholder="No. of Candidate" value="{{ $jobPost->no_of_candidate }}">
                             </div>
                             
                             <div class="form-group col-12 col-md-6">
                                 <label for="currency" class="seeker_label my-2">Currency</label>
                                 <select name="currency" id="currency" class="select_2 form-control seeker_input" style="width: 100%" >
                                     <option value="">Choose...</option>
-                                    <option value="USD">USD</option>
-                                    <option value="MMK">MMK</option>
+                                    <option value="USD" @if('USD' == $jobPost->currency) selected @endif>USD</option>
+                                    <option value="MMK" @if('MMK' == $jobPost->currency) selected @endif>MMK</option>
                                 </select>
                             </div>
                             <div class="form-group col-12 col-md-6 mmk_salary d-none">
                                 <label for="mmk_salary" class="seeker_label my-2">Salary Range</label>
                                 <select name="mmk_salary" id="mmk_salary" class="select_2 form-control seeker_input" style="width: 100%" >
                                     <option value="">Choose...</option>
-                                    <option value="Less than 2 lakh">Less than 2 lakh</option>
+                                    <option value="Less than 2 lakh" @if('Less than 2 lakh' == $jobPost->salary_range) selected @endif>Less than 2 lakh</option>
                                     <option value="2 to 4 Lakh">2 to 4 Lakh</option>
                                     <option value="4 to 6 Lakh">4 to 6 Lakh</option>
                                     <option value="6 to 8 Lakh">6 to 8 Lakh</option>

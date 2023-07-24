@@ -10,6 +10,7 @@ use App\Models\Seeker\Seeker;
 use App\Models\Seeker\SeekerEducation;
 use App\Models\Seeker\SeekerExperience;
 use App\Models\Seeker\SeekerSkill;
+use App\Models\Admin\Skill;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
@@ -20,6 +21,7 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPostQuestion;
+use App\Models\Employer\JobPostSkill;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 use Str;
@@ -63,9 +65,6 @@ class EmployerJobPostController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'recruiter_phone' => ['nullable', new MyanmarPhone],
-        ]);
         $gender = Null;
         if($request->male == 'on' && $request->female == 'on') {
             $gender = 'Male/Female';
@@ -108,7 +107,6 @@ class EmployerJobPostController extends Controller
             'no_of_candidate' => $request->no_of_candidate,
             'recruiter_name' => $request->recruiter_name,
             'recruiter_email' => $request->recruiter_email,
-            'recruiter_phone' => $request->recruiter_phone,
             'country' => $request->job_post_country,
             'state_id' => $request->job_post_state_id,
             'township_id' => $request->job_post_township_id,
@@ -123,16 +121,27 @@ class EmployerJobPostController extends Controller
         $jobPost_slug = $jobPost->update([
             'slug' => $slug
         ]);
-        foreach($request->questions as $key => $question) {
-            foreach($request->answer_types as $answer_key => $answer_type) {
-                if($key == $answer_key) {
-                    $question_create = JobPostQuestion::create([
-                        'employer_id' => Auth::guard('employer')->user()->id,
-                        'job_post_id' => $jobPost->id,
-                        'question' => $question,
-                        'answer' => $answer_type
-                    ]);
+        if($request->questions) {
+            foreach($request->questions as $key => $question) {
+                foreach($request->answer_types as $answer_key => $answer_type) {
+                    if($key == $answer_key) {
+                        $question_create = JobPostQuestion::create([
+                            'employer_id' => Auth::guard('employer')->user()->id,
+                            'job_post_id' => $jobPost->id,
+                            'question' => $question,
+                            'answer' => $answer_type
+                        ]);
+                    }
                 }
+            }
+        }
+        if($request->skills) {
+            foreach($request->skills as $key => $skill) {
+                $skill_create = JobPostSkill::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'skill_id' => $skill,
+                ]);
             }
         }
         return redirect()->back()->with('success','Create Job Post Successfully.');
@@ -157,7 +166,15 @@ class EmployerJobPostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $jobPost = JobPost::findOrFail($id);
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $packages = Package::whereNull('deleted_at')->get();
+        $industries = Industry::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->get();
+        $townships = Township::whereNull('deleted_at')->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        return view('employer.profile.post-job-edit', compact('jobPost', 'packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
     }
 
     /**
@@ -439,6 +456,27 @@ class EmployerJobPostController extends Controller
             'references' => $references,
             'seeker_attach' => $seeker_attach,
             'count' => $count
+        ]);
+    }
+
+    public function getSkill($id)
+    {
+        $skills = Skill::whereNull('deleted_at')->where('main_functional_area_id',$id)->whereIsActive(1)->get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $skills
+        ]);
+    }
+
+    public function changeJobPostStatus(Request $request)
+    {
+        $jobPost_update = JobPost::whereId($request->id)->update([
+            'is_active' => $request->status
+        ]);
+        $jobPost = JobPost::findOrFail($request->id);
+        return response()->json([
+            'status' => 'success',
+            'data' => $jobPost
         ]);
     }
 }
