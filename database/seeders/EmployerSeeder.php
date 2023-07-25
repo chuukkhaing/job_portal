@@ -18,7 +18,8 @@ class EmployerSeeder extends Seeder
         Employer::create([
             'name' => "Infinity Career",
             'email' => "infinitycareer@gmail.com",
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'package_id' => 1
         ]);
     }
 }
