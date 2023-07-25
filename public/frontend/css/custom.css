@@ -24,6 +24,7 @@ input.form-control.search-slt.job-title {
 input.form-control.search-slt.location {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
+    font-size: 1rem;
 }
 
 .search-job-btn{
@@ -71,6 +72,14 @@ input.form-control.search-slt.location {
 .fa-shopping-bag:before {
     content: "\f290";
     line-height: 3rem;
+}
+
+.function-area select{
+    overflow: auto;
+    
+    height: 80px; /* adjust height depending on number of options to display */
+    border: 1px silver solid;
+      
 }
 
 .function-area button.multiselect.dropdown-toggle.custom-select.text-center {
@@ -310,7 +319,7 @@ a.interview-btn:hover {
 }
 
 .job-title {
-    font-size: 20px;
+    font-size: 1rem;
     color: #181722;
     line-height: 1.5;
 }

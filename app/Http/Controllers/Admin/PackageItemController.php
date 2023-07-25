@@ -47,9 +47,6 @@ class PackageItemController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'unique:package_items'
-        ]);
         $package_item = PackageItem::create([
             'name' => $request->name,
             'point' => $request->point,

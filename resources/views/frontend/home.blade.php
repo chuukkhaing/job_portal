@@ -30,49 +30,52 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<section class="search-sec">
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 p-0">
-                    <div class="form-group has-search">
-                        <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword">
+<form action="{{ route('search-job') }}" method="post">
+    @csrf
+    <section class="search-sec">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 p-0">
+                        <div class="form-group has-search">
+                            <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
+                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 col-md-3 p-0">
-                    <div class="form-group has-search search-slt function-area">
-                        <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
-                        <select class="form-control" id="function-area" multiple="multiple">
-                            <optgroup label="Group 1">
-                                <option value="1-1">Option 1.1</option>
-                                <option value="1-2">Option 1.2</option>
-                                <option value="1-3">Option 1.3</option>
-                            </optgroup>
-                            <optgroup label="Group 2">
-                                <option value="2-1">Option 2.1</option>
-                                <option value="2-2">Option 2.2</option>
-                                <option value="2-3">Option 2.3</option>
-                            </optgroup>
-                        </select>
+                    <div class="col-lg-4 col-md-3 p-0">
+                        <div class="form-group has-search search-slt function-area">
+                            <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
+                            <select class="form-control" id="function-area" multiple="multiple" name="function-area[]" size="10">
+                                @foreach($main_functional_areas as $main_functional_area)
+                                <optgroup label="{{ $main_functional_area->name }}">
+                                    @foreach($sub_functional_areas as $sub_functional_area)
+                                    @if($main_functional_area->id == $sub_functional_area->functional_area_id)
+                                    <option value="{{ $sub_functional_area->id }}">{{ $sub_functional_area->name }}</option>
+                                    @endif
+                                    @endforeach
+                                </optgroup>
+                                @endforeach
+                                
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <div class="form-group has-search">
-                        <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                        <input type="text" class="form-control search-slt location" placeholder="location">
+                    <div class="col-lg-3 col-md-3 p-0">
+                        <div class="form-group has-search">
+                            <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
+                            <input type="text" class="form-control search-slt location" placeholder="location" name="location">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-2 col-md-3 p-0">
-                    <button type="button" class="btn pull-right search-job-btn">Search Jobs</button>
+                    <div class="col-lg-2 col-md-3 p-0">
+                        <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</form>
 <!-- Search End -->
 
 <!-- Popular Job Category Start  -->

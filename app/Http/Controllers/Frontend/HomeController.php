@@ -26,7 +26,9 @@ class HomeController extends Controller
         $live_job         = JobPost::whereIsActive(1)->count();
         $today_job        = JobPost::whereIsActive(1)->where('updated_at', date('Y-m-d', strtotime(now())))->count();
         $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->get();
-        return view('frontend.home', compact('sliders', 'jobPosts', 'employers', 'live_job', 'today_job', 'functional_areas'));
+        $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id',0)->whereNull('deleted_at')->get();
+        $sub_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id','!=',0)->whereNull('deleted_at')->get();
+        return view('frontend.home', compact('sliders', 'jobPosts', 'employers', 'live_job', 'today_job', 'functional_areas', 'main_functional_areas', 'sub_functional_areas'));
     }
 
     public function jobCategory()
@@ -63,5 +65,12 @@ class HomeController extends Controller
     public function findJobs()
     {
         return view('frontend.find-jobs');
+    }
+
+    public function searchJob(Request $request)
+    {
+        if($request->job_title) {
+            
+        }
     }
 }
