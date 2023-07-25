@@ -32,19 +32,14 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 p-0">
-            <div class="send-message mt-4">
-                <button type="button" class="btn see-all-btn pull-right mt-4"> 
-                    <i class="fa-regular fa-envelope"></i>
-                    <span class="p-1">Send Message</span> 
-                </button>
-            </div>
-            
-            <div class="favourite mt-4">
-                <button type="button" class="btn favourite-btn pull-right mt-4 me-2"> 
-                    <i class="fa fa-heart-o p-1"></i>
-                    <span class="p-1">Add to Favourite</span> 
-                </button>
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="float-end mt-4">
+                <a href="http://" class="btn btn-outline-primary mt-2">
+                    <i class="fa fa-heart-o p-1"></i><span class="p-1">Add to Favourite</span>
+                </a>
+                <a href="http://" class="btn see-all-btn mt-2">
+                    <i class="fa-regular fa-envelope"></i> <span class="p-1">Send Message</span>
+                </a>
             </div>
         </div>
     </div>
