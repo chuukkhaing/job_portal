@@ -162,8 +162,16 @@ input.form-control.search-slt.location {
     color: #FB5404;
 }
 
+.text-blue {
+    color: #0355D0;
+}
+
 .fz13{
     font-size: 13px;
+}
+
+.fz17{
+    font-size: 17px;
 }
 
 .w-auto {
@@ -509,6 +517,71 @@ span.form-control-feedback.company-icon {
     border-radius: 8px;
     border: solid 1px #0355d0;
     color: #0355d0;
+}
+
+
+/* Employer Dashboard Popup css start here*/
+.economy-title {
+    color: #0565FF;
+    font-size: 1rem;
+}
+
+.standard-title {
+    color: #C72C91;
+    font-size: 1rem;
+}
+
+.premium-title {
+    color: #F58220;
+    font-size: 1rem;
+}
+
+.economy-desc,
+.standard-desc,
+.premium-desc {
+    font-size: 15px;
+    height: 170px;
+    color: #181722;
+}
+
+.package-promotion {
+    height: 20px;
+    color: #0355d0;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.text-black {
+    color: #000;
+}
+
+.package-plans {
+    font-size: 13px;
+    color: #64646b;
+}
+
+.btn-outline-economy{
+    width: 100%;
+    border-color: #0565FF;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #0565FF;
+}
+
+.btn-outline-standard{
+    width: 100%;
+    border-color: #C72C91;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #C72C91;
+}
+
+.btn-outline-premium{
+    width: 100%;
+    border-color: #F58220;
+    border-radius: 50px;
+    font-size: 16px;
+    color: #F58220;
 }
 
 /* @media css start */
