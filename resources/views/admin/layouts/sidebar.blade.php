@@ -21,12 +21,12 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
     @canany(['role-list','user-list'])  
-    <!-- Nav Item - User Manage Menu -->
+    <!-- Nav Item - Manage Admin User Menu -->
     <li class="nav-item {{ Request::is('admin/roles*') ? 'active' : '' }} {{ Request::is('admin/users*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user_manage"
             aria-expanded="true" aria-controls="user_manage">
             <i class="fa-solid fa-users"></i>
-            <span>User Manage</span>
+            <span>Manage Admin User</span>
         </a>
         <div id="user_manage" class="collapse {{ Request::is('admin/roles*') ? 'show' : '' }} {{ Request::is('admin/users*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
@@ -35,6 +35,23 @@
                 @endcan
                 @can('user-list')
                 <a class="collapse-item {{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
+                @endcan
+            </div>
+        </div>
+    </li>
+    @endcan
+    @canany('job-post-list')  
+    <!-- Nav Item - Manage Job Posts Menu -->
+    <li class="nav-item {{ Request::is('admin/job-posts*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#job_post_manage"
+            aria-expanded="true" aria-controls="job_post_manage">
+            <i class="fa-solid fa-briefcase"></i>
+            <span>Manage Job Posts</span>
+        </a>
+        <div id="job_post_manage" class="collapse {{ Request::is('admin/job-posts*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('job-post-list')
+                <a class="collapse-item {{ Request::is('admin/job-posts*') ? 'active' : '' }}" href="{{ route('job-posts.index') }}">Job Posts</a>
                 @endcan
             </div>
         </div>

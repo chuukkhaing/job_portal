@@ -8,6 +8,7 @@ use App\Models\Admin\Employer;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\Industry;
+use App\Models\Admin\FunctionalArea;
 use App\Models\Seeker\JobApply;
 use App\Models\Employer\JobPostSkill;
 use App\Models\Employer\JobPostQuestion;
@@ -44,5 +45,9 @@ class JobPost extends Model
     function JobPostQuestion()
     {
         return $this->hasMany(JobPostQuestion::class, 'job_post_id', 'id');
+    }
+    public function MainFunctinalArea()
+    {
+        return $this->belongsTo(FunctionalArea::class, 'main_functional_area_id', 'id');
     }
 }

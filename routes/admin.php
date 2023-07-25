@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SubFunctionalAreaController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\JobPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +81,9 @@ Route::group([], function(){
 
         // feedback 
         Route::resource('feedback', FeedbackController::class);
+
+        // jobpost 
+        Route::resource('job-posts', JobPostController::class);
+
     });
 });

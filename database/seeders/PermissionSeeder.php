@@ -68,6 +68,8 @@ class PermissionSeeder extends Seeder
             'slider-edit',
             'slider-delete',
             'seeker-employer-contact-list',
+            'job-post-list',
+            'job-post-edit',
          ];
       
          foreach ($permissions as $permission) {

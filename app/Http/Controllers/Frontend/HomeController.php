@@ -69,9 +69,7 @@ class HomeController extends Controller
 
     public function searchJob(Request $request)
     {
-        if ($request->job_title) {
-
-        }
+        
     }
 
     public function companies()
