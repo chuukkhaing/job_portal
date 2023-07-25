@@ -86,7 +86,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -94,17 +94,17 @@
             
             <div class="modal-body">
                 <div class="container-fluid">
-                    <h4 class="text-center fs-5 py-2">Infinity Careers Platform Pricing</h4>
-                    <div class="row text-light mb-3">
-                        <div class="col-lg-4 col-md-4 col-12 px-2 py-3">
+                    <h4 class="text-center fs-5 py-3">Infinity Careers Platform Pricing</h4>
+                    <div class="row text-light my-3">
+                        <div class="col-lg-4 px-4 py-3">
                             <h4 class="fz17 pb-2">Job Seeker Pricing Plans</h4>
                             <p class="text-black">
                                 Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.
                             </p>
                         </div>
-                        <div class="col-lg-8 col-md-8 col-12 bg-success">
+                        <div class="col-lg-8">
                             <div class="row">
-                                <div class="col-lg-4 economy px-2 py-3">
+                                <div class="col-lg-4 economy px-4 py-3">
                                     <h3 class="economy-title">Economy</h3>
                                     <p class="economy-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
                                     <p class="package-price mb-0">
@@ -115,7 +115,7 @@
                                     <button type="button" class="btn btn-outline-economy">Select  Plan</button>
                                 </div>
                                 
-                                <div class="col-lg-4 standard px-2 py-3">
+                                <div class="col-lg-4 standard px-4 py-3">
                                     <h3 class="standard-title">Standard</h3>
                                     <p class="standard-desc mb-4">Our Standard Package is ideal for growing businesses that want to expand their recruitment efforts and streamline their hiring process.</p>
                                     <p class="package-price mb-0">
@@ -126,7 +126,7 @@
                                     <button type="button" class="btn btn-outline-standard">Select  Plan</button>
                                 </div>
                                 
-                                <div class="col-lg-4 premium px-2 py-3">
+                                <div class="col-lg-4 premium px-4 py-3">
                                     <h3 class="premium-title">Premium</h3>
                                     <p class="premium-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
                                     <p class="package-price mb-0">
@@ -194,9 +194,16 @@
 
 @endsection
 
+@push('css')
+    <style>
+        .modal-dialog {
+            max-width: 80%;
+        }
+    </style>
+@endpush
+
 @push('scripts')
 <script>
-
     $('#employerTab a').click(function(e) {
         e.preventDefault();
         var target = $(this).attr('data-bs-target');
