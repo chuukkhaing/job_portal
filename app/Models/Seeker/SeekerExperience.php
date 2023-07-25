@@ -13,12 +13,12 @@ class SeekerExperience extends Model
 
     protected $guarded = [];
 
-    public function MainFunctinalArea()
+    public function MainFunctionalArea()
     {
         return $this->belongsTo(FunctionalArea::class, 'main_functional_area_id', 'id');
     }
 
-    public function SubFunctinalArea()
+    public function SubFunctionalArea()
     {
         return $this->belongsTo(FunctionalArea::class, 'sub_functional_area_id', 'id');
     }

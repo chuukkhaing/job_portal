@@ -32,6 +32,7 @@
                             <th>Company Name</th>
                             <th>Industry</th>
                             <th>Main Functional Area</th>
+                            <th>Job Post Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -42,7 +43,18 @@
                             <td>{{ $jobPost->job_title }}</td>
                             <td>{{ $jobPost->Employer->name }}</td>
                             <td>{{ $jobPost->Industry->name }}</td>
-                            <td>{{ $jobPost->MainFunctinalArea->name }}</td>
+                            <td>{{ $jobPost->MainFunctionalArea->name }}</td>
+                            <td>
+                                @if($jobPost->status == 'Pending')
+                                <span class="badge text-light bg-secondary">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Online')
+                                <span class="badge text-light bg-success">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Reject')
+                                <span class="badge text-light bg-warning">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Expire')
+                                <span class="badge text-light bg-danger">{{ $jobPost->status }}</span>
+                                @endif
+                            </td>
                             <td>
                                 @can('job-post-edit')
                                 <a href="{{ route('job-posts.edit', $jobPost->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>

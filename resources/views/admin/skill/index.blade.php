@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $skill->name }}</td>
-                            <td class="text-success">{{ $skill->MainFunctinalArea->name }}</td>
+                            <td class="text-success">{{ $skill->MainFunctionalArea->name }}</td>
                             <td>@if($skill->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 @can('skill-edit')

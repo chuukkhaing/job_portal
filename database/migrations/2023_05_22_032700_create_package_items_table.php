@@ -15,7 +15,7 @@ class CreatePackageItemsTable extends Migration
     {
         Schema::create('package_items', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('point');
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->default(0);

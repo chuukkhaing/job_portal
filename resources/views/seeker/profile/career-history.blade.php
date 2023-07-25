@@ -31,8 +31,8 @@
                 <tr class="exp-tr-{{ $experience->id }}">
                     <td class="exp-job_title-{{$experience->id}}">{{ $experience->job_title }}</td>
                     <td class="exp-company-{{$experience->id}}">{{ $experience->company }}</td>
-                    <td class="exp-main_functional_area_id-{{$experience->id}}">{{ $experience->MainFunctinalArea->name }}</td>
-                    <td class="exp-sub_functional_area_id-{{$experience->id}}">{{ $experience->SubFunctinalArea->name }}</td>
+                    <td class="exp-main_functional_area_id-{{$experience->id}}">{{ $experience->MainFunctionalArea->name }}</td>
+                    <td class="exp-sub_functional_area_id-{{$experience->id}}">{{ $experience->SubFunctionalArea->name }}</td>
                     <td class="exp-career_lavel-{{$experience->id}}">{{ $experience->career_level }}</td>
                     <td class="exp-industry_id-{{$experience->id}}">{{ $experience->Industry->name }}</td>
                     <td class="exp-country-{{$experience->id}}">{{ $experience->country }}</td>

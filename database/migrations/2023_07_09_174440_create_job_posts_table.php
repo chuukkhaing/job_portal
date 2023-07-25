@@ -42,7 +42,11 @@ class CreateJobPostsTable extends Migration
             $table->string('recruiter_name')->nullable();
             $table->string('recruiter_email')->nullable();
             $table->string('status')->nullable();
+            $table->integer('approved_by')->nullable();
+            $table->integer('rejected_by')->nullable();
             $table->date('expired_at')->nullable();
+            $table->date('approved_at')->nullable();
+            $table->date('rejected_at')->nullable();
             $table->string('job_post_type');
             $table->integer('total_point');
             $table->timestamps();

@@ -58,7 +58,9 @@
                                         <span class="badge rounded-pill bg-secondary">{{ $jobPost->status }}</span>
                                         @elseif($jobPost->status == 'Online')
                                         <span class="badge rounded-pill bg-success">{{ $jobPost->status }}</span>
-                                        @elseif($jobPost->status == 'Expired' || $jobPost->status == 'Reject')
+                                        @elseif($jobPost->status == 'Reject')
+                                        <span class="badge rounded-pill bg-warning">{{ $jobPost->status }}</span>
+                                        @elseif($jobPost->status == 'Expire')
                                         <span class="badge rounded-pill bg-danger">{{ $jobPost->status }}</span>
                                         @endif
                                     @endif

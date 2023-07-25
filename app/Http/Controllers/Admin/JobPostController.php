@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
+use Alert;
+use Auth;
 
 class JobPostController extends Controller
 {
@@ -23,7 +25,7 @@ class JobPostController extends Controller
 
     public function index()
     {
-        $jobPosts = JobPost::whereStatus('Pending')->whereIsActive(1)->orderBy('updated_at')->get();
+        $jobPosts = JobPost::whereIsActive(1)->orderBy('updated_at')->get();
         return view ('admin.jobpost.index', compact('jobPosts'));
     }
 
@@ -80,7 +82,34 @@ class JobPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jobPost = JobPost::findOrFail($id);
+        if($request->status == 'Online') {
+            if($jobPost->expired_at) {
+                $update_status = $jobPost->update([
+                    'status' => $request->status,
+                    'approved_at' => date('Y-m-d', strtotime(now())),
+                    'approved_by' => Auth::user()->id,
+                ]);
+            }else {
+                $update_status = $jobPost->update([
+                    'status' => $request->status,
+                    'approved_at' => date('Y-m-d', strtotime(now())),
+                    'approved_by' => Auth::user()->id,
+                    'expired_at' => date('Y-m-d', strtotime(now(). ' + 30 days'))
+                ]);
+            }
+            
+        }else {
+            $update_status = $jobPost->update([
+                'status' => $request->status,
+                'rejected_at' => date('Y-m-d', strtotime(now())),
+                'rejected_by' => Auth::user()->id,
+            ]);
+            
+        }
+        
+        Alert::success('Success', 'Job Post Updated Successfully!');
+        return redirect()->route('job-posts.index');
     }
 
     /**

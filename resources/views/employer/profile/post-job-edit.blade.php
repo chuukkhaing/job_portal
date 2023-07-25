@@ -438,6 +438,21 @@
             }
         })
 
+        var main_functional_area_id = $('#main_functional_area_id').val();
+        $.ajax({
+            type: 'GET',
+            url: '/employer/get-skill/'+main_functional_area_id,
+        }).done(function(response){
+            if(response.status == 'success') {
+                $("#skill_id").empty();
+                $("#skill_id").append('<option value="">Choose...</option>')
+                $.each(response.data, function(index, skill) {
+                
+                $("#skill_id").append('<option value=' + skill.id + '>' + skill.name +'</option>');
+                })
+            }
+        });
+
         if($("#job_post_country").val() == "Myanmar") {
             $("#job_post_state_id_field").removeClass('d-none');
             $("#job_post_township_id_field").removeClass('d-none');
@@ -499,7 +514,6 @@
         $('#main_functional_area_id').change(function(e){
             e.preventDefault();
             if($(this).val() != "") {
-                var main_functional_area_id = $(this).val();
                 $.ajax({
                     type: 'GET',
                     url: '/employer/get-sub-functional-area/'+main_functional_area_id,

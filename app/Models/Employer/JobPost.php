@@ -46,8 +46,12 @@ class JobPost extends Model
     {
         return $this->hasMany(JobPostQuestion::class, 'job_post_id', 'id');
     }
-    public function MainFunctinalArea()
+    public function MainFunctionalArea()
     {
         return $this->belongsTo(FunctionalArea::class, 'main_functional_area_id', 'id');
+    }
+    public function SubFunctionalArea()
+    {
+        return $this->belongsTo(FunctionalArea::class, 'sub_functional_area_id', 'id');
     }
 }

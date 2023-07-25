@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $functional_area->name }}</td>
-                            <td class="text-success">{{ $functional_area->MainFunctinalArea->name }}</td>
+                            <td class="text-success">{{ $functional_area->MainFunctionalArea->name }}</td>
                             <td>@if($functional_area->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 @can('sub-functional-area-edit')

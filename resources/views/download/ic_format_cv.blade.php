@@ -242,7 +242,7 @@
                         <p>{{ $exp->Industry->name }}</p>
                         <p>{{ date('Y M', strtotime($exp->start_date)) }} to @if($exp->is_current_job == 1) Present @else {{ date('Y M', strtotime($exp->end_date)) }} @endif</p>
                         <p style="font-weight: bold">{{ $exp->company }}</p>
-                        <p>{{ $exp->MainFunctinalArea->name }} - {{ $exp->SubFunctinalArea->name }}</p>
+                        <p>{{ $exp->MainFunctionalArea->name }} - {{ $exp->SubFunctionalArea->name }}</p>
                         <p>{{ $exp->country }}</p>
                         @if($exp->job_responsibility)
                         <div>

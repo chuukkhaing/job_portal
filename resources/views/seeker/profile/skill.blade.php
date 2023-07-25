@@ -12,7 +12,7 @@
             <tbody id="skill-tbody">
                 @foreach($skills as $skill)
                 <tr class="skill-tr-{{ $skill->id }}">
-                    <td class="skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctinalArea->name }}</td>
+                    <td class="skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctionalArea->name }}</td>
                     <td class="skill-skill_id-{{$skill->id}}">{{ $skill->Skill->name }}</td>
                     <td>
                         <a onclick="deleteSkill({{ $skill->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>

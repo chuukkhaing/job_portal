@@ -13,7 +13,7 @@ class SeekerSkill extends Model
 
     protected $guarded = [];
 
-    public function MainFunctinalArea()
+    public function MainFunctionalArea()
     {
         return $this->belongsTo(FunctionalArea::class, 'main_functional_area_id', 'id');
     }
