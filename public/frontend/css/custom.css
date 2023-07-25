@@ -89,6 +89,11 @@ input.form-control.search-slt.location {
     height: calc(2em + 0.8rem + 3px);
 }
 
+.function-area .multiselect-container.dropdown-menu {
+    height: 500px;
+    overflow: auto;
+}
+
 .function-area .btn-group {
     width: 100% !important;
 }
