@@ -477,7 +477,7 @@ span.form-control-feedback.company-icon {
 
 .see-all-btn {
     width: 160px;
-    height: 48px;
+    /* height: 48px; */
     align-items: center;
     border-radius: 8px;
     color: #fff;
