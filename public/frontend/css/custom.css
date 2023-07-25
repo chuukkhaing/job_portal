@@ -290,7 +290,8 @@ a.interview-btn:hover {
 }
 
 .job-content,
-.company-content {
+.company-content,
+.job-opening {
     border-radius: 8px;
     border: solid 1px #b7cee5;
     background-color: #fff;
@@ -375,7 +376,8 @@ span.form-control-feedback.company-icon {
     padding: 10px 30px;
 }
 
-.company-search-btn:hover{
+.company-search-btn:hover,
+.see-all-btn:hover {
     color: #fff;
 }
 
@@ -424,6 +426,75 @@ span.form-control-feedback.company-icon {
 
 .community-form-btn:hover{
     color: #fff;
+}
+
+/* Company Detail css start here*/
+.company-profile {
+    border-radius: 8px;
+    border: solid 1px #b7cee5;
+    background-color: #fff;
+}
+
+.about-company-header {
+    height: 55px;
+    align-self: stretch;
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 2px;
+    border-left: solid 4px #0355d0;
+    background-color: #edf5fc;
+}
+
+.about-company-title {
+    font-size: 25px;
+    line-height: normal;
+}
+
+.view-detail-btn {
+    /* width: 100%; */
+    font-weight: 400;
+    color: #4680bb;
+    text-transform: capitalize;
+    height: calc(2.5rem + 2px) !important;
+    border: 1px solid #4680bb;
+    border-radius: 50px;
+    line-height: 1rem;
+}
+
+.see-all-btn {
+    width: 160px;
+    height: 48px;
+    align-items: center;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #0355d0;
+}
+
+.bdr2{
+    border-right: 2px solid #95b6d8;
+}
+
+.company-profile-deatil h3 {
+    font-size: 20px;
+    color: #181722;
+}
+
+.profile-qr {
+    border-radius: 4px;
+    border: solid 1px #181722;
+}
+
+.favourite-btn,
+.favourite-btn:hover {
+    height: 48px;
+    border-radius: 8px;
+    border: solid 1px #0355d0;
+    color: #0355d0;
 }
 
 /* @media css start */

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CompanyDetailController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\JobPostDetailController;
 use App\Http\Controllers\Seeker\SeekerLoginController;
@@ -21,7 +22,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find-jobs');
 
-Route::get('/companies', [HomeController::class, 'companies'])->name('companies');
+Route::get('/company', [HomeController::class, 'companies'])->name('companies');
+Route::get('/company/{slug}', [CompanyDetailController::class, 'companyDetail'])->name('company-detail');
 
 Route::get('/register-form', [SeekerRegisterController::class, 'frontendRegister'])->name('register-form');
 Route::get('/login-form', [SeekerLoginController::class, 'frontendLogin'])->name('login-form');

@@ -31,201 +31,213 @@
 
     <div class="row">
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/image.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/image.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Globex Corporation</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Globex Corporation</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/hooli.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/hooli.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Hooli</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Hooli</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/capital.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/capital.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Vehement Capital Partners</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Vehement Capital Partners</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/hooli.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/hooli.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Hooli</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Hooli</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/capital.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/capital.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Vehement Capital Partners</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Vehement Capital Partners</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
 
         <div class="col-lg-4 col-md-6 col-12 pb-3">
-            <div class="company-content p-4">
-                <div class="company-image">
-                    <img src="{{ asset('/frontend/img/company/image.jpg') }}" class="w-100" alt="">
+            <a href="{{ url('company/detail') }}">
+                <div class="company-content p-4">
+                    <div class="company-image">
+                        <img src="{{ asset('/frontend/img/company/image.jpg') }}" class="w-100" alt="">
+                    </div>
+        
+                    <div class="company-name pt-4 pb-2">
+                        <h3>Globex Corporation</h3>
+                    </div>
+        
+                    <div class="company-address">
+                        <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                    </div>
+        
+                    <div class="company-rating">
+                        <span class="company-rating-icon">
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
+                        </span>
+                        <span class="company-rating-count ps-3">
+                            993 ratings
+                        </span>
+                    </div>
+        
+                    <div class="company-job-count mt-4 py-2">
+                        Opening Jobs - 2000
+                    </div>
                 </div>
-    
-                <div class="company-name pt-4 pb-2">
-                    <h3>Globex Corporation</h3>
-                </div>
-    
-                <div class="company-address">
-                    <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
-                </div>
-    
-                <div class="company-rating">
-                    <span class="company-rating-icon">
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star fa-lg" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o fa-lg" aria-hidden="true"></i>
-                    </span>
-                    <span class="company-rating-count ps-3">
-                        993 ratings
-                    </span>
-                </div>
-    
-                <div class="company-job-count mt-4 py-2">
-                    Opening Jobs - 2000
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 
