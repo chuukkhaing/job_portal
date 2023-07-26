@@ -214,7 +214,99 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid my-2 bg-white" id="edit-profile-body">
+    <div class="row m-auto py-5 justify-content-center">
+        <div class="px-5 pb-3 m-0 bg-white">
+            <h5 style="color: #0355D0">Leading Employers</h5>
+        </div>
+        <div id="recipeCarousel" class="carousel slide px-5 py-3 bg-white" data-bs-ride="carousel" data-bs-interval="false">
+            <div class="carousel-inner py-3" role="listbox" data-bs-interval="false">
+                <div class="carousel-item active">
+                    <div class="col-md-2 bg-white">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Imagine Solutions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item bg-white">
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/SMDI.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Stark Industries</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item bg-white">
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Kappa - Kappa Corporation</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item bg-white">
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/SMDI.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Tech - Technologies Co.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item bg-white">
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Best Buy</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item bg-white">
+                    <div class="col-md-2">
+                        <div class="card border-0">
+                            <div class="card-img">
+                                <img src="{{ asset('storage/seeker/profile/SMDI.jpg') }}" class="center-block d-block mx-auto img-fluid">
+                            </div>
+                            <div class="cart-title text-center py-2">Publix Super Markets</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a class="carousel-control-prev w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev"  style="width: 3% !important">
+                <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="#0355D0" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
+                </svg>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next w-aut" href="#recipeCarousel" role="button" data-bs-slide="next" style="width: 3% !important">
+                <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="#0355D0" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
+                </svg>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+    </div>		
+</div>
+
+@push('css')
+    <link href="{{ asset('frontend/css/custom-multiple-carousel.css') }}" rel="stylesheet">
+@endpush
+
 @push('scripts')
+<script src="{{ asset('frontend/js/custom-multiple-carousel.js') }}"></script>
+
 <script>
     $('.vertical-tab').on('click', function(e) {
         e.preventDefault();
