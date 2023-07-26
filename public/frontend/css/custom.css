@@ -302,11 +302,12 @@ a.interview-btn:hover {
 }
 
 .job-trending-scroll {
-    height:600px;
+    height:550px;
     overflow: auto;
 }
 
 .right-trending-title {
+    background-color: #0355d0;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
@@ -486,6 +487,7 @@ span.form-control-feedback.company-icon {
     border: 1px solid #4680bb;
     border-radius: 50px;
     line-height: 1rem;
+    padding: 10px 12px !important;
 }
 
 .see-all-btn {

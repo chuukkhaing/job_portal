@@ -218,12 +218,12 @@
     </div>
 
     <div class="row" style="">
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -235,18 +235,26 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -258,18 +266,26 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -281,18 +297,26 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -304,18 +328,26 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -327,18 +359,26 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12 pb-2">
+        <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9">
-                    <div class="row">
+                <div class="col-lg-9 col-md-9 p-0">
+                    <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
+                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
                         </div>
 
                         <div class="col-lg-10 col-md-10">
@@ -350,8 +390,16 @@
                     </div>
                 </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <button type="button" class="btn view-detail-btn pull-right">View Details</button>
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>1 d</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
