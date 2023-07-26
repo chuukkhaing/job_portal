@@ -44,13 +44,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                @foreach($employer->Package->PackageWithPackageItem as $package)
-                                @if($package->PackageItem->name == 'Up to 5 User Accounts' || $package->PackageItem->name == 'Up to 10 User Accounts')
                                 <div class="text-end">
                                 <a href="" class="btn profile-save-btn">Manage User</a>
                                 </div>
-                                @endif
-                                @endforeach
+                                
                             </div>
                         </div>
                     </div>
