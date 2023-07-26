@@ -109,6 +109,8 @@
                 <div class="col-8 profile-overview">
                     <h5 class="text-dark d-inline-block">Profile Overview</h5>
                     <div class="d-inline-block float-end">
+                        @foreach($packageItems as $packageItem)
+                        @if($packageItem->name == 'Application Unlock')
                         <div class="dropdown d-inline-block">
                             <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-download"></i>
@@ -119,6 +121,8 @@
                                 <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                             </ul>
                         </div>
+                        @endif
+                        @endforeach
                         <button class="btn profile-save-btn btn-sm precious-btn">Back</button>
                     </div>
                     <div class="">

@@ -343,14 +343,14 @@
             $("#state_id_field").removeClass('d-none');
             $("#township_id_field").removeClass('d-none');
             $("#state_id").prop('required',true);
-            $("#township_id").prop('required',true);
+            
         }else {
             $("#state_id_field").addClass('d-none');
             $("#township_id_field").addClass('d-none');
             $("#state_id_field").val('');
             $("#township_id_field").val('');
             $("#state_id").prop('required',false);
-            $("#township_id").prop('required',false);
+            
         }
 
         $("#country").change(function() {
@@ -358,14 +358,14 @@
                 $("#state_id_field").removeClass('d-none');
                 $("#township_id_field").removeClass('d-none');
                 $("#state_id").prop('required',true);
-                $("#township_id").prop('required',true);
+                
             }else {
                 $("#state_id_field").addClass('d-none');
                 $("#township_id_field").addClass('d-none');
                 $("#state_id_field").val('');
                 $("#township_id_field").val('');
                 $("#state_id").prop('required',false);
-                $("#township_id").prop('required',false);
+                
             }
         })
     })

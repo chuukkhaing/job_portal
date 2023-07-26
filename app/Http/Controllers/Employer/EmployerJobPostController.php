@@ -22,6 +22,7 @@ use App\Models\Admin\Township;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPostQuestion;
 use App\Models\Employer\JobPostSkill;
+use App\Models\Admin\PackageItem;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 use Str;
@@ -49,12 +50,13 @@ class EmployerJobPostController extends Controller
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();
         $townships = Township::whereNull('deleted_at')->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
+        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'packageItems'));
     }
 
     /**

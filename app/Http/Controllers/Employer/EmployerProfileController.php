@@ -15,6 +15,7 @@ use App\Models\Employer\JobPost;
 use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\EmployerTestimonial;
+use App\Models\Admin\PackageItem;
 use File;
 use Str;
 use DB;
@@ -46,13 +47,14 @@ class EmployerProfileController extends Controller
         $states = State::whereNull('deleted_at')->get();
         $townships = Township::whereNull('deleted_at')->get();
         $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
         $jobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->paginate(10);
         $jobApplicants = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->get();
         $lastJobPosts = JobPost::whereEmployerId(Auth::guard('employer')->user()->id)->orderBy('updated_at','desc')->get()->take(5);
         $employer_image_media = EmployerMedia::whereEmployerId($employer->id)->whereType('Image')->get();
-        return view ('employer.profile.dashboard', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants', 'lastJobPosts','employer_image_media'));
+        return view ('employer.profile.dashboard', compact('packageItems', 'employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants', 'lastJobPosts','employer_image_media'));
     }
 
     /**

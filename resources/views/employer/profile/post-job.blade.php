@@ -186,8 +186,13 @@
                             <div class="form-group mt-3 col-12 col-md-6">
                                 <input type="checkbox" name="hide_salary" id="hide_salary">
                                 <label for="hide_salary">Hide Salary</label><br>
+                                @foreach($packageItems as $packageItem)
+                                @if($packageItem->name == 'Anonymous Posting')
                                 <input type="checkbox" name="hide_company_name" id="hide_company_name">
                                 <label for="hide_company_name">Hide Company (Make confidential Job)</label>
+                                <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="{{ $packageItem->point }}">
+                                @endif
+                                @endforeach
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
@@ -214,7 +219,7 @@
                             </div>
                         
                             <div class="form-group col-12 col-md-6" id="job_post_township_id_field">
-                                <label for="job_post_township_id" class="seeker_label my-2">City <span class="text-danger">*</span></label><br>
+                                <label for="job_post_township_id" class="seeker_label my-2">City/ Township </label><br>
                                 <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($townships as $township)
@@ -307,6 +312,8 @@
                     </div>
                 </div>
             </div>
+            @foreach($packageItems as $packageItem)
+            @if($packageItem->name == 'Pre-qualify questions')
             <div class="row">
                 <div class="col-1">
                     <div class="step">
@@ -358,10 +365,18 @@
                     </div>
                 </div>
             </div>
+            @endif
+            @endforeach
             <div class="row">
                 <div class="col-1">
                     <div class="step">
+                    @foreach($packageItems as $packageItem)
+                    @if($packageItem->name == 'Pre-qualify questions')
                         Step 5
+                    @else 
+                        Step 4
+                    @endif
+                    @endforeach
                     </div>
                 </div>
                 <div class="col-11">
@@ -382,6 +397,8 @@
                                     </label>
                                 </div>
                             </div>
+                            @foreach($packageItems as $packageItem)
+                            @if($packageItem->name == 'Feature Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
                                     <input type="radio" name="job_post_type" required id="feature_job_post" value="feature"><br>
@@ -392,7 +409,12 @@
                                         </div>
                                     </label>
                                 </div>
+                                <input type="hidden" name="feature_job_point" id="feature_job_point" value="{{ $packageItem->point }}">
                             </div>
+                            @endif
+                            @endforeach
+                            @foreach($packageItems as $packageItem)
+                            @if($packageItem->name == 'Trending Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
                                     <input type="radio" name="job_post_type" required id="trending_job_post" value="trending"><br>
@@ -403,14 +425,23 @@
                                         </div>
                                     </label>
                                 </div>
+                                <input type="hidden" name="trending_job_point" id="trending_job_point" value="{{ $packageItem->point }}">
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 mb-2 text-center">
+        <div class="row mb-2 text-center">
+            <div class="col-6">
+                <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
+                <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
+            </div>
+            <div class="col-6">
             <button type="submit" class="btn profile-save-btn">Post Job</button>
+            </div>
         </div>
     </form>
     </div>
@@ -419,6 +450,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('#total_point').val(0);
         $("#currency").change(function(){
             if($(this).val() == 'USD') {
                 $(".mmk_salary").addClass('d-none');
@@ -435,14 +467,14 @@
             $("#job_post_state_id_field").removeClass('d-none');
             $("#job_post_township_id_field").removeClass('d-none');
             $("#job_post_state_id").prop('required',true);
-            $("#job_post_township_id").prop('required',true);
+            
         }else {
             $("#job_post_state_id_field").addClass('d-none');
             $("#job_post_township_id_field").addClass('d-none');
             $("#job_post_state_id_field").val('');
             $("#job_post_township_id_field").val('');
             $("#job_post_state_id").prop('required',false);
-            $("#job_post_township_id").prop('required',false);
+            
         }
 
         $("#job_post_country").change(function() {
@@ -450,14 +482,14 @@
                 $("#job_post_state_id_field").removeClass('d-none');
                 $("#job_post_township_id_field").removeClass('d-none');
                 $("#job_post_state_id").prop('required',true);
-                $("#job_post_township_id").prop('required',true);
+                
             }else {
                 $("#job_post_state_id_field").addClass('d-none');
                 $("#job_post_township_id_field").addClass('d-none');
                 $("#job_post_state_id_field").val('');
                 $("#job_post_township_id_field").val('');
                 $("#job_post_state_id").prop('required',false);
-                $("#job_post_township_id").prop('required',false);
+                
             }
         })
 
@@ -525,7 +557,41 @@
             }
         });
     })
-    function createQuestion()
+    var anonymous_posting_point = 0;
+    $('#hide_company_name').change(function () {
+        if($(this).is(":checked")) {
+            anonymous_posting_point = $("#anonymous_posting_point").val();
+        }else {
+            anonymous_posting_point = 0
+        }
+        calculatePoint();
+    });
+    var job_post_point = 0;
+    $('input[name="job_post_type"]').change(function () {
+        var feature = 0;
+        var trending = 0;
+        var standard = 0;
+        var total_point = $('#total_point').val();
+        if($(this).val() == 'feature') {
+            feature = $('#feature_job_point').val();
+        }else {
+            feature = 0;
+        }
+        if($(this).val() == 'trending') {
+            trending = $('#trending_job_point').val();
+        }else {
+            trending = 0
+        }
+        job_post_point = Number($('#total_point').val()) + Number(feature) + Number(trending) + Number(standard);
+        calculatePoint();
+    })
+    function calculatePoint()
+    {
+        $("#total_point").val(0);
+        var total_point = 0;
+        total_point = Number(job_post_point) + Number(anonymous_posting_point);
+        $("#total_point").val(total_point)
+    }
     {
         var question = $("#job_post_question").val();
         var answer_type = $("#job_post_answer").val();
@@ -542,7 +608,7 @@
         }
         if(question != '' && answer_type != '') {
             $('.job-post-question').removeClass('d-none');
-            $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+            $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0 bg-transparent"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0 bg-transparent"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
             $("#job_post_question").val('');
             $("#job_post_answer").val('Text Answer');
         }

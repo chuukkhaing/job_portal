@@ -156,11 +156,14 @@
                                     <label class="seeker_label" for="phone"><strong>Phone No.</strong></label>
                                     <input type="text" class="form-control seeker_input" name="phone" id="phone" placeholder="Enter Phone" value="{{ $employer->phone }}" />
                                 </div>
-
+                                @foreach($packageItems as $packageItem)
+                                @if($packageItem->name == 'Website Integration')
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="website"><strong>Website URL</strong></label>
                                     <input type="url" class="form-control seeker_input" id="website" name="website" placeholder="Enter Company Website" value="{{ $employer->website }}" />
                                 </div>
+                                @endif
+                                @endforeach
 
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="no_of_offices">Number of Offices </label>
@@ -249,6 +252,8 @@
                         </div>
                     </div>
                 </div>
+                @foreach($packageItems as $packageItem)
+                @if($packageItem->name == 'Testimonials')
                 <div class="row">
                     <div class="col-1">
                         <div class="step">
@@ -327,14 +332,22 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @endforeach
+                @foreach($packageItems as $packageItem)
+                @if($packageItem->name == 'Employer Profile with Photos' || $packageItem->name == 'Employer Profile with Videos')
                 <div class="row">
                     <div class="col-1">
-                        <div class="step">
+                        <div class="step @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name','Employer Profile with Photos')->count() > 0) @else d-none @endif">
+                            @if($packageItems->whereIn('name',['Testimonials'])->count() > 0)
                             Step 4
+                            @else 
+                            Step 3
+                            @endif
                         </div>
                     </div>
                     <div class="col-11">
-                        <div class="row mb-2">
+                        <div class="row mb-2 @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name','Employer Profile with Photos')->count() > 0) @else d-none @endif">
                             <div class="col-9">
                                 <div class="py-2">
                                     <h5>Upload Company Photos and Videos</h5>
@@ -343,6 +356,8 @@
                             </div>
                             
                         </div>
+                        
+                        @if($packageItem->name == 'Employer Profile with Photos')
                         <div class="row mb-4">
                             <div class="col-3">
                                 <label for="upload_image_1">
@@ -433,6 +448,10 @@
                                 <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[7])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[7])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_8"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                         </div>
+                        @endif
+                        
+                        
+                        @if($packageItem->name == 'Employer Profile with Videos')
                         <div class="table-responsive">
                             <table class="table table-bordered employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
                                 <tbody>
@@ -455,12 +474,24 @@
                                 <a onclick="addLink()" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Link</a>
                             </div>
                         </div>
+                        @endif
+                        
                     </div>
                 </div>
+                @endif
+                @endforeach
                 <div class="row">
                     <div class="col-1">
                         <div class="step">
+                        @foreach($packageItems as $packageItem)
+                        @if($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
                             Step 5
+                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('Testimonials')->count() > 0)
+                            Step 4
+                        @elseif($packageItems->whereNotIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
+                            Step 3
+                        @endif
+                        @endforeach
                         </div>
                     </div>
                     <div class="col-11">

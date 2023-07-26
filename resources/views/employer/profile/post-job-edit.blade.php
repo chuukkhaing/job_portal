@@ -186,8 +186,12 @@
                             <div class="form-group mt-3 col-12 col-md-6">
                                 <input type="checkbox" name="hide_salary" id="hide_salary" @if($jobPost->hide_salary == 1) checked @endif>
                                 <label for="hide_salary">Hide Salary</label><br>
+                                @foreach($packageItems as $packageItem)
+                                @if($packageItem->name == 'Anonymous Posting')
                                 <input type="checkbox" name="hide_company_name" id="hide_company_name" @if($jobPost->hide_company_name == 1) checked @endif>
                                 <label for="hide_company_name">Hide Company (Make confidential Job)</label>
+                                @endif
+                                @endforeach
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
@@ -214,7 +218,7 @@
                             </div>
                         
                             <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_township_id_field">
-                                <label for="job_post_township_id" class="seeker_label my-2">City <span class="text-danger">*</span></label><br>
+                                <label for="job_post_township_id" class="seeker_label my-2">City/ Township <span class="text-danger">*</span></label><br>
                                 <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($townships as $township)
@@ -331,8 +335,8 @@
                             <tbody>
                                 @foreach($jobPost->JobPostQuestion as $question)
                                 <tr>
-                                    <td><input type="text" name="questions[]" value="{{ $question->question }}" readonly class="border-0"></td>
-                                    <td><input type="text" name="answer_types[]" value="{{ $question->answer }}" readonly class="border-0"></td>
+                                    <td><input type="text" name="questions[]" value="{{ $question->question }}" readonly class="border-0 bg-transparent"></td>
+                                    <td><input type="text" name="answer_types[]" value="{{ $question->answer }}" readonly class="border-0 bg-transparent"></td>
                                     <td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
                                 </tr>
                                 @endforeach
@@ -457,14 +461,14 @@
             $("#job_post_state_id_field").removeClass('d-none');
             $("#job_post_township_id_field").removeClass('d-none');
             $("#job_post_state_id").prop('required',true);
-            $("#job_post_township_id").prop('required',true);
+            
         }else {
             $("#job_post_state_id_field").addClass('d-none');
             $("#job_post_township_id_field").addClass('d-none');
             $("#job_post_state_id_field").val('');
             $("#job_post_township_id_field").val('');
             $("#job_post_state_id").prop('required',false);
-            $("#job_post_township_id").prop('required',false);
+            
         }
 
         $("#job_post_country").change(function() {
@@ -472,14 +476,14 @@
                 $("#job_post_state_id_field").removeClass('d-none');
                 $("#job_post_township_id_field").removeClass('d-none');
                 $("#job_post_state_id").prop('required',true);
-                $("#job_post_township_id").prop('required',true);
+                
             }else {
                 $("#job_post_state_id_field").addClass('d-none');
                 $("#job_post_township_id_field").addClass('d-none');
                 $("#job_post_state_id_field").val('');
                 $("#job_post_township_id_field").val('');
                 $("#job_post_state_id").prop('required',false);
-                $("#job_post_township_id").prop('required',false);
+                
             }
         })
 
@@ -563,7 +567,7 @@
         }
         if(question != '' && answer_type != '') {
             $('.job-post-question').removeClass('d-none');
-            $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+            $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0 bg-transparent"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0 bg-transparent"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
             $("#job_post_question").val('');
             $("#job_post_answer").val('Text Answer');
         }
