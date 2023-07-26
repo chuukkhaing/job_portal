@@ -22,7 +22,7 @@ input.form-control.search-slt.job-title {
     border-bottom-left-radius: 50px;
 }
 
-input.form-control.search-slt.location {
+select.form-control.search-slt.location {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     font-size: 1rem;
@@ -302,6 +302,7 @@ a.interview-btn:hover {
 }
 
 .job-trending-scroll {
+    background: #ffffff;
     height:600px;
     overflow: auto;
 }
@@ -614,7 +615,7 @@ span.form-control-feedback.company-icon {
         border-radius: 0px;
     }
     
-    input.form-control.search-slt.location {
+    select.form-control.search-slt.location {
         border-radius: 0px;
     }
 

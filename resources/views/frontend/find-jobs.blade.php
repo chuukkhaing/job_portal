@@ -2,49 +2,56 @@
 @section('content')
 
 <!-- Search Start -->
-<section class="find-jobs-search p-5">
-    <div class="container-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 p-0">
-                    <div class="form-group has-search">
-                        <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword">
+<form action="{{ route('search-job') }}" method="post">
+    @csrf
+    <section class="find-jobs-search p-5">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 p-0">
+                        <div class="form-group has-search">
+                            <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
+                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 col-md-3 p-0">
-                    <div class="form-group has-search search-slt function-area">
-                        <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
-                        <select class="form-control" id="function-area" multiple="multiple">
-                            <optgroup label="Group 1">
-                                <option value="1-1">Option 1.1</option>
-                                <option value="1-2">Option 1.2</option>
-                                <option value="1-3">Option 1.3</option>
-                            </optgroup>
-                            <optgroup label="Group 2">
-                                <option value="2-1">Option 2.1</option>
-                                <option value="2-2">Option 2.2</option>
-                                <option value="2-3">Option 2.3</option>
-                            </optgroup>
-                        </select>
+                    <div class="col-lg-4 col-md-3 p-0">
+                        <div class="form-group has-search search-slt function-area">
+                            <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
+                            <select class="form-control" id="function-area" multiple="multiple" name="function_area[]" size="10">
+                                @foreach($main_functional_areas as $main_functional_area)
+                                <optgroup label="{{ $main_functional_area->name }}">
+                                    @foreach($sub_functional_areas as $sub_functional_area)
+                                    @if($main_functional_area->id == $sub_functional_area->functional_area_id)
+                                    <option value="{{ $sub_functional_area->id }}">{{ $sub_functional_area->name }}</option>
+                                    @endif
+                                    @endforeach
+                                </optgroup>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-3 col-md-3 p-0">
-                    <div class="form-group has-search">
-                        <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                        <input type="text" class="form-control search-slt location" placeholder="location">
+                    <div class="col-lg-3 col-md-3 p-0">
+                        <div class="form-group has-search">
+                            <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
+                            <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
+                                <option value="" disabled selected>location</option>
+                                @foreach($states as $state)
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-lg-2 col-md-3 p-0">
-                    <button type="button" class="btn pull-right search-job-btn">Search Jobs</button>
+                    <div class="col-lg-2 col-md-3 p-0">
+                        <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</form>
 <!-- Search End -->
 
 <div class="container my-5">
@@ -54,10 +61,11 @@
             <span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>
         </div>
     </div>
-
     <div class="row my-5">
         <!-- Left Sidebar Start -->
+        @if($jobPosts->count() > 0)
         <div class="col-md-8 find-jobs-left-sidebar">
+            @foreach($jobPosts as $jobPost)
             <div class="row job-content mb-3">
                 <!-- Job List Start -->
                 <div class="col-md-11 py-4">
@@ -66,14 +74,20 @@
                             <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
                         </div>    
                         <div class="col-md-11">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
+                            <div class="job-company">{{ $jobPost->Employer->name }}</div>
+                            <div class="job-title">{{ $jobPost->job_title }}</div>
+                            @if($jobPost->country == 'Myanmar')
+                            <div class="job-location">{{ $jobPost->State->name }}</div>
+                            @endif
+                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
                             <div class="">
-                                <a href="" class="btn job-btn">Sale and Marketing</a>
-                                <a href="" class="btn job-btn">Attractive Salary</a>
-                                <a href="" class="btn job-btn">Benefits</a>
+                                <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
+                                @if($jobPost->job_highlight)
+                                <a href="" class="btn job-btn">{{ $jobPost->job_highlight }}</a>
+                                @endif
+                                @if($jobPost->benefit)
+                                <a href="" class="btn job-btn">{{ $jobPost->benefit }}</a>
+                                @endif
                             </div>
                         </div>
                     </div>                    
@@ -86,123 +100,9 @@
                 </div>
                 <!-- Wishlist End -->
             </div>
-
-            <div class="row job-content mb-3">
-                <!-- Job List Start -->
-                <div class="col-md-11 py-4">
-                    <div class="row">
-                        <div class="col-md-1 job-image">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
-                        </div>    
-                        <div class="col-md-11">
-                            <div class="job-company">General Electric</div>
-                            <div class="job-title">President of Sales</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">Sale and Marketing</a>
-                                <a href="" class="btn job-btn">Attractive Salary</a>
-                                <a href="" class="btn job-btn">Benefits</a>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <!-- Job List End -->
-
-                <!-- Wishlist Start -->
-                <div class="col-md-1 py-4">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <!-- Wishlist End -->
-            </div>
-
-            <div class="row job-content mb-3">
-                <!-- Job List Start -->
-                <div class="col-md-11 py-4">
-                    <div class="row">
-                        <div class="col-md-1 job-image">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
-                        </div>    
-                        <div class="col-md-11">
-                            <div class="job-company">Louis Vuitton</div>
-                            <div class="job-title">Web Designer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">Sale and Marketing</a>
-                                <a href="" class="btn job-btn">Attractive Salary</a>
-                                <a href="" class="btn job-btn">Benefits</a>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <!-- Job List End -->
-
-                <!-- Wishlist Start -->
-                <div class="col-md-1 py-4">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <!-- Wishlist End -->
-            </div>
-
-            <div class="row job-content mb-3">
-                <!-- Job List Start -->
-                <div class="col-md-11 py-4">
-                    <div class="row">
-                        <div class="col-md-1 job-image">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
-                        </div>    
-                        <div class="col-md-11">
-                            <div class="job-company">MasterCard</div>
-                            <div class="job-title">Medical Assistant</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">Sale and Marketing</a>
-                                <a href="" class="btn job-btn">Attractive Salary</a>
-                                <a href="" class="btn job-btn">Benefits</a>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <!-- Job List End -->
-
-                <!-- Wishlist Start -->
-                <div class="col-md-1 py-4">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <!-- Wishlist End -->
-            </div>
-
-            <div class="row job-content mb-3">
-                <!-- Job List Start -->
-                <div class="col-md-11 py-4">
-                    <div class="row">
-                        <div class="col-md-1 job-image">
-                            <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="">
-                        </div>    
-                        <div class="col-md-11">
-                            <div class="job-company">IBM</div>
-                            <div class="job-title">Medical Assistant</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">Sale and Marketing</a>
-                                <a href="" class="btn job-btn">Attractive Salary</a>
-                                <a href="" class="btn job-btn">Benefits</a>
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <!-- Job List End -->
-
-                <!-- Wishlist Start -->
-                <div class="col-md-1 py-4">
-                    <i class="fa-regular fa-heart"></i>
-                </div>
-                <!-- Wishlist End -->
-            </div>
+            @endforeach
         </div>
+        @endif
         <!-- Left Sidebar End -->
 
         <!-- Right Sidebar Start -->
@@ -441,3 +341,16 @@
 </div>
 
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#function-area').multiselect({
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: "Select function area",
+        });
+    });
+</script>
+@endpush

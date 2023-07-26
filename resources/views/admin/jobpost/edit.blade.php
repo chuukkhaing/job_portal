@@ -25,8 +25,8 @@
                 @method('PUT')
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" class="btn btn-approve btn-outline-success">Approve <i class="approve-icon fa-solid fa-check d-none"></i></button>
-                        <button type="button" class="btn btn-reject btn-outline-danger">Reject <i class="reject-icon fa-solid fa-check d-none"></i></button>
+                        <button type="button" class="btn btn-approve @if($jobPost->status == 'Online') btn-success @else btn-outline-success @endif">Approve <i class="approve-icon fa-solid fa-check @if($jobPost->status == 'Online') @else d-none @endif"></i></button>
+                        <button type="button" class="btn btn-reject @if($jobPost->status == 'Reject') btn-danger @else btn-outline-danger @endif">Reject <i class="reject-icon fa-solid fa-check @if($jobPost->status == 'Reject') @else d-none @endif"></i></button>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                     <input type="hidden" name="status" id="job_post_status" value="">

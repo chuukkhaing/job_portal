@@ -95,18 +95,6 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <!-- Multiselect Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/dist/js/bootstrap-multiselect.js') }}"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('#function-area').multiselect({
-                enableClickableOptGroups: true,
-                enableCollapsibleOptGroups: true,
-                enableFiltering: true,
-                includeSelectAllOption: true,
-                nonSelectedText: "Select function area",
-            });
-        });
-    </script>
     @stack('scripts')
     
 </body>

@@ -46,7 +46,7 @@
                     <div class="col-lg-4 col-md-3 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
-                            <select class="form-control" id="function-area" multiple="multiple" name="function-area[]" size="10">
+                            <select class="form-control" id="function-area" multiple="multiple" name="function_area[]" size="10">
                                 @foreach($main_functional_areas as $main_functional_area)
                                 <optgroup label="{{ $main_functional_area->name }}">
                                     @foreach($sub_functional_areas as $sub_functional_area)
@@ -64,7 +64,12 @@
                     <div class="col-lg-3 col-md-3 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                            <input type="text" class="form-control search-slt location" placeholder="location" name="location">
+                            <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
+                                <option value="" disabled selected>location</option>
+                                @foreach($states as $state)
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -725,7 +730,7 @@
             <div class="col-lg-4 col-md-4 p-2">
                 <div id="additional-service-box" class="text-center">
                     <div id="additional-service-icon">
-                        <i class="fa-solid fa-message"></i>
+                        <i class="fa-solid fa-puzzle-piece"></i>
                     </div>
 
                     <div id="additional-service-name">
@@ -859,3 +864,16 @@
 <!-- Explore the Marketplace End  -->
 
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#function-area').multiselect({
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            nonSelectedText: "Select function area",
+        });
+    });
+</script>
+@endpush
