@@ -163,7 +163,7 @@ select.form-control.search-slt.location {
 }
 
 .text-blue {
-    color: #0355D0;
+    color: #0355D0 !important;
 }
 
 .fz13{
