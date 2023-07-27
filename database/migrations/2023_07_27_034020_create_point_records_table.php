@@ -17,6 +17,7 @@ class CreatePointRecordsTable extends Migration
             $table->id();
             $table->integer('employer_id')->nullable();
             $table->integer('job_post_id')->nullable();
+            $table->integer('job_apply_id')->nullable();
             $table->integer('package_item_id')->nullable();
             $table->integer('point');
             $table->string('status');

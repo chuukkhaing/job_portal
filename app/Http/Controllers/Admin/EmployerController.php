@@ -169,7 +169,7 @@ class EmployerController extends Controller
             $package_point = $employer->package_point + $package->point;
             $purchased_point = $employer->purchased_point + $package->point;
         }
-        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
+        $slug = Str::slug($request->name, '-') . '-' . $id;
         $employer = $employer->update([
             'logo' => $logo,
             'name' => $request->name,

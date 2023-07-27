@@ -112,11 +112,11 @@
                         @foreach($packageItems as $packageItem)
                         @if($packageItem->name == 'Application Unlock')
                         <div class="dropdown d-inline-block">
-                            <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="modal" data-target="#pointDetection" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-download"></i>
                             </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <ul class="dropdown-menu d-none" aria-labelledby="dropdownMenuLink">
                                 <li><a class="dropdown-item download_seeker_cv" href="" download>Download Seeker's CV</a></li>
                                 <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                             </ul>
@@ -124,6 +124,30 @@
                         @endif
                         @endforeach
                         <button class="btn profile-save-btn btn-sm precious-btn">Back</button>
+                    </div>
+                    <div class="modal fade" id="pointDetection" tabindex="-1" role="dialog" aria-labelledby="pointDetectionLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="pointDetectionLabel">Application Unlock</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure to unlock the Application? <br>
+                                @foreach($packageItems as $packageItem)
+                                @if($packageItem->name == 'Application Unlock')
+                                Application Unlock = {{ $packageItem->point }} points
+                                @endif
+                                @endforeach
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="cv-unlock">Confirm</button>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="">
                         <button type="button" class="btn btn-sm btn-received btn-status btn-outline-primary" data-id="received">Application Received</button>
@@ -332,6 +356,11 @@
         })
     }
 
+    function cvUnlock()
+    {
+        console.log('test')
+    }
+
     function getSeekerData(response)
     {
         $("#receive-cv-length").text(response.count.received);
@@ -376,6 +405,7 @@
                     table.draw();
                     $('#applicant_tr'+value.seeker_id).attr('onClick','getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+',"'+value.status+'")');
                     $('#applicant_tr'+value.seeker_id).addClass(active);
+                    $("#cv-unlock").attr('onclick',)
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
                     btnColor(value.status)
