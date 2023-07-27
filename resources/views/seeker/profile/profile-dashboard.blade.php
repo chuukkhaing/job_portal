@@ -17,20 +17,20 @@
                         <div class="col-3">
                             <i class="fa-solid fa-phone seeker-icon"></i><a href="tel:+{{ Auth::guard('seeker')->user()->phone }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->phone }}</a>
                         </div>
-                        <div class="col-4 p-0 m-0">
+                        <div class="col-5 p-0 m-0">
                             <i class="fa-solid fa-envelope seeker-icon"></i><a href="mailto:{{ Auth::guard('seeker')->user()->email }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->email }}</a>
                         </div>
-                        <div class="col-5 p-0 m-0">
+                        <div class="col-4 p-0 m-0">
                             <i class="fa-solid fa-link seeker-icon"></i><span class="seeker-info px-2">Member Since, {{ date('M d, Y', strtotime(Auth::guard('seeker')->user()->register_at)) }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-3 align-self-end pb-2 text-end">
-                    <div class="d-flex form-check form-switch">
-                        <div>
+                <div class="col-3 pb-2 text-end">
+                    <div class="d-flex form-check form-switch mt-3">
+                        <div class="mt-3">
                         <label class="form-check-label seeker-name" for="immediate_available">Immediate Available</label><br>
                         </div>
-                        <input class="form-check-input" type="checkbox" @if(Auth::guard('seeker')->user()->is_immediate_available == 1) checked @endif role="switch" id="immediate_available">
+                        <input class="form-check-input mt-4" type="checkbox" @if(Auth::guard('seeker')->user()->is_immediate_available == 1) checked @endif role="switch" id="immediate_available">
                     </div>
                     
                 </div>
