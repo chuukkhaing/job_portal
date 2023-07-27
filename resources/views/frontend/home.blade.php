@@ -538,7 +538,8 @@
       top: 50%;
       transform: translateY(-50%);
   }
-  span {
+  .owl-prev span,
+  .owl-next span {
       font-size: 70px;    
       position: relative;
       top: -5px;
