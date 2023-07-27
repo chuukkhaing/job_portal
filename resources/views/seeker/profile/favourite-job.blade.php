@@ -130,7 +130,7 @@
                     <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
                         <div class="row col-12 m-0 p-0">
                             <div class="text-end">
-                                <i class="fa-solid fa-hear text-bluet"></i>
+                                <i class="fa-solid fa-heart text-blue"></i>
                             </div>
     
                             <div class="text-end mt-auto">
