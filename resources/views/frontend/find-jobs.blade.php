@@ -69,32 +69,34 @@
             <div class="row job-content mb-3">
                 <!-- Job List Start -->
                 <div class="col-lg-10 col-md-10 py-4">
-                    <div class="row">
-                        <div class="col-md-2 job-image">
-                            @if($jobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
-                            @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
-                            @endif
-                        </div>    
-                        <div class="col-md-10">
-                            <div class="job-company">{{ $jobPost->Employer->name }}</div>
-                            <div class="job-title">{{ $jobPost->job_title }}</div>
-                            @if($jobPost->country == 'Myanmar')
-                            <div class="job-location">{{ $jobPost->State->name }}</div>
-                            @endif
-                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
-                                {{--@if($jobPost->job_highlight)
-                                <a href="" class="btn job-btn">{{ $jobPost->job_highlight }}</a>
+                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                        <div class="row">
+                            <div class="col-md-2 job-image">
+                                @if($jobPost->Employer->logo)
+                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                @else 
+                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                                 @endif
-                                @if($jobPost->benefit)
-                                <a href="" class="btn job-btn">{{ $jobPost->benefit }}</a>
-                                @endif--}}
+                            </div>    
+                            <div class="col-md-10">
+                                <div class="job-company">{{ $jobPost->Employer->name }}</div>
+                                <div class="job-title">{{ $jobPost->job_title }}</div>
+                                @if($jobPost->country == 'Myanmar')
+                                <div class="job-location">{{ $jobPost->State->name }}</div>
+                                @endif
+                                <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
+                                <div class="">
+                                    <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
+                                    {{--@if($jobPost->job_highlight)
+                                    <a href="" class="btn job-btn">{{ $jobPost->job_highlight }}</a>
+                                    @endif
+                                    @if($jobPost->benefit)
+                                    <a href="" class="btn job-btn">{{ $jobPost->benefit }}</a>
+                                    @endif--}}
+                                </div>
                             </div>
-                        </div>
-                    </div>                    
+                        </div>    
+                    </a>                
                 </div>
                 <!-- Job List End -->
 

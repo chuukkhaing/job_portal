@@ -241,7 +241,7 @@
                 <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
                     <div class="row col-12 m-0 p-0">
                         <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
+                            <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="btn view-detail-btn p-0">View Details</a>
                         </div>
 
                         <div class="text-end mt-auto p-1">
