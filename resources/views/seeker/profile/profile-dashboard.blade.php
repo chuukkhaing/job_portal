@@ -1,4 +1,4 @@
-<div class="container-fluid px-5" id="edit-profile-header">
+<div class="container-fluid px-5 edit-profile-header-border" id="edit-profile-header">
     <div class="row">
         <div class="col-12">
             <div class="row pb-5">

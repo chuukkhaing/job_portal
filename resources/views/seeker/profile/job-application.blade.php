@@ -1,4 +1,4 @@
-<div class="container-fluid p-5" id="edit-profile-header">
+<div class="container-fluid p-5 edit-profile-header-border" id="edit-profile-header">
     <div class="">
         <h5>Applied Jobs ( {{ $jobsApplyBySeeker->count() }} )</h5>
     </div>
