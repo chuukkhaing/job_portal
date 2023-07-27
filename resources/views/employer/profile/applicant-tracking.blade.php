@@ -162,12 +162,12 @@
                             <h5 class="job-title" id="receive-job-title"></h5>
                             <hr>
                             <div class="row">
-                                {{--<div class="col">
+                                <div class="col cv-unlock-data d-none">
                                     <p class="app_receive_name"> </p>
                                     <p id="app_receive_address">-</p>
                                     <p id="app_receive_phone">-</p>
                                     <p id="app_receive_email"></p>
-                                </div>--}}
+                                </div>
                                 <div class="col">
                                     <img class="app_receive_pic" src="{{ asset('img/undraw_profile_1.svg') }}" alt="profile_pic" width="160px" height="160px">
                                 </div>
@@ -194,7 +194,7 @@
                                     <span class="app_receive_dob">-</span>
                                 </div>
                             </div>
-                            {{--<div class="row my-3">
+                            <div class="row my-3 cv-unlock-data d-none">
                                 <div class="col">
                                     <span>NRC Number/ID</span>
                                     <span class="float-end">:</span>
@@ -202,7 +202,7 @@
                                 <div class="col">
                                     <span class="app_receive_nrc">-</span>
                                 </div>
-                            </div>--}}
+                            </div>
                             <div class="row my-3">
                                 <div class="col">
                                     <span>Nationality</span>
@@ -230,7 +230,7 @@
                                     <span class="app_receive_marital_status">-</span>
                                 </div>
                             </div>
-                            {{--<div class="row my-3">
+                            <div class="row my-3 cv-unlock-data d-none">
                                 <div class="col">
                                     <span>Address Detail</span>
                                     <span class="float-end">:</span>
@@ -238,7 +238,7 @@
                                 <div class="col">
                                     <span id="app_receive_address_detail">-</span>
                                 </div>
-                            </div>--}}
+                            </div>
                             <div class="row my-3">
                                 <div class="col">
                                     <span class="fw-bold">Notice Period</span>
@@ -356,9 +356,25 @@
         })
     }
 
-    function cvUnlock()
+    function cvUnlock(employerId, jobPostId, jobApplyId)
     {
-        console.log('test')
+        $.ajax({
+            type: 'POST',
+            data: {
+                'employer_id' : employerId,
+                'jobPost_id' : jobPostId,
+                'jobApply_id' : jobApplyId
+            },
+            url: "{{ route('unlock.application') }}"
+        }).done(function(response){
+            if(response.status == 'success') {
+                $('.close').click();
+                if(response.data.status == 'Complete') {
+                    $('#dropdownMenuLink').removeClass('d-none');
+                    $('.cv-unlock-data').removeClass('d-none');
+                }
+            }
+        })
     }
 
     function getSeekerData(response)
@@ -405,7 +421,7 @@
                     table.draw();
                     $('#applicant_tr'+value.seeker_id).attr('onClick','getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+',"'+value.status+'")');
                     $('#applicant_tr'+value.seeker_id).addClass(active);
-                    $("#cv-unlock").attr('onclick',)
+                    $("#cv-unlock").attr('onclick','cvUnlock('+response.jobPost.employer_id+','+response.jobPost.id+','+value.id+')');
                     $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
                     btnColor(value.status)

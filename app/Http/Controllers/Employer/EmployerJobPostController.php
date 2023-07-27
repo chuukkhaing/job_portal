@@ -652,4 +652,33 @@ class EmployerJobPostController extends Controller
             'data' => $jobPost
         ]);
     }
+
+    public function unlockApplication(Request $request)
+    {
+        $point = 0;
+        $item_id = Null;
+        $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
+        foreach($packageItems as $packageItem){
+            if($packageItem->PackageItem->name == 'Application Unlock') {
+                $point = $packageItem->PackageItem->point;
+                $item_id = $packageItem->PackageItem->id;
+            }
+        }
+        $cvunlock = PointRecord::whereEmployerId($request->employer_id)->whereJobPostId($request->jobPost_id)->whereJobApplyId($request->jobApply_id)->wherePackageItemId($item_id)->get();
+        if($cvunlock->count() == 0) {
+            $cvunlock = PointRecord::create([
+                'employer_id' => $request->employer_id,
+                'job_post_id' => $request->jobPost_id,
+                'job_apply_id' => $request->jobApply_id,
+                'package_item_id' => $item_id,
+                'point' => $point,
+                'status' => 'Complete'
+            ]);
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $cvunlock
+        ]);
+    }
 }

@@ -42,6 +42,7 @@ Route::group([], function(){
         Route::post('employer-job-post/question', [EmployerJobPostController::class, 'jobPostQuestion'])->name('job-post.question');
         Route::get('/get-skill/{id}', [EmployerJobPostController::class, 'getSkill']);
         Route::post('job-post-status', [EmployerJobPostController::class, 'changeJobPostStatus'])->name('job-post.status');
+        Route::post('unlock-application', [EmployerJobPostController::class, 'unlockApplication'])->name('unlock.application');
 
         Route::get('get-jobpost/{id}/{status}', [EmployerJobPostController::class, 'getJobPost']);
         Route::get('get-jobpost-info/{id}/{jobPostId}/{status}', [EmployerJobPostController::class, 'getJobPostInfo']);

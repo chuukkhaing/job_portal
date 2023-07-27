@@ -111,12 +111,12 @@
             <div class="mb-4">
                 
                 <div class="row">
-                    {{--<div class="col">
+                    <div class="col">
                         <p class="app_receive_name">@if($seeker->gender == 'Female') Ms.@else Mr.@endif {{ $seeker->first_name ?? '-' }} {{ $seeker->last_name ?? '-' }}</p>
                         <p id="app_receive_address">@if($seeker->country == 'Myanmar') {{ $seeker->Township->name ?? '' }}, {{ $seeker->State->name ?? '' }}, {{ $seeker->country }}@else Country - {{ $seeker->country }} @endif</p>
                         <p id="app_receive_phone">{{ $seeker->phone ?? '-' }}</p>
                         <p id="app_receive_email">{{ $seeker->email ?? '-' }}</p>
-                    </div>--}}
+                    </div>
                     <div class="col">
                         @if($seeker->image)
                         <img src="{{ public_path('storage/seeker/profile/'.($seeker->id).'/'.$seeker->image) }}" class="app_receive_pic" alt="profile_pic" width="130px" height="130px">
@@ -147,7 +147,7 @@
                         <span class="app_receive_dob">@if($seeker->date_of_birth) {{ date('d-m-Y', strtotime($seeker->date_of_birth)) }} @else - @endif</span>
                     </div>
                 </div>
-                {{--<div class="row my-3">
+                <div class="row my-3">
                     <div class="col">
                         <span>NRC Number/ID</span>
                         <span class="float-end">:</span>
@@ -155,7 +155,7 @@
                     <div class="col">
                         <span class="app_receive_nrc">@if($seeker->nationality == 'Myanmar') {{ $seeker->nrc }} @else {{ $seeker->id_card }} @endif</span>
                     </div>
-                </div>--}}
+                </div>
                 <div class="row my-3">
                     <div class="col">
                         <span>Nationality</span>
@@ -183,7 +183,7 @@
                         <span class="app_receive_marital_status">{{ $seeker->marital_status ?? '-' }}</span>
                     </div>
                 </div>
-                {{--<div class="row my-3">
+                <div class="row my-3">
                     <div class="col">
                         <span>Address Detail</span>
                         <span class="float-end">:</span>
@@ -191,7 +191,7 @@
                     <div class="col">
                         <span id="app_receive_address_detail">{{ $seeker->address_detail ?? '-' }}</span>
                     </div>
-                </div>--}}
+                </div>
                 <div class="row my-3">
                     <div class="col">
                         <span style="font-weight: bold">Notice Period</span>
