@@ -207,138 +207,114 @@
         </div>
 
         <div class="row bg-light">
-            <div class="col-md-12 p-0">
-                <div class="lc-block">
-                    <div id="carouselLogos" class="carousel slide py-5" data-bs-ride="carousel">
-
-                        <div class="carousel-inner px-4">
-                            <div class="carousel-item active">
-                                <div class="row">
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Computer Network ...</h3>
-                                                <span id="trending-job-sub-title">Paniagua Enterprises In..</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Solutions Architect</h3>
-                                                <span id="trending-job-sub-title">Subfloor Specialties USA</span>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="col-12 p-0">
+                <div class="owl-slider py-5">
+                    <div class="row col-12 m-0">
+                    <div id="multiple-carousel" class="owl-carousel">
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="carousel-item">
-                                <div class="row">
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Computer Network ...</h3>
-                                                <span id="trending-job-sub-title">Paniagua Enterprises In..</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                                <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-6 col-lg-3 col-md-3 align-self-center">
-                                        <div class="row px-3">
-                                            <div class="col-3">
-                                                <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                            </div>
-                                            <div class="col-9 p-0 pt-3">
-                                                <h3 id="trending-job-title">Solutions Architect</h3>
-                                                <span id="trending-job-sub-title">Subfloor Specialties USA</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row px-3 text-center mt-4">
-                                <a class="carousel-control-prev w-auto d-inline me-4" href="#carouselLogos" data-bs-slide="prev">
-                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"></path>
-                                    </svg>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next w-auto d-inline" href="#carouselLogos" data-bs-slide="next">
-                                    <svg width="2em" height="2em" viewBox="0 0 16 16" class="text-dark mt-3" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"></path>
-                                    </svg>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="col-3">
+                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                </div>
+                                <div class="col-9 p-0 pt-3">
+                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
+                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div><!-- /lc-block -->
+                </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container bg-light">
+{{-- <div class="container bg-light">
     <div class="row">
         <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
@@ -376,7 +352,7 @@
             </div>      
         </div>
  </div>
-</div>
+</div> --}}
 <!-- Featured Jobs End  -->
 
 <!-- Job Interview Start -->
@@ -538,7 +514,45 @@
 <!-- Explore the Marketplace End  -->
 
 @endsection
+@push('css')
+<style>
+.owl-nav button {
+    position: absolute;
+    top: 50%;
+    color: #0355d0;
+    margin: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  .owl-nav button.owl-prev {
+    left: -15px;
+    border-color: transparent;
+    background: none;
+  }
+  .owl-nav button.owl-next {
+    right: -15px;
+    border-color: transparent;
+    background: none;
+  }
+  .owl-nav button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  span {
+      font-size: 70px;    
+      position: relative;
+      top: -5px;
+  }
+  .owl-nav button:focus {
+      outline: none;
+  }
+</style>
+    
+@endpush
+
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
 <script>
     $(document).ready(function() {
         $('#function-area').multiselect({
@@ -547,6 +561,36 @@
             enableFiltering: true,
             includeSelectAllOption: true,
             nonSelectedText: "Select function area",
+        });
+
+        $('#multiple-carousel').owlCarousel({
+            margin: 20,
+            dots:false,
+            loop: true,
+            autoplay: false,
+            autoplayTimeout:700,
+            slideSpeed : 200,
+            nav : true,
+            responsiveClass:true,
+            autoHeight: true,
+            smartSpeed: 800,
+            responsive: {
+                0: {
+                items: 1
+                },
+
+                600: {
+                items: 2
+                },
+
+                1024: {
+                items: 3
+                },
+
+                1366: {
+                items: 5
+                }
+            }
         });
     });
 </script>
