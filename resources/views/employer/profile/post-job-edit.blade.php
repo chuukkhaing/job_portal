@@ -16,7 +16,7 @@
             <div class="mb-4">
                 <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
                 <div class="float-end">
-                    <a href="http://" class="btn btn-outline-primary">Add-on Features</a>
+                    {{--<a href="http://" class="btn btn-outline-primary">Add-on Features</a>--}}
                     <a href="http://" class="btn profile-save-btn">Package Details</a>
                 </div>
             </div>

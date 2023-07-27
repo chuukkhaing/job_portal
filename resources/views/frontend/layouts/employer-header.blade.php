@@ -59,6 +59,7 @@
 <!-- Navbar End -->
 
 <!-- Modal -->
+@if($packages->count() > 0)
 <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -78,6 +79,8 @@
                         </div>
                         <div class="col-lg-8">
                             <div class="row">
+                                @foreach($packages as $package)
+                                @if($package->name == 'Economy Package')
                                 <div class="col-lg-4 economy px-4 py-3">
                                     <h3 class="economy-title">Economy</h3>
                                     <p class="economy-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
@@ -86,30 +89,34 @@
                                     </p>
                                     <p class="package-promotion py-2"></p>
                                     <p class="package-plans">Billed annually yearly plans available</p>
-                                    <button type="button" class="btn btn-outline-economy">Select  Plan</button>
+                                    {{--<button type="button" class="btn btn-outline-economy">Select  Plan</button>--}}
                                 </div>
-                                
+                                @endif
+                                @if($package->name == 'Standard Package')
                                 <div class="col-lg-4 standard px-4 py-3">
                                     <h3 class="standard-title">Standard</h3>
                                     <p class="standard-desc mb-4">Our Standard Package is ideal for growing businesses that want to expand their recruitment efforts and streamline their hiring process.</p>
                                     <p class="package-price mb-0">
                                         <span class="fw-bold text-black">1,500,000</span><span class="fw-bold text-dark"> Kyats</span>
                                     </p>
-                                    <p class="package-promotion py-2">15% OFF</p>
+                                    {{--<p class="package-promotion py-2">15% OFF</p>--}}
                                     <p class="package-plans">Billed annually yearly plans available</p>
-                                    <button type="button" class="btn btn-outline-standard">Select  Plan</button>
+                                    {{--<button type="button" class="btn btn-outline-standard">Select  Plan</button>--}}
                                 </div>
-                                
+                                @endif
+                                @if($package->name == 'Premium Package')
                                 <div class="col-lg-4 premium px-4 py-3">
                                     <h3 class="premium-title">Premium</h3>
                                     <p class="premium-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
                                     <p class="package-price mb-0">
                                         <span class="fw-bold text-black">2,000,000</span><span class="fw-bold text-dark"> Kyats</span>
                                     </p>
-                                    <p class="package-promotion py-2">30% OFF</p>
+                                    {{--<p class="package-promotion py-2">30% OFF</p>--}}
                                     <p class="package-plans">Billed annually yearly plans available</p>
-                                    <button type="button" class="btn btn-outline-premium">Select  Plan</button>
+                                    {{--<button type="button" class="btn btn-outline-premium">Select  Plan</button>--}}
                                 </div>
+                                @endif
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -164,4 +171,5 @@
         </div>
     </div>
 </div>
+@endif
 <!-- Modal End -->
