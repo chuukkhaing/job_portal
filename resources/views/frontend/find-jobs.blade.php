@@ -66,54 +66,48 @@
         @if($jobPosts->count() > 0)
         <div class="col-lg-8 col-12 find-jobs-left-sidebar">
             @foreach($jobPosts as $jobPost)
-            <div class="row job-content mb-3">
-                <!-- Job List Start -->
-                <div class="col-lg-10 col-md-10 py-4">
-                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                        <div class="row">
-                            <div class="col-md-2 job-image">
-                                @if($jobPost->Employer->logo)
-                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
-                                @else 
-                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
-                                @endif
-                            </div>    
-                            <div class="col-md-10">
-                                <div class="job-company">{{ $jobPost->Employer->name }}</div>
-                                <div class="job-title">{{ $jobPost->job_title }}</div>
-                                @if($jobPost->country == 'Myanmar')
-                                <div class="job-location">{{ $jobPost->State->name }}</div>
-                                @endif
-                                <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
-                                <div class="">
-                                    <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
-                                    {{--@if($jobPost->job_highlight)
-                                    <a href="" class="btn job-btn">{{ $jobPost->job_highlight }}</a>
-                                    @endif
-                                    @if($jobPost->benefit)
-                                    <a href="" class="btn job-btn">{{ $jobPost->benefit }}</a>
-                                    @endif--}}
-                                </div>
-                            </div>
-                        </div>    
-                    </a>                
-                </div>
-                <!-- Job List End -->
-
-                <!-- Wishlist Start -->
-                <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <i class="fa-regular fa-heart"></i>
+            <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                <div class="row job-content mb-3">
+                    <!-- Job List Start -->
+                    
+                    <div class="col-lg-10 col-md-10 py-4 d-flex">
+                        <div style="width: 100px">
+                            @if($jobPost->Employer->logo)
+                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                            @else 
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                            @endif
                         </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
+                        <div>
+                            <div class="job-company">{{ $jobPost->Employer->name }}</div>
+                            <div class="job-title">{{ $jobPost->job_title }}</div>
+                            @if($jobPost->country == 'Myanmar')
+                            <div class="job-location">{{ $jobPost->State->name }}</div>
+                            @endif
+                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
+                            <div class="">
+                                <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Job List End -->
+
+                    <!-- Wishlist Start -->
+                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                        <div class="row col-12 m-0 p-0">
+                            <div class="text-end p-0">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+
+                            <div class="text-end mt-auto p-1">
+                                <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wishlist End -->
                 </div>
-                <!-- Wishlist End -->
-            </div>
+            </a>
             @endforeach
             <div class="row">
                 <div class="col pt-2">
@@ -142,233 +136,85 @@
         <!-- Right Sidebar Start -->
         <div class="col-lg-4 col-12 px-5 find-jobs-right-sidebar">
             <!-- Trending Jobs Start -->
+            @if($trending_jobs->count() > 0)
             <div class="row mb-5">
                 <div class="right-trending-title">
                     <h5 class="text-white py-2">Trending Jobs</h5>
                 </div>
 
                 <div class="job-trending-scroll p-2">
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
+                    @foreach($trending_jobs as $trending_job)
+                    <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
+                        <div class="col-lg-12 border-bottom p-0">
+                            <div class="m-0 my-2 p-2 trending-job-list rounded">
+                                <div class="row m-0">
+                                    <div class="col-lg-3 col-12 text-center">
+                                        @if($trending_job->Employer->logo)
+                                        <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                        @else 
+                                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                        @endif
                                     </div>
+                                    <div class="col-lg-9 col-12 p-0">
+                                        <div>
+                                            <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
+                                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
+                                        </div>
 
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
+                                        <div class="fz13">
+                                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
+                                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->State->name }} @else {{ $trending_job->country }} @endif</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
+                    @endforeach
                 </div>
             </div>
+            @endif
             <!-- Trending Jobs End -->
 
             <!-- Featured Jobs Start -->
+            @if($feature_jobs->count() > 0)
             <div class="row mb-5">
                 <div class="right-trending-title">
                     <h5 class="text-white py-2">Features Jobs</h5>
                 </div>
 
                 <div class="job-trending-scroll p-2">
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
+                    @foreach($feature_jobs as $feature_job)
+                    <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
+                        <div class="col-lg-12 border-bottom p-0">
+                            <div class="m-0 my-2 p-2 trending-job-list rounded">
+                                <div class="row m-0">
+                                    <div class="col-lg-3 col-12 text-center">
+                                        @if($feature_job->Employer->logo)
+                                        <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                        @else 
+                                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                        @endif
                                     </div>
+                                    <div class="col-lg-9 col-12 p-0">
+                                        <div>
+                                            <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
+                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
+                                        </div>
 
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
+                                        <div class="fz13">
+                                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $feature_job->MainFunctionalArea->name }}</span>
+                                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($feature_job->country == 'Myanmar') {{ $feature_job->State->name }} @else {{ $feature_job->country }} @endif</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-12 border-bottom p-0">
-                        <div class="m-0 my-2 p-2 trending-job-list rounded">
-                            <div class="row m-0">
-                                <div class="col-lg-3 col-12 text-center">
-                                    <img src="http://localhost:93/frontend/img/trending/aya.png" alt="Trending Job Image" class="center-block d-block mx-auto trending-image">
-                                </div>
-                                <div class="col-lg-9 col-12 p-0">
-                                    <div>
-                                        <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                                        <span id="trending-job-sub-title">AYA Bank</span>
-                                    </div>
-
-                                    <div class="fz13">
-                                        <span class="me-2"><i class="fa fa-briefcase me-2"></i>Design, Development</span>
-                                        <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
+                    @endforeach
                 </div>
             </div>
+            @endif
             <!-- Featured Jobs End -->
             
         </div>

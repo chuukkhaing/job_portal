@@ -168,28 +168,30 @@
     <div class="row pt-4 pb-4 trending-scroll">
         @foreach($trending_jobs as $trending_job)
         <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        @if($trending_job->Employer->logo)
-                        <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
-                        @else 
-                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
-                        @endif
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
-                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
+            <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
+                <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
+                    <div class="row">
+                        <div class="col-3 text-center">
+                            @if($trending_job->Employer->logo)
+                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            @else 
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            @endif
                         </div>
+                        <div class="col-9 p-0">
+                            <div>
+                                <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
+                                <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
+                            </div>
 
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->State->name }} @else {{ $trending_job->country }} @endif</span>
+                            <div class="fz13">
+                                <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
+                                <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->State->name }} @else {{ $trending_job->country }} @endif</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         @endforeach
     </div>
