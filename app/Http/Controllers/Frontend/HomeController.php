@@ -33,13 +33,14 @@ class HomeController extends Controller
                         ->orderBy('a.updated_at','desc')
                         ->get()
                         ->take(6);
+        $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->whereJobPostType('trending')->get()->take(18);
         $live_job              = JobPost::whereIsActive(1)->count();
         $today_job             = JobPost::whereIsActive(1)->where('updated_at', date('Y-m-d', strtotime(now())))->count();
         $functional_areas      = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
-        return view('frontend.home', compact('states', 'sliders', 'industries', 'employers', 'live_job', 'today_job', 'functional_areas', 'main_functional_areas', 'sub_functional_areas'));
+        return view('frontend.home', compact('trending_jobs','states', 'sliders', 'industries', 'employers', 'live_job', 'today_job', 'functional_areas', 'main_functional_areas', 'sub_functional_areas'));
     }
 
     public function jobCategory()

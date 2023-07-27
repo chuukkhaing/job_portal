@@ -145,6 +145,7 @@
 <!-- Top Employer End  -->
 
 <!-- Trending Jobs Start  -->
+@if($trending_jobs->count() > 0)
 <div class="container pb-4 my-2 bg-light" id="edit-profile-body">
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
@@ -165,372 +166,35 @@
     </div>  
 
     <div class="row pt-4 pb-4 trending-scroll">
+        @foreach($trending_jobs as $trending_job)
         <div class="col-lg-4 col-sm-6 col-12">
             <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                 <div class="row">
                     <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="trending-image">
+                        @if($trending_job->Employer->logo)
+                        <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                        @else 
+                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                        @endif
                     </div>
                     <div class="col-9 p-0">
                         <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
+                            <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
+                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
                         </div>
 
                         <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
+                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
+                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->State->name }} @else {{ $trending_job->country }} @endif</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div class="fz13">
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 col-12">
-            <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                <div class="row">
-                    <div class="col-3 text-center">
-                        <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Trending Job Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-                    </div>
-                    <div class="col-9 p-0">
-                        <div>
-                            <h3 id="trending-job-title">Paralegal and Legal Assistant</h3>
-                            <span id="trending-job-sub-title">AYA Bank</span>
-                        </div>
-
-                        <div class="fz13">
-                            <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>Design, Development</span>
-                            <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Sanchaung</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
+@endif
 <!-- Trending Jobs End  -->
 
 <!-- Featured Jobs Start  -->
