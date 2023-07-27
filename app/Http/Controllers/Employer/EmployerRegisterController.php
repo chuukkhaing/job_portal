@@ -27,7 +27,7 @@ class EmployerRegisterController extends Controller
             'company_email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
             'company_password' => ['required', 'string', 'min:8', 'same:company_confirmed'],
         ]);
-        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
+        
         $employer = Employer::create([
             'name' => $request['company_name'],
             'industry_id' => $request['industry_id'],
@@ -38,6 +38,10 @@ class EmployerRegisterController extends Controller
             'package_id' => 4,
             'email_verification_token' => Str::random(32),
             'register_at' => Carbon::now(),
+        ]);
+        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
+        $employer->update([
+            'slug' => $slug
         ]);
         if($employer) {
             \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
