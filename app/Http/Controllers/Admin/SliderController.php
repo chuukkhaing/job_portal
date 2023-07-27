@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Slider;
 use App\Models\Admin\Employer;
+use DB;
 use Alert;
 use Auth;
 
@@ -37,7 +38,15 @@ class SliderController extends Controller
      */
     public function create()
     {
-        $employers = Employer::whereNull('deleted_at')->whereIsActive(1)->get();
+        $employers  = DB::table('employers as a')
+                        ->join('package_with_package_items as b','a.package_id','=','b.package_id')
+                        ->join('package_items as c','b.package_item_id','=','c.id')
+                        ->where('c.name','=','Home Page Banner')
+                        ->select('a.*')
+                        ->where('a.is_active','=',1)
+                        ->where('a.deleted_at','=',Null)
+                        ->orderBy('a.updated_at','desc')
+                        ->get();
         return view ('admin.slider.create', compact('employers'));
     }
 
@@ -93,7 +102,15 @@ class SliderController extends Controller
     public function edit($id)
     {
         $slider = Slider::findOrFail($id);
-        $employers = Employer::whereNull('deleted_at')->whereIsActive(1)->get();
+        $employers  = DB::table('employers as a')
+                        ->join('package_with_package_items as b','a.package_id','=','b.package_id')
+                        ->join('package_items as c','b.package_item_id','=','c.id')
+                        ->where('c.name','=','Home Page Banner')
+                        ->select('a.*')
+                        ->where('a.is_active','=',1)
+                        ->where('a.deleted_at','=',Null)
+                        ->orderBy('a.updated_at','desc')
+                        ->get();
         return view ('admin.slider.edit', compact('slider','employers'));
     }
 
