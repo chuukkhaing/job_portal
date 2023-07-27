@@ -486,7 +486,7 @@
                         @foreach($packageItems as $packageItem)
                         @if($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
                             Step 5
-                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('Testimonials')->count() > 0)
+                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('name', 'Testimonials')->count() > 0)
                             Step 4
                         @elseif($packageItems->whereNotIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
                             Step 3
