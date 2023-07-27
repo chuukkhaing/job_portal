@@ -13,7 +13,7 @@
                 <span class="fw-bold" style="color: #B2B1B0">Package Expire Date :</span>
                 <span class="text-light fw-bold">{{ date('F d, Y', strtotime(Auth::guard('employer')->user()->package_end_date)) }}</span>
                 @endif
-                <a href="{{ route('employer-job-post.create') }}" class="btn bg-light"  data-bs-toggle="modal" data-bs-target="#cardModal" style="color: #0355D0; margin: 10px">
+                <a href="{{ route('employer-job-post.create') }}" class="btn bg-light" style="color: #0355D0; margin: 10px">
                     Post a Job
                 </a>
                 
@@ -165,11 +165,3 @@
     </div>
 </div>
 <!-- Modal End -->
-
-@push('css')
-    <style>
-        .modal-dialog {
-            max-width: 80%;
-        }
-    </style>
-@endpush

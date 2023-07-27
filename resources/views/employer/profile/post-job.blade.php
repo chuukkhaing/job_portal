@@ -17,7 +17,7 @@
                 <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
                 <div class="float-end">
                     <a href="http://" class="btn btn-outline-primary">Add-on Features</a>
-                    <a href="http://" class="btn profile-save-btn">Package Details</a>
+                    <a data-bs-toggle="modal" data-bs-target="#cardModal" class="btn profile-save-btn text-light">Package Details</a>
                 </div>
             </div>
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
@@ -447,6 +447,13 @@
     </div>
 </div>
 @endsection
+@push('css')
+    <style>
+        .modal-dialog {
+            max-width: 80%;
+        }
+    </style>
+@endpush
 @push('scripts')
 <script>
     $(document).ready(function() {
@@ -559,6 +566,7 @@
     })
     var anonymous_posting_point = 0;
     $('#hide_company_name').change(function () {
+        anonymous_posting_point = 0;
         if($(this).is(":checked")) {
             anonymous_posting_point = $("#anonymous_posting_point").val();
         }else {
@@ -571,7 +579,8 @@
         var feature = 0;
         var trending = 0;
         var standard = 0;
-        var total_point = $('#total_point').val();
+        job_post_point = 0;
+        
         if($(this).val() == 'feature') {
             feature = $('#feature_job_point').val();
         }else {
@@ -582,16 +591,16 @@
         }else {
             trending = 0
         }
-        job_post_point = Number($('#total_point').val()) + Number(feature) + Number(trending) + Number(standard);
+        job_post_point = Number(feature) + Number(trending) + Number(standard);
         calculatePoint();
     })
+
     function calculatePoint()
     {
-        $("#total_point").val(0);
-        var total_point = 0;
         total_point = Number(job_post_point) + Number(anonymous_posting_point);
         $("#total_point").val(total_point)
     }
+    function createQuestion()
     {
         var question = $("#job_post_question").val();
         var answer_type = $("#job_post_answer").val();
