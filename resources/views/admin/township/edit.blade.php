@@ -20,20 +20,20 @@
             
         </div>
         <div class="card-body">
-            <form action="{{ route('city.update',$tonwship->id) }}" method="post">
+            <form action="{{ route('city.update',$township->id) }}" method="post">
                 @csrf 
                 <div class="form-group">
                     <label for="state_id">Choose State or Region <span class="text-danger">*</span></label>
                     <select name="state_id" id="state_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($states as $state)
-                        <option value="{{ $state->id }}" @if($state->id == $tonwship->state_id) selected @endif>{{ $state->name }}</option>
+                        <option value="{{ $state->id }}" @if($state->id == $township->state_id) selected @endif>{{ $state->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="state">City Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" id="state" placeholder="Enter city name" required value="{{ $tonwship->name }}">
+                    <input type="text" class="form-control" name="name" id="state" placeholder="Enter city name" required value="{{ $township->name }}">
                 </div>
                 
                 <div class="form-group">
