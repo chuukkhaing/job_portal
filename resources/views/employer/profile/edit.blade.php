@@ -338,7 +338,7 @@
                 @if($packageItem->name == 'Employer Profile with Photos' || $packageItem->name == 'Employer Profile with Videos')
                 <div class="row">
                     <div class="col-1">
-                        <div class="step @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name','Employer Profile with Photos')->count() > 0) @else d-none @endif">
+                        <div class="step @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name',['Employer Profile with Photos'])->count() > 0) @else d-none @endif">
                             @if($packageItems->whereIn('name',['Testimonials'])->count() > 0)
                             Step 4
                             @else 
@@ -347,7 +347,7 @@
                         </div>
                     </div>
                     <div class="col-11">
-                        <div class="row mb-2 @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name','Employer Profile with Photos')->count() > 0) @else d-none @endif">
+                        <div class="row mb-2 @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name',['Employer Profile with Photos'])->count() > 0) @else d-none @endif">
                             <div class="col-9">
                                 <div class="py-2">
                                     <h5>Upload Company Photos and Videos</h5>
@@ -486,7 +486,7 @@
                         @foreach($packageItems as $packageItem)
                         @if($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
                             Step 5
-                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('name', 'Testimonials')->count() > 0)
+                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('name', ['Testimonials'])->count() > 0)
                             Step 4
                         @elseif($packageItems->whereNotIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
                             Step 3

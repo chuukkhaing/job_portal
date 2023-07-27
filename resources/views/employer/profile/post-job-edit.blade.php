@@ -23,25 +23,25 @@
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
             <div class="row">
                 <div class="col-4 p-1">
-                    <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy") style="border: 1px solid #0565FF" @endif>
+                    <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy Package") style="border: 1px solid #0565FF" @endif>
                         Economy
-                        @if($employer->Package && $employer->Package->name == "Economy")
+                        @if($employer->Package && $employer->Package->name == "Economy Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard") style="border: 1px solid #C72C91" @endif>
+                    <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard Package") style="border: 1px solid #C72C91" @endif>
                         Standard
-                        @if($employer->Package && $employer->Package->name == "Standard")
+                        @if($employer->Package && $employer->Package->name == "Standard Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium") style="border: 1px solid #F58220" @endif>
+                    <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium Package") style="border: 1px solid #F58220" @endif>
                         Premium
-                        @if($employer->Package && $employer->Package->name == "Premium")
+                        @if($employer->Package && $employer->Package->name == "Premium Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
@@ -188,8 +188,10 @@
                                 <label for="hide_salary">Hide Salary</label><br>
                                 @foreach($packageItems as $packageItem)
                                 @if($packageItem->name == 'Anonymous Posting')
-                                <input type="checkbox" name="hide_company_name" id="hide_company_name" @if($jobPost->hide_company_name == 1) checked @endif>
+                                <input type="checkbox" name="hide_company_name" id="hide_company_name" @if($jobPost->hide_company == 1) checked @endif>
                                 <label for="hide_company_name">Hide Company (Make confidential Job)</label>
+                                <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="@if($jobPost->hide_company == 1) 0 @else {{ $packageItem->point }} @endif">
+                                <input type="hidden" name="anonymous_posting_package_item_id" id="anonymous_posting_package_item_id" value="{{ $packageItem->id }}">
                                 @endif
                                 @endforeach
                             </div>
@@ -218,7 +220,7 @@
                             </div>
                         
                             <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_township_id_field">
-                                <label for="job_post_township_id" class="seeker_label my-2">City/ Township <span class="text-danger">*</span></label><br>
+                                <label for="job_post_township_id" class="seeker_label my-2">City/ Township </label><br>
                                 <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($townships as $township)
@@ -312,6 +314,8 @@
                     </div>
                 </div>
             </div>
+            @foreach($packageItems as $packageItem)
+            @if($packageItem->name == 'Pre-qualify questions')
             <div class="row">
                 <div class="col-1">
                     <div class="step">
@@ -365,14 +369,24 @@
                             <div class="col-6">
                             <a class="btn btn-outline-primary rounded-3" onclick="createQuestion()"><i class="fa-solid fa-plus"></i> Create Question</a>
                             </div>
+                            <input type="hidden" name="question_point" id="question_point" value="@if($jobPost->JobPostQuestion->count() > 0) 0 @else {{ $packageItem->point }} @endif">
+                            <input type="hidden" name="question_package_item_id" id="question_package_item_id" value="{{ $packageItem->id }}">
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
+            @endforeach
             <div class="row">
                 <div class="col-1">
                     <div class="step">
+                    @foreach($packageItems as $packageItem)
+                    @if($packageItem->name == 'Pre-qualify questions')
                         Step 5
+                    @else 
+                        Step 4
+                    @endif
+                    @endforeach
                     </div>
                 </div>
                 <div class="col-11">
@@ -384,7 +398,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard" @if($jobPost->job_post_type == 'sandard') checked @endif><br>
+                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard" @if($jobPost->job_post_type == 'standard') checked @endif><br>
                                     <label for="standard_job_post" class="w-100">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
@@ -393,6 +407,8 @@
                                     </label>
                                 </div>
                             </div>
+                            @foreach($packageItems as $packageItem)
+                            @if($packageItem->name == 'Feature Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
                                     <input type="radio" name="job_post_type" required id="feature_job_post" value="feature" @if($jobPost->job_post_type == 'feature') checked @endif><br>
@@ -403,7 +419,13 @@
                                         </div>
                                     </label>
                                 </div>
+                                <input type="hidden" name="feature_job_point" id="feature_job_point" value="@if($jobPost->job_post_type == 'feature') 0 @else {{ $packageItem->point }} @endif">
+                                <input type="hidden" name="feature_job_package_item_id" id="feature_job_package_item_id" value="{{ $packageItem->id }}">
                             </div>
+                            @endif
+                            @endforeach
+                            @foreach($packageItems as $packageItem)
+                            @if($packageItem->name == 'Trending Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
                                     <input type="radio" name="job_post_type" required id="trending_job_post" value="trending" @if($jobPost->job_post_type == 'trending') checked @endif><br>
@@ -414,14 +436,24 @@
                                         </div>
                                     </label>
                                 </div>
+                                <input type="hidden" name="trending_job_point" id="trending_job_point" value="@if($jobPost->job_post_type == 'trending') 0 @else {{ $packageItem->point }} @endif">
+                                <input type="hidden" name="trending_job_package_item_id" id="trending_job_package_item_id" value="{{ $packageItem->id }}">
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 mb-2 text-center">
+        <div class="row mb-2 text-center">
+            <div class="col-6">
+                <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
+                <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
+            </div>
+            <div class="col-6">
             <button type="submit" class="btn profile-save-btn">Update Job</button>
+            </div>
         </div>
     </form>
     </div>
@@ -430,6 +462,45 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('#total_point').val(0);
+        var job_post_point = 0;
+        $('input[name="job_post_type"]').change(function () {
+            var feature = 0;
+            var trending = 0;
+            var standard = 0;
+            job_post_point = 0;
+            
+            if($(this).val() == 'feature') {
+                feature = $('#feature_job_point').val();
+            }else {
+                feature = 0;
+            }
+            if($(this).val() == 'trending') {
+                trending = $('#trending_job_point').val();
+            }else {
+                trending = 0
+            }
+            job_post_point = Number(feature) + Number(trending) + Number(standard);
+            calculatePoint();
+        })
+
+        var anonymous_posting_point = 0;
+        $('#hide_company_name').change(function () {
+            anonymous_posting_point = 0;
+            if($(this).is(":checked")) {
+                anonymous_posting_point = $("#anonymous_posting_point").val();
+            }else {
+                anonymous_posting_point = 0
+            }
+            calculatePoint();
+        });
+
+        function calculatePoint()
+        {
+            total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
+            $("#total_point").val(total_point)
+        }
+
         $("#currency").change(function(){
             if($(this).val() == 'USD') {
                 $(".mmk_salary").addClass('d-none');
@@ -550,6 +621,7 @@
             }
         });
     })
+    var question_point = 0;
     function createQuestion()
     {
         var question = $("#job_post_question").val();
@@ -570,11 +642,23 @@
             $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0 bg-transparent"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0 bg-transparent"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
             $("#job_post_question").val('');
             $("#job_post_answer").val('Text Answer');
+            var rowCount = $('.job-post-question >tbody >tr').length;
+            if(rowCount > 0) {
+                question_point = 0;
+                question_point = $("#question_point").val();
+                calculatePoint()
+            }
         }
     }
 
     $(".job-post-question").on("click", "#DeleteButton", function() {
         $(this).closest("tr").remove();
+        var rowCount = $('.job-post-question >tbody >tr').length;
+        if(rowCount == 0) {
+            $('.job-post-question').addClass('d-none');
+            question_point = 0;
+            calculatePoint()
+        }
     });
 </script>
 @endpush

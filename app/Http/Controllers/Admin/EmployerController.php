@@ -13,6 +13,7 @@ use App\Models\Admin\Package;
 use Alert;
 use Auth;
 use Hash;
+use Str;
 
 class EmployerController extends Controller
 {
@@ -70,7 +71,7 @@ class EmployerController extends Controller
             $package = Package::findOrFail($request->package_id);
             $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
         }
-        
+        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = Employer::create([
             'logo' => $logo,
             'name' => $request->name,
@@ -82,11 +83,11 @@ class EmployerController extends Controller
             'package_end_date' => $package_end_date,
             'package_point' => $package->point,
             'purchased_point' => $package->point,
+            'slug' => $slug,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
-
         Alert::success('Success', 'New Employer Created Successfully!');
         return redirect()->route('employers.index');
     }
@@ -168,7 +169,7 @@ class EmployerController extends Controller
             $package_point = $employer->package_point + $package->point;
             $purchased_point = $employer->purchased_point + $package->point;
         }
-        
+        $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
             'logo' => $logo,
             'name' => $request->name,
@@ -179,6 +180,7 @@ class EmployerController extends Controller
             'package_end_date' => $package_end_date,
             'package_point' => $package_point,
             'purchased_point' => $purchased_point,
+            'slug' => $slug,
             'register_at' => now(),
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,

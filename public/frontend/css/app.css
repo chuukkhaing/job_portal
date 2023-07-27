@@ -393,7 +393,7 @@ body {
     height: 40px;
 }
 .select2-container .select2-selection--multiple {
-    height: 38px;
+    min-height: 38px;
 }
 
 .select2-container--default .select2-selection--single {

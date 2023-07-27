@@ -2,9 +2,13 @@
 @section('content')
 
 <!-- Banner Start -->
-<div class="container-fluid p-0">
+<div class="container-fluid p-3">
     <div class="row company-detail-banner">
-        <img src="{{ asset('/frontend/img/company/company-banner-image.png') }}" class="w-100" alt="">
+        @if($employer->background)
+        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" style="max-height : 400px" alt="{{ $employer->name }}">
+        @else
+        <img src="{{ asset('/frontend/img/company/company-banner-image.png') }}" class="w-100" alt="{{ $employer->name }}">
+        @endif
     </div>
 </div>
 <!-- Banner End -->
@@ -13,22 +17,38 @@
 <div class="container company-profile my-5">
     <div class="row pt-3 px-3">
         <div class="col-lg-6 col-md-6 col-6">
-            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" alt="">
+            @if($employer->logo)
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="" style="width: 120px; height: 120px" alt="{{ $employer->name }}">
+            @else
+            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px" alt="{{ $employer->name }}">
+            @endif
         </div>
 
         <div class="col-lg-6 col-md-6 col-6">
-            <img src="{{ asset('frontend/img/company/qr-image.png') }}" class="profile-qr pull-right mt-2" alt="">
+            @if($employer->qr)
+            <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="profile-qr pull-right mt-2" alt="{{ $employer->name }}">
+            @else
+            <img src="{{ asset('frontend/img/company/qr-image.png') }}" class="profile-qr pull-right mt-2" alt="{{ $employer->name }}">
+            @endif
         </div>
     </div>
 
     <div class="row px-3">
         <div class="col-lg-6 col-md-6 col-12">
             <div class="company-name pt-4 pb-2">
-                <h3>Globex Corporation</h3>
+                <h3>{{ $employer->name }}</h3>
             </div>
 
             <div class="company-address">
-                <p>5781 Spring St. Portsmouth, OH, 45662 | Scioto County</p>
+                @if($employer->EmployerAddress->count() > 0)
+                @foreach($employer->EmployerAddress as $address)
+                @if($address->address_detail)
+                <p>{{ $address->address_detail }}</p>
+                @else
+                <p>@if($address->country == 'Myanmar') {{ $address->State->name }}, {{ $address->Township->name }}, @endif {{ $address->country }}</p>
+                @endif
+                @endforeach
+                @endif
             </div>
         </div>
 
@@ -52,7 +72,7 @@
                 </div>    
                 <div class="col-lg-9 col-md-9 col-9">
                     <h3>Industry</h3>
-                    <p>Telecommunication</p>
+                    <p>{{ $employer->Industry->name ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -64,7 +84,7 @@
                 </div>    
                 <div class="col-lg-9 col-md-9 col-9">
                     <h3>No Employees</h3>
-                    <p>101-200</p>
+                    <p>{{ $employer->no_of_employees ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -75,8 +95,8 @@
                     <img src="{{ asset('frontend/img/company/apartment.png') }}" class="pull-right" alt="">
                 </div>    
                 <div class="col-lg-9 col-md-9 col-9">
-                    <h3>Established In</h3>
-                    <p>Building Since 200</p>
+                    <h3>No Offices</h3>
+                    <p>{{ $employer->no_of_offices ?? '-' }}</p>
                 </div>
             </div>
         </div>
@@ -86,19 +106,21 @@
 
 <!-- Vision, Mission and Value Start -->
 <div class="container my-5">
+    @if($employer->value)
     <div class="row py-2">
         <div class="col-lg-12 company-vision">
             <h3 class="vision-title">
-                Vision
+                Vision, Mission, Value
             </h3>
             
             <p>
-                In its bid to constantly improve its operational efficiency and ability to deliver value to its clients and stakeholders, Riverbank Group has made strategic investments to expand its infrastructure. This enables them to deliver storage solution to its clients as well as providing a wide-range of services such as drumming, blending and contract manufacturing.
+                {{ $employer->value ?? '-' }}
             </p>
         </div>
     </div>
+    @endif
 
-    <div class="row py-2">
+    {{--<div class="row py-2">
         <div class="col-lg-12 company-vision">
             <h3 class="vision-title">
                 Mission
@@ -117,12 +139,12 @@
             </h3>
             
             <p>
-                In its bid to constantly improve its operational efficiency and ability to deliver value to its clients and stakeholders, Riverbank Group has made strategic investments to expand its infrastructure. This enables them to deliver storage solution to its clients as well as providing a wide-range of services such as drumming, blending and contract manufacturing.
+                {{ $employer->value ?? '-' }}
             </p>
         </div>
-    </div>
+    </div>--}}
 
-    <div class="row py-3">
+    {{--<div class="row py-3">
         <div class="col-lg-12">
             <div class="pull-right">
                 <div class="bg-light d-inline-block mx-1">
@@ -139,11 +161,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </div>
 <!-- Vision, Mission and Value End -->
 
 <!-- About Company Start -->
+@if($employer->summary)
 <div class="container my-3">
     <div class="row py-3">
         <div class="about-company-header py-3">
@@ -154,18 +177,16 @@
     <div class="row py-3">
         <div class="col-lg-12 about-company">
             <p>
-                Riverbank Group is a distributor, storage tank and service provider of industrial chemicals, lubricant additive, thinner, speciality and fine chemicals in South-East Asia. Established in 1984, Riverbank Chemicals has become a well-known name in the chemical industry with its philosophy and commitment of providing exceptional standards of service with a multi-disciplinary team of professional staff and clear business strategy.
-            </p>
-
-            <p>
-                In its bid to constantly improve its operational efficiency and ability to deliver value to its clients and stakeholders, Riverbank Group has made strategic investments to expand its infrastructure. This enables them to deliver storage solution to its clients as well as providing a wide-range of services such as drumming, blending and contract manufacturing.
+                {{ $employer->summary }}
             </p>
         </div>
     </div>
 </div>
+@endif
 <!-- About Company End -->
 
 <!-- Company Photo Start -->
+@if($employer->EmployerMedia->where('type','Image')->count() > 0)
 <div class="container my-3">
     <div class="row py-3">
         <div class="about-company-header py-3">
@@ -174,42 +195,19 @@
     </div>
 
     <div class="row pb-3">
+        @foreach($employer->EmployerMedia->where('type','Image') as $image)
         <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo1.jpg') }}" class="w-100 py-1 pe-2" alt="">
+            <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
         </div>
+        @endforeach
         
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo2.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo3.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo-4.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo1.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo2.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo3.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
-        
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('/frontend/img/company/company-photo-4.jpg') }}" class="w-100 py-1 pe-2" alt="">
-        </div>
     </div>
 </div>
+@endif
 <!-- Company Photo End -->
 
 <!-- Job Openings Start -->
+@if($jobPosts->count() > 0)
 <div class="container my-3">
     <div class="row py-3">
         <div class="about-company-header py-3">
@@ -218,19 +216,24 @@
     </div>
 
     <div class="row" style="">
+        @foreach($jobPosts as $jobPost)
         <div class="col-lg-6 col-12 pb-2">
             <div class="row job-opening me-1 p-2">
                 <div class="col-lg-9 col-md-9 p-0">
                     <div class="row col-12 m-0 p-0">
                         <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
+                            @if($employer->logo)
+                            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            @else 
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            @endif
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
+                            <div class="job-company">{{ $employer->name ?? '-' }}</div>
+                            <div class="job-title">{{ $jobPost->job_title }}</div>
+                            <div class="job-location">@if($jobPost->country == 'Myanmar') {{ $jobPost->State->name ?? '-' }} @else {{ $jobPost->country }} @endif</div>
+                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
                         </div>
                     </div>
                 </div>
@@ -242,175 +245,22 @@
                         </div>
 
                         <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
+                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9 p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
-                        </div>
-
-                        <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
-                        </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9 p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
-                        </div>
-
-                        <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
-                        </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9 p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
-                        </div>
-
-                        <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
-                        </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9 p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
-                        </div>
-
-                        <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
-                        </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
-                <div class="col-lg-9 col-md-9 p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
-                            <img src="http://localhost:93/frontend/img/trending/aya.png" alt="">
-                        </div>
-
-                        <div class="col-lg-10 col-md-10">
-                            <div class="job-company">eBay</div>
-                            <div class="job-title">Senior Java Developer</div>
-                            <div class="job-location">Yangon</div>
-                            <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
-                    <div class="row col-12 m-0 p-0">
-                        <div class="text-end p-0">
-                            <button type="button" class="btn view-detail-btn p-0">View Details</button>
-                        </div>
-
-                        <div class="text-end mt-auto p-1">
-                            <span>1 d</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 
     <div class="row py-3">
         <div>
-            <button type="button" class="btn see-all-btn pull-right">See All Jobs</button>
+            <a href="#" class="btn see-all-btn pull-right">See All Jobs</a>
         </div>
     </div>
 </div>
+@endif
 <!-- Job Openings End -->
 
 

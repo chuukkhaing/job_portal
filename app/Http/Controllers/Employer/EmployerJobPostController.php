@@ -23,6 +23,7 @@ use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\JobPostQuestion;
 use App\Models\Employer\JobPostSkill;
 use App\Models\Admin\PackageItem;
+use App\Models\Employer\PointRecord;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
 use Str;
@@ -67,86 +68,124 @@ class EmployerJobPostController extends Controller
      */
     public function store(Request $request)
     {
-        $gender = Null;
-        if($request->male == 'on' && $request->female == 'on') {
-            $gender = 'Male/Female';
-        }elseif($request->male == 'on' && $request->female == '') {
-            $gender = 'Male';
-        }elseif($request->male == '' && $request->female == 'on') {
-            $gender = 'Female';
-        }
-        $salary_range = Null;
-        if($request->mmk_salary) {
-            $salary_range = $request->mmk_salary;
+        if($request->total_point && $request->total_point > Auth::guard('employer')->user()->package_point) {
+            return redirect()->back()->with('error','Your Balance Points are not enough to Post Job.');
         }else {
-            $salary_range = $request->usd_salary;
-        }
-        if($request->hide_salary == 'on') {
-            $hide_salary = 1;
-        }else{
-            $hide_salary = 0;
-        }
-        if($request->hide_company == 'on') {
-            $hide_company = 1;
-        }else{
-            $hide_company = 0;
-        }
-        $jobPost = JobPost::create([
-            'employer_id' => Auth::guard('employer')->user()->id,
-            'job_title' => $request->job_title,
-            'main_functional_area_id' => $request->main_functional_area_id,
-            'sub_functional_area_id' => $request->sub_functional_area_id,
-            'industry_id' => $request->job_post_industry_id,
-            'career_level' => $request->career_level,
-            'job_type' => $request->job_type,
-            'experience_level' => $request->experience_level,
-            'degree' => $request->degree,
-            'gender' => $gender,
-            'currency' => $request->currency,
-            'salary_range' => $salary_range,
-            'hide_salary' => $hide_salary,
-            'hide_company' => $hide_company,
-            'no_of_candidate' => $request->no_of_candidate,
-            'recruiter_name' => $request->recruiter_name,
-            'recruiter_email' => $request->recruiter_email,
-            'country' => $request->job_post_country,
-            'state_id' => $request->job_post_state_id,
-            'township_id' => $request->job_post_township_id,
-            'job_description' => $request->job_description,
-            'job_requirement' => $request->job_requirement,
-            'benefit' => $request->benefit,
-            'job_highlight' => $request->highlight,
-            'job_post_type' => $request->job_post_type,
-            'status' => 'Pending',
-        ]);
-        $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
-        $jobPost_slug = $jobPost->update([
-            'slug' => $slug
-        ]);
-        if($request->questions) {
-            foreach($request->questions as $key => $question) {
-                foreach($request->answer_types as $answer_key => $answer_type) {
-                    if($key == $answer_key) {
-                        $question_create = JobPostQuestion::create([
-                            'employer_id' => Auth::guard('employer')->user()->id,
-                            'job_post_id' => $jobPost->id,
-                            'question' => $question,
-                            'answer' => $answer_type
-                        ]);
+            $gender = Null;
+            if($request->male == 'on' && $request->female == 'on') {
+                $gender = 'Male/Female';
+            }elseif($request->male == 'on' && $request->female == '') {
+                $gender = 'Male';
+            }elseif($request->male == '' && $request->female == 'on') {
+                $gender = 'Female';
+            }
+            $salary_range = Null;
+            if($request->mmk_salary) {
+                $salary_range = $request->mmk_salary;
+            }else {
+                $salary_range = $request->usd_salary;
+            }
+            if($request->hide_salary == 'on') {
+                $hide_salary = 1;
+            }else{
+                $hide_salary = 0;
+            }
+            if($request->hide_company_name == 'on') {
+                $hide_company = 1;
+            }else{
+                $hide_company = 0;
+            }
+            $jobPost = JobPost::create([
+                'employer_id' => Auth::guard('employer')->user()->id,
+                'job_title' => $request->job_title,
+                'main_functional_area_id' => $request->main_functional_area_id,
+                'sub_functional_area_id' => $request->sub_functional_area_id,
+                'industry_id' => $request->job_post_industry_id,
+                'career_level' => $request->career_level,
+                'job_type' => $request->job_type,
+                'experience_level' => $request->experience_level,
+                'degree' => $request->degree,
+                'gender' => $gender,
+                'currency' => $request->currency,
+                'salary_range' => $salary_range,
+                'hide_salary' => $hide_salary,
+                'hide_company' => $hide_company,
+                'no_of_candidate' => $request->no_of_candidate,
+                'recruiter_name' => $request->recruiter_name,
+                'recruiter_email' => $request->recruiter_email,
+                'country' => $request->job_post_country,
+                'state_id' => $request->job_post_state_id,
+                'township_id' => $request->job_post_township_id,
+                'job_description' => $request->job_description,
+                'job_requirement' => $request->job_requirement,
+                'benefit' => $request->benefit,
+                'job_highlight' => $request->highlight,
+                'job_post_type' => $request->job_post_type,
+                'status' => 'Pending',
+                'total_point' => $request->total_point
+            ]);
+            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
+            $jobPost_slug = $jobPost->update([
+                'slug' => $slug
+            ]);
+            if($request->job_post_type == "trending") {
+                $trending_record = PointRecord::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'package_item_id' => $request->trending_job_package_item_id,
+                    'point' => $request->trending_job_point,
+                    'status' => 'Pending'
+                ]);
+            }elseif($request->job_post_type == "feature") {
+                $feature_record = PointRecord::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'package_item_id' => $request->feature_job_package_item_id,
+                    'point' => $request->feature_job_point,
+                    'status' => 'Pending'
+                ]);
+            }
+            if($hide_company == 1) {
+                $anonymous_record = PointRecord::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'package_item_id' => $request->anonymous_posting_package_item_id,
+                    'point' => $request->anonymous_posting_point,
+                    'status' => 'Pending'
+                ]);
+            }
+            if($request->questions) {
+                $question_record = PointRecord::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'package_item_id' => $request->question_package_item_id,
+                    'point' => $request->question_point,
+                    'status' => 'Pending'
+                ]);
+                foreach($request->questions as $key => $question) {
+                    foreach($request->answer_types as $answer_key => $answer_type) {
+                        if($key == $answer_key) {
+                            $question_create = JobPostQuestion::create([
+                                'employer_id' => Auth::guard('employer')->user()->id,
+                                'job_post_id' => $jobPost->id,
+                                'question' => $question,
+                                'answer' => $answer_type
+                            ]);
+                        }
                     }
                 }
             }
-        }
-        if($request->skills) {
-            foreach($request->skills as $key => $skill) {
-                $skill_create = JobPostSkill::create([
-                    'employer_id' => Auth::guard('employer')->user()->id,
-                    'job_post_id' => $jobPost->id,
-                    'skill_id' => $skill,
-                ]);
+            if($request->skills) {
+                foreach($request->skills as $key => $skill) {
+                    $skill_create = JobPostSkill::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'skill_id' => $skill,
+                    ]);
+                }
             }
+            return redirect()->route('employer-profile.index')->with('success','Create Job Post Successfully.');
         }
-        return redirect()->route('employer-profile.index')->with('success','Create Job Post Successfully.');
     }
 
     /**
@@ -171,12 +210,13 @@ class EmployerJobPostController extends Controller
         $jobPost = JobPost::findOrFail($id);
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();
         $townships = Township::whereNull('deleted_at')->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        return view('employer.profile.post-job-edit', compact('jobPost', 'packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
+        return view('employer.profile.post-job-edit', compact('packageItems', 'jobPost', 'packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas'));
     }
 
     /**
@@ -188,85 +228,135 @@ class EmployerJobPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $jobPost = JobPost::findOrFail($id);
-        $gender = $jobPost->gender;
-        if($request->male == 'on' && $request->female == 'on') {
-            $gender = 'Male/Female';
-        }elseif($request->male == 'on' && $request->female == '') {
-            $gender = 'Male';
-        }elseif($request->male == '' && $request->female == 'on') {
-            $gender = 'Female';
-        }
-        $salary_range = $jobPost->salary_range;
-        if($request->mmk_salary) {
-            $salary_range = $request->mmk_salary;
+        if($request->total_point && $request->total_point > Auth::guard('employer')->user()->package_point) {
+            return redirect()->back()->with('error','Your Balance Points are not enough to Post Job.');
         }else {
-            $salary_range = $request->usd_salary;
-        }
-        if($request->hide_salary == 'on') {
-            $hide_salary = 1;
-        }else{
-            $hide_salary = 0;
-        }
-        if($request->hide_company == 'on') {
-            $hide_company = 1;
-        }else{
-            $hide_company = 0;
-        }
-        $jobPost_update = $jobPost->update([
-            'job_title' => $request->job_title,
-            'main_functional_area_id' => $request->main_functional_area_id,
-            'sub_functional_area_id' => $request->sub_functional_area_id,
-            'industry_id' => $request->job_post_industry_id,
-            'career_level' => $request->career_level,
-            'job_type' => $request->job_type,
-            'experience_level' => $request->experience_level,
-            'degree' => $request->degree,
-            'gender' => $gender,
-            'currency' => $request->currency,
-            'salary_range' => $salary_range,
-            'hide_salary' => $hide_salary,
-            'hide_company' => $hide_company,
-            'no_of_candidate' => $request->no_of_candidate,
-            'recruiter_name' => $request->recruiter_name,
-            'recruiter_email' => $request->recruiter_email,
-            'country' => $request->job_post_country,
-            'state_id' => $request->job_post_state_id,
-            'township_id' => $request->job_post_township_id,
-            'job_description' => $request->job_description,
-            'job_requirement' => $request->job_requirement,
-            'benefit' => $request->benefit,
-            'job_highlight' => $request->highlight,
-            'job_post_type' => $request->job_post_type,
-            'status' => 'Pending',
-        ]);
-        $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
-        $jobPost_slug = $jobPost->update([
-            'slug' => $slug
-        ]);
-        if($request->questions) {
-            $delete_question = JobPostQuestion::whereJobPostId($jobPost->id)->delete();
-            foreach($request->questions as $key => $question) {
-                foreach($request->answer_types as $answer_key => $answer_type) {
-                    if($key == $answer_key) {
-                        $question_create = JobPostQuestion::create([
-                            'employer_id' => Auth::guard('employer')->user()->id,
-                            'job_post_id' => $jobPost->id,
-                            'question' => $question,
-                            'answer' => $answer_type
-                        ]);
+            $jobPost = JobPost::findOrFail($id);
+            $gender = $jobPost->gender;
+            if($request->male == 'on' && $request->female == 'on') {
+                $gender = 'Male/Female';
+            }elseif($request->male == 'on' && $request->female == '') {
+                $gender = 'Male';
+            }elseif($request->male == '' && $request->female == 'on') {
+                $gender = 'Female';
+            }
+            $salary_range = $jobPost->salary_range;
+            if($request->mmk_salary) {
+                $salary_range = $request->mmk_salary;
+            }else {
+                $salary_range = $request->usd_salary;
+            }
+            if($request->hide_salary == 'on') {
+                $hide_salary = 1;
+            }else{
+                $hide_salary = 0;
+            }
+            if($request->hide_company_name == 'on') {
+                $hide_company = 1;
+            }else{
+                $hide_company = 0;
+            }
+            $jobPost_update = $jobPost->update([
+                'job_title' => $request->job_title,
+                'main_functional_area_id' => $request->main_functional_area_id,
+                'sub_functional_area_id' => $request->sub_functional_area_id,
+                'industry_id' => $request->job_post_industry_id,
+                'career_level' => $request->career_level,
+                'job_type' => $request->job_type,
+                'experience_level' => $request->experience_level,
+                'degree' => $request->degree,
+                'gender' => $gender,
+                'currency' => $request->currency,
+                'salary_range' => $salary_range,
+                'hide_salary' => $hide_salary,
+                'hide_company' => $hide_company,
+                'no_of_candidate' => $request->no_of_candidate,
+                'recruiter_name' => $request->recruiter_name,
+                'recruiter_email' => $request->recruiter_email,
+                'country' => $request->job_post_country,
+                'state_id' => $request->job_post_state_id,
+                'township_id' => $request->job_post_township_id,
+                'job_description' => $request->job_description,
+                'job_requirement' => $request->job_requirement,
+                'benefit' => $request->benefit,
+                'job_highlight' => $request->highlight,
+                'job_post_type' => $request->job_post_type,
+                'total_point' => $request->total_point,
+                'status' => 'Pending',
+            ]);
+            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
+            $jobPost_slug = $jobPost->update([
+                'slug' => $slug
+            ]);
+            if($request->job_post_type == "trending") {
+                $trending_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->trending_job_package_item_id)->get();
+                if($trending_record_history->count() == 0) {
+                    $trending_record = PointRecord::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'package_item_id' => $request->trending_job_package_item_id,
+                        'point' => $request->trending_job_point,
+                        'status' => 'Pending'
+                    ]);
+                }
+            }elseif($request->job_post_type == "feature") {
+                $feature_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->feature_job_package_item_id)->get();
+                if($feature_record_history->count() == 0) {
+                    $feature_record = PointRecord::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'package_item_id' => $request->feature_job_package_item_id,
+                        'point' => $request->feature_job_point,
+                        'status' => 'Pending'
+                    ]);
+                }
+            }
+            if($hide_company == 1) {
+                $anonymous_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->anonymous_posting_package_item_id)->get();
+                if($anonymous_record_history->count() == 0) {
+                    $anonymous_record = PointRecord::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'package_item_id' => $request->anonymous_posting_package_item_id,
+                        'point' => $request->anonymous_posting_point,
+                        'status' => 'Pending'
+                    ]);
+                }
+            }
+            if($request->questions) {
+                $question_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->question_package_item_id)->get();
+                if($question_record_history->count() == 0) {
+                    $question_record = PointRecord::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'package_item_id' => $request->question_package_item_id,
+                        'point' => $request->question_point,
+                        'status' => 'Pending'
+                    ]);
+                }
+                $delete_question = JobPostQuestion::whereJobPostId($jobPost->id)->delete();
+                foreach($request->questions as $key => $question) {
+                    foreach($request->answer_types as $answer_key => $answer_type) {
+                        if($key == $answer_key) {
+                            $question_create = JobPostQuestion::create([
+                                'employer_id' => Auth::guard('employer')->user()->id,
+                                'job_post_id' => $jobPost->id,
+                                'question' => $question,
+                                'answer' => $answer_type
+                            ]);
+                        }
                     }
                 }
             }
-        }
-        if($request->skills) {
-            $delete_skill = JobPostSkill::whereJobPostId($jobPost->id)->delete();
-            foreach($request->skills as $key => $skill) {
-                $skill_create = JobPostSkill::create([
-                    'employer_id' => Auth::guard('employer')->user()->id,
-                    'job_post_id' => $jobPost->id,
-                    'skill_id' => $skill,
-                ]);
+            if($request->skills) {
+                $delete_skill = JobPostSkill::whereJobPostId($jobPost->id)->delete();
+                foreach($request->skills as $key => $skill) {
+                    $skill_create = JobPostSkill::create([
+                        'employer_id' => Auth::guard('employer')->user()->id,
+                        'job_post_id' => $jobPost->id,
+                        'skill_id' => $skill,
+                    ]);
+                }
             }
         }
         return redirect()->route('employer-profile.index')->with('success','Update Job Post Successfully.');

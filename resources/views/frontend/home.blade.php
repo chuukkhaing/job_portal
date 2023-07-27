@@ -84,25 +84,27 @@
 <!-- Search End -->
 
 <!-- Popular Job Category Start  -->
-@if($jobPosts->count() > 0)
-<div class="container">
+@if($industries->count() > 0)
+<div class="container bg-light">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
             <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
         </div>
         <div id="body-popular-job-category" class="row">
-            @foreach($jobPosts as $jobPost)
+            @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
-                <div id="job-category-box" class="text-center">
-                    <div id="job-category-icon">
-                    <i class="{{ $jobPost->Industry->icon }}"></i>
+                <a href="{{ route('industry-job',$industry->Industry->id) }}">
+                    <div id="job-category-box" class="text-center">
+                        <div id="job-category-icon">
+                        <i class="{{ $industry->Industry->icon }}"></i>
+                        </div>
+                        <div id="job-category-name">
+                        <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
+                        <span id="job-category-name-position">{{ $industry->total }} open positions</span>
+                        </div>
                     </div>
-                    <div id="job-category-name">
-                    <span id="job-category-name-title" class="d-block">{{ $jobPost->Industry->name }}</span>
-                    <span id="job-category-name-position">{{ $jobPost->total }} open positions</span>
-                    </div>
-                </div>
+                </a>
             </div>
             @endforeach
             <div class="text-center py-5">
@@ -116,7 +118,7 @@
 
 <!-- Top Employer Start  -->
 @if($employers->count() > 0)
-<div class="container">
+<div class="container bg-light">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Top Employers</h3>
@@ -124,10 +126,16 @@
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
             <div class="col-md-2 col-4 text-center">
-                <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
-                <div id="job-category-name">
-                <span id="job-category-name-position">{{ $employer->name }}</span>
-                </div>
+                <a href="{{ route('company-detail',$employer->slug) }}">
+                    @if($employer->logo)
+                    <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
+                    @else
+                    <img src="{{ asset('/img/logo/ICLogo.png') }}" class="" width="100" alt="{{ $employer->name }}">
+                    @endif
+                    <div id="job-category-name">
+                    <span id="job-category-name-position">{{ $employer->name }}</span>
+                    </div>
+                </a>
             </div>
             @endforeach
         </div>
@@ -137,7 +145,7 @@
 <!-- Top Employer End  -->
 
 <!-- Trending Jobs Start  -->
-<div class="container pb-4 my-2" id="edit-profile-body">
+<div class="container pb-4 my-2 bg-light" id="edit-profile-body">
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
@@ -532,7 +540,7 @@
             <h3 id="popular-job-category-title">Featured Jobs</h3>
         </div>
 
-        <div class="row">
+        <div class="row bg-light">
             <div class="col-md-12 p-0">
                 <div class="lc-block">
                     <div id="carouselLogos" class="carousel slide py-5" data-bs-ride="carousel">
@@ -664,7 +672,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container bg-light">
     <div class="row">
         <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
@@ -721,7 +729,7 @@
 <!-- Job Interview End -->
 
 <!-- Additional Services Start  -->
-<div class="container">
+<div class="container bg-light">
     <div class="additional-service">
         <div id="header-additional-service" class="text-center pt-5 pb-3">
             <h3 id="additional-service-title">Additional Services</h3>
@@ -780,7 +788,7 @@
 <!-- Additional Services End  -->
 
 <!-- Explore the Marketplace Start  -->
-<div class="container">
+<div class="container bg-light">
     <div class="explore-marketplace">
         <div id="header-explore-marketplace" class="text-center py-5">
             <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>

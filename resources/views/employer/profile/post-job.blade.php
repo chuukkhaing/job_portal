@@ -23,25 +23,25 @@
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
             <div class="row">
                 <div class="col-4 p-1">
-                    <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy") style="border: 1px solid #0565FF" @endif>
+                    <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy Package") style="border: 1px solid #0565FF" @endif>
                         Economy
-                        @if($employer->Package && $employer->Package->name == "Economy")
+                        @if($employer->Package && $employer->Package->name == "Economy Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard") style="border: 1px solid #C72C91" @endif>
+                    <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard Package") style="border: 1px solid #C72C91" @endif>
                         Standard
-                        @if($employer->Package && $employer->Package->name == "Standard")
+                        @if($employer->Package && $employer->Package->name == "Standard Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
                 </div>
                 <div class="col-4 p-1">
-                    <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium") style="border: 1px solid #F58220" @endif>
+                    <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium Package") style="border: 1px solid #F58220" @endif>
                         Premium
-                        @if($employer->Package && $employer->Package->name == "Premium")
+                        @if($employer->Package && $employer->Package->name == "Premium Package")
                         <span class="float-end"><i class="fa-solid fa-check"></i></span>
                         @endif
                     </div>
@@ -191,6 +191,7 @@
                                 <input type="checkbox" name="hide_company_name" id="hide_company_name">
                                 <label for="hide_company_name">Hide Company (Make confidential Job)</label>
                                 <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="{{ $packageItem->point }}">
+                                <input type="hidden" name="anonymous_posting_package_item_id" id="anonymous_posting_package_item_id" value="{{ $packageItem->id }}">
                                 @endif
                                 @endforeach
                             </div>
@@ -361,6 +362,8 @@
                             <div class="col-6">
                             <a class="btn btn-outline-primary rounded-3" onclick="createQuestion()"><i class="fa-solid fa-plus"></i> Create Question</a>
                             </div>
+                            <input type="hidden" name="question_point" id="question_point" value="{{ $packageItem->point }}">
+                            <input type="hidden" name="question_package_item_id" id="question_package_item_id" value="{{ $packageItem->id }}">
                         </div>
                     </div>
                 </div>
@@ -410,6 +413,7 @@
                                     </label>
                                 </div>
                                 <input type="hidden" name="feature_job_point" id="feature_job_point" value="{{ $packageItem->point }}">
+                                <input type="hidden" name="feature_job_package_item_id" id="feature_job_package_item_id" value="{{ $packageItem->id }}">
                             </div>
                             @endif
                             @endforeach
@@ -426,6 +430,7 @@
                                     </label>
                                 </div>
                                 <input type="hidden" name="trending_job_point" id="trending_job_point" value="{{ $packageItem->point }}">
+                                <input type="hidden" name="trending_job_package_item_id" id="trending_job_package_item_id" value="{{ $packageItem->id }}">
                             </div>
                             @endif
                             @endforeach
@@ -595,11 +600,7 @@
         calculatePoint();
     })
 
-    function calculatePoint()
-    {
-        total_point = Number(job_post_point) + Number(anonymous_posting_point);
-        $("#total_point").val(total_point)
-    }
+    var question_point = 0;
     function createQuestion()
     {
         var question = $("#job_post_question").val();
@@ -620,11 +621,29 @@
             $('.job-post-question').append('<tr><td><input type="text" name="questions[]" value="'+question+'" readonly class="border-0 bg-transparent"></td><td><input type="text" name="answer_types[]" value="'+answer_type+'" readonly class="border-0 bg-transparent"></td><td><a id="DeleteButton" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
             $("#job_post_question").val('');
             $("#job_post_answer").val('Text Answer');
+            var rowCount = $('.job-post-question >tbody >tr').length;
+            if(rowCount > 0) {
+                question_point = 0;
+                question_point = $("#question_point").val();
+                calculatePoint()
+            }
         }
+    }
+
+    function calculatePoint()
+    {
+        total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
+        $("#total_point").val(total_point)
     }
 
     $(".job-post-question").on("click", "#DeleteButton", function() {
         $(this).closest("tr").remove();
+        var rowCount = $('.job-post-question >tbody >tr').length;
+        if(rowCount == 0) {
+            $('.job-post-question').addClass('d-none');
+            question_point = 0;
+            calculatePoint()
+        }
     });
 </script>
 @endpush

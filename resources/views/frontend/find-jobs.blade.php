@@ -109,6 +109,26 @@
                 <!-- Wishlist End -->
             </div>
             @endforeach
+            <div class="row">
+                <div class="col pt-2">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                    {{ $jobPosts->appends(request()->all())->links('pagination::bootstrap-4') }}
+                    </ul>
+                </nav>
+                </div>
+            </div>
+        </div>
+        @else
+        <div class="col-lg-8 col-12 find-jobs-left-sidebar">
+            <div class="row job-content mb-3">
+                <!-- Job List Start -->
+                <div class="col-lg-10 col-md-10 py-4">
+                    <div class="row text-center">
+                        <p class="text-center">There is no Job.</p>
+                    </div>
+                </div>
+            </div>
         </div>
         @endif
         <!-- Left Sidebar End -->
