@@ -587,6 +587,22 @@ span.form-control-feedback.company-icon {
     color: #F58220;
 }
 
+/* Seeker Profile Banner css start here*/
+.edit-profile-tab-border {
+    border-top: 1px solid #95B6D8;
+    border-left: 1px solid #95B6D8;
+    border-right: 1px solid #95B6D8;
+}
+
+.edit-profile-header-border {
+    border: 1px solid #95B6D8 !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 8px !important;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 8px !important;
+    border-top: 0px !important;
+}
+
 /* @media css start */
 @media (min-width: 992px){
     .search-sec{
