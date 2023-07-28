@@ -213,21 +213,23 @@
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    @if($feature_job->Employer->logo)
-                                    <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
-                                    @else 
-                                    <img src="{{ asset('img/profile.svg') }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
-                                    @endif
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
-                                    <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
+                        <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
+                            <div class="item d-flex justify-content-center">
+                                <div class="row px-3 align-items-center">
+                                    <div class="col-3">
+                                        @if($feature_job->Employer->logo)
+                                        <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
+                                        @else 
+                                        <img src="{{ asset('img/profile.svg') }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
+                                        @endif
+                                    </div>
+                                    <div class="col-9 p-0 pt-3">
+                                        <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
+                                        <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
