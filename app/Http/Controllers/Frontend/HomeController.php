@@ -116,8 +116,8 @@ class HomeController extends Controller
     public function companies()
     {
         $packages = Package::whereNull('deleted_at')->get();
-        $employers = Employer::whereIsActive(1)->whereNull('deleted_at')->paginate(6);
-        return view('frontend.company', compact('packages'));
+        $employers = Employer::whereIsActive(1)->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(6);
+        return view('frontend.company', compact('packages', 'employers'));
     }
 
     public function industryJob($id)
@@ -130,5 +130,12 @@ class HomeController extends Controller
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         return view('frontend.find-jobs', compact('packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+    }
+
+    public function findCompany(Request $request)
+    {
+        $packages = Package::whereNull('deleted_at')->get();
+        $employers = Employer::whereIsActive(1)->where('name','like','%'.$request->company_name.'%')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(6);
+        return view('frontend.company', compact('packages', 'employers'));
     }
 }
