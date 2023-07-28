@@ -42,7 +42,7 @@ class EmployerLoginController extends Controller
         if (\Auth::guard('employer')->attempt(['email' => $request->company_email, 'password' => $request->company_password], $request->get('company_remember'))) {
             return redirect()->route('employer-profile.index')->with('success', 'Login Successfully.');
         } else {
-            return back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('company_email', 'company_remember'));
+            return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('company_email', 'company_remember'));
         }
 
     }

@@ -185,8 +185,8 @@
                             </div>
 
                             <div class="fz13">
-                                <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->State->name }} @else {{ $trending_job->country }} @endif</span>
+                                <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span><br>
+                                <span><i class="fa fa-map-marker me-1" aria-hidden="true"></i>@if($trending_job->country == 'Myanmar') {{ $trending_job->Township->name }} @else {{ $trending_job->country }} @endif</span>
                             </div>
                         </div>
                     </div>

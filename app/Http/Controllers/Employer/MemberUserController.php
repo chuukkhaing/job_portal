@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Package;
 use App\MOdels\Admin\Employer;
+use App\Models\Admin\PackageItem;
+use App\Models\Employer\PointRecord;
+use App\Models\Employer\MemberPermission;
 use Auth;
+use Hash;
 
 class MemberUserController extends Controller
 {
@@ -19,8 +23,9 @@ class MemberUserController extends Controller
     {
         $packages = Package::whereNull('deleted_at')->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        
-        return view('employer.profile.manage-user', compact('packages', 'employer'));
+        $members  = Employer::whereEmployerId($employer->id)->whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.manage-user', compact('packageItems','packages', 'employer', 'members'));
     }
 
     /**
@@ -30,7 +35,10 @@ class MemberUserController extends Controller
      */
     public function create()
     {
-        //
+        $packages = Package::whereNull('deleted_at')->get();
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.manage-user-create', compact('packages','packageItems', 'employer'));
     }
 
     /**
@@ -41,7 +49,61 @@ class MemberUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
+            'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
+        ]);
+        $check_member = Employer::whereEmployerId(Auth::guard('employer')->user()->id)->count();
+        $employer = Employer::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'employer_id' => Auth::guard('employer')->user()->id,
+            'is_active' => $request->is_active,
+            'register_at' => now(),
+            'is_active' => $request->is_active,
+            'created_by' => Auth::guard('employer')->user()->id,
+        ]);
+        
+        if($employer) {
+            if($check_member == 1) {
+                $member_point = PointRecord::create([
+                    'employer_id' => $employer->employer_id,
+                    'package_item_id' => $request->package_item_id,
+                    'point' => $request->package_item_point,
+                    'status' => 'Complete'
+                ]);
+            }
+        }
+
+        if($request->dashboard == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $employer->id,
+                'name' => 'dashboard'
+            ]);
+        }
+
+        if($request->profile == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $employer->id,
+                'name' => 'profile'
+            ]);
+        }
+
+        if($request->manage_job == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $employer->id,
+                'name' => 'manage_job'
+            ]);
+        }
+
+        if($request->application_tracking == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $employer->id,
+                'name' => 'application_tracking'
+            ]);
+        }
+        
+        return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
     }
 
     /**
@@ -52,7 +114,7 @@ class MemberUserController extends Controller
      */
     public function show($id)
     {
-        //
+        // 
     }
 
     /**
@@ -63,7 +125,10 @@ class MemberUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $packages = Package::whereNull('deleted_at')->get();
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $member = Employer::findOrFail($id);
+        return view('employer.profile.manage-user-edit', compact('packages', 'employer', 'member'));
     }
 
     /**
@@ -75,7 +140,55 @@ class MemberUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,'.$id],
+            'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
+        ]);
+        $member = Employer::findOrFail($id);
+        if($request->password){ 
+            $password = Hash::make($request->password);
+        }else{
+            $password = $member->password;    
+        }
+        $member_update = $member->update([
+            'email' => $request->email,
+            'password' => $password,
+            'employer_id' => Auth::guard('employer')->user()->id,
+            'is_active' => $request->is_active,
+            'register_at' => now(),
+            'is_active' => $request->is_active,
+            'updated_by' => Auth::guard('employer')->user()->id,
+        ]);
+        $permission_delete = MemberPermission::whereEmployerId($member->id)->delete();
+        if($request->dashboard == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'dashboard'
+            ]);
+        }
+
+        if($request->profile == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'profile'
+            ]);
+        }
+
+        if($request->manage_job == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'manage_job'
+            ]);
+        }
+
+        if($request->application_tracking == "on") {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'application_tracking'
+            ]);
+        }
+        
+        return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
     }
 
     /**
@@ -86,6 +199,32 @@ class MemberUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employer = Employer::findOrFail($id);
+        
+        try {
+            $employer = Employer::findOrFail($id)->update([
+                'deleted_at' => now(),
+                'deleted_by' => Auth::guard('employer')->user()->id
+            ]);
+            if ($employer) {
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Delete Employer Successfully!'
+                ]);
+            }
+            else {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Employer deleted failed'
+                ]);
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Employer deleted failed'
+                ]);
+            } 
+        }
     }
 }

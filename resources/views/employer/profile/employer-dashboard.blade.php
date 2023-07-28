@@ -45,7 +45,7 @@
                 <div class="row me-0 p-3 bg-light">
                     <div class="col-8">
                         <p class="overview-title">Used Point History</p>
-                        <span class="fw-bold fs-3">{{ $employer->PointRecord->sum('point') }}</span>
+                        <span class="fw-bold fs-3">{{ $employer->PointRecord->where('status','Complete')->sum('point') }}</span>
                     </div>
                     <div class="col-4">
                         <div class="points-icon float-end">

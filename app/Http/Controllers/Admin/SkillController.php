@@ -124,12 +124,12 @@ class SkillController extends Controller
             }
             else {
                 Alert::error('Failed', 'Skill deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Skill');
-                return back();
+                return redirect()->back();
             } 
         }
     }

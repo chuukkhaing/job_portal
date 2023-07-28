@@ -121,12 +121,12 @@ class FunctionalAreaController extends Controller
             }
             else {
                 Alert::error('Failed', 'Main Functional Area deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Main Functional Area');
-                return back();
+                return redirect()->back();
             } 
         }
     }

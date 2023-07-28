@@ -96,14 +96,6 @@
     <!-- Multiselect Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/dist/js/bootstrap-multiselect.js') }}"></script>
 
-    <script type="text/javascript">
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function(){
-                $(this).remove();
-            });
-        }, 3000);
-    </script>
-
     @stack('scripts')
     
 </body>

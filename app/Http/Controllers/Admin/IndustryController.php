@@ -126,12 +126,12 @@ class IndustryController extends Controller
             }
             else {
                 Alert::error('Failed', 'Industry deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Industry');
-                return back();
+                return redirect()->back();
             } 
         }
     }

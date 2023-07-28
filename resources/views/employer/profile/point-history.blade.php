@@ -64,7 +64,7 @@
                 <tbody>
                     @foreach($point_records as $point_record)
                     <tr>
-                        <td>{{ $point_record->JobPost->job_title }}</td>
+                        <td>@if($point_record->job_post_id) {{ $point_record->JobPost->job_title }} @else - @endif</td>
                         <td>@if($point_record->job_apply_id) {{ $point_record->JobApply->Seeker->first_name }} {{ $point_record->JobApply->Seeker->last_name }} @else - @endif</td>
                         <td>{{ $point_record->PackageItem->name }}</td>
                         <td>{{ $point_record->point }}</td>

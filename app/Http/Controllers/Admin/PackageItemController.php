@@ -124,12 +124,12 @@ class PackageItemController extends Controller
             }
             else {
                 Alert::error('Failed', 'Package Item deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this State');
-                return back();
+                return redirect()->back();
             } 
         }
     }

@@ -173,12 +173,12 @@ class SliderController extends Controller
             }
             else {
                 Alert::error('Failed', 'Slider deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Slider');
-                return back();
+                return redirect()->back();
             } 
         }
     }

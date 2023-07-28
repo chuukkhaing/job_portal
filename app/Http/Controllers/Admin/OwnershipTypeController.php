@@ -121,12 +121,12 @@ class OwnershipTypeController extends Controller
             }
             else {
                 Alert::error('Failed', 'Ownership Type deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Ownership Type');
-                return back();
+                return redirect()->back();
             } 
         }
     }

@@ -12,6 +12,7 @@ use App\Models\Employer\EmployerTestimonial;
 use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\JobPost;
 use App\Models\Employer\PointRecord;
+use App\Models\Employer\MemberPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -73,5 +74,10 @@ class Employer extends Authenticatable
     public function PointRecord()
     {
         return $this->hasMany(PointRecord::class, 'employer_id', 'id');
+    }
+
+    public function MemberPermission()
+    {
+        return $this->hasMany(MemberPermission::class, 'employer_id', 'id');
     }
 }

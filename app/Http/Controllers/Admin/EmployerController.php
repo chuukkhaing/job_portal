@@ -83,7 +83,6 @@ class EmployerController extends Controller
             'package_point' => $package->point,
             'purchased_point' => $package->point,
             'register_at' => now(),
-            'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
@@ -213,12 +212,12 @@ class EmployerController extends Controller
             }
             else {
                 Alert::error('Failed', 'Employer deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Employer');
-                return back();
+                return redirect()->back();
             } 
         }
     }

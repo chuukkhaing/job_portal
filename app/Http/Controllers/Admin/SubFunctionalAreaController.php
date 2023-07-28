@@ -125,12 +125,12 @@ class SubFunctionalAreaController extends Controller
             }
             else {
                 Alert::error('Failed', 'Sub Functional Area deleted failed');
-                return back();
+                return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
                 Alert::error('Failed', 'Cannot delete this Sub Functional Area');
-                return back();
+                return redirect()->back();
             } 
         }
     }

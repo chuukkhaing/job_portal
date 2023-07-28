@@ -48,7 +48,7 @@ class SeekerLoginController extends Controller
         if (\Auth::guard('seeker')->attempt($request->only(['email', 'password']), $request->get('remember'))) {
             return redirect()->route('profile.index')->with('success', 'Login Successfully.');
         } else {
-            return back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('email', 'remember'));
+            return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('email', 'remember'));
         }
     }
 
