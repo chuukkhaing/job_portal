@@ -173,9 +173,9 @@
                     <div class="row">
                         <div class="col-3 text-center">
                             @if($trending_job->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
                             @endif
                         </div>
                         <div class="col-9 p-0">
