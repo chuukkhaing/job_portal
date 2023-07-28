@@ -380,13 +380,11 @@
             <div class="row">
                 <div class="col-1">
                     <div class="step">
-                    @foreach($packageItems as $packageItem)
-                    @if($packageItem->name == 'Pre-qualify questions')
-                        Step 5
-                    @else 
+                    @if($packageItems->where('name','Pre-qualify questions')->count() == 0)
                         Step 4
+                    @else 
+                        Step 5
                     @endif
-                    @endforeach
                     </div>
                 </div>
                 <div class="col-11">
