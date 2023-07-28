@@ -439,46 +439,8 @@
 <!-- Explore the Marketplace End  -->
 
 @endsection
-@push('css')
-<style>
-.owl-nav button {
-    position: absolute;
-    top: 50%;
-    color: #0355d0;
-    margin: 0;
-    transition: all 0.3s ease-in-out;
-  }
-  .owl-nav button.owl-prev {
-    left: -15px;
-    border-color: transparent;
-    background: none;
-  }
-  .owl-nav button.owl-next {
-    right: -15px;
-    border-color: transparent;
-    background: none;
-  }
-  .owl-nav button {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-  }
-  .owl-prev span,
-  .owl-next span {
-      font-size: 70px;    
-      position: relative;
-      top: -5px;
-  }
-  .owl-nav button:focus {
-      outline: none;
-  }
-</style>
-    
-@endpush
 
 @push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
 <script>
     $(document).ready(function() {
         $('#function-area').multiselect({

@@ -401,7 +401,8 @@ span.form-control-feedback.company-icon {
 }
 
 .company-search-btn:hover,
-.see-all-btn:hover {
+.see-all-btn:hover,
+.apply-company-btn:hover {
     color: #fff;
 }
 
@@ -602,6 +603,47 @@ span.form-control-feedback.company-icon {
     border-bottom-right-radius: 8px !important;
     border-top: 0px !important;
 }
+
+/* Job Post Detail css start here*/
+.apply-company-btn {
+    align-items: center;
+    border-radius: 8px;
+    color: #fff;
+    background-color: #0355d0;
+}
+
+/* Job Post Detail css start here*/
+.owl-nav button {
+    position: absolute;
+    top: 50%;
+    color: #0355d0;
+    margin: 0;
+    transition: all 0.3s ease-in-out;
+  }
+  .owl-nav button.owl-prev {
+    left: -15px;
+    border-color: transparent;
+    background: none;
+  }
+  .owl-nav button.owl-next {
+    right: -15px;
+    border-color: transparent;
+    background: none;
+  }
+  .owl-nav button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  .owl-prev span,
+  .owl-next span {
+      font-size: 70px;    
+      position: relative;
+      top: -5px;
+  }
+  .owl-nav button:focus {
+      outline: none;
+  }
 
 /* @media css start */
 @media (min-width: 992px){
