@@ -11,6 +11,7 @@ use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerTestimonial;
 use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\JobPost;
+use App\Models\Employer\PointRecord;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -67,5 +68,10 @@ class Employer extends Authenticatable
     public function JobPost()
     {
         return $this->hasMany(JobPost::class, 'employer_id', 'id');
+    }
+
+    public function PointRecord()
+    {
+        return $this->hasMany(PointRecord::class, 'employer_id', 'id');
     }
 }

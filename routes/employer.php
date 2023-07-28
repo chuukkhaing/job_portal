@@ -6,6 +6,7 @@ use App\Http\Controllers\Employer\EmployerRegisterController;
 use App\Http\Controllers\Employer\EmployerLoginController;
 use App\Http\Controllers\Employer\EmployerProfileController;
 use App\Http\Controllers\Employer\EmployerJobPostController;
+use App\Http\Controllers\Employer\PointHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,5 +49,7 @@ Route::group([], function(){
         Route::get('get-jobpost-info/{id}/{jobPostId}/{status}', [EmployerJobPostController::class, 'getJobPostInfo']);
         Route::get('download-ic-cv/{id}',[EmployerJobPostController::class, 'icFormatCVDownload']);
         Route::get('change-status/{jobPostId}/{seekerId}/{status}', [EmployerJobPostController::class, 'changeStatus']);
+
+        Route::resource('point-history', PointHistoryController::class);
     });
 });

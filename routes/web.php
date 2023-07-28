@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Frontend\CompanyDetailController;
 use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\JobPostDetailController;
+use App\Http\Controllers\Frontend\JobPostDetailController;
 use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\Seeker\SeekerRegisterController;
 use Illuminate\Support\Facades\Route;

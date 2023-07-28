@@ -39,6 +39,23 @@
                 </div>
             </div>
         </div>
+        
+        <div class=" col-4 mt-1">
+            <a href="{{ route('point-history.index') }}">
+                <div class="row me-0 p-3 bg-light">
+                    <div class="col-8">
+                        <p class="overview-title">Used Point History</p>
+                        <span class="fw-bold fs-3">{{ $employer->PointRecord->sum('point') }}</span>
+                    </div>
+                    <div class="col-4">
+                        <div class="points-icon float-end">
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
     </div>
     @if($lastJobPosts->count() > 0)
     <div class="row mt-1 p-0 bg-light" style="border-radius: 8px">

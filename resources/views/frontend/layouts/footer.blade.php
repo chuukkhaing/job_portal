@@ -29,8 +29,8 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="#">Registration</a>
-                            <a class="footer-links mb-2" href="#">Browse Jobs</a>
-                            <a class="footer-links mb-2" href="#">Job Function</a>
+                            <a class="footer-links mb-2" href="#">Find Jobs</a>
+                            <a class="footer-links mb-2" href="#">Job Category</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
@@ -39,7 +39,7 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="#">Post a Job</a>
                             <a class="footer-links mb-2" href="#">Advertise with Us</a>
-                            <a class="footer-links mb-2" href="#">News & Blogs</a>
+                            {{--<a class="footer-links mb-2" href="#">News & Blogs</a>--}}
                         </div>
                     </div>
                     
@@ -48,7 +48,7 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="#">Linkedin</a>
-                            <a class="footer-links mb-2" href="#">Linkedin</a>
+                            <a class="footer-links mb-2" href="#">Facebook</a>
                             <a class="footer-links mb-2" href="#">Telegram</a>
                             <a class="footer-links mb-2" href="#">Viber</a>
                         </div>

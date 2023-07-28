@@ -32,7 +32,9 @@
 
     // $('.summernote').summernote();
 
-    $('#dataTable').dataTable();
+    $('#dataTable').dataTable({
+        ordering: false
+    });
     // $('.applicant-receive-table').dataTable({
     //     ordering:  false,
     //     "dom": 'rtip',
