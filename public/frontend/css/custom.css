@@ -170,12 +170,24 @@ select.form-control.search-slt.location {
     font-size: 13px;
 }
 
+.fz14{
+    font-size: 14px !important;
+}
+
+.fz15{
+    font-size: 15px !important;
+}
+
 .fz17{
     font-size: 17px;
 }
 
 .w-auto {
     width: auto;
+}
+
+.form-height-0 {
+    height: 0px !important;
 }
 
 .gradient-img {
@@ -612,7 +624,10 @@ span.form-control-feedback.company-icon {
     background-color: #0355d0;
 }
 
-/* Job Post Detail css start here*/
+.employer-title {
+    font-size: 14px;
+}
+
 .owl-nav button {
     position: absolute;
     top: 50%;
