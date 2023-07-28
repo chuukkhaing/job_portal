@@ -29,7 +29,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Users</th>
+                                            <th>Email</th>
                                             <th>Status</th>
                                             <th>Access</th>
                                             
@@ -45,7 +45,7 @@
                                     </tbody>
                                 </table>
                                 <div class="text-end">
-                                <a href="" class="btn profile-save-btn">Manage User</a>
+                                <a href="{{ route('member-user.index') }}" class="btn profile-save-btn">Manage User</a>
                                 </div>
                                 
                             </div>

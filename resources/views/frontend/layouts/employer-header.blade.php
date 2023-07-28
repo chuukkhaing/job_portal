@@ -36,6 +36,12 @@
                             </a>
                         </li>
                         <li>
+                            <a class="dropdown-item" href="{{ route('member-user.index') }}">
+                                <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Manage User
+                            </a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="{{ route('employer.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout

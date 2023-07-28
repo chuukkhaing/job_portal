@@ -7,6 +7,7 @@ use App\Http\Controllers\Employer\EmployerLoginController;
 use App\Http\Controllers\Employer\EmployerProfileController;
 use App\Http\Controllers\Employer\EmployerJobPostController;
 use App\Http\Controllers\Employer\PointHistoryController;
+use App\Http\Controllers\Employer\MemberUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,6 @@ Route::group([], function(){
         Route::get('change-status/{jobPostId}/{seekerId}/{status}', [EmployerJobPostController::class, 'changeStatus']);
 
         Route::resource('point-history', PointHistoryController::class);
+        Route::resource('member-user', MemberUserController::class);
     });
 });
