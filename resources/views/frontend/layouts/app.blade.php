@@ -95,6 +95,8 @@
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <!-- Multiselect Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/dist/js/bootstrap-multiselect.js') }}"></script>
+    <!-- OwlCarousel2 Javascript -->
+    <script type="text/javascript" src="{{ asset('frontend/OwlCarousel2/js/owl.carousel.min.js') }}"></script>
 
     <script type="text/javascript">
         window.setTimeout(function() {
