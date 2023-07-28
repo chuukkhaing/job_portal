@@ -173,9 +173,9 @@
                     <div class="row">
                         <div class="col-3 text-center">
                             @if($trending_job->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
                             @endif
                         </div>
                         <div class="col-9 p-0">
@@ -200,6 +200,7 @@
 <!-- Trending Jobs End  -->
 
 <!-- Featured Jobs Start  -->
+@if($feature_jobs->count() > 0)
 <div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center pt-5">
@@ -211,101 +212,23 @@
                 <div class="owl-slider py-5">
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
+                        @foreach($feature_jobs as $feature_job)
                         <div class="item d-flex justify-content-center">
                             <div class="row px-3 align-items-center">
                                 <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
+                                    @if($feature_job->Employer->logo)
+                                    <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
+                                    @else 
+                                    <img src="{{ asset('img/profile.svg') }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
+                                    @endif
                                 </div>
                                 <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
+                                    <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
+                                    <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item d-flex justify-content-center">
-                            <div class="row px-3 align-items-center">
-                                <div class="col-3">
-                                    <img src="{{ asset('frontend/img/trending/aya.png') }}" alt="Featured Job Image" class="d-block pt-3 pb-3 trending-image">
-                                </div>
-                                <div class="col-9 p-0 pt-3">
-                                    <h3 id="trending-job-title">Site Reliability Engineer</h3>
-                                    <span id="trending-job-sub-title">Austin Metro Plumbing LLC</span>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
                 </div>
@@ -313,7 +236,7 @@
         </div>
     </div>
 </div>
-
+@endif
 {{-- <div class="container bg-light">
     <div class="row">
         <div class="col-md-3 ps-0 pe-3 pb-3">          
