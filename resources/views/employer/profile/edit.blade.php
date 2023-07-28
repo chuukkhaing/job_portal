@@ -334,12 +334,12 @@
                 </div>
                 @endif
                 @endforeach
-                @foreach($packageItems as $packageItem)
-                @if($packageItem->name == 'Employer Profile with Photos' || $packageItem->name == 'Employer Profile with Videos')
+                
+                @if($packageItems->whereIn('name',['Employer Profile with Photos','Employer Profile with Videos'])->count() > 0)
                 <div class="row">
                     <div class="col-1">
-                        <div class="step @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name',['Employer Profile with Photos'])->count() > 0) @else d-none @endif">
-                            @if($packageItems->whereIn('name',['Testimonials'])->count() > 0)
+                        <div class="step">
+                            @if($packageItems->where('name','Testimonials')->count() == 1)
                             Step 4
                             @else 
                             Step 3
@@ -347,7 +347,7 @@
                         </div>
                     </div>
                     <div class="col-11">
-                        <div class="row mb-2 @if($packageItem->name == 'Employer Profile with Photos') @elseif($packageItem->name == 'Employer Profile with Videos' && $packageItems->whereNotIn('name',['Employer Profile with Photos'])->count() > 0) @else d-none @endif">
+                        <div class="row mb-2">
                             <div class="col-9">
                                 <div class="py-2">
                                     <h5>Upload Company Photos and Videos</h5>
@@ -356,7 +356,7 @@
                             </div>
                             
                         </div>
-                        
+                        @foreach($packageItems as $packageItem)
                         @if($packageItem->name == 'Employer Profile with Photos')
                         <div class="row mb-4">
                             <div class="col-3">
@@ -475,23 +475,22 @@
                             </div>
                         </div>
                         @endif
-                        
+                        @endforeach
                     </div>
                 </div>
                 @endif
-                @endforeach
+                
                 <div class="row">
                     <div class="col-1">
                         <div class="step">
-                        @foreach($packageItems as $packageItem)
-                        @if($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
+                        @if(($packageItems->where('name','Testimonials')->count() == 1 && ($packageItems->where('name','Employer Profile with Videos')->where('name','!=','Employer Profile with Photo')->count() == 1 || $packageItems->where('name','Employer Profile with Photos')->where('name','!=','Employer Profile with Videos')->count() == 1)) || 
+                            ($packageItems->where('name','Testimonials')->count() == 1 && ($packageItems->where('name','Employer Profile with Videos')->count() == 1 || $packageItems->where('name','Employer Profile with Photos')->count() == 1)))
                             Step 5
-                        @elseif($packageItems->whereIn('name',['Employer Profile with Photos', 'Employer Profile with Videos'])->whereNotIn('name', ['Testimonials'])->count() > 0)
-                            Step 4
-                        @elseif($packageItems->whereNotIn('name',['Employer Profile with Photos', 'Employer Profile with Videos', 'Testimonials'])->count() > 0)
+                        @elseif($packageItems->where('name','Testimonials')->count() == 0 && $packageItems->where('name','Employer Profile with Videos')->count() == 0 && $packageItems->where('name','Employer Profile with Photos')->count() == 0)
                             Step 3
+                        @elseif($packageItems->where('name','Testimonials')->count() == 0 || $packageItems->where('name','Employer Profile with Videos')->where('name','!=','Employer Profile with Photo')->count() == 0 || $packageItems->where('name','Employer Profile with Photos')->where('name','!=','Employer Profile with Videos')->count() == 0)
+                            Step 4
                         @endif
-                        @endforeach
                         </div>
                     </div>
                     <div class="col-11">
