@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
+use App\Models\Admin\Package;
 
 class JobPostDetailController extends Controller
 {
@@ -11,6 +12,7 @@ class JobPostDetailController extends Controller
     {
         $jobpost = JobPost::whereSlug($slug)->first();
         $jobposts = JobPost::whereIsActive(1)->whereNotIn('id',[$jobpost->id])->where('status','Online')->get();
-        return view ('frontend.jobpost.detail', compact('jobpost', 'jobposts'));
+        $packages = Package::whereNull('deleted_at')->get();
+        return view ('frontend.jobpost.detail', compact('packages','jobpost', 'jobposts'));
     }
 }
