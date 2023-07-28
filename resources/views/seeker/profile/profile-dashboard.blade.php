@@ -226,7 +226,7 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
                             <div class="employer-title text-dark text-center py-2">Imagine Solutions</div>
@@ -236,7 +236,7 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
                             <div class="employer-title text-dark text-center py-2">Stark Industries</div>
@@ -246,7 +246,7 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
                             <div class="employer-title text-dark text-center py-2">Kappa - Kappa Corporation</div>
@@ -256,7 +256,7 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
                             <div class="employer-title text-dark text-center py-2">Tech - Technologies Co.</div>
@@ -266,17 +266,7 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Best Buy</div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
                             <div class="employer-title text-dark text-center py-2">Publix Super Markets</div>
@@ -286,10 +276,10 @@
                 <a href="">
                     <div class="item d-flex justify-content-center">
                         <div class="row px-3 align-items-center">
-                            <div class="employer-img">
+                            <div class="employer-img py-2">
                                 <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
                             </div>
-                            <div class="employer-title text-dark text-center py-2">Best Buy</div>
+                            <div class="employer-title text-dark text-center py-2">Publix Super Markets</div>
                         </div>
                     </div>
                 </a>

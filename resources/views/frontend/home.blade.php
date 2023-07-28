@@ -30,7 +30,7 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="post">
+<form action="{{ route('search-job') }}" method="post" class="form-height-0">
     @csrf
     <section class="search-sec">
         <div class="container-fluid">
@@ -132,7 +132,7 @@
                     @else
                     <img src="{{ asset('/img/logo/ICLogo.png') }}" class="" width="100" alt="{{ $employer->name }}">
                     @endif
-                    <div id="job-category-name">
+                    <div class="mt-2" id="job-category-name">
                     <span id="job-category-name-position">{{ $employer->name }}</span>
                     </div>
                 </a>
@@ -201,7 +201,7 @@
 
 <!-- Featured Jobs Start  -->
 @if($feature_jobs->count() > 0)
-<div class="container">
+<div class="container bg-white">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center pt-5">
             <h3 id="popular-job-category-title">Featured Jobs</h3>
@@ -224,7 +224,7 @@
                                         @endif
                                     </div>
                                     <div class="col-9 p-0 pt-3">
-                                        <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
+                                        <h3 class="fz15 text-truncate" id="trending-job-title">{{ $feature_job->job_title }}</h3>
                                         <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
                                     </div>
                                 </div>
