@@ -186,7 +186,7 @@
 
                             <div class="fz13">
                                 <span class="me-2"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span><br>
-                                @if($trending_job->country == 'Myanmar' && $trending_job->Township->name )<span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }} @else {{ $trending_job->country }} </span>@endif
+                                @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }} @else {{ $trending_job->country }} </span>@endif
                             </div>
                         </div>
                     </div>
