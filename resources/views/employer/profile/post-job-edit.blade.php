@@ -449,11 +449,84 @@
                 <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
                 <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
             </div>
-            <div class="col-6">
-            <button type="submit" class="btn profile-save-btn">Update Job</button>
+            <div class="col-6 d-flex flex-row-reverse">
+            <button type="submit" class="btn profile-save-btn mx-3">
+                <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
+            </button>
+            <button class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
+                <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
+            </button>
             </div>
         </div>
     </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="{{ asset('frontend/img/logo/Logo Svg.svg') }}" class="img-fluid">
+                        </div>
+                        <div class="col-8">
+                            <h5>This is a preview of what people may see</h5>
+                            <span>Your job post may look slightly different when it goes live.</span>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-body p-0">
+                <div class="container-fluid">
+                    <div class="row px-3" style="background-color: #ebf5ff">
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="company-name py-3">
+                                <span>{{ $employer->name }}</span>
+                                <h3 class="preview_job_title"></h3>
+                                <span class="preview_address"></span>
+                                <h3 class="preview_salary"></h3>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="float-end py-3">
+                                <a href="#" class="btn apply-company-btn py-2 rounded-pill">
+                                    <i class="fa-solid fa-arrow-right rotate45"></i> <span class="p-1">Apply Job</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 m-0 p-0 py-3">
+                        <h5 class="fw-bolder fs-6">Job Description</h5>
+                        <div class="preview_job_description">
+                            
+                        </div>
+                    </div>
+        
+                    <div class="row col-12 m-0 p-0 py-3">
+                        <h5 class="fw-bolder fs-6">Job Requirements</h5>          
+                        <div class="preview_job_requirement">
+                            
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</button>
+              </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -658,5 +731,13 @@
             calculatePoint()
         }
     });
+
+    $(".preview_card").click(function() {
+        $(".preview_job_title").html($("#job_title").val());
+        $(".preview_address").html($("#career_level").val()+' - '+$("#job_type").val());
+        $(".preview_salary").html($("#mmk_salary").val()+''+ $("#usd_salary").val() +' '+ $("#currency").val());
+        $(".preview_job_description").html($("#job_description").val());
+        $(".preview_job_requirement").html($("#job_requirement").val());
+    })
 </script>
 @endpush

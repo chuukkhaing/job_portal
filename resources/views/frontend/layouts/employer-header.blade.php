@@ -93,9 +93,9 @@
                                     <h3 class="economy-title">Economy</h3>
                                     <p class="economy-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
                                     <p class="package-price mb-0">
-                                        <span class="fw-bold text-black">1,000,000</span><span class="fw-bold text-dark"> Kyats</span>
+                                        <span class="fw-bold text-black">{{ number_format($package->price) }}</span><span class="fw-bold text-dark"> Kyats</span>
                                     </p>
-                                    <p class="package-promotion py-2"></p>
+                                    {{--<p class="package-promotion py-2"></p>--}}
                                     <p class="package-plans">Billed annually yearly plans available</p>
                                     {{--<button type="button" class="btn btn-outline-economy">Select  Plan</button>--}}
                                 </div>
@@ -105,7 +105,7 @@
                                     <h3 class="standard-title">Standard</h3>
                                     <p class="standard-desc mb-4">Our Standard Package is ideal for growing businesses that want to expand their recruitment efforts and streamline their hiring process.</p>
                                     <p class="package-price mb-0">
-                                        <span class="fw-bold text-black">1,500,000</span><span class="fw-bold text-dark"> Kyats</span>
+                                        <span class="fw-bold text-black">{{ number_format($package->price) }}</span><span class="fw-bold text-dark"> Kyats</span>
                                     </p>
                                     {{--<p class="package-promotion py-2">15% OFF</p>--}}
                                     <p class="package-plans">Billed annually yearly plans available</p>
@@ -117,7 +117,7 @@
                                     <h3 class="premium-title">Premium</h3>
                                     <p class="premium-desc mb-4">Our Basic Package is perfect for small businesses or start-ups looking to post their job listings and start attracting qualified candidates.</p>
                                     <p class="package-price mb-0">
-                                        <span class="fw-bold text-black">2,000,000</span><span class="fw-bold text-dark"> Kyats</span>
+                                        <span class="fw-bold text-black">{{ number_format($package->price) }}</span><span class="fw-bold text-dark"> Kyats</span>
                                     </p>
                                     {{--<p class="package-promotion py-2">30% OFF</p>--}}
                                     <p class="package-plans">Billed annually yearly plans available</p>
@@ -134,42 +134,207 @@
                             <h4 class="text-blue fz17">Employer Branding Option</h4>
                             <table class="table">
                                 <tbody>
+                                    @foreach($packageItems as $packageItem)
+                                    @if($packageItem->name == 'Home Page Banner')
                                     <tr>
-                                        <td>Rotating Home Page Logo</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
                                         <td><i class="fa-solid fa-xmark"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Top Employer')
                                     <tr>
-                                        <td>Sector Banner</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
                                         <td><i class="fa-solid fa-xmark"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Testimonials')
                                     <tr>
-                                        <td>Leading Employer Banner ( Top employer )</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
                                         <td><i class="fa-solid fa-xmark"></i></td>
-                                        <td>Add on</td>
-                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Employer Profile with Photos')
                                     <tr>
-                                        <td>Testimonials ( Reviews of working in client:s Company )</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
                                         <td><i class="fa-solid fa-xmark"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Employer Profile with Videos')
                                     <tr>
-                                        <td>Video Content Creation (info Graphic) ( Video posting in employer page )</td>
-                                        <td>Add on</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
                                         <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
                                         <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Specific Job Adv on Social Media')
                                     <tr>
-                                        <td>Employer Profile with Photo</td>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
                                         <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
                                         <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
                                         <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
                                     </tr>
+                                    @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12">
+                            <h4 class="text-blue fz17">ATS System</h4>
+                            <table class="table">
+                                <tbody>
+                                    @foreach($packageItems as $packageItem)
+                                    @if($packageItem->name == 'Application Management')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Application Unlock')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><strong>{{ $packageItem->point }} points</strong></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><strong>{{ $packageItem->point }} points</strong></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><strong>{{ $packageItem->point }} points</strong></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Up to 10 User Accounts')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Up to 5 User Accounts')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Website Integration')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @if($packageItem->name == 'Email Alerts for receiving Applications')
+                                    <tr>
+                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
+                                        <td><i class="fa-solid fa-check"></i></td>
+                                        @else
+                                        <td><i class="fa-solid fa-xmark"></i></td>
+                                        @endif
+                                        @endforeach
+                                    </tr>
+                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
