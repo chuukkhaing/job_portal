@@ -109,17 +109,10 @@ class HomeController extends Controller
         if ($request->location) {
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
-<<<<<<< HEAD
         $jobPosts = $jobPosts->where('status','Online')->orderBy('updated_at','desc')->paginate(10);
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         return view('frontend.find-jobs', compact('packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
-=======
-        $jobPosts      = $jobPosts->where('status', 'Online')->orderBy('updated_at', 'desc')->paginate(10);
-        $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(5);
-        $feature_jobs  = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(5);
-        return view('frontend.find-jobs', compact('trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
->>>>>>> refs/remotes/origin/version-1
     }
 
     public function companies()
@@ -148,7 +141,6 @@ class HomeController extends Controller
         return view('frontend.company', compact('packages', 'employers'));
     }
 
-<<<<<<< HEAD
     public function companyJob($id)
     {
         $packages = Package::whereNull('deleted_at')->get();
@@ -159,7 +151,8 @@ class HomeController extends Controller
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         return view('frontend.find-jobs', compact('packages','trending_jobs', 'feature_jobs','jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
-=======
+    }
+    
     public function aboutUs(Request $request)
     {
         $packages = Package::whereNull('deleted_at')->get();
@@ -176,6 +169,5 @@ class HomeController extends Controller
     {
         $packages = Package::whereNull('deleted_at')->get();
         return view('frontend.privacy-policy', compact('packages'));
->>>>>>> refs/remotes/origin/version-1
     }
 }
