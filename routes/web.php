@@ -37,6 +37,4 @@ Route::post('/contact-us', [HomeController::class, 'contactUsCreate'])->name('co
 Route::post('/search-job', [HomeController::class, 'searchJob'])->name('search-job');
 Route::get('/industry-job/{id}', [HomeController::class, 'industryJob'])->name('industry-job');
 Route::post('/find-company', [HomeController::class, 'findCompany'])->name('search-company');
-
-
-
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
