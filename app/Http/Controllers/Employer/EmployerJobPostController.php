@@ -50,9 +50,6 @@ class EmployerJobPostController extends Controller
     public function create()
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
@@ -212,9 +209,6 @@ class EmployerJobPostController extends Controller
     {
         $jobPost = JobPost::findOrFail($id);
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
@@ -435,6 +429,15 @@ class EmployerJobPostController extends Controller
             $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
             $references = SeekerReference::whereSeekerId($seeker->id)->get();
         }
+        $item_id = Null;
+        $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
+        foreach($packageItems as $packageItem){
+            if($packageItem->PackageItem->name == 'Application Unlock') {
+                $item_id = $packageItem->PackageItem->id;
+            }
+        }
+        
+        $cvunlock = PointRecord::whereEmployerId($jobPost->employer_id)->whereJobPostId($jobPost->id)->wherePackageItemId($item_id)->get();
         
         $received = JobApply::whereStatus('received')->whereJobPostId($id)->count();
         $viewed = JobApply::whereStatus('viewed')->whereJobPostId($id)->count();
@@ -463,7 +466,8 @@ class EmployerJobPostController extends Controller
             'languages' => $languages,
             'references' => $references,
             'seeker_attach' => $seeker_attach,
-            'count' => $count
+            'count' => $count,
+            'cvunlock' => $cvunlock
         ]);
     }
 
@@ -513,6 +517,16 @@ class EmployerJobPostController extends Controller
                     ->get();
         $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
         $references = SeekerReference::whereSeekerId($seeker->id)->get();
+        $item_id = Null;
+        $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
+        foreach($packageItems as $packageItem){
+            if($packageItem->PackageItem->name == 'Application Unlock') {
+                $item_id = $packageItem->PackageItem->id;
+            }
+        }
+        
+        $cvunlock = PointRecord::whereEmployerId($jobPost->employer_id)->whereJobPostId($jobPost->id)->wherePackageItemId($item_id)->get();
+        
         $received = JobApply::whereStatus('received')->whereJobPostId($jobPostId)->count();
         $viewed = JobApply::whereStatus('viewed')->whereJobPostId($jobPostId)->count();
         $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
@@ -540,7 +554,8 @@ class EmployerJobPostController extends Controller
             'languages' => $languages,
             'references' => $references,
             'seeker_attach' => $seeker_attach,
-            'count' => $count
+            'count' => $count,
+            'cvunlock' => $cvunlock
         ]);
     }
 

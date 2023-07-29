@@ -154,13 +154,24 @@
                 <h5 class="fw-bolder fs-6">Company Overview</h5> 
                 <div>
                     <ul>
+                        @if($jobpost->Employer->no_of_employees)
                         <li><div class="row"><div class="col-1">Size</div><div class="col-11"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
+                        @endif
+                        @if($jobpost->Employer->OwnerShipType->name)
                         <li><div class="row"><div class="col-1">Type</div><div class="col-11"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
+                        @endif
                         @if($jobpost->Employer->website)
                         <li><div class="row"><div class="col-1">Website</div><div class="col-11"><a href="{{ $jobpost->Employer->website }}"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
                         @endif
                     </ul>
                 </div>
+                @if($jobpost->summary)
+                <div class="row col-12 m-0 p-0 py-3">
+                    <p>
+                        {{ $jobpost->Employer->summary ?? '-' }}
+                    </p>
+                </div>
+                @endif
                 @if($jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)         
                 <p>
                     @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $image)

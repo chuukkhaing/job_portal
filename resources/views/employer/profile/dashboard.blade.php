@@ -108,7 +108,7 @@
 
 @push('css')
     <style>
-        .modal-dialog {
+        .modal-pricing {
             max-width: 80%;
         }
     </style>
