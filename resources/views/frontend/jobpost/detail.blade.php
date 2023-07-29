@@ -195,7 +195,7 @@
         <div class="col-lg-6 col-md-6 col-6 align-self-end">
             <div class="float-end pb-2">
                 <a href="http://" class="btn apply-company-btn py-2">
-                    <i class="fa-solid fa-arrow-right"></i> <span class="p-1">Apply on company site</span>
+                    <i class="fa-solid fa-arrow-right rotate45"></i> <span class="p-1">Apply on company site</span>
                 </a>
                 <a href="http://" class="btn btn-outline-primary py-2">
                     <i class="fa fa-heart-o p-1 fw-bold"></i><span class="p-1">Save Job</span>
@@ -258,17 +258,19 @@
         <div class="col-lg-7 col-12">
             <div class="row col-12 m-0 p-0 py-3">
                 <h5 class="fw-bolder fs-6">Job Description</h5>
-                <p>
-                    We are seeking a self-motivated and innovative Merchant Engagement Specialist to join our Sale & Merchant Engagement Business Unit and help us build strong relationships with our Payroll Customer /KBZPay merchants. You will be part of a team that specializes in merchant engagement and merchant care. The job requires you to provide after-sales service to merchants and ensure merchants have the necessary POSM materials and have full knowledge to operate the Payroll product and KBZPay partner app. In addition you will be part of the team that is the primary interface to merchants to solve their issues, drive superior Payroll customers and Merchant satisfaction. To excel in this role, the individual needs to have both outstanding interpersonal skills and ability to build positive relationships or alliances. In addition, experiences in customer service will be essential.
-                    Be part of a team to engage merchants for both Payroll customers and KBZPay merchants.
-                    Provide product knowledge of Payroll for Customers awareness.
-                    Provide required product (KBZPay partner app, portal) trainings to merchants and respective users at outlets.
-                    Ensure after sale activities to address any gaps left in both pre-sales and sales activities.
-                    Execute merchants’ segmentation and engagement strategies to create win-win outcomes for our customers, the bank and the merchants.
-                    Provide Level 1 support to address merchant issues related to the use of Payroll product or KBZPay partner app.
-                    Be a focal point of contact for merchants and payroll customers to resolve issues.
-                    Actively collaborate with cross-functional departments to ensure merchants and payroll customers issues and requirements are resolved within the SLA.
-                </p>
+                <div>
+                    We are seeking a self-motivated and innovative Merchant Engagement Specialist to join our Sale & Merchant Engagement Business Unit and help us build strong relationships with our Payroll Customer /KBZPay merchants. You will be part of a team that specializes in merchant engagement and merchant care.  In addition, experiences in customer service will be essential.
+                    <ol>
+                        <li>Be part of a team to engage merchants for both Payroll customers and KBZPay merchants.</li>
+                        <li>Provide product knowledge of Payroll for Customers awareness.</li>
+                        <li>Provide required product (KBZPay partner app, portal) trainings to merchants and respective users at outlets.</li>
+                        <li>Ensure after sale activities to address any gaps left in both pre-sales and sales activities.</li>
+                        <li>Execute merchants’ segmentation and engagement strategies to create win-win outcomes for our customers, the bank and the merchants.</li>
+                        <li>Provide Level 1 support to address merchant issues related to the use of Payroll product or KBZPay partner app.</li>
+                        <li>Be a focal point of contact for merchants and payroll customers to resolve issues.</li>
+                        <li>Actively collaborate with cross-functional departments to ensure merchants and payroll customers issues and requirements are resolved within the SLA.</li>
+                    </ol>
+                </div>
             </div>
 
             <div class="row col-12 m-0 p-0 py-3">
