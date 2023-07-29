@@ -81,12 +81,12 @@
                         <div>
                             <div class="job-company">{{ $jobPost->Employer->name }}</div>
                             <div class="job-title">{{ $jobPost->job_title }}</div>
-                            @if($jobPost->country == 'Myanmar')
-                            <div class="job-location">{{ $jobPost->State->name }}</div>
+                            @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
+                            <div class="job-location">{{ $jobPost->Township->name }}</div>
                             @endif
                             <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
                             <div class="">
-                                <a href="" class="btn job-btn">{{ $jobPost->Industry->name }}</a>
+                                <a href="" class="btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
                     </div>
@@ -163,7 +163,7 @@
 
                                         <div class="fz13">
                                             <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                            @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @elseif($trending_job->country == 'Other') <span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i>{{ $trending_job->country }} </span>@endif
+                                            @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +204,7 @@
 
                                         <div class="fz13">
                                             <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $feature_job->MainFunctionalArea->name }}</span>
-                                            @if($feature_job->country == 'Myanmar' && $feature_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $feature_job->Township->name }}</span> @elseif($trending_job->country == 'Other') <span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i>{{ $trending_job->country }} </span>@endif
+                                            @if($feature_job->country == 'Myanmar' && $feature_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $feature_job->Township->name }}</span> @endif
                                         </div>
                                     </div>
                                 </div>

@@ -215,12 +215,20 @@ class EmployerProfileController extends Controller
             'address_detail' => $request->address_detail
         ]);
         if($address_create->country == 'Myanmar') {
-            $address = DB::table('employer_addresses as a')
+            if($address_create->township_id) {
+                $address = DB::table('employer_addresses as a')
                 ->join('states as b','a.state_id','=','b.id')
                 ->join('townships as c','a.township_id','=','c.id')
                 ->where('a.id','=',$address_create->id)
                 ->select('a.*','b.name as state_name','c.name as township_name')
                 ->first();
+            }else {
+                $address = DB::table('employer_addresses as a')
+                ->join('states as b','a.state_id','=','b.id')
+                ->where('a.id','=',$address_create->id)
+                ->select('a.*','b.name as state_name')
+                ->first();
+            }
         }else {
             $address = $address_create;
         }

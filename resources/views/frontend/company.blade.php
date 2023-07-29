@@ -55,7 +55,7 @@
                         @if($address->address_detail)
                         <p>{{ $address->address_detail }}</p>
                         @else
-                        <p>@if($address->country == 'Myanmar') {{ $address->State->name }}, {{ $address->Township->name }}, @endif {{ $address->country }}</p>
+                        <p>@if($address->country == 'Myanmar') {{ $address->State->name ?? '' }}, @if($address->township_id) {{ $address->Township->name }}, @endif {{ $address->country }} @endif</p>
                         @endif
                         @endforeach
                         @endif

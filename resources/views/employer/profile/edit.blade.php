@@ -22,7 +22,6 @@
                     <div class="col-11">
                         <div class="py-2">
                             <h5>Account Information</h5>
-                            <span>Fill company email and password</span>
                         </div>
                         <div class="py-2">
                             <div class="table-responsive">
@@ -32,15 +31,17 @@
                                             <th>Email</th>
                                             <th>Status</th>
                                             <th>Access</th>
-                                            
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>{{ $employer->email }}</td>
-                                            <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
-                                            <td>{{ $employer->employer_id ? 'Member' : 'Admin' }}</td>
-                                            
+                                            <td>{{ Auth::guard('employer')->user()->email }}</td>
+                                            <td>@if(Auth::guard('employer')->user()->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
+                                            <td>{{ Auth::guard('employer')->user()->employer_id ? 'Member' : 'Admin' }}</td>
+                                            <td>
+                                                <a href="{{ route('member-user.edit', Auth::guard('employer')->user()->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -98,7 +99,7 @@
                                     <input type="hidden" name="backgroundStatus" id="backgroundStatus" value="">
                                 </div>
                             </div>
-                            <div class="col-2">
+                            {{--<div class="col-2">
                                 <div class="py-3">
                                     <span class="employer-image-text">Company QR</span>
                                 </div>
@@ -113,7 +114,7 @@
                                     <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->qr) @else d-none @endif employer-qr-remove"><i class="fa-solid fa-xmark"></i></button>
                                     <input type="hidden" name="qrStatus" id="qrStatus" value="">
                                 </div>
-                            </div>
+                            </div>--}}
                             <h5 class="py-3">Company Profile Information</h5>
                             <div class="row">
                                 <div class="col-6 form-group">
@@ -213,7 +214,7 @@
                                 </div>
                                 <div class="form-group col-6">
                                     <label for="country" class="seeker_label">Country </label>
-                                    <select name="country" id="country_address" class="form-control seeker_input" style="width: 100%">
+                                    <select name="country" id="country_address" class="seeker_input" style="width: 100%">
                                         <option value="Myanmar">Myanmar</option>
                                         <option value="Other">Other</option>
                                     </select>
@@ -615,12 +616,7 @@
                 $('.error-state').addClass('d-none');
             }
 
-            if(township == '') {
-                $('.error-township').removeClass('d-none');
-            }else {
-                $('.error-township').addClass('d-none');
-            }
-            if(country != null && state != '' && township != '') {
+            if(country != null && state != '') {
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -640,13 +636,18 @@
                         }else {
                             addressDetail = response.data.address_detail;
                         }
-                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+response.data.township_name+'</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        var township_name = '-';
+                        if(response.data.township_name == undefined) {
+                            townsip_name = '-';
+                        }else {
+                            township_name = response.data.township_name;
+                        }
+                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+township_name+'</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
-                        $("#state_id").val('');
-                        $("#township_id").val('');
+                        $("#state_id").empty().trigger('change');
+                        $("#township_id").empty().trigger('change');
                         $("#address_detail").val('');
                         $('.error-state').addClass('d-none');
-                        $('.error-township').addClass('d-none');
                         $('.error-country').addClass('d-none');
                         $("#state_id_field").removeClass('d-none');
                         $("#township_id_field").removeClass('d-none');
@@ -654,7 +655,6 @@
                 })
             }else {
                 $('.error-state').removeClass('d-none');
-                $('.error-township').removeClass('d-none');
                 $('.error-country').removeClass('d-none');
             }
         }
@@ -682,11 +682,10 @@
                         }
                         $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>-</td><td>-</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
-                        $("#state_id").val('');
-                        $("#township_id").val('');
+                        $("#state_id").empty().trigger('change');
+                        $("#township_id").empty().trigger('change');
                         $("#address_detail").val('');
                         $('.error-state').addClass('d-none');
-                        $('.error-township').addClass('d-none');
                         $('.error-country').addClass('d-none');
                         $("#state_id_field").removeClass('d-none');
                         $("#township_id_field").removeClass('d-none');
@@ -694,7 +693,6 @@
                 })
             }else {
                 $('.error-state').removeClass('d-none');
-                $('.error-township').removeClass('d-none');
                 $('.error-country').removeClass('d-none');
             }
         }

@@ -67,7 +67,7 @@
     <div class="row pt-3 px-3">
         <div class="col-12">
             <div class="company-name pt-4 pb-2">
-                <span>@if($jobpost->country == 'Myanmar' && $jobpost->township_id) {{ $jobpost->State->name }}, {{ $jobpost->country }} @elseif($jobpost->country == 'Other') {{ $jobpost->country }} @endif</span>
+                <span>@if($jobpost->country == 'Myanmar') {{ $jobpost->State->name ?? '' }}, @if($jobpost->township_id) {{ $jobpost->Township->name }}, @endif {{ $jobpost->country }} @endif</span>
                 <h3>@if($jobpost->hide_salary == 1) Negotiate @else {{ $jobpost->salary_range }} {{ $jobpost->currency }} @endif - {{ $jobpost->job_type }}</h3>
                 @if($jobpost->JobPostSkill->count() > 0)
                 <div class="col-12 pt-3">
@@ -212,8 +212,8 @@
                                     <div class="col-lg-10 col-12">
                                         <div class="job-company">{{ $similar_job->Employer->name }}</div>
                                         <div class="job-title">{{ $similar_job->job_title }}</div>
-                                        <div class="job-location">@if($jobpost->country == 'Myanmar' && $jobpost->township_id) {{ $jobpost->State->name }}, {{ $jobpost->country }} @elseif($jobpost->country == 'Other') {{ $jobpost->country }} @endif</div>
-                                        <div class="job-salary my-3">@if($jobpost->hide_salary == 1) Negotiate @else {{ $jobpost->salary_range }} {{ $jobpost->currency }} @endif</div>
+                                        <div class="job-location">@if($similar_job->country == 'Myanmar' && $similar_job->township_id) {{ $similar_job->Township->name }} @endif</div>
+                                        <div class="job-salary my-3">@if($similar_job->hide_salary == 1) Negotiate @else {{ $similar_job->salary_range }} {{ $similar_job->currency }} @endif</div>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                     </div>
             
                                     <div class="text-end mt-auto  px-0">
-                                        <span>{{ $jobpost->updated_at->diffForHumans() }}</span>
+                                        <span>{{ $similar_job->updated_at->diffForHumans() }}</span>
                                     </div>
                                 </div>
                             </div>

@@ -34,7 +34,6 @@ class EmployerRegisterController extends Controller
             'email' => $request['company_email'],
             'phone' => $request['company_phone'],
             'password' => Hash::make($request['company_password']),
-            'slug' => $slug,
             'package_id' => 4,
             'email_verification_token' => Str::random(32),
             'register_at' => Carbon::now(),

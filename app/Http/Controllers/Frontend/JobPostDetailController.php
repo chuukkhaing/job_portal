@@ -13,7 +13,7 @@ class JobPostDetailController extends Controller
     {
         $jobpost = JobPost::whereSlug($slug)->first();
         $jobposts = JobPost::whereIsActive(1)->whereNotIn('id',[$jobpost->id])->where('status','Online')->get();
-        $similar_jobs = JobPost::where('job_title','like','%'.$jobpost->job_title.'%')->orderBy('updated_at','desc')->get()->take(5);
+        $similar_jobs = JobPost::where('job_title','like','%'.$jobpost->job_title.'%')->where('id','!=',$jobpost->id)->orderBy('updated_at','desc')->get()->take(5);
         $packages = Package::whereNull('deleted_at')->get();
         return view ('frontend.jobpost.detail', compact('packages','jobpost', 'jobposts', 'similar_jobs'));
     }

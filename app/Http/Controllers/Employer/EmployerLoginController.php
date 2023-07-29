@@ -40,7 +40,16 @@ class EmployerLoginController extends Controller
         ]);
 
         if (\Auth::guard('employer')->attempt(['email' => $request->company_email, 'password' => $request->company_password], $request->get('company_remember'))) {
-            return redirect()->route('employer-profile.index')->with('success', 'Login Successfully.');
+            if(Auth::guard('employer')->user()->is_active == 0) {
+                Auth::guard('employer')->logout();
+
+                $request->session()->flush();
+        
+                $request->session()->regenerate();
+                return redirect()->route('home')->with('error', 'Your account is not active.');
+            }else {
+                return redirect()->route('employer-profile.index')->with('success', 'Login Successfully.');
+            }
         } else {
             return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('company_email', 'company_remember'));
         }

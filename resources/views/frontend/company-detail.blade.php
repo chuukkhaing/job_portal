@@ -45,7 +45,7 @@
                 @if($address->address_detail)
                 <p>{{ $address->address_detail }}</p>
                 @else
-                <p>@if($address->country == 'Myanmar') {{ $address->State->name }}, {{ $address->Township->name }}, @endif {{ $address->country }}</p>
+                <p>@if($address->country == 'Myanmar') {{ $address->State->name ?? '' }}, @if($address->township_id) {{ $address->Township->name }}, @endif {{ $address->country ?? '' }} @endif</p>
                 @endif
                 @endforeach
                 @endif
@@ -232,7 +232,7 @@
                         <div class="col-lg-10 col-md-10">
                             <div class="job-company">{{ $employer->name ?? '-' }}</div>
                             <div class="job-title">{{ $jobPost->job_title }}</div>
-                            <div class="job-location">@if($jobPost->country == 'Myanmar') {{ $jobPost->State->name ?? '-' }} @else {{ $jobPost->country }} @endif</div>
+                            <div class="job-location">@if($jobPost->country == 'Myanmar' && $jobPost->township_id) {{ $jobPost->Township->name ?? '-' }} @endif</div>
                             <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
                         </div>
                     </div>
@@ -256,7 +256,7 @@
 
     <div class="row py-3">
         <div>
-            <a href="#" class="btn see-all-btn pull-right">See All Jobs</a>
+            <a href="{{ route('company-jobs', $employer->id) }}" class="btn see-all-btn pull-right">See All Jobs</a>
         </div>
     </div>
 </div>

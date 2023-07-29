@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="col-10 my-3">
-                    <h5 class="text-light">Office Phont</h5>
+                    <h5 class="text-light">Office Phone</h5>
                     <p class="text-light">"Give us a call to speak directly with a member of our team by dialing our office's phone line."</p>
                     <h5 class="text-light"><a href="tel:+959447962279">09447962279</a> , <a href="tel:+959782436801">09782436801</a></h5>
                     </div>

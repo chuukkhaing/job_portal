@@ -56,6 +56,7 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="row card-header py-3 m-0">
+                @if(Auth::guard('employer')->user()->employer_id == Null)
                 <div class="col">
                     <a href="{{ route('member-user.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                         <span class="icon text-white-50">
@@ -64,7 +65,16 @@
                         <span class="text">Back</span>
                     </a>
                 </div>
-                
+                @else
+                <div class="col">
+                    <a href="{{ route('employer-profile.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-reply"></i>
+                        </span>
+                        <span class="text">Back</span>
+                    </a>
+                </div>
+                @endif
             </div>
             <div class="card-body">
                 <form action="{{ route('member-user.update', $member->id) }}" method="post" enctype="multipart/form-data">
@@ -97,6 +107,7 @@
                         </div>
                     </div>
                     <div class="row">
+                        @if(Auth::guard('employer')->user()->employer_id == Null)
                         @if($member->employer_id)
                         <div class="col-6 form-group">
                             <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
@@ -125,6 +136,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endif
                     </div>
                     <button class="btn btn-primary btn-icon-split btn-sm" type="submit">

@@ -483,12 +483,20 @@ class EmployerJobPostController extends Controller
                     ->get();
         $seeker = Seeker::findOrFail($id);
         if($seeker->country == 'Myanmar') {
-            $seeker = DB::table('seekers as a')
+            if($seeker->township_id) {
+                $seeker = DB::table('seekers as a')
                         ->join('states as b', 'a.state_id', '=', 'b.id')
                         ->join('townships as c', 'a.township_id', '=', 'c.id')
                         ->where('a.id','=',$id)
                         ->select('a.*','b.name as state_name','c.name as township_name')
                         ->first();
+            }else {
+                $seeker = DB::table('seekers as a')
+                        ->join('states as b', 'a.state_id', '=', 'b.id')
+                        ->where('a.id','=',$id)
+                        ->select('a.*','b.name as state_name')
+                        ->first();
+            }
         }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();

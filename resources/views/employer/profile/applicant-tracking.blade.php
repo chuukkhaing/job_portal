@@ -464,7 +464,11 @@
                     if(response.seeker.country == "Other") {
                         $('#app_receive_address').text('Country - Other');
                     }else {
-                        $('#app_receive_address').text(response.seeker.township_name+', '+response.seeker.state_name+', '+response.seeker.country);
+                        if(response.seeker.twonship_name) {
+                            $('#app_receive_address').text(response.seeker.township_name+', '+response.seeker.state_name+', '+response.seeker.country);
+                        }else {
+                            $('#app_receive_address').text(response.seeker.state_name+', '+response.seeker.country);
+                        }
                     }
                     $("#app_receive_email").text(response.seeker.email);
                     $(".app_receive_dob").text(moment(response.seeker.date_of_birth).format("DD/MM/YYYY"));

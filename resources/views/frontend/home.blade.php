@@ -186,7 +186,7 @@
 
                             <div class="fz13">
                                 <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @elseif($trending_job->country == 'Other') <span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i>{{ $trending_job->country }} </span>@endif
+                                @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                             </div>
                         </div>
                     </div>
@@ -363,75 +363,87 @@
 
         <div id="body-explore-marketplace" class="row py-3">
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-building-columns bg-white rounded-circle p-3"></i>
-                    </div>
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-building-columns bg-white rounded-circle p-3"></i>
+                        </div>
 
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Banking</span>
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Banking</span>
+                        </div>
                     </div>
-                </div>
+                </a>
+            </div>
+            
+            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-display bg-white rounded-circle p-3"></i>
+                        </div>
+
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Computer</span>
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-display bg-white rounded-circle p-3"></i>
-                    </div>
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-graduation-cap bg-white rounded-circle p-3"></i>
+                        </div>
 
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Computer</span>
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Education</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-graduation-cap bg-white rounded-circle p-3"></i>
-                    </div>
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-martini-glass-citrus bg-white rounded-circle p-3"></i>
+                        </div>
 
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Education</span>
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Food</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-martini-glass-citrus bg-white rounded-circle p-3"></i>
-                    </div>
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-pen-to-square bg-white rounded-circle p-3"></i>
+                        </div>
 
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Food</span>
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Writing</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-pen-to-square bg-white rounded-circle p-3"></i>
-                    </div>
+                <a href="{{ route('job-categories') }}">
+                    <div id="explore-marketplace-box" class="text-center">
+                        <div class="explore-marketplace-icon pt-4">
+                            <i class="fa-solid fa-wifi bg-white rounded-circle p-3"></i>
+                        </div>
 
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Writing</span>
+                        <div class="explore-marketplace-title pt-1">
+                            <span class="text-white">Wifi</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
-                <div id="explore-marketplace-box" class="text-center">
-                    <div class="explore-marketplace-icon pt-4">
-                        <i class="fa-solid fa-wifi bg-white rounded-circle p-3"></i>
-                    </div>
-
-                    <div class="explore-marketplace-title pt-1">
-                        <span class="text-white">Wifi</span>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>

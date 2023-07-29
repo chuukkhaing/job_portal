@@ -69,9 +69,9 @@
                             <div class="col-8 p-2">
                                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                                     <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
-                                    @if($jobPost->country == 'Myanmar')
+                                    @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
                                     <br>
-                                    <span class=" text-primary">{{ $jobPost->State->name }}</span>
+                                    <span class=" text-primary">{{ $jobPost->Township->name }}</span>
                                     @endif
                                 </a>
                             </div>
