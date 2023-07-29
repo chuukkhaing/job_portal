@@ -190,6 +190,10 @@ select.form-control.search-slt.location {
     height: 0px !important;
 }
 
+.rotate45 {
+    transform: rotate(-45deg);
+}
+
 .gradient-img {
     /* background: linear-gradient(90deg, rgb(21 20 22) 0%, rgb(38 34 34) 50%, rgb(10 10 10) 100%);   */
     background: linear-gradient(90deg, rgb(21 20 22) 0%, rgb(38 34 34) 0%, rgb(10 10 10) 0%);  

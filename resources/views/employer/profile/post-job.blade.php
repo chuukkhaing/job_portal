@@ -437,26 +437,126 @@
                 </div>
             </div>
         </div>
-        <div class="row mb-2 text-center">
+        <div class="row col-12 mb-2 py-3 text-center">
             <div class="col-6">
                 <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
                 <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
             </div>
-            <div class="col-6">
-            <button type="submit" class="btn profile-save-btn">Post Job</button>
+            <div class="col-6 d-flex flex-row-reverse">
+            <button type="submit" class="btn profile-save-btn mx-3">
+                <span>Post Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
+            </button>
+            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalOut">
+                <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
+            </button>
             </div>
         </div>
     </form>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalOut" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="{{ asset('frontend/img/logo/Logo Svg.svg') }}" class="img-fluid">
+                        </div>
+                        <div class="col-8">
+                            <h5>This is a preview of what people may see</h5>
+                            <span>Your job post may look slightly different when it goes live.</span>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-body p-0">
+                <div class="container-fluid">
+                    <div class="row px-3" style="background-color: #ebf5ff">
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="company-name py-3">
+                                <span>Blackzim</span>
+                                <h3>Senior Java Developer</h3>
+                                <span>Yangon , Myanmar</span>
+                                <h3>1 Lakhs - 10 Lakhs</h3>
+                            </div>
+                        </div>
+                
+                        <div class="col-lg-6 col-md-6 col-6">
+                            <div class="float-end py-3">
+                                <a href="http://" class="btn apply-company-btn py-2 rounded-pill">
+                                    <i class="fa-solid fa-arrow-right rotate45"></i> <span class="p-1">Apply Job</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row col-12 m-0 p-0 py-3">
+                        <h5 class="fw-bolder fs-6">Job Description</h5>
+                        <div>
+                            We are seeking a self-motivated and innovative Merchant Engagement Specialist to join our Sale & Merchant Engagement Business Unit and help us build strong relationships with our Payroll Customer /KBZPay merchants. You will be part of a team that specializes in merchant engagement and merchant care.  In addition, experiences in customer service will be essential.
+                            <ol>
+                                <li>Be part of a team to engage merchants for both Payroll customers and KBZPay merchants.</li>
+                                <li>Provide product knowledge of Payroll for Customers awareness.</li>
+                                <li>Provide required product (KBZPay partner app, portal) trainings to merchants and respective users at outlets.</li>
+                                <li>Ensure after sale activities to address any gaps left in both pre-sales and sales activities.</li>
+                                <li>Execute merchants’ segmentation and engagement strategies to create win-win outcomes for our customers, the bank and the merchants.</li>
+                                <li>Provide Level 1 support to address merchant issues related to the use of Payroll product or KBZPay partner app.</li>
+                                <li>Be a focal point of contact for merchants and payroll customers to resolve issues.</li>
+                                <li>Actively collaborate with cross-functional departments to ensure merchants and payroll customers issues and requirements are resolved within the SLA.</li>
+                            </ol>
+                        </div>
+                    </div>
+        
+                    <div class="row col-12 m-0 p-0 py-3">
+                        <h5 class="fw-bolder fs-6">Job Requirements</h5>          
+                        <div>
+                            <ul>
+                                <li>Possess a bachelor degree (Degree in Banking/Business Administration)</li>
+                                <li>Proficient in English language</li>
+                                <li>Excellent customer service skill and communication skill</li>
+                                <li>Strong organizational and influential skills</li>
+                                <li>Strong Teamwork and excellent interpersonal skills</li>
+                                <li>Skilled in oratory and presentation</li>
+                                <li>Willing to work overtime, when needed, to complete the jobs in time and for good results</li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <div class="row col-12 m-0 p-0 py-3">
+                        <h5 class="fw-bolder fs-6">We expect you to have:</h5>          
+                        <div>
+                            <ul>
+                                <li>Possess a bachelor degree (Degree in Banking/Business Administration)</li>
+                                <li>Proficient in English language</li>
+                                <li>Excellent customer service skill and communication skill</li>
+                                <li>Strong organizational and influential skills</li>
+                                <li>Strong Teamwork and excellent interpersonal skills</li>
+                                <li>Skilled in oratory and presentation</li>
+                                <li>Willing to work overtime, when needed, to complete the jobs in time and for good results</li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</button>
+              </div>
+        </div>
+    </div>
+</div>
 @endsection
-@push('css')
-    <style>
-        .modal-dialog {
-            max-width: 80%;
-        }
-    </style>
-@endpush
+
 @push('scripts')
 <script>
     $(document).ready(function() {
