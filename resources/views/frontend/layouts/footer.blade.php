@@ -20,7 +20,7 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="{{ route('contact-us') }}">Contact Us</a>
                             <a class="footer-links mb-2" href="{{ route('about-us') }}">About Us</a>
-                            <a class="footer-links mb-2" href="#">Terms of Use</a>
+                            <a class="footer-links mb-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
                             <a class="footer-links mb-2" href="#">Privacy Policies</a>
                         </div>
                     </div>

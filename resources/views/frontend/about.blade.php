@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container my-5">
-    <div class="about-us-header py-3">
+    <div class="about-us-header py-0">
         <h2 class="">About us</h2>
     </div>
     

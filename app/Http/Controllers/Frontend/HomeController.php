@@ -145,4 +145,10 @@ class HomeController extends Controller
         $packages = Package::whereNull('deleted_at')->get();
         return view('frontend.about', compact('packages'));
     }
+
+    public function termsOfUse(Request $request)
+    {
+        $packages = Package::whereNull('deleted_at')->get();
+        return view('frontend.terms-of-use', compact('packages'));
+    }
 }

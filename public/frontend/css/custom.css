@@ -194,6 +194,10 @@ select.form-control.search-slt.location {
     transform: rotate(-45deg);
 }
 
+ol li {
+    margin-bottom: 0.5rem !important;
+}
+
 .gradient-img {
     /* background: linear-gradient(90deg, rgb(21 20 22) 0%, rgb(38 34 34) 50%, rgb(10 10 10) 100%);   */
     background: linear-gradient(90deg, rgb(21 20 22) 0%, rgb(38 34 34) 0%, rgb(10 10 10) 0%);  
@@ -319,7 +323,7 @@ a.interview-btn:hover {
 
 .job-trending-scroll {
     background: #ffffff;
-    height:550px;
+    height:980px;
     overflow: auto;
 }
 
