@@ -58,6 +58,7 @@
                 </tbody>
             </table>
         </div>
+        <h3 class="job-tracking-title" id="receive-job-title"></h3>
         <div class="d-none" id="cv-list-section">
             <div class="row">
                 <div class="col-4">
@@ -159,8 +160,7 @@
                     </div>
                     <div class="mt-4">
                         <div class="mb-4">
-                            <h5 class="job-title" id="receive-job-title"></h5>
-                            <hr>
+                            
                             <div class="row">
                                 <div class="col cv-unlock-data d-none">
                                     <p class="app_receive_name"> </p>

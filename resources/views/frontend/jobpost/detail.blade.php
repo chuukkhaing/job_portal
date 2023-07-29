@@ -155,7 +155,7 @@
                 <div>
                     <ul>
                         <li><div class="row"><div class="col-1">Size</div><div class="col-11"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
-                        <li><div class="row"><div class="col-1">Type</div><div class="col-11"><strong>{{ $jobpost->Employer->OwnerShipType->name }}</strong></div></div></li>
+                        <li><div class="row"><div class="col-1">Type</div><div class="col-11"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
                         @if($jobpost->Employer->website)
                         <li><div class="row"><div class="col-1">Website</div><div class="col-11"><a href="{{ $jobpost->Employer->website }}"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
                         @endif
