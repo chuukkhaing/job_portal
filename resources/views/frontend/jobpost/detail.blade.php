@@ -126,25 +126,9 @@
         <div class="col-lg-7 col-12">
             <div class="row col-12 m-0 p-0 py-3">
                 <h5 class="fw-bolder fs-6">Job Description</h5>
-<<<<<<< HEAD
                 <p>
                     {!! $jobpost->job_description ?? '-' !!}
                 </p>
-=======
-                <div>
-                    We are seeking a self-motivated and innovative Merchant Engagement Specialist to join our Sale & Merchant Engagement Business Unit and help us build strong relationships with our Payroll Customer /KBZPay merchants. You will be part of a team that specializes in merchant engagement and merchant care.  In addition, experiences in customer service will be essential.
-                    <ol>
-                        <li>Be part of a team to engage merchants for both Payroll customers and KBZPay merchants.</li>
-                        <li>Provide product knowledge of Payroll for Customers awareness.</li>
-                        <li>Provide required product (KBZPay partner app, portal) trainings to merchants and respective users at outlets.</li>
-                        <li>Ensure after sale activities to address any gaps left in both pre-sales and sales activities.</li>
-                        <li>Execute merchants’ segmentation and engagement strategies to create win-win outcomes for our customers, the bank and the merchants.</li>
-                        <li>Provide Level 1 support to address merchant issues related to the use of Payroll product or KBZPay partner app.</li>
-                        <li>Be a focal point of contact for merchants and payroll customers to resolve issues.</li>
-                        <li>Actively collaborate with cross-functional departments to ensure merchants and payroll customers issues and requirements are resolved within the SLA.</li>
-                    </ol>
-                </div>
->>>>>>> topicEmployerPostPreview
             </div>
 
             <div class="row col-12 m-0 p-0 py-3">
