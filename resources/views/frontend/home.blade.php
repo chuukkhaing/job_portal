@@ -207,8 +207,8 @@
             <h3 id="popular-job-category-title">Featured Jobs</h3>
         </div>
 
-        <div class="row bg-light">
-            <div class="col-12 p-0">
+        <div class="row bg-white">
+            <div class="col-12 p-0 bg-white">
                 <div class="owl-slider py-5">
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
