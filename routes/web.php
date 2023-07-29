@@ -38,3 +38,6 @@ Route::post('/search-job', [HomeController::class, 'searchJob'])->name('search-j
 Route::get('/industry-job/{id}', [HomeController::class, 'industryJob'])->name('industry-job');
 Route::post('/find-company', [HomeController::class, 'findCompany'])->name('search-company');
 Route::get('/company-jobs/{id}', [HomeController::class, 'companyJob'])->name('company-jobs');
+Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
+Route::get('/terms-of-use', [HomeController::class, 'termsOfUse'])->name('terms-of-use');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');

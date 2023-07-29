@@ -19,9 +19,9 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="{{ route('contact-us') }}">Contact Us</a>
-                            <a class="footer-links mb-2" href="#">About Us</a>
-                            <a class="footer-links mb-2" href="#">Terms of Use</a>
-                            <a class="footer-links mb-2" href="#">Privacy Policies</a>
+                            <a class="footer-links mb-2" href="{{ route('about-us') }}">About Us</a>
+                            <a class="footer-links mb-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
+                            <a class="footer-links mb-2" href="{{ route('privacy-policy') }}">Privacy Policies</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
@@ -29,8 +29,8 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links mb-2" href="#">Registration</a>
-                            <a class="footer-links mb-2" href="#">Find Jobs</a>
-                            <a class="footer-links mb-2" href="#">Job Category</a>
+                            <a class="footer-links mb-2" href="{{ route('find-jobs') }}">Find Jobs</a>
+                            <a class="footer-links mb-2" href="{{ route('job-categories') }}">Job Category</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
