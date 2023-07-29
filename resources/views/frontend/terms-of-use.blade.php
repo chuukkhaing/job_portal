@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container my-5">
-    <div class="about-us-header py-3">
+    <div class="terms-of-use-header py-0">
         <h2 class="">Terms of Use Agreement on Infinity Careers Recruitment Website</h2>
     </div>
 

@@ -21,7 +21,7 @@
                             <a class="footer-links mb-2" href="{{ route('contact-us') }}">Contact Us</a>
                             <a class="footer-links mb-2" href="{{ route('about-us') }}">About Us</a>
                             <a class="footer-links mb-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
-                            <a class="footer-links mb-2" href="#">Privacy Policies</a>
+                            <a class="footer-links mb-2" href="{{ route('privacy-policy') }}">Privacy Policies</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">

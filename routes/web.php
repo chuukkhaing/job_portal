@@ -39,3 +39,4 @@ Route::get('/industry-job/{id}', [HomeController::class, 'industryJob'])->name('
 Route::post('/find-company', [HomeController::class, 'findCompany'])->name('search-company');
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 Route::get('/terms-of-use', [HomeController::class, 'termsOfUse'])->name('terms-of-use');
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');

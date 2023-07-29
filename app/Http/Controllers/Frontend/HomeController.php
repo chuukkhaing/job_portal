@@ -151,4 +151,10 @@ class HomeController extends Controller
         $packages = Package::whereNull('deleted_at')->get();
         return view('frontend.terms-of-use', compact('packages'));
     }
+
+    public function privacyPolicy(Request $request)
+    {
+        $packages = Package::whereNull('deleted_at')->get();
+        return view('frontend.privacy-policy', compact('packages'));
+    }
 }
