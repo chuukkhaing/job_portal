@@ -47,10 +47,10 @@
                         <h6 class="mb-4">Follow Us</h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">Linkedin</a>
-                            <a class="footer-links mb-2" href="#">Facebook</a>
-                            <a class="footer-links mb-2" href="#">Telegram</a>
-                            <a class="footer-links mb-2" href="#">Viber</a>
+                            <a class="footer-links mb-2" href="https://www.linkedin.com/company/infinity-careers-myanmar-thebestrecruitmentagency/">Linkedin</a>
+                            <a class="footer-links mb-2" href="https://www.facebook.com/infinitycareersmyanmar2021">Facebook</a>
+                            {{-- <a class="footer-links mb-2" href="#">Telegram</a> --}}
+                            <a class="footer-links mb-2" href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm">Viber</a>
                         </div>
                     </div>
                 </div>
