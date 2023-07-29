@@ -28,6 +28,7 @@ class HomeController extends Controller
                         ->join('package_with_package_items as b','a.package_id','=','b.package_id')
                         ->join('package_items as c','b.package_item_id','=','c.id')
                         ->where('c.name','=','Top Employer')
+                        ->where('a.slug','!=',Null)
                         ->select('a.*')
                         ->where('a.is_active','=',1)
                         ->where('a.deleted_at','=',Null)

@@ -58,6 +58,7 @@ class MemberUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'employer_id' => Auth::guard('employer')->user()->id,
+            'package_id' => Auth::guard('employer')->user()->package_id,
             'is_active' => $request->is_active,
             'register_at' => now(),
             'is_active' => $request->is_active,

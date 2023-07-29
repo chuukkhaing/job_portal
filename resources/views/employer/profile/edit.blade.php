@@ -44,10 +44,11 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                @if(Auth::guard('employer')->user()->employer_id == Null)
                                 <div class="text-end">
-                                <a href="{{ route('member-user.index') }}" class="btn profile-save-btn">Manage User</a>
+                                    <a href="{{ route('member-user.index') }}" class="btn profile-save-btn">Manage User</a>
                                 </div>
-                                
+                                @endif
                             </div>
                         </div>
                     </div>
