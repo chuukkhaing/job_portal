@@ -283,11 +283,11 @@
                             <div class="col-6"></div>
                             <div class="col-6 form-group">
                                 <label for="job_description" class="seeker_label">Job Description</label>
-                                <textarea name="job_description" id="job_description" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" required class="seeker_input form-control"></textarea>
                             </div>
                             <div class="col-6 form-group">
                                 <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                <textarea name="job_requirement" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control"></textarea>
+                                <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control"></textarea>
                             </div>
                             <div class="col-8 form-group">
                                 <label for="benefit" class="seeker_label">Benefits</label>
@@ -446,7 +446,7 @@
             <button type="submit" class="btn profile-save-btn mx-3">
                 <span>Post Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
             </button>
-            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalOut">
+            <button class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
                 <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
             </button>
             </div>
@@ -483,16 +483,16 @@
                     <div class="row px-3" style="background-color: #ebf5ff">
                         <div class="col-lg-6 col-md-6 col-6">
                             <div class="company-name py-3">
-                                <span>Blackzim</span>
-                                <h3>Senior Java Developer</h3>
-                                <span>Yangon , Myanmar</span>
-                                <h3>1 Lakhs - 10 Lakhs</h3>
+                                <span>{{ $employer->name }}</span>
+                                <h3 class="preview_job_title"></h3>
+                                <span class="preview_address"></span>
+                                <h3 class="preview_salary"></h3>
                             </div>
                         </div>
                 
                         <div class="col-lg-6 col-md-6 col-6">
                             <div class="float-end py-3">
-                                <a href="http://" class="btn apply-company-btn py-2 rounded-pill">
+                                <a href="#" class="btn apply-company-btn py-2 rounded-pill">
                                     <i class="fa-solid fa-arrow-right rotate45"></i> <span class="p-1">Apply Job</span>
                                 </a>
                             </div>
@@ -501,48 +501,15 @@
 
                     <div class="row col-12 m-0 p-0 py-3">
                         <h5 class="fw-bolder fs-6">Job Description</h5>
-                        <div>
-                            We are seeking a self-motivated and innovative Merchant Engagement Specialist to join our Sale & Merchant Engagement Business Unit and help us build strong relationships with our Payroll Customer /KBZPay merchants. You will be part of a team that specializes in merchant engagement and merchant care.  In addition, experiences in customer service will be essential.
-                            <ol>
-                                <li>Be part of a team to engage merchants for both Payroll customers and KBZPay merchants.</li>
-                                <li>Provide product knowledge of Payroll for Customers awareness.</li>
-                                <li>Provide required product (KBZPay partner app, portal) trainings to merchants and respective users at outlets.</li>
-                                <li>Ensure after sale activities to address any gaps left in both pre-sales and sales activities.</li>
-                                <li>Execute merchants’ segmentation and engagement strategies to create win-win outcomes for our customers, the bank and the merchants.</li>
-                                <li>Provide Level 1 support to address merchant issues related to the use of Payroll product or KBZPay partner app.</li>
-                                <li>Be a focal point of contact for merchants and payroll customers to resolve issues.</li>
-                                <li>Actively collaborate with cross-functional departments to ensure merchants and payroll customers issues and requirements are resolved within the SLA.</li>
-                            </ol>
+                        <div class="preview_job_description">
+                            
                         </div>
                     </div>
         
                     <div class="row col-12 m-0 p-0 py-3">
                         <h5 class="fw-bolder fs-6">Job Requirements</h5>          
-                        <div>
-                            <ul>
-                                <li>Possess a bachelor degree (Degree in Banking/Business Administration)</li>
-                                <li>Proficient in English language</li>
-                                <li>Excellent customer service skill and communication skill</li>
-                                <li>Strong organizational and influential skills</li>
-                                <li>Strong Teamwork and excellent interpersonal skills</li>
-                                <li>Skilled in oratory and presentation</li>
-                                <li>Willing to work overtime, when needed, to complete the jobs in time and for good results</li>
-                            </ul>
-                        </div>
-                    </div>
-        
-                    <div class="row col-12 m-0 p-0 py-3">
-                        <h5 class="fw-bolder fs-6">We expect you to have:</h5>          
-                        <div>
-                            <ul>
-                                <li>Possess a bachelor degree (Degree in Banking/Business Administration)</li>
-                                <li>Proficient in English language</li>
-                                <li>Excellent customer service skill and communication skill</li>
-                                <li>Strong organizational and influential skills</li>
-                                <li>Strong Teamwork and excellent interpersonal skills</li>
-                                <li>Skilled in oratory and presentation</li>
-                                <li>Willing to work overtime, when needed, to complete the jobs in time and for good results</li>
-                            </ul>
+                        <div class="preview_job_requirement">
+                            
                         </div>
                     </div>
                 
@@ -743,5 +710,13 @@
             calculatePoint()
         }
     });
+
+    $(".preview_card").click(function() {
+        $(".preview_job_title").html($("#job_title").val());
+        $(".preview_address").html($("#career_level").val()+' - '+$("#job_type").val());
+        $(".preview_salary").html($("#mmk_salary").val()+''+ $("#usd_salary").val() +' '+ $("#currency").val());
+        $(".preview_job_description").html($("#job_description").val());
+        $(".preview_job_requirement").html($("#job_requirement").val());
+    })
 </script>
 @endpush

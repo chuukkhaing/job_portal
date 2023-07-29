@@ -30,7 +30,15 @@
         allowClear: true
     });
 
-    // $('.summernote').summernote();
+    $('.summernote').summernote({
+        toolbar: [
+            ['style', ['bold', 'italic', 'underline']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+        ],
+        height: 200
+    });
 
     $('#dataTable').dataTable({
         ordering: false

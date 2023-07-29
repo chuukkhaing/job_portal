@@ -38,16 +38,12 @@
                                 <p class="p-0 m-0" style="color: #181722">{{ $jobPost->salary_range }} {{ $jobPost->currency }}</p>
                                 @endif
                                 @endif
-                                <span class="jobpost-attr"><i class="fa-solid fa-briefcase"></i> {{ $jobPost->Industry->name }}</span>
-                                @if($jobPost->state_id)
-                                <span class="jobpost-attr"><i class="fa-solid fa-location-dot"></i> {{ $jobPost->State->name }} ,</span>
-                                @endif
+                                <span class="jobpost-attr"><i class="fa-solid fa-briefcase"></i> {{ $jobPost->MainFunctionalArea->name }}</span>
+                                
                                 @if($jobPost->township_id)
-                                <span class="jobpost-attr">{{ $jobPost->Township->name }}</span>
+                                <span class="jobpost-attr"><i class="fa-solid fa-location-dot"></i> {{ $jobPost->Township->name }}</span>
                                 @endif
-                                @if($jobPost->country == 'Other') 
-                                <span class="jobpost-attr"><i class="fa-solid fa-location-dot"></i> Other Country</span>
-                                @endif
+                                
                             </div>
                             <div class="col-2 d-flex align-items-end flex-column bd-highlight">
                                 <div class="px-4 job-post-status-{{$jobPost->id}}">

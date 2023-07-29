@@ -284,11 +284,11 @@
                             <div class="col-6"></div>
                             <div class="col-6 form-group">
                                 <label for="job_description" class="seeker_label">Job Description</label>
-                                <textarea name="job_description" id="job_description" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_description }}</textarea>
+                                <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_description }}</textarea>
                             </div>
                             <div class="col-6 form-group">
                                 <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                <textarea name="job_requirement" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_requirement }}</textarea>
+                                <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_requirement }}</textarea>
                             </div>
                             <div class="col-8 form-group">
                                 <label for="benefit" class="seeker_label">Benefits</label>
