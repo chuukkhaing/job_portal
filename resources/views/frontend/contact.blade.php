@@ -47,12 +47,12 @@
             </div>
             <div>
                 <div class="bg-light social-icon d-inline-block mx-1">
-                    <a href="#"><img src="{{ asset('img/icon/facebook.png') }}" alt="" width='17px' height='17px'></a>
+                    <a href="https://www.facebook.com/infinitycareersmyanmar2021"><img src="{{ asset('img/icon/facebook.png') }}" alt="" width='17px' height='17px'></a>
                 </div>
                 <div class="bg-light social-icon d-inline-block mx-1">
-                    <a href="#"><img src="{{ asset('img/icon/linkedin.png') }}" alt="" width='17px' height='17px'></a>
+                    <a href="https://www.linkedin.com/company/infinity-careers-myanmar-thebestrecruitmentagency/"><img src="{{ asset('img/icon/linkedin.png') }}" alt="" width='17px' height='17px'></a>
                 </div>
-                <div class="bg-light social-icon d-inline-block mx-1">
+                {{-- <div class="bg-light social-icon d-inline-block mx-1">
                     <a href="#"><img src="{{ asset('img/icon/twitter.png') }}" alt="" width='17px' height='17px'></a>
                 </div>
                 <div class="bg-light social-icon d-inline-block mx-1">
@@ -60,7 +60,7 @@
                 </div>
                 <div class="bg-light social-icon d-inline-block mx-1">
                     <a href="#"><img src="{{ asset('img/icon/tiktok.png') }}" alt="" width='17px' height='17px'></a>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="col-12 col-md-6 p-3 p-lg-5 contact-form-box">
