@@ -103,9 +103,6 @@
                             <div class="col-7">
                                 <span class="jobpost-attr">{{ $jobPost->Employer->name }}</span>
                                 <h5>{{ $jobPost->job_title }}</h5>
-                                @if($jobPost->state_id)
-                                <span class="jobpost-attr">{{ $jobPost->State->name }} ,</span>
-                                @endif
                                 @if($jobPost->township_id)
                                 <span class="jobpost-attr">{{ $jobPost->Township->name }}</span>
                                 @endif

@@ -24,9 +24,6 @@
                         <div class="col-7">
                             <span class="jobpost-attr">{{ $jobApplyBySeeker->Employer->name }}</span>
                             <h5>{{ $jobApplyBySeeker->JobPost->job_title }}</h5>
-                            @if($jobApplyBySeeker->JobPost->state_id)
-                            <span class="jobpost-attr">{{ $jobApplyBySeeker->JobPost->State->name }} ,</span>
-                            @endif
                             @if($jobApplyBySeeker->JobPost->township_id)
                             <span class="jobpost-attr">{{ $jobApplyBySeeker->JobPost->Township->name }}</span>
                             @endif

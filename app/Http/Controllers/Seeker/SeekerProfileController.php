@@ -52,7 +52,7 @@ class SeekerProfileController extends Controller
         $languages = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $references = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $cvs = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $jobPosts = JobPost::whereIsActive(1)->get()->take(16);
+        $jobPosts = JobPost::whereIsActive(1)->where('job_title','like','%'.Auth::guard('seeker')->user()->job_title.'%')->get()->take(16);
         $jobsApplyBySeeker = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
         $employers = DB::table('employers as a')
             ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
