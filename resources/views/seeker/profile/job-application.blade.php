@@ -12,40 +12,45 @@
         @foreach($jobsApplyBySeeker as $jobApplyBySeeker)
         <div class="col-md-6 col-12">
             <a href="{{ route('jobpost-detail', $jobApplyBySeeker->JobPost->slug) }}">
-                <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                    <div class="row">
-                        <div class="col-2">
+                <div class="row job-content mb-3">
+                    <!-- Job List Start -->
+                    
+                    <div class="col-lg-10 col-md-10 py-4 d-flex">
+                        <div style="width: 100px">
                             @if($jobApplyBySeeker->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobApplyBySeeker->Employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$jobApplyBySeeker->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                             @endif
                         </div>
-                        <div class="col-7">
-                            <span class="jobpost-attr">{{ $jobApplyBySeeker->Employer->name }}</span>
-                            <h5>{{ $jobApplyBySeeker->JobPost->job_title }}</h5>
-                            @if($jobApplyBySeeker->JobPost->township_id)
-                            <span class="jobpost-attr">{{ $jobApplyBySeeker->JobPost->Township->name }}</span>
+                        <div>
+                            <div class="job-company">{{ $jobApplyBySeeker->Employer->name }}</div>
+                            <div class="job-title">{{ $jobApplyBySeeker->JobPost->job_title }}</div>
+                            @if($jobApplyBySeeker->JobPost->country == 'Myanmar' && $jobApplyBySeeker->JobPost->township_id)
+                            <div class="job-location">{{ $jobApplyBySeeker->JobPost->Township->name }}</div>
                             @endif
-                            @if($jobApplyBySeeker->JobPost->country == 'Other') 
-                            <span class="jobpost-attr">Other Country</span>
-                            @endif
-                            @if($jobApplyBySeeker->JobPost->salary_status == 'Negotiable')
-                            <p class="p-0 m-0" style="color: #181722">Negotiate</p>
-                            @endif
-                            @if($jobApplyBySeeker->JobPost->salary_status != 'Hide' && $jobApplyBySeeker->JobPost->salary_status != 'Negotiable')
-                            @if($jobApplyBySeeker->JobPost->salary_range)
-                            <p class="p-0 m-0" style="color: #181722">{{ $jobApplyBySeeker->JobPost->salary_range }} {{ $jobApplyBySeeker->JobPost->currency }}</p>
-                            @endif
-                            @endif
-                        </div>
-                        <div class="col-3 d-flex align-items-end flex-column bd-highlight mb-3">
-                            <div class="text-end px-3 p-2 bd-highlight" style="color: #0355D0">Applied</div>
-                            <div class="mt-auto p-1 bd-highlight">
-                            <span>{{ $jobApplyBySeeker->JobPost->updated_at->diffForHumans() }}</span>
+                            <div class="job-salary my-3">@if($jobApplyBySeeker->JobPost->hide_salary == 1) Negotiate @else {{ $jobApplyBySeeker->JobPost->salary_range }} @endif</div>
+                            <div class="">
+                                <a href="" class="btn job-btn">{{ $jobApplyBySeeker->JobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Job List End -->
+
+                    <!-- Wishlist Start -->
+                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                        <div class="row col-12 m-0 p-0">
+                            <div class="text-end p-0">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+
+                            <div class="text-end mt-auto p-1">
+                                <span>{{ $jobApplyBySeeker->JobPost->updated_at->diffForHumans() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wishlist End -->
                 </div>
             </a>
         </div>

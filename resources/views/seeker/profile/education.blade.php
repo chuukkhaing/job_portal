@@ -214,7 +214,10 @@
         if(from != '' && to != '' && from > to) {
             $("#to-error").html('End Year must be greater than Start Year.');
         }
-        if(degree != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from)
+        if(from != '' && to != '' && from == to) {
+            $("#to-error").html('Start Year and End Year should not the same.');
+        }
+        if(degree != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from && to != from)
         {
             $('.btn-close').click();
             $.ajax({

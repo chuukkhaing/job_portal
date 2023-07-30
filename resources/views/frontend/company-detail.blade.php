@@ -24,13 +24,13 @@
             @endif
         </div>
 
-        <div class="col-lg-6 col-md-6 col-6">
+        {{--<div class="col-lg-6 col-md-6 col-6">
             @if($employer->qr)
             <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="profile-qr pull-right mt-2" alt="{{ $employer->name }}">
             @else
             <img src="{{ asset('frontend/img/company/qr-image.png') }}" class="profile-qr pull-right mt-2" alt="{{ $employer->name }}">
             @endif
-        </div>
+        </div>--}}
     </div>
 
     <div class="row px-3">

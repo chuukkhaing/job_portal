@@ -75,7 +75,7 @@
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="phone" class="seeker_label my-2">Phone <span class="text-danger">*</span></label>
-                    <input type="text" name="phone" id="phone" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->phone }}" required placeholder="Phone">
+                    <input type="number" name="phone" id="phone" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->phone }}" required placeholder="09xxxxxxxxx">
                 </div>
             </div>
             <div class="row">
