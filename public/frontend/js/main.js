@@ -40,9 +40,9 @@
         height: 200
     });
 
-    $('#dataTable').dataTable({
-        ordering: false
-    });
+    // $('#dataTable').dataTable({
+    //     ordering: false
+    // });
     // $('.applicant-receive-table').dataTable({
     //     ordering:  false,
     //     "dom": 'rtip',
