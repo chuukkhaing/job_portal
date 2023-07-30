@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>Career History</h5>
-    <div class="my-2 row">
-        <table id="exp-table" class="table-bordered @if($experiences->count() == 0) d-none @endif table table-responsive">
+    <div class="my-2 row table-responsive">
+        <table id="exp-table" class="table-bordered @if($experiences->count() == 0) d-none @endif table">
             <thead>
                 <tr>
                     <th>Job Title</th>
@@ -21,7 +21,7 @@
                 @foreach($experiences as $experience)
                 @if($experience->is_experience == 0)
                 <tr class="exp-tr-{{ $experience->id }}">
-                    <td colspan="9" class="text-center">No Experience</td>
+                    <td colspan="10" class="text-center">No Experience</td>
                     <td>
                         <a onclick="editExp({{ $experience->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
                         <a onclick="deleteExp({{ $experience->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
@@ -426,7 +426,7 @@
                 if(response.status == 'success') {
                     $("#exp-table").removeClass('d-none');
                     $("#exp-tbody").html('');
-                    $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="10" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteExp('+response.experience.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#add_career_history").addClass('d-none');
                     alert(response.msg);
                     $("#is_experience").val(1);

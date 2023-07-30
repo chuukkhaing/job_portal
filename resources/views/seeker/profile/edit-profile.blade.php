@@ -7,7 +7,7 @@
                 <h5>Edit your profile information</h5>
             </div>
             <div class="col-12 col-md-6 text-end">
-                <a href="#" class="btn profile-preview mx-2">Preview</a>
+                {{--<a href="#" class="btn profile-preview mx-2">Preview</a>--}}
                 <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
             </div>
         </div>
@@ -34,13 +34,13 @@
                     <label for="email" class="seeker_label my-2">Mail <span class="text-danger">*</span></label>
                     <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->email }}" placeholder="Mail Address" required>
                 </div>
+                
+            </div>
+            <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="password" class="seeker_label my-2">Password</label>
                     <input type="password" name="password" id="password" class="form-control seeker_input" value="" placeholder="********">
                 </div>
-            </div>
-            <div class="row">
-                
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="confirm-password" class="seeker_label my-2">Confirm Password</label>
                     <input type="password" name="confirm-password" id="confirm-password" class="form-control seeker_input" value="" placeholder="********">

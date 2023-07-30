@@ -1,7 +1,7 @@
 <div class="px-5 m-0 pb-0 pt-5">
     <h5>Languages</h5>
-    <div class="my-2 row">
-        <table id="language-table" class="@if($languages->count() == 0) d-none @endif table table-bordered table-responsive">
+    <div class="my-2 row table-responsive">
+        <table id="language-table" class="@if($languages->count() == 0) d-none @endif table table-bordered">
             <thead>
                 <tr>
                     <th>Language Name</th>

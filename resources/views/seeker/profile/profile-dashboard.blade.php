@@ -214,7 +214,7 @@
         </div>
     </div>
 </div>
-
+@if($employers->count() > 0)
 <div class="container-fluid my-2 bg-white" id="edit-profile-body">
     <div class="row m-auto py-5 justify-content-center">
         <div class="px-5 pb-3 m-0 bg-white">
@@ -222,72 +222,30 @@
         </div>
         <div class="owl-slider py-5">
             <div class="row col-12 m-0">
-            <div id="multiple-carousel" class="owl-carousel">
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
+                <div id="multiple-carousel" class="owl-carousel">
+                    @foreach($employers as $employer)
+                    <a href="{{ route('company-detail',$employer->slug) }}">
+                        <div class="item d-flex justify-content-center">
+                            <div class="row px-3 align-items-center">
+                                <div class="employer-img py-2">
+                                    @if($employer->logo)
+                                    <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="center-block d-block mx-auto w-25" alt="{{ $employer->name }}">
+                                    @else
+                                    <img src="{{ asset('/img/logo/ICLogo.png') }}" class="center-block d-block mx-auto w-25" alt="{{ $employer->name }}">
+                                    @endif
+                                    
+                                </div>
+                                <div class="employer-title text-dark text-center py-2">{{ $employer->name }}</div>
                             </div>
-                            <div class="employer-title text-dark text-center py-2">Imagine Solutions</div>
                         </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Stark Industries</div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Kappa - Kappa Corporation</div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Tech - Technologies Co.</div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Publix Super Markets</div>
-                        </div>
-                    </div>
-                </a>
-                <a href="">
-                    <div class="item d-flex justify-content-center">
-                        <div class="row px-3 align-items-center">
-                            <div class="employer-img py-2">
-                                <img src="{{ asset('storage/seeker/profile/employer-image.jpg') }}" class="center-block d-block mx-auto w-25">
-                            </div>
-                            <div class="employer-title text-dark text-center py-2">Publix Super Markets</div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>		
 </div>
-
+@endif
 @push('scripts')
 <script>
     $('#multiple-carousel').owlCarousel({

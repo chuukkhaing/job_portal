@@ -13,28 +13,28 @@
     <div class="edit-profile-tab-border">
     <ul class="nav d-flex justify-content-between p-5" id="seekerTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab active" id="profile-dashboard-tab" data-bs-toggle="tab" data-bs-target="#profile-dashboard" role="tab" aria-controls="profile-dashboard" aria-selected="true">Profile Dashboard</a>
+            <a href="#profile-dashboard" class="seeker-single-tab active" id="profile-dashboard-tab" data-bs-toggle="tab" data-bs-target="#profile-dashboard" role="tab" aria-controls="profile-dashboard" aria-selected="true">Profile Dashboard</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="edit-profile-tab" data-bs-toggle="tab" data-bs-target="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">Edit Profile</a>
+            <a href="#edit-profile" class="seeker-single-tab" id="edit-profile-tab" data-bs-toggle="tab" data-bs-target="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">Edit Profile</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="job-application-tab" data-bs-toggle="tab" data-bs-target="#job-application" role="tab" aria-controls="job-application" aria-selected="false">Job Applications</a>
+            <a href="#job-application" class="seeker-single-tab" id="job-application-tab" data-bs-toggle="tab" data-bs-target="#job-application" role="tab" aria-controls="job-application" aria-selected="false">Job Applications</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="fav-job-tab" data-bs-toggle="tab" data-bs-target="#fav-job" role="tab" aria-controls="fav-job" aria-selected="false">Favourite Jobs</a>
+            <a href="#fav-job" class="seeker-single-tab" id="fav-job-tab" data-bs-toggle="tab" data-bs-target="#fav-job" role="tab" aria-controls="fav-job" aria-selected="false">Favourite Jobs</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="job-alert-tab" data-bs-toggle="tab" data-bs-target="#job-alert" role="tab" aria-controls="job-alert" aria-selected="false">Job Alerts</a>
+            <a href="#job-alert" class="seeker-single-tab" id="job-alert-tab" data-bs-toggle="tab" data-bs-target="#job-alert" role="tab" aria-controls="job-alert" aria-selected="false">Job Alerts</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="who-view-tab" data-bs-toggle="tab" data-bs-target="#who-view" role="tab" aria-controls="who-view" aria-selected="false">Who Viewed</a>
+            <a href="#who-view" class="seeker-single-tab" id="who-view-tab" data-bs-toggle="tab" data-bs-target="#who-view" role="tab" aria-controls="who-view" aria-selected="false">Who Viewed</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="manage-resume-tab" data-bs-toggle="tab" data-bs-target="#manage-resume" role="tab" aria-controls="manage-resume" aria-selected="false">Manage Resume</a>
+            <a href="#manage-resume" class="seeker-single-tab" id="manage-resume-tab" data-bs-toggle="tab" data-bs-target="#manage-resume" role="tab" aria-controls="manage-resume" aria-selected="false">Manage Resume</a>
         </li>
         {{--<li class="nav-item" role="presentation">
-            <a href="#" class="seeker-single-tab" id="my-following-tab" data-bs-toggle="tab" data-bs-target="#my-following" role="tab" aria-controls="my-following" aria-selected="false">My Following</a>
+            <a href="#my-following" class="seeker-single-tab" id="my-following-tab" data-bs-toggle="tab" data-bs-target="#my-following" role="tab" aria-controls="my-following" aria-selected="false">My Following</a>
         </li>--}}
     </ul>
 </div>
@@ -63,5 +63,17 @@
     $('#profile-dashboard-tab').click(function() {
         window.location.reload();
     })
+
+    $('#seekerTab a').click(function(e) {
+        e.preventDefault();
+        var seeker_target = $(this).attr('data-bs-target');
+        localStorage.setItem('seeker_target',seeker_target)
+    });
+    var current_seeker_tab = localStorage.getItem('seeker_target');
+    var return_current_seeker_tab = document.querySelector('#seekerTab li a[href="'+current_seeker_tab+'"]')
+    var show_current_seeker_tab = new bootstrap.Tab(return_current_seeker_tab)
+
+    show_current_seeker_tab.show()
+
 </script>
 @endpush
