@@ -63,7 +63,11 @@
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="date_of_birth" class="seeker_label my-2">Date of Birth <span class="text-danger">*</span></label>
                     <div class="datepicker date input-group" id="date_of_birth">
+                        @if(Auth::guard('seeker')->user()->date_of_birth)
                         <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}" required placeholder="Date of Birth">
+                        @else
+                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="" required placeholder="Date of Birth">
+                        @endif
                         <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                         </div>
@@ -232,7 +236,7 @@
         $('#date_of_birth').datepicker({
             language: "es",
             autoclose: true,
-            format: "dd-mm-yyyy"
+            format: "dd-mm-yyyy",
         });
 
         $("#seeker_profile_upload").change(function() {

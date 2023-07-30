@@ -85,7 +85,11 @@
                     <div class="col-4 form-group">
                         <label for="package_id">Package Effective Date </label>
                         <div class="datepicker date input-group" id="package_start_date">
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" required placeholder="Package Effective Date">
+                            @if($employer->package_start_date)
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" placeholder="Package Effective Date">
+                            @else
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="" placeholder="Package Effective Date">
+                            @endif
                             <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>

@@ -9,7 +9,7 @@
         <h5>Your Favourite Jobs</h5>
     </div>
 
-    <div class="row px-5 m-0 pb-0 pt-5">
+    {{--<div class="row px-5 m-0 pb-0 pt-5">
         <div class="col-lg-6 col-12 mb-2">
             <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
                 <div class="row p-0 m-0">
@@ -207,5 +207,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </div>

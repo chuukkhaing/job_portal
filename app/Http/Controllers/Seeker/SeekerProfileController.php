@@ -107,7 +107,7 @@ class SeekerProfileController extends Controller
             $image= date('YmdHi').$file->getClientOriginalName();
             $path = $file-> move(public_path('storage/seeker/profile'.'/'.$id), $image);
         }
-        $date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
+        $date_of_birth = $request->date_of_birth ? date('Y-m-d', strtotime($request->date_of_birth)) : Null;
         
         if($request->password){ 
             $password = Hash::make($request->password);

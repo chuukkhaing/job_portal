@@ -78,10 +78,10 @@ class EmployerController extends Controller
             'password' => Hash::make($request->password),
             'is_active' => $request->is_active,
             'package_id' => $request->package_id,
-            'package_start_date' => date('Y-m-d', strtotime($request->package_start_date)),
+            'package_start_date' => $request->package_start_date ? date('Y-m-d', strtotime($request->package_start_date)) : Null,
             'package_end_date' => $package_end_date,
-            'package_point' => $package->point,
-            'purchased_point' => $package->point,
+            'package_point' => $package->point ?? 0,
+            'purchased_point' => $package->point ?? 0,
             'register_at' => now(),
             'created_by' => Auth::user()->id,
         ]);
