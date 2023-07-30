@@ -248,7 +248,35 @@
 @endif
 @push('scripts')
 <script>
-    
+    $('#multiple-carousel').owlCarousel({
+        margin: 20,
+        dots:false,
+        loop: true,
+        autoplay: false,
+        autoplayTimeout:700,
+        slideSpeed : 200,
+        nav : true,
+        responsiveClass:true,
+        autoHeight: true,
+        smartSpeed: 800,
+        responsive: {
+            0: {
+            items: 1
+            },
+
+            600: {
+            items: 2
+            },
+
+            1024: {
+            items: 3
+            },
+
+            1366: {
+            items: 5
+            }
+        }
+    });
 
     $('.vertical-tab').on('click', function(e) {
         e.preventDefault();
