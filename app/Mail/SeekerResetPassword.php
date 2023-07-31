@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -17,15 +16,19 @@ class SeekerResetPassword extends Mailable
      * @return void
      */
 
-    public $seeker;
+    public $first_name;
+    public $last_name;
+    public $reseturl;
 
-    public function __construct($seeker)
+    public function __construct($first_name, $last_name, $reseturl)
     {
-        $this->seeker = $seeker;
+        $this->first_name = $first_name;
+        $this->last_name  = $last_name;
+        $this->reseturl   = $reseturl;
     }
 
     public function build()
     {
-        return $this->view('seeker.verify.resetPassword');
+        return $this->view('seeker.verify.reset-mail');
     }
 }

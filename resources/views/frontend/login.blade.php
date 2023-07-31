@@ -97,7 +97,7 @@
                                         
                                         <div class="my-3">     
                                             <input type="checkbox" name="company_remember" id="remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
-                                            <div class="float-end"><a href="#" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
+                                            <div class="float-end"><a href="{{ route('employer-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
                                         </div>
                                         <div class="form-group p-2">
                                             <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
