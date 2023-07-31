@@ -95,13 +95,13 @@
             @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <a href="{{ route('industry-job',$industry->Industry->id) }}">
-                    <div id="job-category-box" class="text-center">
+                    <div id="job-category-box" class="text-center px-3">
                         <div id="job-category-icon">
-                        <i class="{{ $industry->Industry->icon }}"></i>
+                            <i class="{{ $industry->Industry->icon }}"></i>
                         </div>
                         <div id="job-category-name">
-                        <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
-                        <span id="job-category-name-position">{{ $industry->total }} open positions</span>
+                            <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
+                            <span id="job-category-name-position">{{ $industry->total }} open positions</span>
                         </div>
                     </div>
                 </a>
