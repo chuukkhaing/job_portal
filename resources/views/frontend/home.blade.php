@@ -355,7 +355,7 @@
 <!-- Additional Services End  -->
 
 <!-- Explore the Marketplace Start  -->
-<div class="container bg-light">
+{{--<div class="container bg-light">
     <div class="explore-marketplace">
         <div id="header-explore-marketplace" class="text-center py-5">
             <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>
@@ -447,7 +447,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 <!-- Explore the Marketplace End  -->
 
 @endsection

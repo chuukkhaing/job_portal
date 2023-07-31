@@ -23,7 +23,7 @@
             @endif
             <div class="company-name pt-4 pb-2">
                 <h3>{{ $jobpost->job_title }}</h3>
-                <span>{{ $jobpost->Employer->name }}</span>
+                <span><a href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }}</a></span>
                 <h3>{{ $jobpost->gender }} @if($jobpost->no_of_candidate) ( {{ $jobpost->no_of_candidate }} - Posts ) @endif</h3>
             </div>
         </div>
@@ -155,13 +155,13 @@
                 <div>
                     <ul>
                         @if($jobpost->Employer->no_of_employees)
-                        <li><div class="row"><div class="col-1">Size</div><div class="col-11"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
+                        <li><div class="row"><div class="col-2">Size</div><div class="col-10"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
                         @endif
                         @if($jobpost->Employer->OwnerShipType->name)
-                        <li><div class="row"><div class="col-1">Type</div><div class="col-11"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
+                        <li><div class="row"><div class="col-2">Type</div><div class="col-10"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
                         @endif
                         @if($jobpost->Employer->website)
-                        <li><div class="row"><div class="col-1">Website</div><div class="col-11"><a href="{{ $jobpost->Employer->website }}"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
+                        <li><div class="row"><div class="col-2">Website</div><div class="col-10"><a href="{{ $jobpost->Employer->website }}" target="_blank"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
                         @endif
                     </ul>
                 </div>
