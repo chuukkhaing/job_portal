@@ -1,56 +1,62 @@
 <!-- Footer Start -->
 <div class="container-fluid py-5 mt-5 wow fadeInUp border-top bg-light" data-wow-delay="0.3s">
-    <div class="container pt-5">
-        <div class="row g-5 pt-4">
+    <div class="container">
+        <div class="row py-4">
             <div class="col-lg-4 col-md-6">
-                <img src="{{ asset('img/logo/ic-logo.png') }}" class="w-75" alt="{{ config('app.name', 'Laravel') }}">
-                <div class="py-4">
-                    <p class="text-dark"><strong>Call us</strong></p>
-                    <a class="footer-phone" href="tel:+959784569632"><strong>09 784569632</strong></a>
-                </div>
-                <div class="py-4">
-                    <p class="footer-address">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </p>
+                <div class="row px-2">
+                    <div class="pb-4 mt-1">
+                        <img src="{{ asset('img/logo/ic-logo.png') }}" class="w-75 p-0" alt="{{ config('app.name', 'Laravel') }}">
+                    </div>
+                    <div class="py-4">
+                        <p class="text-dark">
+                            <span><strong>Call us </strong></span>
+                            <span><a class="footer-phone ps-3" href="tel:+959784569632"><strong> 09 784569632</strong></a></span>
+                        </p>
+                    </div>
+                    <div class="py-4">
+                        <p class="footer-address">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </p>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-8 col-md-12">
-                <div class="row">
+                <div class="row p-2 px-3">
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">About Us</h6>
+                        <h6 class="my-4"><strong>About Us</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="{{ route('contact-us') }}">Contact Us</a>
-                            <a class="footer-links mb-2" href="{{ route('about-us') }}">About Us</a>
-                            <a class="footer-links mb-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
-                            <a class="footer-links mb-2" href="{{ route('privacy-policy') }}">Privacy Policies</a>
+                            <a class="footer-links py-2" href="{{ route('contact-us') }}">Contact Us</a>
+                            <a class="footer-links py-2" href="{{ route('about-us') }}">About Us</a>
+                            <a class="footer-links py-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
+                            <a class="footer-links py-2" href="{{ route('privacy-policy') }}">Privacy Policies</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">For Jobseekers</h6>
+                        <h6 class="my-4"><strong>For Jobseekers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">Registration</a>
-                            <a class="footer-links mb-2" href="{{ route('find-jobs') }}">Find Jobs</a>
-                            <a class="footer-links mb-2" href="{{ route('job-categories') }}">Job Category</a>
+                            <a class="footer-links py-2" href="#">Registration</a>
+                            <a class="footer-links py-2" href="{{ route('find-jobs') }}">Find Jobs</a>
+                            <a class="footer-links py-2" href="{{ route('job-categories') }}">Job Category</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">For Employers</h6>
+                        <h6 class="my-4"><strong>For Employers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="#">Post a Job</a>
-                            <a class="footer-links mb-2" href="#">Advertise with Us</a>
+                            <a class="footer-links py-2" href="#">Post a Job</a>
+                            <a class="footer-links py-2" href="#">Advertise with Us</a>
                             {{--<a class="footer-links mb-2" href="#">News & Blogs</a>--}}
                         </div>
                     </div>
                     
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="mb-4">Follow Us</h6>
+                        <h6 class="my-4"><strong>Follow Us</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links mb-2" href="https://www.linkedin.com/company/infinity-careers-myanmar-thebestrecruitmentagency/">Linkedin</a>
-                            <a class="footer-links mb-2" href="https://www.facebook.com/infinitycareersmyanmar2021">Facebook</a>
+                            <a class="footer-links py-2" href="https://www.linkedin.com/company/infinity-careers-myanmar-thebestrecruitmentagency/">Linkedin</a>
+                            <a class="footer-links py-2" href="https://www.facebook.com/infinitycareersmyanmar2021">Facebook</a>
                             {{-- <a class="footer-links mb-2" href="#">Telegram</a> --}}
-                            <a class="footer-links mb-2" href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm">Viber</a>
+                            <a class="footer-links py-2" href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm">Viber</a>
                         </div>
                     </div>
                 </div>
