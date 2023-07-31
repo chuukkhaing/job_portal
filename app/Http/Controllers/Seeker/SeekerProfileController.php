@@ -20,6 +20,7 @@ use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerAttach;
 use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
+use App\Models\Seeker\SaveJob;
 use DB;
 use Auth;
 use Hash;
@@ -54,6 +55,7 @@ class SeekerProfileController extends Controller
         $cvs = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $jobPosts = JobPost::whereIsActive(1)->where('job_title','like','%'.Auth::guard('seeker')->user()->job_title.'%')->get()->take(16);
         $jobsApplyBySeeker = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        $saveJobs = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
         $employers = DB::table('employers as a')
             ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
@@ -64,7 +66,7 @@ class SeekerProfileController extends Controller
             ->where('a.deleted_at', '=', null)
             ->orderBy('a.updated_at', 'desc')
             ->get();
-        return view ('seeker.profile.dashboard', compact('employers', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts', 'jobsApplyBySeeker'));
+        return view ('seeker.profile.dashboard', compact('saveJobs', 'employers', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts', 'jobsApplyBySeeker'));
     }
 
     public function getTownship($id)

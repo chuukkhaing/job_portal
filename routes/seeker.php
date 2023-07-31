@@ -4,6 +4,7 @@ use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\Seeker\SeekerProfileController;
 use App\Http\Controllers\Seeker\SeekerRegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Seeker\SaveJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +65,7 @@ Route::group([], function () {
         Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
 
         Route::get('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
+
+        Route::get('save-job/{id}', [SaveJobController::class, 'create'])->name('save-job');
     });
 });

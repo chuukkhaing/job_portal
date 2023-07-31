@@ -11,11 +11,12 @@
     <div class="row px-5 m-0 pb-0 pt-5">
         @foreach($jobsApplyBySeeker as $jobApplyBySeeker)
         <div class="col-md-6 col-12">
-            <a href="{{ route('jobpost-detail', $jobApplyBySeeker->JobPost->slug) }}">
-                <div class="row job-content mb-3">
-                    <!-- Job List Start -->
-                    
-                    <div class="col-lg-10 col-md-10 py-4 d-flex">
+            
+            <div class="row job-content mb-3 m-1">
+                <!-- Job List Start -->
+                
+                <div class="col-lg-10 col-md-10 py-4 d-flex">
+                    <a href="{{ route('jobpost-detail', $jobApplyBySeeker->JobPost->slug) }}">
                         <div style="width: 100px">
                             @if($jobApplyBySeeker->Employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$jobApplyBySeeker->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
@@ -34,25 +35,26 @@
                                 <a href="" class="btn job-btn">{{ $jobApplyBySeeker->JobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Job List End -->
+                    </a>
+                </div>
+                
+                <!-- Job List End -->
 
-                    <!-- Wishlist Start -->
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end p-0">
-                                <i class="fa-regular fa-heart"></i>
-                            </div>
-
-                            <div class="text-end mt-auto p-1">
-                                <span>{{ $jobApplyBySeeker->JobPost->updated_at->diffForHumans() }}</span>
-                            </div>
+                <!-- Wishlist Start -->
+                <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                    <div class="row col-12 m-0 p-0">
+                        @auth('seeker')
+                        <div class="text-end p-0" style="cursor:pointer">
+                                <i id="savejobapply-{{ $jobApplyBySeeker->JobPost->id }}" onclick="saveJob({{ $jobApplyBySeeker->JobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobApplyBySeeker->JobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                        </div>
+                        @endauth
+                        <div class="text-end mt-auto p-1">
+                            <span>{{ $jobApplyBySeeker->JobPost->updated_at->diffForHumans() }}</span>
                         </div>
                     </div>
-                    <!-- Wishlist End -->
                 </div>
-            </a>
+                <!-- Wishlist End -->
+            </div>
         </div>
         @endforeach
         <div class="row">
@@ -67,3 +69,30 @@
     </div>
 </div>
 @endif
+@push('scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function saveJob(id) {
+        $.ajax({
+            type: 'GET',
+            data: id,
+            url: "/seeker/save-job/"+id,
+        }).done(function(response){
+            if(response.status == 'create') {
+                alert(response.msg);
+                $('#savejobapply-'+id).removeClass('fa-regular');
+                $('#savejobapply-'+id).addClass('fa-solid');
+            }else if(response.status == 'remove') {
+                alert(response.msg);
+                $('#savejobapply-'+id).removeClass('fa-solid');
+                $('#savejobapply-'+id).addClass('fa-regular');
+            }
+        })
+    }
+</script>
+@endpush

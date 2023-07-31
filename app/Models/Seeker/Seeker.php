@@ -15,6 +15,7 @@ use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\JobApply;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
+use App\Models\Seeker\SaveJob;
 
 class Seeker extends Authenticatable
 {
@@ -79,5 +80,10 @@ class Seeker extends Authenticatable
     function Township()
     {
         return $this->belongsTo(Township::class, 'township_id', 'id');
+    }
+
+    function SaveJob()
+    {
+        return $this->hasMany(SaveJob::class, 'seeker_id', 'id');
     }
 }

@@ -120,10 +120,11 @@
                         <!-- Wishlist Start -->
                         <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
                             <div class="row col-12 m-0 p-0">
-                                <div class="text-end p-0">
-                                    <i class="fa-regular fa-heart"></i>
+                                @auth('seeker')
+                                <div class="text-end p-0" style="cursor: pointer">
+                                    <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
                                 </div>
-
+                                @endauth
                                 <div class="text-end mt-auto p-1">
                                     <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
                                 </div>
@@ -317,5 +318,24 @@
             }
         })
     })
+
+    function saveJobDashboard(id) {
+        $.ajax({
+            type: 'GET',
+            data: id,
+            url: "save-job/"+id,
+        }).done(function(response){
+            if(response.status == 'create') {
+                alert(response.msg);
+                $('#savejobdashboard-'+id).removeClass('fa-regular');
+                $('#savejobdashboard-'+id).addClass('fa-solid');
+            }else if(response.status == 'remove') {
+                alert(response.msg);
+                $('#savejobdashboard-'+id).removeClass('fa-solid');
+                $('#savejobdashboard-'+id).addClass('fa-regular');
+            }
+        })
+    }
+
 </script>
 @endpush

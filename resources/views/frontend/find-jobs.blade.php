@@ -97,7 +97,9 @@
                     <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
                         <div class="row col-12 m-0 p-0">
                             <div class="text-end p-0">
-                                <i class="fa-regular fa-heart"></i>
+                                @auth('seeker')
+                                <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                @endauth
                             </div>
 
                             <div class="text-end mt-auto p-1">
@@ -180,7 +182,7 @@
             @if($feature_jobs->count() > 0)
             <div class="row mb-5">
                 <div class="right-trending-title">
-                    <h5 class="text-white py-2">Features Jobs</h5>
+                    <h5 class="text-white py-2">Featured Jobs</h5>
                 </div>
 
                 <div class="job-trending-scroll p-2">
@@ -234,5 +236,29 @@
             nonSelectedText: "Select function area",
         });
     });
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    function saveJob(id) {
+        $.ajax({
+            type: 'GET',
+            data: id,
+            url: "seeker/save-job/"+id,
+        }).done(function(response){
+            if(response.status == 'create') {
+                alert(response.msg);
+                $('#savejob-'+id).removeClass('fa-regular');
+                $('#savejob-'+id).addClass('fa-solid');
+            }else if(response.status == 'remove') {
+                alert(response.msg);
+                $('#savejob-'+id).removeClass('fa-solid');
+                $('#savejob-'+id).addClass('fa-regular');
+            }
+        })
+    }
 </script>
 @endpush
