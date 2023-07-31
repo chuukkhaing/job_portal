@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Alert;
 use DB;
 
 class RoleController extends Controller
@@ -56,8 +57,8 @@ class RoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
     
-        return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+        Alert::success('Success', 'Role created successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -107,9 +108,9 @@ class RoleController extends Controller
         $role->save();
     
         $role->syncPermissions($request->input('permission'));
-    
-        return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+
+        Alert::success('Success', 'Role updated successfully');
+        return redirect()->route('roles.index');
     }
 
     /**

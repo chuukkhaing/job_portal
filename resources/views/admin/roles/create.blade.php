@@ -34,7 +34,7 @@
                 
                 <div class="form-group">
                     <label for="name">Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Point" required value="{{ old('name') }}">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="permission">Permission <span class="text-danger">*</span></label>

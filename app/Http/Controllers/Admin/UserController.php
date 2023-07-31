@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\User;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
+use Alert;
+use Hash;
 
 class UserController extends Controller
 {
@@ -24,7 +26,8 @@ class UserController extends Controller
 
     public function index()
     {
-        
+        $users = User::orderBy('id','DESC')->paginate(10);
+        return view('admin.users.index',compact('users'));
     }
 
     /**
@@ -34,7 +37,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        
+        $roles = Role::pluck('name','name')->all();
+        return view('admin.users.create',compact('roles'));
     }
 
     /**
@@ -45,7 +49,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required'
+        ]);
+    
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+    
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+
+        Alert::success('Success', 'User created successfully');
+        return redirect()->route('users.index');
+        
     }
 
     /**

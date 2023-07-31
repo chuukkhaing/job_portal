@@ -35,7 +35,7 @@
                 
                 <div class="form-group">
                     <label for="name">Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Point" required value="{{ $role->name }}">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required value="{{ $role->name }}">
                 </div>
                 <div class="form-group">
                     <label for="permission">Permission <span class="text-danger">*</span></label>
