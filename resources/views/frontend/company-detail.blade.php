@@ -2,15 +2,13 @@
 @section('content')
 
 <!-- Banner Start -->
+@if($employer->background)
 <div class="container-fluid p-3">
     <div class="row company-detail-banner">
-        @if($employer->background)
         <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" style="max-height : 400px" alt="{{ $employer->name }}">
-        @else
-        <img src="{{ asset('/frontend/img/company/company-banner-image.png') }}" class="w-100" alt="{{ $employer->name }}">
-        @endif
     </div>
 </div>
+@endif
 <!-- Banner End -->
 
 <!-- Company Profile Start -->
@@ -52,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6 col-12">
+        {{--<div class="col-lg-6 col-md-6 col-12">
             <div class="float-end mt-4">
                 <a href="http://" class="btn btn-outline-primary mt-2">
                     <i class="fa fa-heart-o p-1"></i><span class="p-1">Add to Favourite</span>
@@ -61,7 +59,7 @@
                     <i class="fa-regular fa-envelope"></i> <span class="p-1">Send Message</span>
                 </a>
             </div>
-        </div>
+        </div>--}}
     </div>
 
     <div class="row pb-3 pt-4">
