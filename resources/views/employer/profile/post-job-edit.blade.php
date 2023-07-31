@@ -453,9 +453,9 @@
             <button type="submit" class="btn profile-save-btn mx-3">
                 <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
             </button>
-            <button class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
+            <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
                 <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
-            </button>
+            </div>
             </div>
         </div>
     </form>
@@ -477,9 +477,9 @@
                             <span>Your job post may look slightly different when it goes live.</span>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -524,7 +524,7 @@
             </div>
 
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</button>
+                <div type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</div>
               </div>
         </div>
     </div>
