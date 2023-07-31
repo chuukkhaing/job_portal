@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Seeker;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Models\Seeker\Seeker;
-use Illuminate\Support\Facades\Hash;
-use App\Mail\SeekerVerificationEmail;
 use App\Mail\SeekerResetPassword;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Carbon\Carbon;
+use App\Mail\SeekerVerificationEmail;
 use App\Models\Admin\Industry;
+use App\Models\Seeker\Seeker;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use URL;
 
 class SeekerRegisterController extends Controller
 {
@@ -27,58 +27,58 @@ class SeekerRegisterController extends Controller
         $this->middleware('guest:seeker');
     }
 
-    public function frontendRegister() 
+    public function frontendRegister()
     {
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
-        return view ('frontend.register', compact('industries'));
+        return view('frontend.register', compact('industries'));
     }
 
     protected function register(Request $request)
     {
         $this->validate($request, [
-            'phone' => ['nullable', new MyanmarPhone],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
+            'phone'    => ['nullable', new MyanmarPhone],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
             'password' => ['required', 'string', 'min:8', 'same:confirmed'],
         ]);
         $seeker = Seeker::create([
-            'email' => $request['email'],
-            'phone' => $request['phone'],
-            'date_of_birth' => null,
-            'password' => Hash::make($request['password']),
+            'email'                    => $request['email'],
+            'phone'                    => $request['phone'],
+            'date_of_birth'            => null,
+            'password'                 => Hash::make($request['password']),
             'email_verification_token' => Str::random(32),
-            'register_at' => Carbon::now(),
+            'register_at'              => Carbon::now(),
         ]);
-        if($seeker) {
+        if ($seeker) {
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
 
-            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success','Please check your email to activate your account.');
+            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success', 'Please check your email to activate your account.');
         }
     }
 
     public function notice($id)
     {
         $seeker = Seeker::findOrFail($id);
-        if($seeker) {
-            return view ('seeker.verify.notice', compact('id'));
+        if ($seeker) {
+            return view('seeker.verify.notice', compact('id'));
         }
     }
 
     public function resend($id)
     {
-        $seeker = Seeker::findOrFail($id);
+        $seeker        = Seeker::findOrFail($id);
         $seeker_update = $seeker->update([
-            'email_verification_token' => Str::random(32)
+            'email_verification_token' => Str::random(32),
         ]);
-        if($seeker) {
+        if ($seeker) {
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
 
-            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success','Successfully resend!Please check your email to activate your account.');
+            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
         }
     }
 
     public function forgotPassword()
     {
-        return view ('frontend.forgot-password');
+        return view('frontend.forgot-password');
     }
 
     public function getEmail(Request $request)
@@ -87,14 +87,43 @@ class SeekerRegisterController extends Controller
             'email' => 'required|email|exists:seekers',
         ]);
         $seeker = Seeker::whereEmail($request->email)->first();
-        if($seeker) {
+        if ($seeker) {
             $seeker_update = $seeker->update([
-                'email_verification_token' => Str::random(32)
+                'email_verification_token' => Str::random(32),
             ]);
-            \Mail::to($seeker->email)->send(new SeekerResetPassword($seeker));
-        }else {
+
+            $first_name = $seeker->first_name;
+            $last_name  = $seeker->last_name;
+            $reseturl   = URL::to('/') . '/seeker' . '/' . $seeker->id . '/reset-password';
+
+            \Mail::to($seeker->email)->send(new SeekerResetPassword($first_name, $last_name, $reseturl));
+
+            return redirect()->back()->with('info', 'Please, check email for reset link.');
+        } else {
             return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
         }
-        return view ('frontend.forgot-password');
+        return view('frontend.forgot-password');
+    }
+
+    public function getResetPassword($id)
+    {
+        return view('frontend.reset-password', compact('id'));
+    }
+
+    public function storeResetPassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'same:confirmed'],
+        ]);
+        $password = Hash::make($request['password']);
+
+        $seeker = Seeker::find($request->id);
+
+        $seeker->update([
+            'password' => $password,
+        ]);
+
+        return redirect()->route('profile.index')->with('success', 'Reset Password Successfully.');
+
     }
 }
