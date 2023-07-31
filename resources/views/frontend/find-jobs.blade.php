@@ -36,7 +36,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
-                                <option value="" disabled selected>location</option>
+                                <option value="" disabled selected>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach

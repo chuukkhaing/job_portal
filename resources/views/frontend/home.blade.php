@@ -65,7 +65,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
-                                <option value="" disabled selected>location</option>
+                                <option value="" disabled selected>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -89,7 +89,7 @@
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
-            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
+            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live</span>
         </div>
         <div id="body-popular-job-category" class="row">
             @foreach($industries as $industry)

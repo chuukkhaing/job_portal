@@ -123,7 +123,7 @@ class SeekerRegisterController extends Controller
             'password' => $password,
         ]);
 
-        return redirect()->route('profile.index')->with('success', 'Reset Password Successfully.');
+        return redirect()->route('login-form.index')->with('success', 'Reset Password Successfully.');
 
     }
 }

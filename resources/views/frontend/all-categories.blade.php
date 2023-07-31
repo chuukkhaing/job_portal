@@ -7,7 +7,7 @@
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
-            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
+            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live</span>
         </div>
         <div id="body-popular-job-category" class="row">
             @foreach($industries as $industry)
