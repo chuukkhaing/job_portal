@@ -25,7 +25,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->paginate(10);
         return view('admin.roles.index',compact('roles'));
     }
 
