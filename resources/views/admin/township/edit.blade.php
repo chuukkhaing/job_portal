@@ -22,6 +22,7 @@
         <div class="card-body">
             <form action="{{ route('city.update',$township->id) }}" method="post">
                 @csrf 
+                @method('PUT')
                 <div class="form-group">
                     <label for="state_id">Choose State or Region <span class="text-danger">*</span></label>
                     <select name="state_id" id="state_id" class="select_2 form-control" required>

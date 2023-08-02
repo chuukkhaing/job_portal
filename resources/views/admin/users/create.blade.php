@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                     <label for="role_id">Choose Role Name <span class="text-danger">*</span></label>
-                    <select name="role_id" id="role_id" class="select_2 form-control" required>
+                    <select name="roles" id="role_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($roles as $role)
                         <option value="{{ $role }}">{{ $role }}</option>

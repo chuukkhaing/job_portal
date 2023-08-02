@@ -113,6 +113,26 @@ class TownshipController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $township = Township::findOrFail($id);
+        
+        try {
+            $township = Township::findOrFail($id)->update([
+                'deleted_at' => now(),
+                'deleted_by' => Auth::user()->id
+            ]);
+            if ($township) {
+                Alert::success('Success', 'Delete Township Successfully!');
+                return redirect()->route('city.index');
+            }
+            else {
+                Alert::error('Failed', 'Township deleted failed');
+                return redirect()->back();
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                Alert::error('Failed', 'Cannot delete this Township');
+                return redirect()->back();
+            } 
+        }
     }
 }
