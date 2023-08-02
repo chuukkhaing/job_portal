@@ -9,17 +9,16 @@
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
             <h6 class="col font-weight-bold text-primary">Package Items</h6>
+            @can('package-item-create')
             <div class="col">
                 <a href="{{ route('package-item.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
-                    @can('package-item-create')
                     <span class="text">Add New</span>
-                    @endcan
                 </a>
             </div>
-            
+            @endcan
         </div>
         @include('sweetalert::alert')
         <div class="card-body">
