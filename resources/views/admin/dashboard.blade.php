@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
 <div class="container-fluid">
-
+@include('sweetalert::alert')
     <!-- Content Row -->
     <div class="row">
 
