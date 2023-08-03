@@ -16,7 +16,7 @@
                     <td class="language-level-{{$language->id}}">{{ $language->level }}</td>
                     <td>
                         <a onclick="editLanguage({{ $language->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                        <a onclick="deleteLanguage({{ $language->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteLanguage-{{ $language->id }}" class="deleteLanguage btn border-0 text-danger" value="{{ $language->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -141,33 +141,51 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $('#language-table').removeClass('d-none');
-                    $('#language-table').append('<tr class="language-tr-'+response.language.id+'"><td class="language-name-'+response.language.id+'">'+response.language.name+'</td><td class="language-level-'+response.language.id+'">'+response.language.level+'</td><td><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a onclick="deleteLanguage('+response.language.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg)
+                    $('#language-table').append('<tr class="language-tr-'+response.language.id+'"><td class="language-name-'+response.language.id+'">'+response.language.name+'</td><td class="language-level-'+response.language.id+'">'+response.language.level+'</td><td><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteLanguage-'+response.language.id+'" class="deleteLanguage btn border-0 text-danger" value="'+response.language.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    })
                 }
             })
         }
     })
 
-    function deleteLanguage(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'language/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".language-tr-"+id).empty();
-                if(response.seeker_languages_count == 0) {
-                    $("#language-table").addClass('d-none');
-                }
-                alert(response.msg);
-                $("#language_name").val('');
-                $("#language_level").val('');
-            }
+    $(document).on('click', '.deleteLanguage', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'language/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".language-tr-"+id).empty();
+                        if(response.seeker_languages_count == 0) {
+                            $("#language-table").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                        $("#language_name").val('');
+                        $("#language_level").val('');
+                    }
+                })
+            }            
         })
-    }
+    });
 
     function editLanguage(id)
     {
@@ -210,7 +228,11 @@
                     if(response.status == 'success') {
                         $('.language-name-'+id).html(response.language.name);
                         $('.language-level-'+id).html(response.language.level);
-                        alert(response.msg)
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
                     }
                 })
             }

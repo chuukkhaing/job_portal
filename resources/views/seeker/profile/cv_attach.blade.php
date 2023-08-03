@@ -8,7 +8,7 @@
                 <tr class="cv-tr-{{ $cv->id }}">
                     <td class="cv-name-{{$cv->id}}"><a target="_blank" href="{{ asset('storage/seeker/cv/'.$cv->name) }}">{{ $cv->name }}</a></td>
                     <td>
-                        <a id="deleteCV({{ $cv->id }})" class="deleteCV btn border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteCV-{{ $cv->id }}" class="deleteCV btn border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -92,7 +92,7 @@
         }
     })
 
-    $('.deleteCV').on('click', function (e) {
+    $(document).on('click', '.deleteCV', function (e) {
         var id       = $(this).attr('value');
 
         MSalert.principal({
@@ -124,9 +124,6 @@
                 })
             }            
         })
-
-        event.preventDefault();
-        return false;
     });
 </script>
 @endpush

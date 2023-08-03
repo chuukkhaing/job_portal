@@ -20,7 +20,7 @@
                     <td class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</td>
                     <td>
                         <a onclick="editReference({{ $reference->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                        <a onclick="deleteReference({{ $reference->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteReference-{{ $reference->id }}" class="deleteReference btn border-0 text-danger" value="{{ $reference->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -170,8 +170,12 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $('#reference-table').removeClass('d-none');
-                    $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteReference('+response.reference.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg);
+                    $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                    MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
                     $("#ref_name").val('');
                     $("#ref_position").val('');
                     $("#ref_company").val('');
@@ -181,24 +185,38 @@
         }
     })
 
-    function deleteReference(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'reference/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".reference-tr-"+id).empty();
-                if(response.seeker_references_count == 0) {
-                    $("#reference-table").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteReference', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'reference/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".reference-tr-"+id).empty();
+                        if(response.seeker_references_count == 0) {
+                            $("#reference-table").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                    }
+                })
+            }            
         })
-    }
+    });
 
     function editReference(id)
     {
@@ -259,7 +277,11 @@
                         $('.reference-company-'+id).html(response.reference.company);
                         $('.reference-contact-'+id).html(response.reference.contact);
                         $('.reference-position-'+id).html(response.reference.position);
-                        alert(response.msg)
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
                     }
                 })
             }
