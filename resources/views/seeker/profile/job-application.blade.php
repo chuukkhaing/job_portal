@@ -84,11 +84,19 @@
             url: "/seeker/save-job/"+id,
         }).done(function(response){
             if(response.status == 'create') {
-                alert(response.msg);
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                })
                 $('#savejobapply-'+id).removeClass('fa-regular');
                 $('#savejobapply-'+id).addClass('fa-solid');
             }else if(response.status == 'remove') {
-                alert(response.msg);
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                })
                 $('#savejobapply-'+id).removeClass('fa-solid');
                 $('#savejobapply-'+id).addClass('fa-regular');
             }
