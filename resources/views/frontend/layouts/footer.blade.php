@@ -44,8 +44,8 @@
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links py-2" href="{{ route('employer-job-post.create') }}">Post a Job</a>
-                            {{--<a class="footer-links py-2" href="#">Advertise with Us</a>
-                            <a class="footer-links mb-2" href="#">News & Blogs</a>--}}
+                            <a class="footer-links py-2" href="{{ route('register-form') }}">Advertise with Us</a>
+                            {{--<a class="footer-links mb-2" href="#">News & Blogs</a>--}}
                         </div>
                     </div>
                     
