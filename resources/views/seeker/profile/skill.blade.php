@@ -15,7 +15,7 @@
                     <td class="skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctionalArea->name }}</td>
                     <td class="skill-skill_id-{{$skill->id}}">{{ $skill->Skill->name }}</td>
                     <td>
-                        <a onclick="deleteSkill({{ $skill->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteSkill-{{ $skill->id }}" class="deleteSkill btn border-0 text-danger" value="{{ $skill->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -141,9 +141,13 @@
                                 skill_name_org = skill_name.name;
                             }
                         })
-                        $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+function_name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill_name_org+'</td><td><a onclick="deleteSkill('+skill.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                        $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+function_name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill_name_org+'</td><td><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     })
-                    alert(response.msg)
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    })
                     $("#skill_main_functional_area_id").val('');
                     $('#skill_id').val("");
                     $("#skill_id").trigger("change");
@@ -152,23 +156,38 @@
         }
     })
 
-    function deleteSkill(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'skill/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".skill-tr-"+id).empty();
-                if(response.seeker_skills_count == 0) {
-                    $("#skill-table").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteSkill', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'skill/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".skill-tr-"+id).empty();
+                        if(response.seeker_skills_count == 0) {
+                            $("#skill-table").addClass('d-none');
+                        }
+
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                    }
+                })
+            }            
         })
-    }
+    });
 </script>
 @endpush

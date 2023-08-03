@@ -22,7 +22,7 @@
                     <td class="edu-to-{{$education->id}}">{{ $education->to }}</td>
                     <td>
                         <a onclick="editEdu({{ $education->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                        <a onclick="deleteEdu({{ $education->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteEdu-{{ $education->id }}" class="deleteEdu btn border-0 text-danger" value="{{ $education->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -234,8 +234,13 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#edu-table").removeClass('d-none');
-                    $("#edu-table").append('<tr data-id="'+response.education.id+'"><td>'+response.education.degree+'</td><td>'+response.education.major_subject+'</td><td>'+response.education.location+'</td><td>'+response.education.from+'</td><td>'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.education.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg);
+                    $("#edu-table").append('<tr data-id="'+response.education.id+'"><td>'+response.education.degree+'</td><td>'+response.education.major_subject+'</td><td>'+response.education.location+'</td><td>'+response.education.from+'</td><td>'+response.education.to+'</td><td><a id="editEdu-'+response.education.id+'" class="editEdu btn border-0 text-warning" value="'+response.education.id+'"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.education.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                    // alert(response.msg);
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    })
                     $("#degree").val('');
                     $("#major_subject").val('');
                     $("#location").val('');
@@ -316,30 +321,48 @@
                         $('.edu-location-'+id).html(response.education.location);
                         $('.edu-from-'+id).html(response.education.from);
                         $('.edu-to-'+id).html(response.education.to);
-                        alert(response.msg)
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
                     }
                 })
             }
         })
     }
 
-    function deleteEdu(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'education/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".edu-tr-"+id).empty();
-                if(response.seeker_educations_count == 0) {
-                    $("#edu-table").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteEdu', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'education/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".edu-tr-"+id).empty();
+                        if(response.seeker_educations_count == 0) {
+                            $("#edu-table").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                    }
+                })
+            }            
         })
-    }
+    });
 </script>
 @endpush
