@@ -87,7 +87,7 @@
 @if($industries->count() > 0)
 <div class="container bg-light">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-3">
+        <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
             <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
         </div>
@@ -107,7 +107,7 @@
                 </a>
             </div>
             @endforeach
-            <div class="text-center py-3">
+            <div class="text-center py-5">
                 <a href="{{ route('job-categories') }}" class="btn btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -120,10 +120,10 @@
 @if($employers->count() > 0)
 <div class="container bg-light">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-3">
+        <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Top Employers</h3>
         </div>
-        <div id="body-popular-job-category" class="row col-12 pb-3">
+        <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
             <div class="col-md-2 col-4 text-center">
                 <a href="{{ route('company-detail',$employer->slug) }}">
@@ -146,9 +146,9 @@
 
 <!-- Trending Jobs Start  -->
 @if($trending_jobs->count() > 0)
-<div class="container pb-3 my-2 bg-light" id="edit-profile-body">
+<div class="container pb-4 my-2 bg-light" id="edit-profile-body">
     <div class="row">
-        <div id="header-popular-job-category" class="text-center py-3" style="border-bottom: 1px solid #95B6D8;">
+        <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
                 <span class="text-orange">
                     <i class="fa-solid fa-arrow-trend-up"></i>
@@ -165,7 +165,7 @@
         </div>
     </div>  
 
-    <div class="row pt-3 pb-3 trending-scroll">
+    <div class="row pt-4 pb-4 trending-scroll">
         @foreach($trending_jobs as $trending_job)
         <div class="col-lg-4 col-sm-6 col-12">
             <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
@@ -203,13 +203,13 @@
 @if($feature_jobs->count() > 0)
 <div class="container bg-white">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center pt-3">
+        <div id="header-popular-job-category" class="text-center pt-5">
             <h3 id="popular-job-category-title">Featured Jobs</h3>
         </div>
 
         <div class="row bg-white">
             <div class="col-12 p-0 bg-white">
-                <div class="owl-slider py-3">
+                <div class="owl-slider py-5">
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
@@ -285,9 +285,9 @@
     <div class="row" id="job-interview">
         <div class="offset-lg-1 col-lg-6 p-5">
 
-            <h3 class="job-interview-title pt-3">Are You Looking For Job!</h3>
+            <h3 class="job-interview-title pt-4">Are You Looking For Job!</h3>
 
-            <p class="job-interview-content pt-3 pb-3">Looking for a job can be a daunting task, but with a little focus and effort, you can increase your chances of success. Define your job search goals, tailor your resume and cover letter, network with others in your industry, use job search engines to find opportunities, and prepare for interviews. With these tips, you can streamline your search and find the job that's right for you.</p>
+            <p class="job-interview-content pt-3 pb-5">Looking for a job can be a daunting task, but with a little focus and effort, you can increase your chances of success. Define your job search goals, tailor your resume and cover letter, network with others in your industry, use job search engines to find opportunities, and prepare for interviews. With these tips, you can streamline your search and find the job that's right for you.</p>
             
             <a href="#" class="interview-btn">Get Started Today </a>
         </div>
@@ -298,7 +298,7 @@
 <!-- Additional Services Start  -->
 <div class="container bg-light">
     <div class="additional-service">
-        <div id="header-additional-service" class="text-center pt-3 pb-3">
+        <div id="header-additional-service" class="text-center pt-5 pb-3">
             <h3 id="additional-service-title">Additional Services</h3>
         </div>
         <div id="body-additional-service" class="row">
@@ -357,7 +357,7 @@
 <!-- Explore the Marketplace Start  -->
 {{--<div class="container bg-light">
     <div class="explore-marketplace">
-        <div id="header-explore-marketplace" class="text-center py-3">
+        <div id="header-explore-marketplace" class="text-center py-5">
             <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>
         </div>
 
@@ -365,7 +365,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-building-columns bg-white rounded-circle p-3"></i>
                         </div>
 
@@ -379,7 +379,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-display bg-white rounded-circle p-3"></i>
                         </div>
 
@@ -393,7 +393,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-graduation-cap bg-white rounded-circle p-3"></i>
                         </div>
 
@@ -407,7 +407,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-martini-glass-citrus bg-white rounded-circle p-3"></i>
                         </div>
 
@@ -421,7 +421,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-pen-to-square bg-white rounded-circle p-3"></i>
                         </div>
 
@@ -435,7 +435,7 @@
             <div class="col-lg-2 col-md-4 col-sm-4 px-5 pb-3">
                 <a href="{{ route('job-categories') }}">
                     <div id="explore-marketplace-box" class="text-center">
-                        <div class="explore-marketplace-icon pt-3">
+                        <div class="explore-marketplace-icon pt-4">
                             <i class="fa-solid fa-wifi bg-white rounded-circle p-3"></i>
                         </div>
 
