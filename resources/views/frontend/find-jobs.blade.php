@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="post">
+<form action="{{ route('search-job') }}" method="get">
     @csrf
     <section class="find-jobs-search p-5">
         <div class="container-fluid">
