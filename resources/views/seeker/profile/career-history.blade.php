@@ -426,7 +426,7 @@
                 if(response.status == 'success') {
                     $("#exp-table").removeClass('d-none');
                     $("#exp-tbody").html('');
-                    $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="10" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td colspan="10" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#add_career_history").addClass('d-none');
                     MSalert.principal({
                         icon:'success',

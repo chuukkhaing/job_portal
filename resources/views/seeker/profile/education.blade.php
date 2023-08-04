@@ -234,7 +234,7 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#edu-table").removeClass('d-none');
-                    $("#edu-table").append('<tr data-id="'+response.education.id+'"><td>'+response.education.degree+'</td><td>'+response.education.major_subject+'</td><td>'+response.education.location+'</td><td>'+response.education.from+'</td><td>'+response.education.to+'</td><td><a id="editEdu-'+response.education.id+'" class="editEdu btn border-0 text-warning" value="'+response.education.id+'"><i class="fa-solid fa-pencil"></i> </a> <a onclick="deleteEdu('+response.education.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                    $("#edu-table").append('<tr class="edu-tr-'+response.education.id+'"><td class="edu-degree-'+response.education.id+'">'+response.education.degree+'</td><td class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</td><td class="edu-location-'+response.education.id+'">'+response.education.location+'</td><td class="edu-from-'+response.education.id+'">'+response.education.from+'</td><td class="edu-to-'+response.education.id+'">'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     // alert(response.msg);
                     MSalert.principal({
                         icon:'success',
