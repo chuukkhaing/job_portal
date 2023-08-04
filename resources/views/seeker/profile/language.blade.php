@@ -200,7 +200,7 @@
             }
         })
 
-        $("#update-language").click(function() {
+        $("#update-language").one('click', function(e)  {
             var edit_language_name = $("#edit_language_name").val();
             var edit_language_level = $("#edit_language_level").val();
             

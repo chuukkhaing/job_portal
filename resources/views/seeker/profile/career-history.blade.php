@@ -37,11 +37,11 @@
                     <td class="exp-industry_id-{{$experience->id}}">{{ $experience->Industry->name }}</td>
                     <td class="exp-country-{{$experience->id}}">{{ $experience->country }}</td>
                     <td class="exp-job-responsibility-{{$experience->id}}">{{ $experience->job_responsibility }}</td>
-                    <td class="exp-start_date-{{$experience->id}}">{{ date('d-m-Y', strtotime($experience->start_date)) }}</td>
+                    <td class="exp-start_date-{{$experience->id}}">{{ date('Y-m', strtotime($experience->start_date)) }}</td>
                     @if($experience->is_current_job == 1)
                     <td class="exp-end_date-{{$experience->id}}">Current Job</td>
                     @else
-                    <td class="exp-end_date-{{$experience->id}}">{{ date('d-m-Y', strtotime($experience->end_date)) }}</td>
+                    <td class="exp-end_date-{{$experience->id}}">{{ date('Y-m', strtotime($experience->end_date)) }}</td>
                     @endif
                     <td>
                         <a onclick="editExp({{ $experience->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
@@ -169,7 +169,7 @@
                         <div class="form-group mt-1 col-12 col-md-6 d-none" id="end_date_field">
                             <label for="exp_end_date" class="seeker_label my-2">End Date <span class="text-danger">*</span></label>
                             <div class="datepicker date input-group exp-date">
-                                <input type="text" name="exp_end_date" id="exp_end_date" class="form-control seeker_input" value="" placeholder="Start Date">
+                                <input type="text" name="exp_end_date" id="exp_end_date" class="form-control seeker_input" value="" placeholder="End Date">
                                 <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
@@ -298,7 +298,7 @@
                         <div class="form-group mt-1 col-12 col-md-6 d-none" id="edit_end_date_field">
                             <label for="edit_exp_end_date" class="seeker_label my-2">End Date <span class="text-danger">*</span></label>
                             <div class="datepicker date input-group exp-date">
-                                <input type="text" name="edit_exp_end_date" id="edit_exp_end_date" class="form-control seeker_input" value="" placeholder="Start Date">
+                                <input type="text" name="edit_exp_end_date" id="edit_exp_end_date" class="form-control seeker_input" value="" placeholder="End Date">
                                 <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
@@ -318,6 +318,7 @@
     </div>
 </div>
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
 <script>
     $(document).ready(function() {
         $('.exp-date').datepicker({
@@ -347,6 +348,7 @@
             if($(this).val() == 0) {
                 $(".no-experience").addClass('d-none');
             }else {
+                $("#edit_exp_start_date").val('');
                 $(".no-experience").removeClass('d-none');
             }
         })
@@ -354,9 +356,10 @@
         $("#edit_current_job").change(function() {
             if($(this).is(":checked")){
                 $("#edit_end_date_field").addClass('d-none');
-                $("#edit_exp_end_date").val('')
+                $("#edit_exp_end_date").val('');
             }else{
                 $("#edit_end_date_field").removeClass('d-none');
+                $("#edit_exp_end_date").val('');
             }
         })
     })
@@ -543,7 +546,7 @@
                                     exp_industry_name = exp_industry.name
                                 }
                             })
-                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             MSalert.principal({
                                 icon:'success',
                                 title:'',
@@ -614,7 +617,7 @@
                                     exp_industry_name = exp_industry.name
                                 }
                             })
-                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                            $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("YYYY-MM")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             MSalert.principal({
                                 icon:'success',
                                 title:'',
@@ -655,8 +658,8 @@
                 $("#edit_exp_industry_id").val(response.experience.industry_id);
                 $("#edit_exp_country").val(response.experience.country);
                 $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
-                $("#edit_exp_start_date").val(response.experience.start_date);
-                $("#edit_exp_end_date").val(response.experience.end_date);
+                $("#edit_exp_start_date").val(moment(response.experience.start_date).format("YYYY-MM"));
+                $("#edit_exp_end_date").val(moment(response.experience.end_date).format("YYYY-MM"));
                 if(response.experience.is_current_job) {
                     $("#edit_current_job").prop('checked',true);
                 }else {
@@ -671,7 +674,8 @@
             }
         })
 
-        $("#update-exp").click(function() {
+        $("#update-exp").one('click', function(e) {
+            e.preventDefault();
             if($("#edit_is_experience").val() == 0) {
                 $('.btn-close').click();
                 $.ajax({
@@ -792,7 +796,7 @@
                                         exp_industry_name = exp_industry.name
                                     }
                                 })
-                                $("#exp-table").append('<tr class="exp-tr-'+id+'"><td class="exp-job_title-'+id+'">'+response.experience.job_title+'</td><td class="exp-company-'+id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+id+'">'+exp_industry_name+'</td><td class="exp-country-'+id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+id+'">Current Job</td><td>    <a onclick="editExp('+id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+id+'" class="deleteExp btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#exp-table").append('<tr class="exp-tr-'+id+'"><td class="exp-job_title-'+id+'">'+response.experience.job_title+'</td><td class="exp-company-'+id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+id+'">'+exp_industry_name+'</td><td class="exp-country-'+id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+id+'">Current Job</td><td>    <a onclick="editExp('+id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+id+'" class="deleteExp btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 $("#add_career_history").removeClass('d-none');
                                 MSalert.principal({
                                     icon:'success',
@@ -853,7 +857,7 @@
                                         exp_industry_name = exp_industry.name
                                     }
                                 })
-                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+response.experience.start_date+'</td><td class="exp-end_date-'+response.experience.id+'">'+response.experience.end_date+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("YYYY-MM")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',

@@ -267,7 +267,8 @@
             }
         })
 
-        $("#update-edu").click(function() {
+        $("#update-edu").one('click', function(e) {
+            e.preventDefault();
             var edit_degree = $("#edit-degree").val();
             var edit_major_subject = $("#edit-major_subject").val();
             var edit_location = $("#edit-location").val();
@@ -314,6 +315,7 @@
                         'seeker_id' : seeker_id
                     },
                     url: 'education/update/'+id,
+                    cache: false,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $('.edu-degree-'+id).html(response.education.degree);

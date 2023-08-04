@@ -510,6 +510,9 @@ class SeekerProfileController extends Controller
 
     public function referenceStore(Request $request)
     {
+        $this->validate($request, [
+            'ref_contact' => ['required', new MyanmarPhone],
+        ]);
         $reference = SeekerReference::create([
             'seeker_id' => $request->seeker_id,
             'name' => $request->ref_name,
@@ -548,6 +551,9 @@ class SeekerProfileController extends Controller
 
     public function referenceUpdate($id, Request $request)
     {
+        $this->validate($request, [
+            'ref_contact' => ['required', new MyanmarPhone],
+        ]);
         $reference = SeekerReference::findOrFail($id);
         $reference_update = $reference->update([
             'seeker_id' => $request->seeker_id,
