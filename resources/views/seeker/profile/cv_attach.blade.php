@@ -8,7 +8,7 @@
                 <tr class="cv-tr-{{ $cv->id }}">
                     <td class="cv-name-{{$cv->id}}"><a target="_blank" href="{{ asset('storage/seeker/cv/'.$cv->name) }}">{{ $cv->name }}</a></td>
                     <td>
-                        <a onclick="deleteCV({{ $cv->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteCV-{{ $cv->id }}" class="deleteCV btn border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -81,31 +81,49 @@
                 if(response.status == 'success') {
                     $("#cv-table").removeClass('d-none');
                     $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a onclick="deleteCV('+response.attach.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg);
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    })
                     $("#cv_attach").val('');
                 }
             })
         }
     })
 
-    function deleteCV(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'seekerAttach/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".cv-tr-"+id).empty();
-                if(response.seeker_cvs_count == 0) {
-                    $("#cv-table").addClass('d-none');
-                }
-                alert(response.msg)
-            }
-        })
-    }
+    $(document).on('click', '.deleteCV', function (e) {
+        var id       = $(this).attr('value');
 
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'seekerAttach/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".cv-tr-"+id).empty();
+                        if(response.seeker_cvs_count == 0) {
+                            $("#cv-table").addClass('d-none');
+                        }
+
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                    }
+                })
+            }            
+        })
+    });
 </script>
 @endpush

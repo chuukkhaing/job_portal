@@ -92,7 +92,7 @@
                         <td>{{ $member->employer_id ? 'Member' : 'Admin' }}</td>
                         <td>@if($member->employer_id) 
                                 <a href="{{ route('member-user.edit', $member->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit" onclick="confirmation({{ $member->id }})"><i class="fas fa-trash"></i></button>
+                                <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit" id="confirmation-{{ $member->id }}" value="{{ $member->id }}"><i class="fas fa-trash"></i></button>
                             @endif
                         </td>
                     </tr>
@@ -119,23 +119,35 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    function confirmation(id){
-        var result = confirm("Are you sure to delete?");
-        url = "member-user/"+id
-        if(result){
-            $.ajax({
-                type: 'DELETE',
-                data: {
-                    "id": id
-                },
-                url: url,
-            }).done(function(response){
-                if(response.status == 'success') {
-                    $(".member-tr-"+id).empty();
-                    alert(response.msg)
-                }
-            })
-        }
-    }
+
+    $(document).on('click', '.delete-confirm', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'DELETE',
+                    data: {
+                        "id": id
+                    },
+                    url: "member-user/"+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".member-tr-"+id).empty();
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
+        })
+    });
 </script>
 @endpush

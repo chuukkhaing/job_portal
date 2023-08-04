@@ -313,7 +313,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 if(response.status == 'success') {
-                    alert(response.msg)
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    })
                 }
             }
         })
@@ -326,11 +330,19 @@
             url: "save-job/"+id,
         }).done(function(response){
             if(response.status == 'create') {
-                alert(response.msg);
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
                 $('#savejobdashboard-'+id).removeClass('fa-regular');
                 $('#savejobdashboard-'+id).addClass('fa-solid');
             }else if(response.status == 'remove') {
-                alert(response.msg);
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
                 $('#savejobdashboard-'+id).removeClass('fa-solid');
                 $('#savejobdashboard-'+id).addClass('fa-regular');
             }
