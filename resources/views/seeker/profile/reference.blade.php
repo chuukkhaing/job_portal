@@ -126,7 +126,7 @@
         }
     });
     var seeker_id = {{ Auth::guard("seeker")->user()->id }};
-    $("#save-reference").one('click', function(e)  {
+    $("#save-reference").on('click', function(e)  {
         e.preventDefault();
         var ref_name = $("#ref_name").val();
         var ref_position = $("#ref_position").val();
@@ -192,20 +192,6 @@
                             description:'The contact No. must be valid myanmar phone number.',
                         })
                     }
-                }
-            }).done(function(response){
-                if(response.status == 'success') {
-                    $('#reference-table').removeClass('d-none');
-                    $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    MSalert.principal({
-                            icon:'success',
-                            title:'',
-                            description:response.msg,
-                        });
-                    $("#ref_name").val('');
-                    $("#ref_position").val('');
-                    $("#ref_company").val('');
-                    $("#ref_contact").val('');
                 }
             })
         }
@@ -298,16 +284,16 @@
                         'seeker_id' : seeker_id
                     },
                     url: 'reference/update/'+id,
-                    success: function(response){
-                                if(response.status == 'success') {
-                                    $('.reference-name-'+id).html(response.reference.name);
-                                    $('.reference-company-'+id).html(response.reference.company);
-                                    $('.reference-contact-'+id).html(response.reference.contact);
-                                    $('.reference-position-'+id).html(response.reference.position);
+                    success: function(edit_response){
+                                if(edit_response.status == 'success') {
+                                    $('.reference-name-'+id).html(edit_response.reference.name);
+                                    $('.reference-company-'+id).html(edit_response.reference.company);
+                                    $('.reference-contact-'+id).html(edit_response.reference.contact);
+                                    $('.reference-position-'+id).html(edit_response.reference.position);
                                     MSalert.principal({
                                         icon:'success',
                                         title:'',
-                                        description:response.msg,
+                                        description:edit_response.msg,
                                     })
                                 }
                             },

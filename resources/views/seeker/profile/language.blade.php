@@ -146,7 +146,9 @@
                         icon:'success',
                         title:'',
                         description:response.msg,
-                    })
+                    });
+                    $("#language_name").val('');
+                    $("#language_level").val('');
                 }
             })
         }
