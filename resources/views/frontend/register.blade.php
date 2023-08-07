@@ -50,37 +50,62 @@
                                 <article class="mx-auto">
                                     <form action="{{ route('seeker-register') }}" method="post">
                                         @csrf
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
+                                        <div class="my-3">
+                                            <div class="form-group input-group register-form-input p-2 mb-0">
+                                                <div class="input-group-prepend d-flex">
+                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
+                                                </div>
+                                                <input name="email" class="form-control border-0 @error('email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('email') }}">
                                             </div>
-                                            <input name="email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}" required>
-                                        </div>
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
-                                            </div>
-                                            <input name="phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
+
+                                            @error('email')
+                                                <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                         
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                                        <div class="my-3">
+                                            <div class="form-group input-group register-form-input p-2 mb-0">
+                                                <div class="input-group-prepend d-flex">
+                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
+                                                </div>
+                                                <input name="phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
                                             </div>
-                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" required>
                                         </div>
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <div class="input-group-prepend d-flex">
-                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                                        
+                                        <div class="my-3">
+                                            <div class="form-group input-group register-form-input p-2 mb-0">
+                                                <div class="input-group-prepend d-flex">
+                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                                                </div>
+                                                <input class="form-control border-0  @error('password') is-invalid @enderror" placeholder="Create password" type="password" name="password">
                                             </div>
-                                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed" required>
-                                        </div>   
-                                        <div class="form-group input-group my-3">     
-                                            <input type="checkbox" name="terms" id="terms" class="" required> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
+
+                                            @error('password')
+                                                <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        <div class="form-group p-2">
-                                            <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
-                                        </div>      
+
+                                        <div class="my-3">
+                                            <div class="form-group input-group register-form-input p-2 mb-0">
+                                                <div class="input-group-prepend d-flex">
+                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                                                </div>
+                                                <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed">
+                                            </div>  
+                                        </div>
+
+                                        <div class="my-3">
+                                            <div class="form-group input-group">     
+                                                <input type="checkbox" name="terms" id="terms" class=""> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers </label>                              
+                                            </div>
+                                            <div class="form-group p-2">
+                                                <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
+                                            </div>
+                                        </div>    
                                          
                                         <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
                                     </form>

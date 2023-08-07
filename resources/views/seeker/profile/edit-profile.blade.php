@@ -32,10 +32,16 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="email" class="seeker_label my-2">Mail <span class="text-danger">*</span></label>
-                    <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->email }}" placeholder="Mail Address" required>
+                    <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ old('email', Auth::guard('seeker')->user()->email) }}" placeholder="Mail Address">
+
+                    @error('email')
+                        <span class="text-danger mb-1">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-                
             </div>
+
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="password" class="seeker_label my-2">Password</label>
@@ -52,11 +58,24 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="first_name" class="seeker_label my-2">First Name <span class="text-danger">*</span></label>
-                    <input type="text" name="first_name" id="first_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->first_name }}" required placeholder="First Name">
+                    <input type="text" name="first_name" id="first_name" class="form-control seeker_input" value="{{ old('first_name', Auth::guard('seeker')->user()->first_name) }}" placeholder="First Name">
+
+                    @error('first_name')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
+
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="last_name" class="seeker_label my-2">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" name="last_name" id="last_name" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->last_name }}" required placeholder="Last Name">
+                    <input type="text" name="last_name" id="last_name" class="form-control seeker_input" value="{{ old('last_name', Auth::guard('seeker')->user()->last_name) }}" placeholder="Last Name">
+
+                    @error('last_name')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row">
@@ -64,27 +83,45 @@
                     <label for="date_of_birth" class="seeker_label my-2">Date of Birth <span class="text-danger">*</span></label>
                     <div class="datepicker date input-group" id="date_of_birth">
                         @if(Auth::guard('seeker')->user()->date_of_birth)
-                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}" required placeholder="Date of Birth">
+                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="{{ old('date_of_birth', date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth))) }}" placeholder="Date of Birth">
                         @else
-                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="" required placeholder="Date of Birth">
+                        <input type="text" name="date_of_birth" id="date_of_birth" class="form-control seeker_input" value="" placeholder="Date of Birth">
                         @endif
                         <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                         </div>
                     </div>
+
+                    @error('date_of_birth')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="phone" class="seeker_label my-2">Phone <span class="text-danger">*</span></label>
-                    <input type="number" name="phone" id="phone" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->phone }}" required placeholder="09xxxxxxxxx">
+                    <input type="number" name="phone" id="phone" class="form-control seeker_input" value="{{ old('phone', Auth::guard('seeker')->user()->phone) }}" placeholder="09xxxxxxxxx">
+
+                    @error('phone')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="gender" class="seeker_label my-2">Gender  <span class="text-danger">*</span></label>
-                    <select name="gender" id="gender" class="form-control seeker_input select_2" required style="width: 100%">
-                        <option value="Male" @if(Auth::guard('seeker')->user()->gender == "Male") selected @endif>Male</option>
-                        <option value="Female" @if(Auth::guard('seeker')->user()->gender == "Female") selected @endif>Female</option>
+                    <select name="gender" id="gender" class="form-control seeker_input select_2" style="width: 100%">
+                        <option value="Male" @if(old('gender', Auth::guard('seeker')->user()->gender == "Male")) selected @endif>Male</option>
+                        <option value="Female" @if(old('gender', Auth::guard('seeker')->user()->gender == "Female")) selected @endif>Female</option>
                     </select>
+
+                    @error('gender')
+                        <span class="text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="marital_status" class="seeker_label my-2">Marital Status</label>
@@ -97,15 +134,17 @@
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
                     <label for="nationality" class="seeker_label my-2">Nationality <span class="text-danger">*</span></label>
-                    <select name="nationality" id="nationality" class="form-control seeker_input select_2" style="width: 100%" required>
+                    <select name="nationality" id="nationality" class="form-control seeker_input select_2" style="width: 100%">
                         <option value="Myanmar" @if(Auth::guard('seeker')->user()->nationality == "Myanmar") selected @endif>Myanmar</option>
                         <option value="Other" @if(Auth::guard('seeker')->user()->nationality == "Other") selected @endif>Other</option>
                     </select>
                 </div>
+
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->nationality == 'Other') d-none @endif" id="nrc_field">
                     <label for="nrc" class="seeker_label my-2">NRC <span class="text-danger">*</span></label>
                     <input type="text" name="nrc" id="nrc" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->nrc }}" placeholder="NRC">
                 </div>
+                
                 <div class="form-group mt-1 col-12 col-md-6 @if(Auth::guard('seeker')->user()->nationality == 'Myanmar') d-none @endif" id="id_card_field">
                     <label for="id_card" class="seeker_label my-2">ID Card <span class="text-danger">*</span></label>
                     <input type="text" name="id_card" id="id_card" class="form-control seeker_input" value="{{ Auth::guard('seeker')->user()->id_card }}" placeholder="ID Card">
