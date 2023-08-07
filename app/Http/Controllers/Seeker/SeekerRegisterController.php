@@ -39,6 +39,7 @@ class SeekerRegisterController extends Controller
             'phone'    => ['nullable', new MyanmarPhone],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
             'password' => ['required', 'string', 'min:8', 'same:confirmed'],
+            'confirmed' => ['required', 'string', 'min:8', 'same:password'],
         ]);
         $seeker = Seeker::create([
             'email'                    => $request['email'],
@@ -47,6 +48,7 @@ class SeekerRegisterController extends Controller
             'password'                 => Hash::make($request['password']),
             'email_verification_token' => Str::random(32),
             'register_at'              => Carbon::now(),
+            'is_active'                => 0
         ]);
         if ($seeker) {
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));

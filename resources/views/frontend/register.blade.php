@@ -94,13 +94,17 @@
                                                 <div class="input-group-prepend d-flex">
                                                     <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                                 </div>
-                                                <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed">
+                                                <input class="form-control border-0 @error('confirmed') is-invalid @enderror" placeholder="Confirm password" type="password" name="confirmed">
                                             </div>  
+                                            @error('confirmed')
+                                                <span class="text-danger">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-
                                         <div class="my-3">
                                             <div class="form-group input-group">     
-                                                <input type="checkbox" name="terms" id="terms" class=""> <label style="font-size: 0.9rem" for="terms" class="ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers </label>                              
+                                                <input type="checkbox" name="terms" id="terms" class="" style="width: 15px" > <label style="font-size: 0.9rem" for="terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers </label>                              
                                             </div>
                                             <div class="form-group p-2">
                                                 <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
@@ -142,7 +146,7 @@
                                             <input class="form-control border-0" placeholder="Confirm password" type="password" name="company_confirmed" required>
                                         </div>   
                                         <div class="form-group input-group input-group my-3">     
-                                            <input type="checkbox" name="employer_terms" id="employer_terms" class="" required> <label style="font-size: 0.9rem" for="employer_terms" class="ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
+                                            <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
                                         </div>
                                         <div class="form-group p-2">
                                             <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>

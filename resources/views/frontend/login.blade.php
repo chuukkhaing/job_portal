@@ -37,10 +37,10 @@
                 <div class="p-3">
                     <ul class="nav register-btn mb-3 row" id="pills-tab" role="tablist">
                         <li class="nav-item col" role="presentation">
-                            <button class="btn nav-link active col-12" id="pills-seeker-tab" data-bs-toggle="pill" data-bs-target="#pills-seeker" type="button" role="tab" aria-controls="pills-seeker" aria-selected="true">JOB SEEKER</button>
+                            <a class="btn nav-link active col-12" id="pills-seeker-tab" data-bs-toggle="pill" data-bs-target="#pills-seeker" href="#pills-seeker" role="tab" aria-controls="pills-seeker" aria-selected="true">JOB SEEKER</a>
                         </li>
                         <li class="nav-item col" role="presentation">
-                            <button class="btn nav-link col-12" id="pills-employer-tab" data-bs-toggle="pill" data-bs-target="#pills-employer" type="button" role="tab" aria-controls="pills-employer" aria-selected="false">EMPLOYER</button>
+                            <a class="btn nav-link col-12" id="pills-employer-tab" data-bs-toggle="pill" data-bs-target="#pills-employer" href="#pills-employer" role="tab" aria-controls="pills-employer" aria-selected="false">EMPLOYER</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
@@ -53,18 +53,26 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                                             </div>
-                                            <input name="email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}" required>
+                                            <input name="email" class="form-control border-0 @error('email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('email') }}">
                                         </div>
-                                        
+                                        @error('email')
+                                            <span class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" required>
+                                            <input class="form-control border-0 @error('password') is-invalid @enderror" placeholder="Enter Password" type="password" name="password">
                                         </div>
-                                        
+                                        @error('password')
+                                            <span class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         <div class="my-3">     
-                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
+                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class="" required> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
                                             <div class="float-end"><a href="{{ route('seeker-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
                                         </div>
                                         <div class="form-group p-2">
@@ -85,16 +93,24 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                                             </div>
-                                            <input name="company_email" class="form-control border-0" placeholder="Enter Email" type="email" value="{{ old('company_email') }}" required>
+                                            <input name="company_email" class="form-control border-0 @error('company_email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('company_email') }}">
                                         </div>
-                                        
+                                        @error('company_email')
+                                            <span class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         <div class="form-group input-group register-form-input p-2 my-3">
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0" placeholder="Create password" type="password" name="company_password" required>
+                                            <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Enter Password" type="password" name="company_password">
                                         </div>
-                                        
+                                        @error('company_password')
+                                            <span class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                         <div class="my-3">     
                                             <input type="checkbox" name="company_remember" id="remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
                                             <div class="float-end"><a href="{{ route('employer-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
@@ -115,3 +131,17 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+<script>
+    $('#pills-tab a').click(function(e) {
+        e.preventDefault();
+        var login_target = $(this).attr('data-bs-target');
+        localStorage.setItem('login_target',login_target)
+    });
+    var current_login_tab = localStorage.getItem('login_target');
+    var return_current_login_tab = document.querySelector('#pills-tab li a[href="'+current_login_tab+'"]')
+    var show_login_tab = new bootstrap.Tab(return_current_login_tab)
+
+    show_login_tab.show()
+</script>
+@endpush

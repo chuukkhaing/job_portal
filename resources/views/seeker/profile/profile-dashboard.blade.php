@@ -14,9 +14,11 @@
                         <div class="seeker-name">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
                     </div>
                     <div class="col-12 p-0 m-0 row">
+                        @if(Auth::guard('seeker')->user()->phone)
                         <div class="col-3">
                             <i class="fa-solid fa-phone seeker-icon"></i><a href="tel:+{{ Auth::guard('seeker')->user()->phone }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->phone }}</a>
                         </div>
+                        @endif
                         <div class="col-5 p-0 m-0">
                             <i class="fa-solid fa-envelope seeker-icon"></i><a href="mailto:{{ Auth::guard('seeker')->user()->email }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->email }}</a>
                         </div>
@@ -313,11 +315,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 if(response.status == 'success') {
-                    MSalert.principal({
-                        icon:'success',
-                        title:'',
-                        description:response.msg,
-                    })
+                    // MSalert.principal({
+                    //     icon:'success',
+                    //     title:'',
+                    //     description:response.msg,
+                    // })
                 }
             }
         })
@@ -330,19 +332,19 @@
             url: "save-job/"+id,
         }).done(function(response){
             if(response.status == 'create') {
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
+                // MSalert.principal({
+                //     icon:'success',
+                //     title:'',
+                //     description:response.msg,
+                // });
                 $('#savejobdashboard-'+id).removeClass('fa-regular');
                 $('#savejobdashboard-'+id).addClass('fa-solid');
             }else if(response.status == 'remove') {
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
+                // MSalert.principal({
+                //     icon:'success',
+                //     title:'',
+                //     description:response.msg,
+                // });
                 $('#savejobdashboard-'+id).removeClass('fa-solid');
                 $('#savejobdashboard-'+id).addClass('fa-regular');
             }

@@ -68,7 +68,9 @@
     @else
     @include('frontend.layouts.header')
     @endauth
+    @auth
     @include('frontend.layouts.alert')
+    @endauth
     <!-- Header End  -->
     @yield('content')
     <!-- Footer Start  -->

@@ -35,7 +35,7 @@ class EmployerLoginController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'company_email'    => 'required',
+            'company_email'    => 'required|email',
             'company_password' => 'required|min:6',
         ]);
 

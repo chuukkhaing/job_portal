@@ -145,11 +145,18 @@ return [
         'email'          => [
             'required' => 'Sorry, we need your Email address please.',
         ],
-
+        'company_email'          => [
+            'required' => 'Sorry, we need your Email address please.',
+        ],
         'password'       => [
             'required' => 'Sorry, we need your password please.',
         ],
-
+        'company_password'       => [
+            'required' => 'Sorry, we need your password please.',
+        ],
+        'confirmed'       => [
+            'required' => 'Sorry, we need your confirm password please.',
+        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],

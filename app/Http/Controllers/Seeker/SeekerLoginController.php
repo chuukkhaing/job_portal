@@ -46,7 +46,16 @@ class SeekerLoginController extends Controller
         ]);
 
         if (\Auth::guard('seeker')->attempt($request->only(['email', 'password']), $request->get('remember'))) {
-            return redirect()->route('profile.index')->with('success', 'Login Successfully.');
+            if(Auth::guard('seeker')->user()->is_active == 0) {
+                Auth::guard('seeker')->logout();
+
+                $request->session()->flush();
+        
+                $request->session()->regenerate();
+                return redirect()->route('home')->with('error', 'Your account is not active.');
+            }else {
+                return redirect()->route('profile.index')->with('success', 'Login Successfully.');
+            }
         } else {
             return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('email', 'remember'));
         }
