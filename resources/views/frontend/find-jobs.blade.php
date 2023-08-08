@@ -59,7 +59,7 @@
     <div class="row my-5">
         <div class="find-jobs-header py-3">
             <h3 class="find-jobs-title">Explore your career journey via "{{ $jobPostsCount }}"</h3>
-            <span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>
+            {{--<span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>--}}
         </div>
     </div>
     <div class="row my-5">

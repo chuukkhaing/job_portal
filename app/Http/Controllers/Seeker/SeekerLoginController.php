@@ -44,8 +44,8 @@ class SeekerLoginController extends Controller
             'email'    => 'required|email',
             'password' => 'required|min:6',
         ]);
-
-        if (\Auth::guard('seeker')->attempt($request->only(['email', 'password']), $request->get('remember'))) {
+        $remember = $request->has('remember') ? true : false; 
+        if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $remember)) {
             if(Auth::guard('seeker')->user()->is_active == 0) {
                 Auth::guard('seeker')->logout();
 

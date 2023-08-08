@@ -4,13 +4,13 @@
 <!-- Search Start -->
 <section class="company-banner p-5">
     <div class="container p-0">
-        <form action="{{ route('search-company') }}" method="post">
+        <form action="{{ route('search-company') }}" method="get">
             <div class="row company-banner-search py-1">
                 @csrf
                 <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <div class="form-group has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Companies">
+                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Companies" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
 

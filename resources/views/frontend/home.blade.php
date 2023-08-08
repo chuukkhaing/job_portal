@@ -95,7 +95,7 @@
             @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <a href="{{ route('industry-job',$industry->Industry->id) }}">
-                    <div id="job-category-box" class="text-center px-3">
+                    <div id="job-category-box" class="text-center px-3 h-100">
                         <div id="job-category-icon">
                             <i class="{{ $industry->Industry->icon }}"></i>
                         </div>
@@ -125,7 +125,7 @@
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
-            <div class="col-md-2 col-4 text-center">
+            <div class="col-md-2 col-4 text-center h-100">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
                     <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
@@ -170,7 +170,7 @@
         <div class="col-lg-4 col-sm-6 col-12">
             <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                 <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                    <div class="row">
+                    <div class="row h-100">
                         <div class="col-3 text-center">
                             @if($trending_job->Employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
@@ -186,7 +186,7 @@
 
                             <div class="fz13">
                                 <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
+                                @if($trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                             </div>
                         </div>
                     </div>
@@ -214,7 +214,7 @@
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
                         <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
-                            <div class="item d-flex justify-content-center">
+                            <div class="item d-flex justify-content-center h-100">
                                 <div class="row px-3 align-items-center">
                                     <div class="col-3">
                                         @if($feature_job->Employer->logo)

@@ -72,7 +72,7 @@
                                             </span>
                                         @enderror
                                         <div class="my-3">     
-                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class="" required> <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
+                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class="" > <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
                                             <div class="float-end"><a href="{{ route('seeker-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
                                         </div>
                                         <div class="form-group p-2">

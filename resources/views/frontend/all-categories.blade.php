@@ -3,7 +3,7 @@
 
 <!-- Popular Job Category Start  -->
 @if($industries->count() > 0)
-<div class="container">
+<div class="container bg-light">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
@@ -15,7 +15,7 @@
                 @if($industry->JobPost->count() > 0)
                 <a href="{{ route('industry-job',$industry->id) }}">
                 @endif
-                    <div id="job-category-box" class="text-center">
+                    <div id="job-category-box" class="text-center px-3 h-100">
                         <div id="job-category-icon">
                         <i class="{{ $industry->icon }}"></i>
                         </div>

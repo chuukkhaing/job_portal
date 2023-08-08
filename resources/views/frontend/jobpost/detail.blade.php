@@ -46,7 +46,7 @@
                 @endauth
                 @auth('seeker')
                 <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="{{ $disabled }} btn apply-company-btn py-2">
-                    <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="p-1">Apply Job</span>
+                    <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="p-1">{{ $btn_text }}</span>
                 </a>
                 <div onclick="saveJob({{ $jobpost->id }})" class="btn btn-outline-primary py-2">
                     <i id="savejob-{{ $jobpost->id }}" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobpost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
@@ -55,7 +55,7 @@
                 @elseauth('employer')
                 @else
                     <a href="{{ route('jobpost-apply', $jobpost->id) }}" class="{{ $disabled }} btn apply-company-btn py-2">
-                        <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="p-1">Apply Job</span>
+                        <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="p-1">{{ $btn_text }}</span>
                     </a>
                     
                 @endguest
@@ -186,13 +186,13 @@
         <!-- Job Post Detail End-->
 
         <!-- Similar Jobs Start-->
+        @if($similar_jobs->count() > 0)
         <div class="col-lg-5 col-12">
             <div class="px-3 m-0 pb-0 pt-3">
                 <h5 class="text-blue fw-bolder">More Similar Jobs</h5>
             </div>
             
             <div class="row m-0 pb-0">
-                @if($similar_jobs->count() > 0)
                 @foreach($similar_jobs as $similar_job)
                 <div class="col-12">
                     <div class="m-0 pb-0 border-bottom">
@@ -235,9 +235,9 @@
                 </div>
                 @endforeach
                 @else 
-                @endif
             </div>
         </div>
+        @endif
         <!-- Similar Jobs End-->
     </div>
 </div>

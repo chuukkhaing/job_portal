@@ -216,10 +216,10 @@
     <div class="row" style="">
         @foreach($jobPosts as $jobPost)
         <div class="col-lg-6 col-12 pb-2">
-            <div class="row job-opening me-1 p-2">
+            <div class="row job-opening me-1 p-2 h-100">
                 <div class="col-lg-9 col-md-9 p-0">
                     <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2">
+                        <div class="col-lg-2 col-md-2 align-self-center">
                             @if($employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="seeker-profile rounded-circle" style="width: 55px" id="ProfilePreview">
                             @else 
@@ -228,10 +228,10 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <div class="job-company">{{ $employer->name ?? '-' }}</div>
-                            <div class="job-title">{{ $jobPost->job_title }}</div>
-                            <div class="job-location">@if($jobPost->country == 'Myanmar' && $jobPost->township_id) {{ $jobPost->Township->name ?? '-' }} @endif</div>
-                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
+                        <span class="badge badge-pill badge-primary">@if($jobPost->job_post_type == 'feature') Feature @elseif($jobPost->job_post_type == 'trending') Trending @endif</span>
+                            <div class="mt-1 job-company">{{ $employer->name ?? '-' }}</div>
+                            <div class="mt-1 job-title">{{ $jobPost->job_title }}</div>
+                            <div class="mt-1 job-location">@if($jobPost->township_id) {{ $jobPost->Township->name ?? '-' }} @endif</div>
                         </div>
                     </div>
                 </div>

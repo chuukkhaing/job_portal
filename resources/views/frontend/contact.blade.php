@@ -73,15 +73,30 @@
                     @csrf 
                     <div class="form-group">
                         <label for="name">Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" required class="form-control seeker_input" placeholder="Name" value="{{ old('name') }}">
+                        <input type="text" name="name" id="name" class="form-control seeker_input @error('name') is-invalid @enderror" placeholder="Name" value="{{ old('name') }}">
+                        @error('name')
+                            <span class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span class="text-danger">*</span></label>
-                        <input type="email" name="email" id="email" required class="form-control seeker_input" placeholder="Email" value="{{ old('email') }}">
+                        <input type="email" name="email" id="email" class="form-control seeker_input @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
+                        @error('email')
+                            <span class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone <span class="text-danger">*</span></label>
-                        <input type="number" name="phone" id="phone" required class="form-control seeker_input" placeholder="Phone" value="{{ old('phone') }}">
+                        <label for="phone">Phone </label>
+                        <input type="number" name="phone" id="phone" class="form-control seeker_input @error('phone') is-invalid @enderror" placeholder="Phone" value="{{ old('phone') }}">
+                        @error('phone')
+                            <span class="text-danger">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
