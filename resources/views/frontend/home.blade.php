@@ -30,7 +30,7 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="get" class="form-height-0">
+<form action="{{ route('search-job') }}" method="get" class="form-height-0" autocomplete="off">
     @csrf
     <section class="search-sec">
         <div class="container-fluid">
@@ -40,9 +40,9 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
                             <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                            <ul class="autocomplete"></ul>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-md-3 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
@@ -87,7 +87,7 @@
 @if($industries->count() > 0)
 <div class="container bg-light">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-5">
+        <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
             <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
         </div>
@@ -107,7 +107,7 @@
                 </a>
             </div>
             @endforeach
-            <div class="text-center py-5">
+            <div class="text-center py-3">
                 <a href="{{ route('job-categories') }}" class="btn btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -120,7 +120,7 @@
 @if($employers->count() > 0)
 <div class="container bg-light">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-5">
+        <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Top Employers</h3>
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
@@ -203,13 +203,13 @@
 @if($feature_jobs->count() > 0)
 <div class="container bg-white">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center pt-5">
+        <div id="header-popular-job-category" class="text-center pt-3">
             <h3 id="popular-job-category-title">Featured Jobs</h3>
         </div>
 
         <div class="row bg-white">
             <div class="col-12 p-0 bg-white">
-                <div class="owl-slider py-5">
+                <div class="owl-slider py-3">
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
@@ -461,6 +461,7 @@
             enableFiltering: true,
             includeSelectAllOption: true,
             nonSelectedText: "Select function area",
+            numberDisplayed: 1
         });
 
         $('#multiple-carousel').owlCarousel({
@@ -492,6 +493,35 @@
                 }
             }
         });
+
+        const suggestionList = @json($jobPostName);
+        const inputField = document.querySelector(".job-title");
+        const autocompleteBox = document.querySelector('.autocomplete');
+        inputField.addEventListener('keyup', () => {
+            autocompleteBox.classList.add('shown');
+        });
+        inputField.addEventListener('focusout', () => {
+            autocompleteBox.classList.remove('shown');
+        });
+
+        const optionClick = (event) => {
+            inputField.value = event.target.innerText;
+        }
+        inputField.addEventListener('keyup', () => {
+
+            const available = suggestionList.filter((suggest) => (suggest.toLowerCase().indexOf(inputField.value) !== -1));
+
+            autocompleteBox.innerHTML = ''
+            available.forEach((item) => {
+                const li = document.createElement('li');
+                
+                li.classList.add('autocomplete-suggestion');
+                
+                li.onclick = optionClick;
+                li.innerText = item;
+                autocompleteBox.appendChild(li);
+            })
+        })
     });
 </script>
 @endpush

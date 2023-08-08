@@ -11,7 +11,8 @@
                     <div class="col-lg-3 col-md-3 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title" @if(isset($_GET['job_title'])) value="{{ $_GET['job_title'] }}" @endif>
+                            <ul class="autocomplete"></ul>
                         </div>
                     </div>
 
@@ -23,7 +24,7 @@
                                 <optgroup label="{{ $main_functional_area->name }}">
                                     @foreach($sub_functional_areas as $sub_functional_area)
                                     @if($main_functional_area->id == $sub_functional_area->functional_area_id)
-                                    <option value="{{ $sub_functional_area->id }}">{{ $sub_functional_area->name }}</option>
+                                    <option value="{{ $sub_functional_area->id }}" @if(isset($_GET['function_area']) && in_array($sub_functional_area->id , $_GET['function_area'])) selected @endif>{{ $sub_functional_area->name }}</option>
                                     @endif
                                     @endforeach
                                 </optgroup>
@@ -38,7 +39,7 @@
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
                                 <option value="" disabled selected>Location</option>
                                 @foreach($states as $state)
-                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                <option value="{{ $state->id }}" @if(isset($_GET['location']) && $_GET['location'] == $state->id) selected @endif>{{ $state->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -57,7 +58,7 @@
 <div class="container my-5">
     <div class="row my-5">
         <div class="find-jobs-header py-3">
-            <h3 class="find-jobs-title">Explore Job Near for you</h3>
+            <h3 class="find-jobs-title">Explore your career journey via "{{ $jobPostsCount }}"</h3>
             <span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>
         </div>
     </div>
@@ -66,50 +67,52 @@
         @if($jobPosts->count() > 0)
         <div class="col-lg-8 col-12 find-jobs-left-sidebar">
             @foreach($jobPosts as $jobPost)
-            <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                <div class="row job-content mb-3">
-                    <!-- Job List Start -->
-                    
-                    <div class="col-lg-10 col-md-10 py-4 d-flex">
-                        <div style="width: 100px">
+            <div class="row job-content mb-3">
+                <!-- Job List Start -->
+                
+                <div class="col-lg-10 col-md-10 py-4 row">
+                    <div style="width: 100px" class="col-2 align-self-center">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                             @if($jobPost->Employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                             @else 
                             <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                             @endif
-                        </div>
-                        <div>
-                            <div class="job-company">{{ $jobPost->Employer->name }}</div>
-                            <div class="job-title">{{ $jobPost->job_title }}</div>
-                            @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
-                            <div class="job-location">{{ $jobPost->Township->name }}</div>
+                        </a>
+                    </div>
+                    <div class="col-10">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                            <span class="badge badge-pill badge-primary">@if($jobPost->job_post_type == 'feature') Feature @elseif($jobPost->job_post_type == 'trending') Trending @endif</span>
+                            <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
+                            <div class="mt-1">{{ $jobPost->job_title }}</div>
+                            @if($jobPost->township_id)
+                            <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                             @endif
-                            <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
-                            <div class="">
-                                <a href="" class="btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
+                            <div class="mt-1 ">
+                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    
-                    <!-- Job List End -->
-
-                    <!-- Wishlist Start -->
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end p-0">
-                                @auth('seeker')
-                                <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
-                                @endauth
-                            </div>
-
-                            <div class="text-end mt-auto p-1">
-                                <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Wishlist End -->
                 </div>
-            </a>
+                
+                <!-- Job List End -->
+
+                <!-- Wishlist Start -->
+                <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                    <div class="row col-12 m-0 p-0">
+                        <div class="text-end p-0">
+                            @auth('seeker')
+                            <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                            @endauth
+                        </div>
+
+                        <div class="text-end mt-auto p-1">
+                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Wishlist End -->
+            </div>
             @endforeach
             <div class="row">
                 <div class="col pt-2">
@@ -127,7 +130,7 @@
                 <!-- Job List Start -->
                 <div class="col-lg-10 col-md-10 py-4">
                     <div class="row text-center">
-                        <p class="text-center">There is no Job.</p>
+                        <span class="text-center">Unfortunately, No Jobs Match Your Search.</span>
                     </div>
                 </div>
             </div>
@@ -165,7 +168,7 @@
 
                                         <div class="fz13">
                                             <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                            @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
+                                            @if($trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                                         </div>
                                     </div>
                                 </div>
@@ -234,7 +237,37 @@
             enableFiltering: true,
             includeSelectAllOption: true,
             nonSelectedText: "Select function area",
+            numberDisplayed: 1
         });
+
+        const suggestionList = @json($jobPostName);
+        const inputField = document.querySelector(".job-title");
+        const autocompleteBox = document.querySelector('.autocomplete');
+        inputField.addEventListener('keyup', () => {
+            autocompleteBox.classList.add('shown');
+        });
+        inputField.addEventListener('focusout', () => {
+            autocompleteBox.classList.remove('shown');
+        });
+
+        const optionClick = (event) => {
+            inputField.value = event.target.innerText;
+        }
+        inputField.addEventListener('keyup', () => {
+
+            const available = suggestionList.filter((suggest) => (suggest.toLowerCase().indexOf(inputField.value) !== -1));
+
+            autocompleteBox.innerHTML = ''
+            available.forEach((item) => {
+                const li = document.createElement('li');
+                
+                li.classList.add('autocomplete-suggestion');
+                
+                li.onclick = optionClick;
+                li.innerText = item;
+                autocompleteBox.appendChild(li);
+            })
+        })
     });
 
     $.ajaxSetup({

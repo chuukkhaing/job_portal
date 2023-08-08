@@ -16,8 +16,6 @@ class MSalert{
             $("#MSalertStyleContainer").append($this.cssPrincipal());
             $("#MSalertStyleContainer").append($this.cssAlertas());
         })  
-
-        console.log("MSalert inicializado")
     }
     cssPrincipal(){
         return `
