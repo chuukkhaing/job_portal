@@ -36,7 +36,7 @@
         @foreach($employers as $employer)
         <div class="col-lg-4 col-md-6 col-12 pb-3">
             <a href="{{ route('company-detail',$employer->slug ?? '') }}">
-                <div class="company-content p-4">
+                <div class="company-content p-4 h-100">
                     <div class="company-image">
                         @if($employer->background)
                         <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" alt="{{ $employer->name }}">

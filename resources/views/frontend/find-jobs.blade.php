@@ -2,7 +2,7 @@
 @section('content')
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="get">
+<form action="{{ route('search-job') }}" method="get" autocomplete="off">
     @csrf
     <section class="find-jobs-search p-5">
         <div class="container-fluid">
@@ -58,7 +58,7 @@
 <div class="container my-5">
     <div class="row my-5">
         <div class="find-jobs-header py-3">
-            <h3 class="find-jobs-title">Explore your career journey via "{{ $jobPostsCount }}"</h3>
+            <h3 class="find-jobs-title">Explore your career journey via {{ $jobPostsCount }} @if($jobPostsCount > 1) Jobs @else Job @endif</h3>
             {{--<span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>--}}
         </div>
     </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-10">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                            <span class="badge badge-pill badge-primary">@if($jobPost->job_post_type == 'feature') Feature @elseif($jobPost->job_post_type == 'trending') Trending @endif</span>
+                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill badge-info"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill badge-success"> Trending @endif</span>
                             <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
