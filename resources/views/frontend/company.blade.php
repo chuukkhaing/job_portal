@@ -10,7 +10,7 @@
                 <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <div class="form-group has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Companies" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
+                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Employers" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
 
@@ -27,7 +27,7 @@
 <div class="container my-5">
     <div class="row my-5">
         <div class="company-header py-3 text-center">
-            <h3 class="company-header-title text-center">Discover Your Dream Job with Top Companies</h3>
+            <h3 class="company-header-title text-center">Discover Your Dream Job with Top Employers</h3>
             <span class="company-header-sub-title justify-content-center">Find endless career opportunities with our customizable search filters and user-friendly interface</span>
         </div>
     </div>

@@ -154,7 +154,7 @@
                     <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 p-2 trending-job-list rounded">
-                                <div class="row m-0">
+                                <div class="row m-0 p-2">
                                     <div class="col-lg-3 col-12 text-center">
                                         @if($trending_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
@@ -195,7 +195,7 @@
                     <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 p-2 trending-job-list rounded">
-                                <div class="row m-0">
+                                <div class="row m-0 p-2">
                                     <div class="col-lg-3 col-12 text-center">
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">

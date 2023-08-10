@@ -153,20 +153,23 @@ class EmployerController extends Controller
             $password = $employer->password;
         }
 
-        $package_id = $employer->package_id;
+        $package_id = $request->package_id;
         $package_start_date = $employer->package_start_date;
         $package_end_date = $employer->package_end_date;
         $package_point = $employer->package_point;
         $purchased_point = $employer->purchased_point;
 
-        if($request->package_id != $employer->package_id) {
+        if($request->package_start_date) {
             $package_end_date = Null;
             if($request->package_id) {
                 $package = Package::findOrFail($request->package_id);
                 $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
             }
-            $package_id = $request->package_id;
+            
             $package_start_date = date('Y-m-d', strtotime($request->package_start_date));
+        }
+
+        if($request->package_id != $employer->package_id) {
             $package_point = $employer->package_point + $package->point;
             $purchased_point = $employer->purchased_point + $package->point;
         }
