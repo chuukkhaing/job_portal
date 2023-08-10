@@ -60,12 +60,12 @@
             <span class="profile-number">0</span>
             </div>
         </div>
-        <div class="col py-5">
+        {{--<div class="col py-5">
             <div class="border-right-profile">
             <p class="profile-count">Message</p>
             <span class="profile-number">0</span>
             </div>
-        </div>
+        </div>--}}
         <div class="col py-5">
             <div class="text-center">
                 <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
@@ -110,8 +110,7 @@
                                 @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
                                 <div class="job-location">{{ $jobPost->Township->name }}</div>
                                 @endif
-                                <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
-                                <div class="">
+                                <div class="my-3">
                                     <a href="" class="btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
                                 </div>
                             </div>

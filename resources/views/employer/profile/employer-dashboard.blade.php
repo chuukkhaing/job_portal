@@ -62,7 +62,7 @@
         <div class="px-5">
             <div class="row">
                 <div class="col-8 my-5">
-                    <div id="last-job-post" class="p-5 ">
+                    <div id="last-job-post" class="p-5 h-100">
                         <h5 class="fw-bold">Last Job Posts </h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-4 my-5">
-                    <div id="last-job-post" class="py-5 px-3 ">
+                    <div id="last-job-post" class="py-5 px-3 h-100">
                         <h5 class="fw-bold">Job applied ranking</h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
@@ -103,7 +103,7 @@
                             </div>
                             @endforeach
                         </div>
-                        <a style="cursor: pointer" onclick="seeAllPost('#employer-job')" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a style="cursor: pointer" onclick="seeAllPost('#applicant-tracking')" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
                     </div>
                 </div>
             </div>

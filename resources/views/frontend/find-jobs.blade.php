@@ -78,11 +78,13 @@
                             @else 
                             <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
                             @endif
+                            <div class="text-center">
+                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill badge-info"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill badge-success"> Trending @endif</span>
+                            </div>
                         </a>
                     </div>
                     <div class="col-10">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill badge-info"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill badge-success"> Trending @endif</span>
                             <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
@@ -256,17 +258,21 @@
         inputField.addEventListener('keyup', () => {
 
             const available = suggestionList.filter((suggest) => (suggest.toLowerCase().indexOf(inputField.value) !== -1));
-
+            
             autocompleteBox.innerHTML = ''
-            available.forEach((item) => {
-                const li = document.createElement('li');
-                
-                li.classList.add('autocomplete-suggestion');
-                
-                li.onclick = optionClick;
-                li.innerText = item;
-                autocompleteBox.appendChild(li);
-            })
+            if(available.length > 0) {
+                available.forEach((item) => {
+                    const li = document.createElement('li');
+                    
+                    li.classList.add('autocomplete-suggestion');
+                    
+                    li.onclick = optionClick;
+                    li.innerText = item;
+                    autocompleteBox.appendChild(li);
+                })
+            }else {
+                autocompleteBox.classList.remove('shown');
+            }
         })
     });
 

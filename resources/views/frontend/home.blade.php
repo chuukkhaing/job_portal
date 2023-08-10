@@ -512,15 +512,19 @@
             const available = suggestionList.filter((suggest) => (suggest.toLowerCase().indexOf(inputField.value) !== -1));
 
             autocompleteBox.innerHTML = ''
-            available.forEach((item) => {
-                const li = document.createElement('li');
-                
-                li.classList.add('autocomplete-suggestion');
-                
-                li.onclick = optionClick;
-                li.innerText = item;
-                autocompleteBox.appendChild(li);
-            })
+            if(available.length > 0) {
+                available.forEach((item) => {
+                    const li = document.createElement('li');
+                    
+                    li.classList.add('autocomplete-suggestion');
+                    
+                    li.onclick = optionClick;
+                    li.innerText = item;
+                    autocompleteBox.appendChild(li);
+                })
+            }else {
+                autocompleteBox.classList.remove('shown');
+            }
         })
     });
 </script>

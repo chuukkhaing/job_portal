@@ -15,7 +15,7 @@
             <div class="row job-content mb-3 m-1">
                 <!-- Job List Start -->
                 
-                <div class="col-lg-10 col-md-10 py-4 d-flex">
+                <div class="col-lg-9 col-md-9 py-4 d-flex">
                     <a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}">
                         <div style="width: 100px">
                             @if($saveJob->JobPost->Employer->logo)
@@ -30,8 +30,7 @@
                             @if($saveJob->JobPost->country == 'Myanmar' && $saveJob->JobPost->township_id)
                             <div class="job-location">{{ $saveJob->JobPost->Township->name }}</div>
                             @endif
-                            <div class="job-salary my-3">@if($saveJob->JobPost->hide_salary == 1) Negotiate @else {{ $saveJob->JobPost->salary_range }} @endif</div>
-                            <div class="">
+                            <div class="my-3">
                                 <a href="" class="btn job-btn">{{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
@@ -41,7 +40,7 @@
                 <!-- Job List End -->
 
                 <!-- Wishlist Start -->
-                <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight py-4">
                     <div class="row col-12 m-0 p-0">
                         
                         <div class="text-end mt-auto p-1">
