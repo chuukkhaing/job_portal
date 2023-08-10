@@ -214,8 +214,8 @@
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
                         <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
-                            <div class="item d-flex justify-content-center h-100">
-                                <div class="row px-3 align-items-center">
+                            <div class="item d-flex justify-content-center">
+                                <div class="row px-3 align-items-center h-100">
                                     <div class="col-3">
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
