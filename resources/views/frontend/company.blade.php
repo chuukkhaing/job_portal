@@ -39,9 +39,9 @@
                 <div class="company-content p-4 h-100">
                     <div class="company-image">
                         @if($employer->background)
-                        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" alt="{{ $employer->name }}">
+                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="background: #0355D0; width: 100%; height: 300px" class="img-fluid" alt="{{ $employer->name }}">
                         @else
-                        <img src="{{ asset('/frontend/img/company/image.jpg') }}" class="w-100" alt="{{ $employer->name }}">
+                        <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 100%; height: 300px" class="img-fluid" alt="{{ $employer->name }}">
                         @endif
                     </div>
         
