@@ -40,7 +40,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                 <div class="company-content p-4 h-100">
                     <div class="company-image text-center">
                         @if($employer->background)
-                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
+                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
                         @else
                         <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
                         @endif

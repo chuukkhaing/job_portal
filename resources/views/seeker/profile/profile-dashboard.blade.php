@@ -97,21 +97,29 @@
                         <!-- Job List Start -->
                         
                         <div class="col-lg-10 col-md-10 py-4 d-flex">
-                            <div style="width: 100px">
+                            <div style="width: 100px" class="align-self-center">
+                                @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                                 @if($jobPost->Employer->logo)
-                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
                                 @else 
-                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                                @endif
+                                <div class="text-center">
+                                @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
+                                </div>
                                 @endif
                             </div>
-                            <div>
-                                <div class="job-company">{{ $jobPost->Employer->name }}</div>
-                                <div class="job-title">{{ $jobPost->job_title }}</div>
-                                @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
-                                <div class="job-location">{{ $jobPost->Township->name }}</div>
+                            <div class="align-self-center">
+                                <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
+                                <div class="mt-1">{{ $jobPost->job_title }}</div>
+                                @if($jobPost->township_id)
+                                <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                 @endif
-                                <div class="my-3">
-                                    <a href="" class="btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
+                                @if($jobPost->job_post_type == 'trending')
+                                <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                                @endif
+                                <div class="mt-1 ">
+                                    <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
                                 </div>
                             </div>
                         </div>

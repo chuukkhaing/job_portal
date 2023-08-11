@@ -17,21 +17,29 @@
                 
                 <div class="col-lg-9 col-md-9 py-4 d-flex">
                     <a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}">
-                        <div style="width: 100px">
+                        <div style="width: 100px" class="align-self-center">
+                            @if($saveJob->JobPost->job_post_type == 'feature' || $saveJob->JobPost->job_post_type == 'trending')
                             @if($saveJob->JobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$saveJob->JobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$saveJob->JobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            @endif
+                            <div class="text-center">
+                            @if($saveJob->JobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($saveJob->JobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
+                            </div>
                             @endif
                         </div>
-                        <div>
-                            <div class="job-company">{{ $saveJob->JobPost->Employer->name }}</div>
-                            <div class="job-title">{{ $saveJob->JobPost->job_title }}</div>
-                            @if($saveJob->JobPost->country == 'Myanmar' && $saveJob->JobPost->township_id)
-                            <div class="job-location">{{ $saveJob->JobPost->Township->name }}</div>
+                        <div class="align-self-center">
+                            <div class="mt-1 job-company">{{ $saveJob->JobPost->Employer->name }}</div>
+                            <div class="mt-1">{{ $saveJob->JobPost->job_title }}</div>
+                            @if($saveJob->JobPost->township_id)
+                            <div class="mt-1 job-location">{{ $saveJob->JobPost->Township->name }}</div>
                             @endif
-                            <div class="my-3">
-                                <a href="" class="btn job-btn">{{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
+                            @if($saveJob->JobPost->job_post_type == 'trending')
+                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($saveJob->JobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                            @endif
+                            <div class="mt-1 ">
+                                <a href="{{ route('search-main-function', $saveJob->JobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
                     </a>

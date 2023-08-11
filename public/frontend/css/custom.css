@@ -383,7 +383,8 @@ a.interview-btn:hover {
 /* Companies css start here*/
 .company-banner-search{
     border-radius: 50px;
-    background-color: #fff;
+    background-color: #E8EFF7;
+    border: 1px solid #69696838;
 }
 
 .company-banner{
@@ -408,7 +409,7 @@ a.interview-btn:hover {
 .job-post-badge {
     width: 75px;
     height: 25px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
 }
 
