@@ -23,10 +23,13 @@ class EmployerRegisterController extends Controller
 
     protected function register(Request $request)
     {
-        $request->validate([
+        $this->validate($request, [
             'company_phone'    => ['nullable', new MyanmarPhone],
+            'company_name'     => ['required', 'string'],
+            'industry_id'      => ['required'],
             'company_email'    => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
             'company_password' => ['required', 'string', 'min:8', 'same:company_confirmed'],
+            'company_confirmed' => ['required', 'string', 'min:8', 'same:company_password'],
         ]);
 
         $employer = Employer::create([

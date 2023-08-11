@@ -157,8 +157,17 @@ return [
         'confirmed'       => [
             'required' => 'Sorry, we need your confirm password please.',
         ],
+        'company_confirmed'       => [
+            'required' => 'Sorry, we need your confirm password please.',
+        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
+        ],
+        'company_name'          => [
+            'required' => 'Sorry, we need your Company Name please.',
+        ],
+        'industry_id'          => [
+            'required' => 'Sorry, we need your Industry Name please.',
         ],
     ],
 
