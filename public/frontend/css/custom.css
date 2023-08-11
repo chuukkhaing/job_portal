@@ -393,6 +393,25 @@ a.interview-btn:hover {
     background-image: url('../../img/findjobs_banner.svg');
 }
 
+.job-post-area {
+    color: #0355D0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.job-post-preview {
+    color: #959499;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.job-post-badge {
+    width: 75px;
+    height: 25px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 input.form-control.search-slt.company-search {
     box-shadow: 0 0 0 0.2rem rgb(245 242 244 / 25%);
     padding-left: 4rem;
@@ -435,11 +454,18 @@ span.form-control-feedback.company-icon {
 }
 
 .company-name h3 {
-    font-size: 20px;
+    font-size: 16px;
+    color: #181722;
+    font-weight: 600;
 }
 
 .company-rating-icon {
     color: #0355d0;
+}
+
+.company-job-count {
+    background: #ECF2F8;
+    border-radius: 8px;
 }
 
 .company-rating-count {

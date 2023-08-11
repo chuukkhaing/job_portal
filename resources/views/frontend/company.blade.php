@@ -2,10 +2,17 @@
 @section('content')
 
 <!-- Search Start -->
-<section class="company-banner p-5">
-    <div class="container p-0">
+<section class=" p-5">
+    <div class="container p-0 ">
+        <div class="row col-10 mx-auto my-5">
+            <div class="company-header py-3 text-center">
+                <h3 class="company-header-title text-center">Discover Your Dream Job with Top Employers</h3>
+                <span class="company-header-sub-title justify-content-center">Take this opportunity to gain a deeper understanding of the companies shaping industries and driving innovation. Let this showcase inspire you as you navigate your career journey, and remember that your next big opportunity might be waiting with one of our exceptional Featured Employers.
+Start exploring now and uncover the companies that could be the perfect match for your aspirations!</span>
+            </div>
+        </div>
         <form action="{{ route('search-company') }}" method="get">
-            <div class="row company-banner-search py-1">
+            <div class="row company-banner-search col-8 p-0 m-auto">
                 @csrf
                 <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <div class="form-group has-search">
@@ -25,31 +32,25 @@
 
 <!-- Show Data Start -->
 <div class="container my-5">
-    <div class="row my-5">
-        <div class="company-header py-3 text-center">
-            <h3 class="company-header-title text-center">Discover Your Dream Job with Top Employers</h3>
-            <span class="company-header-sub-title justify-content-center">Find endless career opportunities with our customizable search filters and user-friendly interface</span>
-        </div>
-    </div>
 
     <div class="row">
         @foreach($employers as $employer)
-        <div class="col-lg-4 col-md-6 col-12 pb-3">
+        <div class="col-lg-2 col-md-4 col-12 pb-3">
             <a href="{{ route('company-detail',$employer->slug ?? '') }}">
                 <div class="company-content p-4 h-100">
-                    <div class="company-image">
+                    <div class="company-image text-center">
                         @if($employer->background)
-                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="background: #0355D0; width: 100%; height: 300px" class="img-fluid" alt="{{ $employer->name }}">
+                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
                         @else
-                        <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 100%; height: 300px" class="img-fluid" alt="{{ $employer->name }}">
+                        <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
                         @endif
                     </div>
         
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name py-2 text-center">
                         <h3>{{ $employer->name }}</h3>
                     </div>
         
-                    <div class="company-address">
+                    {{--<div class="company-address">
                         @if($employer->EmployerAddress->count() > 0)
                         @foreach($employer->EmployerAddress as $address)
                         @if($address->address_detail)
@@ -59,9 +60,9 @@
                         @endif
                         @endforeach
                         @endif
-                    </div>
+                    </div>--}}
         
-                    <div class="company-job-count mt-4 py-2">
+                    <div class="company-job-count py-2 text-center">
                         Opening Jobs - {{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}
                     </div>
                 </div>
@@ -82,7 +83,7 @@
 <!-- Show Data End -->
 
 <!-- Join Our Community Start -->
-<div class="container my-5">
+{{--<div class="container my-5">
     <div class="row my-5">
         <div class="community-header py-3">
             <h3 class="community-header-title text-center">Join Our Community</h3>
@@ -116,7 +117,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 <!-- Join Our Community End -->
 
 @endsection
