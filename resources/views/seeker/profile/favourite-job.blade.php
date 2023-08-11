@@ -36,7 +36,7 @@
                             <div class="mt-1 job-location">{{ $saveJob->JobPost->Township->name }}</div>
                             @endif
                             @if($saveJob->JobPost->job_post_type == 'trending')
-                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($saveJob->JobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($saveJob->JobPost->job_requirement), $limit = 100, $end = '...') !!}</p>
                             @endif
                             <div class="mt-1 ">
                                 <a href="{{ route('search-main-function', $saveJob->JobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
