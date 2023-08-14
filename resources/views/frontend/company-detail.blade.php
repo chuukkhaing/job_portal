@@ -3,8 +3,8 @@
 
 <!-- Banner Start -->
 @if($employer->background)
-<div class="container-fluid p-3">
-    <div class="row company-detail-banner">
+<div class="container-fluid p-0">
+    <div class="company-detail-banner">
         <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" style="max-height : 400px" alt="{{ $employer->name }}">
     </div>
 </div>
