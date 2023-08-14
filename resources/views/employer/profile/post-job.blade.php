@@ -389,7 +389,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard"><br>
+                                    <input type="radio" name="job_post_type" required id="standard_job_post" value="standard"><br>
                                     <label for="standard_job_post" class="w-100">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
