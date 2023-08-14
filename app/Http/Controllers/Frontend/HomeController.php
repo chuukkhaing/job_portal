@@ -106,10 +106,10 @@ class HomeController extends Controller
         $jobPosts              = JobPost::where('is_active', 1);
         
         if ($request->function_area) {
-            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area);
+            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
         if ($request->location) {
-            $jobPosts = $jobPosts->where('state_id', $request->location);
+            $jobPosts = $jobPosts->where('state_id', $request->location)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
         if ($request->job_title) {
             $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
@@ -117,10 +117,10 @@ class HomeController extends Controller
                                     $query->where('name', 'like', '%' . $request->job_title . '%');
                                 })->orWhereHas('State', function ($query1) use ($request) {
                                     $query1->where('name', 'like', '%' . $request->job_title . '%');
-                                });
+                                })->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
         $jobPostsCount = $jobPosts->where('status','Online')->orderBy('updated_at','desc')->count();
-        $jobPosts = $jobPosts->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
+        $jobPosts = $jobPosts->where('status','Online')->paginate(10);
         
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
