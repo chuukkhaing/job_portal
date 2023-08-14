@@ -215,7 +215,7 @@
 
     <div class="row" style="">
         @foreach($jobPosts as $jobPost)
-        <div class="col-lg-6 col-12 pb-2">
+        <div class="col-lg-12 col-12 pb-2">
             <div class="row job-opening me-1 p-2 h-100">
                 <div class="col-lg-9 col-md-9 p-0">
                     <div class="row col-12 m-0 p-0">
