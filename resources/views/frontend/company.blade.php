@@ -47,7 +47,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                     </div>
         
                     <div class="company-name py-2 text-center">
-                        <p style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 10, $end='...') }}</p>
+                        <p style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 50, $end='...') }}</p>
                     </div>
         
                     {{--<div class="company-address">
