@@ -120,7 +120,7 @@ class HomeController extends Controller
                                 })->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
         $jobPostsCount = $jobPosts->where('status','Online')->orderBy('updated_at','desc')->count();
-        $jobPosts = $jobPosts->where('status','Online')->paginate(10);
+        $jobPosts = $jobPosts->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
         
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
