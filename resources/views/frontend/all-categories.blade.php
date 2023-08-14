@@ -3,7 +3,7 @@
 
 <!-- Popular Job Category Start  -->
 @if($industries->count() > 0)
-<div class="container bg-light">
+<div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>

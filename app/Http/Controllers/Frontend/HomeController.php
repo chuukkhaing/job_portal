@@ -105,13 +105,13 @@ class HomeController extends Controller
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
         $jobPosts              = JobPost::where('is_active', 1);
         
-        if ($request->function_area) {
+        if ($request->has('function_area')) {
             $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
-        if ($request->location) {
+        if ($request->has('location')) {
             $jobPosts = $jobPosts->where('state_id', $request->location)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc');
         }
-        if ($request->job_title) {
+        if ($request->has('job_title')) {
             $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
                                 ->orWhereHas('Employer', function ($query) use ($request) {
                                     $query->where('name', 'like', '%' . $request->job_title . '%');
