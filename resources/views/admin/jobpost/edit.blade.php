@@ -56,7 +56,7 @@
                             <div class="col-3">Recruiter email </div><div class="col-9 fw-bold">- {{ $jobPost->recruiter_email }}</div>
                             @endif
                             @if($jobPost->job_post_type)
-                            <div class="col-3">Job Post Type </div><div class="col-9 fw-bold">- @if($jobPost->job_post_type == 'standard') Standard Job Post @elseif($jobPost->job_post_type == 'feature') Feature Job Post @else Trending Job Post @endif</div>
+                            <div class="col-3">Job Post Type </div><div class="col-9 fw-bold">- @if($jobPost->job_post_type == 'standard') Standard Job Post @elseif($jobPost->job_post_type == 'feature') Feature Job Post @elseif($jobPost->job_post_type == 'trending') Trending Job Post @endif</div>
                             @endif
                         </div>
                     </div>
