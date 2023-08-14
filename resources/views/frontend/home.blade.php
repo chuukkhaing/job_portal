@@ -85,7 +85,7 @@
 
 <!-- Popular Job Category Start  -->
 @if($industries->count() > 0)
-<div class="container bg-light">
+<div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
@@ -118,7 +118,7 @@
 
 <!-- Top Employer Start  -->
 @if($employers->count() > 0)
-<div class="container bg-light">
+<div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Top Employers</h3>
@@ -146,7 +146,7 @@
 
 <!-- Trending Jobs Start  -->
 @if($trending_jobs->count() > 0)
-<div class="container pb-4 my-2 bg-light" id="edit-profile-body">
+<div class="container pb-4 my-2" id="edit-profile-body">
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
@@ -239,7 +239,7 @@
     </div>
 </div>
 @endif
-{{-- <div class="container bg-light">
+{{-- <div class="container">
     <div class="row">
         <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
@@ -296,7 +296,7 @@
 <!-- Job Interview End -->
 
 <!-- Additional Services Start  -->
-<div class="container bg-light">
+<div class="container">
     <div class="additional-service">
         <div id="header-additional-service" class="text-center pt-5 pb-3">
             <h3 id="additional-service-title">Additional Services</h3>
@@ -355,7 +355,7 @@
 <!-- Additional Services End  -->
 
 <!-- Explore the Marketplace Start  -->
-{{--<div class="container bg-light">
+{{--<div class="container">
     <div class="explore-marketplace">
         <div id="header-explore-marketplace" class="text-center py-5">
             <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>
