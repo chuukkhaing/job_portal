@@ -35,7 +35,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
 
     <div class="row">
         @foreach($employers as $employer)
-        <div class="col-lg-2 col-md-4 col-12 pb-3">
+        <div class="col-lg-3 col-md-4 col-12 pb-3">
             <a href="{{ route('company-detail',$employer->slug ?? '') }}">
                 <div class="company-content p-4 h-100">
                     <div class="company-image text-center">
@@ -47,7 +47,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                     </div>
         
                     <div class="company-name py-2 text-center">
-                        <h3>{{ $employer->name }}</h3>
+                        <p style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 10, $end='...') }}</p>
                     </div>
         
                     {{--<div class="company-address">
