@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\JobPostController;
+use App\Http\Controllers\Admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,9 @@ Route::group([], function(){
 
         // jobpost 
         Route::resource('job-posts', JobPostController::class);
+
+        // profile 
+        Route::resource('admin-profile', ProfileController::class);
 
     });
 });

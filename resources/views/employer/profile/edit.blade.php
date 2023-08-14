@@ -206,7 +206,7 @@
                                                 <td>{{ $address->State->name ?? '-' }}</td>
                                                 <td>{{ $address->Township->name ?? '-' }}</td>
                                                 <td>{{ $address->address_detail ?? '-' }}</td>
-                                                <td><a onclick="deleteAddress({{ $address->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                <td><a id="deleteAddress-{{ $address->id }}" class="deleteAddress btn border-0 text-danger" value="{{ $address->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -292,7 +292,7 @@
                                         <td>{{ $test->name ?? '-' }}</td>
                                         <td>{{ $test->title ?? '-' }}</td>
                                         <td>{{ $test->remark ?? '-' }}</td>
-                                        <td><a onclick="deleteTest({{ $test->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                        <td><a id="deleteTest-{{ $test->id }}" class="deleteTest btn border-0 text-danger" value="{{ $test->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -460,7 +460,7 @@
                                     @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
                                     <tr class="media-tr-{{ $link->id }}">
                                         <td>{{ $link->name ?? '-' }}</td>
-                                        <td><a onclick="deleteMedia({{ $link->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                        <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia btn border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -642,7 +642,7 @@
                         }else {
                             township_name = response.data.township_name;
                         }
-                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+township_name+'</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+township_name+'</td><td>'+addressDetail+'</td><td><a id="deleteAddress-'+response.data.id+'" class="deleteAddress btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
                         $("#state_id").empty().trigger('change');
                         $("#township_id").empty().trigger('change');
@@ -680,7 +680,7 @@
                         }else {
                             addressDetail = response.data.address_detail;
                         }
-                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>-</td><td>-</td><td>'+addressDetail+'</td><td><a onclick="deleteAddress('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>-</td><td>-</td><td>'+addressDetail+'</td><td><a id="deleteAddress-'+response.data.id+'" class="deleteAddress btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
                         $("#state_id").empty().trigger('change');
                         $("#township_id").empty().trigger('change');
@@ -736,24 +736,38 @@
         }
     });
 
-    function deleteAddress(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: 'employer-address/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".address-tr-"+id).empty();
-                if(response.address_count == 0) {
-                    $(".employer-address").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteAddress', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'employer_id' : {{ $employer->id }}
+                    },
+                    url: 'employer-address/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".address-tr-"+id).empty();
+                        if(response.address_count == 0) {
+                            $(".employer-address").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
         })
-    }
+    });
 
     $("#test-image").change(function(){
         if (this.files && this.files[0]) {
@@ -814,7 +828,7 @@
                     if(response.data.image){
                         image = '<img src="'+window.origin+'/storage/employer_testimonial/'+response.data.image+'" width="80px" height="80px" alt="Testimonial Image">';
                     }
-                    $(".employer-testimonial").append('<tr class="test-tr-'+response.data.id+'"><td>'+image+'</td><td>'+response.data.name+'</td><td>'+response.data.title+'</td><td>'+remark+'</td><td><a onclick="deleteTest('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $(".employer-testimonial").append('<tr class="test-tr-'+response.data.id+'"><td>'+image+'</td><td>'+response.data.name+'</td><td>'+response.data.title+'</td><td>'+remark+'</td><td><a id="deleteTest-'+response.data.id+'" class="deleteTest btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#test-name").val('');
                     $("#test-title").val('');
                     $("#test-remark").val('');
@@ -824,24 +838,38 @@
         }
     }
 
-    function deleteTest(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: 'employer-testimonial/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".test-tr-"+id).empty();
-                if(response.test_count == 0) {
-                    $(".employer-testimonial").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteTest', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'employer_id' : {{ $employer->id }}
+                    },
+                    url: 'employer-testimonial/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".test-tr-"+id).empty();
+                        if(response.test_count == 0) {
+                            $(".employer-testimonial").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
         })
-    }
+    });
 
     function addLink()
     {
@@ -863,31 +891,45 @@
                 if(response.status == 'success') {
                     $("#video_link").val('');
                     $(".employer-media").removeClass('d-none');
-                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a onclick="deleteMedia('+response.data.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a id="deleteMedia-'+response.data.id+'" class="deleteMedia btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                 }
             })
         }
         
     }
 
-    function deleteMedia(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: 'employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".media-tr-"+id).empty();
-                if(response.media_count == 0) {
-                    $(".employer-media").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteMedia', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'employer_id' : {{ $employer->id }}
+                    },
+                    url: 'employer-media/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".media-tr-"+id).empty();
+                        if(response.media_count == 0) {
+                            $(".employer-media").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
         })
-    }
+    });
 
     $("#upload_image_1").change(function(){
         if (this.files && this.files[0]) {
@@ -930,7 +972,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -976,7 +1022,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1022,7 +1072,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1068,7 +1122,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1114,7 +1172,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1160,7 +1222,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1206,7 +1272,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })
@@ -1252,7 +1322,11 @@
         }).done(function(response){
             if(response.status == 'success') {
                 
-                alert(response.msg)
+                MSalert.principal({
+                    icon:'success',
+                    title:'',
+                    description:response.msg,
+                });
             }
         })
     })

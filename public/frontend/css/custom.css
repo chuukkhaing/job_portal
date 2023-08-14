@@ -383,7 +383,8 @@ a.interview-btn:hover {
 /* Companies css start here*/
 .company-banner-search{
     border-radius: 50px;
-    background-color: #fff;
+    background-color: #E8EFF7;
+    border: 1px solid #69696838;
 }
 
 .company-banner{
@@ -391,6 +392,25 @@ a.interview-btn:hover {
     background: rgb(3 85 208);
     z-index: 100;
     background-image: url('../../img/findjobs_banner.svg');
+}
+
+.job-post-area {
+    color: #0355D0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.job-post-preview {
+    color: #959499;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.job-post-badge {
+    width: 75px;
+    height: 25px;
+    font-size: 15px;
+    font-weight: 400;
 }
 
 input.form-control.search-slt.company-search {
@@ -435,11 +455,18 @@ span.form-control-feedback.company-icon {
 }
 
 .company-name h3 {
-    font-size: 20px;
+    font-size: 16px;
+    color: #181722;
+    font-weight: 600;
 }
 
 .company-rating-icon {
     color: #0355d0;
+}
+
+.company-job-count {
+    background: #ECF2F8;
+    border-radius: 8px;
 }
 
 .company-rating-count {

@@ -14,9 +14,11 @@
                         <div class="seeker-name">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
                     </div>
                     <div class="col-12 p-0 m-0 row">
+                        @if(Auth::guard('seeker')->user()->phone)
                         <div class="col-3">
                             <i class="fa-solid fa-phone seeker-icon"></i><a href="tel:+{{ Auth::guard('seeker')->user()->phone }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->phone }}</a>
                         </div>
+                        @endif
                         <div class="col-5 p-0 m-0">
                             <i class="fa-solid fa-envelope seeker-icon"></i><a href="mailto:{{ Auth::guard('seeker')->user()->email }}" class="seeker-info px-2">{{ Auth::guard('seeker')->user()->email }}</a>
                         </div>
@@ -58,12 +60,12 @@
             <span class="profile-number">0</span>
             </div>
         </div>
-        <div class="col py-5">
+        {{--<div class="col py-5">
             <div class="border-right-profile">
             <p class="profile-count">Message</p>
             <span class="profile-number">0</span>
             </div>
-        </div>
+        </div>--}}
         <div class="col py-5">
             <div class="text-center">
                 <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
@@ -95,22 +97,29 @@
                         <!-- Job List Start -->
                         
                         <div class="col-lg-10 col-md-10 py-4 d-flex">
-                            <div style="width: 100px">
+                            <div style="width: 100px" class="align-self-center">
+                                @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                                 @if($jobPost->Employer->logo)
-                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
                                 @else 
-                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                                @endif
+                                <div class="text-center">
+                                @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
+                                </div>
                                 @endif
                             </div>
-                            <div>
-                                <div class="job-company">{{ $jobPost->Employer->name }}</div>
-                                <div class="job-title">{{ $jobPost->job_title }}</div>
-                                @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
-                                <div class="job-location">{{ $jobPost->Township->name }}</div>
+                            <div class="align-self-center">
+                                <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
+                                <div class="mt-1">{{ $jobPost->job_title }}</div>
+                                @if($jobPost->township_id)
+                                <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                 @endif
-                                <div class="job-salary my-3">@if($jobPost->hide_salary == 1) Negotiate @else {{ $jobPost->salary_range }} @endif</div>
-                                <div class="">
-                                    <a href="" class="btn job-btn">{{ $jobPost->MainFunctionalArea->name }}</a>
+                                @if($jobPost->job_post_type == 'trending')
+                                <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                                @endif
+                                <div class="mt-1 ">
+                                    <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
                                 </div>
                             </div>
                         </div>
@@ -120,10 +129,11 @@
                         <!-- Wishlist Start -->
                         <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
                             <div class="row col-12 m-0 p-0">
-                                <div class="text-end p-0">
-                                    <i class="fa-regular fa-heart"></i>
+                                @auth('seeker')
+                                <div class="text-end p-0" style="cursor: pointer">
+                                    <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
                                 </div>
-
+                                @endauth
                                 <div class="text-end mt-auto p-1">
                                     <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
                                 </div>
@@ -312,10 +322,41 @@
         }).done(function(response){
             if(response.status == 'success') {
                 if(response.status == 'success') {
-                    alert(response.msg)
+                    // MSalert.principal({
+                    //     icon:'success',
+                    //     title:'',
+                    //     description:response.msg,
+                    // })
                 }
             }
         })
     })
+
+    function saveJobDashboard(id) {
+        $.ajax({
+            type: 'GET',
+            data: id,
+            url: "save-job/"+id,
+        }).done(function(response){
+            if(response.status == 'create') {
+                // MSalert.principal({
+                //     icon:'success',
+                //     title:'',
+                //     description:response.msg,
+                // });
+                $('#savejobdashboard-'+id).removeClass('fa-regular');
+                $('#savejobdashboard-'+id).addClass('fa-solid');
+            }else if(response.status == 'remove') {
+                // MSalert.principal({
+                //     icon:'success',
+                //     title:'',
+                //     description:response.msg,
+                // });
+                $('#savejobdashboard-'+id).removeClass('fa-solid');
+                $('#savejobdashboard-'+id).addClass('fa-regular');
+            }
+        })
+    }
+
 </script>
 @endpush

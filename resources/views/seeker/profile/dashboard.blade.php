@@ -62,6 +62,10 @@
     
     $('#profile-dashboard-tab').click(function() {
         window.location.reload();
+    });
+
+    $('#fav-job-tab').click(function() {
+        window.location.reload();
     })
 
     $('#seekerTab a').click(function(e) {

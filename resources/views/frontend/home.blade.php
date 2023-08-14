@@ -30,7 +30,7 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="post" class="form-height-0">
+<form action="{{ route('search-job') }}" method="get" class="form-height-0" autocomplete="off">
     @csrf
     <section class="search-sec">
         <div class="container-fluid">
@@ -40,9 +40,9 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
                             <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                            <ul class="autocomplete"></ul>
                         </div>
                     </div>
-
                     <div class="col-lg-4 col-md-3 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
@@ -65,7 +65,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
-                                <option value="" disabled selected>location</option>
+                                <option value="" disabled selected>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -85,9 +85,9 @@
 
 <!-- Popular Job Category Start  -->
 @if($industries->count() > 0)
-<div class="container bg-light">
+<div class="container">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-5">
+        <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Popular Job Categories</h3>
             <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
         </div>
@@ -95,19 +95,19 @@
             @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <a href="{{ route('industry-job',$industry->Industry->id) }}">
-                    <div id="job-category-box" class="text-center">
+                    <div id="job-category-box" class="text-center px-3 h-100">
                         <div id="job-category-icon">
-                        <i class="{{ $industry->Industry->icon }}"></i>
+                            <i class="{{ $industry->Industry->icon }}"></i>
                         </div>
                         <div id="job-category-name">
-                        <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
-                        <span id="job-category-name-position">{{ $industry->total }} open positions</span>
+                            <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
+                            <span id="job-category-name-position">{{ $industry->total }} open positions</span>
                         </div>
                     </div>
                 </a>
             </div>
             @endforeach
-            <div class="text-center py-5">
+            <div class="text-center py-3">
                 <a href="{{ route('job-categories') }}" class="btn btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -118,14 +118,14 @@
 
 <!-- Top Employer Start  -->
 @if($employers->count() > 0)
-<div class="container bg-light">
+<div class="container">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center py-5">
+        <div id="header-popular-job-category" class="text-center py-3">
             <h3 id="popular-job-category-title">Top Employers</h3>
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
-            <div class="col-md-2 col-4 text-center">
+            <div class="col-md-2 col-4 text-center h-100">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
                     <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
@@ -146,7 +146,7 @@
 
 <!-- Trending Jobs Start  -->
 @if($trending_jobs->count() > 0)
-<div class="container pb-4 my-2 bg-light" id="edit-profile-body">
+<div class="container pb-4 my-2" id="edit-profile-body">
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
@@ -170,7 +170,7 @@
         <div class="col-lg-4 col-sm-6 col-12">
             <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                 <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
-                    <div class="row">
+                    <div class="row h-100 p-2">
                         <div class="col-3 text-center">
                             @if($trending_job->Employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
@@ -186,7 +186,7 @@
 
                             <div class="fz13">
                                 <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
-                                @if($trending_job->country == 'Myanmar' && $trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
+                                @if($trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                             </div>
                         </div>
                     </div>
@@ -203,19 +203,19 @@
 @if($feature_jobs->count() > 0)
 <div class="container bg-white">
     <div class="popular-job-category">
-        <div id="header-popular-job-category" class="text-center pt-5">
+        <div id="header-popular-job-category" class="text-center pt-3">
             <h3 id="popular-job-category-title">Featured Jobs</h3>
         </div>
 
         <div class="row bg-white">
             <div class="col-12 p-0 bg-white">
-                <div class="owl-slider py-5">
+                <div class="owl-slider py-3">
                     <div class="row col-12 m-0">
                     <div id="multiple-carousel" class="owl-carousel">
                         @foreach($feature_jobs as $feature_job)
                         <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
                             <div class="item d-flex justify-content-center">
-                                <div class="row px-3 align-items-center">
+                                <div class="row px-3 align-items-center h-100">
                                     <div class="col-3">
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="d-block pt-3 pb-3 trending-image" >
@@ -239,7 +239,7 @@
     </div>
 </div>
 @endif
-{{-- <div class="container bg-light">
+{{-- <div class="container">
     <div class="row">
         <div class="col-md-3 ps-0 pe-3 pb-3">          
             <div class="gradient-img">
@@ -296,7 +296,7 @@
 <!-- Job Interview End -->
 
 <!-- Additional Services Start  -->
-<div class="container bg-light">
+<div class="container">
     <div class="additional-service">
         <div id="header-additional-service" class="text-center pt-5 pb-3">
             <h3 id="additional-service-title">Additional Services</h3>
@@ -355,7 +355,7 @@
 <!-- Additional Services End  -->
 
 <!-- Explore the Marketplace Start  -->
-<div class="container bg-light">
+{{--<div class="container">
     <div class="explore-marketplace">
         <div id="header-explore-marketplace" class="text-center py-5">
             <h3 id="explore-marketplace-title">Explore the Marketplace Today!</h3>
@@ -447,7 +447,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 <!-- Explore the Marketplace End  -->
 
 @endsection
@@ -461,6 +461,7 @@
             enableFiltering: true,
             includeSelectAllOption: true,
             nonSelectedText: "Select function area",
+            numberDisplayed: 1
         });
 
         $('#multiple-carousel').owlCarousel({
@@ -492,6 +493,39 @@
                 }
             }
         });
+
+        const suggestionList = @json($jobPostName);
+        const inputField = document.querySelector(".job-title");
+        const autocompleteBox = document.querySelector('.autocomplete');
+        inputField.addEventListener('keyup', () => {
+            autocompleteBox.classList.add('shown');
+        });
+        inputField.addEventListener('focusout', () => {
+            autocompleteBox.classList.remove('shown');
+        });
+
+        const optionClick = (event) => {
+            inputField.value = event.target.innerText;
+        }
+        inputField.addEventListener('keyup', () => {
+
+            const available = suggestionList.filter((suggest) => (suggest.toLowerCase().indexOf(inputField.value) !== -1));
+
+            autocompleteBox.innerHTML = ''
+            if(available.length > 0) {
+                available.forEach((item) => {
+                    const li = document.createElement('li');
+                    
+                    li.classList.add('autocomplete-suggestion');
+                    
+                    li.onclick = optionClick;
+                    li.innerText = item;
+                    autocompleteBox.appendChild(li);
+                })
+            }else {
+                autocompleteBox.classList.remove('shown');
+            }
+        })
     });
 </script>
 @endpush

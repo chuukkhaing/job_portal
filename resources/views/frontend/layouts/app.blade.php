@@ -68,7 +68,9 @@
     @else
     @include('frontend.layouts.header')
     @endauth
+    @auth
     @include('frontend.layouts.alert')
+    @endauth
     <!-- Header End  -->
     @yield('content')
     <!-- Footer Start  -->
@@ -97,6 +99,8 @@
     <script type="text/javascript" src="{{ asset('frontend/dist/js/bootstrap-multiselect.js') }}"></script>
     <!-- OwlCarousel2 Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/OwlCarousel2/js/owl.carousel.min.js') }}"></script>
+    <!-- MSalert Javascript -->
+    <script src="{{ asset('frontend/js/MSalert.js') }}"></script>
 
     @stack('scripts')
     

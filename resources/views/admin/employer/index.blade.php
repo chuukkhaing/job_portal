@@ -9,17 +9,16 @@
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
             <h6 class="col font-weight-bold text-primary">Employers</h6>
+            @can('employer-create')
             <div class="col">
                 <a href="{{ route('employers.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
-                    @can('employer-create')
                     <span class="text">Add New</span>
-                    @endcan
                 </a>
             </div>
-            
+            @endcan
         </div>
         @include('sweetalert::alert')
         <div class="card-body">
@@ -30,6 +29,8 @@
                             <th>No.</th>
                             <th>Company Name</th>
                             <th>Company Email</th>
+                            <th>Package Name</th>
+                            <th>Package Effective Date</th>
                             <th>Active Status</th>
                             <th>Action</th>
                         </tr>
@@ -40,6 +41,8 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $employer->name }}</td>
                             <td>{{ $employer->email }}</td>
+                            <td>{{ $employer->Package->name }}</td>
+                            <td>{{ $employer->package_start_date }}</td>
                             <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 

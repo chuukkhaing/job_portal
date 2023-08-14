@@ -1,211 +1,65 @@
 <div class="container-fluid p-5 edit-profile-header-border" id="edit-profile-header">
     <div class="">
-        <h5>Favourite Jobs ( 6 )</h5>
+        <h5>Favourite Jobs ( {{ $saveJobs->count() }} )</h5>
     </div>
 </div>
-
+@if($saveJobs->count() > 0)
 <div class="my-2 pb-3" id="edit-profile-body">
     <div class="px-5 m-0 pb-0 pt-5">
         <h5>Your Favourite Jobs</h5>
     </div>
-
-    {{--<div class="row px-5 m-0 pb-0 pt-5">
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
+    <div class="row px-5 m-0 pb-0 pt-5">
+        @foreach($saveJobs as $saveJob)
+        <div class="col-md-6 col-12">
+            
+            <div class="row job-content mb-3 m-1">
+                <!-- Job List Start -->
+                
+                <div class="col-lg-9 col-md-9 py-4 d-flex">
+                    <a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}">
+                        <div style="width: 100px" class="align-self-center">
+                            @if($saveJob->JobPost->job_post_type == 'feature' || $saveJob->JobPost->job_post_type == 'trending')
+                            @if($saveJob->JobPost->Employer->logo)
+                            <img src="{{ asset('storage/employer_logo/'.$saveJob->JobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            @else 
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            @endif
+                            <div class="text-center">
+                            @if($saveJob->JobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($saveJob->JobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
                             </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
+                            @endif
+                        </div>
+                        <div class="align-self-center">
+                            <div class="mt-1 job-company">{{ $saveJob->JobPost->Employer->name }}</div>
+                            <div class="mt-1">{{ $saveJob->JobPost->job_title }}</div>
+                            @if($saveJob->JobPost->township_id)
+                            <div class="mt-1 job-location">{{ $saveJob->JobPost->Township->name }}</div>
+                            @endif
+                            @if($saveJob->JobPost->job_post_type == 'trending')
+                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($saveJob->JobPost->job_requirement), $limit = 100, $end = '...') !!}</p>
+                            @endif
+                            <div class="mt-1 ">
+                                <a href="{{ route('search-main-function', $saveJob->JobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                </div>
+                
+                <!-- Job List End -->
 
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
+                <!-- Wishlist Start -->
+                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight py-4">
+                    <div class="row col-12 m-0 p-0">
+                        
+                        <div class="text-end mt-auto p-1">
+                            <span>{{ $saveJob->JobPost->updated_at->diffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
+                <!-- Wishlist End -->
             </div>
         </div>
-
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
-                            </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
-                            </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
-                            </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
-                            </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-12 mb-2">
-            <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
-                <div class="row p-0 m-0">
-                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                        <div class="row m-0">
-                            <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                <img src="http://localhost:93/frontend/img/trending/aya.png" class="img-responsive center-block d-block mx-auto" alt="Job Profile">
-                            </div>
-
-                            <div class="col-lg-10 col-12">
-                                <div class="job-company">eBay</div>
-                                <div class="job-title">Senior Java Developer</div>
-                                <div class="job-location">Yangon</div>
-                                <div class="job-salary my-3">1 Lakhs - 10 Lakhs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                        <div class="row col-12 m-0 p-0">
-                            <div class="text-end">
-                                <i class="fa-solid fa-heart text-blue"></i>
-                            </div>
-    
-                            <div class="text-end mt-auto">
-                                <span>1 d</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--}}
+        @endforeach
+    </div>
 </div>
+@endif

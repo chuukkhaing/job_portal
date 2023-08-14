@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Alert;
 use DB;
 
 class RoleController extends Controller
@@ -25,7 +26,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->paginate(10);
         return view('admin.roles.index',compact('roles'));
     }
 
@@ -48,7 +49,17 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $this->validate($request, [
+            'name' => 'required|unique:roles,name',
+            'permission' => 'required',
+        ]);
+    
+        $role = Role::create(['name' => $request->input('name')]);
+        $role->syncPermissions($request->input('permission'));
+    
+        Alert::success('Success', 'Role created successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -70,7 +81,13 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            ->all();
+    
+        return view('admin.roles.edit',compact('role','permission','rolePermissions'));
     }
 
     /**
@@ -82,7 +99,19 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
+    
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->save();
+    
+        $role->syncPermissions($request->input('permission'));
+
+        Alert::success('Success', 'Role updated successfully');
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -93,6 +122,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("roles")->where('id',$id)->delete();
+        Alert::success('Success', 'Role deleted successfully');
+                return redirect()->route('roles.index');
     }
 }

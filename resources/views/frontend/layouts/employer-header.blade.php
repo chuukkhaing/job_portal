@@ -1,3 +1,6 @@
+@php 
+    $packageItems = App\Models\Admin\PackageItem::whereIn('id',Auth::guard('employer')->user()->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+@endphp
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
     <div class="container">
@@ -69,7 +72,7 @@
 <!-- Modal -->
 @if($packages->count() > 0)
 <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-pricing modal-dialog-scrollable">
+    <div class="modal-dialog modal-pricing modal-dialog-scrollable" style="max-width: 80%">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -134,104 +137,90 @@
                             <h4 class="text-blue fz17">Employer Branding Option</h4>
                             <table class="table">
                                 <tbody>
-                                    @foreach($packageItems as $packageItem)
-                                    @if($packageItem->name == 'Home Page Banner')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Home Page Banner</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $home_page_banner = App\Models\Admin\PackageItem::where('name','Home Page Banner')->pluck('id')->toArray();
+                                                $home_page_banner_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$home_page_banner)->count();
+                                            @endphp
+                                            @if($home_page_banner_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Top Employer')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Top Employer</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $top_employer = App\Models\Admin\PackageItem::where('name','Top Employer')->pluck('id')->toArray();
+                                                $top_employer_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$top_employer)->count();
+                                            @endphp
+                                            @if($top_employer_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Testimonials')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Testimonials</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $testimonial = App\Models\Admin\PackageItem::where('name','Testimonials')->pluck('id')->toArray();
+                                                $testimonial_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$testimonial)->count();
+                                            @endphp
+                                            @if($testimonial_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Employer Profile with Photos')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Employer Profile with Photos</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $photo = App\Models\Admin\PackageItem::where('name','Employer Profile with Photos')->pluck('id')->toArray();
+                                                $photo_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$photo)->count();
+                                            @endphp
+                                            @if($photo_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Employer Profile with Videos')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Employer Profile with Videos</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $video = App\Models\Admin\PackageItem::where('name','Employer Profile with Videos')->pluck('id')->toArray();
+                                                $video_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$video)->count();
+                                            @endphp
+                                            @if($video_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Specific Job Adv on Social Media')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Specific Job Adv on Social Media</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $media = App\Models\Admin\PackageItem::where('name','Specific Job Adv on Social Media')->pluck('id')->toArray();
+                                                $media_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$media)->count();
+                                            @endphp
+                                            @if($media_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -239,102 +228,250 @@
                             <h4 class="text-blue fz17">ATS System</h4>
                             <table class="table">
                                 <tbody>
-                                    @foreach($packageItems as $packageItem)
-                                    @if($packageItem->name == 'Application Management')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Application Management</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $application = App\Models\Admin\PackageItem::where('name','Application Management')->pluck('id')->toArray();
+                                                $application_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$application)->count();
+                                            @endphp
+                                            @if($application_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Application Unlock')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Application Unlock</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><strong>{{ $packageItem->point }} points</strong></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><strong>{{ $packageItem->point }} points</strong></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><strong>{{ $packageItem->point }} points</strong></td>
-                                        @endif
+                                            @php 
+                                                $cv_unlock = App\Models\Admin\PackageItem::where('name','Application Unlock')->pluck('id')->toArray();
+                                                $cv_unlock_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$cv_unlock)->count();
+                                            @endphp
+                                            @if($cv_unlock_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Up to 10 User Accounts')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Up to 10 User Accounts</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $user_10 = App\Models\Admin\PackageItem::where('name','Up to 10 User Accounts')->pluck('id')->toArray();
+                                                $user_10_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$user_10)->count();
+                                            @endphp
+                                            @if($user_10_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Up to 5 User Accounts')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Up to 5 User Accounts</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $user_5 = App\Models\Admin\PackageItem::where('name','Up to 5 User Accounts')->pluck('id')->toArray();
+                                                $user_5_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$user_5)->count();
+                                            @endphp
+                                            @if($user_5_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Website Integration')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Website Integration</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $website = App\Models\Admin\PackageItem::where('name','Website Integration')->pluck('id')->toArray();
+                                                $website_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$website)->count();
+                                            @endphp
+                                            @if($website_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @if($packageItem->name == 'Email Alerts for receiving Applications')
                                     <tr>
-                                        <td width="50%">{{ $packageItem->name }}</td>
+                                        <td width="50%">Email Alerts for receiving Applications</td>
                                         @foreach($packages->where('id','!=',4) as $package)
-                                        @if($package->name == "Premium Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Standard Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @elseif($package->name == "Economy Package" && $package->PackageWithPackageItem->where('package_item_id',$packageItem->id)->count() == 1)
-                                        <td><i class="fa-solid fa-check"></i></td>
-                                        @else
-                                        <td><i class="fa-solid fa-xmark"></i></td>
-                                        @endif
+                                            @php 
+                                                $email_alert = App\Models\Admin\PackageItem::where('name','Email Alerts for receiving Applications')->pluck('id')->toArray();
+                                                $email_alert_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$email_alert)->count();
+                                            @endphp
+                                            @if($email_alert_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
                                         @endforeach
                                     </tr>
-                                    @endif
-                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12">
+                            <h4 class="text-blue fz17">Job Posting</h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">Trending Job Post</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $trending = App\Models\Admin\PackageItem::where('name','Trending Job Post')->pluck('id')->toArray();
+                                                $trending_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$trending)->count();
+                                            @endphp
+                                            @if($trending_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Feature Job Post</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $feature = App\Models\Admin\PackageItem::where('name','Feature Job Post')->pluck('id')->toArray();
+                                                $feature_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$feature)->count();
+                                            @endphp
+                                            @if($feature_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Pre-qualify questions</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $question = App\Models\Admin\PackageItem::where('name','Pre-qualify questions')->pluck('id')->toArray();
+                                                $question_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$question)->count();
+                                            @endphp
+                                            @if($question_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Job Alert to candidates</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $job_alert = App\Models\Admin\PackageItem::where('name','Job Alert to candidates')->pluck('id')->toArray();
+                                                $job_alert_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$job_alert)->count();
+                                            @endphp
+                                            @if($job_alert_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Invite to apply the suitable candidates</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $invite_to_apply = App\Models\Admin\PackageItem::where('name','Invite to apply the suitable candidates')->pluck('id')->toArray();
+                                                $invite_to_apply_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$invite_to_apply)->count();
+                                            @endphp
+                                            @if($invite_to_apply_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Anonymous Posting</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                                $anonymous_post = App\Models\Admin\PackageItem::where('name','Anonymous Posting')->pluck('id')->toArray();
+                                                $anonymous_post_id = App\Models\Admin\PackageWithPackageItem::where('package_id',$package->id)->whereIn('package_item_id',$anonymous_post)->count();
+                                            @endphp
+                                            @if($anonymous_post_id > 0)
+                                            <td><i class="fa-solid fa-check"></i></td>
+                                            @else
+                                            <td><i class="fa-solid fa-xmark"></i></td>
+                                            @endif
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-lg-12 mt-3">
+                            <h4 class="text-blue fz17">Point Detection Method</h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%">Posting Job</td>
+                                        <td><strong>FOC</strong></td>
+                                        <td><strong>FOC</strong></td>
+                                        <td><strong>FOC</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Trending Job Post</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                            $trending = App\Models\Admin\PackageItem::where('name','Trending Job Post')->pluck('id')->toArray();
+                                            $trending_count = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$trending)->count();
+                                            if($trending_count == 1) {
+                                                $trending_post = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$trending)->first();
+                                                $trending_point = App\Models\Admin\PackageItem::where('name','Trending Job Post')->where('id',$trending_post->package_item_id)->first();
+                                            }
+                                            @endphp
+                                            <td><strong>{{ $trending_point->point }} Points</strong></td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Feature Job Post</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                            $feature = App\Models\Admin\PackageItem::where('name','Feature Job Post')->pluck('id')->toArray();
+                                            $feature_count = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$feature)->count();
+                                            if($feature_count == 1) {
+                                                $feature_post = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$feature)->first();
+                                                $feature_point = App\Models\Admin\PackageItem::where('name','Feature Job Post')->where('id',$feature_post->package_item_id)->first();
+                                            }
+                                            @endphp
+                                            <td><strong>{{ $feature_point->point }} Points</strong></td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Pre-qualify questions</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                            $question = App\Models\Admin\PackageItem::where('name','Pre-qualify questions')->pluck('id')->toArray();
+                                            $question_count = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$question)->count();
+                                            if($question_count == 1) {
+                                                $question_post = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$question)->first();
+                                                $question_point = App\Models\Admin\PackageItem::where('name','Pre-qualify questions')->where('id',$question_post->package_item_id)->first();
+                                            }
+                                            @endphp
+                                            <td><strong>{{ $question_point->point }} Points</strong></td>
+                                        @endforeach
+                                    </tr>
+                                    <tr>
+                                        <td width="50%">Application Unlock</td>
+                                        @foreach($packages->where('id','!=',4) as $package)
+                                            @php 
+                                            $cv_unlock = App\Models\Admin\PackageItem::where('name','Application Unlock')->pluck('id')->toArray();
+                                            $cv_unlock_count = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$cv_unlock)->count();
+                                            if($cv_unlock_count == 1) {
+                                                $cv_unlock_post = $package->PackageWithPackageItem->where('package_id',$package->id)->whereIn('package_item_id',$cv_unlock)->first();
+                                                $cv_unlock_point = App\Models\Admin\PackageItem::where('name','Application Unlock')->where('id',$cv_unlock_post->package_item_id)->first();
+                                            }
+                                            @endphp
+                                            <td><strong>{{ $cv_unlock_point->point }} Points</strong></td>
+                                        @endforeach
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

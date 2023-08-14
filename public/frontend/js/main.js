@@ -47,6 +47,13 @@
     $('input[type=number]').on('mousewheel', function(e) {
         $(e.target).blur();
     });
-    
+
+    $('form').submit(function(){
+        $(this).find(':submit').attr( 'disabled','disabled' );
+        //the rest of your code
+       setTimeout(() => {
+           $(this).find(':submit').attr( 'disabled',false );
+       }, 2000)
+    });
 })(jQuery);
 

@@ -106,14 +106,6 @@
 
 @endsection
 
-@push('css')
-    <style>
-        .modal-pricing {
-            max-width: 80%;
-        }
-    </style>
-@endpush
-
 @push('scripts')
 <script>
     $('#employerTab a').click(function(e) {

@@ -20,7 +20,7 @@
                     <td class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</td>
                     <td>
                         <a onclick="editReference({{ $reference->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                        <a onclick="deleteReference({{ $reference->id }})" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a>
+                        <a id="deleteReference-{{ $reference->id }}" class="deleteReference btn border-0 text-danger" value="{{ $reference->id }}"><i class="fa-solid fa-trash-can"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -60,8 +60,8 @@
                             <span class="text-danger" id="ref_company-error"></span>
                         </div>
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="ref_contact" class="seeker_label my-2">Contact <span class="text-danger">*</span></label>
-                            <input type="text" name="ref_contact" id="ref_contact" class="form-control seeker_input" placeholder="Contact" value="">
+                            <label for="ref_contact" class="seeker_label my-2">Contact No. <span class="text-danger">*</span></label>
+                            <input type="text" name="ref_contact" id="ref_contact" class="form-control seeker_input" placeholder="09xxxxxxxxx" value="">
                             <span class="text-danger" id="ref_contact-error"></span>
                         </div>
                     </div>
@@ -102,8 +102,8 @@
                             <span class="text-danger" id="edit_ref_company-error"></span>
                         </div>
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="edit_ref_contact" class="seeker_label my-2">Contact <span class="text-danger">*</span></label>
-                            <input type="text" name="edit_ref_contact" id="edit_ref_contact" class="form-control seeker_input" placeholder="Contact" value="">
+                            <label for="edit_ref_contact" class="seeker_label my-2">Contact No. <span class="text-danger">*</span></label>
+                            <input type="text" name="edit_ref_contact" id="edit_ref_contact" class="form-control seeker_input" placeholder="09xxxxxxxxx" value="">
                             <span class="text-danger" id="edit_ref_contact-error"></span>
                         </div>
                     </div>
@@ -126,7 +126,8 @@
         }
     });
     var seeker_id = {{ Auth::guard("seeker")->user()->id }};
-    $("#save-reference").click(function() {
+    $("#save-reference").on('click', function(e)  {
+        e.preventDefault();
         var ref_name = $("#ref_name").val();
         var ref_position = $("#ref_position").val();
         var ref_company = $("#ref_company").val();
@@ -167,38 +168,67 @@
                     'seeker_id' : seeker_id
                 },
                 url: '{{ route("reference.store") }}',
-            }).done(function(response){
-                if(response.status == 'success') {
-                    $('#reference-table').removeClass('d-none');
-                    $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a onclick="deleteReference('+response.reference.id+')" class="btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
-                    alert(response.msg);
-                    $("#ref_name").val('');
-                    $("#ref_position").val('');
-                    $("#ref_company").val('');
-                    $("#ref_contact").val('');
+                success: function(response){
+                            if(response.status == 'success') {
+                                $('#reference-table').removeClass('d-none');
+                                $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                MSalert.principal({
+                                        icon:'success',
+                                        title:'',
+                                        description:response.msg,
+                                    });
+                                $("#ref_name").val('');
+                                $("#ref_position").val('');
+                                $("#ref_company").val('');
+                                $("#ref_contact").val('');
+                            }
+                        },
+                error: function (data) {
+                    var errors = $.parseJSON(data.responseText);
+                    if(errors.errors['ref_contact']) {
+                        MSalert.principal({
+                            icon:'error',
+                            title:'',
+                            description:'The contact No. must be valid myanmar phone number.',
+                        })
+                    }
                 }
             })
         }
     })
 
-    function deleteReference(id)
-    {
-        $.ajax({
-            type: 'POST',
-            data: {
-                "seeker_id": seeker_id
-            },
-            url: 'reference/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $(".reference-tr-"+id).empty();
-                if(response.seeker_references_count == 0) {
-                    $("#reference-table").addClass('d-none');
-                }
-                alert(response.msg)
-            }
+    $(document).on('click', '.deleteReference', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        "seeker_id": seeker_id
+                    },
+                    url: 'reference/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".reference-tr-"+id).empty();
+                        if(response.seeker_references_count == 0) {
+                            $("#reference-table").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        })
+                    }
+                })
+            }            
         })
-    }
+    });
 
     function editReference(id)
     {
@@ -215,7 +245,8 @@
             }
         })
 
-        $("#update-reference").click(function() {
+        $("#update-reference").one('click', function(e)  {
+            e.preventDefault();
             var edit_ref_name = $("#edit_ref_name").val();
             var edit_ref_position = $("#edit_ref_position").val();
             var edit_ref_company = $("#edit_ref_company").val();
@@ -253,13 +284,28 @@
                         'seeker_id' : seeker_id
                     },
                     url: 'reference/update/'+id,
-                }).done(function(response){
-                    if(response.status == 'success') {
-                        $('.reference-name-'+id).html(response.reference.name);
-                        $('.reference-company-'+id).html(response.reference.company);
-                        $('.reference-contact-'+id).html(response.reference.contact);
-                        $('.reference-position-'+id).html(response.reference.position);
-                        alert(response.msg)
+                    success: function(edit_response){
+                                if(edit_response.status == 'success') {
+                                    $('.reference-name-'+id).html(edit_response.reference.name);
+                                    $('.reference-company-'+id).html(edit_response.reference.company);
+                                    $('.reference-contact-'+id).html(edit_response.reference.contact);
+                                    $('.reference-position-'+id).html(edit_response.reference.position);
+                                    MSalert.principal({
+                                        icon:'success',
+                                        title:'',
+                                        description:edit_response.msg,
+                                    })
+                                }
+                            },
+                    error: function (data) {
+                        var errors = $.parseJSON(data.responseText);
+                        if(errors.errors['ref_contact']) {
+                            MSalert.principal({
+                                icon:'error',
+                                title:'',
+                                description:'The contact No. must be valid myanmar phone number.',
+                            })
+                        }
                     }
                 })
             }

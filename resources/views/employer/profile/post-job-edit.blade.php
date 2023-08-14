@@ -396,7 +396,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="standard_job_post" vlaue="standard" @if($jobPost->job_post_type == 'standard') checked @endif><br>
+                                    <input type="radio" name="job_post_type" required id="standard_job_post" value="standard" @if($jobPost->job_post_type == 'standard') checked @endif><br>
                                     <label for="standard_job_post" class="w-100">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
@@ -453,9 +453,9 @@
             <button type="submit" class="btn profile-save-btn mx-3">
                 <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
             </button>
-            <button class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
+            <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
                 <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
-            </button>
+            </div>
             </div>
         </div>
     </form>
@@ -477,9 +477,9 @@
                             <span>Your job post may look slightly different when it goes live.</span>
                         </div>
                         <div class="col-1">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -524,7 +524,7 @@
             </div>
 
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</button>
+                <div type="button" class="btn btn-outline-primary text-blue" data-dismiss="modal">Close preview</div>
               </div>
         </div>
     </div>
