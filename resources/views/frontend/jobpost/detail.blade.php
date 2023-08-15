@@ -150,7 +150,7 @@
                 </p>
             </div>
             <div class="row col-12 m-0 p-0 py-3">
-                <h5 class="fw-bolder fs-6"> Overview</h5> 
+                <h5 class="fw-bolder fs-6">Company Overview</h5> 
                 <div>
                     <ul>
                         @if($jobpost->Employer->no_of_employees)

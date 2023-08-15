@@ -183,6 +183,24 @@
 @endif
 <!-- About Company End -->
 
+<!-- Company Video Start -->
+@if($employer->EmployerMedia->where('type','Video Link')->count() > 0)
+<div class="container my-3">
+    <div class="row py-3">
+        <div class="about-company-header py-3">
+            <h3 class="about-company-title mt-3">Company Video</h3>
+        </div>
+    </div>
+
+    <div class="row pb-3">
+        <iframe width="420" height="315"
+            src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
+        </iframe>
+    </div>
+</div>
+@endif
+<!-- Company Video End -->
+
 <!-- Company Photo Start -->
 @if($employer->EmployerMedia->where('type','Image')->count() > 0)
 <div class="container my-3">

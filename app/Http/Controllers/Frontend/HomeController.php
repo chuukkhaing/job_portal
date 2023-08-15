@@ -85,6 +85,7 @@ class HomeController extends Controller
 
     public function findJobs()
     {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages              = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -94,11 +95,12 @@ class HomeController extends Controller
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(5);
         $jobPostName           = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('jobPostName', 'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        return view('frontend.find-jobs', compact('industries', 'jobPostName', 'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }
 
     public function searchJob(Request $request)
     {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -125,11 +127,12 @@ class HomeController extends Controller
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        return view('frontend.find-jobs', compact('industries', 'jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }
 
     public function searchMainFunction($id)
     {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -139,7 +142,7 @@ class HomeController extends Controller
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        return view('frontend.find-jobs', compact('industries', 'jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }
 
     public function companies()
@@ -151,6 +154,7 @@ class HomeController extends Controller
 
     public function industryJob($id)
     {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages              = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -160,7 +164,7 @@ class HomeController extends Controller
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(5);
         $jobPostName           = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('jobPostName' ,'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        return view('frontend.find-jobs', compact('industries', 'jobPostName' ,'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }
 
     public function findCompany(Request $request)
@@ -172,6 +176,7 @@ class HomeController extends Controller
 
     public function companyJob($id)
     {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -181,7 +186,7 @@ class HomeController extends Controller
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs','jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        return view('frontend.find-jobs', compact('industries', 'jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs','jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }
     
     public function aboutUs(Request $request)

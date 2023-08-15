@@ -282,6 +282,13 @@ body {
     color: #46454E;
     font-weight: 600;
 }
+.find-jobs-input{
+    border-radius: 50px;
+    padding: 10px 24px;
+    height: 48px;
+    border: 1px solid #B7CEE5;
+}
+
 /* #seekerTab, #employerTab {
     border: 1px solid #95B6D8;
     border-radius: 8px 8px 0 0;

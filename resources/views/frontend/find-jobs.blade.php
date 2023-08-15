@@ -54,15 +54,58 @@
     </section>
 </form>
 <!-- Search End -->
-
-<div class="container my-5">
-    <div class="row my-5">
+<div class="container my-3">
+    <div class="row col-8">
+        <div class="col-3">
+            <div class="form-group">
+                <select name="industry" id="industry" class="form-input find-jobs-input w-100">
+                    <option value="">Job Industry</option>
+                    @foreach($industries as $industry)
+                    <option value="{{ $industry->id }}">{{ $industry->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select name="job_type" id="job_type" class="form-input find-jobs-input w-100">
+                    <option value="">All Job Type</option>
+                    @foreach(config('jobtype') as $jobtype)
+                    <option value="{{ $jobtype }}">{{ $jobtype }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select name="career_level" id="career_level" class="form-input find-jobs-input w-100">
+                    <option value="">Career Level</option>
+                    @foreach(config('careerlevel') as $careerlevel)
+                    <option value="{{ $careerlevel }}">{{ $careerlevel }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select name="qualification" id="qualification" class="form-input find-jobs-input w-100">
+                    <option value="">Qualification</option>
+                    @foreach(config('seekerdegree') as $degree)
+                    <option value="{{ $degree }}">{{ $degree }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    <div class="row my-3">
         <div class="find-jobs-header py-3">
             <h3 class="find-jobs-title">Explore your career journey via {{ $jobPostsCount }} @if($jobPostsCount > 1) Jobs @else Job @endif</h3>
             {{--<span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>--}}
         </div>
     </div>
-    <div class="row my-5">
+    <div class="row my-3">
         <!-- Left Sidebar Start -->
         @if($jobPosts->count() > 0)
         <div class="col-lg-8 col-12 find-jobs-left-sidebar">
