@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
 @section('content')
 <!-- Banner Start -->
-<div class="container-fluid p-3">
-    <div class="row company-detail-banner">
+<div class="container-fluid p-0">
+    <div class="company-detail-banner">
         @if($jobpost->Employer->background)
         <img src="{{ asset('storage/employer_background/'. $jobpost->Employer->background) }}" class="w-100" style="max-height : 400px" alt="{{ $jobpost->Employer->name }}">
         @else
