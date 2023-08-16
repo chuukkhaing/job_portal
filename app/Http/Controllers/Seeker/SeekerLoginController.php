@@ -31,6 +31,7 @@ class SeekerLoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('guest:seeker')->except('logout');
+        $this->middleware('guest:employer')->except('logout');
     }
 
     public function frontendLogin()

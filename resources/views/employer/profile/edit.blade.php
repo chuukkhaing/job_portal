@@ -69,12 +69,13 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company Logo</span> <span style="color: #696968">120 x 120</span>
+                                    <span class="employer-image-text">Company Logo</span> <span style="color: #696968">200 x 200</span>
                                 </div>
+                                
                                 @if($employer->logo)
                                 <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="employer-logo">
                                 @else
-                                <img src="https://placehold.jp/120x120.png" class="img-responsive w-100 employer-logo" alt="employer-logo">
+                                <img src="https://placehold.jp/200x200.png" class="img-responsive w-100 employer-logo" alt="employer-logo">
                                 @endif
                                 <div class="py-3 text-center">
                                     <label for="imageUpload" style="color: #696968">Tap to Change</label>
@@ -106,7 +107,7 @@
                                 @if($employer->qr)
                                 <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="img-responsive w-100 employer-qr" alt="employer-qr">
                                 @else
-                                <img src="https://placehold.jp/120x120.png" class="img-responsive w-100 employer-qr" alt="employer-qr">
+                                <img src="https://placehold.jp/200x200.png" class="img-responsive w-100 employer-qr" alt="employer-qr">
                                 @endif
                                 <div class="py-3 text-center">
                                     <label for="qrUpload" style="color: #696968">Tap to Change</label>
@@ -302,14 +303,14 @@
                             <div class="row" style="background: #F5F9FF; border: 1px solid #E8EFF7">
                                 <div class="d-flex align-items-center py-3">
                                     <div class="test-image-box d-inline-block">
-                                        <img src="https://placehold.co/120x120/#E4E3E2" class="test-image-preview">
+                                        <img src="https://placehold.co/200x200/#E4E3E2" class="test-image-preview">
                                         <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle d-none test-image-remove"><i class="fa-solid fa-xmark"></i></button>
                                         
                                     </div>
                                     <div class="px-3">
                                         <label for="test-image" class="btn btn-outline-secondary"><i class="fa-solid fa-plus"></i> Upload Photo</label><br>
                                         <input type="file" name="test-image" id="test-image" accept="image/*" class="d-none">
-                                        <span class="text-muted">120 * 120 pixels</span>
+                                        <span class="text-muted">200 * 200 pixels</span>
                                     </div>
                                 </div>
                                 
@@ -523,27 +524,88 @@
         </div>
     </form>
 </div>
+<div class="modal" id="upload_logo">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Crop Image And Upload</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="resizer"></div>
+                <button class="btn btn-block btn-dark" id="upload" > 
+                Crop And Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
 @push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $('.employer-logo-upload').change(function() {
-        var employer_logo = '.employer-logo';
-        readURL(this, employer_logo);
+    var el = document.getElementById('resizer');
+    $(".employer-logo-upload").on("change", function(event) {
+        $("#upload_logo").modal('show');
+        croppie = new Croppie(el, {
+            viewport: {
+                width: 200,
+                height: 200,
+                type: 'square'
+            },
+            boundary: {
+                width: 250,
+                height: 250
+            }
+        });
+        getImage(event.target, croppie); 
+        
     });
-
-    function readURL(input, employer_logo) {
+    
+    function getImage(input, croppie) {
         if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(employer_logo).attr('src', e.target.result);
-            $('.employer-logo-remove').removeClass('d-none');
-            $('#logoStatus').val('');
-        };
-        reader.readAsDataURL(input.files[0]);
+            var reader = new FileReader();
+            reader.onload = function(e) {  
+                croppie.bind({
+                    url: e.target.result,
+                });
+            }
+            reader.readAsDataURL(input.files[0]);
         }
     }
 
+    $("#upload").on("click", function() {
+        croppie.result('base64').then(function(base64) {
+            $("#upload_logo").modal("hide"); 
+            base64ImageToBlob(base64);
+            $('.employer-logo').attr('src', base64);
+            $('.employer-logo-remove').removeClass('d-none');
+            $('#logoStatus').val('');
+            croppie.destroy();
+        });
+    });
+
+    function base64ImageToBlob(str) {
+        var pos = str.indexOf(';base64,');
+        var type = str.substring(5, pos);
+        var b64 = str.substr(pos + 8);
+
+        var imageContent = atob(b64);
+        
+        var buffer = new ArrayBuffer(imageContent.length);
+        var view = new Uint8Array(buffer);
+      
+        for (var n = 0; n < imageContent.length; n++) {
+          view[n] = imageContent.charCodeAt(n);
+        }
+      
+        var blob = new Blob([buffer], { type: type });
+        
+        return blob;
+    }
+
     $('.employer-logo-remove').click(function() {
-        $('.employer-logo').attr('src', 'https://placehold.jp/120x120.png');
+        $('.employer-logo').attr('src', 'https://placehold.jp/200x200.png');
         $('.employer-logo-remove').addClass('d-none');
         $('.employer-logo-upload').val('');
         $('#logoStatus').val('empty');
@@ -782,7 +844,7 @@
     })
     
     $('.test-image-remove').click(function() {
-        $('.test-image-preview').attr('src', 'https://placehold.co/120x120/#E4E3E2');
+        $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
         $('.test-image-remove').addClass('d-none');
         $('#test-image').val('');
         
@@ -832,7 +894,7 @@
                     $("#test-name").val('');
                     $("#test-title").val('');
                     $("#test-remark").val('');
-                    $('.test-image-preview').attr('src', 'https://placehold.co/120x120/#E4E3E2');
+                    $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
                 }
             })
         }

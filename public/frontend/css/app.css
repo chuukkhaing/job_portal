@@ -408,6 +408,11 @@ body {
     Padding: 6px 12px;
     border-radius: 8px;
 }
+#job-post-detail {
+    border: 1px solid #95B6D8;
+    Padding: 6px 12px;
+    border-radius: 8px;
+}
 .select2-container .select2-selection--single .select2-selection__rendered {
     padding-left: 0;
 }
