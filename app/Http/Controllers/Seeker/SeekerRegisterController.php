@@ -25,6 +25,7 @@ class SeekerRegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:seeker');
+        $this->middleware('guest:employer');
     }
 
     public function frontendRegister()
