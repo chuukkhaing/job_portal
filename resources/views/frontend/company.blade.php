@@ -22,7 +22,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-12 pe-1">
-                    <button type="submit" class="btn company-search-btn pull-right">Search Jobs</button>
+                    <button type="submit" class="btn company-search-btn pull-right">Search Employers</button>
                 </div>
             </div>
         </form>

@@ -11,7 +11,7 @@
 </div>
 
 @endif
-@if ($message = Session::get('error'))
+{{--@if ($message = Session::get('error'))
 <div class="container-fluid alert-danger m-0">
     <div class="container m-auto m-0 alert alert-danger border-0 alert-block">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
@@ -20,7 +20,7 @@
         {{ $message }}
     </div>
 </div>
-@endif
+@endif--}}
 @if ($message = Session::get('warning'))
 <div class="container-fluid alert-warning m-0">
     <div class="container m-auto m-0 alert alert-warning border-0 d-flex align-items-center" role="alert">
@@ -41,7 +41,7 @@
     </div>
 </div>
 @endif
-@if ($errors->any())
+{{--@if ($errors->any())
 <div class="container-fluid alert-danger m-0">
     <div class="container m-auto m-0 alert alert-danger border-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
@@ -50,7 +50,7 @@
         {!! implode('<br>', $errors->all(':message')) !!}
     </div>
 </div>
-@endif
+@endif--}}
 
 @push('scripts')
 <script type="text/javascript">

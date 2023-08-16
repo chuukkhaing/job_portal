@@ -10,6 +10,7 @@ use App\Models\Seeker\SeekerPercentage;
 use App\Models\Seeker\SeekerEducation;
 use App\Models\Seeker\SeekerExperience;
 use App\Models\Seeker\SeekerSkill;
+use App\Models\Seeker\SeekerAttach;
 use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\JobApply;
@@ -60,6 +61,11 @@ class Seeker extends Authenticatable
     function SeekerSkill()
     {
         return $this->hasMany(SeekerSkill::class, 'seeker_id', 'id');
+    }
+
+    function SeekerAttach()
+    {
+        return $this->hasMany(SeekerAttach::class, 'seeker_id', 'id');
     }
 
     function SeekerLanguage()

@@ -51,7 +51,7 @@
         <div class="col py-5">
             <div class="border-right-profile">
             <p class="profile-count">My CV Lists</p>
-            <span class="profile-number">0</span>
+            <span class="profile-number">{{ Auth::guard('seeker')->user()->SeekerAttach->count() }}</span>
             </div>
         </div>
         <div class="col p-5">
