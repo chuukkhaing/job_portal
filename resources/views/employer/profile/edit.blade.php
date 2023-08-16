@@ -577,10 +577,11 @@
     $("#upload").on("click", function() {
         croppie.result('base64').then(function(base64) {
             $("#upload_logo").modal("hide"); 
-            base64ImageToBlob(base64);
+            var logo = base64ImageToBlob(base64);
             $('.employer-logo').attr('src', base64);
             $('.employer-logo-remove').removeClass('d-none');
             $('#logoStatus').val('');
+            document.querySelector('.employer-logo-upload').files = logo;
             croppie.destroy();
         });
     });
