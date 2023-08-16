@@ -115,10 +115,10 @@ class HomeController extends Controller
         }
         if ($request->has('job_title')) {
             $jobPosts = $jobPosts->with(['State','Employer'])->where('job_title', 'like', '%' . $request->job_title . '%')
-                                ->whereHas('State', function ($query1) use ($request) {
+                                ->orWhereHas('State', function ($query1) use ($request) {
                                     $query1->orWhere('name', 'like', '%' . $request->job_title . '%');
                                 })
-                                ->whereHas('Employer', function ($query) use ($request) {
+                                ->orWhereHas('Employer', function ($query) use ($request) {
                                     $query->orWhere('name', 'like', '%' . $request->job_title . '%');
                                 });
         }
