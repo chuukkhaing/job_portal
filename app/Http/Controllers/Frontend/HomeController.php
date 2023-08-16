@@ -114,12 +114,12 @@ class HomeController extends Controller
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
         if ($request->has('job_title')) {
-            $jobPosts = $jobPosts->with(['State','Employer'])->where('job_title', 'like', '%' . $request->job_title . '%')
+            $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
                                 ->orWhereHas('State', function ($query1) use ($request) {
-                                    $query1->orWhere('name', 'like', '%' . $request->job_title . '%');
+                                    $query1->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
                                 })
                                 ->orWhereHas('Employer', function ($query) use ($request) {
-                                    $query->orWhere('name', 'like', '%' . $request->job_title . '%');
+                                    $query->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
                                 });
         }
         $jobPostsCount = $jobPosts->count();
