@@ -69,57 +69,75 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
-                                <input type="text" name="job_title" id="job_title" class="form-control seeker_input" required placeholder="Job Title" value="{{ $jobPost->job_title }}">
+                                <input type="text" name="job_title" id="job_title" class="form-control seeker_input @error('job_title') is-invalid @enderror" placeholder="Job Title" value="{{ $jobPost->job_title }}">
+                                @error('job_title')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="job_post_industry_id" class="seeker_label my-2">Job Industry <span class="text-danger">*</span></label>
-                                <select name="job_post_industry_id" id="job_post_industry_id" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <label for="job_post_industry" class="seeker_label my-2">Job Industry <span class="text-danger">*</span></label>
+                                <select name="job_post_industry" id="job_post_industry" class="select_2 form-control seeker_input @error('job_post_industry') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($industries as $industry)
                                     <option value="{{ $industry->id }}" @if($industry->id == $jobPost->industry_id) selected @endif>{{ $industry->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('industry_id')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="main_functional_area_id" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
-                                <select name="main_functional_area_id" id="main_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <label for="main_functional_area" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
+                                <select name="main_functional_area" id="main_functional_area" class="select_2 form-control seeker_input @error('main_functional_area') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($functional_areas as $functional_area)
                                     <option value="{{ $functional_area->id }}" @if($functional_area->id == $jobPost->main_functional_area_id) selected @endif>{{ $functional_area->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('main_functional_area')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
-                                <label for="sub_functional_area_id" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
-                                <select name="sub_functional_area_id" id="sub_functional_area_id" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <label for="sub_functional_area" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
+                                <select name="sub_functional_area" id="sub_functional_area" class="select_2 form-control seeker_input @error('sub_functional_area') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($sub_functional_areas as $sub_functional_area)
                                     <option value="{{ $sub_functional_area->id }}" @if($sub_functional_area->id == $jobPost->sub_functional_area_id) selected @endif>{{ $sub_functional_area->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('sub_functional_area')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             
                             <div class="form-group col-12 col-md-6">
                                 <label for="career_level" class="seeker_label my-2">Job Level/ Career Level <span class="text-danger">*</span></label>
-                                <select name="career_level" id="career_level" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <select name="career_level" id="career_level" class="select_2 form-control seeker_input @error('career_level') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach(config('careerlevel') as $careerlevel)
                                     <option value="{{ $careerlevel }}" @if($careerlevel == $jobPost->career_level) selected @endif>{{ $careerlevel }}</option>
                                     @endforeach
                                 </select>
+                                @error('career_level')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_type" class="seeker_label my-2">Job Type <span class="text-danger">*</span></label>
-                                <select name="job_type" id="job_type" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <select name="job_type" id="job_type" class="select_2 form-control seeker_input @error('job_type') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach(config('jobtype') as $jobtype)
                                     <option value="{{ $jobtype }}" @if($jobtype == $jobPost->job_type) selected @endif>{{ $jobtype }}</option>
                                     @endforeach
                                 </select>
+                                @error('job_type')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="experience_level" class="seeker_label my-2">Experience Level <span class="text-danger">*</span></label>
-                                <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input @error('experience_level') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     <option value="Less than 1 year" @if('Less than 1 year' == $jobPost->experience_level) selected @endif>Less than 1 year</option>
                                     <option value="1 year" @if('1 year' == $jobPost->experience_level) selected @endif>1 year</option>
@@ -131,19 +149,28 @@
                                     <option value="7 years" @if('7 years' == $jobPost->experience_level) selected @endif>7 years</option>
                                     <option value="8 years" @if('8 years' == $jobPost->experience_level) selected @endif>8 years</option>
                                 </select>
+                                @error('experience_level')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="degree" class="seeker_label my-2">Education/ Qualification <span class="text-danger">*</span></label><br>
-                                <select name="degree" id="degree" class="select_2 form-control seeker_input" style="width: 100%" required>
+                                <select name="degree" id="degree" class="select_2 form-control seeker_input @error('degree') is-invaid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach(config('seekerdegree') as $degree)
                                     <option value="{{ $degree }}" @if($degree == $jobPost->degree) selected @endif>{{ $degree }}</option>
                                     @endforeach
                                 </select>
+                                @error('degree')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="no_of_candidate" class="seeker_label my-2">No. of Candidate <span class="text-danger">*</span></label><br>
-                                <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input" required placeholder="No. of Candidate" value="{{ $jobPost->no_of_candidate }}">
+                                <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input @error('no_of_candidate') is-invalid @enderror" placeholder="No. of Candidate" value="{{ $jobPost->no_of_candidate }}">
+                                @error('no_of_candidate')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             
                             <div class="form-group col-12 col-md-6">
@@ -204,19 +231,25 @@
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                                <select name="job_post_country" id="job_post_country" class="seeker_input" required style="width: 100%">
+                                <select name="job_post_country" id="job_post_country" class="seeker_input @error('job_post_country') is-invalid @enderror" style="width: 100%">
                                     <option value="Myanmar" @if($jobPost->country == 'Myanmar') selected @endif>Myanmar</option>
                                     <option value="Other" @if($jobPost->country == 'Other') selected @endif>Other</option>
                                 </select>
+                                @error('job_post_country')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_state_id_field">
-                                <label for="job_post_state_id" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
-                                <select name="job_post_state_id" id="job_post_state_id" class="select_2 form-control seeker_input" style="width: 100%">
+                                <label for="job_post_state" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
+                                <select name="job_post_state" id="job_post_state" class="select_2 form-control seeker_input @error('job_post_state') is-invalid @enderror" style="width: 100%">
                                     <option value="">Choose...</option>
                                     @foreach($states as $state)
                                     <option value="{{ $state->id }}" @if($jobPost->state_id == $state->id) selected @endif>{{ $state->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('job_post_state')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                         
                             <div class="form-group col-12 col-md-6 @if($jobPost->country == 'Other') d-none @endif" id="job_post_township_id_field">
@@ -248,7 +281,10 @@
                         <div class="row">
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
-                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input" required placeholder="Enter Name" value="{{ $jobPost->recruiter_name }}">
+                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input @error('recruiter_name') is-invalid @enderror" placeholder="Enter Name" value="{{ $jobPost->recruiter_name }}">
+                                @error('recruiter_name')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="form-group col-12 col-md-6">
                                 <label for="recruiter_email" class="seeker_label my-2">Email </label>
@@ -284,11 +320,17 @@
                             <div class="col-6"></div>
                             <div class="col-6 form-group">
                                 <label for="job_description" class="seeker_label">Job Description</label>
-                                <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_description }}</textarea>
+                                <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-invalid @enderror">{{ $jobPost->job_description }}</textarea>
+                                @error('job_description')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-6 form-group">
                                 <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" required class="seeker_input form-control">{{ $jobPost->job_requirement }}</textarea>
+                                <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') is-invalid @enderror">{{ $jobPost->job_requirement }}</textarea>
+                                @error('job_requirement')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
                             <div class="col-8 form-group">
                                 <label for="benefit" class="seeker_label">Benefits</label>
@@ -396,7 +438,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="standard_job_post" value="standard" @if($jobPost->job_post_type == 'standard') checked @endif><br>
+                                    <input type="radio" name="job_post_type" id="standard_job_post" value="standard" @if($jobPost->job_post_type == 'standard') checked @endif><br>
                                     <label for="standard_job_post" class="w-100">
                                         <h5>Standard Post</h5>
                                         <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
@@ -409,7 +451,7 @@
                             @if($packageItem->name == 'Feature Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="feature_job_post" value="feature" @if($jobPost->job_post_type == 'feature') checked @endif><br>
+                                    <input type="radio" name="job_post_type" id="feature_job_post" value="feature" @if($jobPost->job_post_type == 'feature') checked @endif><br>
                                     <label for="feature_job_post" class="w-100">
                                         <h5>Feature Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -426,7 +468,7 @@
                             @if($packageItem->name == 'Trending Job Post')
                             <div class="col-4">
                                 <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" required id="trending_job_post" value="trending" @if($jobPost->job_post_type == 'trending') checked @endif><br>
+                                    <input type="radio" name="job_post_type" id="trending_job_post" value="trending" @if($jobPost->job_post_type == 'trending') checked @endif><br>
                                     <label for="trending_job_post" class="w-100">
                                         <h5>Trending Job Post</h5>
                                         <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -439,6 +481,9 @@
                             </div>
                             @endif
                             @endforeach
+                            @error('job_post_type')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -584,10 +629,10 @@
             }
         })
 
-        var main_functional_area_id = $('#main_functional_area_id').val();
+        var main_functional_area = $('#main_functional_area').val();
         $.ajax({
             type: 'GET',
-            url: '/employer/get-skill/'+main_functional_area_id,
+            url: '/employer/get-skill/'+main_functional_area,
         }).done(function(response){
             if(response.status == 'success') {
                 $("#skill_id").empty();
@@ -602,14 +647,14 @@
         if($("#job_post_country").val() == "Myanmar") {
             $("#job_post_state_id_field").removeClass('d-none');
             $("#job_post_township_id_field").removeClass('d-none');
-            $("#job_post_state_id").prop('required',true);
+            
             
         }else {
             $("#job_post_state_id_field").addClass('d-none');
             $("#job_post_township_id_field").addClass('d-none');
             $("#job_post_state_id_field").val('');
             $("#job_post_township_id_field").val('');
-            $("#job_post_state_id").prop('required',false);
+            
             
         }
 
@@ -617,14 +662,14 @@
             if($(this).val() == "Myanmar") {
                 $("#job_post_state_id_field").removeClass('d-none');
                 $("#job_post_township_id_field").removeClass('d-none');
-                $("#job_post_state_id").prop('required',true);
+                
                 
             }else {
                 $("#job_post_state_id_field").addClass('d-none');
                 $("#job_post_township_id_field").addClass('d-none');
                 $("#job_post_state_id_field").val('');
                 $("#job_post_township_id_field").val('');
-                $("#job_post_state_id").prop('required',false);
+                
                 
             }
         })
@@ -657,25 +702,25 @@
             }
         });
 
-        $('#main_functional_area_id').change(function(e){
+        $('#main_functional_area').change(function(e){
             e.preventDefault();
             if($(this).val() != "") {
                 $.ajax({
                     type: 'GET',
-                    url: '/employer/get-sub-functional-area/'+main_functional_area_id,
+                    url: '/employer/get-sub-functional-area/'+main_functional_area,
                 }).done(function(response){
                     if(response.status == 'success') {
-                        $("#sub_functional_area_id").empty();
-                        $("#sub_functional_area_id").append('<option value="">Choose</option>')
+                        $("#sub_functional_area").empty();
+                        $("#sub_functional_area").append('<option value="">Choose</option>')
                         $.each(response.data, function(index, sub_functional_area) {
                         
-                        $("#sub_functional_area_id").append('<option value=' + sub_functional_area.id + '>' + sub_functional_area.name +'</option>');
+                        $("#sub_functional_area").append('<option value=' + sub_functional_area.id + '>' + sub_functional_area.name +'</option>');
                         })
                     }
                 })
                 $.ajax({
                     type: 'GET',
-                    url: '/employer/get-skill/'+main_functional_area_id,
+                    url: '/employer/get-skill/'+main_functional_area,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#skill_id").empty();
@@ -687,7 +732,7 @@
                     }
                 })
             }else {
-                $("#sub_functional_area_id").empty();
+                $("#sub_functional_area").empty();
                 $("#skill_id").empty();
             }
         });
