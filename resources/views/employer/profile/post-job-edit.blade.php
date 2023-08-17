@@ -62,8 +62,8 @@
                 </div>
                 <div class="col-11">
                     <div class="py-2">
-                        <h5>Create a Job Ad That Attracts Top Jobseekers</h5>
-                        <span>Discover expert tips to optimize your job ad's visibility and appeal, attracting high-caliber candidates</span>
+                        <h5>Job Details</h5>
+                        
                     </div>
                     <div class="py-2">
                         <div class="row">
@@ -274,8 +274,8 @@
                 </div>
                 <div class="col-11">
                     <div class="py-2">
-                        <h5>Streamline Recruitment with Email or Assigned Recruiters</h5>
-                        <span>Discover effective strategies to optimize your hiring process by leveraging email communication or dedicated recruiters.</span>
+                        <h5>Notify to the assigned recruiter</h5>
+                        
                     </div>
                     <div class="py-2">
                         <div class="row">
@@ -303,8 +303,8 @@
                 </div>
                 <div class="col-11">
                     <div class="py-2">
-                        <h5>Open Job Description</h5>
-                        <span>Discover effective strategies to optimize your hiring process by leveraging email communication or dedicated recruiters.</span>
+                        <h5>Job Description</h5>
+                        
                     </div>
                     <div class="py-2">
                         <div class="row">
@@ -366,8 +366,8 @@
                 </div>
                 <div class="col-11">
                     <div class="py-2">
-                        <h5>Open Job Question</h5>
-                        <span>Explore a set of thought-provoking interview questions that help evaluate candidates' skills, qualifications, and alignment with our company's values</span>
+                        <h5>Get to know your applicants</h5>
+                        
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered job-post-question @if($jobPost->JobPostQuestion->count() > 0) @else d-none @endif">
@@ -431,8 +431,8 @@
                 </div>
                 <div class="col-11">
                     <div class="py-2">
-                        <h5>Job Post Ranking Made Easy</h5>
-                        <span>Discover effective techniques to rank and prioritize job posts, ensuring you attract the most qualified candidates</span>
+                        <h5>Elevate your posting</h5>
+                        
                     </div>
                     <div class="py-2">
                         <div class="row">
