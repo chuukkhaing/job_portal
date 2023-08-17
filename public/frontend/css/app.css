@@ -753,6 +753,7 @@ a.disabled {
     width: 150px;
     height: 150px;
     background: #0355D0;
+    border-radius: 8px;
 }
 .employer-dashboard-header {
     border-radius: 8px 8px 0 0;

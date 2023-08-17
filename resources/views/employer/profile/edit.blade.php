@@ -1,4 +1,4 @@
-<div class="container-fluid bg-light" id="edit-profile-header">
+<div class="container-fluid" id="edit-profile-header">
     <form action="{{ route('employer-profile.update', $employer->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
             <div class="row">
@@ -69,7 +69,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company Logo</span> <span style="color: #696968">200 x 200</span>
+                                    <span class="employer-image-text">Company Logo</span> <span style="color: #696968">200 * 200</span>
                                 </div>
                                 
                                 @if($employer->logo)
@@ -81,23 +81,21 @@
                                     <label for="imageUpload" style="color: #696968">Tap to Change</label>
                                     <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
                                     <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
-                                    <input type="hidden" name="logoStatus" id="logoStatus" value="">
                                 </div>
                             </div>
                             <div class="col-8">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company Background Photo</span> <span style="color: #696968">1903 x 950</span>
+                                    <span class="employer-image-text">Company Background Photo</span> <span style="color: #696968">1835 * 510</span>
                                 </div>
                                 @if($employer->background)
                                 <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background" height="200px" alt="employer-background">
                                 @else
-                                <img src="https://placehold.jp/1903x950.png" class="img-responsive w-100 employer-background" alt="employer-background" height="200px">
+                                <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background" alt="employer-background" height="200px">
                                 @endif
                                 <div class="py-3 text-center">
                                     <label for="backgroundUpload" style="color: #696968">Tap to Change</label>
                                     <input type="file" class="employer-background-upload" name="background" id="backgroundUpload" accept="image/*" />
                                     <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
-                                    <input type="hidden" name="backgroundStatus" id="backgroundStatus" value="">
                                 </div>
                             </div>
                             {{--<div class="col-2">
@@ -120,37 +118,49 @@
                             <div class="row">
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="name">Company Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control seeker_input" name="name" id="name" placeholder="Enter Company name" required value="{{ $employer->name }}">
+                                    <input type="text" class="form-control seeker_input @error('name') is-invalid @enderror" name="name" id="name" placeholder="Enter Company name"  value="{{ $employer->name }}">
+                                    @error('name')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="industry_id">Industry <span class="text-danger">*</span></label>
-                                    <select name="industry_id" id="industry_id" class="form-control seeker_input select_2" style="width:100%" required>
+                                    <select name="industry_id" id="industry_id" class="form-control seeker_input select_2 @error('industry_id') is-invalid @enderror" style="width:100%" >
                                         <option value=""></option>
                                         @foreach ($industries as $industry)
                                         <option value="{{ $industry->id }}" @if($industry->id == $employer->industry_id) selected @endif>{{ $industry->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('industry_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="ownership_type_id">Ownership Type <span class="text-danger">*</span></label>
-                                    <select name="ownership_type_id" id="ownership_type_id" class="form-control seeker_input select_2" style="width:100%" required>
+                                    <select name="ownership_type_id" id="ownership_type_id" class="form-control seeker_input select_2 @error('ownership_type_id') is-invalid @enderror" style="width:100%" >
                                         <option value=""></option>
                                         @foreach ($ownershipTypes as $ownershipType)
                                         <option value="{{ $ownershipType->id }}" @if($ownershipType->id == $employer->ownership_type_id) selected @endif>{{ $ownershipType->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('ownership_type_id')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="type_of_employer">Type of Employer <span class="text-danger">*</span></label>
-                                    <select name="type_of_employer" id="type_of_employer" class="form-control seeker_input select_2" style="width:100%" required>
+                                    <select name="type_of_employer" id="type_of_employer" class="form-control seeker_input select_2 @error('type_of_employer') is-invalid @enderror" style="width:100%" >
                                         <option value=""></option>
                                         @foreach (config('typeOfEmployer.value') as $typeofemployer)
                                         <option value="{{ $typeofemployer }}" @if($typeofemployer == $employer->type_of_employer) selected @endif>{{ $typeofemployer }}</option>
                                         @endforeach
                                     </select>
+                                    @error('type_of_employer')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <h5 class="py-3">Company Detail Information</h5>
@@ -524,27 +534,48 @@
         </div>
     </form>
 </div>
+<!-- upload logo modal  -->
 <div class="modal" id="upload_logo">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Crop Image And Upload</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
-                <div id="resizer"></div>
-                <button class="btn btn-block btn-dark" id="upload" > 
+                <div id="resizer_logo"></div>
+                <button class="btn btn-block btn-dark" id="upload_logo_submit" > 
                 Crop And Upload</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- upload logo background  -->
+<div class="modal" id="upload_background">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Crop Image And Upload</h4>
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="resizer_background"></div>
+                <button class="btn btn-block btn-dark" id="upload_background_submit" > 
+                Crop And Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    var el = document.getElementById('resizer');
+    var el = document.getElementById('resizer_logo');
     $(".employer-logo-upload").on("change", function(event) {
         $("#upload_logo").modal('show');
         croppie = new Croppie(el, {
@@ -559,7 +590,6 @@
             }
         });
         getImage(event.target, croppie); 
-        
     });
     
     function getImage(input, croppie) {
@@ -574,14 +604,39 @@
         }
     }
 
-    $("#upload").on("click", function() {
+    $("#upload_logo_submit").on("click", function() {
         croppie.result('base64').then(function(base64) {
             $("#upload_logo").modal("hide"); 
-            var logo = base64ImageToBlob(base64);
-            $('.employer-logo').attr('src', base64);
+            
             $('.employer-logo-remove').removeClass('d-none');
-            $('#logoStatus').val('');
-            document.querySelector('.employer-logo-upload').files = logo;
+            
+            var formData = new FormData();
+            formData.append("employer_logo", base64ImageToBlob(base64));
+            formData.append("employer_id", {{ $employer->id }})
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type        : 'POST',
+                url         : "{{ route('employer-logo.store') }}",
+                data        : formData,
+                processData : false,
+                contentType : false,
+                success     : function(response) {
+                    if (response.status == "success") {
+                        $('.employer-logo').attr('src', base64);
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                }
+            });
             croppie.destroy();
         });
     });
@@ -606,34 +661,111 @@
     }
 
     $('.employer-logo-remove').click(function() {
-        $('.employer-logo').attr('src', 'https://placehold.jp/200x200.png');
-        $('.employer-logo-remove').addClass('d-none');
-        $('.employer-logo-upload').val('');
-        $('#logoStatus').val('empty');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('employer-logo.remove') }}",
+            data        : {
+                'employer_id' : {{ $employer->id }}
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $('.employer-logo').attr('src', 'https://placehold.jp/200x200.png');
+                    $('.employer-logo-remove').addClass('d-none');
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    });
+                }
+            }
+        });
     })
 
+    var el_bg = document.getElementById('resizer_background');
     $('.employer-background-upload').change(function() {
-        var employer_background = '.employer-background';
-        readBackgroundURL(this, employer_background);
+        $("#upload_background").modal('show');
+        croppie = new Croppie(el_bg, {
+            viewport: {
+                width: 828,
+                height: 230,
+                type: 'square'
+            },
+            boundary: {
+                width: 850,
+                height: 250
+            }
+        });
+        getImage(event.target, croppie); 
     });
 
-    function readBackgroundURL(input, employer_background) {
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(employer_background).attr('src', e.target.result);
+    $("#upload_background_submit").on("click", function() {
+        croppie.result('base64').then(function(base64) {
+            $("#upload_background").modal("hide"); 
+            
             $('.employer-background-remove').removeClass('d-none');
-            $('#backgroundStatus').val('');
-        };
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
+            
+            var formData = new FormData();
+            formData.append("employer_background", base64ImageToBlob(base64));
+            formData.append("employer_id", {{ $employer->id }})
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type        : 'POST',
+                url         : "{{ route('employer-background.store') }}",
+                data        : formData,
+                processData : false,
+                contentType : false,
+                success     : function(response) {
+                    if (response.status == "success") {
+                        $('.employer-background').attr('src', base64);
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                }
+            });
+            croppie.destroy();
+        });
+    });
 
     $('.employer-background-remove').click(function() {
-        $('.employer-background').attr('src', 'https://placehold.jp/1903x950.png');
-        $('.employer-background-remove').addClass('d-none');
-        $('.employer-background-upload').val('');
-        $('#backgroundStatus').val('empty');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('employer-background.remove') }}",
+            data        : {
+                'employer_id' : {{ $employer->id }}
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $('.employer-background').attr('src', 'https://placehold.jp/1835x510.png');
+                    $('.employer-background-remove').addClass('d-none');
+                    MSalert.principal({
+                        icon:'success',
+                        title:'',
+                        description:response.msg,
+                    });
+                }
+            }
+        });
     })
 
     $('.employer-qr-upload').change(function() {
@@ -654,7 +786,7 @@
     }
 
     $('.employer-qr-remove').click(function() {
-        $('.employer-qr').attr('src', 'https://placehold.jp/1903x950.png');
+        $('.employer-qr').attr('src', 'https://placehold.jp/1835x510.png');
         $('.employer-qr-remove').addClass('d-none');
         $('.employer-qr-upload').val('');
         $('#qrStatus').val('empty');

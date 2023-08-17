@@ -5,7 +5,7 @@
 @if($employer->background)
 <div class="container-fluid p-0">
     <div class="company-detail-banner">
-        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" style="max-height : 400px" alt="{{ $employer->name }}">
+        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" class="w-100" alt="{{ $employer->name }}">
     </div>
 </div>
 @endif
@@ -16,9 +16,9 @@
     <div class="row pt-3 px-3">
         <div class="col-lg-6 col-md-6 col-6">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="" style="width: 120px; height: 120px" alt="{{ $employer->name }}">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="" style="width: 120px; height: 120px; border-radius: 8px" alt="{{ $employer->name }}">
             @else
-            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px" alt="{{ $employer->name }}">
+            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px; border-radius: 8px" alt="{{ $employer->name }}">
             @endif
         </div>
 

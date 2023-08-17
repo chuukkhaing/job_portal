@@ -42,6 +42,10 @@ Route::group([], function () {
         Route::post('employer-testimonial/destory/{id}', [EmployerProfileController::class, 'employerTestimonialDestroy']);
         Route::post('/employer-media', [EmployerProfileController::class, 'employerMediaStore'])->name('employer-media.store');
         Route::post('employer-media/destory/{id}', [EmployerProfileController::class, 'employerMediaDestroy']);
+        Route::post('/employer-logo', [EmployerProfileController::class, 'uploadLogo'])->name('employer-logo.store');
+        Route::post('/employer-logo-remove', [EmployerProfileController::class, 'removeLogo'])->name('employer-logo.remove');
+        Route::post('/employer-background', [EmployerProfileController::class, 'uploadBackground'])->name('employer-background.store');
+        Route::post('/employer-background-remove', [EmployerProfileController::class, 'removeBackground'])->name('employer-background.remove');
 
         Route::resource('employer-job-post', EmployerJobPostController::class);
         Route::post('employer-job-post/question', [EmployerJobPostController::class, 'jobPostQuestion'])->name('job-post.question');

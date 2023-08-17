@@ -2,13 +2,13 @@
 @section('content')
 
 <div class="container employer-dashboard mt-3">
-    <div class="row employer-dashboard-header bg-light m-0">
+    <div class="row employer-dashboard-header m-0">
         <div class="col-2 p-3">
             <a href="{{ route('employer-profile.index') }}">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @else
-            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo">
+            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @endif
             </a>
         </div>
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <ul class="nav nav-tabs d-flex justify-content-between p-3 my-1 bg-light" id="employerTab" role="tablist">
+    <ul class="nav nav-tabs d-flex justify-content-between p-3 my-1" id="employerTab" role="tablist">
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
         <li class="nav-item" role="presentation">
             <a href="#employer-dashboard" class="employer-single-tab active" id="employer-dashboard-tab" data-bs-toggle="tab" data-bs-target="#employer-dashboard" role="tab" aria-controls="employer-dashboard" aria-selected="true">Dashboard</a>

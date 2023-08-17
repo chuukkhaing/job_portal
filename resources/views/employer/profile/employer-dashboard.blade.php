@@ -1,7 +1,7 @@
 <div class="container-fluid p-5">
     <div class="row">
         <div class=" col-4">
-            <div class="row me-0 p-3 bg-light">
+            <div class="row me-0 p-3 shadow-lg border" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Opening Jobs</p>
                     <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}</span>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class=" col-4">
-            <div class="row p-3 bg-light">
+            <div class="row p-3 shadow-lg border" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Point Balance</p>
                     <span class="fw-bold fs-3">{{ $employer->package_point }}</span>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class=" col-4">
-            <div class="row ms-0 p-3 bg-light">
+            <div class="row ms-0 p-3 shadow-lg border" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Purchased Points</p>
                     <span class="fw-bold fs-3">{{ $employer->purchased_point }}</span>
@@ -42,7 +42,7 @@
         
         <div class=" col-4 mt-1">
             <a href="{{ route('point-history.index') }}">
-                <div class="row me-0 p-3 bg-light">
+                <div class="row me-0 p-3 shadow-lg border" style="border-radius: 8px;">
                     <div class="col-8">
                         <p class="overview-title">Used Point History</p>
                         <span class="fw-bold fs-3">{{ $employer->PointRecord->where('status','Complete')->sum('point') }}</span>
@@ -58,11 +58,11 @@
         
     </div>
     @if($lastJobPosts->count() > 0)
-    <div class="row mt-1 p-0 bg-light" style="border-radius: 8px">
+    <div class="row mt-1 p-0">
         <div class="px-5">
             <div class="row">
                 <div class="col-8 my-5">
-                    <div id="last-job-post" class="p-5 h-100">
+                    <div id="last-job-post" class="p-5 h-100 shadow-lg">
                         <h5 class="fw-bold">Last Job Posts </h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-4 my-5">
-                    <div id="last-job-post" class="py-5 px-3 h-100">
+                    <div id="last-job-post" class="py-5 px-3 h-100 shadow-lg">
                         <h5 class="fw-bold">Job applied ranking</h5>
                         <div class="row p-3">
                             @foreach($lastJobPosts as $jobPost)

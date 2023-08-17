@@ -1,5 +1,5 @@
 <div class="container-fluid" id="edit-profile-header">
-    <div class="row mt-1 px-5 py-5 bg-light" style="border-radius: 8px">
+    <div class="row mt-1 px-5 py-5" style="border-radius: 8px">
         <div class="row">
             <div class="col-12 col-md-6">
                 <h5>Manage Job</h5>
@@ -13,7 +13,7 @@
             <div class="row m-0 py-5">
                 @foreach($jobPosts as $jobPost)
                 <div class="col-12 p-1">
-                    <div class="m-0 mb-2 pb-0 seeker-job-list rounded">
+                    <div class="m-0 mb-2 pb-0 seeker-job-list rounded shadow-lg">
                         <div class="row p-3">
                             <div class="col-2 d-flex align-items-center ps-5">
                                 @if($employer->logo)

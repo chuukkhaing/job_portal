@@ -2,13 +2,13 @@
 @section('content')
 
 <div class="container employer-dashboard mt-3">
-    <div class="row employer-dashboard-header bg-light m-0">
+    <div class="row employer-dashboard-header m-0">
         <div class="col-2 p-3">
             <a href="{{ route('employer-profile.index') }}">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @else
-            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo">
+            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @endif
             </a>
         </div>
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid bg-light mt-1 py-5" id="edit-profile-header">
+    <div class="container-fluid mt-1 py-5" id="edit-profile-header">
         @foreach($packageItems as $packageItem)
         @if($packageItem->name == 'Up to 10 User Accounts' || $packageItem->name == 'Up to 5 User Accounts')
         <div class="row mb-4">

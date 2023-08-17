@@ -113,36 +113,21 @@ class EmployerProfileController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'name'  => ['required','string'],
+            'industry_id' => ['required'],
+            'ownership_type_id' => ['required'],
+            'type_of_employer' => ['required'],
             'phone' => ['nullable', new MyanmarPhone],
         ]);
+
         $employer = Employer::findOrFail($id);
-        $logo = $employer->logo;
-        $background = $employer->background;
         $qr = $employer->qr;
 
-        if($request->logoStatus == 'empty') {
-            File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$logo));
-            $logo = Null;
-        }
-        if($request->backgroundStatus == 'empty') {
-            File::deleteDirectory(public_path('storage/employer_background/'.'/'.$background));
-            $background = Null;
-        }
         if($request->qrStatus == 'empty') {
             File::deleteDirectory(public_path('storage/employer_qr/'.'/'.$qr));
             $qr = Null;
         }
 
-        if($request->hasFile('logo')) {
-            $file    = $request->file('logo');
-            $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
-        }
-        if($request->hasFile('background')) {
-            $file    = $request->file('background');
-            $background = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_background/'), $background);
-        }
         if($request->hasFile('qr')) {
             $file    = $request->file('qr');
             $qr = date('YmdHi').$file->getClientOriginalName();
@@ -156,8 +141,6 @@ class EmployerProfileController extends Controller
         }
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
-            'logo' => $logo,
-            'background' => $background,
             'qr' => $qr,
             'name' => $request->name,
             'industry_id' => $request->industry_id,
@@ -331,6 +314,74 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'msg' => 'Media deleted successfully!',
             'media_count' => $media_count
+        ]);
+    }
+
+    public function uploadLogo (Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+
+        if($request->hasFile('employer_logo')) {
+            $file    = $request->file('employer_logo');
+            $logo = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
+        }
+        $employer = $employer->update([
+            'logo' => $logo,
+            'updated_by' => Auth::guard('employer')->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Logo uploaded successfully.'
+        ]);
+    }
+
+    public function removeLogo(Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+        $employer = $employer->update([
+            'logo' => Null,
+            'updated_by' => Auth::guard('employer')->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Logo removed successfully.'
+        ]);
+    }
+
+    public function uploadBackground (Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+
+        if($request->hasFile('employer_background')) {
+            $file    = $request->file('employer_background');
+            $background = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_background/'), $background);
+        }
+        $employer = $employer->update([
+            'background' => $background,
+            'updated_by' => Auth::guard('employer')->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Background uploaded successfully.'
+        ]);
+    }
+
+    public function removeBackground(Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+        $employer = $employer->update([
+            'background' => Null,
+            'updated_by' => Auth::guard('employer')->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Background removed successfully.'
         ]);
     }
 }
