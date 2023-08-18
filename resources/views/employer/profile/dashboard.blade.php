@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <ul class="nav nav-tabs d-flex justify-content-between p-3 my-1" id="employerTab" role="tablist">
+    <ul class="nav nav-tabs d-flex justify-content-between p-2 my-1" id="employerTab" role="tablist">
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
         <li class="nav-item" role="presentation">
             <a href="#employer-dashboard" class="employer-single-tab active" id="employer-dashboard-tab" data-bs-toggle="tab" data-bs-target="#employer-dashboard" role="tab" aria-controls="employer-dashboard" aria-selected="true">Dashboard</a>

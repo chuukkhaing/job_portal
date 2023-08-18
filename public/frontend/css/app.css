@@ -770,6 +770,10 @@ a.disabled {
     background: #FEF1E7;
     color: #F58220;
 }
+.employer-point-box:hover {
+    border: 1px solid #88C3FF;
+    border-radius: 8px;
+}
 .test-image-box {
     width: 120px;
     height: 120px;
