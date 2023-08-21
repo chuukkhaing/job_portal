@@ -750,8 +750,8 @@ a.disabled {
     animation: progress 1.5s ease-in-out forwards;
 }
 .employer-header-logo {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     background: #0355D0;
     border-radius: 8px;
 }

@@ -3,7 +3,7 @@
 
 <div class="container employer-dashboard mt-3">
     <div class="row employer-dashboard-header m-0">
-        <div class="col-2 p-3">
+        <div class="col-12 col-sm-4 col-md-3 col-lg-2 p-3">
             <a href="{{ route('employer-profile.index') }}">
             @if($employer->logo)
             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo shadow-lg">
@@ -12,7 +12,7 @@
             @endif
             </a>
         </div>
-        <div class="col-10 p-3">
+        <div class="col-12 col-sm-8 col-md-9 col-lg-10 p-3">
             <div class="mb-4">
                 <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
                 <div class="float-end">
@@ -22,7 +22,7 @@
             </div>
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
             <div class="row">
-                <div class="col-4 p-1">
+                <div class="col-12 col-md-4 p-1">
                     <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy Package") style="border: 1px solid #0565FF" @endif>
                         Economy
                         @if($employer->Package && $employer->Package->name == "Economy Package")
@@ -30,7 +30,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-4 p-1">
+                <div class="col-12 col-md-4 p-1">
                     <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard Package") style="border: 1px solid #C72C91" @endif>
                         Standard
                         @if($employer->Package && $employer->Package->name == "Standard Package")
@@ -38,7 +38,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-4 p-1">
+                <div class="col-12 col-md-4 p-1">
                     <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium Package") style="border: 1px solid #F58220" @endif>
                         Premium
                         @if($employer->Package && $employer->Package->name == "Premium Package")
@@ -49,452 +49,462 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid mt-1 py-5" id="edit-profile-header">
-    <form action="{{ route('employer-job-post.store') }}" method="post" enctype="multipart/form-data">
-        <div class="px-5 m-0 pb-0 pt-5">
-        
-            @csrf 
-            <div class="row">
-                <div class="col-1">
-                    <div class="step">
-                        Step 1
+    <div class="container-fluid mt-1 py-3" id="edit-profile-header">
+        <form action="{{ route('employer-job-post.store') }}" method="post" enctype="multipart/form-data">
+            <div class="px-0 px-sm-3 m-0 pb-0 pt-3">
+            
+                @csrf 
+                <div class="row">
+                    <div class="col-4 col-sm-2 col-lg-2 col-xl-1">
+                        <div class="step">
+                            Step 1
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-10 col-lg-10 col-xl-11 align-self-center">
+                        <div class="py-2">
+                            <h5>Job Details</h5>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-12">
+                        <div class="py-2">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="job_title" id="job_title" class="form-control seeker_input @error('job_title') is-invalid @enderror" placeholder="Job Title" value="{{ old('job_title') }}">
+                                    @error('job_title')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="job_post_industry" class="seeker_label my-2">Job Industry <span class="text-danger">*</span></label>
+                                    <select name="job_post_industry" id="job_post_industry" class="select_2 form-control seeker_input @error('job_post_industry') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach($industries as $industry)
+                                        <option value="{{ $industry->id }}" >{{ $industry->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('job_post_industry')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="main_functional_area" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
+                                    <select name="main_functional_area" id="main_functional_area" class="select_2 form-control seeker_input @error('main_functional_area') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach($functional_areas as $functional_area)
+                                        <option value="{{ $functional_area->id }}" >{{ $functional_area->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('main_functional_area')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="sub_functional_area" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
+                                    <select name="sub_functional_area" id="sub_functional_area" class="select_2 form-control seeker_input @error('sub_functional_area') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach($sub_functional_areas as $sub_functional_area)
+                                        <option value="{{ $sub_functional_area->id }}" >{{ $sub_functional_area->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('sub_functional_area')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="career_level" class="seeker_label my-2">Job Level/ Career Level <span class="text-danger">*</span></label>
+                                    <select name="career_level" id="career_level" class="select_2 form-control seeker_input @error('career_level') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach(config('careerlevel') as $careerlevel)
+                                        <option value="{{ $careerlevel }}" >{{ $careerlevel }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('career_level')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="job_type" class="seeker_label my-2">Job Type <span class="text-danger">*</span></label>
+                                    <select name="job_type" id="job_type" class="select_2 form-control seeker_input @error('job_type') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach(config('jobtype') as $jobtype)
+                                        <option value="{{ $jobtype }}" >{{ $jobtype }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('job_type')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="experience_level" class="seeker_label my-2">Experience Level <span class="text-danger">*</span></label>
+                                    <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input @error('experience_level') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        <option value="Less than 1 year">Less than 1 year</option>
+                                        <option value="1 year">1 year</option>
+                                        <option value="2 years">2 years</option>
+                                        <option value="3 years">3 years</option>
+                                        <option value="4 years">4 years</option>
+                                        <option value="5 years">5 years</option>
+                                        <option value="6 years">6 years</option>
+                                        <option value="7 years">7 years</option>
+                                        <option value="8 years">8 years</option>
+                                    </select>
+                                    @error('experience_level')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="degree" class="seeker_label my-2">Education/ Qualification <span class="text-danger">*</span></label><br>
+                                    <select name="degree" id="degree" class="select_2 form-control seeker_input @error('degree') is-invalid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach(config('seekerdegree') as $degree)
+                                        <option value="{{ $degree }}" >{{ $degree }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('degree')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="no_of_candidate" class="seeker_label my-2">No. of Candidate <span class="text-danger">*</span></label><br>
+                                    <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input @error('no_of_candidate') is-invalid @enderror" placeholder="No. of Candidate" value="{{ old('no_of_candidate') }}">
+                                    @error('no_of_candidate')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="currency" class="seeker_label my-2">Currency</label>
+                                    <select name="currency" id="currency" class="select_2 form-control seeker_input" style="width: 100%" >
+                                        <option value="">Choose...</option>
+                                        <option value="USD">USD</option>
+                                        <option value="MMK">MMK</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-12 col-md-6 mmk_salary d-none">
+                                    <label for="mmk_salary" class="seeker_label my-2">Salary Range</label>
+                                    <select name="mmk_salary" id="mmk_salary" class="select_2 form-control seeker_input" style="width: 100%" >
+                                        <option value="">Choose...</option>
+                                        <option value="Less than 2 lakh">Less than 2 lakh</option>
+                                        <option value="2 to 4 Lakh">2 to 4 Lakh</option>
+                                        <option value="4 to 6 Lakh">4 to 6 Lakh</option>
+                                        <option value="6 to 8 Lakh">6 to 8 Lakh</option>
+                                        <option value="8 to 10 Lakh">8 to 10 Lakh</option>
+                                        <option value="10 to 15 Lakh">10 to 15 Lakh</option>
+                                        <option value="15 to 20 Lakh">15 to 20 Lakh</option>
+                                        <option value="20 to 40 Lakh">20 to 40 Lakh</option>
+                                        <option value="Over 40 Lakh">Over 40 Lakh</option>
+                                        <option value="Incentive/ comission only">Incentive/ comission only</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-12 col-md-6 usd_salary d-none">
+                                    <label for="usd_salary" class="seeker_label my-2">Salary Range</label>
+                                    <select name="usd_salary" id="usd_salary" class="select_2 form-control seeker_input" style="width: 100%" >
+                                        <option value="">Choose...</option>
+                                        <option value="Less Than 300">Less Than 300</option>
+                                        <option value="300 to 500">300 to 500</option>
+                                        <option value="500 to 800">500 to 800</option>
+                                        <option value="800 to 1500">800 to 1500</option>
+                                        <option value="1500 to 3000">3000 to 1500</option>
+                                        <option value="3000 to 5000">3000 to 5000</option>
+                                        <option value="Over 5000">Over 5000</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3 col-12 col-md-6">
+                                    <input type="checkbox" name="hide_salary" id="hide_salary">
+                                    <label for="hide_salary">Hide Salary</label><br>
+                                    @foreach($packageItems as $packageItem)
+                                    @if($packageItem->name == 'Anonymous Posting')
+                                    <input type="checkbox" name="hide_company_name" id="hide_company_name">
+                                    <label for="hide_company_name">Hide Company (Make confidential Job)</label>
+                                    <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="{{ $packageItem->point }}">
+                                    <input type="hidden" name="anonymous_posting_package_item_id" id="anonymous_posting_package_item_id" value="{{ $packageItem->id }}">
+                                    @endif
+                                    @endforeach
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
+                                    <input type="checkbox" name="male" id="male">
+                                    <label for="male">Male</label><br>
+                                    <input type="checkbox" name="female" id="female">
+                                    <label for="female">Female</label>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
+                                    <select name="job_post_country" id="job_post_country" class="seeker_input @error('job_post_country') is-invalid @enderror" style="width: 100%">
+                                        <option value="Myanmar">Myanmar</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    @error('job_post_country')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6" id="job_post_state_id_field">
+                                    <label for="job_post_state" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
+                                    <select name="job_post_state" id="job_post_state" class="select_2 form-control seeker_input @error('job_post_state') is-valid @enderror" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach($states as $state)
+                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('job_post_state')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            
+                                <div class="form-group col-12 col-md-6" id="job_post_township_id_field">
+                                    <label for="job_post_township_id" class="seeker_label my-2">City/ Township </label><br>
+                                    <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
+                                        <option value="">Choose...</option>
+                                        @foreach($townships as $township)
+                                        <option value="{{ $township->id }}">{{ $township->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-11">
-                    <div class="py-2">
-                        <h5>Job Details</h5>
+                <div class="row">
+                    <div class="col-4 col-sm-2 col-lg-2 col-xl-1">
+                        <div class="step">
+                            Step 2
+                        </div>
                     </div>
-                    <div class="py-2">
-                        <div class="row">
-                            <div class="form-group col-12 col-md-6">
-                                <label for="job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
-                                <input type="text" name="job_title" id="job_title" class="form-control seeker_input @error('job_title') is-invalid @enderror" placeholder="Job Title" value="{{ old('job_title') }}">
-                                @error('job_title')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                    <div class="col-8 col-sm-10 col-lg-10 col-xl-11 align-self-center">
+                        <div class="py-2">
+                            <h5>Notify to the assigned recruiter</h5>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-12">
+                        <div class="py-2">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="recruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input @error('recruiter_name') is-invalid @enderror" placeholder="Enter Name" value="{{ old('recruiter_name') }}">
+                                    @error('recruiter_name')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="recruiter_email" class="seeker_label my-2">Email </label>
+                                    <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_email') }}">
+                                </div>
+                                
                             </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="job_post_industry" class="seeker_label my-2">Job Industry <span class="text-danger">*</span></label>
-                                <select name="job_post_industry" id="job_post_industry" class="select_2 form-control seeker_input @error('job_post_industry') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach($industries as $industry)
-                                    <option value="{{ $industry->id }}" >{{ $industry->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('job_post_industry')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4 col-sm-2 col-lg-2 col-xl-1">
+                        <div class="step">
+                            Step 3
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-10 col-lg-10 col-xl-11 align-self-center">
+                        <div class="py-2">
+                            <h5>Job Description</h5>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-12">
+                        <div class="py-2">
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="skill_id" class="seeker_label my-2">Skill Name <span class="text-danger">*</span></label><br>
+                                    <select name="skills[]" id="skill_id" class="form-control seeker_input select_2 @error('skills') is-invalid @enderror" style="width:100%" multiple>
+                                        <option value="">Choose...</option>
+                                        
+                                    </select>
+                                    @error('skills')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                    <br>
+                                </div>
+                                <div class="col-12 col-md-6"></div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="job_description" class="seeker_label">Job Description</label>
+                                    <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-valid @enderror"></textarea>
+                                    @error('job_description')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="job_requirement" class="seeker_label">Job Requirement</label>
+                                    <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') @enderror"></textarea>
+                                    @error('job_requirement')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-12 col-md-8 form-group">
+                                    <label for="benefit" class="seeker_label">Benefits</label>
+                                    <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                </div>
+                                <div class="col-12 col-md-4 mt-4 ms-2 ms-sm-0 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
+                                    <div>Bonus + Commison </div>
+                                    <div>Meal + Travel Allowance </div>
+                                    <div>Overtime Payment </div>
+                                    <div>Reward for Over Performance </div>
+                                </div>
+                                <div class="col-12 col-md-8 form-group">
+                                    <label for="highlight" class="seeker_label">Highlight</label>
+                                    <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                </div>
+                                <div class="col-12 col-md-4 mt-4 ms-2 ms-sm-0 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
+                                    <div>Fun Working Enviroment </div>
+                                    <div>International Standards </div>
+                                    <div>Make a Differnce </div>
+                                    <div>Join an Experience Team </div>
+                                </div>
                             </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="main_functional_area" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
-                                <select name="main_functional_area" id="main_functional_area" class="select_2 form-control seeker_input @error('main_functional_area') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach($functional_areas as $functional_area)
-                                    <option value="{{ $functional_area->id }}" >{{ $functional_area->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('main_functional_area')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                        </div>
+                    </div>
+                </div>
+                @foreach($packageItems as $packageItem)
+                @if($packageItem->name == 'Pre-qualify questions')
+                <div class="row">
+                    <div class="col-4 col-sm-2 col-lg-2 col-xl-1">
+                        <div class="step">
+                            Step 4
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-10 col-lg-10 col-xl-11 align-self-center">
+                        <div class="py-2">
+                            <h5>Get to know your applicants</h5>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered job-post-question d-none">
+                                <thead>
+                                    <tr>
+                                        <th>Question</th>
+                                        <th>Answer</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="py-2">
+                            <div class="row">
+                                <div class="col-12 col-md-6 form-group">
+                                    <label for="job_post_question" class="seeker_label">Create Question</label>
+                                    <input type="text" name="job_post_question" id="job_post_question" class="form-control seeker_input"  placeholder="Write Question" value="">
+                                    <span class="text-danger job-post-question-error d-none">Please Fill the Question.</span>
+                                </div>
                             </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="sub_functional_area" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
-                                <select name="sub_functional_area" id="sub_functional_area" class="select_2 form-control seeker_input @error('sub_functional_area') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach($sub_functional_areas as $sub_functional_area)
-                                    <option value="{{ $sub_functional_area->id }}" >{{ $sub_functional_area->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('sub_functional_area')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="job_post_answer" class="seeker_label my-2">Selecter Answer Type</label><br>
+                                    <select name="job_post_answer" id="job_post_answer" class="seeker_input" style="width: 100%" >
+                                        <option value="Text Answer">Text Answer</option>
+                                        <option value="Multiple Choice">Multiple Choice</option>
+                                    </select>
+                                    <span class="text-danger job-post-answer-error d-none">Need to Choose Answer Type.</span>
+                                </div>
                             </div>
-                            
-                            <div class="form-group col-12 col-md-6">
-                                <label for="career_level" class="seeker_label my-2">Job Level/ Career Level <span class="text-danger">*</span></label>
-                                <select name="career_level" id="career_level" class="select_2 form-control seeker_input @error('career_level') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach(config('careerlevel') as $careerlevel)
-                                    <option value="{{ $careerlevel }}" >{{ $careerlevel }}</option>
-                                    @endforeach
-                                </select>
-                                @error('career_level')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                <a class="btn btn-outline-primary rounded-3" onclick="createQuestion()"><i class="fa-solid fa-plus"></i> Create Question</a>
+                                </div>
+                                <input type="hidden" name="question_point" id="question_point" value="{{ $packageItem->point }}">
+                                <input type="hidden" name="question_package_item_id" id="question_package_item_id" value="{{ $packageItem->id }}">
                             </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="job_type" class="seeker_label my-2">Job Type <span class="text-danger">*</span></label>
-                                <select name="job_type" id="job_type" class="select_2 form-control seeker_input @error('job_type') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach(config('jobtype') as $jobtype)
-                                    <option value="{{ $jobtype }}" >{{ $jobtype }}</option>
-                                    @endforeach
-                                </select>
-                                @error('job_type')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="experience_level" class="seeker_label my-2">Experience Level <span class="text-danger">*</span></label>
-                                <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input @error('experience_level') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    <option value="Less than 1 year">Less than 1 year</option>
-                                    <option value="1 year">1 year</option>
-                                    <option value="2 years">2 years</option>
-                                    <option value="3 years">3 years</option>
-                                    <option value="4 years">4 years</option>
-                                    <option value="5 years">5 years</option>
-                                    <option value="6 years">6 years</option>
-                                    <option value="7 years">7 years</option>
-                                    <option value="8 years">8 years</option>
-                                </select>
-                                @error('experience_level')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="degree" class="seeker_label my-2">Education/ Qualification <span class="text-danger">*</span></label><br>
-                                <select name="degree" id="degree" class="select_2 form-control seeker_input @error('degree') is-invalid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach(config('seekerdegree') as $degree)
-                                    <option value="{{ $degree }}" >{{ $degree }}</option>
-                                    @endforeach
-                                </select>
-                                @error('degree')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="no_of_candidate" class="seeker_label my-2">No. of Candidate <span class="text-danger">*</span></label><br>
-                                <input type="number" name="no_of_candidate" id="no_of_candidate" class="form-control seeker_input @error('no_of_candidate') is-invalid @enderror" placeholder="No. of Candidate" value="{{ old('no_of_candidate') }}">
-                                @error('no_of_candidate')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            
-                            <div class="form-group col-12 col-md-6">
-                                <label for="currency" class="seeker_label my-2">Currency</label>
-                                <select name="currency" id="currency" class="select_2 form-control seeker_input" style="width: 100%" >
-                                    <option value="">Choose...</option>
-                                    <option value="USD">USD</option>
-                                    <option value="MMK">MMK</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-12 col-md-6 mmk_salary d-none">
-                                <label for="mmk_salary" class="seeker_label my-2">Salary Range</label>
-                                <select name="mmk_salary" id="mmk_salary" class="select_2 form-control seeker_input" style="width: 100%" >
-                                    <option value="">Choose...</option>
-                                    <option value="Less than 2 lakh">Less than 2 lakh</option>
-                                    <option value="2 to 4 Lakh">2 to 4 Lakh</option>
-                                    <option value="4 to 6 Lakh">4 to 6 Lakh</option>
-                                    <option value="6 to 8 Lakh">6 to 8 Lakh</option>
-                                    <option value="8 to 10 Lakh">8 to 10 Lakh</option>
-                                    <option value="10 to 15 Lakh">10 to 15 Lakh</option>
-                                    <option value="15 to 20 Lakh">15 to 20 Lakh</option>
-                                    <option value="20 to 40 Lakh">20 to 40 Lakh</option>
-                                    <option value="Over 40 Lakh">Over 40 Lakh</option>
-                                    <option value="Incentive/ comission only">Incentive/ comission only</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-12 col-md-6 usd_salary d-none">
-                                <label for="usd_salary" class="seeker_label my-2">Salary Range</label>
-                                <select name="usd_salary" id="usd_salary" class="select_2 form-control seeker_input" style="width: 100%" >
-                                    <option value="">Choose...</option>
-                                    <option value="Less Than 300">Less Than 300</option>
-                                    <option value="300 to 500">300 to 500</option>
-                                    <option value="500 to 800">500 to 800</option>
-                                    <option value="800 to 1500">800 to 1500</option>
-                                    <option value="1500 to 3000">3000 to 1500</option>
-                                    <option value="3000 to 5000">3000 to 5000</option>
-                                    <option value="Over 5000">Over 5000</option>
-                                </select>
-                            </div>
-                            <div class="form-group mt-3 col-12 col-md-6">
-                                <input type="checkbox" name="hide_salary" id="hide_salary">
-                                <label for="hide_salary">Hide Salary</label><br>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                @endforeach
+                <div class="row">
+                    <div class="col-4 col-sm-2 col-lg-2 col-xl-1">
+                        <div class="step">
+                        @if($packageItems->where('name','Pre-qualify questions')->count() == 0)
+                            Step 4
+                        @else 
+                            Step 5
+                        @endif
+                        </div>
+                    </div>
+                    <div class="col-8 col-sm-10 col-lg-10 col-xl-11 align-self-center">
+                        <div class="py-2">
+                            <h5>Elevate your posting</h5>
+                        </div>
+                    </div>
+                    <div class="col-11 col-sm-12">
+                        <div class="py-2">
+                            <div class="row">
+                                <div class="col-12 col-md-4 p-3">
+                                    <div class="job_post_type_check_box w-100 p-3">
+                                        <input type="radio" name="job_post_type" id="standard_job_post" value="standard"><br>
+                                        <label for="standard_job_post" class="w-100">
+                                            <h5>Standard Post</h5>
+                                            <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
+                                                <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
                                 @foreach($packageItems as $packageItem)
-                                @if($packageItem->name == 'Anonymous Posting')
-                                <input type="checkbox" name="hide_company_name" id="hide_company_name">
-                                <label for="hide_company_name">Hide Company (Make confidential Job)</label>
-                                <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="{{ $packageItem->point }}">
-                                <input type="hidden" name="anonymous_posting_package_item_id" id="anonymous_posting_package_item_id" value="{{ $packageItem->id }}">
+                                @if($packageItem->name == 'Feature Job Post')
+                                <div class="col-12 col-md-4 p-3">
+                                    <div class="job_post_type_check_box w-100 p-3">
+                                        <input type="radio" name="job_post_type" id="feature_job_post" value="feature"><br>
+                                        <label for="feature_job_post" class="w-100">
+                                            <h5>Feature Job Post</h5>
+                                            <div class="standard_check_box d-flex align-items-center justify-content-center">
+                                                <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="feature_job_point" id="feature_job_point" value="{{ $packageItem->point }}">
+                                    <input type="hidden" name="feature_job_package_item_id" id="feature_job_package_item_id" value="{{ $packageItem->id }}">
+                                </div>
                                 @endif
                                 @endforeach
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
-                                <input type="checkbox" name="male" id="male">
-                                <label for="male">Male</label><br>
-                                <input type="checkbox" name="female" id="female">
-                                <label for="female">Female</label>
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
-                                <select name="job_post_country" id="job_post_country" class="seeker_input @error('job_post_country') is-invalid @enderror" style="width: 100%">
-                                    <option value="Myanmar">Myanmar</option>
-                                    <option value="Other">Other</option>
-                                </select>
-                                @error('job_post_country')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group col-12 col-md-6" id="job_post_state_id_field">
-                                <label for="job_post_state" class="seeker_label my-2">State or Region <span class="text-danger">*</span></label><br>
-                                <select name="job_post_state" id="job_post_state" class="select_2 form-control seeker_input @error('job_post_state') is-valid @enderror" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach($states as $state)
-                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('job_post_state')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                        
-                            <div class="form-group col-12 col-md-6" id="job_post_township_id_field">
-                                <label for="job_post_township_id" class="seeker_label my-2">City/ Township </label><br>
-                                <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
-                                    <option value="">Choose...</option>
-                                    @foreach($townships as $township)
-                                    <option value="{{ $township->id }}">{{ $township->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <div class="step">
-                        Step 2
-                    </div>
-                </div>
-                <div class="col-11">
-                    <div class="py-2">
-                        <h5>Notify to the assigned recruiter</h5>
-                    </div>
-                    <div class="py-2">
-                        <div class="row">
-                            <div class="form-group col-12 col-md-6">
-                                <label for="recruiter_name" class="seeker_label my-2">Name <span class="text-danger">*</span></label>
-                                <input type="text" name="recruiter_name" id="recruiter_name" class="form-control seeker_input @error('recruiter_name') is-invalid @enderror" placeholder="Enter Name" value="{{ old('recruiter_name') }}">
-                                @error('recruiter_name')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group col-12 col-md-6">
-                                <label for="recruiter_email" class="seeker_label my-2">Email </label>
-                                <input type="email" name="recruiter_email" id="recruiter_email" class="form-control seeker_input"  placeholder="Enter Name" value="{{ old('recruiter_email') }}">
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <div class="step">
-                        Step 3
-                    </div>
-                </div>
-                <div class="col-11">
-                    <div class="py-2">
-                        <h5>Job Description</h5>
-                    </div>
-                    <div class="py-2">
-                        <div class="row">
-                            <div class="form-group col-12 col-md-6">
-                                <label for="skill_id" class="seeker_label my-2">Skill Name <span class="text-danger">*</span></label><br>
-                                <select name="skills[]" id="skill_id" class="form-control seeker_input select_2 @error('skills') is-invalid @enderror" style="width:100%" multiple>
-                                    <option value="">Choose...</option>
-                                    
-                                </select>
-                                @error('skills')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                                <br>
-                            </div>
-                            <div class="col-6"></div>
-                            <div class="col-6 form-group">
-                                <label for="job_description" class="seeker_label">Job Description</label>
-                                <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-valid @enderror"></textarea>
-                                @error('job_description')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-6 form-group">
-                                <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') @enderror"></textarea>
-                                @error('job_requirement')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-8 form-group">
-                                <label for="benefit" class="seeker_label">Benefits</label>
-                                <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control"></textarea>
-                            </div>
-                            <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
-                                <div>Bonus + Commison </div>
-                                <div>Meal + Travel Allowance </div>
-                                <div>Overtime Payment </div>
-                                <div>Reward for Over Performance </div>
-                            </div>
-                            <div class="col-8 form-group">
-                                <label for="highlight" class="seeker_label">Highlight</label>
-                                <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control"></textarea>
-                            </div>
-                            <div class="col-4 mt-4 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
-                                <div>Fun Working Enviroment </div>
-                                <div>International Standards </div>
-                                <div>Make a Differnce </div>
-                                <div>Join an Experience Team </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @foreach($packageItems as $packageItem)
-            @if($packageItem->name == 'Pre-qualify questions')
-            <div class="row">
-                <div class="col-1">
-                    <div class="step">
-                        Step 4
-                    </div>
-                </div>
-                <div class="col-11">
-                    <div class="py-2">
-                        <h5>Get to know your applicants</h5>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-bordered job-post-question d-none">
-                            <thead>
-                                <tr>
-                                    <th>Question</th>
-                                    <th>Answer</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="py-2">
-                        <div class="row">
-                            <div class="col-6 form-group">
-                                <label for="job_post_question" class="seeker_label">Create Question</label>
-                                <input type="text" name="job_post_question" id="job_post_question" class="form-control seeker_input"  placeholder="Write Question" value="">
-                                <span class="text-danger job-post-question-error d-none">Please Fill the Question.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-12 col-md-6">
-                                <label for="job_post_answer" class="seeker_label my-2">Selecter Answer Type</label><br>
-                                <select name="job_post_answer" id="job_post_answer" class="seeker_input" style="width: 100%" >
-                                    <option value="Text Answer">Text Answer</option>
-                                    <option value="Multiple Choice">Multiple Choice</option>
-                                </select>
-                                <span class="text-danger job-post-answer-error d-none">Need to Choose Answer Type.</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                            <a class="btn btn-outline-primary rounded-3" onclick="createQuestion()"><i class="fa-solid fa-plus"></i> Create Question</a>
-                            </div>
-                            <input type="hidden" name="question_point" id="question_point" value="{{ $packageItem->point }}">
-                            <input type="hidden" name="question_package_item_id" id="question_package_item_id" value="{{ $packageItem->id }}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @endforeach
-            <div class="row">
-                <div class="col-1">
-                    <div class="step">
-                    @if($packageItems->where('name','Pre-qualify questions')->count() == 0)
-                        Step 4
-                    @else 
-                        Step 5
-                    @endif
-                    </div>
-                </div>
-                <div class="col-11">
-                    <div class="py-2">
-                        <h5>Elevate your posting</h5>
-                    </div>
-                    <div class="py-2">
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" id="standard_job_post" value="standard"><br>
-                                    <label for="standard_job_post" class="w-100">
-                                        <h5>Standard Post</h5>
-                                        <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
-                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
-                                        </div>
-                                    </label>
+                                @foreach($packageItems as $packageItem)
+                                @if($packageItem->name == 'Trending Job Post')
+                                <div class="col-12 col-md-4 p-3">
+                                    <div class="job_post_type_check_box w-100 p-3">
+                                        <input type="radio" name="job_post_type" id="trending_job_post" value="trending"><br>
+                                        <label for="trending_job_post" class="w-100">
+                                            <h5>Trending Job Post</h5>
+                                            <div class="standard_check_box d-flex align-items-center justify-content-center">
+                                                <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="trending_job_point" id="trending_job_point" value="{{ $packageItem->point }}">
+                                    <input type="hidden" name="trending_job_package_item_id" id="trending_job_package_item_id" value="{{ $packageItem->id }}">
                                 </div>
+                                @endif
+                                @endforeach
+                                @error('job_post_type')
+                                <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
-                            @foreach($packageItems as $packageItem)
-                            @if($packageItem->name == 'Feature Job Post')
-                            <div class="col-4">
-                                <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" id="feature_job_post" value="feature"><br>
-                                    <label for="feature_job_post" class="w-100">
-                                        <h5>Feature Job Post</h5>
-                                        <div class="standard_check_box d-flex align-items-center justify-content-center">
-                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
-                                        </div>
-                                    </label>
-                                </div>
-                                <input type="hidden" name="feature_job_point" id="feature_job_point" value="{{ $packageItem->point }}">
-                                <input type="hidden" name="feature_job_package_item_id" id="feature_job_package_item_id" value="{{ $packageItem->id }}">
-                            </div>
-                            @endif
-                            @endforeach
-                            @foreach($packageItems as $packageItem)
-                            @if($packageItem->name == 'Trending Job Post')
-                            <div class="col-4">
-                                <div class="job_post_type_check_box w-100 p-3">
-                                    <input type="radio" name="job_post_type" id="trending_job_post" value="trending"><br>
-                                    <label for="trending_job_post" class="w-100">
-                                        <h5>Trending Job Post</h5>
-                                        <div class="standard_check_box d-flex align-items-center justify-content-center">
-                                            <img src="{{ asset('frontend/img/logo/white_logo.svg') }}" alt="" width="200px">
-                                        </div>
-                                    </label>
-                                </div>
-                                <input type="hidden" name="trending_job_point" id="trending_job_point" value="{{ $packageItem->point }}">
-                                <input type="hidden" name="trending_job_package_item_id" id="trending_job_package_item_id" value="{{ $packageItem->id }}">
-                            </div>
-                            @endif
-                            @endforeach
-                            @error('job_post_type')
-                            <small class="text-danger">{{ $message }}</small>
-                            @enderror
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row col-12 mb-2 py-3 text-center">
-            <div class="col-6">
-                <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
-                <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
+            <div class="row col-12 mb-2 py-3 text-center">
+                <div class="col-12 col-sm-4">
+                    <label for="total_point" class="seeker_label fw-bold">Total Point:</label>
+                    <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent w-25" readonly>
+                </div>
+                <div class="col-12 col-sm-8 d-flex justify-content-end">
+                    <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
+                        <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
+                    </div>
+                    <button type="submit" class="btn profile-save-btn mx-3">
+                        <span>Post Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
+                    </button>
+                </div>
             </div>
-            <div class="col-6 d-flex flex-row-reverse">
-            <button type="submit" class="btn profile-save-btn mx-3">
-                <span>Post Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
-            </button>
-            <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
-                <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
-            </div>
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>
 
