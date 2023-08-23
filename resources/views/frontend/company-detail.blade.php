@@ -216,25 +216,40 @@
             <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
         </div>
         @endforeach--}}
-        <div class="container-fluid p-0">
-            <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach($employer->EmployerMedia->where('type','Image') as $image)
-                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                        <img class="w-100 img-fluid" src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}">
+        <div class="container py-5">
+            <div class="row">
+                <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
+                <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
+                    <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach($employer->EmployerMedia->where('type','Image') as $image)
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}" style="width:80%;">
+                            </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Left and right controls -->
+                        <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators list-inline">
+                            @foreach($employer->EmployerMedia->where('type','Image') as $key => $image)
+                            <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
+                                <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
+                                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
+                                </a>
+                            </li>
+                            @endforeach
+                        </ol>
                     </div>
-                    @endforeach
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
     </div>
