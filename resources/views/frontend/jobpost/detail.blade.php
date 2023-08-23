@@ -172,14 +172,36 @@
                         </div>
                         @endif
                         @if($jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)         
-                        <p>
+                        {{--<p>
                             @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $image)
                             <div class="col-lg-3 col-md-3 p-0 company-photo">
                                 <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
                             </div>
                             @endforeach
-                        </p>
+                        </p>--}}
+                        <div class="container-fluid p-0">
+                            <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $image)
+                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                        <img class="w-100 img-fluid" src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $jobpost->Employer->name }}">
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
                         @endif
+
                     </div>
                     
                 </div>
