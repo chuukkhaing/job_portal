@@ -5,7 +5,7 @@
 @if($employer->background)
 <div class="container-fluid p-0">
     <div class="company-detail-banner">
-        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" style="width: 100%; min-height: 510px" alt="{{ $employer->name }}">
+        <img src="{{ asset('storage/employer_background/'. $employer->background) }}" style="width: 100%; max-height: 510px" alt="{{ $employer->name }}">
     </div>
 </div>
 @endif

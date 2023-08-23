@@ -4,9 +4,9 @@
 <div class="container-fluid p-0">
     <div class="company-detail-banner">
         @if($jobpost->Employer->background)
-        <img src="{{ asset('storage/employer_background/'. $jobpost->Employer->background) }}" style="width: 100%; min-height: 510px" alt="{{ $jobpost->Employer->name }}">
+        <img src="{{ asset('storage/employer_background/'. $jobpost->Employer->background) }}" style="width: 100%; max-height: 510px" alt="{{ $jobpost->Employer->name }}">
         @else
-        <img src="{{ asset('/frontend/img/company/company-banner-image.png') }}" style="width: 100%; min-height: 510px" alt="{{ $jobpost->Employer->name }}">
+        <img src="{{ asset('/frontend/img/company/company-banner-image.png') }}" style="width: 100%; max-height: 510px" alt="{{ $jobpost->Employer->name }}">
         @endif
     </div>
 </div>
