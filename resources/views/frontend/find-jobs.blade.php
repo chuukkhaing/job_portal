@@ -55,7 +55,7 @@
 </form>
 <!-- Search End -->
 <div class="container my-3">
-    <div class="row col-8">
+    <div class="row col-10">
         <div class="col-3">
             <div class="form-group">
                 <select name="industry" id="industry" class="form-input find-jobs-input w-100">
