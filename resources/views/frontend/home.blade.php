@@ -46,7 +46,7 @@
                     <div class="col-lg-4 col-md-3 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
-                            <select class="form-control" id="function-area" multiple="multiple" name="function_area[]" size="10">
+                            <select class="form-control d-none" id="function-area" multiple="multiple" name="function_area[]" size="10">
                                 @foreach($main_functional_areas as $main_functional_area)
                                 <optgroup label="{{ $main_functional_area->name }}">
                                     @foreach($sub_functional_areas as $sub_functional_area)
@@ -65,7 +65,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
-                                <option value="" disabled selected>Location</option>
+                                <option value="" selected>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -184,7 +184,7 @@
                                 <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
                             </div>
 
-                            <div class="fz13">
+                            <div class="">
                                 <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $trending_job->MainFunctionalArea->name }}</span>
                                 @if($trending_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $trending_job->Township->name }}</span> @endif
                             </div>

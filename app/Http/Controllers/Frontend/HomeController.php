@@ -107,13 +107,13 @@ class HomeController extends Controller
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
         $jobPosts              = JobPost::where('is_active', 1)->where('status','Online');
         
-        if ($request->has('function_area')) {
+        if ($request->function_area) {
             $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area);
         }
-        if ($request->has('location')) {
+        if ($request->location) {
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
-        if ($request->has('job_title')) {
+        if ($request->job_title) {
             $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
                                 ->orWhereHas('State', function ($query1) use ($request) {
                                     $query1->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
@@ -125,8 +125,8 @@ class HomeController extends Controller
         $jobPostsCount = $jobPosts->count();
         $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
         
-        $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(5);
-        $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(5);
+        $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
+        $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
         return view('frontend.find-jobs', compact('industries', 'jobPostName', 'jobPostsCount', 'packages','trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
     }

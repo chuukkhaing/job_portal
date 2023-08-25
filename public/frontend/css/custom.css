@@ -141,7 +141,7 @@ select.form-control.search-slt.location {
 #trending-job-sub-title {
     font-family: 'SourceSansPro-Regular';
     font-weight: 400;
-    font-size: 13px;
+    /* font-size: 13px; */
     color: #0355d0;
 }
 

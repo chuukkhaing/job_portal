@@ -22,7 +22,7 @@
 
     $(".select_2").select2({
         placeholder: "Choose...",
-        allowClear: true
+        allowClear: true,
     });
 
     $("#industry_id").select2({

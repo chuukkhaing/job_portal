@@ -222,7 +222,7 @@ body {
 #job-category-name-position {
     font-family: 'Source Sans Pro';
     font-weight: 400;
-    font-size: 13px;
+    /* font-size: 13px; */
     line-height: 16px;
     color: #46454E;
 }
