@@ -281,6 +281,12 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $('#function-area').multiselect({
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
@@ -289,6 +295,16 @@
             nonSelectedText: "Select function area",
             numberDisplayed: 1
         });
+
+        $("#industry").change(function() {
+            var industryId = $(this).val();
+            window.location.href = window.origin+'/industry-job/'+industryId;
+        });
+
+        $("#job_type").change(function() {
+            var jobType = $(this).val();
+            alert(jobType)
+        })
 
         const suggestionList = @json($jobPostName);
         const inputField = document.querySelector(".job-title");
@@ -322,12 +338,6 @@
                 autocompleteBox.classList.remove('shown');
             }
         })
-    });
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
     });
 
     function saveJob(id) {
