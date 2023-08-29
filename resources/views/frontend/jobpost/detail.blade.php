@@ -122,7 +122,7 @@
         <div class="container-fluid px-0">
             <div class="row col-12 m-0 px-0 mt-3">
                 <!-- Job Post Detail Start-->
-                <div class="col-lg-8 col-12 px-0">
+                <div class="col-lg-8 col-12 px-0 border-right-profile">
                     @if($jobpost->job_description)
                     <div class="row col-12 m-0 px-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Description</h5>
@@ -231,7 +231,7 @@
 
                 <!-- Similar Jobs Start-->
                 @if($similar_jobs->count() > 0)
-                <div class="row col-lg-4 col-md-4 col-4 mt-4">
+                <div class="row col-lg-4 col-md-4 col-4 mt-4 ps-4">
                     <div class="right-trending-title">
                         <h5 class="text-white py-2">More Similar Jobs</h5>
                     </div>
