@@ -30,7 +30,7 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="get" class="form-height-0" autocomplete="off">
+<form action="{{ route('search-job') }}" method="get" class="form-height-0 d-sm-none d-md-none d-none d-lg-block" autocomplete="off">
     @csrf
     <section class="search-sec">
         <div class="container-fluid">
@@ -95,7 +95,7 @@
             @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <a href="{{ route('industry-job',$industry->Industry->id) }}">
-                    <div id="job-category-box" class="text-center px-3 h-100">
+                    <div id="job-category-box" class="text-center px-3 h-100 shadow">
                         <div id="job-category-icon">
                             <i class="{{ $industry->Industry->icon }}"></i>
                         </div>
@@ -125,7 +125,7 @@
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
-            <div class="col-md-2 col-4 text-center h-100">
+            <div class="col-md-2 col-4 text-center h-100 align-self-center">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
                     <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
@@ -146,7 +146,7 @@
 
 <!-- Trending Jobs Start  -->
 @if($trending_jobs->count() > 0)
-<div class="container pb-4 my-2" id="edit-profile-body">
+<div class="container pb-4 my-2 shadow" id="edit-profile-body">
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
@@ -302,9 +302,9 @@
             <h3 id="additional-service-title">Additional Services</h3>
         </div>
         <div id="body-additional-service" class="row">
-            <div class="col-lg-4 col-md-4 p-2">
-                <div id="additional-service-box" class="text-center">
-                    <div id="additional-service-icon">
+            <div class="col-lg-4 col-md-4 px-2 py-0">
+                <div id="additional-service-box" class="text-center p-0">
+                    <div id="additional-service-icon" class="p-0">
                         <i class="fa-solid fa-puzzle-piece"></i>
                     </div>
 
@@ -318,9 +318,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 p-2">
-                <div id="additional-service-box" class="text-center">
-                    <div id="additional-service-icon">
+            <div class="col-lg-4 col-md-4 px-2 py-0">
+                <div id="additional-service-box" class="text-center p-0">
+                    <div id="additional-service-icon" class="p-0">
                         <i class='fa fa-lock'></i>
                     </div>
 
@@ -334,9 +334,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 p-2">
-                <div id="additional-service-box" class="text-center">
-                    <div id="additional-service-icon">
+            <div class="col-lg-4 col-md-4 px-2 py-0">
+                <div id="additional-service-box" class="text-center p-0">
+                    <div id="additional-service-icon" class="p-0">
                         <i class="fa-solid fa-message"></i>
                     </div>
 
