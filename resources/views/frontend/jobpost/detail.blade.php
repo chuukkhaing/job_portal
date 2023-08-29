@@ -13,7 +13,7 @@
 <!-- Banner End -->
 
 <!-- Job Post Profile Start -->
-<div class="p-5">
+<div class="">
     <div class="container" id="">
         <div class="row pt-3 px-3" >
             <div class="col-lg-8 col-md-8 col-8">
