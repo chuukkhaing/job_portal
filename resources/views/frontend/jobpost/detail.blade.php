@@ -14,7 +14,7 @@
 
 <!-- Job Post Profile Start -->
 <div class="p-5">
-    <div class="container" id="job-post-detail-box">
+    <div class="container" id="">
         <div class="row pt-3 px-3" >
             <div class="col-lg-6 col-md-6 col-6">
                 @if($jobpost->Employer->logo)
@@ -22,7 +22,7 @@
                 @else
                 <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
                 @endif
-                <div class="company-name pt-4 pb-2">
+                <div class="company-name pt-3 pb-2">
                     <h3>{{ $jobpost->job_title }}</h3>
                     <span><a href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }}</a></span>
                     <h3>{{ $jobpost->gender }} @if($jobpost->no_of_candidate) ( {{ $jobpost->no_of_candidate }} - Posts ) @endif</h3>
@@ -63,13 +63,13 @@
                 </div>
             </div>
 
-            <div class="row pt-3 px-3">
+            <div class="row pt-3">
                 <div class="col-12">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 px-0 pb-2">
                         <span>@if($jobpost->country == 'Myanmar') {{ $jobpost->State->name ?? '' }}, @if($jobpost->township_id) {{ $jobpost->Township->name }}, @endif {{ $jobpost->country }} @endif</span>
                         <h3>@if($jobpost->hide_salary == 1) Negotiate @else {{ $jobpost->salary_range }} {{ $jobpost->currency }} @endif - {{ $jobpost->job_type }}</h3>
                         @if($jobpost->JobPostSkill->count() > 0)
-                        <div class="col-12 pt-3">
+                        <div class="col-12 pt-3 px-0">
                             <h6 class="fw-bold">Skill</h6>
                             @foreach($jobpost->JobPostSkill as $jobpostSkill)
                             <span class="badge text-light bg-success">{{ $jobpostSkill->Skill->name }}</span>
@@ -80,37 +80,37 @@
                 </div>
             </div>
 
-            <div class="row pt-3 px-3">
+            <div class="row pt-3">
                 <div class="col-lg-2 col-md-3 col-6">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 pb-2">
                         <h3>Career Level</h3>
                         <span>{{ $jobpost->career_level }}</span>
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-3 col-6">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 pb-2">
                         <h3>Years of Experience</h3>
                         <span>{{ $jobpost->experience_level }}</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-6">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 pb-2">
                         <h3>Job Specializations</h3>
                         <span>{{ $jobpost->MainFunctionalArea->name }} , {{ $jobpost->SubFunctionalArea->name }}</span>
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-3 col-6">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 pb-2">
                         <h3>Qualification</h3>
                         <span>{{ $jobpost->degree }}</span>
                     </div>
                 </div>
 
                 <div class="col-lg-3 col-md-3 col-6">
-                    <div class="company-name pt-4 pb-2">
+                    <div class="company-name pt-3 pb-2">
                         <h3>Job Type</h3>
                         <span>{{ $jobpost->job_type }}</span>
                     </div>
@@ -119,37 +119,44 @@
         </div>
         <!-- Job Post Profile End -->
 
-        <div class="container">
-            <div class="row col-12 m-0 p-0 mt-5">
+        <div class="container-fluid px-0">
+            <div class="row col-12 m-0 px-0 mt-3">
                 <!-- Job Post Detail Start-->
-                <div class="col-lg-7 col-12">
-                    <div class="row col-12 m-0 p-0 py-3">
+                <div class="col-lg-7 col-12 px-0">
+                    @if($jobpost->job_description)
+                    <div class="row col-12 m-0 px-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Description</h5>
                         <p>
                             {!! $jobpost->job_description ?? '-' !!}
                         </p>
                     </div>
-
-                    <div class="row col-12 m-0 p-0 py-3">
+                    @endif 
+                    @if($jobpost->job_requirement)
+                    <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Requirements</h5>          
                         <p>
                             {!! $jobpost->job_requirement ?? '-' !!}
                         </p>
                     </div>
-
-                    <div class="row col-12 m-0 p-0 py-3">
+                    @endif
+                    @if($jobpost->benefit)
+                    <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Benefits</h5>          
                         <p>
                             {{ $jobpost->benefit ?? '-' }}
                         </p>
                     </div>
-                    <div class="row col-12 m-0 p-0 py-3">
+                    @endif 
+                    @if($jobpost->job_highlight)
+                    <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Highlight</h5>          
                         <p>
                             {{ $jobpost->job_highlight ?? '-' }}
                         </p>
                     </div>
-                    <div class="row col-12 m-0 p-0 py-3">
+                    @endif
+                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia)
+                    <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Company Overview</h5> 
                         <div>
                             <ul>
@@ -165,7 +172,7 @@
                             </ul>
                         </div>
                         @if($jobpost->summary)
-                        <div class="row col-12 m-0 p-0 py-3">
+                        <div class="row col-12 m-0 p-0 py-1">
                             <p>
                                 {{ $jobpost->Employer->summary ?? '-' }}
                             </p>
@@ -179,7 +186,7 @@
                             </div>
                             @endforeach
                         </p>--}}
-                        <div class="container-fluid py-5">
+                        <div class="container-fluid py-1">
                             <div class="row">
                                 <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
                                 <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
@@ -218,7 +225,7 @@
                         @endif
 
                     </div>
-                    
+                    @endif
                 </div>
                 <!-- Job Post Detail End-->
 

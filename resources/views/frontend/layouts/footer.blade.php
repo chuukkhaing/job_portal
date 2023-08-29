@@ -1,19 +1,19 @@
 <!-- Footer Start -->
-<div class="container-fluid py-5 mt-5 wow fadeInUp border-top" data-wow-delay="0.3s">
+<div class="container-fluid py-3 mt-1 wow fadeInUp border-top" data-wow-delay="0.3s">
     <div class="container">
-        <div class="row py-4">
+        <div class="row py-3">
             <div class="col-lg-4 col-md-6">
                 <div class="row px-2">
-                    <div class="pb-4 mt-1">
+                    <div class="pb-3 mt-1">
                         <img src="{{ asset('img/logo/ic-logo.png') }}" class="w-75 p-0" alt="{{ config('app.name', 'Laravel') }}">
                     </div>
-                    <div class="py-4">
+                    <div class="py-3">
                         <p class="text-dark">
                             <span><strong>Call us </strong></span>
                             <span><a class="footer-phone ps-3" href="tel:+959784569632"><strong> 09 784569632</strong></a></span>
                         </p>
                     </div>
-                    <div class="py-4">
+                    <div class="py-3">
                         <p class="footer-address">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </p>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row p-2 px-3">
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-4"><strong>About Us</strong></h6>
+                        <h6 class="my-3"><strong>About Us</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links py-2" href="{{ route('contact-us') }}">Contact Us</a>
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-4"><strong>For Jobseekers</strong></h6>
+                        <h6 class="my-3"><strong>For Jobseekers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links py-2" href="{{ route('register-form') }}">Registration</a>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-4"><strong>For Employers</strong></h6>
+                        <h6 class="my-3"><strong>For Employers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links py-2" href="{{ route('employer-job-post.create') }}">Post a Job</a>
@@ -50,7 +50,7 @@
                     </div>
                     
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-4"><strong>Follow Us</strong></h6>
+                        <h6 class="my-3"><strong>Follow Us</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
                             <a class="footer-links py-2" href="https://www.linkedin.com/company/infinity-careers-myanmar-thebestrecruitmentagency/">Linkedin</a>
@@ -64,7 +64,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid text-light py-4 footer-copyright">
+<div class="container-fluid text-light py-3 footer-copyright">
     <div class="container">
         <div class="row g-0 text-center">
             <p class="mb-md-0 fw-bold">Copyright &copy; {{ date("Y") }} Infinity Careers. All Rights Reserved. Design by: <a class="copyright-link" href="{{ url('/') }}">IGS</a></p>
