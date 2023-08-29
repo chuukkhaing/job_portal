@@ -16,7 +16,7 @@
 <div class="p-5">
     <div class="container" id="">
         <div class="row pt-3 px-3" >
-            <div class="col-lg-7 col-md-7 col-7">
+            <div class="col-lg-8 col-md-8 col-8">
                 @if($jobpost->Employer->logo)
                 <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
                 @else
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-5 col-md-5 col-5 align-self-end">
+            <div class="col-lg-4 col-md-4 col-4 align-self-end">
                 <div class=" pb-2">
                     @php
                         $disabled = '';
@@ -122,7 +122,7 @@
         <div class="container-fluid px-0">
             <div class="row col-12 m-0 px-0 mt-3">
                 <!-- Job Post Detail Start-->
-                <div class="col-lg-7 col-12 px-0">
+                <div class="col-lg-8 col-12 px-0">
                     @if($jobpost->job_description)
                     <div class="row col-12 m-0 px-0 py-1">
                         <h5 class="fw-bolder fs-6">Job Description</h5>
@@ -155,7 +155,7 @@
                         </p>
                     </div>
                     @endif
-                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia->where('type','Image'))
+                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)
                     <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Company Overview</h5> 
                         <div>
@@ -231,12 +231,12 @@
 
                 <!-- Similar Jobs Start-->
                 @if($similar_jobs->count() > 0)
-                <div class="row col-lg-5 col-md-5 col-5">
+                <div class="row col-lg-4 col-md-4 col-4 mt-4">
                     <div class="right-trending-title">
                         <h5 class="text-white py-2">More Similar Jobs</h5>
                     </div>
 
-                    <div class="job-trending-scroll p-2">
+                    <div class="job-similar-scroll p-2">
                         @foreach($similar_jobs as $similar_job)
                         <a href="{{ route('jobpost-detail', $similar_job->slug) }}">
                             <div class="col-lg-12 border-bottom p-0">

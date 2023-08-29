@@ -336,6 +336,12 @@ a.interview-btn:hover {
     overflow: auto;
 }
 
+.job-similar-scroll {
+    background: #ffffff;
+    height:580px;
+    overflow: auto;
+}
+
 .right-trending-title {
     background-color: #0355d0;
     border-top-left-radius: 8px;
