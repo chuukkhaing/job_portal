@@ -231,9 +231,9 @@
 
                 <!-- Similar Jobs Start-->
                 @if($similar_jobs->count() > 0)
-                <div class="row mb-5">
+                <div class="row col-lg-5 col-md-5 col-5">
                     <div class="right-trending-title">
-                        <h5 class="text-white py-2">Similar Jobs</h5>
+                        <h5 class="text-white py-2">More Similar Jobs</h5>
                     </div>
 
                     <div class="job-trending-scroll p-2">
