@@ -160,7 +160,7 @@ class HomeController extends Controller
 
     public function industryJob($id)
     {
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->whereId($id)->get();
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $packages              = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
