@@ -71,32 +71,38 @@
                                 <div class="py-3">
                                     <span class="employer-image-text">Company Logo</span> <span style="color: #696968">200 * 200</span>
                                 </div>
-                                
-                                @if($employer->logo)
-                                <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo" alt="employer-logo">
-                                @else
-                                <img src="https://placehold.jp/200x200.png" class="img-responsive w-100 employer-logo" alt="employer-logo">
-                                @endif
-                                <div class="py-3 text-center">
-                                    <label for="imageUpload" style="color: #696968">Tap to Change</label>
-                                    <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
-                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
+                                <label for="imageUpload" style="color: #696968">
+                                    <div>
+                                        @if($employer->logo)
+                                        <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo rounded-3" alt="employer-logo">
+                                        @else
+                                        <img src="https://placehold.jp/200x200.png" class="img-responsive w-100 employer-logo rounded-3" alt="employer-logo">
+                                        @endif
+                                        <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                    <div class="py-3 text-center">
+                                        Tap to Change
+                                        
+                                    </div>
+                                </label>
+                                <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
                             </div>
                             <div class="col-8">
                                 <div class="py-3">
                                     <span class="employer-image-text">Company Background Photo</span> <span style="color: #696968">1835 * 510</span>
                                 </div>
-                                @if($employer->background)
-                                <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background" height="200px" alt="employer-background">
-                                @else
-                                <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background" alt="employer-background" height="200px">
-                                @endif
-                                <div class="py-3 text-center">
-                                    <label for="backgroundUpload" style="color: #696968">Tap to Change</label>
-                                    <input type="file" class="employer-background-upload" name="background" id="backgroundUpload" accept="image/*" />
-                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
+                                <label for="backgroundUpload" style="color: #696968">
+                                    @if($employer->background)
+                                    <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background rounded-3" height="200px" alt="employer-background">
+                                    @else
+                                    <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background rounded-3" alt="employer-background" height="200px">
+                                    @endif
+                                    <div class="py-3 text-center">
+                                        Tap to Change
+                                        <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
+                                    </div>
+                                </label>
+                                <input type="file" class="employer-background-upload" name="background" id="backgroundUpload" accept="image/*" />
                             </div>
                             {{--<div class="col-2">
                                 <div class="py-3">

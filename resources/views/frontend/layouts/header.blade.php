@@ -12,7 +12,7 @@
                 <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('find-jobs') }}" class="nav-item nav-link {{ Request::is('find-jobs') ? 'active' : '' }} {{ Request::is('search-job') ? 'active' : '' }} {{ Request::is('industry-job*') ? 'active' : '' }} {{ Request::is('job-post*') ? 'active' : '' }}">Find Jobs</a>
                 <a href="{{ route('job-categories') }}" class="nav-item nav-link {{ Request::is('job-categories') ? 'active' : '' }}">Job Category</a>
-                <a href="{{ route('companies') }}" class="nav-item nav-link {{ Request::is('company*') ? 'active' : '' }}">Employers</a>
+                <a href="{{ route('companies') }}" class="nav-item nav-link {{ Request::is('company*') ? 'active' : '' }} {{ Request::is('find-company*') ? 'active' : '' }}">Employers</a>
                 <a href="{{ route('contact-us') }}" class="nav-item nav-link {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
                 @auth('seeker')
