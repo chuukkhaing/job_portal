@@ -37,12 +37,12 @@ Start exploring now and uncover the companies that could be the perfect match fo
         @foreach($employers as $employer)
         <div class="col-lg-3 col-md-4 col-12 pb-3">
             <a href="{{ route('company-detail',$employer->slug ?? '') }}">
-                <div class="company-content p-4 h-100">
+                <div class="company-content p-4 h-100 shadow">
                     <div class="company-image text-center">
                         @if($employer->logo)
-                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
+                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="width: 65px; height: 65px; border-radius: 8px" class="img-fluid" alt="{{ $employer->name }}">
                         @else
-                        <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid p-2" alt="{{ $employer->name }}">
+                        <img src="{{ asset('img/employer/Vertical Logo.svg') }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid" alt="{{ $employer->name }}">
                         @endif
                     </div>
         
