@@ -193,7 +193,7 @@
             <!-- Trending Jobs Start -->
             @if($trending_jobs->count() > 0)
             <div class="row mb-5">
-                <div class="right-trending-title">
+                <div class="right-trending-title text-center">
                     <h5 class="text-white py-2">Trending Jobs</h5>
                 </div>
 
@@ -234,7 +234,7 @@
             <!-- Featured Jobs Start -->
             @if($feature_jobs->count() > 0)
             <div class="row mb-5">
-                <div class="right-trending-title">
+                <div class="right-trending-title text-center">
                     <h5 class="text-white py-2">Featured Jobs</h5>
                 </div>
 
