@@ -171,11 +171,11 @@
             <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                 <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                     <div class="row h-100 p-2">
-                        <div class="col-3 text-center">
+                        <div class="col-3 text-center h-100 align-self-center">
                             @if($trending_job->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
+                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 rounded-circle">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="seeker-profile rounded-circle">
+                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="w-75 rounded-circle">
                             @endif
                         </div>
                         <div class="col-9 p-0">
