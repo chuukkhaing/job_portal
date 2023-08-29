@@ -16,7 +16,7 @@
 <div class="p-5">
     <div class="container" id="">
         <div class="row pt-3 px-3" >
-            <div class="col-lg-6 col-md-6 col-6">
+            <div class="col-lg-7 col-md-7 col-7">
                 @if($jobpost->Employer->logo)
                 <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
                 @else
@@ -29,8 +29,8 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-6 align-self-end">
-                <div class="float-end pb-2">
+            <div class="col-lg-5 col-md-5 col-5 align-self-end">
+                <div class=" pb-2">
                     @php
                         $disabled = '';
                         $btn_text = 'Apply Job';
@@ -155,7 +155,7 @@
                         </p>
                     </div>
                     @endif
-                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia)
+                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia->where('type','Image'))
                     <div class="row col-12 m-0 p-0 py-1">
                         <h5 class="fw-bolder fs-6">Company Overview</h5> 
                         <div>
@@ -231,54 +231,40 @@
 
                 <!-- Similar Jobs Start-->
                 @if($similar_jobs->count() > 0)
-                <div class="col-lg-5 col-12">
-                    <div class="px-3 m-0 pb-0 pt-3">
-                        <h5 class="text-blue fw-bolder">More Similar Jobs</h5>
+                <div class="row mb-5">
+                    <div class="right-trending-title">
+                        <h5 class="text-white py-2">Similar Jobs</h5>
                     </div>
-                    
-                    <div class="row m-0 pb-0">
+
+                    <div class="job-trending-scroll p-2">
                         @foreach($similar_jobs as $similar_job)
-                        <div class="col-12">
-                            <div class="m-0 pb-0 border-bottom">
-                                <div class="row p-0 m-0">
-                                    <div class="col-lg-10 col-md-10 py-4 px-1">
-                                        <div class="row m-0">
-                                            <a href="{{ route('jobpost-detail', $similar_job->slug) }}">
-                                                <div class="col-lg-2 col-12 job-image p-0 px-1">
-                                                    @if($similar_job->Employer->logo)
-                                                    <img src="{{ asset('storage/employer_logo/'.$similar_job->Employer->logo) }}" alt="{{ $similar_job->Employer->name }}" class="seeker-profile rounded-circle" alt="{{ $similar_job->Employer->name }}">
-                                                    @else 
-                                                    <img src="{{ asset('img/profile.svg') }}" alt="{{ $similar_job->Employer->name }}" class="seeker-profile rounded-circle" alt="{{ $similar_job->Employer->name }}">
-                                                    @endif
-                                                </div>
-                    
-                                                <div class="col-lg-10 col-12">
-                                                    <div class="job-company">{{ $similar_job->Employer->name }}</div>
-                                                    <div class="job-title">{{ $similar_job->job_title }}</div>
-                                                    <div class="job-location">@if($similar_job->country == 'Myanmar' && $similar_job->township_id) {{ $similar_job->Township->name }} @endif</div>
-                                                    <div class="job-salary my-3">@if($similar_job->hide_salary == 1) Negotiate @else {{ $similar_job->salary_range }} {{ $similar_job->currency }} @endif</div>
-                                                </div>
-                                            </a>
+                        <a href="{{ route('jobpost-detail', $similar_job->slug) }}">
+                            <div class="col-lg-12 border-bottom p-0">
+                                <div class="m-0 my-2 p-2 trending-job-list rounded">
+                                    <div class="row m-0 p-2">
+                                        <div class="col-lg-3 col-12 text-center">
+                                            @if($similar_job->Employer->logo)
+                                            <img src="{{ asset('storage/employer_logo/'.$similar_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                            @else 
+                                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 55px" id="ProfilePreview">
+                                            @endif
                                         </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4 px-1">
-                                        <div class="row col-12 m-0 p-0">
-                                            @auth('seeker')
-                                            <div class="text-end px-0" style="cursor: pointer">
-                                                <i id="savejob-{{ $similar_job->id }}" onclick="saveJob({{ $similar_job->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $similar_job->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                        <div class="col-lg-9 col-12 p-0">
+                                            <div>
+                                                <h3 id="trending-job-title">{{ $similar_job->job_title }}</h3>
+                                                <span id="trending-job-sub-title">{{ $similar_job->Employer->name }}</span>
                                             </div>
-                                            @endauth
-                                            <div class="text-end mt-auto  px-0">
-                                                <span>{{ $similar_job->updated_at->diffForHumans() }}</span>
+
+                                            <div class="fz13">
+                                                <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $similar_job->MainFunctionalArea->name }}</span>
+                                                @if($similar_job->country == 'Myanmar' && $similar_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $similar_job->Township->name }}</span> @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         @endforeach
-                        @else 
                     </div>
                 </div>
                 @endif
