@@ -52,52 +52,53 @@
             </div>
         </div>
     </section>
-</form>
-<!-- Search End -->
-<div class="container my-3">
-    <div class="row col-10">
-        <div class="col-3">
-            <div class="form-group">
-                <select name="industry" id="industry" class="form-input find-jobs-input w-100">
-                    <option value="">Job Industry</option>
-                    @foreach($industries as $industry)
-                    <option value="{{ $industry->id }}">{{ $industry->name }}</option>
-                    @endforeach
-                </select>
+
+    <!-- Search End -->
+    <div class="container my-3">
+        <div class="row col-10">
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="industry" id="industry" class="form-input find-jobs-input w-100">
+                        <option value="">Job Industry</option>
+                        @foreach($industries as $industry)
+                        <option value="{{ $industry->id }}" @if(isset($_GET['industry']) && $_GET['industry'] == $industry->id) selected @endif>{{ $industry->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group">
-                <select name="job_type" id="job_type" class="form-input find-jobs-input w-100">
-                    <option value="">All Job Type</option>
-                    @foreach(config('jobtype') as $jobtype)
-                    <option value="{{ $jobtype }}">{{ $jobtype }}</option>
-                    @endforeach
-                </select>
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="job_type" id="job_type" class="form-input find-jobs-input w-100">
+                        <option value="">All Job Type</option>
+                        @foreach(config('jobtype') as $jobtype)
+                        <option value="{{ $jobtype }}" @if(isset($_GET['job_type']) && $_GET['job_type'] == $jobtype) selected @endif>{{ $jobtype }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group">
-                <select name="career_level" id="career_level" class="form-input find-jobs-input w-100">
-                    <option value="">Career Level</option>
-                    @foreach(config('careerlevel') as $careerlevel)
-                    <option value="{{ $careerlevel }}">{{ $careerlevel }}</option>
-                    @endforeach
-                </select>
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="career_level" id="career_level" class="form-input find-jobs-input w-100">
+                        <option value="">Career Level</option>
+                        @foreach(config('careerlevel') as $careerlevel)
+                        <option value="{{ $careerlevel }}" @if(isset($_GET['career_level']) && $_GET['career_level'] == $careerlevel) selected @endif>{{ $careerlevel }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group">
-                <select name="qualification" id="qualification" class="form-input find-jobs-input w-100">
-                    <option value="">Qualification</option>
-                    @foreach(config('seekerdegree') as $degree)
-                    <option value="{{ $degree }}">{{ $degree }}</option>
-                    @endforeach
-                </select>
+            <div class="col-3">
+                <div class="form-group">
+                    <select name="qualification" id="qualification" class="form-input find-jobs-input w-100">
+                        <option value="">Qualification</option>
+                        @foreach(config('seekerdegree') as $degree)
+                        <option value="{{ $degree }}" @if(isset($_GET['qualification']) && $_GET['qualification'] == $degree) selected @endif>{{ $degree }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 <div class="container my-3">
     <div class="row my-3">
         <div class="find-jobs-header py-3">
@@ -297,14 +298,24 @@
         });
 
         $("#industry").change(function() {
-            var industryId = $(this).val();
-            window.location.href = window.origin+'/industry-job/'+industryId;
+            event.preventDefault();
+            $(".search-job-btn").click();
         });
 
         $("#job_type").change(function() {
-            var jobType = $(this).val();
-            alert(jobType)
-        })
+            event.preventDefault();
+            $(".search-job-btn").click();
+        });
+
+        $("#career_level").change(function() {
+            event.preventDefault();
+            $(".search-job-btn").click();
+        });
+        
+        $("#qualification").change(function() {
+            event.preventDefault();
+            $(".search-job-btn").click();
+        });
 
         const suggestionList = @json($jobPostName);
         const inputField = document.querySelector(".job-title");

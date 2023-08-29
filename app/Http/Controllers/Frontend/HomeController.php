@@ -100,7 +100,6 @@ class HomeController extends Controller
 
     public function searchJob(Request $request)
     {
-        
         $packages = Package::whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
@@ -121,6 +120,18 @@ class HomeController extends Controller
                                 ->orWhereHas('Employer', function ($query) use ($request) {
                                     $query->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
                                 });
+        }
+        if ($request->industry) {
+            $jobPosts = $jobPosts->where('industry_id', $request->industry);
+        }
+        if ($request->job_type) {
+            $jobPosts = $jobPosts->where('job_type', $request->job_type);
+        }
+        if ($request->career_level) {
+            $jobPosts = $jobPosts->where('career_level', $request->career_level);
+        }
+        if ($request->qualification) {
+            $jobPosts = $jobPosts->where('degree', $request->qualification);
         }
         $jobPostsCount = $jobPosts->count();
         $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
