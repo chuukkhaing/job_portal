@@ -167,15 +167,15 @@
 
     <div class="row pt-4 pb-4 trending-scroll">
         @foreach($trending_jobs as $trending_job)
-        <div class="col-lg-4 col-sm-6 col-12">
+        <div class="col-lg-4 col-sm-6 col-12 align-self-center">
             <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                 <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                     <div class="row h-100 p-2">
                         <div class="col-3 text-center h-100 align-self-center">
                             @if($trending_job->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 rounded-circle">
+                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="w-75 rounded-circle">
+                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
                             @endif
                         </div>
                         <div class="col-9 p-0">
