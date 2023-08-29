@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div class="row pt-3">
+            <div class="row">
                 <div class="col-12">
                     <div class="company-name pt-3 px-0 pb-2">
                         <span>@if($jobpost->country == 'Myanmar') {{ $jobpost->State->name ?? '' }}, @if($jobpost->township_id) {{ $jobpost->Township->name }}, @endif {{ $jobpost->country }} @endif</span>

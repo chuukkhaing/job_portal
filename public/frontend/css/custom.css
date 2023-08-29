@@ -331,13 +331,13 @@ a.interview-btn:hover {
 }
 
 .job-trending-scroll {
-    background: #ffffff;
+    background: #e3e3e3;
     height:980px;
     overflow: auto;
 }
 
 .job-similar-scroll {
-    background: #ffffff;
+    background: #e3e3e3;
     height:580px;
     overflow: auto;
 }
