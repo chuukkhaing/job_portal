@@ -198,7 +198,7 @@
                     <h5 class="text-white py-2">Trending Jobs</h5>
                 </div>
 
-                <div class="job-trending-scroll p-2">
+                <div class="job-trending-scroll shadow rounded p-2">
                     @foreach($trending_jobs as $trending_job)
                     <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">
@@ -239,7 +239,7 @@
                     <h5 class="text-white py-2">Featured Jobs</h5>
                 </div>
 
-                <div class="job-trending-scroll p-2">
+                <div class="job-trending-scroll shadow rounded p-2">
                     @foreach($feature_jobs as $feature_job)
                     <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">

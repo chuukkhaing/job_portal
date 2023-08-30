@@ -236,7 +236,7 @@
                         <h5 class="text-white py-2">More Similar Jobs</h5>
                     </div>
 
-                    <div class="job-similar-scroll p-2">
+                    <div class="job-similar-scroll shadow rounded p-2">
                         @foreach($similar_jobs as $similar_job)
                         <a href="{{ route('jobpost-detail', $similar_job->slug) }}">
                             <div class="col-lg-12 border-bottom p-0">

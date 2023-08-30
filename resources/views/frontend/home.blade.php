@@ -287,7 +287,7 @@
 
             <h3 class="job-interview-title pt-4">Are You Looking For Job!</h3>
 
-            <p class="job-interview-content pt-3 pb-5">Looking for a job can be a daunting task, but with a little focus and effort, you can increase your chances of success. Define your job search goals, tailor your resume and cover letter, network with others in your industry, use job search engines to find opportunities, and prepare for interviews. With these tips, you can streamline your search and find the job that's right for you.</p>
+            <p class="job-interview-content pt-3 pb-5">"Unlock Your Dream Job with Us! Discovering your ideal job might seem like a puzzle, but we've got the pieces to help you succeed. Define your job aspirations, refine your resume and cover letter, tap into industry networks, explore job listings with our search tools, and get ready to shine in interviews. We're here to make your job search smoother and lead you to the perfect opportunity."</p>
             
             <a href="#" class="interview-btn">Get Started Today </a>
         </div>
@@ -301,19 +301,19 @@
         <div id="header-additional-service" class="text-center pt-5 pb-3">
             <h3 id="additional-service-title">Additional Services</h3>
         </div>
-        <div id="body-additional-service" class="row">
+        <div id="body-additional-service" class="row mb-5">
             <div class="col-lg-4 col-md-4 px-2 py-0">
                 <div id="additional-service-box" class="text-center p-0">
                     <div id="additional-service-icon" class="p-0">
-                        <i class="fa-solid fa-puzzle-piece"></i>
+                        <i class="fa-solid fa-people-line"></i>
                     </div>
 
                     <div id="additional-service-name">
-                        <h4>{{ 'Solve Problems Real Time' }}</h4>
+                        <h4>{{ 'Executive Search End-to-End Service' }}</h4>
                     </div>
 
                     <div id="additional-service-content">
-                        <p class="px-5">Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                        <p class="px-5">Our main goal is to consistently improve the way we provide services, making sure we offer exceptional service to our valued clients</p>
                     </div>
                 </div>
             </div>
@@ -321,15 +321,15 @@
             <div class="col-lg-4 col-md-4 px-2 py-0">
                 <div id="additional-service-box" class="text-center p-0">
                     <div id="additional-service-icon" class="p-0">
-                        <i class='fa fa-lock'></i>
+                        <i class="fa-solid fa-people-roof"></i>
                     </div>
 
                     <div id="additional-service-name">
-                        <h4>{{ 'Secured & Safe Payments' }}</h4>
+                        <h4>{{ 'HRMS' }}</h4>
                     </div>
 
                     <div id="additional-service-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                        <p>A human resources management system is a form of human resources software that combines a number of systems and processes to ensure the easy management of human resources, business processes and data.</p>
                     </div>
                 </div>
             </div>
@@ -337,15 +337,15 @@
             <div class="col-lg-4 col-md-4 px-2 py-0">
                 <div id="additional-service-box" class="text-center p-0">
                     <div id="additional-service-icon" class="p-0">
-                        <i class="fa-solid fa-message"></i>
+                        <i class="fa-solid fa-users-gear"></i>
                     </div>
 
                     <div id="additional-service-name">
-                        <h4>{{ '24//7 Customer Support' }}</h4>
+                        <h4>{{ 'ERP SYSTEM' }}</h4>
                     </div>
 
                     <div id="additional-service-content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipis elit. Sit enim nec, proin faucibus nibh et sagittis a. Lacinia purus ac amet.</p>
+                        <p>Enterprise resource planning (ERP) is the integrated management of core business processes, often in real-time and mediated by software and technology.</p>
                     </div>
                 </div>
             </div>
@@ -489,7 +489,7 @@
                 },
 
                 1366: {
-                items: 5
+                items: 4
                 }
             }
         });
