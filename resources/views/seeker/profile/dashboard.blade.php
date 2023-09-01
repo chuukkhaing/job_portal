@@ -27,9 +27,9 @@
         <li class="nav-item" role="presentation">
             <a href="#job-alert" class="seeker-single-tab" id="job-alert-tab" data-bs-toggle="tab" data-bs-target="#job-alert" role="tab" aria-controls="job-alert" aria-selected="false">Job Alerts</a>
         </li>
-        <li class="nav-item" role="presentation">
+        {{--<li class="nav-item" role="presentation">
             <a href="#who-view" class="seeker-single-tab" id="who-view-tab" data-bs-toggle="tab" data-bs-target="#who-view" role="tab" aria-controls="who-view" aria-selected="false">Who Viewed</a>
-        </li>
+        </li>--}}
         <li class="nav-item" role="presentation">
             <a href="#manage-resume" class="seeker-single-tab" id="manage-resume-tab" data-bs-toggle="tab" data-bs-target="#manage-resume" role="tab" aria-controls="manage-resume" aria-selected="false">Manage Resume</a>
         </li>
@@ -44,7 +44,7 @@
         <div class="tab-pane fade p-0" id="job-application" role="tabpanel" aria-labelledby="job-application-tab">@include('seeker.profile.job-application')</div>
         <div class="tab-pane fade p-0" id="fav-job" role="tabpanel" aria-labelledby="fav-job-tab">@include('seeker.profile.favourite-job')</div>
         <div class="tab-pane fade p-0" id="job-alert" role="tabpanel" aria-labelledby="job-alert-tab">@include('seeker.profile.job-alert')</div>
-        <div class="tab-pane fade p-0" id="who-view" role="tabpanel" aria-labelledby="who-view-tab">@include('seeker.profile.who-viewed')</div>
+        {{--<div class="tab-pane fade p-0" id="who-view" role="tabpanel" aria-labelledby="who-view-tab">@include('seeker.profile.who-viewed')</div>--}}
         <div class="tab-pane fade p-0" id="manage-resume" role="tabpanel" aria-labelledby="manage-resume-tab">@include('seeker.profile.manage-resume')</div>
         {{--<div class="tab-pane fade p-0" id="my-following" role="tabpanel" aria-labelledby="my-following-tab">My Following</div>--}}
     </div>
