@@ -107,8 +107,8 @@
                 </a>
             </div>
             @endforeach
-            <div class="text-center py-3">
-                <a href="{{ route('job-categories') }}" class="btn btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
+            <div class="text-end py-3">
+                <a href="{{ route('job-categories') }}" class="btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>

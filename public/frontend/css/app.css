@@ -239,15 +239,17 @@ body {
 }
 
 .btn-browse-category {
-    background: #0355D0;
-    color: #FFFFFF;
-    border-radius: 8px;
-    padding: 8px 16px;
+    /* background: #0355D0; */
+    color: #0355D0;
+    font-weight: bold;
+    /* border-radius: 8px;
+    padding: 8px 16px; */
 }
 
 .btn-browse-category:hover {
-    background: #02409C;
-    color: #FFFFFF;
+    /* background: #02409C; */
+    color: #02409C;
+    font-weight: bold;
 }
 .footer-hr {
     background: #FB5404;

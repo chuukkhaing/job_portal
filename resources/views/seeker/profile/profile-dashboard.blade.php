@@ -228,11 +228,11 @@
 </div>
 @if($employers->count() > 0)
 <div class="container-fluid my-2 bg-white" id="edit-profile-body">
-    <div class="row m-auto py-5 justify-content-center">
-        <div class="px-5 pb-3 m-0 bg-white">
+    <div class="row m-auto py-3 justify-content-center">
+        <div class="px-3 pb-3 m-0 bg-white">
             <h5 style="color: #0355D0">Leading Employers</h5>
         </div>
-        <div class="owl-slider py-5">
+        <div class="owl-slider py-3">
             <div class="row col-12 m-0">
                 <div id="multiple-carousel" class="owl-carousel">
                     @foreach($employers as $employer)
@@ -281,11 +281,11 @@
             },
 
             1024: {
-            items: 3
+            items: 4
             },
 
             1366: {
-            items: 5
+            items: 6
             }
         }
     });
