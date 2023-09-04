@@ -672,6 +672,7 @@ class EmployerJobPostController extends Controller
         $interview = JobApply::whereStatus('interview')->whereJobPostId($jobPostId)->count();
         $hire = JobApply::whereStatus('hire')->whereJobPostId($jobPostId)->count();
         $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($jobPostId)->count();
+        $cvunlock = [];
         $count = [];
         $count = [
             'received' => $received,
@@ -693,7 +694,8 @@ class EmployerJobPostController extends Controller
             'languages' => $languages,
             'references' => $references,
             'seeker_attach' => $seeker_attach,
-            'count' => $count
+            'count' => $count,
+            'cvunlock' => $cvunlock
         ]);
     }
 

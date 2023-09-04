@@ -423,9 +423,9 @@
                     table.draw();
                     $('#applicant_tr'+value.seeker_id).attr('onClick','getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+',"'+value.status+'")');
                     $('#applicant_tr'+value.seeker_id).addClass(active);
-                    if(response.cvunlock.lenght > 0) {
+                    console.log(response.cvunlock)
+                    if(response.cvunlock.length > 0) {
                         $(response.cvunlock).each(function(cv_index, cv_value) {
-                            console.log(cv_value.job_apply_id != value.id)
                             if(value.seeker_id == response.seeker.id && cv_value.job_apply_id != value.id) {
                                 $("#cv-unlock").attr('onclick','cvUnlock('+response.jobPost.employer_id+','+response.jobPost.id+','+value.id+')');
                                 $("#dropdownMenuLink").attr('data-toggle','modal');

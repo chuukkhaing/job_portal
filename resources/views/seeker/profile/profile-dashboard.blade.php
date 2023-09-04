@@ -1,7 +1,7 @@
 <div class="container-fluid px-5 edit-profile-header-border" id="edit-profile-header">
     <div class="row">
         <div class="col-12">
-            <div class="row pb-5">
+            <div class="row pb-3">
                 <div class="col-1">
                     @if(Auth::guard('seeker')->user()->image)
                     <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
@@ -42,31 +42,31 @@
 </div>
 <div class="container-fluid my-2" id="edit-profile-body">
     <div class="col-12 row">
-        <div class="col p-5">
+        <div class="col px-5 py-3">
             <div class="border-right-profile">
             <p class="profile-count">Profile Views</p>
             <span class="profile-number">0</span>
             </div>
         </div>
-        <div class="col py-5">
+        <div class="col py-3">
             <div class="border-right-profile">
             <p class="profile-count">My CV Lists</p>
             <span class="profile-number">{{ Auth::guard('seeker')->user()->SeekerAttach->count() }}</span>
             </div>
         </div>
-        <div class="col p-5">
+        <div class="col px-5 py-3">
             <div class="border-right-profile">
             <p class="profile-count">My Following</p>
             <span class="profile-number">0</span>
             </div>
         </div>
-        {{--<div class="col py-5">
+        {{--<div class="col py-3">
             <div class="border-right-profile">
             <p class="profile-count">Message</p>
             <span class="profile-number">0</span>
             </div>
         </div>--}}
-        <div class="col py-5">
+        <div class="col py-3">
             <div class="text-center">
                 <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
             </div>

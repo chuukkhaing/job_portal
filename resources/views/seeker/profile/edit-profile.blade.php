@@ -1,7 +1,7 @@
 <form action="{{ route('profile.update', Auth::guard('seeker')->user()->id) }}" method="post" enctype="multipart/form-data">
     @csrf 
     @method('PUT')
-    <div class="container-fluid p-5 edit-profile-header-border"  id="edit-profile-header">
+    <div class="container-fluid px-5 py-3 edit-profile-header-border"  id="edit-profile-header">
         <div class="row">
             <div class="col-12 col-md-6">
                 <h5>Edit your profile information</h5>
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="container-fluid my-2" id="edit-profile-body">
-        <div class="px-5 m-0 pb-0 pt-5">
+        <div class="px-5 m-0 pb-0 pt-3">
             <h5>Account Information</h5>
             <div class="my-2 row">
                 <div class="col-12 col-md-6">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-5 m-0 pb-0 pt-5">
+        <div class="px-5 m-0 pb-0 pt-3">
             <h5>Personal Information</h5>
             <div class="row">
                 <div class="form-group mt-1 col-12 col-md-6">
@@ -189,7 +189,7 @@
                 </div>
             </div>
         </div>
-        <div class="px-5 m-0 pb-0 pt-5">
+        <div class="px-5 m-0 pb-0 pt-3">
             <h5>Career of Choice</h5>
             <div class="row">
                 

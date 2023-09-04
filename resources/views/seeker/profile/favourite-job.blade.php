@@ -1,14 +1,14 @@
-<div class="container-fluid p-5 edit-profile-header-border" id="edit-profile-header">
+<div class="container-fluid px-5 py-3 edit-profile-header-border" id="edit-profile-header">
     <div class="">
         <h5>Favourite Jobs ( {{ $saveJobs->count() }} )</h5>
     </div>
 </div>
 @if($saveJobs->count() > 0)
 <div class="my-2 pb-3" id="edit-profile-body">
-    <div class="px-5 m-0 pb-0 pt-5">
+    <div class="px-5 m-0 pb-0 pt-3">
         <h5>Your Favourite Jobs</h5>
     </div>
-    <div class="row px-5 m-0 pb-0 pt-5">
+    <div class="row px-5 m-0 pb-0 pt-3">
         @foreach($saveJobs as $saveJob)
         <div class="col-md-6 col-12">
             

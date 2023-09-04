@@ -74,7 +74,7 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0 @error('password') is-invalid @enderror" placeholder="Enter Password" type="password" name="password">
+                                            <input class="form-control border-0 @error('password') is-invalid @enderror" placeholder="Enter Password" type="password" name="password" id="password"><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerPassword()"></i>
                                         </div>
                                         @error('password')
                                             <span class="text-danger">
@@ -124,7 +124,7 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Enter Password" type="password" name="company_password">
+                                            <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Enter Password" type="password" name="company_password" id="company_password"><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
                                         </div>
                                         @error('company_password')
                                             <span class="text-danger">
@@ -162,6 +162,32 @@
     var return_current_login_tab = document.querySelector('#pills-tab li a[href="'+current_login_tab+'"]')
     var show_login_tab = new bootstrap.Tab(return_current_login_tab)
 
-    show_login_tab.show()
+    show_login_tab.show();
+
+    function showSeekerPassword() {
+        var seekerPassword = document.getElementById("password");
+        if (seekerPassword.type === "password") {
+            seekerPassword.type = "text";
+            $("#seeker-password-eye").removeClass('bi-eye-slash');
+            $("#seeker-password-eye").addClass('bi-eye');
+        } else {
+            seekerPassword.type = "password";
+            $("#seeker-password-eye").addClass('bi-eye-slash');
+            $("#seeker-password-eye").removeClass('bi-eye');
+        }
+    }
+
+    function showCompanyPassword() {
+        var companyPassword = document.getElementById("company_password");
+        if (companyPassword.type === "password") {
+            companyPassword.type = "text";
+            $("#company-password-eye").removeClass('bi-eye-slash');
+            $("#company-password-eye").addClass('bi-eye');
+        } else {
+            companyPassword.type = "password";
+            $("#company-password-eye").addClass('bi-eye-slash');
+            $("#company-password-eye").removeClass('bi-eye');
+        }
+    }
 </script>
 @endpush
