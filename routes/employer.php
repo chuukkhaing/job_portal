@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::group([], function () {
+    Route::get('login-form', [EmployerLoginController::class, 'frontendEmployerLogin'])->name('employer-login-form');
     Route::post('register', [EmployerRegisterController::class, 'register'])->name('employer-register');
 
     Route::get('email/verify/{id}', [EmployerRegisterController::class, 'notice'])->name('employer-verify-notice');

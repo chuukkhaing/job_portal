@@ -32,6 +32,11 @@ class EmployerLoginController extends Controller
         $this->middleware('guest:employer')->except('logout');
     }
 
+    public function frontendEmployerLogin()
+    {
+        return view('frontend.employer-login');
+    }
+
     public function login(Request $request)
     {
         $this->validate($request, [

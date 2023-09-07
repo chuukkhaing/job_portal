@@ -130,161 +130,203 @@
             </div>
             @endif
 
-            @if($jobpost->job_description)
             <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="company-name py-3 px-0">
-                        <h5 class="fw-bold text-dark">Job Description</h5>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col">
-                            <p>
-                                {!! $jobpost->job_description ?? '-' !!}
-                            </p>
+                <div class="col-8 mb-4">
+                    @if($jobpost->job_description)
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="company-name py-3 px-0">
+                                <h5 class="fw-bold text-dark">Job Description</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p>
+                                        {!! $jobpost->job_description ?? '-' !!}
+                                    </p>
+                                </div>
+                                
+                            </div>
                         </div>
-                        
+                        <hr class="w-100" style="height: 1px; background: #B7CEE5">
                     </div>
-                </div>
-                <hr class="w-100" style="height: 1px; background: #B7CEE5">
-            </div>
-            @endif
-
-            @if($jobpost->job_requirement)
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="company-name py-3 px-0">
-                        <h5 class="fw-bold text-dark">Job Requirements</h5>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col">
-                            <p>
-                                {!! $jobpost->job_requirement ?? '-' !!}
-                            </p>
+                    @endif
+                    @if($jobpost->job_requirement)
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="company-name py-3 px-0">
+                                <h5 class="fw-bold text-dark">Job Requirements</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p>
+                                        {!! $jobpost->job_requirement ?? '-' !!}
+                                    </p>
+                                </div>
+                                
+                            </div>
                         </div>
-                        
+                        <hr class="w-100" style="height: 1px; background: #B7CEE5">
                     </div>
-                </div>
-                <hr class="w-100" style="height: 1px; background: #B7CEE5">
-            </div>
-            @endif
+                    @endif
 
-            @if($jobpost->benefit)
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="company-name py-3 px-0">
-                        <h5 class="fw-bold text-dark">Job Benefit:</h5>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col">
-                            <p>
-                                {!! $jobpost->benefit ?? '-' !!}
-                            </p>
+                    @if($jobpost->benefit)
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="company-name py-3 px-0">
+                                <h5 class="fw-bold text-dark">Job Benefit:</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p>
+                                        {!! $jobpost->benefit ?? '-' !!}
+                                    </p>
+                                </div>
+                                
+                            </div>
                         </div>
-                        
+                        <hr class="w-100" style="height: 1px; background: #B7CEE5">
                     </div>
-                </div>
-                <hr class="w-100" style="height: 1px; background: #B7CEE5">
-            </div>
-            @endif
+                    @endif
 
-            @if($jobpost->job_highlight)
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="company-name py-3 px-0">
-                        <h5 class="fw-bold text-dark">Job Highlight:</h5>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col">
-                            <p>
-                                {!! $jobpost->job_highlight ?? '-' !!}
-                            </p>
+                    @if($jobpost->job_highlight)
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="company-name py-3 px-0">
+                                <h5 class="fw-bold text-dark">Job Highlight:</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <p>
+                                        {!! $jobpost->job_highlight ?? '-' !!}
+                                    </p>
+                                </div>
+                                
+                            </div>
                         </div>
-                        
+                        <hr class="w-100" style="height: 1px; background: #B7CEE5">
                     </div>
-                </div>
-                <hr class="w-100" style="height: 1px; background: #B7CEE5">
-            </div>
-            @endif
+                    @endif
 
-            @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)
-            <div class="row">
-                <div class="col-12 mb-4">
-                    <div class="company-name py-3 px-0">
-                        <h5 class="fw-bold text-dark">Company Overview</h5>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col">
-                            <ul>
-                                @if($jobpost->Employer->no_of_employees)
-                                <li><div class="row"><div class="col-2">Size</div><div class="col-10"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
+                    @if($jobpost->Employer->no_of_employees || $jobpost->Employer->OwnerShipType || $jobpost->Employer->website || $jobpost->summary || $jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)
+                    <div class="row">
+                        <div class="col-12 mb-4">
+                            <div class="company-name py-3 px-0">
+                                <h5 class="fw-bold text-dark">Company Overview</h5>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <ul>
+                                        @if($jobpost->Employer->no_of_employees)
+                                        <li><div class="row"><div class="col-2">Size</div><div class="col-10"><strong>{{ $jobpost->Employer->no_of_employees }} Employee</strong></div></div></li>
+                                        @endif
+                                        @if($jobpost->Employer->OwnerShipType)
+                                        <li><div class="row"><div class="col-2">Type</div><div class="col-10"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
+                                        @endif
+                                        @if($jobpost->Employer->website)
+                                        <li><div class="row"><div class="col-2">Website</div><div class="col-10"><a href="{{ $jobpost->Employer->website }}" target="_blank"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
+                                        @endif
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            <div class="row col-12 m-0 p-0 py-1">
+                                
+                                @if($jobpost->summary)
+                                <div class="row col-12 m-0 p-0 py-1">
+                                    <p>
+                                        {{ $jobpost->Employer->summary ?? '-' }}
+                                    </p>
+                                </div>
                                 @endif
-                                @if($jobpost->Employer->OwnerShipType)
-                                <li><div class="row"><div class="col-2">Type</div><div class="col-10"><strong>{{ $jobpost->Employer->OwnerShipType->name ?? '' }}</strong></div></div></li>
-                                @endif
-                                @if($jobpost->Employer->website)
-                                <li><div class="row"><div class="col-2">Website</div><div class="col-10"><a href="{{ $jobpost->Employer->website }}" target="_blank"><strong>{{ $jobpost->Employer->website }}</strong></a></div></div></li>
-                                @endif
-                            </ul>
-                        </div>
-                        
-                    </div>
-                    <div class="row col-12 m-0 p-0 py-1">
-                        
-                        @if($jobpost->summary)
-                        <div class="row col-12 m-0 p-0 py-1">
-                            <p>
-                                {{ $jobpost->Employer->summary ?? '-' }}
-                            </p>
-                        </div>
-                        @endif
-                        @if($jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)         
-                        
-                        <div class="container-fluid py-1">
-                            <div class="row pb-5 mb-5">
-                                <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
-                                <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
-                                    <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
-                                        <!-- Wrapper for slides -->
-                                        <div class="carousel-inner">
-                                            @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $image)
-                                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                                <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $jobpost->Employer->name }}" style="width:80%;">
-                                            </div>
-                                            @endforeach
-                                        </div>
+                                @if($jobpost->Employer->EmployerMedia->where('type','Image')->count() > 0)         
+                                
+                                <div class="container-fluid py-1">
+                                    <div class="row pb-5 mb-5">
+                                        <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
+                                        <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
+                                            <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
+                                                <!-- Wrapper for slides -->
+                                                <div class="carousel-inner">
+                                                    @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $image)
+                                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                                        <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $jobpost->Employer->name }}" style="width:80%;">
+                                                    </div>
+                                                    @endforeach
+                                                </div>
 
-                                        <!-- Left and right controls -->
-                                        <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
-                                            <span class="carousel-control-prev-icon"></span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
-                                            <span class="carousel-control-next-icon"></span>
-                                        </a>
-
-                                        <!-- Indicators -->
-                                        <ol class="carousel-indicators list-inline">
-                                            @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $key => $image)
-                                            <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
-                                                <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
-                                                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
+                                                <!-- Left and right controls -->
+                                                <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
+                                                    <span class="carousel-control-prev-icon"></span>
                                                 </a>
-                                            </li>
-                                            @endforeach
-                                        </ol>
+                                                <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
+                                                    <span class="carousel-control-next-icon"></span>
+                                                </a>
+
+                                                <!-- Indicators -->
+                                                <ol class="carousel-indicators list-inline">
+                                                    @foreach($jobpost->Employer->EmployerMedia->where('type','Image') as $key => $image)
+                                                    <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
+                                                        <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
+                                                            <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
+                                                        </a>
+                                                    </li>
+                                                    @endforeach
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endif
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                    @endif
+                </div>
+                <!-- Similar Jobs Start-->
+                @if($similar_jobs->count() > 0)
+                <div class="col-lg-4 col-md-4 col-4 mt-4 px-5">
+                    <div class="p-1 right-trending-title text-center">
+                        <h5 class="text-white py-2">More Similar Jobs</h5>
+                    </div>
+
+                    <div class="job-similar-scroll shadow rounded p-2">
+                        @foreach($similar_jobs as $similar_job)
+                        <a href="{{ route('jobpost-detail', $similar_job->slug) }}">
+                            <div class="col-lg-12 border-bottom p-0">
+                                <div class="m-0 my-2 p-2 trending-job-list rounded">
+                                    <div class="row m-0 p-2">
+                                        <div class="col-lg-3 col-12 text-center h-100 align-self-center">
+                                            @if($similar_job->Employer->logo)
+                                            <img src="{{ asset('storage/employer_logo/'.$similar_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                            @else 
+                                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                            @endif
+                                        </div>
+                                        <div class="col-lg-9 col-12 p-0">
+                                            <div>
+                                                <h3 id="trending-job-title">{{ $similar_job->job_title }}</h3>
+                                                <span id="trending-job-sub-title">{{ $similar_job->Employer->name }}</span>
+                                            </div>
+
+                                            <div class="fz13">
+                                                <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $similar_job->MainFunctionalArea->name }}</span>
+                                                @if($similar_job->country == 'Myanmar' && $similar_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $similar_job->Township->name }}</span> @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        @endif
-
+                        </a>
+                        @endforeach
                     </div>
                 </div>
-                <hr class="w-100" style="height: 1px; background: #B7CEE5">
+                @endif
+                <!-- Similar Jobs End-->
             </div>
-            @endif
         </div>
         <!-- Job Post Profile End -->
-        
     </div>
 </div>
 @endsection

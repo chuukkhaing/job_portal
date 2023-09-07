@@ -37,14 +37,14 @@
                 <div class="p-3">
                     <ul class="nav register-btn mb-3 row">
                         <li class="nav-item col">
-                            <a class="btn nav-link active col-12">JOB SEEKER</a>
+                            <a class="btn nav-link active col-12">EMPLOYER</a>
                         </li>
                     </ul>
                     <div class="">
                         <div class="fade show active">
                             <div class="py-3">
                                 <article class="mx-auto">
-                                    <form action="{{ route('seeker-login') }}" method="post">
+                                    <form action="{{ route('employer-login') }}" method="post">
                                         @csrf
                                         @if ($message = Session::get('error'))
                                         <div class="container-fluid alert-danger m-0">
@@ -60,9 +60,9 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                                             </div>
-                                            <input name="email" class="form-control border-0 @error('email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('email') }}">
+                                            <input name="company_email" class="form-control border-0 @error('company_email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('company_email') }}">
                                         </div>
-                                        @error('email')
+                                        @error('company_email')
                                             <span class="text-danger">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -71,16 +71,16 @@
                                             <div class="input-group-prepend d-flex">
                                                 <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
                                             </div>
-                                            <input class="form-control border-0 @error('password') is-invalid @enderror" placeholder="Enter Password" type="password" name="password" id="password"><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerPassword()"></i>
+                                            <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Enter Password" type="password" name="company_password" id="company_password"><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
                                         </div>
-                                        @error('password')
+                                        @error('company_password')
                                             <span class="text-danger">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                         <div class="my-3">     
-                                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} class="" > <label style="font-size: 0.9rem" for="remember" class="ms-1 terms_link"> Remember Me</label>   
-                                            <div class="float-end"><a href="{{ route('seeker-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
+                                            <input type="checkbox" name="company_remember" id="company_remember" {{ old('remember') ? 'checked' : '' }} class=""> <label style="font-size: 0.9rem" for="company_remember" class="ms-1 terms_link"> Remember Me</label>   
+                                            <div class="float-end"><a href="{{ route('employer-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
                                         </div>
                                         <div class="form-group p-2">
                                             <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
@@ -91,7 +91,6 @@
                                 </article>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -101,16 +100,17 @@
 @endsection
 @push('scripts')
 <script>
-    function showSeekerPassword() {
-        var seekerPassword = document.getElementById("password");
-        if (seekerPassword.type === "password") {
-            seekerPassword.type = "text";
-            $("#seeker-password-eye").removeClass('bi-eye-slash');
-            $("#seeker-password-eye").addClass('bi-eye');
+
+    function showCompanyPassword() {
+        var companyPassword = document.getElementById("company_password");
+        if (companyPassword.type === "password") {
+            companyPassword.type = "text";
+            $("#company-password-eye").removeClass('bi-eye-slash');
+            $("#company-password-eye").addClass('bi-eye');
         } else {
-            seekerPassword.type = "password";
-            $("#seeker-password-eye").addClass('bi-eye-slash');
-            $("#seeker-password-eye").removeClass('bi-eye');
+            companyPassword.type = "password";
+            $("#company-password-eye").addClass('bi-eye-slash');
+            $("#company-password-eye").removeClass('bi-eye');
         }
     }
 </script>
