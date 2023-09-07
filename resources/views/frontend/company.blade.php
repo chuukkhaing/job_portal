@@ -2,13 +2,13 @@
 @section('content')
 
 <!-- Search Start -->
-<section class=" p-5">
+<section class="p-3">
     <div class="container p-0 ">
-        <div class="row col-10 mx-auto my-5">
+        <div class="row col-10 mx-auto">
             <div class="company-header py-3 text-center">
                 <h3 class="company-header-title text-center">Discover Your Dream Job with Top Employers</h3>
-                <span class="company-header-sub-title justify-content-center">Take this opportunity to gain a deeper understanding of the companies shaping industries and driving innovation. Let this showcase inspire you as you navigate your career journey, and remember that your next big opportunity might be waiting with one of our exceptional Featured Employers.
-Start exploring now and uncover the companies that could be the perfect match for your aspirations!</span>
+                {{--<span class="company-header-sub-title justify-content-center">Take this opportunity to gain a deeper understanding of the companies shaping industries and driving innovation. Let this showcase inspire you as you navigate your career journey, and remember that your next big opportunity might be waiting with one of our exceptional Featured Employers.
+Start exploring now and uncover the companies that could be the perfect match for your aspirations!</span>--}}
             </div>
         </div>
         <form action="{{ route('search-company') }}" method="get">
