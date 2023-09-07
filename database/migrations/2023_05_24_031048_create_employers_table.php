@@ -27,6 +27,7 @@ class CreateEmployersTable extends Migration
             $table->string('type_of_employer')->nullable();
 			$table->longText('summary')->nullable();
 			$table->longText('value')->nullable();
+            $table->string('phone')->nullable();
 			$table->integer('no_of_offices')->nullable();
 			$table->string('website')->nullable();
 			$table->string('no_of_employees')->nullable();
