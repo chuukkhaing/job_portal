@@ -129,7 +129,7 @@ class EmployerRegisterController extends Controller
             'password' => $password,
         ]);
 
-        return redirect()->route('login-form')->with('success', 'Reset Password Successfully.');
+        return redirect()->route('employer-login-form')->with('success', 'Reset Password Successfully.');
 
     }
 }

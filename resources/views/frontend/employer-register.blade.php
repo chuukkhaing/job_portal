@@ -103,7 +103,7 @@
                                             <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
                                         </div>      
                                          
-                                        <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                        <p class="text-center">Already Registered ? <a href="{{ route('employer-login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
                                     </form>
                                 </article>
                             </div>
