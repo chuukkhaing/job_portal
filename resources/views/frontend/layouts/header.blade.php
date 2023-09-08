@@ -77,6 +77,7 @@
                 <a href="{{ route('dashboard') }}" class="nav-item nav-link">Admin</a>
                 @else
                 <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Sign In</a>
+                <a href="{{ route('employer-login-form') }}" class="nav-item nav-link {{ Request::is('employer/login-form') ? 'active' : '' }}">Employer Sign In</a>
                 <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Register</a></span>
                 @endauth
             </div>

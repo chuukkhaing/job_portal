@@ -11,6 +11,7 @@ use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\Industry;
 use URL;
 
 class EmployerRegisterController extends Controller
@@ -19,6 +20,12 @@ class EmployerRegisterController extends Controller
     {
         $this->middleware('guest');
         $this->middleware('guest:employer');
+    }
+
+    public function frontendEmployerRegister()
+    {
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
+        return view('frontend.employer-register', compact('industries'));
     }
 
     protected function register(Request $request)

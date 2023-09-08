@@ -30,8 +30,7 @@ class SeekerRegisterController extends Controller
 
     public function frontendRegister()
     {
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
-        return view('frontend.register', compact('industries'));
+        return view('frontend.register');
     }
 
     protected function register(Request $request)
