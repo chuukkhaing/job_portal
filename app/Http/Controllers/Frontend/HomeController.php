@@ -133,6 +133,10 @@ class HomeController extends Controller
         if ($request->qualification) {
             $jobPosts = $jobPosts->where('degree', $request->qualification);
         }
+        if ($request->job_sorting) {
+            $date = now()->subDays($request->job_sorting);
+            $jobPosts = $jobPosts->where('updated_at','>=',$date);
+        }
         $jobPostsCount = $jobPosts->count();
         $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
         $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);

@@ -54,7 +54,7 @@
     </section>
 
     <!-- Search End -->
-    <div class="container my-3">
+    <div class="container row mx-auto my-3">
         <div class="row col-10">
             <div class="col-3">
                 <div class="form-group">
@@ -93,6 +93,17 @@
                         @foreach(config('seekerdegree') as $degree)
                         <option value="{{ $degree }}" @if(isset($_GET['qualification']) && $_GET['qualification'] == $degree) selected @endif>{{ $degree }}</option>
                         @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="col">
+                <div class="form-group">
+                    <select name="job_sorting" id="job_sorting" class="form-input find-jobs-input w-100">
+                        <option value="">Job Sort By</option>
+                        <option value="7" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "7") selected @endif >Last 7 Days</option>
+                        <option value="30" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "30") selected @endif >Last 30 Days</option>
                     </select>
                 </div>
             </div>
@@ -316,6 +327,11 @@
             event.preventDefault();
             $(".search-job-btn").click();
         });
+
+        $("#job_sorting").change(function() {
+            event.preventDefault();
+            $(".search-job-btn").click();
+        })
 
         const suggestionList = @json($jobPostName);
         const inputField = document.querySelector(".job-title");
