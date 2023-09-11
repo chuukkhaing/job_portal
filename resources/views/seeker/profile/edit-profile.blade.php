@@ -24,7 +24,7 @@
                     @endif
                     <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(Auth::guard('seeker')->user()->image) @else d-none @endif  profile-remove"><i class="fa-solid fa-xmark"></i></button>
                     <input type="file" name="image" id="seeker_profile_upload" accept="image/*" class="seeker_image_input">
-                    <label for="seeker_profile_upload" class="seeker_image_input_label mx-5">Upload profile image</label>
+                    <label for="seeker_profile_upload" class="seeker_image_input_label mx-5 border">Upload profile image</label>
                     <input type="hidden" name="imageStatus" id="imageStatus" value="">
                 </div>
                 

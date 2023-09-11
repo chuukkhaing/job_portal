@@ -42,19 +42,19 @@
 </div>
 <div class="container-fluid my-2" id="edit-profile-body">
     <div class="col-12 row">
-        <div class="col px-5 py-3">
+        <div class="align-self-center col px-5 py-3">
             <div class="border-right-profile">
             <p class="profile-count">Profile Views</p>
             <span class="profile-number">0</span>
             </div>
         </div>
-        <div class="col py-3">
+        <div class="align-self-center col py-3">
             <div class="border-right-profile">
             <p class="profile-count">My CV Lists</p>
             <span class="profile-number">{{ Auth::guard('seeker')->user()->SeekerAttach->count() }}</span>
             </div>
         </div>
-        <div class="col px-5 py-3">
+        <div class="align-self-center col px-5 py-3">
             <div class="border-right-profile">
             <p class="profile-count">My Following</p>
             <span class="profile-number">0</span>
@@ -66,7 +66,7 @@
             <span class="profile-number">0</span>
             </div>
         </div>--}}
-        <div class="col py-3">
+        <div class="align-self-center col py-3">
             <div class="text-center">
                 <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
             </div>
@@ -86,7 +86,7 @@
     @endif
     <div class="row p-0">
         <div class="col-12 col-md-9">
-            <div class="p-5 m-0">
+            <div class="px-5 py-3 m-0">
                 <h5 style="color: #0355D0">Recommended Jobs</h5>
             </div>
             <div class="px-5 m-0 pb-0 ex3">
