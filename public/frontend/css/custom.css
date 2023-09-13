@@ -669,9 +669,38 @@ span.form-control-feedback.company-icon {
 /* Job Post Detail css start here*/
 .apply-company-btn {
     align-items: center;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     color: #fff;
     background-color: #0355d0;
+}
+
+.job-post-detail.nav-link {
+    font-weight: 900;
+    color: #0355D0;
+    background-color: transparent;
+    font-size: 16px;
+}
+
+.job-post-detail.nav-link.active {
+    color: #000;
+    border: none;
+    border-bottom: solid 2px #FB5404;
+}
+
+.job-post-detail.nav-link:hover {
+    color: #000;
+    border: none;
+    border-bottom: solid 2px #FB5404;
+}
+
+.job-post-detail-company-profile {
+    border: 2px solid #95b7d880;
+    border-radius: 10px;
+}
+
+.job-post-detail-company-profile img {
+    border: 2px solid #95b7d880;
+    margin-top: -40%;
 }
 
 .employer-title {
