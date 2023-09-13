@@ -7,7 +7,7 @@
                 <h5>Edit your profile information</h5>
             </div>
             <div class="col-12 col-md-6 text-end">
-                {{--<a href="#" class="btn profile-preview mx-2">Preview</a>--}}
+                <a href="{{ route('resume.create') }}" class="btn border profile-preview mx-2">Create Resume</a>
                 <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Seeker\SeekerRegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Seeker\SaveJobController;
 use App\Http\Controllers\Seeker\SeekerJobAlertController;
+use App\Http\Controllers\Seeker\ResumeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,5 +71,7 @@ Route::group([], function () {
         Route::get('save-job/{id}', [SaveJobController::class, 'create'])->name('save-job');
 
         Route::post('job-alert', [SeekerJobAlertController::class, 'store'])->name('job-alert.store');
+
+        Route::get('resume-create', [ResumeController::class, 'create'])->name('resume.create');
     });
 });
