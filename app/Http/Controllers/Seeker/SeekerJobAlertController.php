@@ -56,7 +56,7 @@ class SeekerJobAlertController extends Controller
                 'state_id' => $request->job_alert_state
             ]);
 
-            $job_alerts = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->pagination(10);
+            $job_alerts = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
             if($job_alert) {
                 return redirect()->back()->with(compact('job_alerts'), ['success' => 'Create Job Alert Successfully!']);
             }
