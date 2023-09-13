@@ -578,6 +578,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        var JobpostSkills = @json ( $jobPost->JobPostSkill );
         $('#total_point').val(0);
         var job_post_point = 0;
         $('input[name="job_post_type"]').change(function () {
@@ -636,10 +637,15 @@
         }).done(function(response){
             if(response.status == 'success') {
                 $("#skill_id").empty();
-                $("#skill_id").append('<option value="">Choose...</option>')
+                $("#skill_id").append('<option value="">Choose...</option>');
                 $.each(response.data, function(index, skill) {
-                
-                $("#skill_id").append('<option value=' + skill.id + '>' + skill.name +'</option>');
+                    $.each(JobpostSkills, function(jobpostSkill_index, jobpostSkill) {
+                        var selected = '';
+                        if(jobpostSkill.skill_id == skill.id) {
+                            selected = 'selected';
+                        }
+                        $("#skill_id").append('<option value="' + skill.id + '" '+ selected +'>' + skill.name +'</option>');
+                    })
                 })
             }
         });

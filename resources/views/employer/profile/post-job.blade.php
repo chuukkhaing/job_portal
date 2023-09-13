@@ -80,7 +80,7 @@
                                     <select name="job_post_industry" id="job_post_industry" class="select_2 form-control seeker_input @error('job_post_industry') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach($industries as $industry)
-                                        <option value="{{ $industry->id }}" >{{ $industry->name }}</option>
+                                        <option value="{{ $industry->id }}" @if($industry->id == old('job_post_industry')) selected @endif >{{ $industry->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('job_post_industry')
@@ -92,7 +92,7 @@
                                     <select name="main_functional_area" id="main_functional_area" class="select_2 form-control seeker_input @error('main_functional_area') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach($functional_areas as $functional_area)
-                                        <option value="{{ $functional_area->id }}" >{{ $functional_area->name }}</option>
+                                        <option value="{{ $functional_area->id }}" @if($functional_area->id == old('main_functional_area')) selected @endif>{{ $functional_area->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('main_functional_area')
@@ -104,7 +104,7 @@
                                     <select name="sub_functional_area" id="sub_functional_area" class="select_2 form-control seeker_input @error('sub_functional_area') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach($sub_functional_areas as $sub_functional_area)
-                                        <option value="{{ $sub_functional_area->id }}" >{{ $sub_functional_area->name }}</option>
+                                        <option value="{{ $sub_functional_area->id }}" @if($sub_functional_area->id == old('sub_functional_area')) selected @endif>{{ $sub_functional_area->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('sub_functional_area')
@@ -117,7 +117,7 @@
                                     <select name="career_level" id="career_level" class="select_2 form-control seeker_input @error('career_level') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach(config('careerlevel') as $careerlevel)
-                                        <option value="{{ $careerlevel }}" >{{ $careerlevel }}</option>
+                                        <option value="{{ $careerlevel }}" @if($careerlevel == old('career_level')) selected @endif>{{ $careerlevel }}</option>
                                         @endforeach
                                     </select>
                                     @error('career_level')
@@ -129,7 +129,7 @@
                                     <select name="job_type" id="job_type" class="select_2 form-control seeker_input @error('job_type') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach(config('jobtype') as $jobtype)
-                                        <option value="{{ $jobtype }}" >{{ $jobtype }}</option>
+                                        <option value="{{ $jobtype }}" @if($jobtype == old('job_type')) selected @endif>{{ $jobtype }}</option>
                                         @endforeach
                                     </select>
                                     @error('job_type')
@@ -140,15 +140,15 @@
                                     <label for="experience_level" class="seeker_label my-2">Experience Level <span class="text-danger">*</span></label>
                                     <select name="experience_level" id="experience_level" class="select_2 form-control seeker_input @error('experience_level') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
-                                        <option value="Less than 1 year">Less than 1 year</option>
-                                        <option value="1 year">1 year</option>
-                                        <option value="2 years">2 years</option>
-                                        <option value="3 years">3 years</option>
-                                        <option value="4 years">4 years</option>
-                                        <option value="5 years">5 years</option>
-                                        <option value="6 years">6 years</option>
-                                        <option value="7 years">7 years</option>
-                                        <option value="8 years">8 years</option>
+                                        <option value="Less than 1 year" @if('Less than 1 year' == old('experience_level')) selected @endif>Less than 1 year</option>
+                                        <option value="1 year" @if('1 year' == old('experience_level')) selected @endif>1 year</option>
+                                        <option value="2 years" @if('2 years' == old('experience_level')) selected @endif>2 years</option>
+                                        <option value="3 years" @if('3 years' == old('experience_level')) selected @endif>3 years</option>
+                                        <option value="4 years" @if('4 years' == old('experience_level')) selected @endif>4 years</option>
+                                        <option value="5 years" @if('5 years' == old('experience_level')) selected @endif>5 years</option>
+                                        <option value="6 years" @if('6 years' == old('experience_level')) selected @endif>6 years</option>
+                                        <option value="7 years" @if('7 years' == old('experience_level')) selected @endif>7 years</option>
+                                        <option value="8 years" @if('8 years' == old('experience_level')) selected @endif>8 years</option>
                                     </select>
                                     @error('experience_level')
                                     <small class="text-danger">{{ $message }}</small>
@@ -159,7 +159,7 @@
                                     <select name="degree" id="degree" class="select_2 form-control seeker_input @error('degree') is-invalid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach(config('seekerdegree') as $degree)
-                                        <option value="{{ $degree }}" >{{ $degree }}</option>
+                                        <option value="{{ $degree }}" @if($degree == old('degree')) selected @endif>{{ $degree }}</option>
                                         @endforeach
                                     </select>
                                     @error('degree')
@@ -178,45 +178,45 @@
                                     <label for="currency" class="seeker_label my-2">Currency</label>
                                     <select name="currency" id="currency" class="select_2 form-control seeker_input" style="width: 100%" >
                                         <option value="">Choose...</option>
-                                        <option value="USD">USD</option>
-                                        <option value="MMK">MMK</option>
+                                        <option value="USD" @if('USD' == old('currency')) selected @endif>USD</option>
+                                        <option value="MMK" @if('MMK' == old('currency')) selected @endif>MMK</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-12 col-md-6 mmk_salary d-none">
                                     <label for="mmk_salary" class="seeker_label my-2">Salary Range</label>
                                     <select name="mmk_salary" id="mmk_salary" class="select_2 form-control seeker_input" style="width: 100%" >
                                         <option value="">Choose...</option>
-                                        <option value="Less than 2 lakh">Less than 2 lakh</option>
-                                        <option value="2 to 4 Lakh">2 to 4 Lakh</option>
-                                        <option value="4 to 6 Lakh">4 to 6 Lakh</option>
-                                        <option value="6 to 8 Lakh">6 to 8 Lakh</option>
-                                        <option value="8 to 10 Lakh">8 to 10 Lakh</option>
-                                        <option value="10 to 15 Lakh">10 to 15 Lakh</option>
-                                        <option value="15 to 20 Lakh">15 to 20 Lakh</option>
-                                        <option value="20 to 40 Lakh">20 to 40 Lakh</option>
-                                        <option value="Over 40 Lakh">Over 40 Lakh</option>
-                                        <option value="Incentive/ comission only">Incentive/ comission only</option>
+                                        <option value="Less than 2 lakh" @if('Less than 2 lakh' == old('mmk_salary')) selected @endif>Less than 2 lakh</option>
+                                        <option value="2 to 4 Lakh" @if('2 to 4 Lakh' == old('mmk_salary')) selected @endif>2 to 4 Lakh</option>
+                                        <option value="4 to 6 Lakh" @if('4 to 6 Lakh' == old('mmk_salary')) selected @endif>4 to 6 Lakh</option>
+                                        <option value="6 to 8 Lakh" @if('6 to 8 Lakh' == old('mmk_salary')) selected @endif>6 to 8 Lakh</option>
+                                        <option value="8 to 10 Lakh" @if('8 to 10 Lakh' == old('mmk_salary')) selected @endif>8 to 10 Lakh</option>
+                                        <option value="10 to 15 Lakh" @if('10 to 15 Lakh' == old('mmk_salary')) selected @endif>10 to 15 Lakh</option>
+                                        <option value="15 to 20 Lakh" @if('15 to 20 Lakh' == old('mmk_salary')) selected @endif>15 to 20 Lakh</option>
+                                        <option value="20 to 40 Lakh" @if('20 to 40 Lakh' == old('mmk_salary')) selected @endif>20 to 40 Lakh</option>
+                                        <option value="Over 40 Lakh" @if('Over 40 Lakh' == old('mmk_salary')) selected @endif>Over 40 Lakh</option>
+                                        <option value="Incentive/ comission only" @if('Incentive/ comission only' == old('mmk_salary')) selected @endif>Incentive/ comission only</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-12 col-md-6 usd_salary d-none">
                                     <label for="usd_salary" class="seeker_label my-2">Salary Range</label>
                                     <select name="usd_salary" id="usd_salary" class="select_2 form-control seeker_input" style="width: 100%" >
                                         <option value="">Choose...</option>
-                                        <option value="Less Than 300">Less Than 300</option>
-                                        <option value="300 to 500">300 to 500</option>
-                                        <option value="500 to 800">500 to 800</option>
-                                        <option value="800 to 1500">800 to 1500</option>
-                                        <option value="1500 to 3000">3000 to 1500</option>
-                                        <option value="3000 to 5000">3000 to 5000</option>
-                                        <option value="Over 5000">Over 5000</option>
+                                        <option value="Less Than 300" @if('Less Than 300' == old('usd_salary')) selected @endif>Less Than 300</option>
+                                        <option value="300 to 500" @if('300 to 500' == old('usd_salary')) selected @endif>300 to 500</option>
+                                        <option value="500 to 800" @if('500 to 800' == old('usd_salary')) selected @endif>500 to 800</option>
+                                        <option value="800 to 1500" @if('800 to 1500' == old('usd_salary')) selected @endif>800 to 1500</option>
+                                        <option value="1500 to 3000" @if('1500 to 3000' == old('usd_salary')) selected @endif>3000 to 1500</option>
+                                        <option value="3000 to 5000" @if('3000 to 5000' == old('usd_salary')) selected @endif>3000 to 5000</option>
+                                        <option value="Over 5000" @if('Over 5000' == old('usd_salary')) selected @endif>Over 5000</option>
                                     </select>
                                 </div>
                                 <div class="form-group mt-3 col-12 col-md-6">
-                                    <input type="checkbox" name="hide_salary" id="hide_salary">
+                                    <input type="checkbox" name="hide_salary" id="hide_salary" @if(old('hide_salary')) checked @endif>
                                     <label for="hide_salary">Hide Salary</label><br>
                                     @foreach($packageItems as $packageItem)
                                     @if($packageItem->name == 'Anonymous Posting')
-                                    <input type="checkbox" name="hide_company_name" id="hide_company_name">
+                                    <input type="checkbox" name="hide_company_name" id="hide_company_name" @if(old('hide_company_name')) checked @endif>
                                     <label for="hide_company_name">Hide Company (Make confidential Job)</label>
                                     <input type="hidden" name="anonymous_posting_point" id="anonymous_posting_point" value="{{ $packageItem->point }}">
                                     <input type="hidden" name="anonymous_posting_package_item_id" id="anonymous_posting_package_item_id" value="{{ $packageItem->id }}">
@@ -225,16 +225,16 @@
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label for="gender" class="seeker_label my-2">Preferred Gender</label><br>
-                                    <input type="checkbox" name="male" id="male">
+                                    <input type="checkbox" name="male" id="male" @if(old('male')) checked @endif>
                                     <label for="male">Male</label><br>
-                                    <input type="checkbox" name="female" id="female">
+                                    <input type="checkbox" name="female" id="female" @if(old('female')) checked @endif>
                                     <label for="female">Female</label>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label for="job_post_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label>
                                     <select name="job_post_country" id="job_post_country" class="seeker_input @error('job_post_country') is-invalid @enderror" style="width: 100%">
-                                        <option value="Myanmar">Myanmar</option>
-                                        <option value="Other">Other</option>
+                                        <option value="Myanmar" @if('Myanmar' == old('job_post_country')) selected @endif>Myanmar</option>
+                                        <option value="Other" @if('Other' == old('job_post_country')) selected @endif>Other</option>
                                     </select>
                                     @error('job_post_country')
                                     <small class="text-danger">{{ $message }}</small>
@@ -245,7 +245,7 @@
                                     <select name="job_post_state" id="job_post_state" class="select_2 form-control seeker_input @error('job_post_state') is-valid @enderror" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach($states as $state)
-                                        <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                        <option value="{{ $state->id }}" @if($state->id == old('job_post_state')) selected @endif>{{ $state->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('job_post_state')
@@ -258,7 +258,7 @@
                                     <select name="job_post_township_id" id="job_post_township_id" class="select_2 form-control seeker_input" style="width: 100%">
                                         <option value="">Choose...</option>
                                         @foreach($townships as $township)
-                                        <option value="{{ $township->id }}">{{ $township->name }}</option>
+                                        <option value="{{ $township->id }}" @if($township->id == old('job_post_township_id')) selected @endif>{{ $township->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -325,21 +325,21 @@
                                 <div class="col-12 col-md-6"></div>
                                 <div class="col-12 col-md-6 form-group">
                                     <label for="job_description" class="seeker_label">Job Description</label>
-                                    <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-valid @enderror"></textarea>
+                                    <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-valid @enderror">{{ old('job_description') }}</textarea>
                                     @error('job_description')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-12 col-md-6 form-group">
                                     <label for="job_requirement" class="seeker_label">Job Requirement</label>
-                                    <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') @enderror"></textarea>
+                                    <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') @enderror">{{ old('job_requirement') }}</textarea>
                                     @error('job_requirement')
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
                                 <div class="col-12 col-md-8 form-group">
                                     <label for="benefit" class="seeker_label">Benefits</label>
-                                    <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                    <textarea name="benefit" id="benefit" cols="30" rows="5"  class="seeker_input form-control">{{ old('benefit') }}</textarea>
                                 </div>
                                 <div class="col-12 col-md-4 mt-4 ms-2 ms-sm-0 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                     <div>Bonus + Commison </div>
@@ -349,7 +349,7 @@
                                 </div>
                                 <div class="col-12 col-md-8 form-group">
                                     <label for="highlight" class="seeker_label">Highlight</label>
-                                    <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control"></textarea>
+                                    <textarea name="highlight" id="highlight" cols="30" rows="5"  class="seeker_input form-control">{{ old('highlight') }}</textarea>
                                 </div>
                                 <div class="col-12 col-md-4 mt-4 ms-2 ms-sm-0 py-3 align-self-center flex-column bd-highlight form-group text-center" style="background: #E8EFF7; border-radius: 8px">
                                     <div>Fun Working Enviroment </div>
@@ -439,7 +439,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-4 p-3">
                                     <div class="job_post_type_check_box w-100 p-3">
-                                        <input type="radio" name="job_post_type" id="standard_job_post" value="standard"><br>
+                                        <input type="radio" name="job_post_type" id="standard_job_post" value="standard" checked @if(old('job_post_type') == 'standard') checked @endif><br>
                                         <label for="standard_job_post" class="w-100">
                                             <h5>Standard Post</h5>
                                             <div class="standard_check_box w-100 d-flex align-items-center justify-content-center">
@@ -452,7 +452,7 @@
                                 @if($packageItem->name == 'Feature Job Post')
                                 <div class="col-12 col-md-4 p-3">
                                     <div class="job_post_type_check_box w-100 p-3">
-                                        <input type="radio" name="job_post_type" id="feature_job_post" value="feature"><br>
+                                        <input type="radio" name="job_post_type" id="feature_job_post" value="feature" @if(old('job_post_type') == 'feature') checked @endif><br>
                                         <label for="feature_job_post" class="w-100">
                                             <h5>Feature Job Post</h5>
                                             <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -469,7 +469,7 @@
                                 @if($packageItem->name == 'Trending Job Post')
                                 <div class="col-12 col-md-4 p-3">
                                     <div class="job_post_type_check_box w-100 p-3">
-                                        <input type="radio" name="job_post_type" id="trending_job_post" value="trending"><br>
+                                        <input type="radio" name="job_post_type" id="trending_job_post" value="trending" @if(old('job_post_type') == 'trending') checked @endif><br>
                                         <label for="trending_job_post" class="w-100">
                                             <h5>Trending Job Post</h5>
                                             <div class="standard_check_box d-flex align-items-center justify-content-center">
@@ -580,6 +580,28 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        var old_skills = @json(old('skills'));
+        var main_functional_area = $('#main_functional_area').val();
+        if(main_functional_area) {
+            $.ajax({
+                type: 'GET',
+                url: '/employer/get-skill/'+main_functional_area,
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $("#skill_id").empty();
+                    $("#skill_id").append('<option value="">Choose...</option>');
+                    $.each(response.data, function(index, skill) {
+                        $.each(old_skills, function(old_skill_index, old_skill) {
+                            var selected = '';
+                            if(old_skill == skill.id) {
+                                selected = 'selected';
+                            }
+                            $("#skill_id").append('<option value="' + skill.id + '" '+ selected +'>' + skill.name +'</option>');
+                        })
+                    })
+                }
+            });
+        }
         $('#total_point').val(0);
         $("#currency").change(function(){
             if($(this).val() == 'USD') {
@@ -673,6 +695,8 @@
                     url: '/employer/get-skill/'+main_functional_area,
                 }).done(function(response){
                     if(response.status == 'success') {
+                        
+
                         $("#skill_id").empty();
                         $("#skill_id").append('<option value="">Choose...</option>')
                         $.each(response.data, function(index, skill) {
