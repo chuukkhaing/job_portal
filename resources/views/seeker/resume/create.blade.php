@@ -17,10 +17,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="accordion-item">
+                    {{--<div class="accordion-item">
                         <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            Accordion Item #2
+                            Education
                         </button>
                         </h2>
                         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
@@ -40,7 +40,7 @@
                             <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
                         </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                     <div class="mb-4">
                         <div class="row">
                             <div class="col">
-                                <p><span class="gender_type"></span><sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span></p>
+                                <p><span class="gender_type">@if(Auth::guard('seeker')->user()->gender == "Male") Mr. @else Ms. @endif</span><sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span></p>
                                 <p><span class="township"></span> <span class="state"></span> <span class="country">{{ Auth::guard('seeker')->user()->country }}</span></p>
                                 <p><span class="phone">{{ Auth::guard('seeker')->user()->phone }}</span></p>
                                 <p><span class="email">{{ Auth::guard('seeker')->user()->email }}</span></p>
@@ -71,7 +71,7 @@
                                 <span class="float-end">:</span>
                             </div>
                             <div class="col">
-                                <span class="first_name"></span>{{ Auth::guard('seeker')->user()->first_name }} <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span>
+                                <span class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</span> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span>
                             </div>
                         </div>
                         <div class="row my-3">
@@ -80,7 +80,7 @@
                                 <span class="float-end">:</span>
                             </div>
                             <div class="col">
-                                <span class="dob">{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}</span>
+                                <span class="date_of_birth">{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}</span>
                             </div>
                         </div>
                         <div class="row my-3">

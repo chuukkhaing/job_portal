@@ -81,5 +81,7 @@ Route::group([], function () {
         Route::post('seeker-email-store',[ResumeController::class, 'seekerEmailStore'])->name('seeker-email.store');
 
         Route::post('seeker-phone-store',[ResumeController::class, 'seekerPhoneStore'])->name('seeker-phone.store');
+
+        Route::post('seeker-resume-update',[ResumeController::class, 'seekerResumeUpdate'])->name('seeker-resume.update');
     });
 });

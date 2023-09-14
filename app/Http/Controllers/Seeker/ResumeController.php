@@ -6,8 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\Seeker;
 use App\Models\Admin\State;
+use App\Models\Seeker\SeekerEducation;
+use Auth;
 use App\Models\Admin\Township;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Seeker\SeekerExperience;
+use App\Models\Seeker\SeekerLanguage;
+use App\Models\Seeker\SeekerReference;
+use App\Models\Seeker\SeekerSkill;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
 use File;
 
 class ResumeController extends Controller
@@ -16,7 +24,15 @@ class ResumeController extends Controller
     {
         $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
         $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
-        return view ('seeker.resume.create', compact('states', 'townships'));
+        $educations           = SeekerEducation::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $experiences          = SeekerExperience::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $skills               = SeekerSkill::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $languages            = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $references           = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
+        $industries           = Industry::whereNull('deleted_at')->get();
+        return view ('seeker.resume.create', compact('states', 'townships', 'educations', 'experiences', 'skills', 'languages', 'references', 'functional_areas', 'sub_functional_areas', 'industries'));
     }
 
     public function profileImageStore(Request $request)
@@ -54,7 +70,7 @@ class ResumeController extends Controller
     public function seekerEmailStore(Request $request)
     {
         $this->validate($request, [
-            'email'         => ['required', 'string', 'email', 'max:255', 'unique:seekers,email,' . $request->seeker_id],
+            'email'         => ['nullable', 'string', 'email', 'max:255', 'unique:seekers,email,' . $request->seeker_id],
         ]);
 
         $seeker = Seeker::findOrFail($request->seeker_id);
@@ -71,7 +87,7 @@ class ResumeController extends Controller
     public function seekerPhoneStore(Request $request)
     {
         $this->validate($request, [
-            'phone'         => ['required', new MyanmarPhone],
+            'phone'         => ['nullable', new MyanmarPhone],
         ]);
 
         $seeker = Seeker::findOrFail($request->seeker_id);
@@ -82,6 +98,20 @@ class ResumeController extends Controller
         return response()->json([
             'status' => 'success',
             'phone'  => $request->phone
+        ]);
+    }
+
+    public function seekerResumeUpdate(Request $request)
+    {
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        if($request->column == 'date_of_birth') {
+            $request->value = $request->value ? date('Y-m-d', strtotime($request->value)) : null;
+        }
+        $seeker->update([
+            $request->column                   => $request->value,
+        ]);
+        return response()->json([
+            'status' => 'success',
         ]);
     }
 }
