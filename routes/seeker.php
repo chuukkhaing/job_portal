@@ -73,5 +73,13 @@ Route::group([], function () {
         Route::post('job-alert', [SeekerJobAlertController::class, 'store'])->name('job-alert.store');
 
         Route::get('resume-create', [ResumeController::class, 'create'])->name('resume.create');
+
+        Route::post('profile-img-store',[ResumeController::class, 'profileImageStore'])->name('seeker-profile-img.store');
+        
+        Route::post('profile-img-destory',[ResumeController::class, 'profileImageDestory'])->name('seeker-profile-img.destory');
+
+        Route::post('seeker-email-store',[ResumeController::class, 'seekerEmailStore'])->name('seeker-email.store');
+
+        Route::post('seeker-phone-store',[ResumeController::class, 'seekerPhoneStore'])->name('seeker-phone.store');
     });
 });

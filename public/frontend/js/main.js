@@ -25,6 +25,11 @@
         allowClear: true,
     });
 
+    $(".resume_select_2").select2({
+        placeholder: "Choose...",
+        allowClear: true,
+    });
+
     $("#industry_id").select2({
         placeholder: 'Select Industry',
         allowClear: true
