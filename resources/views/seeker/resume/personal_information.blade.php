@@ -276,10 +276,18 @@
 
         
         var init_state_name = $("#state_id :selected").text();
-        $(".state").text(init_state_name+',');
+        if(init_state_name == 'Choose...') {
+            $(".state").text('');
+        }else {
+            $(".state").text(init_state_name+',');
+        }
     
         var init_township_name = $("#township_id :selected").text();
-        $(".township").text(init_township_name+',');
+        if(init_township_name == 'Choose...') {
+            $(".township").text('');
+        }else {
+            $(".township").text(init_township_name+',');
+        }
 
         $('#dob').datepicker({
             language: "es",
@@ -402,14 +410,22 @@
 
                     if(name == "state_id") {
                         var state_name = $("#state_id :selected").text();
-                        $(".state").text(state_name+',');
+                        if(state_name == 'Choose...') {
+                            $(".state").text('');
+                        }else {
+                            $(".state").text(state_name+',');
+                        }
                         updateProfile('township_id', '')
                         $("#township_id").val('');
                         $(".township").text('');
                     }
                     if(name == "township_id") {
                         var township_name = $("#township_id :selected").text();
-                        $(".township").text(township_name+',');
+                        if(township_name == 'Choose...') {
+                            $(".township").text('');
+                        }else {
+                            $(".township").text(township_name+',');
+                        }
                     }
 
                     if(name == "summary"){

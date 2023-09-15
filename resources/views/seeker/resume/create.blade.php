@@ -50,7 +50,7 @@
                     <div class="mb-4">
                         <div class="row">
                             <div class="col">
-                                <p><span class="gender_type">@if(Auth::guard('seeker')->user()->gender == "Male") Mr. @else Ms. @endif</span><sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span></p>
+                                <p><span class="gender_type">@if(Auth::guard('seeker')->user()->gender == "Male") Mr. @elseif(Auth::guard('seeker')->user()->gender == "Female") Ms. @endif</span><sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span></p>
                                 <p><span class="township"></span> <span class="state"></span> <span class="country">{{ Auth::guard('seeker')->user()->country }}</span></p>
                                 <p><span class="phone">{{ Auth::guard('seeker')->user()->phone }}</span></p>
                                 <p><span class="email">{{ Auth::guard('seeker')->user()->email }}</span></p>

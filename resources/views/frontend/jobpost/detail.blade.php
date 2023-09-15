@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="container my-2" id="">
+<div class="container my-5" id="">
     <div class="card shadow" id="edit-profile-body">
         <div class="card-header bg-transparent">
             <div class="row">
