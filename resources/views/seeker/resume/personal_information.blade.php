@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="dob" class="">Date of Birth <span class="text-danger">*</span></label>
             <div class="datepicker date input-group" id="dob">
                 <input type="text" name="date_of_birth" id="date_of_birth" class="form-control" autocomplete="off" value="{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}" onchange="updateProfile('date_of_birth', this.value)" placeholder="Date of Birth">
@@ -50,11 +50,11 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="phone" class="">Phone <span class="text-danger">*</span></label>
             <input type="number" name="phone" id="phone" class="form-control " value="{{ Auth::guard('seeker')->user()->phone }}" placeholder="09xxxxxxxxx">
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="gender" class="">Gender  <span class="text-danger">*</span></label>
             <select name="gender" id="gender" class="form-control resume_select_2" style="width: 100%" onchange="updateProfile('gender', this.value)">
                 <option value="">Choose</option>
@@ -62,7 +62,7 @@
                 <option value="Female" @if(Auth::guard('seeker')->user()->gender == "Female") selected @endif>Female</option>
             </select>
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="marital_status" class="">Marital Status</label>
             <select name="marital_status" id="marital_status" class="form-control resume_select_2" style="width: 100%" onchange="updateProfile('marital_status', this.value)">
                 <option value="">Choose</option>
@@ -70,7 +70,7 @@
                 <option value="Married" @if(Auth::guard('seeker')->user()->marital_status == "Married") selected @endif>Married</option>
             </select>
         </div>
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="nationality" class="">Nationality <span class="text-danger">*</span></label>
             <select name="nationality" id="nationality" class="form-control resume_select_2" style="width: 100%" onchange="updateProfile('nationality', this.value)">
                 <option value="">Choose</option>
@@ -79,17 +79,17 @@
             </select>
         </div>
 
-        <div class="form-group col-12 @if(Auth::guard('seeker')->user()->nationality == 'Other') d-none @endif" id="nrc_field">
+        <div class="form-group col-6 @if(Auth::guard('seeker')->user()->nationality == 'Other') d-none @endif" id="nrc_field">
             <label for="nrc" class="">NRC <span class="text-danger">*</span></label>
             <input type="text" name="nrc" id="nrc" class="form-control" value="{{ Auth::guard('seeker')->user()->nrc }}" onchange="updateProfile('nrc', this.value)" placeholder="NRC">
         </div>
 
-        <div class="form-group col-12 @if(Auth::guard('seeker')->user()->nationality == 'Myanmar') d-none @endif" id="id_card_field">
+        <div class="form-group col-6 @if(Auth::guard('seeker')->user()->nationality == 'Myanmar') d-none @endif" id="id_card_field">
             <label for="id_card" class="">ID Card <span class="text-danger">*</span></label>
             <input type="text" name="id_card" id="id_card" class="form-control" value="{{ Auth::guard('seeker')->user()->id_card }}" onchange="updateProfile('id_card', this.value)" placeholder="ID Card">
         </div>
 
-        <div class="form-group col-12">
+        <div class="form-group col-6">
             <label for="country" class="">Country <span class="text-danger">*</span></label>
             <select name="country" id="country" class="form-control select_2" style="width: 100%" onchange="updateProfile('country', this.value)">
                 <option value="">Choose...</option>
@@ -97,7 +97,7 @@
                 <option value="Other" @if(Auth::guard('seeker')->user()->country == "Other") selected @endif>Other</option>
             </select>
         </div>
-        <div class="form-group col-12 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="state_id_field">
+        <div class="form-group col-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="state_id_field">
             <label for="state_id" class="">State or Region <span class="text-danger">*</span></label><br>
             <select name="state_id" id="state_id" class="select_2 form-control" style="width: 100%" onchange="updateProfile('state_id', this.value)">
                 <option value="">Choose...</option>
@@ -107,7 +107,7 @@
             </select>
         </div>
     
-        <div class="form-group col-12 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="township_id_field">
+        <div class="form-group col-6 @if(Auth::guard('seeker')->user()->country == 'Other') d-none @endif" id="township_id_field">
             <label for="township_id" class="">City/ Township <span class="text-danger">*</span></label><br>
             <select name="township_id" id="township_id" class="select_2 form-control" style="width: 100%" onchange="updateProfile('township_id', this.value)">
                 <option value="">Choose...</option>
@@ -399,10 +399,10 @@
                         }else {
                             $("#state_id_field").addClass('d-none');
                             $("#township_id_field").addClass('d-none');
+                            $("#state_id").val('').change();
+                            $("#township_id").val('').change();
                             updateProfile('state_id', '');
                             updateProfile('township_id', '')
-                            $("#state_id").val('');
-                            $("#township_id").val('');
                             $(".state").text('');
                             $(".township").text('');
                         }
@@ -410,18 +410,18 @@
 
                     if(name == "state_id") {
                         var state_name = $("#state_id :selected").text();
-                        if(state_name == 'Choose...') {
+                        if(state_name == 'Choose...' || state_name == 'Choose') {
                             $(".state").text('');
                         }else {
                             $(".state").text(state_name+',');
                         }
                         updateProfile('township_id', '')
-                        $("#township_id").val('');
+                        $("#township_id").val('').change();
                         $(".township").text('');
                     }
                     if(name == "township_id") {
                         var township_name = $("#township_id :selected").text();
-                        if(township_name == 'Choose...') {
+                        if(township_name == 'Choose...' || township_name == 'Choose' || township_name == '') {
                             $(".township").text('');
                         }else {
                             $(".township").text(township_name+',');
