@@ -4,74 +4,74 @@
     <div class="row">
         <div class="col py-5" id="resume-form">
             <div class="container-fluid m-auto">
-                <div class="accordion" id="accordionPanelsStayOpenExample">
+                <div class="accordion accordion-flush" id="accordionFlushExample">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
                             Personal Information
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                            <div class="accordion-body">
-                                @include('seeker.resume.personal_information')
-                            </div>
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            @include('seeker.resume.personal_information')
+                        </div>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            Educations
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Education
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                            <div class="accordion-body">
-                                @include('seeker.resume.education')
-                            </div>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            @include('seeker.resume.education')
+                        </div>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                        <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
                             Career History
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                        <h2 class="accordion-header" id="flush-headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
                             Skills
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingFive">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                        <h2 class="accordion-header" id="flush-headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
                             Languages
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 
                             </div>
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="panelsStayOpen-headingSix">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                        <h2 class="accordion-header" id="flush-headingSive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSive" aria-expanded="false" aria-controls="flush-collapseSive">
                             References
                         </button>
                         </h2>
-                        <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+                        <div id="flush-collapseSive" class="accordion-collapse collapse" aria-labelledby="flush-headingSive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 
                             </div>
@@ -188,6 +188,18 @@
                     <div class="mb-4 career-description-preview @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
                         <h5 class="text-decoration-underline">Career Description</h5>
                         <p class="career-description">{{ Auth::guard('seeker')->user()->summary }}</p>
+                    </div>
+                    
+                    <div class="mb-4 edu-resume @if(Auth::guard('seeker')->user()->SeekerEducation->count() > 0) @else d-none @endif">
+                        <h5 class="text-decoration-underline">Education</h5>
+                        <div class="app_receive_education">
+                            @foreach(Auth::guard('seeker')->user()->SeekerEducation as $edu)
+                            <p class="pdf-title">{{ $edu->location }}</p>
+                            <p><span class="pdf-title">{{ $edu->degree }} </span> - {{ $edu->major_subject }}</p>
+                            <p>{{ $edu->from }} to {{ $edu->to }}</p>
+                            <hr>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </page>

@@ -371,7 +371,7 @@
                     if(name == "gender") {
                         if(value == "Male") {
                             $(".gender_type").text('Mr.');
-                        }else {
+                        }else if(value == "Female") {
                             $(".gender_type").text('Ms.');
                         }
                     }
