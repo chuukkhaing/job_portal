@@ -3,10 +3,11 @@
         <div class="col-12">
             <div class="row pb-3">
                 <div class="col-1">
+                    
                     @if(Auth::guard('seeker')->user()->image)
-                    <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                    <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                     @else
-                    <img src="{{ asset('img/undraw_profile_1.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
+                    <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                     @endif
                 </div>
                 <div class="col-8 p-0 m-0 align-self-center">

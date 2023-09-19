@@ -35,16 +35,17 @@
             <label for="last_name" class="">Last Name <span class="text-danger">*</span></label>
             <input type="text" name="last_name" id="last_name" class="form-control" value="{{ Auth::guard('seeker')->user()->last_name }}" onchange="updateProfile('last_name', this.value)" placeholder="First Name">
         </div>
-        <div class="form-group col-12">
-            <label for="email" class="">Mail <span class="text-danger">*</span></label>
-            <input type="email" name="email" id="email" class="form-control" value="{{ Auth::guard('seeker')->user()->email }}" placeholder="Mail Address">
-        </div>
+        
     </div>
     <div class="row">
         <div class="form-group col-6">
             <label for="dob" class="">Date of Birth <span class="text-danger">*</span></label>
             <div class="datepicker date input-group" id="dob">
+                @if(Auth::guard('seeker')->user()->date_of_birth != NULL)
                 <input type="text" name="date_of_birth" id="date_of_birth" class="form-control" autocomplete="off" value="{{ date('d-m-Y', strtotime(Auth::guard('seeker')->user()->date_of_birth)) }}" onchange="updateProfile('date_of_birth', this.value)" placeholder="Date of Birth">
+                @else
+                <input type="text" name="date_of_birth" id="date_of_birth" class="form-control" autocomplete="off" value="" onchange="updateProfile('date_of_birth', this.value)" placeholder="Date of Birth">
+                @endif
                 <div class="input-group-append">
                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                 </div>
@@ -279,14 +280,14 @@
         if(init_state_name == 'Choose...') {
             $(".state").text('');
         }else {
-            $(".state").text(init_state_name+',');
+            $(".state").text(init_state_name);
         }
     
         var init_township_name = $("#township_id :selected").text();
         if(init_township_name == 'Choose...') {
             $(".township").text('');
         }else {
-            $(".township").text(init_township_name+',');
+            $(".township").text(init_township_name);
         }
 
         $('#dob').datepicker({
@@ -307,7 +308,11 @@
                 success     : function(response) {
                     if (response.status == "success") {
                         $(".phone").text(response.phone);
-                        $('.personal-info-preview').removeClass('d-none');
+                        if(response.phone) {
+                            $('.phone_label').removeClass('d-none');
+                        }else {
+                            $('.phone_label').addClass('d-none');
+                        }
                     }
                 },
                 error: function (data, response) {
@@ -327,33 +332,6 @@
             $(".career-description").text($(this).val());
             $('.career-description-preview').removeClass('d-none');
         })
-
-        $("#email").change(function(e){
-            e.preventDefault();
-            $.ajax({
-                type        : 'POST',
-                url         : "{{ route('seeker-email.store') }}",
-                data        : {
-                    'seeker_id' : {{ Auth::guard('seeker')->user()->id }},
-                    'email'     : $(this).val()
-                },
-                success     : function(response) {
-                    if (response.status == "success") {
-                        $(".email").text(response.email);
-                    }
-                },
-                error: function (data, response) {
-                    var errors = $.parseJSON(data.responseText);
-                    if(errors.errors['email']) {
-                        MSalert.principal({
-                            icon:'error',
-                            title:'',
-                            description: errors.errors['email'],
-                        })
-                    }
-                }
-            });
-        })
     })
 
     function updateProfile(name, value) {
@@ -368,11 +346,24 @@
             success     : function(response) {
                 if (response.status == "success") {
                     $('.'+name).text(value);
+                    if(value == '') {
+                        $('.'+name+'_label').addClass('d-none');
+                    }else {
+                        $('.'+name+'_label').removeClass('d-none');
+                    }
+                    if(name == "first_name" || name == "last_name") {
+                        $(".name_label").removeClass('d-none');
+                        if($(".first_name").text() == '' && $(".first_name").text() == '') {
+                            $(".name_label").addClass('d-none');
+                        }
+                     }
                     if(name == "gender") {
                         if(value == "Male") {
                             $(".gender_type").text('Mr.');
                         }else if(value == "Female") {
                             $(".gender_type").text('Ms.');
+                        }else {
+                            $(".gender_type").text('');
                         }
                     }
 
@@ -413,7 +404,7 @@
                         if(state_name == 'Choose...' || state_name == 'Choose') {
                             $(".state").text('');
                         }else {
-                            $(".state").text(state_name+',');
+                            $(".state").text(state_name);
                         }
                         updateProfile('township_id', '')
                         $("#township_id").val('').change();
@@ -424,7 +415,7 @@
                         if(township_name == 'Choose...' || township_name == 'Choose' || township_name == '') {
                             $(".township").text('');
                         }else {
-                            $(".township").text(township_name+',');
+                            $(".township").text(township_name);
                         }
                     }
 
@@ -437,8 +428,12 @@
                         $(".career-description").text(value);
                         $('.career-description-preview').addClass('d-none');
                     }
-
-                    $('.personal-info-preview').removeClass('d-none');
+                    
+                    if(response.seeker_info.first_name || response.seeker_info.last_name || response.seeker_info.email) {
+                        $('.personal-info-preview').removeClass('d-none');
+                    }else {
+                        $('.personal-info-preview').addClass('d-none');
+                    }
                 }
             },
             error: function (data, response) {

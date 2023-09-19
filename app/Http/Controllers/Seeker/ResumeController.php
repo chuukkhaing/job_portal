@@ -5,35 +5,13 @@ namespace App\Http\Controllers\Seeker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\Seeker;
-use App\Models\Admin\State;
-use App\Models\Seeker\SeekerEducation;
 use Auth;
-use App\Models\Admin\Township;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
-use App\Models\Seeker\SeekerExperience;
-use App\Models\Seeker\SeekerLanguage;
-use App\Models\Seeker\SeekerReference;
-use App\Models\Seeker\SeekerSkill;
-use App\Models\Admin\FunctionalArea;
-use App\Models\Admin\Industry;
+use App\Models\Seeker\SeekerPercentage;
 use File;
 
 class ResumeController extends Controller
 {
-    public function Create()
-    {
-        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
-        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
-        $educations           = SeekerEducation::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $experiences          = SeekerExperience::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $skills               = SeekerSkill::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $languages            = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $references           = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $industries           = Industry::whereNull('deleted_at')->get();
-        return view ('seeker.resume.create', compact('states', 'townships', 'educations', 'experiences', 'skills', 'languages', 'references', 'functional_areas', 'sub_functional_areas', 'industries'));
-    }
 
     public function profileImageStore(Request $request)
     {
@@ -67,22 +45,6 @@ class ResumeController extends Controller
             'status' => 'success'
         ]);
     }
-    public function seekerEmailStore(Request $request)
-    {
-        $this->validate($request, [
-            'email'         => ['nullable', 'string', 'email', 'max:255', 'unique:seekers,email,' . $request->seeker_id],
-        ]);
-
-        $seeker = Seeker::findOrFail($request->seeker_id);
-    
-        $seeker->update([
-            'email'                   => $request->email,
-        ]);
-        return response()->json([
-            'status' => 'success',
-            'email'  => $request->email
-        ]);
-    }
 
     public function seekerPhoneStore(Request $request)
     {
@@ -92,7 +54,7 @@ class ResumeController extends Controller
 
         $seeker = Seeker::findOrFail($request->seeker_id);
 
-        $seeker->update([
+        $seeker_update = $seeker->update([
             'phone'                   => $request->phone,
         ]);
         return response()->json([
@@ -110,8 +72,50 @@ class ResumeController extends Controller
         $seeker->update([
             $request->column                   => $request->value,
         ]);
+
+        $seeker_info = Seeker::findOrFail($request->seeker_id);
+        $seeker_percentage = $this->updateSeekerPercentage($seeker_info);
         return response()->json([
             'status' => 'success',
+            'seeker_info' => $seeker_info
         ]);
     }
+
+    public function updateSeekerPercentage(Seeker $seeker)
+    {
+        if (isset($seeker->first_name) && isset($seeker->last_name) && (isset($seeker->nrc) || isset($seeker->id_card)) && isset($seeker->date_of_birth) && isset($seeker->phone) && isset($seeker->country) && isset($seeker->nationality)) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Personal Information')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 15,
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }else {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Personal Information')->first();
+            if($seeker_percent->percentage > 0) {
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => $seeker_percent->percentage - 15,
+                ]);
+            }
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }
+        if (isset($seeker->main_functional_area_id) && isset($seeker->sub_functional_area_id) && isset($seeker->job_title) && isset($seeker->job_type) && isset($seeker->career_level) && isset($seeker->preferred_salary) && isset($seeker->industry_id)) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career of Choice')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 20,
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }
+
+        return true;
+    }
+
 }

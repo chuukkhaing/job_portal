@@ -207,8 +207,14 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#edu-table").removeClass('d-none');
-                    $("#edu-table").append('<tr class="edu-tr-'+response.education.id+'"><td class="edu-degree-'+response.education.id+'">'+response.education.degree+'</td><td class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</td><td class="edu-location-'+response.education.id+'">'+response.education.location+'</td><td class="edu-from-'+response.education.id+'">'+response.education.from+'</td><td class="edu-to-'+response.education.id+'">'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                    $(".education_label").removeClass('d-none');
+
+                    $("#edu-table").append('<tr class="edu-tr-'+response.education.id+'"><td class="edu-degree-'+response.education.id+'">'+response.education.degree+'</td><td class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</td><td class="edu-location-'+response.education.id+'">'+response.education.location+'</td><td class="edu-from-'+response.education.id+'">'+response.education.from+'</td><td class="edu-to-'+response.education.id+'">'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+
                     $(".resume-edu-form").addClass('d-none');
+
+                    $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+response.education.to+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div></div>');
+
                     // alert(response.msg);
                     MSalert.principal({
                         icon:'success',
@@ -244,8 +250,10 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".edu-tr-"+id).empty();
+                        $(".edu-resume-"+id).empty();
                         if(response.seeker_educations_count == 0) {
                             $("#edu-table").addClass('d-none');
+                            $(".education_label").addClass('d-none');
                         }
                         MSalert.principal({
                             icon:'success',
