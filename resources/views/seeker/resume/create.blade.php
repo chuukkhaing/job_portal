@@ -1,5 +1,4 @@
-@extends('frontend.layouts.app')
-@section('content')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col py-5" id="resume-form">
@@ -207,4 +206,3 @@
     </div>
 </div>
 
-@endsection

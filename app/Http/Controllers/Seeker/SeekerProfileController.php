@@ -91,13 +91,13 @@ class SeekerProfileController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'phone'         => ['required', new MyanmarPhone],
-            'first_name'    => ['required', 'string', 'max:255'],
-            'last_name'     => ['required', 'string', 'max:255'],
+            // 'phone'         => ['required', new MyanmarPhone],
+            // 'first_name'    => ['required', 'string', 'max:255'],
+            // 'last_name'     => ['required', 'string', 'max:255'],
             'email'         => ['required', 'string', 'email', 'max:255', 'unique:seekers,email,' . $id],
             'password'      => ['nullable', 'string', 'min:8', 'same:confirm-password'],
-            'date_of_birth' => ['required'],
-            'gender'        => ['required'],
+            // 'date_of_birth' => ['required'],
+            // 'gender'        => ['required'],
         ]);
 
         $seeker = Seeker::findOrFail($id);
