@@ -19,24 +19,24 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            Education
+                        Career History
                         </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body">
-                            @include('seeker.resume.education')
+                            @include('seeker.resume.experience')
                         </div>
                         </div>
                     </div>
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            Career History
+                            Education
                         </button>
                         </h2>
                         <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                
+                                @include('seeker.resume.education')
                             </div>
                         </div>
                     </div>
@@ -91,6 +91,7 @@
                                 <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
                             </div>
                         </div>
+                        @include('seeker.resume.exp_details')
                         @include('seeker.resume.edu_details')
                     </div>
                 </div>
@@ -98,4 +99,3 @@
         </div>
     </div>
 </div>
-
