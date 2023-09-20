@@ -259,7 +259,7 @@
                     </table>
                     
                 </div>
-                <div class="row resume-section mb-3 education_label @if($seeker->SeekerEducation->count() == 0)  @endif">
+                <div class="row resume-section mb-3 education_label @if($seeker->SeekerEducation->count() == 0) d-none @endif">
                     <h5 class="text-white resume-header py-2"><span>Education</span></h5>
                     <table>
                         @foreach($seeker->SeekerEducation as $education)
