@@ -48,7 +48,7 @@
                         </h2>
                         <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                
+                                @include('seeker.resume.skill')
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         </h2>
                         <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                
+                                @include('seeker.resume.language')
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         </h2>
                         <div id="flush-collapseSive" class="accordion-collapse collapse" aria-labelledby="flush-headingSive" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                
+                                @include('seeker.resume.reference')
                             </div>
                         </div>
                     </div>
@@ -93,6 +93,9 @@
                         </div>
                         @include('seeker.resume.exp_details')
                         @include('seeker.resume.edu_details')
+                        @include('seeker.resume.skill_details')
+                        @include('seeker.resume.language_details')
+                        @include('seeker.resume.reference_details')
                     </div>
                 </div>
             </page>

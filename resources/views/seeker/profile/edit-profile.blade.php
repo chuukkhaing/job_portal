@@ -55,7 +55,7 @@
     
     <div class="row mb-4">
         <div class="col-12 text-end">
-            <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+            <button type="button" class="btn btn-sm profile-save-btn">Next</button>
         </div>
     </div>
 </div>

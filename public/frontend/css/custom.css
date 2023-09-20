@@ -565,7 +565,8 @@ span.form-control-feedback.company-icon {
 
 page[size="A4"] {  
     /* width: 21cm; */
-    min-height: 29.7cm; 
+    overflow-y: scroll;
+    height: 25cm; 
 }
 
 page {

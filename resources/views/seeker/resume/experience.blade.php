@@ -704,8 +704,15 @@
                     if(response.status == 'success') {
                         $("#exp-table").removeClass('d-none');
                         $("#exp-tbody").html('');
+
+                        $(".experience_label").removeClass('d-none');
+                        $(".experience_label").html('');
+
                         $("#exp-table").append('<tr data-id="'+response.experience.id+'"><td colspan="9" class="text-center">No Experience</td><td><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i> </a> <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#add_career_history").addClass('d-none');
+
+                        $(".experience_label").append('<h5 class="text-white resume-header py-2">Career History</h5><div class="row py-2 exp-resume-'+response.experience.id+'"><p>No Experience</p></div>');
+
                         MSalert.principal({
                             icon:'success',
                             title:'',
@@ -792,6 +799,8 @@
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
+                                $(".exp-resume-"+id).html('');
+                                
                                 var exp_main_function = '';
                                 var exp_sub_function_name = '';
                                 var exp_industry_name = '';
@@ -812,6 +821,10 @@
                                 })
                                 $("#exp-table").append('<tr class="exp-tr-'+id+'"><td class="exp-job_title-'+id+'">'+response.experience.job_title+'</td><td class="exp-company-'+id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+id+'">'+exp_industry_name+'</td><td class="exp-country-'+id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</td><td class="exp-end_date-'+id+'">Present</td><td>    <a onclick="editExp('+id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+id+'" class="deleteExp btn border-0 text-danger"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 $("#add_career_history").removeClass('d-none');
+
+                                $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 fw-bold"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' fw-bold">'+response.experience.job_title+'</span><br><span class="exp-company-'+response.experience.id+' text-blue">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+
+
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',
@@ -853,6 +866,7 @@
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
+                                $(".exp-resume-"+id).html('');
                                 var exp_main_function = '';
                                 var exp_sub_function_name = '';
                                 var exp_industry_name = '';
@@ -871,7 +885,10 @@
                                         exp_industry_name = exp_industry.name
                                     }
                                 })
-                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
+                                $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+
+                                $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 fw-bold"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' fw-bold">'+response.experience.job_title+'</span><br><span class="exp-company-'+response.experience.id+' text-blue">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+                                
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',
