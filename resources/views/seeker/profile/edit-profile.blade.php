@@ -37,25 +37,19 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <button class="p-3 job-post-detail nav-link active" id="nav-cv-build-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-build" type="button" role="tab" aria-controls="nav-cv-build" aria-selected="true">Build Your CV </button>
                 <button class="p-3 job-post-detail nav-link" id="nav-career-choice-tab" data-bs-toggle="tab" data-bs-target="#nav-career-choice" type="button" role="tab" aria-controls="nav-career-choice" aria-selected="false">Career of Choice</button>
-                <button class="p-3 job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">Career of Choice</button>
+                <button class="p-3 job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">CV Attachment</button>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane p-3 fade show active" id="nav-cv-build" role="tabpanel" aria-labelledby="nav-cv-build-tab">
                 @include('seeker.resume.create')
             </div>
-            <div class="tab-pane fade" id="nav-career-choice" role="tabpanel" aria-labelledby="nav-career-choice-tab">
-                ...
+            <div class="tab-pane p-3 fade" id="nav-career-choice" role="tabpanel" aria-labelledby="nav-career-choice-tab">
+                @include('seeker.resume.career-of-choice')
             </div>
-            <div class="tab-pane fade" id="nav-cv-attach" role="tabpanel" aria-labelledby="nav-cv-attach-tab">
-                ...
+            <div class="tab-pane p-3 fade" id="nav-cv-attach" role="tabpanel" aria-labelledby="nav-cv-attach-tab">
+                @include('seeker.resume.cv-attach')
             </div>
-        </div>
-    </div>
-    
-    <div class="row mb-4">
-        <div class="col-12 text-end">
-            <button type="button" class="btn btn-sm profile-save-btn">Next</button>
         </div>
     </div>
 </div>

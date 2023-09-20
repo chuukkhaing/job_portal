@@ -1,41 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <title>Download|Generate Cv</title>
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ public_path('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
+    
+    <!-- Template Stylesheet -->
+    <link href="{{ public_path('frontend/css/style.css') }}" rel="stylesheet">
+    <link href="{{ public_path('frontend/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ public_path('frontend/css/app.css') }}" rel="stylesheet">
     <style>
-        h5 {
-            text-decoration: underline;
-            color: #0355D0;
-            font-weight: 600 !important;
-            font-size: 20px;
-            margin: 10px 0;
-        }
-        .float-end {
-            float: right;
-        }
-        .pdf-title {
-            font-weight: 600 !important;
-            font-size: 18px;
-            margin: 0;
-            padding: 0
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-        }
-        .row {
-            width: 100%;
-            
-        }
-        .col {
-            display: inline-block;
-            width: 48%;
-            margin: 0;
-            padding: 0;
+        .resume-header span {
+            padding : 0 20px
         }
         @page {
             margin: 150px 5mm 65px 5mm;
@@ -78,20 +60,16 @@
         .page-counter:after {
             content: " - (" counter(page) ")";
         }
+        .d-none {
+            display: none;
+        }
         
-        p {
-            font-size: 14px
+        table {
+            padding: 0 20px
         }
-
-        hr {
-            width: 50%;
-            margin-left: 0;
-        }
-        .col-2 {
-            display: inline-block;
-            width: 8%;
-            margin: 0;
-            padding: 0;
+        .personal-info {
+            width: 100%;
+            padding: 0px;
         }
     </style>
 </head>
@@ -109,200 +87,234 @@
     <div class="container">
         <div class="mt-4">
             <div class="mb-4">
-                
-                <div class="row">
-                    <div class="col">
-                        <p class="app_receive_name">@if($seeker->gender == 'Female') Ms.@else Mr.@endif {{ $seeker->first_name ?? '-' }} {{ $seeker->last_name ?? '-' }}</p>
-                        <p id="app_receive_address">@if($seeker->country == 'Myanmar') {{ $seeker->Township->name ?? '' }}, {{ $seeker->State->name ?? '' }}, {{ $seeker->country }}@else Country - {{ $seeker->country }} @endif</p>
-                        <p id="app_receive_phone">{{ $seeker->phone ?? '-' }}</p>
-                        <p id="app_receive_email">{{ $seeker->email ?? '-' }}</p>
-                    </div>
-                    <div class="col">
-                        @if($seeker->image)
-                        <img src="{{ public_path('storage/seeker/profile/'.($seeker->id).'/'.$seeker->image) }}" class="app_receive_pic" alt="profile_pic" width="130px" height="130px">
-                        @else
-                        <img class="app_receive_pic" src="{{ public_path('img/undraw_profile_1.svg') }}" alt="profile_pic" width="130px" height="130px">
-                        @endif
+                <h3 class="text-center">Resume</h3>
+                <div class="row resume-section mb-3">
+                    <h5 class="text-white resume-header py-2"><span>Personal details</span></h5>
+                    <table>
+                        <tr>
+                            <td class="col-9">
+                                <table class="row personal-info">
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold name_label @if($seeker->first_name && $seeker->last_name) @else d-none @endif">
+                                            Name
+                                        </td>
+                                        <td class="col-6 margin-left py-2 name_label @if($seeker->first_name && $seeker->last_name) @else d-none @endif">
+                                            <sapn class="first_name">{{ $seeker->first_name }}</sapn> <span class="last_name">{{ $seeker->last_name }}</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="row py-0">
+                                        @if($seeker->email)
+                                        <td class="col-6 py-2 fw-bold">
+                                            Email Address
+                                        </td>
+                                        <td class="col-6 py-2 margin-left">
+                                            {{ $seeker->email }}
+                                        </td>
+                                        @endif
+                                    </tr>
+                                    
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold phone_label @if($seeker->phone) @else d-none @endif">
+                                            Phone
+                                        </td>
+                                        <td class="col-6 py-2 margin-left phone_label @if($seeker->phone) @else d-none @endif">
+                                            <span class="phone">{{ $seeker->phone }}</span>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold address_detail_label @if($seeker->address_detail) @else d-none @endif">
+                                            Address Detail
+                                        </td>
+                                        <td class="col-6 py-2 margin-left address_detail_label @if($seeker->address_detail) @else d-none @endif">
+                                            <span class="address_detail">{{ $seeker->address_detail }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold date_of_birth_label @if($seeker->date_of_birth) @else d-none @endif">
+                                            Date Of Birth
+                                        </td>
+                                        <td class="col-6 py-2 margin-left date_of_birth_label @if($seeker->date_of_birth) @else d-none @endif">
+                                            <span class="date_of_birth">{{ $seeker->date_of_birth }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold gender_label @if($seeker->gender) @else d-none @endif">
+                                            Gender
+                                        </td>
+                                        <td class="col-6 py-2 margin-left gender_label @if($seeker->gender) @else d-none @endif">
+                                            <span class="gender">{{ $seeker->gender }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold nationality_label @if($seeker->nationality) @else d-none @endif">
+                                            Nationality
+                                        </td>
+                                        <td class="col-6 py-2 margin-left nationality_label @if($seeker->nationality) @else d-none @endif">
+                                            <span class="nationality">{{ $seeker->nationality }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold nrc_label @if($seeker->nrc) @else d-none @endif">
+                                            NRC
+                                        </td>
+                                        <td class="col-6 py-2 margin-left nrc_label @if($seeker->nrc) @else d-none @endif">
+                                            <span class="nrc">{{ $seeker->nrc }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold id_card_label @if($seeker->id_card) @else d-none @endif">
+                                            ID Card
+                                        </td>
+                                        <td class="col-6 py-2 margin-left id_card_label @if($seeker->id_card) @else d-none @endif">
+                                            <span class="id_card">{{ $seeker->id_card }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold country_label @if($seeker->country) @else d-none @endif">
+                                            Country
+                                        </td>
+                                        <td class="col-6 py-2 margin-left country_label @if($seeker->country) @else d-none @endif">
+                                            <span class="country">{{ $seeker->country }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold state_label @if($seeker->State) @else d-none @endif">
+                                            State
+                                        </td>
+                                        <td class="col-6 py-2 margin-left state_label @if($seeker->State) @else d-none @endif">
+                                            <span class="state">{{ $seeker->State->name }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold township_label @if($seeker->Township) @else d-none @endif">
+                                            Township
+                                        </td>
+                                        <td class="col-6 py-2 margin-left township_label @if($seeker->Township) @else d-none @endif">
+                                            <span class="township">{{ $seeker->Township->name }}</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="row py-0">
+                                        <td class="col-6 py-2 fw-bold marital_status_label @if($seeker->marital_status) @else d-none @endif">
+                                            Marriage Status
+                                        </td>
+                                        <td class="col-6 py-2 margin-left marital_status_label @if($seeker->marital_status) @else d-none @endif">
+                                            <span class="marital_status">{{ $seeker->marital_status }}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td class="col text-end profile-img-preview @if($seeker->image) @else d-none @endif" style="vertical-align: top">
+                                @if($seeker->image)
+                                <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ public_path('storage/seeker/profile/'.($seeker->id).'/'.$seeker->image) }}" alt="profile_pic" width="130px" height="130px">
+                                @else
+                                <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="130px" height="130px">
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row resume-section mb-3 summary_label @if($seeker->summary) @else d-none @endif">
+                    <h5 class="text-white resume-header py-2"><span>Profile Summary</span></h5>
+                    <div class="col py-2" style="padding: 0 20px">
+                        <span class="summary">{!! $seeker->summary !!}</span>
                     </div>
                 </div>
-            </div>
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Personal Information</h5>
-                
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Name</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_name">@if($seeker->gender == 'Female') Ms.@else Mr.@endif {{ $seeker->first_name ?? '-' }} {{ $seeker->last_name ?? '-' }}</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Date Of Birth</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_dob">@if($seeker->date_of_birth) {{ date('d-m-Y', strtotime($seeker->date_of_birth)) }} @else - @endif</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>NRC Number/ID</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_nrc">@if($seeker->nationality == 'Myanmar') {{ $seeker->nrc }} @else {{ $seeker->id_card }} @endif</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Nationality</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_nationality">{{ $seeker->nationality ?? '-' }}</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Gender</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_gender">{{ $seeker->gender ?? '-' }}</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Marital Status</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span class="app_receive_marital_status">{{ $seeker->marital_status ?? '-' }}</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span>Address Detail</span>
-                        <span class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span id="app_receive_address_detail">{{ $seeker->address_detail ?? '-' }}</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span style="font-weight: bold">Notice Period</span>
-                        <span style="font-weight: bold" class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span style="font-weight: bold" class="app_receive_notice_period">@if($seeker->is_immediate_available == 1) Immediate Available @else - @endif</span>
-                    </div>
-                </div>
-                <div class="row my-3">
-                    <div class="col">
-                        <span style="font-weight: bold">Expected Salary</span>
-                        <span style="font-weight: bold" class="float-end">:</span>
-                    </div>
-                    <div class="col">
-                        <span style="font-weight: bold" class="app_receive_expected_salary">{{ number_format($seeker->preferred_salary) ?? '-' }} MMK</span>
-                    </div>
-                </div>
-            </div>
-            @if($seeker->summary)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Career Description</h5>
-                <ul><li>{!! rtrim(str_replace(".",".</li><li>","$seeker->summary"), '</li><li>') !!}</li></ul>
-            </div>
-            @endif
-            @if($seeker->SeekerEducation->count() > 0)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Education</h5>
-                <div class="app_receive_education">
-                    @foreach($seeker->SeekerEducation as $edu)
-                    <p class="pdf-title">{{ $edu->location }}</p>
-                    <p><span class="pdf-title">{{ $edu->degree }} </span> - {{ $edu->major_subject }}</p>
-                    <p>{{ $edu->from }} to {{ $edu->to }}</p>
-                    <hr>
-                    @endforeach
-                </div>
-            </div>
-            @endif
-            @if($seeker->SeekerExperience->count() > 0)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Career History</h5>
-                <div class="app_receive_experience">
-                    @foreach($seeker->SeekerExperience as $exp)
-                    @if($exp->is_experience == 0)
-                    No Experience
-                    @else
-                        <p style="font-weight: bold">{{ $exp->job_title }}</p>
-                        <p>{{ $exp->Industry->name }}</p>
-                        <p>{{ date('Y M', strtotime($exp->start_date)) }} to @if($exp->is_current_job == 1) Present @else {{ date('Y M', strtotime($exp->end_date)) }} @endif</p>
-                        <p style="font-weight: bold">{{ $exp->company }}</p>
-                        <p>{{ $exp->MainFunctionalArea->name }} - {{ $exp->SubFunctionalArea->name }}</p>
-                        <p>{{ $exp->country }}</p>
-                        @if($exp->job_responsibility)
-                        <div>
-                            <h4>Job Responsibility</h4>
-                            <ul><li>{!! rtrim(str_replace(".",".</li><li>","$exp->job_responsibility"), '</li><li>') !!}</li></ul>
-                        </div>
-                        @endif
-                        <hr>
-                    @endif
-                    @endforeach
-                </div>
-            </div>
-            @endif
-            @if($seeker->SeekerSkill->count() > 0)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Skill</h5>
-                <div class="app_receive_skill">
-                    @foreach($skill_main_functional_areas as $skill_function)
-                    <p class="pdf-title">{{ $skill_function->main_functional_area_name }}</p>
-                    <ul>
-                        @foreach($seeker->SeekerSkill as $skill)
-                            @if($skill->main_functional_area_id == $skill_function->main_functional_area_id)
-                            <li>{{ $skill->Skill->name }}</li>
+                <div class="row resume-section mb-3 experience_label @if($seeker->SeekerExperience->count() == 0) d-none @endif">
+                    <h5 class="text-white resume-header py-2"><span>Career History</span></h5>
+                    <table>
+                        @foreach($seeker->SeekerExperience as $experience)
+                        
+                        <tr class="row py-2 exp-resume-{{ $experience->id }}">
+                            @if($experience->is_experience == 0)
+                            <td>No Experience</td>
+                            @else
+                            <td class="col-4 fw-bold" style="vertical-align: top">
+                                <span class="exp-start_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->start_date)) }}</span> - 
+                                @if($experience->is_current_job == 1)
+                                <span class="exp-end_date-{{$experience->id}}">Present</span>
+                                @else
+                                <span class="exp-end_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->end_date)) }}</span>
+                                @endif
+                            </td>
+                            <td class="col-8">
+                                <span class="exp-job_title-{{$experience->id}} fw-bold">{{ $experience->job_title }}</span><br>
+                                <span class="exp-company-{{$experience->id}} text-blue">{{ $experience->company }}</span><br>
+                                <span class="exp-job-responsibility-{{$experience->id}}">{!! $experience->job_responsibility !!}</span>
+                            </td>
                             @endif
+                        </tr>
+
                         @endforeach
-                    </ul>
-                    @endforeach
+                    </table>
+                    
                 </div>
-            </div>
-            @endif
-            @if($seeker->SeekerLanguage->count() > 0)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Language</h5>
-                <div class="app_receive_lang">
-                    @foreach($seeker->SeekerLanguage as $lang)
-                    <div class="row">
-                        <div class="col-2">
-                            <p class="pdf-title">{{ $lang->name }}</p>
+                <div class="row resume-section mb-3 education_label @if($seeker->SeekerEducation->count() == 0)  @endif">
+                    <h5 class="text-white resume-header py-2"><span>Education</span></h5>
+                    <table>
+                        @foreach($seeker->SeekerEducation as $education)
+                        <tr class="row py-2 edu-resume-{{ $education->id }}">
+                            <td class="col-4 fw-bold" style="vertical-align: top">
+                                <span class="edu-from-{{ $education->id }}">{{ $education->from }}</span> - <span class="edu-to-{{ $education->id }}">{{ $education->to }}</span>
+                            </td>
+                            <td class="col-8">
+                                <span class="edu-degree-{{ $education->id }} fw-bold">{{ $education->degree }} (<span class="edu-major_subject-{{ $education->id }}">{{ $education->major_subject }}</span>)</span><br>
+                                <span class="edu-location-{{ $education->id }} text-blue">{{ $education->location }}</span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                </div>
+                <div class="row resume-section mb-3 skill_label @if($seeker->SeekerSkill->count() == 0) d-none @endif" style="width: 100%; height: auto;">
+                    <h5 class="text-white resume-header py-2"><span>Skill</span></h5>
+                    
+                    <div class="row py-2" id="skill_body" style="padding: 0 20px; max-width: 600px;">
+                        @foreach($seeker->SeekerSkill as $skill)
+                        <div class="col-6 py-2 fw-bold skill-resume-{{ $skill->id }} skill-skill_id-{{$skill->id}}" style="display: inline-block;width: 280px">
+                            <img src="{{ public_path('img/icon/bookmark.png') }}" alt="" width="16px">
+                            <span class="" style="vertical-align: top">{{ $skill->Skill->name }}</span>
                         </div>
-                        <div class="col-2">
-                            <span>{{ $lang->level }}</span>
-                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="row resume-section mb-3 language_label @if($seeker->SeekerLanguage->count() == 0) d-none @endif">
+                    <h5 class="text-white resume-header py-2"><span>Languages</span></h5>
+                    <table>
+                        @foreach($seeker->SeekerLanguage as $language)
+                        <tr class="row py-2 language-resume-{{ $language->id }}">
+                            <td class="col-6 fw-bold">
+                                <span class="language-name-{{$language->id}}">{{ $language->name }}</span>
+                            </td>
+                            <td class="col-6">
+                                <span class="language-level-{{$language->id}}">{{ $language->level }}</span>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </table>
+                    
+                </div>
+                <div class="row resume-section mb-3 reference_label @if($seeker->SeekerReference->count() == 0) d-none @endif">
+                    <h5 class="text-white resume-header py-2"><span>Reference</span></h5>
+                    @foreach($seeker->SeekerReference as $reference)
+                    <div class="row py-2 reference-resume-{{ $reference->id }}" style="padding: 0 20px">
+                        <p class="reference-name-{{$reference->id}} fw-bold">{{ $reference->name }}</p>
+                        <p class="reference-position-{{$reference->id}}">{{ $reference->position }}</p>
+                        <p class="reference-company-{{$reference->id}} text-blue">{{ $reference->company }}</p>
+                        <p class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</p>
                     </div>
                     @endforeach
                 </div>
             </div>
-            @endif
-            @if($seeker->SeekerReference->count() > 0)
-            <div class="mb-4">
-                <h5 class="text-decoration-underline">Reference</h5>
-                <div class="app_receive_ref">
-                    @foreach($seeker->SeekerReference as $ref)
-                    <p class="pdf-title">{{ $ref->name }}</p>
-                    <p>{{ $ref->position }}</p>
-                    <p>{{ $ref->company }}</p>
-                    <p>{{ $ref->contact }}</p>
-                    @endforeach
-                </div>
-            </div>
-            @endif
         </div>
     </div>
 </body>

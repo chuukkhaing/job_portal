@@ -81,5 +81,9 @@ Route::group([], function () {
         Route::post('seeker-phone-store',[ResumeController::class, 'seekerPhoneStore'])->name('seeker-phone.store');
 
         Route::post('seeker-resume-update',[ResumeController::class, 'seekerResumeUpdate'])->name('seeker-resume.update');
+
+        Route::post('seeker-career-create',[ResumeController::class, 'careerCreate'])->name('seeker-career.create');
+
+        Route::get('download-ic-cv/{id}', [ResumeController::class, 'icFormatCVDownload']);
     });
 });

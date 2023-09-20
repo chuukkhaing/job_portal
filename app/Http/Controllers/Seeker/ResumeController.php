@@ -9,6 +9,8 @@ use Auth;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
 use File;
+use PDF;
+use DB;
 
 class ResumeController extends Controller
 {
@@ -116,5 +118,43 @@ class ResumeController extends Controller
         }
 
         return true;
+    }
+
+    public function careerCreate(Request $request)
+    {
+        $seeker = Seeker::findOrFail($request->seeker_id);
+
+        $seeker->update([
+            'job_title'               => $request->job_title,
+            'main_functional_area_id' => $request->main_functional_area_id,
+            'sub_functional_area_id'  => $request->sub_functional_area_id,
+            'job_type'                => $request->job_type,
+            'career_level'            => $request->career_level,
+            'preferred_salary'        => $request->preferred_salary,
+            'industry_id'             => $request->industry_id,
+        ]);
+        $seeker_percentage = $this->updateSeekerPercentage($seeker);
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Career of Choice create Successfully.'
+        ]);
+        
+    }
+
+    public function icFormatCVDownload($id)
+    {
+        $seeker = Seeker::findOrFail($id);
+        $skill_main_functional_areas = DB::table('seeker_skills as a')
+                        ->where('a.seeker_id','=',$seeker->id)
+                        ->join('skills as b','a.skill_id','=','b.id')
+                        ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                        ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                        ->groupBy('a.main_functional_area_id')
+                        ->get();
+        view()->share('seeker',$seeker);
+
+        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
+        
+        return $pdf->download($seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
     }
 }

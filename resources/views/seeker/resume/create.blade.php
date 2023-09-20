@@ -101,4 +101,23 @@
             </page>
         </div>
     </div>
+    <div class="row my-4">
+        <div class="col-12 text-end">
+            <a href="{{ url('/seeker/download-ic-cv/'. Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Download CV</a>
+            <button type="button" class="btn btn-sm profile-save-btn next-career-history">Next</button>
+        </div>
+    </div>
 </div>
+
+@push('scripts')
+<script>
+    $('.next-career-history').click(function() {
+        $("#nav-cv-build-tab").removeClass('active');
+        $("#nav-career-choice-tab").addClass('active');
+        $("#nav-cv-attach-tab").removeClass('active');
+        $("#nav-cv-build").removeClass('show active');
+        $("#nav-career-choice").addClass('show active');
+        $("#nav-cv-attach").removeClass('show active');
+    })
+</script>
+@endpush
