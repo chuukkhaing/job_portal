@@ -115,6 +115,17 @@ class ResumeController extends Controller
             $seeker_update = $seeker->update([
                 'percentage' => $total_percent,
             ]);
+        }else {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career of Choice')->first();
+            if($seeker_percent->percentage > 0) {
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => $seeker_percent->percentage - 20,
+                ]);
+            }
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
         }
 
         return true;
@@ -133,7 +144,8 @@ class ResumeController extends Controller
             'preferred_salary'        => $request->preferred_salary,
             'industry_id'             => $request->industry_id,
         ]);
-        $seeker_percentage = $this->updateSeekerPercentage($seeker);
+        $seeker_info = Seeker::findOrFail($request->seeker_id);
+        $seeker_percentage = $this->updateSeekerPercentage($seeker_info);
         return response()->json([
             'status' => 'success',
             'msg' => 'Career of Choice create Successfully.'
