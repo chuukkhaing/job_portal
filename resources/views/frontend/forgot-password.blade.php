@@ -12,11 +12,12 @@
             @if($route_name == 'seeker-forgot')
                 <form action="{{ route('seeker-forgot.post') }}" method="post">
                     @csrf
-                    <div class="form-group input-group register-form-input p-2 my-3">
+                    <label for="email">Email <span class="text-danger">*</span></label>
+                    <div class="form-group input-group register-form-input ">
                         <div class="input-group-prepend d-flex">
                             <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                         </div>
-                        <input name="email" class="bg-transparent form-control border-0" placeholder="Enter Email" type="email" value="{{ old('email') }}" required>
+                        <input name="email" class="bg-transparent form-control border-0" placeholder="Enter Email" type="email" id="email" value="{{ old('email') }}" required>
                     </div>
                     <div class="form-group p-2 text-center">
                         <button type="submit" style="width: 200px; padding: 10px" class="btn btn-sm col-12 btn-signup"> Reset Password  </button>
@@ -25,7 +26,8 @@
             @else
                 <form action="{{ route('employer-forgot.post') }}" method="post">
                     @csrf
-                    <div class="form-group input-group register-form-input p-2 my-3">
+                    <label for="email">Email <span class="text-danger">*</span></label>
+                    <div class="form-group input-group register-form-input">
                         <div class="input-group-prepend d-flex">
                             <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                         </div>

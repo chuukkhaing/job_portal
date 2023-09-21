@@ -114,7 +114,7 @@
 
             <div class="row py-0">
                 <div class="col-6 py-2 fw-bold marital_status_label @if(Auth::guard('seeker')->user()->marital_status) @else d-none @endif">
-                    Marriage Status
+                    Marital Status 
                 </div>
                 <div class="col-6 py-2 marital_status_label @if(Auth::guard('seeker')->user()->marital_status) @else d-none @endif">
                     <span class="marital_status">{{ Auth::guard('seeker')->user()->marital_status }}</span>

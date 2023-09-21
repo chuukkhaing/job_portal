@@ -20,7 +20,7 @@
             padding : 0 20px
         }
         @page {
-            margin: 150px 5mm 65px 5mm;
+            margin: 100px 2mm 65px 2mm;
         }
         
         .page-header {
@@ -85,7 +85,7 @@
         <p class="footer-text">© infinitycareers.com.mm</p>
     </div>
     <div class="container">
-        <div class="mt-4">
+        <div class="">
             <div class="mb-4">
                 <h3 class="text-center">Resume</h3>
                 <div class="row resume-section mb-3">
@@ -206,7 +206,7 @@
 
                                     <tr class="row py-0">
                                         <td class="col-6 py-2 fw-bold marital_status_label @if($seeker->marital_status) @else d-none @endif">
-                                            Marriage Status
+                                            Marital Status 
                                         </td>
                                         <td class="col-6 py-2 margin-left marital_status_label @if($seeker->marital_status) @else d-none @endif">
                                             <span class="marital_status">{{ $seeker->marital_status }}</span>
