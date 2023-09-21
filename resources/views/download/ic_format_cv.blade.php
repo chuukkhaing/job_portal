@@ -191,7 +191,7 @@
                                             State
                                         </td>
                                         <td class="col-6 py-2 margin-left state_label @if($seeker->State) @else d-none @endif">
-                                            <span class="state">{{ $seeker->State->name }}</span>
+                                            <span class="state">{{ $seeker->State->name ?? '' }}</span>
                                         </td>
                                     </tr>
 
@@ -200,7 +200,7 @@
                                             Township
                                         </td>
                                         <td class="col-6 py-2 margin-left township_label @if($seeker->Township) @else d-none @endif">
-                                            <span class="township">{{ $seeker->Township->name }}</span>
+                                            <span class="township">{{ $seeker->Township->name ?? '' }}</span>
                                         </td>
                                     </tr>
 
