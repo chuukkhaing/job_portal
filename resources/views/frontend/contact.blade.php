@@ -8,7 +8,7 @@
                 <h2 class="">Get In Touch</h2>
                 <p>Our team is available to provide support and help you find what you're looking for.</p>
             </div>
-            <div class="hr-speech my-3 mx-5">
+            <div class="hr-speech my-3 mx-1 mx-md-3">
                 <div class="row">
                     <div class="col-2">
                         <div class="contact-icon d-inline-block my-3">
@@ -63,7 +63,7 @@
                 </div> --}}
             </div>
         </div>
-        <div class="col-12 col-md-6 p-3 p-lg-5 contact-form-box">
+        <div class="col-12 col-md-6 p-3 p-lg-5 mt-2 mt-md-0 contact-form-box">
             <div class="contact-form-header py-3">
                 <h2 class="">Contact us</h2>
                 <p>"Get in touch with our team by reaching out through one of our available communication channels."</p>

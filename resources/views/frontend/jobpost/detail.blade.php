@@ -4,7 +4,7 @@
     <div class="card shadow" id="edit-profile-body">
         <div class="card-header bg-transparent">
             <div class="row">
-                <div class="col d-flex">
+                <div class="col-12 col-md-6 col-lg-4 mb-2 d-flex">
                     @if($jobpost->Employer->logo)
                     <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
                     @else
@@ -15,7 +15,7 @@
                         <div><a class="text-muted h6" href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }}</a></div>
                     </div>
                 </div>
-                <div class="col align-self-center">
+                <div class="col-12 col-md-6 col-lg-4 mb-2 align-self-center">
                     <div>
                         <span>{{ $jobpost->job_type }} @if($jobpost->country == 'Myanmar') | {{ $jobpost->State->name ?? '' }}, {{ $jobpost->Township->name ?? '' }} @endif {{ $jobpost->gender }}</span>
                     </div>
@@ -24,7 +24,7 @@
                         <span class="h5 fw-bold">@if($jobpost->hide_salary == 1) Negotiate @else {{ $jobpost->salary_range }} {{ $jobpost->currency }} @endif</span>
                     </div>
                 </div>
-                <div class="col text-end">
+                <div class="col-12 col-md-12 col-lg-4 mb-2 text-end">
                     @php
                         $disabled = '';
                         $btn_text = 'Apply Job';
@@ -58,8 +58,8 @@
         <div class="card-body p-0">
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="p-3 job-post-detail nav-link active" id="nav-job-description-tab" data-bs-toggle="tab" data-bs-target="#nav-job-description" type="button" role="tab" aria-controls="nav-job-description" aria-selected="true">Job Description</button>
-                    <button class="p-3 job-post-detail nav-link" id="nav-company-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-company-profile" type="button" role="tab" aria-controls="nav-company-profile" aria-selected="false">Company Profile</button>
+                    <button class="p-md-3 p-2 job-post-detail nav-link active" id="nav-job-description-tab" data-bs-toggle="tab" data-bs-target="#nav-job-description" type="button" role="tab" aria-controls="nav-job-description" aria-selected="true">Job Description</button>
+                    <button class="p-md-3 p-2 job-post-detail nav-link" id="nav-company-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-company-profile" type="button" role="tab" aria-controls="nav-company-profile" aria-selected="false">Company Profile</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -68,7 +68,7 @@
                     <h5 class="fw-bold text-black">Skills</h5>
                     <div class="badge-group mb-3">
                         @foreach($jobpost->JobPostSkill as $jobpostSkill)
-                        <span class="badge text-white fz14 rounede-3 py-2 px-3" style="background: #0355d0">{{ $jobpostSkill->Skill->name }}</span>
+                        <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3" style="background: #0355d0">{{ $jobpostSkill->Skill->name }}</span>
                         @endforeach
                     </div>
                     @endif
@@ -112,7 +112,7 @@
                     @endif
                 </div>
                 <div class="tab-pane fade" id="nav-company-profile" role="tabpanel" aria-labelledby="nav-company-profile-tab">
-                    <div class="p-5">
+                    <div class="p-md-5 p-1 pt-5 d-none d-lg-block">
                         <div class="row py-3">
                             <div class="col-2">
                                 
@@ -176,6 +176,81 @@
                                         <h6 class="fw-bold text-dark">Company Founded In:</h6>
                                         <p class="mb-4 btn border seeker_image_input_label w-100">
                                             -
+                                        </p>
+                                    </div>
+                                    <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
+                                    <p class="mb-4">
+                                        {{ $jobpost->Employer->value ?? '-' }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-md-5 p-1 pt-5 d-lg-none d-block company-detail-media">
+                        
+                        <div class="card job-post-detail-company-profile mb-2">
+                            <div class="header">
+                                <div class="row px-2 pt-4">
+                                    
+                                    <div class="col py-4" >
+                                        <div class="col-6 mx-auto text-center">
+                                            @if($jobpost->Employer->logo)
+                                            <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
+                                            @else
+                                            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
+                                            @endif
+                                        </div>
+                                        <h4 class="fw-bold text-black job-post-company-name">{{ $jobpost->Employer->name }}</h4>
+                                        <h5 class="fw-bold text-dark">Company Overview</h5>
+                                        @if($jobpost->Employer->summary)
+                                        <p class="mb-4">
+                                            {{ $jobpost->Employer->summary }}
+                                        </p>
+                                        @endif
+                                        @if($jobpost->Employer->EmployerAddress->count() > 0)
+                                        <h5 class="fw-bold text-dark">Address:</h5>
+                                        <span class="mb-4 btn border seeker_image_input_label">
+                                            
+                                                @if($jobpost->Employer->EmployerAddress->first()->address_detail)
+                                                <p>{{ $jobpost->Employer->EmployerAddress->first()->address_detail }}</p>
+                                                @else
+                                                <p>@if($jobpost->Employer->EmployerAddress->first()->country == 'Myanmar') {{ $jobpost->Employer->EmployerAddress->first()->State->name ?? '' }}, @if($jobpost->Employer->EmployerAddress->first()->township_id) {{ $jobpost->Employer->EmployerAddress->first()->Township->name }}, @endif {{ $jobpost->Employer->EmployerAddress->first()->country }} @endif</p>
+                                                @endif
+                                            
+                                        </span>
+                                        @endif
+                                        @if($jobpost->Employer->website)
+                                        <h5 class="fw-bold text-dark">Company Website:</h5>
+                                        <p class="mb-4">
+                                            <a href="{{ $jobpost->Employer->website }}" target="_blank"><small><strong>{{ $jobpost->Employer->website }}</strong></small></a>
+                                        </p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card job-post-detail-company-profile">
+                            <div class="px-2 px-md-5 py-3">
+                                <h5 class="fw-bold text-dark">Company Details</h5>
+                                <div class="row">
+                                    @if($jobpost->Employer->Industry->name)
+                                    <div class="col-12 col-lg-4">
+                                        <h6 class="fw-bold text-dark">Industry Type</h6>
+                                        <p class="mb-4 btn border seeker_image_input_label w-100">
+                                            {{ $jobpost->Employer->Industry->name }}
+                                        </p>
+                                    </div>
+                                    @endif
+                                    <div class="col-12 col-lg-4">
+                                        <h6 class="fw-bold text-dark">Company Size:</h6>
+                                        <p class="mb-4 btn border seeker_image_input_label w-100">
+                                            {{ $jobpost->Employer->no_of_employees ?? '-' }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <h6 class="fw-bold text-dark">No of Office:</h6>
+                                        <p class="mb-4 btn border seeker_image_input_label w-100">
+                                            {{ $jobpost->Employer->no_of_offices ?? '-' }}
                                         </p>
                                     </div>
                                     <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>

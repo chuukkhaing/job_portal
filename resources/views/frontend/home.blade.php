@@ -95,7 +95,7 @@
             @foreach($industries as $industry)
             <div class="col-lg-3 col-md-4 col-sm-2 p-2">
                 <a href="{{ route('industry-job',$industry->Industry->id) }}">
-                    <div id="job-category-box" class="text-center px-3 h-100 shadow">
+                    <div id="job-category-box" class="text-center px-0 px-sm-3 h-100 shadow">
                         <div id="job-category-icon">
                             <i class="{{ $industry->Industry->icon }}"></i>
                         </div>
@@ -125,7 +125,7 @@
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
-            <div class="col-md-2 col-4 text-center h-100 align-self-center">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-12 text-center h-100 align-self-center">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
                     <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
@@ -150,13 +150,13 @@
     <div class="row">
         <div id="header-popular-job-category" class="text-center py-4" style="border-bottom: 1px solid #95B6D8;">
             <h3 id="popular-job-category-title">
-                <span class="text-orange">
+                <span class="text-orange d-none d-sm-inline-block">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                     <i class="fa-solid fa-arrow-trend-up"></i>
                     <i class="fa-solid fa-arrow-trend-up"></i>
                 </span>
                 <span class="px-3">Trending Jobs</span>
-                <span class="text-orange">
+                <span class="text-orange d-none d-sm-inline-block">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                     <i class="fa-solid fa-arrow-trend-up"></i>
                     <i class="fa-solid fa-arrow-trend-up"></i>
@@ -313,7 +313,7 @@
                     </div>
 
                     <div id="additional-service-content">
-                        <p class="px-5">Our main goal is to consistently improve the way we provide services, making sure we offer exceptional service to our valued clients</p>
+                        <p class="">Our main goal is to consistently improve the way we provide services, making sure we offer exceptional service to our valued clients</p>
                     </div>
                 </div>
             </div>

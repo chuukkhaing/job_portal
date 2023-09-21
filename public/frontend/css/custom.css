@@ -746,6 +746,23 @@ page {
     margin-top: -40%;
 }
 
+#job-post-preview-company-logo {
+    max-width: 75px;
+}
+
+#ProfilePreview {
+    max-width: 75px;
+}
+
+.company-list-header {
+    font-size: 23px
+}
+
+.company-detail-logo {
+    width: 120px;
+    height: 120px;
+}
+
 .employer-title {
     font-size: 14px;
 }
@@ -783,12 +800,57 @@ page {
   }
 
 /* @media css start */
+@media (max-width: 1024px) {
+    .multiselect-selected-text {
+        margin-left: -15%;
+    }
+}
 @media (min-width: 992px){
     .search-sec{
         position: relative;
         top: -114px;
         background: rgb(23 23 28 / 51%);
         z-index: 100;
+    }
+}
+
+@media (max-width: 768px) {
+    .multiselect-selected-text {
+        margin-left: 0;
+    }
+    .company-detail-logo {
+        width: 100px;
+        height: 100px;
+    }
+    .job-post-detail-company-profile img {
+        margin-top: -60%;
+    }
+    .company-detail-media {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 425px) {
+    .multiselect-selected-text {
+        margin-left: -35%;
+    }
+    .company-list-header {
+        font-size: 20px
+    }
+    .company-detail-media {
+        margin-top: 0px;
+    }
+}
+
+@media (max-width: 375px) {
+    .multiselect-selected-text {
+        margin-left: -20%;
+    }
+}
+
+@media (max-width: 320px) {
+    .multiselect-selected-text {
+        margin-left: -8%;
     }
 }
 

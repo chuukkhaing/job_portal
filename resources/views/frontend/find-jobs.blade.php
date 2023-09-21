@@ -4,11 +4,11 @@
 <!-- Search Start -->
 <form action="{{ route('search-job') }}" method="get" autocomplete="off">
     @csrf
-    <section class="find-jobs-search p-5">
+    <section class="find-jobs-search px-0 py-5 p-lg-5">
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 p-0">
+                    <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
                             <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title" @if(isset($_GET['job_title'])) value="{{ $_GET['job_title'] }}" @endif>
@@ -16,7 +16,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-3 p-0">
+                    <div class="col-lg-4 col-md-4 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
                             <select class="form-control d-none" id="function-area" multiple="multiple" name="function_area[]" size="10">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3 p-0">
+                    <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-3 p-0">
+                    <div class="col-lg-2 col-md-3 p-0 mt-lg-0 mt-md-3">
                         <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
     </section>
 
     <!-- Search End -->
-    <div class="container row mx-auto my-3">
-        <div class="row col-10">
-            <div class="col-3">
+    <div class="container row mx-auto my-3 m-0 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="industry" id="industry" class="form-input find-jobs-input w-100">
                         <option value="">Job Industry</option>
@@ -66,7 +66,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="job_type" id="job_type" class="form-input find-jobs-input w-100">
                         <option value="">All Job Type</option>
@@ -76,7 +76,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="career_level" id="career_level" class="form-input find-jobs-input w-100">
                         <option value="">Career Level</option>
@@ -86,7 +86,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="qualification" id="qualification" class="form-input find-jobs-input w-100">
                         <option value="">Qualification</option>
@@ -96,9 +96,7 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="col-2">
-            <div class="col">
+            <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="job_sorting" id="job_sorting" class="form-input find-jobs-input w-100">
                         <option value="">Job Sort By</option>
@@ -108,6 +106,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </form>
 <div class="container my-3">
@@ -117,7 +116,7 @@
             {{--<span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>--}}
         </div>
     </div>
-    <div class="row my-3">
+    <div class="row">
         <!-- Left Sidebar Start -->
         @if($jobPosts->count() > 0)
         <div class="col-lg-8 col-12 find-jobs-left-sidebar">
@@ -125,14 +124,14 @@
             <div class="row job-content mb-3">
                 <!-- Job List Start -->
                 
-                <div class="col-lg-10 col-md-10 py-4 row">
-                    <div style="width: 100px" class="col-2 align-self-center">
+                <div class="col-md-9 py-md-4 py-0 row">
+                    <div class="col-sm-2 col-md-3 align-self-center">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                             @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                             @if($jobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" id="job-post-preview-company-logo">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" id="job-post-preview-company-logo">
                             @endif
                             <div class="text-center">
                             @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
@@ -140,7 +139,7 @@
                             @endif
                         </a>
                     </div>
-                    <div class="col-10 align-self-center">
+                    <div class="col-sm-10 col-md-9 align-self-center">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                             <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
@@ -160,7 +159,7 @@
                 <!-- Job List End -->
 
                 <!-- Wishlist Start -->
-                <div class="col-lg-2 col-md-2 d-flex align-items-end flex-column bd-highlight py-4">
+                <div class="col-md-3 align-items-end flex-column bd-highlight py-md-4 py-0 d-flex">
                     <div class="row col-12 m-0 p-0">
                         <div class="text-end p-0">
                             @auth('seeker')
@@ -201,7 +200,7 @@
         <!-- Left Sidebar End -->
 
         <!-- Right Sidebar Start -->
-        <div class="col-lg-4 col-12 px-5 find-jobs-right-sidebar">
+        <div class="col-lg-4 col-12 px-0 px-sm-5 find-jobs-right-sidebar">
             <!-- Trending Jobs Start -->
             @if($trending_jobs->count() > 0)
             <div class="row mb-5">

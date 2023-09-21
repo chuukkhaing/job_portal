@@ -16,9 +16,9 @@
     <div class="row pt-3 px-3">
         <div class="col-lg-6 col-md-6 col-6">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="" style="width: 120px; height: 120px; border-radius: 8px" alt="{{ $employer->name }}">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="company-detail-logo" style=" border-radius: 8px" alt="{{ $employer->name }}">
             @else
-            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px; border-radius: 8px" alt="{{ $employer->name }}">
+            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="company-detail-logo" style=" border-radius: 8px" alt="{{ $employer->name }}">
             @endif
         </div>
 
@@ -63,7 +63,7 @@
     </div>
 
     <div class="row pb-3 pt-4">
-        <div class="col-lg-4 col-md-4 py-3 bdr2 company-profile-deatil">
+        <div class="col-lg-4 col-md-6 py-3 bdr2 company-profile-deatil">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-3 p-0">
                     <img src="{{ asset('frontend/img/company/industry.png') }}" class="pull-right" alt="">
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 py-3 bdr2 company-profile-deatil">
+        <div class="col-lg-4 col-md-6 py-3 bdr2 company-profile-deatil">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-3 p-0">
                     <img src="{{ asset('frontend/img/company/employee.png') }}" class="pull-right" alt="">
@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 py-3 company-profile-deatil">
+        <div class="col-lg-4 col-md-6 py-3 company-profile-deatil">
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-3 p-0">
                     <img src="{{ asset('frontend/img/company/apartment.png') }}" class="pull-right" alt="">
@@ -183,79 +183,82 @@
 @endif
 <!-- About Company End -->
 
-<!-- Company Video Start -->
-@if($employer->EmployerMedia->where('type','Video Link')->count() > 0)
 <div class="container my-3">
-    <div class="row py-3">
-        <div class="about-company-header py-3">
-            <h3 class="about-company-title mt-3">Company Video</h3>
+    <!-- Company Video Start -->
+    @if($employer->EmployerMedia->where('type','Video Link')->count() > 0)
+    <div class="col-6 p-0">
+        <div class="row py-3">
+            <div class="about-company-header py-3">
+                <h3 class="about-company-title mt-3">Company Video</h3>
+            </div>
+        </div>
+
+        <div class="row pb-3">
+            {{--<iframe width="420" height="315"
+                src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
+            </iframe>--}}
+            {{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}
         </div>
     </div>
+    @endif
+    <!-- Company Video End -->
 
-    <div class="row pb-3">
-        <iframe width="420" height="315"
-            src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
-        </iframe>
-    </div>
-</div>
-@endif
-<!-- Company Video End -->
-
-<!-- Company Photo Start -->
-@if($employer->EmployerMedia->where('type','Image')->count() > 0)
-<div class="container my-3">
-    <div class="row py-3">
-        <div class="about-company-header py-3">
-            <h3 class="about-company-title mt-3">Company Photos</h3>
+    <!-- Company Photo Start -->
+    @if($employer->EmployerMedia->where('type','Image')->count() > 0)
+    <div class="col-6 p-0">
+        <div class="row py-3">
+            <div class="about-company-header py-3">
+                <h3 class="about-company-title mt-3">Company Photos</h3>
+            </div>
         </div>
-    </div>
 
-    <div class="row pb-3">
-        {{--@foreach($employer->EmployerMedia->where('type','Image') as $image)
-        <div class="col-lg-3 col-md-3 p-0 company-photo">
-            <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
-        </div>
-        @endforeach--}}
-        <div class="container py-5">
-            <div class="row">
-                <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
-                <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
-                    <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            @foreach($employer->EmployerMedia->where('type','Image') as $image)
-                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}" style="width:80%;">
+        <div class="row pb-3">
+            {{--@foreach($employer->EmployerMedia->where('type','Image') as $image)
+            <div class="col-lg-3 col-md-3 p-0 company-photo">
+                <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
+            </div>
+            @endforeach--}}
+            <div class="container py-5">
+                <div class="row">
+                    <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
+                    <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
+                        <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                @foreach($employer->EmployerMedia->where('type','Image') as $image)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}" style="width:80%;">
+                                </div>
+                                @endforeach
                             </div>
-                            @endforeach
+
+                            <!-- Left and right controls -->
+                            <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a>
+
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators list-inline">
+                                @foreach($employer->EmployerMedia->where('type','Image') as $key => $image)
+                                <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
+                                    <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
+                                        <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
+                                    </a>
+                                </li>
+                                @endforeach
+                            </ol>
                         </div>
-
-                        <!-- Left and right controls -->
-                        <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </a>
-                        <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </a>
-
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators list-inline">
-                            @foreach($employer->EmployerMedia->where('type','Image') as $key => $image)
-                            <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
-                                <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
-                                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
-                                </a>
-                            </li>
-                            @endforeach
-                        </ol>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
+    <!-- Company Photo End -->
 </div>
-@endif
-<!-- Company Photo End -->
 
 <!-- Job Openings Start -->
 @if($jobPosts->count() > 0)
@@ -272,12 +275,12 @@
             <div class="row job-opening me-1 p-2 h-100">
                 <div class="col-lg-9 col-md-9 p-0">
                     <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-2 align-self-center">
+                        <div class="col-lg-2 col-md-3 align-self-center">
                             @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                             @if($employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
                             @endif
                             <div class="text-center">
                             @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
@@ -285,7 +288,7 @@
                             @endif
                         </div>
 
-                        <div class="col-lg-10 col-md-10 align-self-center">
+                        <div class="col-lg-10 col-md-9 align-self-center">
                             <div class="mt-1 job-company">{{ $employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
