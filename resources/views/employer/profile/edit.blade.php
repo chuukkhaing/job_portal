@@ -523,11 +523,11 @@
                             <div class="row">
                                 <div class="col-6 form-group">
                                     <label for="company_summary" class="seeker_label">Company Summary</label>
-                                    <textarea name="company_summary" id="company_summary" cols="30" rows="5" class="seeker_input form-control">{{ $employer->summary }}</textarea>
+                                    <textarea name="company_summary" id="company_summary" cols="30" rows="5" class="seeker_input summernote form-control">{!! $employer->summary !!}</textarea>
                                 </div>
                                 <div class="col-6 form-group">
                                     <label for="company_value" class="seeker_label">Company Value</label>
-                                    <textarea name="company_value" id="company_value" cols="30" rows="5" class="seeker_input form-control">{{ $employer->value }}</textarea>
+                                    <textarea name="company_value" id="company_value" cols="30" rows="5" class="seeker_input form-control summernote">{!! $employer->value !!}</textarea>
                                 </div>
                             </div>
                         </div>

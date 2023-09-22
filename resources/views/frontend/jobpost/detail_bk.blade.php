@@ -234,7 +234,7 @@
                                 @if($jobpost->summary)
                                 <div class="row col-12 m-0 p-0 py-1">
                                     <p>
-                                        {{ $jobpost->Employer->summary ?? '-' }}
+                                        {!! $jobpost->Employer->summary ?? '-' !!}
                                     </p>
                                 </div>
                                 @endif

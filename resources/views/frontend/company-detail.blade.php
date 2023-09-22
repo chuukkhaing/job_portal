@@ -112,7 +112,7 @@
             </h3>
             
             <p>
-                {{ $employer->value ?? '-' }}
+                {!! $employer->value ?? '-' !!}
             </p>
         </div>
     </div>
@@ -175,7 +175,7 @@
     <div class="row py-3">
         <div class="col-lg-12 about-company">
             <p>
-                {{ $employer->summary }}
+                {!! $employer->summary !!}
             </p>
         </div>
     </div>
