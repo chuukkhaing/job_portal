@@ -212,7 +212,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".reference-tr-"+id).empty();
-                        $(".reference-resume-"+id).empty();
+                        $(".reference-resume-"+id).hide();
                         if(response.seeker_references_count == 0) {
                             $("#reference-table").addClass('d-none');
                             $(".reference_label").addClass('d-none');

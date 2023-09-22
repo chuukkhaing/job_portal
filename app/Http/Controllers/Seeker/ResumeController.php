@@ -6,8 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\Seeker;
 use Auth;
-use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
+use App\Models\Admin\Skill;
+use App\Models\Admin\State;
+use App\Models\Admin\Township;
+use App\Models\Seeker\SeekerAttach;
+use App\Models\Seeker\SeekerEducation;
+use App\Models\Seeker\SeekerExperience;
+use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerPercentage;
+use App\Models\Seeker\SeekerReference;
+use App\Models\Seeker\SeekerSkill;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use File;
 use PDF;
 use DB;
@@ -15,6 +26,21 @@ use DB;
 class ResumeController extends Controller
 {
 
+    public function create()
+    {
+        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
+        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
+        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
+        $industries           = Industry::whereNull('deleted_at')->get();
+        $educations           = SeekerEducation::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $experiences          = SeekerExperience::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $skills               = SeekerSkill::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $languages            = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $references           = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        $cvs                  = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
+        return view ('seeker.resume.create', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs'));
+    }
     public function profileImageStore(Request $request)
     {
         $seeker = Seeker::findOrFail($request->seeker_id);

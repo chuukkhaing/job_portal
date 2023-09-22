@@ -781,7 +781,7 @@
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
-                                $(".exp-resume-"+id).html('');
+                                $(".exp-resume-"+id).hide('');
                                 
                                 var exp_main_function = '';
                                 var exp_sub_function_name = '';
@@ -848,7 +848,7 @@
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
-                                $(".exp-resume-"+id).html('');
+                                $(".exp-resume-"+id).hide('');
                                 var exp_main_function = '';
                                 var exp_sub_function_name = '';
                                 var exp_industry_name = '';

@@ -171,7 +171,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".skill-tr-"+id).empty();
-                        $(".skill-resume-"+id).empty();
+                        $(".skill-resume-"+id).hide();
                         if(response.seeker_skills_count == 0) {
                             $("#skill-table").addClass('d-none');
                             $(".skill_label").addClass('d-none');

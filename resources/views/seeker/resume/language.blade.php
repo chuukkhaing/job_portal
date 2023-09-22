@@ -169,7 +169,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".language-tr-"+id).empty();
-                        $(".language-resume-"+id).empty();
+                        $(".language-resume-"+id).hide();
                         if(response.seeker_languages_count == 0) {
                             $("#language-table").addClass('d-none');
                             $(".language_label").addClass('d-none');

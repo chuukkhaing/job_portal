@@ -255,7 +255,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".edu-tr-"+id).empty();
-                        $(".edu-resume-"+id).empty();
+                        $(".edu-resume-"+id).hide();
                         if(response.seeker_educations_count == 0) {
                             $("#edu-table").addClass('d-none');
                             $(".education_label").addClass('d-none');
