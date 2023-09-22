@@ -185,7 +185,7 @@
             <div class="row">
                 <div class="form-group mt-1 col-6">
                     <label for="summary" class="seeker_label my-2">Summary</label>
-                    <textarea name="summary" id="summary" class="form-control seeker_input" cols="30" rows="2">{{ Auth::guard('seeker')->user()->summary }}</textarea>
+                    <textarea name="summary" id="summary" class="form-control seeker_input" cols="30" rows="2">{!! Auth::guard('seeker')->user()->summary !!}</textarea>
                 </div>
             </div>
         </div>

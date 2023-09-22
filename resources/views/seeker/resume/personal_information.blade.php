@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-3">
         <div class="px-1">
-            <small>Profile Image </small>
-            <div class="float-end @if(Auth::guard('seeker')->user()->image) @else d-none @endif profile-remove-icon">
-                
-                <a class="dropdown btn" data-bs-toggle="dropdown" aria-expanded="false">
+            
+            <div class=" @if(Auth::guard('seeker')->user()->image) @else d-none @endif profile-remove-icon">
+                <small>Profile Image </small>
+                <a class="float-end dropdown btn" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fz13 float-end fa-solid fa-ellipsis-vertical"></i>
                 </a>
                 <ul class="dropdown-menu p-0">
@@ -123,7 +123,7 @@
         </div>
         <div class="form-group col-12">
             <label for="summary" class="">Summary</label>
-            <textarea name="summary" id="summary" class="form-control" cols="30" rows="2" onchange="updateProfile('summary', this.value)">{{ Auth::guard('seeker')->user()->summary }}</textarea>
+            <textarea name="summary" id="summary" class="form-control summernote_resume" cols="30" rows="2" >{!! Auth::guard('seeker')->user()->summary !!}</textarea>
         </div>
     </div>
 </div>
@@ -150,6 +150,18 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
+    $(document).ready(function() {
+        // onChange callback
+        $('.summernote_resume').summernote({
+        callbacks: {
+            onChange: function(contents, $editable) {
+                updateProfile('summary', contents)
+                }
+            }
+        });
+
+    })
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -327,11 +339,6 @@
                 }
             });
         });
-
-        $("#summary").change(function(){
-            $(".career-description").text($(this).val());
-            $('.career-description-preview').removeClass('d-none');
-        })
     })
 
     function updateProfile(name, value) {
@@ -356,7 +363,7 @@
                         if($(".first_name").text() == '' && $(".first_name").text() == '') {
                             $(".name_label").addClass('d-none');
                         }
-                     }
+                    }
                     if(name == "gender") {
                         if(value == "Male") {
                             $(".gender_type").text('Mr.');
@@ -420,20 +427,16 @@
                     }
 
                     if(name == "summary"){
-                        $(".career-description").text(value);
-                        $('.career-description-preview').removeClass('d-none');
+                        
+                        $(".summary").html(value);
+                        $('.summary_label').removeClass('d-none');
                     }
 
                     if(name == "summary" && value == ""){
-                        $(".career-description").text(value);
-                        $('.career-description-preview').addClass('d-none');
+                        $(".summary").text(value);
+                        $('.summary_label').addClass('d-none');
                     }
                     
-                    if(response.seeker_info.first_name || response.seeker_info.last_name || response.seeker_info.email) {
-                        $('.personal-info-preview').removeClass('d-none');
-                    }else {
-                        $('.personal-info-preview').addClass('d-none');
-                    }
                 }
             },
             error: function (data, response) {
