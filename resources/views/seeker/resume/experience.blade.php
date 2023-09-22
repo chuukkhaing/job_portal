@@ -563,7 +563,7 @@
                 }else{
                     $(".exp_end_date-error").html("")
                 }
-                if(exp_start_date != '' && exp_end_date != '' && exp_start_date > exp_end_date) {
+                if(exp_start_date != '' && exp_end_date != '' && exp_start_date < exp_end_date) {
                     $(".exp_end_date-error").html('End Date must be greater than Start Date.');
                 }
                 if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_end_date != '' && exp_job_responsibility != '' && exp_end_date > exp_start_date)
@@ -821,7 +821,7 @@
                     }else{
                         $(".edit_exp_end_date-error").html("")
                     }
-                    if(edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_start_date > edit_exp_end_date) {
+                    if(edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_start_date < edit_exp_end_date) {
                         $(".edit_exp_end_date-error").html('End Date must be greater than Start Date.');
                     }
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_job_responsibility != '' && edit_exp_end_date > edit_exp_start_date)

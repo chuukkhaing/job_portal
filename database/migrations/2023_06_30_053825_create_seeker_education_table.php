@@ -18,6 +18,8 @@ class CreateSeekerEducationTable extends Migration
             $table->biginteger('seeker_id');
             $table->string('degree')->nullable();
             $table->string('major_subject')->nullable();
+            $table->string('school')->nullable();
+            $table->boolean('is_current')->default(0);
             $table->string('location')->nullable();
             $table->integer('from')->nullable();
             $table->integer('to')->nullable();

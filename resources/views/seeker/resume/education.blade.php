@@ -90,6 +90,7 @@
             </select>
             <span class="text-danger" id="edit-degree-error"></span>
         </div>
+        
         <div class="form-group mt-1 col-12 col-md-6">
             <label for="major_subject" class="seeker_label my-2">Major Subject/Area of Study <span class="text-danger">*</span></label>
             <input type="text" name="major_subject" id="edit-major_subject" class="form-control seeker_input" placeholder="Major Subject" value="">
