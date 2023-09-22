@@ -4,32 +4,21 @@
     </button>
 </div>
 
-<div class="my-2 row table-responsive">
-    <table id="reference-table" class="@if($references->count() == 0) d-none @endif table table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Company</th>
-                <th>Contact</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($references as $reference)
-            <tr class="reference-tr-{{ $reference->id }}">
-                <td class="reference-name-{{$reference->id}}">{{ $reference->name }}</td>
-                <td class="reference-position-{{$reference->id}}">{{ $reference->position }}</td>
-                <td class="reference-company-{{$reference->id}}">{{ $reference->company }}</td>
-                <td class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</td>
-                <td>
-                    <a onclick="editReference({{ $reference->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                    <a id="deleteReference-{{ $reference->id }}" class="deleteReference btn border-0 text-danger" value="{{ $reference->id }}"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="my-2 row">
+    <div id="reference-table" class="@if($references->count() == 0) d-none @endif">
+        @foreach($references as $reference)
+        <tr class="reference-tr-{{ $reference->id }}">
+            <td class="reference-name-{{$reference->id}}">{{ $reference->name }}</td>
+            <td class="reference-position-{{$reference->id}}">{{ $reference->position }}</td>
+            <td class="reference-company-{{$reference->id}}">{{ $reference->company }}</td>
+            <td class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</td>
+            <td>
+                <a onclick="editReference({{ $reference->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
+                <a id="deleteReference-{{ $reference->id }}" class="deleteReference btn border-0 text-danger" value="{{ $reference->id }}"><i class="fa-solid fa-trash-can"></i></a>
+            </td>
+        </tr>
+        @endforeach
+    </div>
 </div>
 
 <div class="modal fade" id="refModal" tabindex="-1" aria-labelledby="refModalLabel" aria-hidden="true">

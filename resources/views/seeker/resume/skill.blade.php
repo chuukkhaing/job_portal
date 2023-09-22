@@ -3,27 +3,20 @@
         <i class="fa-solid fa-plus"></i> Add Skill
     </button>
 </div>
-<div class="my-2 row table-responsive">
-    <table id="skill-table" class="@if($skills->count() == 0) d-none @endif table table-bordered ">
-        <thead>
-            <tr>
-                <th>Main Functional Area Name</th>
-                <th>Skill Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="skill-tbody">
+<div class="my-2 row">
+    <div id="skill-table" class="@if($skills->count() == 0) d-none @endif">
+        <div id="skill-tbody">
             @foreach($skills as $skill)
-            <tr class="skill-tr-{{ $skill->id }}">
-                <td class="skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctionalArea->name }}</td>
-                <td class="skill-skill_id-{{$skill->id}}">{{ $skill->Skill->name }}</td>
-                <td>
+            <div class="row skill-tr-{{ $skill->id }}">
+                <div class="col skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctionalArea->name }}</div>
+                <div class="col skill-skill_id-{{$skill->id}}">{{ $skill->Skill->name }}</div>
+                <div class="col">
                     <a id="deleteSkill-{{ $skill->id }}" class="deleteSkill btn border-0 text-danger" value="{{ $skill->id }}"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
-            </tr>
+                </div>
+            </div>
             @endforeach
-        </tbody>
-    </table>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="skillModal" tabindex="-1" aria-labelledby="skillModalLabel" aria-hidden="true">
@@ -142,7 +135,7 @@
                             }
                         })
                         
-                        $("#skill-table").append('<tr class="skill-tr-'+skill.id+'"><td class="skill-main_functional_area_id-'+skill.id+'">'+function_name+'</td><td class="skill-skill_id-'+skill.id+'">'+skill_name_org+'</td><td><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#skill-table").append('<div class="row skill-tr-'+skill.id+'"><div class="col skill-main_functional_area_id-'+skill.id+'">'+function_name+'</div><div class="col skill-skill_id-'+skill.id+'">'+skill_name_org+'</div><div class="col"><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                         $("#skill_body").append('<div class="col-6 py-2 fw-bold skill-resume-'+skill.id+' skill-skill_id-'+skill.id+'"><i class="fa-solid fa-bookmark fa-rotate-by me-2" style="--fa-rotate-angle: 90deg; color: #0355D0"></i><span class="phone">'+skill_name_org+'</span></div>');
                     })

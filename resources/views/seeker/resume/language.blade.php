@@ -4,28 +4,21 @@
     </button>
 </div>
 
-<div class="my-2 row table-responsive">
-    <table id="language-table" class="@if($languages->count() == 0) d-none @endif table table-bordered">
-        <thead>
-            <tr>
-                <th>Language Name</th>
-                <th>Language Level</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($languages as $language)
-            <tr class="language-tr-{{ $language->id }}">
-                <td class="language-name-{{$language->id}}">{{ $language->name }}</td>
-                <td class="language-level-{{$language->id}}">{{ $language->level }}</td>
-                <td>
-                    <a onclick="editLanguage({{ $language->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                    <a id="deleteLanguage-{{ $language->id }}" class="deleteLanguage btn border-0 text-danger" value="{{ $language->id }}"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="my-2 row">
+    <div id="language-table" class="@if($languages->count() == 0) d-none @endif">
+        
+        @foreach($languages as $language)
+        <div class="row language-tr-{{ $language->id }}">
+            <div class="col language-name-{{$language->id}}">{{ $language->name }}</div>
+            <div class="col language-level-{{$language->id}}">{{ $language->level }}</div>
+            <div class="col">
+                <a onclick="editLanguage({{ $language->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
+                <a id="deleteLanguage-{{ $language->id }}" class="deleteLanguage btn border-0 text-danger" value="{{ $language->id }}"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+        @endforeach
+        
+    </div>
 </div>
 
 <div class="modal fade" id="langModal" tabindex="-1" aria-labelledby="langModalLabel" aria-hidden="true">
@@ -141,7 +134,7 @@
                     $('#language-table').removeClass('d-none');
                     $('.language_label').removeClass('d-none');
 
-                    $('#language-table').append('<tr class="language-tr-'+response.language.id+'"><td class="language-name-'+response.language.id+'">'+response.language.name+'</td><td class="language-level-'+response.language.id+'">'+response.language.level+'</td><td><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteLanguage-'+response.language.id+'" class="deleteLanguage btn border-0 text-danger" value="'+response.language.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $('#language-table').append('<div class="row language-tr-'+response.language.id+'"><div class="col language-name-'+response.language.id+'">'+response.language.name+'</div><div class="col language-level-'+response.language.id+'">'+response.language.level+'</div><div class="col"><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteLanguage-'+response.language.id+'" class="deleteLanguage btn border-0 text-danger" value="'+response.language.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                     $('.language_label').append('<div class="row py-2 language-resume-'+response.language.id+'"><div class="col-6 fw-bold"><span class="language-name-'+response.language.id+'">'+response.language.name+'</span></div><div class="col-6"><span class="language-level-'+response.language.id+'">'+response.language.level+'</span></div></div>');
 
