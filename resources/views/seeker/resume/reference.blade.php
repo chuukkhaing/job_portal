@@ -7,16 +7,18 @@
 <div class="my-2 row">
     <div id="reference-table" class="@if($references->count() == 0) d-none @endif">
         @foreach($references as $reference)
-        <tr class="reference-tr-{{ $reference->id }}">
-            <td class="reference-name-{{$reference->id}}">{{ $reference->name }}</td>
-            <td class="reference-position-{{$reference->id}}">{{ $reference->position }}</td>
-            <td class="reference-company-{{$reference->id}}">{{ $reference->company }}</td>
-            <td class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</td>
-            <td>
+        <div class="row reference-tr-{{ $reference->id }}">
+            <div class="col">
+                <div class="fw-bold reference-name-{{$reference->id}}">{{ $reference->name }}</div>
+                <div class="reference-position-{{$reference->id}}">{{ $reference->position }}</div>
+                <div class="text-blue reference-company-{{$reference->id}}">{{ $reference->company }}</div>
+                <div class="reference-contact-{{$reference->id}}">{{ $reference->contact }}</div>
+            </div>
+            <div class="col">
                 <a onclick="editReference({{ $reference->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
                 <a id="deleteReference-{{ $reference->id }}" class="deleteReference btn border-0 text-danger" value="{{ $reference->id }}"><i class="fa-solid fa-trash-can"></i></a>
-            </td>
-        </tr>
+            </div>
+        </div>
         @endforeach
     </div>
 </div>
@@ -162,7 +164,7 @@
 
                                 $('.reference_label').removeClass('d-none');
 
-                                $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                                $('#reference-table').append('<div class="row reference-tr-'+response.reference.id+'"><div class="col"><div class="fw-bold reference-name-'+response.reference.id+'">'+response.reference.name+'</div><div class="reference-position-'+response.reference.id+'">'+response.reference.position+'</div><div class="text-blue reference-company-'+response.reference.id+'">'+response.reference.company+'</div><div class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</div></div><div class="col"><a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                                 $(".reference_label").append('<div class="row py-2 reference-resume-'+response.reference.id+'"><span class="reference-name-'+response.reference.id+' fw-bold">'+response.reference.name+'</span><span class="reference-position-'+response.reference.id+'">'+response.reference.position+'</span><span class="reference-company-'+response.reference.id+' text-blue">'+response.reference.company+'</span><span class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</span></div>');
 
