@@ -103,20 +103,23 @@
 <!-- Company Profile End -->
 
 <!-- Vision, Mission and Value Start -->
-<div class="container my-5">
-    @if($employer->value)
-    <div class="row py-2">
-        <div class="col-lg-12 company-vision">
-            <h3 class="vision-title">
-                Vision, Mission, Value
-            </h3>
-            
+@if($employer->value)
+<div class="container my-3">
+    <div class="row py-3">
+        <div class="about-company-header py-3">
+            <h3 class="about-company-title mt-3">Vision, Mission, Value</h3>
+        </div>
+    </div>
+
+    <div class="row py-3">
+        <div class="col-lg-12 about-company">
             <p>
-                {!! $employer->value ?? '-' !!}
+                {!! $employer->value !!}
             </p>
         </div>
     </div>
-    @endif
+</div>
+@endif
 
     {{--<div class="row py-2">
         <div class="col-lg-12 company-vision">
@@ -160,7 +163,6 @@
             </div>
         </div>
     </div>--}}
-</div>
 <!-- Vision, Mission and Value End -->
 
 <!-- About Company Start -->
