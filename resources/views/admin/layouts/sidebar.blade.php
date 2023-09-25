@@ -163,6 +163,15 @@
         </a>
     </li>
     @endcan
+    <!-- Nav Item - Seeker Menu -->
+    
+    <li class="nav-item {{ Request::is('admin/seeker*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="{{ route('seeker.index') }}">
+            <i class="fas fa-users-gear"></i>
+            <span>Seekers</span>
+        </a>
+    </li>
+    
     <!-- Nav Item - Slider Menu -->
     @canany(['slider-list'])
     <li class="nav-item {{ Request::is('admin/slider*') ? 'active' : '' }}">

@@ -185,6 +185,8 @@ class SeekerProfileController extends Controller
             'location'      => $request->location,
             'from'          => $request->from,
             'to'            => $request->to,
+            'school'        => $request->school,
+            'is_current'    => $request->current_school
         ]);
         $seeker            = Seeker::findOrFail($request->seeker_id);
         $seeker_educations = SeekerEducation::whereSeekerId($seeker->id)->get();
@@ -253,6 +255,15 @@ class SeekerProfileController extends Controller
             'status'                  => 'success',
             'msg'                     => 'Education deleted successfully!',
             'seeker_educations_count' => $seeker_educations_count,
+        ]);
+    }
+
+    public function getExperience(Request $request)
+    {
+        $experience = SeekerExperience::whereSeekerId($request->seeker_id)->count();
+        return response()->json([
+            'experience' => $experience,
+            'status' => 'success'
         ]);
     }
 

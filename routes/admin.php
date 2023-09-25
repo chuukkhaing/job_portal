@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\JobPostController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SeekerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,5 +90,7 @@ Route::group([], function(){
         // profile 
         Route::resource('admin-profile', ProfileController::class);
 
+        // seeker 
+        Route::resource('seeker', SeekerController::class);
     });
 });

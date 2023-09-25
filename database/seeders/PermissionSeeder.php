@@ -70,6 +70,10 @@ class PermissionSeeder extends Seeder
             'seeker-employer-contact-list',
             'job-post-list',
             'job-post-edit',
+            'seeker-list',
+            'seeker-create',
+            'seeker-edit',
+            'seeker-delete',
          ];
       
          foreach ($permissions as $permission) {

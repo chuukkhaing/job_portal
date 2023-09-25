@@ -46,9 +46,10 @@ class CreateSeekersTable extends Migration
             $table->bigInteger('number_of_profile_view')->default(0);
             $table->longtext('summary')->nullable();
             $table->integer('percentage')->default(0);
-            $table->boolean('is_verify')->default(0);
             $table->boolean('email_verified')->default(0);
             $table->datetime('register_at')->nullable();
+            $table->integer('deleted_by')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

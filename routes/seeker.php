@@ -47,6 +47,7 @@ Route::group([], function () {
         Route::get('/experience/edit/{id}', [SeekerProfileController::class, 'experienceEdit'])->name('experience.edit');
         Route::post('/experience/update/{id}', [SeekerProfileController::class, 'experienceUpdate'])->name('experience.update');
         Route::post('/experience/destory/{id}', [SeekerProfileController::class, 'experienceDestory'])->name('experience.destroy');
+        Route::post('/experience', [SeekerProfileController::class, 'getExperience'])->name('experience.get');
 
         Route::post('/skill/store', [SeekerProfileController::class, 'skillStore'])->name('seeker-skill.store');
         Route::post('/skill/destory/{id}', [SeekerProfileController::class, 'skillDestory'])->name('seeker-skill.destroy');

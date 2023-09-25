@@ -151,6 +151,15 @@
             minViewMode: "years",
             autoclose: true
         });
+
+        $("#current_school").change(function() {
+            if($(this).is(":checked")){
+                $("#end-date-school").addClass('d-none');
+                $("#to").val('')
+            }else{
+                $("#end-date-school").removeClass('d-none');
+            }
+        })
     })
 
     function createEduForm()
@@ -175,6 +184,9 @@
         var location = $("#location").val();
         var from = $("#from").val();
         var to = $("#to").val();
+        var school = $("#school").val();
+        var current_school = $('#current_school').val();
+
         if(degree == '') {
             $("#degree-error").html('Degree need to select.');
         }else {
@@ -217,7 +229,9 @@
                     'location' : location,
                     'from' : from,
                     'to' : to,
-                    'seeker_id' : seeker_id
+                    'seeker_id' : seeker_id,
+                    'school' : school,
+                    'current_school' : current_school
                 },
                 url: '{{ route("education.store") }}',
             }).done(function(response){
@@ -231,7 +245,6 @@
 
                     $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+response.education.to+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div></div>');
 
-                    // alert(response.msg);
                     MSalert.principal({
                         icon:'success',
                         title:'',

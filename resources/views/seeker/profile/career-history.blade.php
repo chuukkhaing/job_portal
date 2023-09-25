@@ -69,8 +69,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group mt-1 col-12 col-md-6">
-                            <label for="is_experienct" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
-                            <select name="is_experienct" id="is_experience" class="seeker_input" style="width: 100%">
+                            <label for="is_experience" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
+                            <select name="is_experience" id="is_experience" class="seeker_input" style="width: 100%">
                                 <option value="1" selected>Experience</option>
                                 <option value="0">No Experience</option>
                             </select>

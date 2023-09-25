@@ -1,5 +1,5 @@
 <div class="my-2 row @if($experiences->count() > 0 && $experiences->first()->is_experience == 0) d-none @endif" id="add_career_history">
-    <button type="button" class="btn btn-sm profile-save-btn m-2 col-6" data-bs-toggle="modal" data-bs-target="#experienceModal">
+    <button type="button" class="btn btn-sm profile-save-btn m-2 col-6" data-bs-toggle="modal" data-bs-target="#experienceModal" id="create-exp">
         <i class="fa-solid fa-plus"></i> Add Career History
     </button>
 </div>
@@ -48,8 +48,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group mt-1 col-12 col-md-6">
-                        <label for="is_experienct" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
-                        <select name="is_experienct" id="is_experience" class="seeker_input" style="width: 100%">
+                        <label for="is_experience" class="seeker_label my-2 experience_status">Experience <span class="text-danger">*</span> </label><br>
+                        <select name="is_experience" id="is_experience" class="seeker_input" style="width: 100%">
                             <option value="1" selected>Experience</option>
                             <option value="0">No Experience</option>
                         </select>
@@ -306,6 +306,26 @@
             minViewMode: "months",
             autoclose: true
         });
+
+        $("#create-exp").click(function() {
+            var seeker_id ={{ Auth::guard('seeker')->user()->id }}
+            $.ajax({
+                type : 'POST',
+                data : {
+                    'seeker_id' : seeker_id
+                },
+                url : '{{ route("experience.get") }}'
+            }).done(function(response) {
+                if(response.status == 'success') {
+                    if(response.experience > 0) {
+                        $(".experience_status").addClass('d-none')
+                    }else {
+                        $(".experience_status").removeClass('d-none')
+                    }
+                }
+            })
+        })
+
         $('#is_experience').change(function() {
             if($(this).val() == 0) {
                 $(".no-experience").addClass('d-none');
