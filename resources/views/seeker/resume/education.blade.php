@@ -45,6 +45,12 @@
             <span class="text-danger" id="degree-error"></span>
         </div>
         <div class="form-group mt-1 col-12 col-md-6">
+            <label for="school" class="">School/University <span class="text-danger">*</span></label>
+            <input type="text" name="school" id="school" class="form-control" placeholder="School/University" value="">
+            <span class="text-danger" id="school-error"></span>
+        </div>
+        
+        <div class="form-group mt-1 col-12 col-md-6">
             <label for="major_subject" class="">Major Subject/Area of Study <span class="text-danger">*</span></label>
             <input type="text" name="major_subject" id="major_subject" class="form-control" placeholder="Major Subject" value="">
             <span class="text-danger" id="major_subject-error"></span>
@@ -53,6 +59,11 @@
             <label for="location" class="">Location <span class="text-danger">*</span></label>
             <input type="text" name="location" id="location" class="form-control" placeholder="Location" value="">
             <span class="text-danger" id="location-error"></span>
+        </div>
+        <div class="form-group mt-1 col-12 col-md-6">
+            <br>
+            <input type="checkbox" name="current_school" id="current_school" checked="1">
+            <label for="current_school" class="seeker_label my-2">Present </label>
         </div>
         <div class="form-group mt-1 px-1 col-6 col-md-3">
             <label for="from" class="">Start Year <span class="text-danger">*</span></label>
@@ -64,7 +75,7 @@
             </div>
             <span class="text-danger" id="from-error"></span>
         </div>
-        <div class="form-group mt-1 px-1 col-6 col-md-3">
+        <div class="form-group mt-1 px-1 col-6 col-md-3 d-none" id="end-date-school">
             <label for="to" class="">End Year <span class="text-danger">*</span></label>
             <div class="datepicker date input-group year">
                 <input type="text" name="to" id="to" class="form-control" value="" placeholder="End Year">

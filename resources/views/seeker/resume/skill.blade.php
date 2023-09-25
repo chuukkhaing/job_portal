@@ -8,7 +8,6 @@
         <div id="skill-tbody">
             @foreach($skills as $skill)
             <div class="row skill-tr-{{ $skill->id }}">
-                <div class="col skill-main_functional_area_id-{{$skill->id}}">{{ $skill->MainFunctionalArea->name }}</div>
                 <div class="col skill-skill_id-{{$skill->id}}">{{ $skill->Skill->name }}</div>
                 <div class="col">
                     <a id="deleteSkill-{{ $skill->id }}" class="deleteSkill btn border-0 text-danger" value="{{ $skill->id }}"><i class="fa-solid fa-trash-can"></i></a>
@@ -124,18 +123,13 @@
                     var function_name = '';
                     var skill_name_org = '';
                     $(response.skills).each(function(index, skill) {
-                        $(response.skill_functions).each(function(key, function_area) {
-                            if(skill.main_functional_area_id == function_area.id){
-                                function_name = function_area.name;
-                            }
-                        })
                         $(response.skill_names).each(function(key, skill_name) {
                             if(skill.skill_id == skill_name.id){
                                 skill_name_org = skill_name.name;
                             }
                         })
                         
-                        $("#skill-table").append('<div class="row skill-tr-'+skill.id+'"><div class="col skill-main_functional_area_id-'+skill.id+'">'+function_name+'</div><div class="col skill-skill_id-'+skill.id+'">'+skill_name_org+'</div><div class="col"><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
+                        $("#skill-tbody").append('<div class="row skill-tr-'+skill.id+'"><div class="col skill-skill_id-'+skill.id+'">'+skill_name_org+'</div><div class="col"><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                         $("#skill_body").append('<div class="col-6 py-2 fw-bold skill-resume-'+skill.id+' skill-skill_id-'+skill.id+'"><i class="fa-solid fa-bookmark fa-rotate-by me-2" style="--fa-rotate-angle: 90deg; color: #0355D0"></i><span class="phone">'+skill_name_org+'</span></div>');
                     })

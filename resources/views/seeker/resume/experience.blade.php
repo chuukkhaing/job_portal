@@ -654,8 +654,8 @@
                 $("#edit_exp_industry_id").val(response.experience.industry_id);
                 $("#edit_exp_country").val(response.experience.country);
                 $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
-                $("#edit_exp_start_date").val(moment(response.experience.start_date).format("MMM-YYYY"));
-                $("#edit_exp_end_date").val(moment(response.experience.end_date).format("MMM-YYYY"));
+                $("#edit_exp_start_date").val(moment(response.experience.start_date).format("YYYY-MM"));
+                $("#edit_exp_end_date").val(moment(response.experience.end_date).format("YYYY-MM"));
                 if(response.experience.is_current_job) {
                     $("#edit_current_job").prop('checked',true);
                 }else {
@@ -821,9 +821,12 @@
                     }else{
                         $(".edit_exp_end_date-error").html("")
                     }
-                    if(edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_start_date < edit_exp_end_date) {
+                    if(edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_start_date > edit_exp_end_date) {
                         $(".edit_exp_end_date-error").html('End Date must be greater than Start Date.');
+                    }else {
+                        $(".edit_exp_end_date-error").html("")
                     }
+                    
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_job_responsibility != '' && edit_exp_end_date > edit_exp_start_date)
                     {
                         $('.btn-close').click();
