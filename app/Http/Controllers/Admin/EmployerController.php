@@ -33,7 +33,7 @@ class EmployerController extends Controller
 
     public function index()
     {
-        $employers = Employer::whereNull('deleted_at')->get();
+        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->get();
         return view ('admin.employer.index', compact('employers'));
     }
 
