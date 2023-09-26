@@ -10,6 +10,7 @@ use App\Models\Admin\OwnershipType;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\Package;
+use App\Mail\EmployerVerificationEmail;
 use Alert;
 use Auth;
 use Hash;
@@ -56,7 +57,7 @@ class EmployerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
+            'email' => 'required|string|email|max:255|unique:employers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
         ]);
         $logo = Null;
@@ -82,9 +83,13 @@ class EmployerController extends Controller
             'package_end_date' => $package_end_date,
             'package_point' => $package->point ?? 0,
             'purchased_point' => $package->point ?? 0,
+            'email_verification_token' => Str::random(32),
             'register_at' => now(),
             'created_by' => Auth::user()->id,
         ]);
+        if ($employer) {
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
+        }
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer->update([
             'slug' => $slug

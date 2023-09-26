@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -53,5 +54,26 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/admin');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $remember_me = $request->has('remember_me') ? true : false; 
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1], $remember_me)) {
+            
+            $request->session()->regenerate();
+            
+            return redirect()->intended('admin/dashboard');
+        }else {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
+        }
     }
 }

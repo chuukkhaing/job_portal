@@ -37,6 +37,7 @@ Route::group([], function(){
     // auth 
     Route::get('/', [LoginController::class, 'index']);
     Auth::routes(['register' => false, 'request' => false, 'reset' => false]);
+    Route::post('login', [LoginController::class, 'login'])->name('login');
 	Route::group(['middleware' => 'auth:web'], function () {
 
         // dashboard
@@ -92,5 +93,6 @@ Route::group([], function(){
 
         // seeker 
         Route::resource('seeker', SeekerController::class);
+        Route::get('download-ic-cv/{id}', [SeekerController::class, 'icFormatCVDownload'])->name('ic-format-cv');
     });
 });

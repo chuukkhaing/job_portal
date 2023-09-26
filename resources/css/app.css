@@ -111,3 +111,15 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.resume-section {
+    border: solid 1px #0355d0;
+}
+
+.resume-header {
+    border: solid 1px #0355d0;
+    background-color: #0355D0;
+}
+
+.dashboard-card:hover {
+    border: solid 1px #0355d0;
+}

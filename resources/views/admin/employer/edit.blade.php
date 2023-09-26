@@ -53,13 +53,13 @@
                 
                 <div class="row">
                     <div class="col-6 form-group">
-                        <label for="name">Company Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Company name" required value="{{ $employer->name }}">
+                        <label for="name">Employer Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Employer name" required value="{{ $employer->name }}">
                     </div>
 
                     <div class="col-6 form-group">
-                        <label for="email">Company Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Company Email" required value="{{ $employer->email }}">
+                        <label for="email">Employer Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Employer Email" required value="{{ $employer->email }}">
                     </div>
 
                     <div class="col-6 form-group">

@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "maatwebsite/excel": "^3.1",
         "pyaesoneaung/myanmar-phone-validation-rules": "^1.0",
         "realrashid/sweet-alert": "^7.0",

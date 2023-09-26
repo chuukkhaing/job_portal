@@ -71,13 +71,12 @@ class PermissionSeeder extends Seeder
             'job-post-list',
             'job-post-edit',
             'seeker-list',
-            'seeker-create',
             'seeker-edit',
             'seeker-delete',
-         ];
+        ];
       
-         foreach ($permissions as $permission) {
-              Permission::create(['name' => $permission]);
-         }
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
     }
 }

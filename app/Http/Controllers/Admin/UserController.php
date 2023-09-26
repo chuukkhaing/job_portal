@@ -10,6 +10,7 @@ use Alert;
 use Hash;
 use DB;
 use Auth;
+use Arr;
 
 class UserController extends Controller
 {

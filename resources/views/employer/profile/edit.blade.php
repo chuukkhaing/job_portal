@@ -3,7 +3,7 @@
         <div class="px-5 m-0 pb-0 pt-5">
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <h5 class="text-dark">Edit Company Information</h5>
+                    <h5 class="text-dark">Edit Employer Information</h5>
                 </div>
                 <div class="col-12 col-md-6 text-end">
                     <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
@@ -65,11 +65,11 @@
                             <h5>Employer Information</h5>
                             <span>Upload photos,profile information, social links and contact address details</span>
                         </div>
-                        <h5 class="py-2">Company Profile Photo</h5>
+                        <h5 class="py-2">Employer Profile Photo</h5>
                         <div class="row">
                             <div class="col-2">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company Logo</span> <span style="color: #696968">200 * 200</span>
+                                    <span class="employer-image-text">Employer Logo</span> <span style="color: #696968">200 * 200</span>
                                 </div>
                                 <label for="imageUpload" style="color: #696968">
                                     <div>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-8">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company Background Photo</span> <span style="color: #696968">1835 * 510</span>
+                                    <span class="employer-image-text">Employer Background Photo</span> <span style="color: #696968">1835 * 510</span>
                                 </div>
                                 <label for="backgroundUpload" style="color: #696968">
                                     @if($employer->background)
@@ -106,7 +106,7 @@
                             </div>
                             {{--<div class="col-2">
                                 <div class="py-3">
-                                    <span class="employer-image-text">Company QR</span>
+                                    <span class="employer-image-text">Employer QR</span>
                                 </div>
                                 @if($employer->qr)
                                 <img src="{{ asset('storage/employer_qr/'.$employer->qr) }}" class="img-responsive w-100 employer-qr" alt="employer-qr">
@@ -120,11 +120,11 @@
                                     <input type="hidden" name="qrStatus" id="qrStatus" value="">
                                 </div>
                             </div>--}}
-                            <h5 class="py-3">Company Profile Information</h5>
+                            <h5 class="py-3">Employer Profile Information</h5>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <label class="seeker_label" for="name">Company Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control seeker_input @error('name') is-invalid @enderror" name="name" id="name" placeholder="Enter Company name"  value="{{ $employer->name }}">
+                                    <label class="seeker_label" for="name">Employer Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control seeker_input @error('name') is-invalid @enderror" name="name" id="name" placeholder="Enter Employer name"  value="{{ $employer->name }}">
                                     @error('name')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -169,7 +169,7 @@
                                     @enderror
                                 </div>
 
-                                <h5 class="py-3">Company Detail Information</h5>
+                                <h5 class="py-3">Employer Detail Information</h5>
 
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="phone"><strong>Phone No.</strong></label>
@@ -179,7 +179,7 @@
                                 @if($packageItem->name == 'Website Integration')
                                 <div class="col-6 form-group">
                                     <label class="seeker_label" for="website"><strong>Website URL</strong></label>
-                                    <input type="url" class="form-control seeker_input" id="website" name="website" placeholder="Enter Company Website" value="{{ $employer->website }}" />
+                                    <input type="url" class="form-control seeker_input" id="website" name="website" placeholder="Enter Employer Website" value="{{ $employer->website }}" />
                                 </div>
                                 @endif
                                 @endforeach
@@ -204,7 +204,7 @@
                                     </select>
                                 </div>
 
-                                <h5 class="py-3">Company Address Detail</h5>
+                                <h5 class="py-3">Employer Address Detail</h5>
                                 <div class="table-responsive">
                                     <table class="table table-bordered employer-address @if($employer->EmployerAddress->count() > 0) @else d-none @endif">
                                         <thead>
@@ -369,7 +369,7 @@
                         <div class="row mb-2">
                             <div class="col-9">
                                 <div class="py-2">
-                                    <h5>Upload Company Photos and Videos</h5>
+                                    <h5>Upload Employer Photos and Videos</h5>
                                     <span>Showcase Your Career with Up to 8 Photos or Videos on Our Job Website</span>
                                 </div>
                             </div>
@@ -516,17 +516,17 @@
                         <div class="row mb-2">
                             <div class="col-9">
                                 <div class="py-2">
-                                    <h5>Company Vision, Mission, and Values</h5>
-                                    <span>Learn About What Drives Us - Our Purpose, Goals, and Principles That Guide Our Company Forward</span>
+                                    <h5>Employer Vision, Mission, and Values</h5>
+                                    <span>Learn About What Drives Us - Our Purpose, Goals, and Principles That Guide Our Employer Forward</span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <label for="company_summary" class="seeker_label">Company Summary</label>
+                                    <label for="company_summary" class="seeker_label">Employer Summary</label>
                                     <textarea name="company_summary" id="company_summary" cols="30" rows="5" class="seeker_input summernote form-control">{!! $employer->summary !!}</textarea>
                                 </div>
                                 <div class="col-6 form-group">
-                                    <label for="company_value" class="seeker_label">Company Value</label>
+                                    <label for="company_value" class="seeker_label">Employer Value</label>
                                     <textarea name="company_value" id="company_value" cols="30" rows="5" class="seeker_input form-control summernote">{!! $employer->value !!}</textarea>
                                 </div>
                             </div>

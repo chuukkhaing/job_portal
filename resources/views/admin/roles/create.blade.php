@@ -682,6 +682,41 @@
             $("#job-post-list").prop('checked',false);
         }
     });
+
+    // seeker
+    $("#seeker-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#seeker-edit").prop('checked',true);
+            $("#seeker-delete").prop('checked',true);
+        }
+    });
+    $("#seeker-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#seeker-edit").prop('checked',false);
+            $("#seeker-delete").prop('checked',false);
+        }
+    });
+    
+    $("#seeker-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#seeker-list").prop('checked',true);
+        }
+    });
+    $("#seeker-edit").change(function() {
+        if($("#seeker-edit").is(":checked") == false && $("#seeker-delete").is(":checked") == false) {
+            $("#seeker-list").prop('checked',false);
+        }
+    });
+    $("#seeker-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#seeker-list").prop('checked',true);
+        }
+    });
+    $("#seeker-delete").change(function() {
+        if($("#seeker-edit").is(":checked") == false && $("#seeker-delete").is(":checked") == false) {
+            $("#seeker-list").prop('checked',false);
+        }
+    });
     
 </script>
 @endpush

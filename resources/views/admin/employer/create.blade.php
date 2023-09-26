@@ -40,20 +40,20 @@
                         <label for="imageRemove"></label>
                     </div>
                     <div class="logo-preview">
-                        <div id="imagePreview" style="background-image: url(https://placehold.jp/150x150.png);">
+                        <div id="imagePreview" style="background-image: url(https://placehold.jp/200x200.png);">
                         </div>
                     </div>
                 </div>
                 
                 <div class="row">
                     <div class="col-6 form-group">
-                        <label for="name">Company Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Company name" required value="{{ old('name') }}">
+                        <label for="name">Employer Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter Employer name" required value="{{ old('name') }}">
                     </div>
 
                     <div class="col-6 form-group">
-                        <label for="email">Company Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Company Email" required value="{{ old('email') }}">
+                        <label for="email">Employer Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter Employer Email" required value="{{ old('email') }}">
                     </div>
 
                     <div class="col-6 form-group">

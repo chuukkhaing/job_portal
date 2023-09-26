@@ -30,6 +30,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Roles</th>
+                            <th>Active Status</th>
                             <th width="280px">Action</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
                                 @endforeach
                             @endif
                             </td>
+                            <td>@if($user->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 @can('user-edit')
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>

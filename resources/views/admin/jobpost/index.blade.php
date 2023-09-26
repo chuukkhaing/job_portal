@@ -28,7 +28,7 @@
                         <tr>
                             <th>No.</th>
                             <th>Job Title</th>
-                            <th>Company Name</th>
+                            <th>Employer Name</th>
                             <th>Industry</th>
                             <th>Main Functional Area</th>
                             <th>Job Post Status</th>
