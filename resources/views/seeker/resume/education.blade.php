@@ -3,34 +3,24 @@
         <i class="fa-solid fa-plus"></i> Add Education
     </button>
 </div>
-<div class="my-2 row table-responsive">
-    <table id="edu-table" class="table-bordered @if($educations->count() == 0) d-none @endif table">
-        <thead>
-            <tr>
-                <th>Degree</th>
-                <th>Major Subject/Area of Study</th>
-                <th>Location</th>
-                <th>Start Year</th>
-                <th>End Year</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($educations as $education)
-            <tr class="edu-tr-{{ $education->id }}">
-                <td class="edu-degree-{{$education->id}}">{{ $education->degree }}</td>
-                <td class="edu-major_subject-{{$education->id}}">{{ $education->major_subject }}</td>
-                <td class="edu-location-{{$education->id}}">{{ $education->location }}</td>
-                <td class="edu-from-{{$education->id}}">{{ $education->from }}</td>
-                <td class="edu-to-{{$education->id}}">{{ $education->to }}</td>
-                <td>
-                    <a onclick="editEdu({{ $education->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
-                    <a id="deleteEdu-{{ $education->id }}" class="deleteEdu btn border-0 text-danger" value="{{ $education->id }}"><i class="fa-solid fa-trash-can"></i></a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="my-2 row">
+    <div id="edu-table" class="@if($educations->count() == 0) d-none @endif">
+        @foreach($educations as $education)
+        <div class="row edu-tr-{{ $education->id }} py-2">
+            <div class="col-4 fw-bold">
+                <span class="edu-from-{{ $education->id }}">{{ $education->from }}</span> - <span class="edu-to-{{ $education->id }}">@if($education->is_current == 1) Present @else {{ $education->to }} @endif</span>
+            </div>
+            <div class="col-4">
+                <span class="edu-degree-{{ $education->id }} fw-bold">{{ $education->degree }} (<span class="edu-major_subject-{{ $education->id }}">{{ $education->major_subject }}</span>)</span><br>
+                <span class="edu-location-{{ $education->id }} text-blue">{{ $education->location }}</span>
+            </div>
+            <div class="col-4">
+                <a onclick="editEdu({{ $education->id }})" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>
+                <a id="deleteEdu-{{ $education->id }}" class="deleteEdu btn border-0 text-danger" value="{{ $education->id }}"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+        </div>
+        @endforeach
+    </div>
 </div>
 <form action="" class="resume-edu-form d-none border rounded-3 p-4">
     <div class="row">
@@ -116,6 +106,11 @@
             <input type="text" name="location" id="edit-location" class="form-control seeker_input" placeholder="Location" value="">
             <span class="text-danger" id="edit-location-error"></span>
         </div>
+        <div class="form-group mt-1 col-12 col-md-6">
+            <br>
+            <input type="checkbox" name="edit-current_school" id="edit-current_school" checked="1">
+            <label for="edit-current_school" class="seeker_label my-2">Present </label>
+        </div>
         <div class="form-group mt-1 col-6 col-md-3">
             <label for="edit-from" class="seeker_label my-2">Start Year <span class="text-danger">*</span></label>
             <div class="datepicker date input-group year">
@@ -126,7 +121,7 @@
             </div>
             <span class="text-danger" id="edit-from-error"></span>
         </div>
-        <div class="form-group mt-1 col-6 col-md-3">
+        <div class="form-group mt-1 col-6 col-md-3 @if($education->is_current == 1) d-none @else  @endif" id="edit-end-date-school">
             <label for="edit-to" class="seeker_label my-2">End Year <span class="text-danger">*</span></label>
             <div class="datepicker date input-group year">
                 <input type="text" name="edit-to" id="edit-to" class="form-control seeker_input" value="" placeholder="Start Year">
@@ -158,6 +153,15 @@
                 $("#to").val('')
             }else{
                 $("#end-date-school").removeClass('d-none');
+            }
+        })
+
+        $("#edit-current_school").change(function() {
+            if($(this).is(":checked")){
+                $("#edit-end-date-school").addClass('d-none');
+                $("#edit-to").val('')
+            }else{
+                $("#edit-end-date-school").removeClass('d-none');
             }
         })
     })
@@ -197,6 +201,11 @@
         }else {
             $("#major_subject-error").html('');
         }
+        if(school == '') {
+            $("#school-error").html('School need to fill.');
+        }else {
+            $("#school-error").html('');
+        }
         if(location == '') {
             $("#location-error").html('Location need to fill.');
         }else {
@@ -218,9 +227,17 @@
         if(from != '' && to != '' && from == to) {
             $("#to-error").html('Start Year and End Year should not the same.');
         }
-        if(degree != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from && to != from)
+        var condition = '';
+        if($("#current_school").is(":checked") == true) {
+            current_school = 1;
+            condition = degree != '' && school != '' && major_subject != '' && location != '' && from != '';
+        }else {
+            current_school = 0;
+            condition = degree != '' && school != '' && major_subject != '' && location != '' && from != '' && to != '' && to > from && to != from;
+        }
+        if(condition)
         {
-            $('.btn-close').click();
+            console.log(degree);
             $.ajax({
                 type: 'POST',
                 data: {
@@ -238,12 +255,18 @@
                 if(response.status == 'success') {
                     $("#edu-table").removeClass('d-none');
                     $(".education_label").removeClass('d-none');
+                    var responseTo = '';
+                    if(response.education.is_current == 1) {
+                        responseTo = 'Present';
+                    }else {
+                        responseTo = response.education.to;
+                    }
 
-                    $("#edu-table").append('<tr class="edu-tr-'+response.education.id+'"><td class="edu-degree-'+response.education.id+'">'+response.education.degree+'</td><td class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</td><td class="edu-location-'+response.education.id+'">'+response.education.location+'</td><td class="edu-from-'+response.education.id+'">'+response.education.from+'</td><td class="edu-to-'+response.education.id+'">'+response.education.to+'</td><td><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#edu-table").append('<div class="row edu-tr-'+response.education.id+'" py-2><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-4"><span class="edu-degree-'+response.education.id+' fw-bold">{{ $education->degree }} (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div><div class="col-4"><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                     $(".resume-edu-form").addClass('d-none');
 
-                    $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+response.education.to+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div></div>');
+                    $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div></div>');
 
                     MSalert.principal({
                         icon:'success',
@@ -303,11 +326,17 @@
             url: 'education/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
+                if(response.education.is_current == 1) {
+                    $("#edit-current_school").prop("checked", true);
+                }else {
+                    $("#edit-current_school").prop("checked", false);
+                }
                 $("#edit-degree").val(response.education.degree);
                 $("#edit-major_subject").val(response.education.major_subject);
                 $("#edit-location").val(response.education.location);
                 $("#edit-from").val(response.education.from);
                 $("#edit-to").val(response.education.to);
+                $("#edit-school").val(response.education.school);
                 $("#update-edu").attr("onclick",'updateEdu('+id+')');
             }
         })
@@ -320,6 +349,9 @@
         var edit_location = $("#edit-location").val();
         var edit_from = $("#edit-from").val();
         var edit_to = $("#edit-to").val();
+        var edit_school = $("#edit-school").val();
+        var edit_current_school = $("#edit-current_school").val();
+        
         if(edit_degree == '') {
             $("#edit-degree-error").html('Degree need to select.');
         }else {
@@ -335,6 +367,11 @@
         }else {
             $("#edit-location-error").html('');
         }
+        if(edit_school == '') {
+            $("#edit-school-error").html('School need to fill.');
+        }else {
+            $("#edit-school-error").html('');
+        }
         if(edit_from == '') {
             $("#edit-from-error").html('Start Year need to select.');
         }else {
@@ -348,7 +385,17 @@
         if(edit_from != '' && edit_to != '' && edit_from > edit_to) {
             $("#edit-to-error").html('End Year need to greater than Start Year.');
         }
-        if(edit_degree != '' && edit_major_subject != '' && edit_location != '' && edit_from != '' && edit_to != '' && edit_to > edit_from) {
+        
+        var edit_condition = '';
+        if($("#edit-current_school").is(":checked") == true) {
+            edit_current_school = 1;
+            edit_condition = edit_degree != '' && edit_school != '' && edit_major_subject != '' && edit_location != '' && edit_from != '';
+        }else {
+            edit_current_school = 0;
+            edit_condition = edit_degree != '' && edit_school != '' && edit_major_subject != '' && edit_location != '' && edit_from != '' && edit_to != '' && edit_to > edit_from && edit_to != edit_from;
+        }
+
+        if(edit_condition) {
             $('.btn-close').click();
             $.ajax({
                 type: 'POST',
@@ -358,17 +405,26 @@
                     'location' : edit_location,
                     'from' : edit_from,
                     'to' : edit_to,
-                    'seeker_id' : seeker_id
+                    'seeker_id' : seeker_id,
+                    'school' : edit_school,
+                    'is_current' : edit_current_school,
                 },
                 url: 'education/update/'+id,
                 cache: false,
             }).done(function(response){
                 if(response.status == 'success') {
+                    var edit_responseTo = '';
+                    if(response.education.is_current == 1) {
+                        edit_responseTo = 'Present';
+                    }else {
+                        edit_responseTo = response.education.to;
+                    }
+
                     $('.edu-degree-'+id).html(response.education.degree);
                     $('.edu-major_subject-'+id).html(response.education.major_subject);
                     $('.edu-location-'+id).html(response.education.location);
                     $('.edu-from-'+id).html(response.education.from);
-                    $('.edu-to-'+id).html(response.education.to);
+                    $('.edu-to-'+id).html(edit_responseTo);
                     $(".resume-edu-edit-form").addClass('d-none');
                     MSalert.principal({
                         icon:'success',

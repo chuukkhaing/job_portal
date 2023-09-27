@@ -47,7 +47,7 @@
                             <td>{{ $seeker->State->name ?? '' }}</td>
                             <td>{{ $seeker->Township->name ?? '' }}</td>
                             <td>@if($seeker->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
-                            <td>{{ date('d-m-Y', strtotime($seeker->email_verified_at)) }}</td>
+                            <td>@if($seeker->email_verified_at){{ date('d-m-Y', strtotime($seeker->email_verified_at)) }}@else @endif</td>
                             <td>
                                 <a href="{{ route('seeker.show', $seeker->id) }}" class="btn btn-success btn-circle btn-sm"><i class="fas fa-eye"></i></a>
                                 {{--<a href="{{ route('seeker.edit', $seeker->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>--}}

@@ -227,6 +227,8 @@ class SeekerProfileController extends Controller
             'location'      => $request->location,
             'from'          => $request->from,
             'to'            => $request->to,
+            'school'        => $request->school,
+            'is_current'    => $request->current_school
         ]);
         return response()->json([
             'status'    => 'success',
