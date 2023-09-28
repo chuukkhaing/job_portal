@@ -24,11 +24,13 @@ class SkillImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new Skill([
-            'name' => $row['name'],
-            'main_functional_area_id' => $this->main_functional_area_id,
-            'is_active' => $this->is_active,
-            'created_by' => Auth::user()->id
-        ]);
+        if($row['name']) {
+            return new Skill([
+                'name' => $row['name'],
+                'main_functional_area_id' => $this->main_functional_area_id,
+                'is_active' => $this->is_active,
+                'created_by' => Auth::user()->id
+            ]);
+        }
     }
 }

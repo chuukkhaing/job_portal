@@ -58,28 +58,25 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        $serial_no_exist = Slider::whereIsActive(1)->whereSerialNo($request->serial_no)->whereNull('deleted_at')->get();
-        if($serial_no_exist->count() > 0) {
-            Alert::warning('Warning', 'This Serial No.'.$request->serial_no.' was already exists. Please Try Again!');
-            return redirect()->back();
-        }else {
-            $image = Null;
-            if($request->file('image')){
-                $file= $request->file('image');
-                $image= date('YmdHi').$file->getClientOriginalName();
-                $path = $file-> move(public_path('storage/slider'), $image);
-            }
-            $slider = Slider::create([
-                'employer_id' => $request->employer_id,
-                'serial_no' => $request->serial_no,
-                'image' => $image,
-                'is_active' => $request->is_active,
-                'created_by' => Auth::user()->id,
-            ]);
+        $request->validate([
+            'serial_no' => 'required|unique:sliders,serial_no,NULL,id,deleted_at,NULL,is_active,1'
+        ]);
+        $image = Null;
+        if($request->file('image')){
+            $file= $request->file('image');
+            $image= date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/slider'), $image);
+        }
+        $slider = Slider::create([
+            'employer_id' => $request->employer_id,
+            'serial_no' => $request->serial_no,
+            'image' => $image,
+            'is_active' => $request->is_active,
+            'created_by' => Auth::user()->id,
+        ]);
 
         Alert::success('Success', 'New Slider Created Successfully!');
         return redirect()->route('slider.index');
-        }
     }
 
     /**

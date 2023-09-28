@@ -34,17 +34,18 @@
                 @endif
                 <div class="logo-upload form-group">
                     <div class="logo-edit">
-                        <input type="file" class="form-control" name="logo" id="imageUpload" accept="image/*" />
-                        <label for="imageUpload"></label>
+                        <input type="file" class="form-control employer-logo-upload" name="logo" id="employer-logo" accept="image/*" />
+                        <label for="employer-logo"></label>
                     </div>
-                    <div class="logo-remove">
+                    
+                    <div class="logo-remove @if($employer->logo) @else d-none @endif">
                         <label for="imageRemove"></label>
                     </div>
                     <div class="logo-preview">
                         @if($employer->logo)
                         <div id="imagePreview" style="background-image: url({{url('storage/employer_logo/'.$employer->logo)}});">
                         @else
-                        <div id="imagePreview" style="background-image: url(https://placehold.jp/150x150.png);">
+                        <div id="imagePreview" style="background-image: url(https://placehold.jp/200x200.png);">
                         @endif
                         </div>
                     </div>
@@ -73,8 +74,8 @@
                     </div>
 
                     <div class="col-4 form-group">
-                        <label for="package_id">Choose Package </label>
-                        <select name="package_id" id="package_id" class="form-control select_2">
+                        <label for="package_id">Choose Package <span class="text-danger">*</span> </label>
+                        <select name="package_id" id="package_id" class="form-control select_2" required>
                             <option value=""></option>
                             @foreach ($packages as $package)
                             <option value="{{ $package->id }}" @if($package->id == $employer->package_id) selected @endif>{{ $package->name }}</option>
@@ -112,12 +113,30 @@
                 </button>
             </form>
         </div>
+        <!-- upload logo modal  -->
+        <div class="modal" id="upload_logo">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Crop Image And Upload</h4>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div id="resizer_logo"></div>
+                            <button class="btn btn-block btn-dark" id="upload_logo_submit" > 
+                            Crop And Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-</div>
 <!-- /.container-fluid -->
 @endsection
 @push('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
         $('#package_start_date').datepicker({
@@ -136,9 +155,75 @@
             }
         });
 
-        $(".logo-remove").click(function(){
-            $("#imageUpload").val('');
-            $('#imagePreview').css('background-image', 'url(https://placehold.jp/150x150.png)');
+        var el = document.getElementById('resizer_logo');
+        $(".employer-logo-upload").on("change", function(event) {
+            $("#upload_logo").modal('show');
+            croppie = new Croppie(el, {
+                viewport: {
+                    width: 200,
+                    height: 200,
+                    type: 'square'
+                },
+                boundary: {
+                    width: 250,
+                    height: 250
+                }
+            });
+            getImage(event.target, croppie); 
+        });
+
+        $(".close").click(function() {
+            croppie.destroy();
+        })
+        
+        function getImage(input, croppie) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {  
+                    croppie.bind({
+                        url: e.target.result,
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#upload_logo_submit").on("click", function() {
+            croppie.result('base64').then(function(base64) {
+
+                $("#upload_logo").modal("hide"); 
+                
+                $('.logo-remove').removeClass('d-none');
+                
+                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                
+                croppie.destroy();
+            });
+        });
+
+        function base64ImageToBlob(str) {
+            var pos = str.indexOf(';base64,');
+            var type = str.substring(5, pos);
+            var b64 = str.substr(pos + 8);
+
+            var imageContent = atob(b64);
+            
+            var buffer = new ArrayBuffer(imageContent.length);
+            var view = new Uint8Array(buffer);
+        
+            for (var n = 0; n < imageContent.length; n++) {
+                view[n] = imageContent.charCodeAt(n);
+            }
+        
+            var blob = new Blob([buffer], { type: type });
+            
+            return blob;
+        }
+
+        $('.logo-remove').click(function() {
+            $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
+            $('.logo-remove').addClass('d-none');
+            $('.employer-logo-upload').val('');
             $("#imageRemove").val('empty');
         })
     });

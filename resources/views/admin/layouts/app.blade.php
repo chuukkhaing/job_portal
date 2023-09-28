@@ -34,6 +34,8 @@
 
     <!-- datepicker styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <!-- croppie  -->
+    <link rel="stylesheet" href="{{ asset('css/croppie.css') }}">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">

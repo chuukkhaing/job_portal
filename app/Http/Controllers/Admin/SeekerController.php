@@ -17,6 +17,13 @@ class SeekerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:seeker-list|seeker-create|seeker-edit|seeker-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:seeker-create', ['only' => ['create','store']]);
+        $this->middleware('permission:seeker-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:seeker-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $seekers = Seeker::whereNull('deleted_at')->get();

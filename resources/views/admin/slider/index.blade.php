@@ -38,7 +38,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>@if(isset($slider->image)) <img style="width: 70px" src="{{ asset('storage/slider'.'/'.$slider->image) }}" alt="{{ $slider->Employer->name }}"> @else - @endif</td>
-                            <td><a href="{{ route('employers.show', $slider->Employer->id) }}">{{ $slider->Employer->name }}</a></td>
+                            <td><a href="{{ route('employers.show', $slider->Employer->id) }}" class="text-decoration-none">{{ $slider->Employer->name }}</a></td>
                             <td>@if($slider->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 @can('slider-edit')

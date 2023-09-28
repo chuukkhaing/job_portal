@@ -22,37 +22,49 @@
         <div class="card-body">
             <form action="{{ route('slider.store') }}" method="post" enctype="multipart/form-data">
                 @csrf 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="employer_id">Choose Employer <span class="text-danger">*</span></label>
                     <select name="employer_id" id="employer_id" class="select_2 form-control" required>
                         <option value=""></option>
                         @foreach($employers as $employer)
-                        <option value="{{ $employer->id }}">{{ $employer->name }}</option>
+                        <option value="{{ $employer->id }}" @if( old('employer_id') == $employer->id) selected @endif>{{ $employer->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="serial_no">Serial No. <span class="text-danger">*</span></label>
-                    <select name="serial_no" id="serial_no" class="form-control">
+                    <select name="serial_no" id="serial_no" class="form-control" required>
                         <option value="">Choose Serial No.</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
+                        <option value="1" @if( old('serial_no') == 1) selected @endif>1</option>
+                        <option value="2" @if( old('serial_no') == 2) selected @endif>2</option>
+                        <option value="3" @if( old('serial_no') == 3) selected @endif>3</option>
+                        <option value="4" @if( old('serial_no') == 4) selected @endif>4</option>
+                        <option value="5" @if( old('serial_no') == 5) selected @endif>5</option>
+                        <option value="6" @if( old('serial_no') == 6) selected @endif>6</option>
                     </select>
                 </div>
 
                 <div class="image-upload form-group">
-                    <div class="image-preview">
-                        <div id="imagePreview" style="background-image: url(https://placehold.jp/1080x528.png);">
-                        </div>
-                    </div>
+                    
                     <div class="image-edit">
-                    <label for="imageUpload">Slider Image <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="image" id="imageUpload" accept="image/*" required />
+                        <label for="slider-upload">Slider Image <span class="text-danger">*</span>
+                            <div class="image-preview">
+                                <div id="imagePreview" style="background-image: url(https://placehold.jp/1080x528.png);">
+                                </div>
+                            </div>
+                        </label>
+                        <input type="file" class="form-control slider-upload d-none" name="image" id="slider-upload" accept="image/*" required />
+                        
                     </div>
                 </div>
                 
@@ -70,7 +82,101 @@
             </form>
         </div>
     </div>
-
-</div>
-<!-- /.container-fluid -->
+    <!-- upload slider modal  -->
+    <div class="modal" id="upload_slider">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crop Image And Upload</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div id="resizer_slider"></div>
+                        <button class="btn btn-block btn-dark" id="upload_slider_submit" > 
+                        Crop And Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
 @endsection
+@push('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+
+        var el = document.getElementById('resizer_slider');
+        $(".slider-upload").on("change", function(event) {
+            $("#upload_slider").modal('show');
+            croppie = new Croppie(el, {
+                viewport: {
+                    width: 400,
+                    height: 200,
+                    type: 'square'
+                },
+                boundary: {
+                    width: 450,
+                    height: 250,
+                }
+            });
+            getImage(event.target, croppie); 
+        });
+        
+        $(".close").click(function() {
+            croppie.destroy();
+        })
+        
+        function getImage(input, croppie) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {  
+                    croppie.bind({
+                        url: e.target.result,
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#upload_slider_submit").on("click", function() {
+            croppie.result('base64').then(function(base64) {
+                $("#upload_slider").modal("hide"); 
+                
+                $('.slider-remove').removeClass('d-none');
+                
+                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                
+                croppie.destroy();
+            });
+        });
+
+        function base64ImageToBlob(str) {
+            var pos = str.indexOf(';base64,');
+            var type = str.substring(5, pos);
+            var b64 = str.substr(pos + 8);
+
+            var imageContent = atob(b64);
+            
+            var buffer = new ArrayBuffer(imageContent.length);
+            var view = new Uint8Array(buffer);
+        
+            for (var n = 0; n < imageContent.length; n++) {
+            view[n] = imageContent.charCodeAt(n);
+            }
+        
+            var blob = new Blob([buffer], { type: type });
+            
+            return blob;
+        }
+
+        $('.slider-remove').click(function() {
+            $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
+            $('.slider-remove').addClass('d-none');
+            $('.slider-upload').val('');
+        })
+    });
+</script>
+@endpush

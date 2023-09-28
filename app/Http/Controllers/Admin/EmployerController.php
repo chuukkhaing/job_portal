@@ -68,7 +68,7 @@ class EmployerController extends Controller
         }
 
         $package_end_date = Null;
-        if($request->package_id) {
+        if($request->package_id && $request->package_start_date) {
             $package = Package::findOrFail($request->package_id);
             $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
         }
@@ -135,6 +135,7 @@ class EmployerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,'.$id],
             'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
