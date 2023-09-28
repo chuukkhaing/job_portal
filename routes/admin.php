@@ -70,6 +70,7 @@ Route::group([], function(){
         // employer 
         Route::resource('employers', EmployerController::class);
         Route::get('employers/get-township/{id}', [EmployerController::class, 'getTownship']);
+        Route::post('/employer-admin-logo', [EmployerController::class, 'uploadLogo'])->name('employer-admin-logo.store');
 
         // function area
         Route::resource('main-functional-area', FunctionalAreaController::class);

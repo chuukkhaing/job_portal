@@ -192,10 +192,31 @@
             croppie.result('base64').then(function(base64) {
 
                 $("#upload_logo").modal("hide"); 
+
+                var formData = new FormData();
+                formData.append("employer_logo", base64ImageToBlob(base64));
+                formData.append("employer_id", {{ $employer->id }})
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type        : 'POST',
+                    url         : "{{ route('employer-admin-logo.store') }}",
+                    data        : formData,
+                    processData : false,
+                    contentType : false,
+                    success     : function(response) {
+                        if (response.status == "success") {
+                            $('.logo-remove').removeClass('d-none');
                 
-                $('.logo-remove').removeClass('d-none');
-                
-                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                            $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                        }
+                    }
+                });
                 
                 croppie.destroy();
             });
@@ -225,6 +246,26 @@
             $('.logo-remove').addClass('d-none');
             $('.employer-logo-upload').val('');
             $("#imageRemove").val('empty');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type        : 'POST',
+                url         : "{{ route('employer-logo.remove') }}",
+                data        : {
+                    'employer_id' : {{ $employer->id }}
+                },
+                success     : function(response) {
+                    if (response.status == "success") {
+                        $('.employer-logo').attr('src', 'https://placehold.jp/200x200.png');
+                        $('.employer-logo-remove').addClass('d-none');
+                        
+                    }
+                }
+            });
         })
     });
 </script>

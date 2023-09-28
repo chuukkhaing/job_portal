@@ -239,4 +239,38 @@ class EmployerController extends Controller
             'data' => $townships
         ]);
     }
+
+    public function uploadLogo (Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+
+        if($request->hasFile('employer_logo')) {
+            $file    = $request->file('employer_logo');
+            $logo = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
+        }
+        $employer = $employer->update([
+            'logo' => $logo,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Logo uploaded successfully.'
+        ]);
+    }
+
+    public function removeLogo(Request $request)
+    {
+        $employer = Employer::findOrFail($request->employer_id);
+        $employer = $employer->update([
+            'logo' => Null,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Logo removed successfully.'
+        ]);
+    }
 }
