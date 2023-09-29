@@ -33,8 +33,8 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $feedback->name }}</td>
-                            <td><a href="mailto: {{ $feedback->email }}">{{ $feedback->email }}</a></td>
-                            <td>@if($feedback->phone)<a href="tel:+{{ $feedback->phone }}">{{ $feedback->phone }}</a>@else - @endif</td>
+                            <td><a href="mailto: {{ $feedback->email }}" class="text-decoration-none">{{ $feedback->email }}</a></td>
+                            <td>@if($feedback->phone)<a href="tel:+{{ $feedback->phone }}" class="text-decoration-none">{{ $feedback->phone }}</a>@else - @endif</td>
                             <td>{{ $feedback->description }}</td>
                             <td>
                                 <form method="POST" action="{{ route('feedback.destroy', $feedback->id) }}" class="d-inline">
