@@ -1,6 +1,10 @@
 body {
     font-family: 'Source Sans Pro';
     background: #FFFFFF;
+    font-size: 1rem;
+}
+.h2, h2 {
+    font-size: 1.5rem;
 }
 .container {
     max-width: 80%;

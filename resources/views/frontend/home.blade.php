@@ -1,30 +1,11 @@
 @extends('frontend.layouts.app')
 @section('content')
-
-
-
 <!-- Carousel Start -->
 @if($sliders->count() > 0)
-<div class="container-fluid p-0">
-    <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach($sliders as $slider)
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                <img class="" src="{{ asset('storage/slider/'.$slider->image) }}" alt="{{ $slider->Employer->name }}">
-            </div>
-            @endforeach
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+<div id="owl-demo" class="owl-carousel owl-theme">
+@foreach($sliders as $slider)
+  <div class="item"><img src="{{ asset('storage/slider/'.$slider->image) }}" alt="The Last of us"></div>
+@endforeach
 </div>
 @endif
 <!-- Carousel End -->
@@ -65,7 +46,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
-                                <option value="" selected>Location</option>
+                                <option value="" selected disabled>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -455,6 +436,20 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+ 
+            navigation : true, // Show next and prev buttons
+
+            slideSpeed : 300,
+            paginationSpeed : 400,
+
+            items : 1, 
+            itemsDesktop : false,
+            itemsDesktopSmall : false,
+            itemsTablet: false,
+            itemsMobile : false
+
+        });
         $('#function-area').multiselect({
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,

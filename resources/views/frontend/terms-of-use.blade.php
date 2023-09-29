@@ -3,7 +3,7 @@
 
 <div class="container my-5">
     <div class="terms-of-use-header py-0">
-        <h2 class="">Terms of Use Agreement on Infinity Careers Recruitment Website</h2>
+        <h2 class="term-of-use-title">Terms of Use Agreement on Infinity Careers Recruitment Website</h2>
     </div>
 
     <div class="row my-3">

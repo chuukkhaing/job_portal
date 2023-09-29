@@ -131,7 +131,7 @@ select.form-control.search-slt.location {
 }
 
 #trending-job-title {
-    font-family: 'SourceSansPro-SemiBold';
+    /* font-family: 'SourceSansPro-SemiBold'; */
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
@@ -140,7 +140,7 @@ select.form-control.search-slt.location {
 }
 
 #trending-job-sub-title {
-    font-family: 'SourceSansPro-Regular';
+    /* font-family: 'SourceSansPro-Regular'; */
     font-weight: 400;
     /* font-size: 13px; */
     color: #0355d0;
@@ -218,7 +218,7 @@ ul li {
 }
 
 .gradient-text span{
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
     font-size: 18px;
     top: 1px;
     position: absolute;
@@ -239,16 +239,16 @@ ul li {
 .job-interview-title {
     color: #fff;
     font-size: 25px;
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
 }
 
 .job-interview-content {
     color: #fff;
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
 }
 
 .interview-btn {
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
     background: #fc712d;
     color: #fff;
     border-radius: 8px;
@@ -310,7 +310,7 @@ a.interview-btn:hover {
 }
 
 .explore-marketplace-title {
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
     font-size: 18px;
 }
 
@@ -327,7 +327,7 @@ a.interview-btn:hover {
 }
 
 .find-jobs-header {
-    font-family: 'SourceSansPro';
+    /* font-family: 'SourceSansPro'; */
 }
 
 .job-trending-scroll {
@@ -891,4 +891,15 @@ page {
     .company-search-btn{
         width: 100%;
     }
+}
+#owl-demo .item img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.login-page {
+    background-image: url(../img/background/viber_image_2023-09-29_14-42-26-551.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
