@@ -144,7 +144,12 @@
         }
 
         $("#upload_slider_submit").on("click", function() {
-            croppie.result('base64').then(function(base64) {
+            croppie.result({
+                typ: 'base64',
+                size: { 
+                    width: 1920, height: 720 
+                }
+            }).then(function(base64) {
                 $("#upload_slider").modal("hide"); 
                 
                 $('.slider-remove').removeClass('d-none');
