@@ -278,7 +278,7 @@
             <span class="fw-bold"> In Short: </span> You may review, change, or terminate your account at any time.
         </p>
 
-        <p>
+        <p class="text-break">
             If you are located in Myanmar and you believe we are unlawfully processing your personal information, you also have the right to complain to your local data protection supervisory authority. You can find their contact details here: https://www.mlis.gov.mm/mLsView.do;jsessionid=E5E1CFF9699C13D185BF078893C38D54?lawordSn=16023
         </p>
 
