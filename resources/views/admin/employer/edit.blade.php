@@ -36,6 +36,7 @@
                     <div class="logo-edit">
                         <input type="file" class="form-control employer-logo-upload" name="logo" id="employer-logo" accept="image/*" />
                         <label for="employer-logo"></label>
+                        <input type="hidden" name="image_base64">
                     </div>
                     
                     <div class="logo-remove @if($employer->logo) @else d-none @endif">
@@ -192,77 +193,21 @@
 
                 $("#upload_logo").modal("hide"); 
 
-                var formData = new FormData();
-                formData.append("employer_logo", base64ImageToBlob(base64));
-                formData.append("employer_id", {{ $employer->id }})
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type        : 'POST',
-                    url         : "{{ route('employer-admin-logo.store') }}",
-                    data        : formData,
-                    processData : false,
-                    contentType : false,
-                    success     : function(response) {
-                        if (response.status == "success") {
-                            $('.logo-remove').removeClass('d-none');
+                $('.logo-remove').removeClass('d-none');
                 
-                            $('#imagePreview').attr('style', 'background-image: url('+base64+')');
-                        }
-                    }
-                });
-                
+                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+
+                $("input[name='image_base64']").val(base64);
                 croppie.destroy();
             });
         });
 
-        function base64ImageToBlob(str) {
-            var pos = str.indexOf(';base64,');
-            var type = str.substring(5, pos);
-            var b64 = str.substr(pos + 8);
-
-            var imageContent = atob(b64);
-            
-            var buffer = new ArrayBuffer(imageContent.length);
-            var view = new Uint8Array(buffer);
-        
-            for (var n = 0; n < imageContent.length; n++) {
-                view[n] = imageContent.charCodeAt(n);
-            }
-        
-            var blob = new Blob([buffer], { type: type });
-            
-            return blob;
-        }
-
         $('.logo-remove').click(function() {
             
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type        : 'POST',
-                url         : "{{ route('employer-admin-logo.remove') }}",
-                data        : {
-                    'employer_id' : {{ $employer->id }}
-                },
-                success     : function(response) {
-                    if (response.status == "success") {
-    
-                        $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
-                        $('.logo-remove').addClass('d-none');
-                        $('.employer-logo-upload').val('');
-                    }
-                }
-            });
+            $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
+            $('.logo-remove').addClass('d-none');
+            $('.employer-logo-upload').val('');
+            $("input[name='image_base64']").val('');
         })
     });
 </script>

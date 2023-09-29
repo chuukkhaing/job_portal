@@ -63,7 +63,11 @@ class SliderController extends Controller
             'image' => 'required',
         ]);
 
-        $image = $this->storeBase64($request->image_base64);
+        if($request->image_base64 != ''){
+            $image = $this->storeBase64($request->image_base64);
+        }else {
+            $image = '';
+        }
         
         $slider = Slider::create([
             'employer_id' => $request->employer_id,
@@ -120,14 +124,20 @@ class SliderController extends Controller
     {
         $request->validate([
             'serial_no' => 'required|unique:sliders,serial_no,'.$id.',id,deleted_at,NULL,is_active,1',
-            'image' => 'required'
+            
         ]);
         $slider = Slider::findOrFail($id);
-        if($slider->image == "") {
+        if($request->image_status == 'false') {
             return redirect()->back()->withErrors(['msg' => 'Image need to upload.']);;
         }else {
+            if($request->image_base64 != ''){
+                $image = $this->storeBase64($request->image_base64);
+            }else {
+                $image = '';
+            }
             $slider_update = $slider->update([
                 'employer_id' => $request->employer_id,
+                'image' => $image,
                 'serial_no' => $request->serial_no,
                 'is_active' => $request->is_active,
                 'updated_by' => Auth::user()->id,
@@ -182,37 +192,4 @@ class SliderController extends Controller
         return $imageName;
     }
 
-    public function uploadImage (Request $request)
-    {
-        $slider = Slider::findOrFail($request->slider_id);
-
-        if($request->hasFile('slider_image')) {
-            $file    = $request->file('slider_image');
-            $image = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/slider/'), $image);
-        }
-        $slider = $slider->update([
-            'image' => $image,
-            'updated_by' => Auth::user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Image uploaded successfully.'
-        ]);
-    }
-
-    public function removeImage(Request $request)
-    {
-        $slider = Slider::findOrFail($request->slider_id);
-        $slider = $slider->update([
-            'image' => Null,
-            'updated_by' => Auth::user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Image removed successfully.'
-        ]);
-    }
 }

@@ -63,13 +63,15 @@
                                 @if($slider->image)
                                 <div id="imagePreview" style="background-image: url({{ asset('storage/slider/'.$slider->image) }});">
                                 @else
-                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x1080?text=16:9);">
+                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x720);">
                                 @endif
                                 </div>
                             </div>
                         </label>
                         <input type="file" class="form-control slider-image" name="image" id="slider-image" accept="image/*" />
                         <span class="slider-remove btn-sm btn-danger @if($slider->image) @else d-none @endif">x</span>
+                        <input type="hidden" name="image_base64">
+                        <input type="hidden" name="image_status" class="image_status" value="true">
                     </div>
                 </div>
                 
@@ -117,15 +119,15 @@
         $(".slider-image").on("change", function(event) {
             $("#upload_slider").modal('show');
             croppie = new Croppie(el, {
-                enableResize: true,
+                type: 'canvas',
                 viewport: {
-                    width: 360,
-                    height: 203,
+                    width: 400,
+                    height: 150,
                     type: 'square'
                 },
                 boundary: {
-                    width: 410,
-                    height: 253,
+                    width: 450,
+                    height: 200,
                 }
             });
             getImage(event.target, croppie); 
@@ -148,61 +150,32 @@
         }
 
         $("#upload_slider_submit").on("click", function() {
-            croppie.result('base64').then(function(base64) {
+            croppie.result({
+                typ: 'base64',
+                size: { 
+                    width: 1920, height: 720 
+                }
+            }).then(function(base64) {
 
                 $("#upload_slider").modal("hide"); 
 
-                var formData = new FormData();
-                formData.append("slider_image", base64ImageToBlob(base64));
-                formData.append("slider_id", {{ $slider->id }})
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                $.ajax({
-                    type        : 'POST',
-                    url         : "{{ route('slider-image.store') }}",
-                    data        : formData,
-                    processData : false,
-                    contentType : false,
-                    success     : function(response) {
-                        if (response.status == "success") {
-                            $('.slider-remove').removeClass('d-none');
+                $('.slider-remove').removeClass('d-none');
                 
-                            $('#imagePreview').attr('style', 'background-image: url('+base64+')');
-                        }
-                    }
-                });
+                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+
+                $("input[name='image_base64']").val(base64);
+
+                $(".image_status").val('true');
                 
                 croppie.destroy();
             });
         });
 
-        function base64ImageToBlob(str) {
-            var pos = str.indexOf(';base64,');
-            var type = str.substring(5, pos);
-            var b64 = str.substr(pos + 8);
-
-            var imageContent = atob(b64);
-            
-            var buffer = new ArrayBuffer(imageContent.length);
-            var view = new Uint8Array(buffer);
-        
-            for (var n = 0; n < imageContent.length; n++) {
-                view[n] = imageContent.charCodeAt(n);
-            }
-        
-            var blob = new Blob([buffer], { type: type });
-            
-            return blob;
-        }
-
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x1080?text=16:9)');
+            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x720)');
             $('.slider-remove').addClass('d-none');
+            $(".image_status").val('false');
+            $("input[name='image_base64']").val('');
         })
     });
 </script>

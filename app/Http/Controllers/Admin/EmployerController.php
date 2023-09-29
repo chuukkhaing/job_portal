@@ -62,7 +62,11 @@ class EmployerController extends Controller
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
         ]);
 
-        $logo = $this->storeBase64($request->image_base64);
+        if($request->image_base64 != ''){
+            $logo = $this->storeBase64($request->image_base64);
+        }else {
+            $logo = '';
+        }
 
         $package_end_date = Null;
         if($request->package_id && $request->package_start_date) {
@@ -139,6 +143,12 @@ class EmployerController extends Controller
         ]);
         $employer = Employer::findOrFail($id);
 
+        if($request->image_base64 != ''){
+            $logo = $this->storeBase64($request->image_base64);
+        }else {
+            $logo = '';
+        }
+
         if($request->password) {
             $password = Hash::make($request->password);
         }else {
@@ -168,6 +178,7 @@ class EmployerController extends Controller
         $slug = Str::slug($request->name, '-') . '-' . $id;
         $employer = $employer->update([
             'name' => $request->name,
+            'logo' => $logo,
             'email' => $request->email,
             'password' => $password,
             'package_id' => $package_id,
@@ -235,40 +246,6 @@ class EmployerController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $townships
-        ]);
-    }
-
-    public function uploadLogo (Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-
-        if($request->hasFile('employer_logo')) {
-            $file    = $request->file('employer_logo');
-            $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
-        }
-        $employer = $employer->update([
-            'logo' => $logo,
-            'updated_by' => Auth::user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Logo uploaded successfully.'
-        ]);
-    }
-
-    public function removeLogo(Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-        $employer = $employer->update([
-            'logo' => Null,
-            'updated_by' => Auth::user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Logo removed successfully.'
         ]);
     }
 }
