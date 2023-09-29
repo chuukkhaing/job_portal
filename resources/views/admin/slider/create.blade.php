@@ -57,14 +57,15 @@
                 <div class="image-upload form-group">
                     
                     <div class="image-edit">
-                        <label for="slider-upload">Slider Image <span class="text-danger">*</span>
+                        <label for="slider-image">Slider Image <span class="text-danger">*</span>
                             <div class="image-preview">
-                                <div id="imagePreview" style="background-image: url(https://placehold.jp/1080x528.png);">
+                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x1080?text=16:9);">
                                 </div>
                             </div>
                         </label>
-                        <input type="file" class="form-control slider-upload d-none" name="image" id="slider-upload" accept="image/*" required />
-                        
+                        <input type="file" class="form-control slider-image" name="image" id="slider-image" accept="image/*" />
+                        <input type="hidden" name="image_base64">
+                        <span class="slider-remove btn-sm btn-danger d-none">x</span>
                     </div>
                 </div>
                 
@@ -84,24 +85,24 @@
     </div>
     <!-- upload slider modal  -->
     <div class="modal" id="upload_slider">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <h4 class="modal-title">Crop Image And Upload</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                        <div id="resizer_slider"></div>
-                        <button class="btn btn-block btn-dark" id="upload_slider_submit" > 
-                        Crop And Upload</button>
-                    </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="resizer_slider"></div>
+                    <button class="btn btn-block btn-dark" id="upload_slider_submit" > 
+                    Crop And Upload</button>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /.container-fluid -->
+</div>
+<!-- /.container-fluid -->
 @endsection
 @push('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -109,17 +110,18 @@
     $(document).ready(function() {
 
         var el = document.getElementById('resizer_slider');
-        $(".slider-upload").on("change", function(event) {
+        $(".slider-image").on("change", function(event) {
             $("#upload_slider").modal('show');
             croppie = new Croppie(el, {
+                enableResize: true,
                 viewport: {
-                    width: 400,
-                    height: 200,
+                    width: 360,
+                    height: 203,
                     type: 'square'
                 },
                 boundary: {
-                    width: 450,
-                    height: 250,
+                    width: 410,
+                    height: 253,
                 }
             });
             getImage(event.target, croppie); 
@@ -148,34 +150,18 @@
                 $('.slider-remove').removeClass('d-none');
                 
                 $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+
+                $("input[name='image_base64']").val(base64);
                 
                 croppie.destroy();
             });
         });
 
-        function base64ImageToBlob(str) {
-            var pos = str.indexOf(';base64,');
-            var type = str.substring(5, pos);
-            var b64 = str.substr(pos + 8);
-
-            var imageContent = atob(b64);
-            
-            var buffer = new ArrayBuffer(imageContent.length);
-            var view = new Uint8Array(buffer);
-        
-            for (var n = 0; n < imageContent.length; n++) {
-            view[n] = imageContent.charCodeAt(n);
-            }
-        
-            var blob = new Blob([buffer], { type: type });
-            
-            return blob;
-        }
-
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
+            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x1080?text=16:9)');
             $('.slider-remove').addClass('d-none');
-            $('.slider-upload').val('');
+            $('.slider-image').val('');
+            $("input[name='image_base64']").val('');
         })
     });
 </script>

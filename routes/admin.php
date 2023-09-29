@@ -71,6 +71,7 @@ Route::group([], function(){
         Route::resource('employers', EmployerController::class);
         Route::get('employers/get-township/{id}', [EmployerController::class, 'getTownship']);
         Route::post('/employer-admin-logo', [EmployerController::class, 'uploadLogo'])->name('employer-admin-logo.store');
+        Route::post('/employer-admin-logo-remove', [EmployerController::class, 'removeLogo'])->name('employer-admin-logo.remove');
 
         // function area
         Route::resource('main-functional-area', FunctionalAreaController::class);
@@ -78,6 +79,8 @@ Route::group([], function(){
 
         // slider 
         Route::resource('slider', SliderController::class);
+        Route::post('/slider-image', [SliderController::class, 'uploadImage'])->name('slider-image.store');
+        Route::post('/slider-remove', [SliderController::class, 'removeImage'])->name('slider.remove');
 
         // skill 
         Route::resource('skill', SkillController::class);

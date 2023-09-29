@@ -123,3 +123,9 @@
 .dashboard-card:hover {
     border: solid 1px #0355d0;
 }
+.slider-image {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+}

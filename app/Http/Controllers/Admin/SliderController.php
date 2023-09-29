@@ -59,14 +59,12 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'serial_no' => 'required|unique:sliders,serial_no,NULL,id,deleted_at,NULL,is_active,1'
+            'serial_no' => 'required|unique:sliders,serial_no,NULL,id,deleted_at,NULL,is_active,1',
+            'image' => 'required',
         ]);
-        $image = Null;
-        if($request->file('image')){
-            $file= $request->file('image');
-            $image= date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/slider'), $image);
-        }
+
+        $image = $this->storeBase64($request->image_base64);
+        
         $slider = Slider::create([
             'employer_id' => $request->employer_id,
             'serial_no' => $request->serial_no,
@@ -120,32 +118,23 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'serial_no' => 'required|unique:sliders,serial_no,'.$id.',id,deleted_at,NULL,is_active,1',
+            'image' => 'required'
+        ]);
         $slider = Slider::findOrFail($id);
-        $serial_no_exist = 0;
-        if($slider->serial_no != $request->serial_no) {
-            $serial_no_exist = Slider::whereIsActive(1)->whereSerialNo($request->serial_no)->whereNull('deleted_at')->count();
-        }
-        
-        if($serial_no_exist > 0) {
-            Alert::warning('Warning', 'This Serial No.'.$request->serial_no.' was already exists. Please Try Again!');
-            return redirect()->back();
+        if($slider->image == "") {
+            return redirect()->back()->withErrors(['msg' => 'Image need to upload.']);;
         }else {
-            $image = $slider->image;
-            if($request->file('image')){
-                $file= $request->file('image');
-                $image= date('YmdHi').$file->getClientOriginalName();
-                $path = $file-> move(public_path('storage/slider'), $image);
-            }
             $slider_update = $slider->update([
                 'employer_id' => $request->employer_id,
                 'serial_no' => $request->serial_no,
-                'image' => $image,
                 'is_active' => $request->is_active,
                 'updated_by' => Auth::user()->id,
             ]);
 
-        Alert::success('Success', 'Slider Update Successfully!');
-        return redirect()->route('slider.index');
+            Alert::success('Success', 'Slider Update Successfully!');
+            return redirect()->route('slider.index');
         }
     }
 
@@ -178,5 +167,52 @@ class SliderController extends Controller
                 return redirect()->back();
             } 
         }
+    }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/slider/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
+    }
+
+    public function uploadImage (Request $request)
+    {
+        $slider = Slider::findOrFail($request->slider_id);
+
+        if($request->hasFile('slider_image')) {
+            $file    = $request->file('slider_image');
+            $image = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/slider/'), $image);
+        }
+        $slider = $slider->update([
+            'image' => $image,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Image uploaded successfully.'
+        ]);
+    }
+
+    public function removeImage(Request $request)
+    {
+        $slider = Slider::findOrFail($request->slider_id);
+        $slider = $slider->update([
+            'image' => Null,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Image removed successfully.'
+        ]);
     }
 }

@@ -49,7 +49,6 @@
                         @endif
                         </div>
                     </div>
-                    <input type="hidden" name="imageRemove" value="" id="imageRemove">
                 </div>
                 
                 <div class="row">
@@ -115,24 +114,24 @@
         </div>
         <!-- upload logo modal  -->
         <div class="modal" id="upload_logo">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Crop Image And Upload</h4>
-                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <div id="resizer_logo"></div>
-                            <button class="btn btn-block btn-dark" id="upload_logo_submit" > 
-                            Crop And Upload</button>
-                        </div>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crop Image And Upload</h4>
+                        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div id="resizer_logo"></div>
+                        <button class="btn btn-block btn-dark" id="upload_logo_submit" > 
+                        Crop And Upload</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <!-- /.container-fluid -->
 @endsection
 @push('script')
@@ -242,10 +241,7 @@
         }
 
         $('.logo-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
-            $('.logo-remove').addClass('d-none');
-            $('.employer-logo-upload').val('');
-            $("#imageRemove").val('empty');
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -254,15 +250,16 @@
 
             $.ajax({
                 type        : 'POST',
-                url         : "{{ route('employer-logo.remove') }}",
+                url         : "{{ route('employer-admin-logo.remove') }}",
                 data        : {
                     'employer_id' : {{ $employer->id }}
                 },
                 success     : function(response) {
                     if (response.status == "success") {
-                        $('.employer-logo').attr('src', 'https://placehold.jp/200x200.png');
-                        $('.employer-logo-remove').addClass('d-none');
-                        
+    
+                        $('#imagePreview').attr('style', 'background-image: url(https://placehold.jp/200x200.png)');
+                        $('.logo-remove').addClass('d-none');
+                        $('.employer-logo-upload').val('');
                     }
                 }
             });

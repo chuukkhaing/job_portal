@@ -23,6 +23,16 @@
             <form action="{{ route('slider.update',$slider->id) }}" method="post" enctype="multipart/form-data">
                 @csrf 
                 @method('PUT')
+                
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="employer_id">Choose Employer <span class="text-danger">*</span></label>
                     <select name="employer_id" id="employer_id" class="select_2 form-control" required>
@@ -47,17 +57,19 @@
                 </div>
 
                 <div class="image-upload form-group">
-                    <div class="image-preview">
-                        @if($slider->image)
-                        <div id="imagePreview" style="background-image: url({{ asset('storage/slider/'.$slider->image) }});">
-                        @else
-                        <div id="imagePreview" style="background-image: url(https://placehold.jp/1080x528.png);">
-                        @endif
-                        </div>
-                    </div>
                     <div class="image-edit">
-                    <label for="imageUpload">Slider Image <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="image" id="imageUpload" accept="image/*" required />
+                        <label for="slider-image">Slider Image <span class="text-danger">*</span>
+                            <div class="image-preview">
+                                @if($slider->image)
+                                <div id="imagePreview" style="background-image: url({{ asset('storage/slider/'.$slider->image) }});">
+                                @else
+                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x1080?text=16:9);">
+                                @endif
+                                </div>
+                            </div>
+                        </label>
+                        <input type="file" class="form-control slider-image" name="image" id="slider-image" accept="image/*" />
+                        <span class="slider-remove btn-sm btn-danger @if($slider->image) @else d-none @endif">x</span>
                     </div>
                 </div>
                 
@@ -75,7 +87,123 @@
             </form>
         </div>
     </div>
-
+    <!-- upload slider modal  -->
+    <div class="modal" id="upload_slider">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Crop Image And Upload</h4>
+                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="resizer_slider"></div>
+                    <button class="btn btn-block btn-dark" id="upload_slider_submit" > 
+                    Crop And Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.container-fluid -->
 @endsection
+@push('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+
+        var el = document.getElementById('resizer_slider');
+        $(".slider-image").on("change", function(event) {
+            $("#upload_slider").modal('show');
+            croppie = new Croppie(el, {
+                enableResize: true,
+                viewport: {
+                    width: 360,
+                    height: 203,
+                    type: 'square'
+                },
+                boundary: {
+                    width: 410,
+                    height: 253,
+                }
+            });
+            getImage(event.target, croppie); 
+        });
+        
+        $(".close").click(function() {
+            croppie.destroy();
+        })
+        
+        function getImage(input, croppie) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {  
+                    croppie.bind({
+                        url: e.target.result,
+                    });
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#upload_slider_submit").on("click", function() {
+            croppie.result('base64').then(function(base64) {
+
+                $("#upload_slider").modal("hide"); 
+
+                var formData = new FormData();
+                formData.append("slider_image", base64ImageToBlob(base64));
+                formData.append("slider_id", {{ $slider->id }})
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type        : 'POST',
+                    url         : "{{ route('slider-image.store') }}",
+                    data        : formData,
+                    processData : false,
+                    contentType : false,
+                    success     : function(response) {
+                        if (response.status == "success") {
+                            $('.slider-remove').removeClass('d-none');
+                
+                            $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                        }
+                    }
+                });
+                
+                croppie.destroy();
+            });
+        });
+
+        function base64ImageToBlob(str) {
+            var pos = str.indexOf(';base64,');
+            var type = str.substring(5, pos);
+            var b64 = str.substr(pos + 8);
+
+            var imageContent = atob(b64);
+            
+            var buffer = new ArrayBuffer(imageContent.length);
+            var view = new Uint8Array(buffer);
+        
+            for (var n = 0; n < imageContent.length; n++) {
+                view[n] = imageContent.charCodeAt(n);
+            }
+        
+            var blob = new Blob([buffer], { type: type });
+            
+            return blob;
+        }
+
+        $('.slider-remove').click(function() {
+            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x1080?text=16:9)');
+            $('.slider-remove').addClass('d-none');
+        })
+    });
+</script>
+@endpush

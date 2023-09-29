@@ -124,6 +124,12 @@
 .dashboard-card:hover {
     border: solid 1px #0355d0;
 }
+.slider-image {
+    opacity: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+}
 @charset "UTF-8"; /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors

@@ -56,16 +56,13 @@ class EmployerController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'email' => 'required|string|email|max:255|unique:employers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
         ]);
-        $logo = Null;
-        if ($request->hasFile('logo')) {
-            $file    = $request->file('logo');
-            $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
-        }
+
+        $logo = $this->storeBase64($request->image_base64);
 
         $package_end_date = Null;
         if($request->package_id && $request->package_start_date) {
@@ -137,21 +134,10 @@ class EmployerController extends Controller
     {
         
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,'.$id],
+            'email' => 'required|string|email|max:255|unique:employers,email,'.$id.',id,deleted_at,NULL',
             'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
         ]);
         $employer = Employer::findOrFail($id);
-        $logo = $employer->logo;
-
-        if($request->imageRemove == 'empty') {
-            $logo = Null;
-        }
-
-        if($request->hasFile('logo')) {
-            $file    = $request->file('logo');
-            $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
-        }
 
         if($request->password) {
             $password = Hash::make($request->password);
@@ -181,7 +167,6 @@ class EmployerController extends Controller
         }
         $slug = Str::slug($request->name, '-') . '-' . $id;
         $employer = $employer->update([
-            'logo' => $logo,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $password,
@@ -229,6 +214,19 @@ class EmployerController extends Controller
                 return redirect()->back();
             } 
         }
+    }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_logo/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
     }
 
     public function getTownship($id)
