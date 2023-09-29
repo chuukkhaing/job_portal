@@ -894,7 +894,7 @@ ul.autocomplete{
 }
 @media (max-width: 768px) {
     .carousel-item img{
-        max-height: 400px;
+        /* max-height: 400px; */
     }
     .container {
         max-width: 95%;
@@ -903,13 +903,13 @@ ul.autocomplete{
 
 @media (max-width: 425px) {
     .carousel-item img{
-        max-height: 200px;
+        /* max-height: 200px; */
     }
 }
 
 @media (max-width: 320px) {
     .carousel-item img{
-        max-height: 150px;
+        /* max-height: 150px; */
     }
     #popular-job-category-title {
         font-size: 23px;
