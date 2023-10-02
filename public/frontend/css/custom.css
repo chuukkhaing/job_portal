@@ -188,7 +188,7 @@ select.form-control.search-slt.location {
 }
 
 .form-height-0 {
-    height: 0px !important;
+    height: 0px;
 }
 
 .rotate45 {
@@ -815,6 +815,9 @@ page {
 }
 
 @media (max-width: 768px) {
+    .form-height-0 {
+        height: 100%;
+    }
     .multiselect-selected-text {
         margin-left: 0;
     }

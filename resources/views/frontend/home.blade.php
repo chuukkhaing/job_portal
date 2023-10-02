@@ -32,20 +32,20 @@
 <!-- Carousel End -->
 
 <!-- Search Start -->
-<form action="{{ route('search-job') }}" method="get" class="form-height-0 d-sm-none d-md-none d-none d-lg-block" autocomplete="off">
+<form action="{{ route('search-job') }}" method="get" class="form-height-0" autocomplete="off">
     @csrf
     <section class="search-sec">
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 p-0">
+                    <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
                             <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
                             <ul class="autocomplete"></ul>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-3 p-0">
+                    <div class="ol-lg-4 col-md-4 p-0">
                         <div class="form-group has-search search-slt function-area">
                             <span class="form-control-feedback"><i class="fa fa-shopping-bag fa-md" aria-hidden="true"></i></span>
                             <select class="form-control d-none" id="function-area" multiple="multiple" name="function_area[]" size="10">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3 p-0">
+                    <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-3 p-0">
+                    <div class="col-lg-2 col-md-3 p-0 mt-lg-0 mt-md-3">
                         <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
                     </div>
                 </div>
