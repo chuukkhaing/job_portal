@@ -43,75 +43,78 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active">
-                            <div class="py-3">
-                                <article class="mx-auto">
-                                    <form action="{{ route('seeker-register') }}" method="post">
-                                        @csrf
-                                        <div class="my-3">
-                                            <div class="form-group input-group register-form-input p-2 mb-0">
-                                                <div class="input-group-prepend d-flex">
-                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
-                                                </div>
-                                                <input name="email" class="form-control border-0 @error('email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('email') }}">
+                            <article class="mx-auto">
+                                <form action="{{ route('seeker-register') }}" method="post">
+                                    @csrf
+                                    <div class="my-2">
+                                        <div class="form-group input-group register-form-input p-1 mb-0">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-envelope"></i> </span>
                                             </div>
-
-                                            @error('email')
-                                                <span class="text-danger">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
+                                            <input name="email" class="form-control border-0 @error('email') is-invalid @enderror" placeholder="Enter Email" type="email" value="{{ old('email') }}">
                                         </div>
+
+                                        @error('email')
+                                            <small class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="my-2">
+                                        <div class="form-group input-group register-form-input p-1 mb-0">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
+                                            </div>
+                                            <input name="phone" class="form-control border-0 @error('phone') is-invalid @enderror" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
+                                        </div>
+                                        @error('phone')
+                                            <small class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="my-2">
+                                        <div class="form-group input-group register-form-input p-1 mb-0">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                                            </div>
+                                            <input class="form-control border-0  @error('password') is-invalid @enderror" placeholder="Create password" type="password" name="password" id="password"><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerPassword()"></i>
+                                        </div>
+
+                                        @error('password')
+                                            <small class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                    </div>
+
+                                    <div class="my-2">
+                                        <div class="form-group input-group register-form-input p-1 mb-0">
+                                            <div class="input-group-prepend d-flex">
+                                                <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                                            </div>
+                                            <input class="form-control border-0 @error('confirmed') is-invalid @enderror" placeholder="Confirm password" type="password" name="confirmed" id="confirmPassword"><i style="cursor: pointer" id="seeker-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerConfirmPassword()"></i>
+                                        </div>  
+                                        @error('confirmed')
+                                            <small class="text-danger">
+                                                {{ $message }}
+                                            </small>
+                                        @enderror
+                                    </div>
+                                    <div class="my-2">
+                                        <div class="form-group input-group">     
+                                            <input type="checkbox" name="terms" id="terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers </label>                              
+                                        </div>
+                                        <div class="form-group p-1">
+                                            <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
+                                        </div>
+                                    </div>    
                                         
-                                        <div class="my-3">
-                                            <div class="form-group input-group register-form-input p-2 mb-0">
-                                                <div class="input-group-prepend d-flex">
-                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-phone"></i> </span>
-                                                </div>
-                                                <input name="phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('phone') }}">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="my-3">
-                                            <div class="form-group input-group register-form-input p-2 mb-0">
-                                                <div class="input-group-prepend d-flex">
-                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
-                                                </div>
-                                                <input class="form-control border-0  @error('password') is-invalid @enderror" placeholder="Create password" type="password" name="password" id="password"><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerPassword()"></i>
-                                            </div>
-
-                                            @error('password')
-                                                <span class="text-danger">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="my-3">
-                                            <div class="form-group input-group register-form-input p-2 mb-0">
-                                                <div class="input-group-prepend d-flex">
-                                                    <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
-                                                </div>
-                                                <input class="form-control border-0 @error('confirmed') is-invalid @enderror" placeholder="Confirm password" type="password" name="confirmed" id="confirmPassword"><i style="cursor: pointer" id="seeker-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showSeekerConfirmPassword()"></i>
-                                            </div>  
-                                            @error('confirmed')
-                                                <span class="text-danger">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="my-3">
-                                            <div class="form-group input-group">     
-                                                <input type="checkbox" name="terms" id="terms" class="" style="width: 15px" > <label style="font-size: 0.9rem" for="terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers </label>                              
-                                            </div>
-                                            <div class="form-group p-2">
-                                                <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
-                                            </div>
-                                        </div>    
-                                         
-                                        <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
-                                    </form>
-                                </article>
-                            </div>
+                                    <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                </form>
+                            </article>
                         </div>
                         
                     </div>

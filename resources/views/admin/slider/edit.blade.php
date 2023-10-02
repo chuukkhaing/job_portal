@@ -63,7 +63,7 @@
                                 @if($slider->image)
                                 <div id="imagePreview" style="background-image: url({{ asset('storage/slider/'.$slider->image) }});">
                                 @else
-                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x720);">
+                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x600);">
                                 @endif
                                 </div>
                             </div>
@@ -122,12 +122,12 @@
                 type: 'canvas',
                 viewport: {
                     width: 400,
-                    height: 150,
+                    height: 125,
                     type: 'square'
                 },
                 boundary: {
                     width: 450,
-                    height: 200,
+                    height: 175,
                 }
             });
             getImage(event.target, croppie); 
@@ -153,7 +153,7 @@
             croppie.result({
                 typ: 'base64',
                 size: { 
-                    width: 1920, height: 720 
+                    width: 1920, height: 600 
                 }
             }).then(function(base64) {
 
@@ -172,7 +172,7 @@
         });
 
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x720)');
+            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x600)');
             $('.slider-remove').addClass('d-none');
             $(".image_status").val('false');
             $("input[name='image_base64']").val('');

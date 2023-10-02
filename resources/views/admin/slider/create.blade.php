@@ -59,7 +59,7 @@
                     <div class="image-edit">
                         <label for="slider-image">Slider Image <span class="text-danger">*</span>
                             <div class="image-preview">
-                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x720);">
+                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x600);">
                                 </div>
                             </div>
                         </label>
@@ -116,12 +116,12 @@
                 
                 viewport: {
                     width: 400,
-                    height: 150,
+                    height: 125,
                     type: 'square'
                 },
                 boundary: {
                     width: 450,
-                    height: 200,
+                    height: 175,
                 }
             });
             getImage(event.target, croppie); 
@@ -147,7 +147,7 @@
             croppie.result({
                 typ: 'base64',
                 size: { 
-                    width: 1920, height: 720 
+                    width: 1920, height: 600 
                 }
             }).then(function(base64) {
                 $("#upload_slider").modal("hide"); 
@@ -163,7 +163,7 @@
         });
 
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x720)');
+            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x600)');
             $('.slider-remove').addClass('d-none');
             $('.slider-image').val('');
             $("input[name='image_base64']").val('');

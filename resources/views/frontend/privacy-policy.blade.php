@@ -19,7 +19,7 @@
             </ul>
 
             <p>
-                <span class="fw-bold"> Questions or concerns? </span> Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a href="mailto:info@infinitycareers.com">info@infinitycareers.com</a>
+                <span class="fw-bold"> Questions or concerns? </span> Reading this privacy notice will help you understand your privacy rights and choices. If you do not agree with our policies and practices, please do not use our Services. If you still have any questions or concerns, please contact us at <a href="mailto:info@infinitycareers.com.mm">info@infinitycareers.com.mm</a>
             </p>
         </div>
 
@@ -316,7 +316,7 @@
                <span class="bg-yellow">If you choose to remove cookies or reject cookies, this could affect certain features or services of our Services. To opt out of interest-based advertising by advertisers on our Services </span>
             </p>
             <p>
-                If you have questions or comments about your privacy rights, you may email us at info@infinitycareers.com
+                If you have questions or comments about your privacy rights, you may email us at info@infinitycareers.com.mm
             </p>
         </div>
     </div>
@@ -345,7 +345,7 @@
         <h5 class="fw-bold py-2 fz17">12. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</h5>
 
         <p>
-            If you have questions or comments about this notice, you may email us at: <a href="mailto:info@infinitycareers.com"> info@infinitycareers.com </a>
+            If you have questions or comments about this notice, you may email us at: <a href="mailto:info@infinitycareers.com.mm"> info@infinitycareers.com.mm </a>
         </p>
     </div>
 </div>

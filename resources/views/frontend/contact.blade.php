@@ -29,7 +29,7 @@
                     <div class="col-10 my-3">
                     <h5 class="text-light">Our Office</h5>
                     <p class="text-light">"Visit us in person by stopping by our physical location and speaking with a member of our team."</p>
-                    <h5 class="text-light">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </h5>
+                    <p class="text-light">No47, Thazin Street, Baho Road, Ahlone Township, Yangon, Myanmar </p>
                     </div>
                 </div>
                 <div class="row">
@@ -41,7 +41,7 @@
                     <div class="col-10 my-3">
                     <h5 class="text-light">Office Phone</h5>
                     <p class="text-light">"Give us a call to speak directly with a member of our team by dialing our office's phone line."</p>
-                    <h5 class="text-light"><a href="tel:+959447962279">09447962279</a> , <a href="tel:+959782436801">09782436801</a></h5>
+                    <p class="text-light"><a href="tel:+959447962279">09447962279</a> , <a href="tel:+959782436801">09782436801</a></p>
                     </div>
                 </div>
             </div>
@@ -75,27 +75,27 @@
                         <label for="name">Name <span class="text-danger">*</span></label>
                         <input type="text" name="name" id="name" class="form-control seeker_input @error('name') is-invalid @enderror" placeholder="Name" value="{{ old('name') }}">
                         @error('name')
-                            <span class="text-danger">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email <span class="text-danger">*</span></label>
                         <input type="email" name="email" id="email" class="form-control seeker_input @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
                         @error('email')
-                            <span class="text-danger">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                         @enderror
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone </label>
                         <input type="number" name="phone" id="phone" class="form-control seeker_input @error('phone') is-invalid @enderror" placeholder="Phone" value="{{ old('phone') }}">
                         @error('phone')
-                            <span class="text-danger">
-                                <strong>{{ $message }}</strong>
-                            </span>
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
                         @enderror
                     </div>
                     <div class="form-group">
@@ -104,7 +104,7 @@
                     </div>
                     
                     <div class="form-group p-2">
-                        <button type="submit" class="btn col-12 btn-signup"> Send Message  </button>
+                        <button type="submit" class="btn btn-sm col-12 btn-signup"> Send Message  </button>
                     </div>   
                 </form>
             </div>

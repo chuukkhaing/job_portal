@@ -68,7 +68,7 @@ class HomeController extends Controller
         $request->validate([
             'phone' => ['nullable', new MyanmarPhone],
             'email' => 'required|email',
-            'name' => 'required|string',
+            'name' => 'required|string|name',
         ]);
 
         $feedback = FeedBack::create([

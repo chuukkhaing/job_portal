@@ -142,6 +142,9 @@ return [
      */
 
     'custom'               => [
+        'name'          => [
+            'required' => 'Sorry, we need your Name please.',
+        ],
         'email'          => [
             'required' => 'Sorry, we need your Email address please.',
         ],
