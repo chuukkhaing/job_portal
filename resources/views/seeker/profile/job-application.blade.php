@@ -56,7 +56,7 @@
                         </div>
                         @endauth
                         <div class="text-end mt-auto p-1">
-                            <span>{{ $jobApplyBySeeker->JobPost->updated_at->diffForHumans() }}</span>
+                            <span>{{ $jobApplyBySeeker->JobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                         </div>
                     </div>
                 </div>

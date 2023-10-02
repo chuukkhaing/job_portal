@@ -313,7 +313,7 @@
                         </div>
 
                         <div class="text-end mt-auto p-1">
-                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                            <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                         </div>
                     </div>
                 </div>

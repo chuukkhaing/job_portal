@@ -812,8 +812,13 @@ page {
         background: rgb(23 23 28 / 51%);
         z-index: 100;
     }
+    
 }
-
+@media (max-width: 1024px) {
+    .job-post-des {
+        width: 420px
+    }
+}
 @media (max-width: 768px) {
     .form-height-0 {
         height: 100%;
@@ -843,6 +848,9 @@ page {
     .company-detail-media {
         margin-top: 0px;
     }
+    .job-post-des {
+        width: 230px
+    }
 }
 
 @media (max-width: 375px) {
@@ -854,6 +862,9 @@ page {
 @media (max-width: 320px) {
     .multiselect-selected-text {
         margin-left: -8%;
+    }
+    .job-post-des {
+        width: 180px
     }
 }
 

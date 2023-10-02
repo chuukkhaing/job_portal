@@ -119,39 +119,47 @@
     <div class="row">
         <!-- Left Sidebar Start -->
         @if($jobPosts->count() > 0)
-        <div class="col-lg-8 col-12 find-jobs-left-sidebar">
+        <div class="col-lg-8 m-0 p-lg-0 find-jobs-left-sidebar p-2">
             @foreach($jobPosts as $jobPost)
-            <div class="row job-content mb-3">
+            <div class="row job-content mb-2">
                 <!-- Job List Start -->
                 
-                <div class="col-md-9 py-md-4 py-0 row">
-                    <div class="col-sm-2 col-md-3 align-self-center">
-                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                <div class="col-sm-10 col-12 py-2 row">
+                    <div class="col-lg-3 col-4 col-xl-2 align-self-center text-center">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="">
                             @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                             @if($jobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" id="job-post-preview-company-logo">
+                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" id="job-post-preview-company-logo">
+                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                             @endif
-                            <div class="text-center">
+                            <div class="">
                             @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
                             </div>
                             @endif
                         </a>
                     </div>
-                    <div class="col-sm-10 col-md-9 align-self-center">
+                    <div class="col-lg-9 col-8 col-xl-10 align-self-center">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                            <div class="mt-1 job-company">{{ $jobPost->Employer->name }}</div>
+                            <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
                             <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                             @endif
                             @if($jobPost->job_post_type == 'trending')
-                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                            <p class="job-post-preview text-black text-wrap job-post-des">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
                             @endif
-                            <div class="mt-1 ">
-                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                            <div class="mt-1 row">
+                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area col-8"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                                <div class="d-md-none d-block col-4">
+                                    @auth('seeker')
+                                    <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                    @endauth
+                                    <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
+                                </div>
+                                
                             </div>
+                            
                         </a>
                     </div>
                 </div>
@@ -159,7 +167,7 @@
                 <!-- Job List End -->
 
                 <!-- Wishlist Start -->
-                <div class="col-md-3 align-items-end flex-column bd-highlight py-md-4 py-0 d-flex">
+                <div class="col-sm-2 col-12 align-items-end flex-column bd-highlight py-2 d-md-flex d-none">
                     <div class="row col-12 m-0 p-0">
                         <div class="text-end p-0">
                             @auth('seeker')
@@ -168,7 +176,7 @@
                         </div>
 
                         <div class="text-end mt-auto p-1">
-                            <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                            <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                         </div>
                     </div>
                 </div>
@@ -208,20 +216,20 @@
                     <h5 class="text-white py-2">Trending Jobs</h5>
                 </div>
 
-                <div class="job-trending-scroll shadow rounded p-2">
+                <div class="job-trending-scroll shadow rounded">
                     @foreach($trending_jobs as $trending_job)
                     <a href="{{ route('jobpost-detail', $trending_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">
-                            <div class="m-0 my-2 p-2 trending-job-list rounded">
-                                <div class="row m-0 p-2">
-                                    <div class="col-lg-3 col-12 text-center h-100 align-self-center">
+                            <div class="m-0 my-2 trending-job-list rounded">
+                                <div class="row m-0">
+                                    <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
                                         @if($trending_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
                                     </div>
-                                    <div class="col-lg-9 col-12 p-0">
+                                    <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
                                             <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
@@ -255,14 +263,14 @@
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 p-2 trending-job-list rounded">
                                 <div class="row m-0 p-2">
-                                    <div class="col-lg-3 col-12 text-center h-100 align-self-center">
+                                    <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
                                     </div>
-                                    <div class="col-lg-9 col-12 p-0">
+                                    <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
                                             <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>

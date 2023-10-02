@@ -52,7 +52,7 @@
                     <div class="row col-12 m-0 p-0">
                         
                         <div class="text-end mt-auto p-1">
-                            <span>{{ $saveJob->JobPost->updated_at->diffForHumans() }}</span>
+                            <span>{{ $saveJob->JobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                         </div>
                     </div>
                 </div>

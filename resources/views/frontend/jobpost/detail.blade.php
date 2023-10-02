@@ -50,7 +50,7 @@
                         </a>
                     @endguest
                         <div>
-                            <small>Posted {{ $jobpost->updated_at->diffForHumans() }}</small>
+                            <small>Posted {{ $jobpost->updated_at->shortRelativeDiffForHumans() }}</small>
                         </div>
                 </div>
             </div>  

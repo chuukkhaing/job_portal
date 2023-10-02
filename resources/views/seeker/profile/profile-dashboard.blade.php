@@ -117,7 +117,7 @@
                                 <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                 @endif
                                 @if($jobPost->job_post_type == 'trending')
-                                <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 200, $end = '...') !!}</p>
+                                <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
                                 @endif
                                 <div class="mt-1 ">
                                     <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
@@ -136,7 +136,7 @@
                                 </div>
                                 @endauth
                                 <div class="text-end mt-auto p-1">
-                                    <span>{{ $jobPost->updated_at->diffForHumans() }}</span>
+                                    <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                                 </div>
                             </div>
                         </div>
