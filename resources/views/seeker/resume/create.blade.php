@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
 <div class="text-end pt-5 pr-5">
-    <a href="{{ route('profile.index') }}" class="btn btn-sm profile-save-btn">Back</a>
+    <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Back</a>
 </div>
 <div class="container-fluid my-2" id="edit-profile-body">
     <div class="m-0 pb-0 pt-3">

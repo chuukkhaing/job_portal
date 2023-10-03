@@ -81,7 +81,7 @@
         <div>Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications. </div>
         </div>
         <div class="col-md-3">
-        <a href="#edit-profile-tab" class="btn vertical-tab profile-save-btn">Update Infinity Careers Profile</a>
+        <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="btn vertical-tab profile-save-btn">Update Infinity Careers Profile</a>
         </div>
     </div>
     @endif
@@ -291,15 +291,6 @@
         }
     });
 
-    $('.vertical-tab').on('click', function(e) {
-        e.preventDefault();
-        var attr = $(this).attr('href');
-        $(".seeker-single-tab").removeClass('active');
-        $(attr).addClass('active');
-        $(attr).attr('aria-selected',true);
-        $('.tab-pane').removeClass('show active');
-        $('#edit-profile').addClass('show active');
-    });
     $.ajaxSetup({
         headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

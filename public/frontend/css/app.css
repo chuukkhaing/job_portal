@@ -7,7 +7,7 @@ body {
     font-size: 1.5rem;
 }
 .container {
-    max-width: 80%;
+    min-width: 80%;
 }
 .navbar {
     background: #0355D0;

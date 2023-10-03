@@ -42,21 +42,7 @@ class SeekerProfileController extends Controller
 
     public function index()
     {
-        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
-        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
-        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $industries           = Industry::whereNull('deleted_at')->get();
-        $educations           = SeekerEducation::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $experiences          = SeekerExperience::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $skills               = SeekerSkill::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $languages            = SeekerLanguage::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $references           = SeekerReference::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
-        $cvs                  = SeekerAttach::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $jobPosts             = JobPost::whereIsActive(1)->where('job_title', 'like', '%' . Auth::guard('seeker')->user()->job_title . '%')->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get()->take(16);
-        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
-        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
-        $job_alerts           = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
         $employers            = DB::table('employers as a')
             ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
@@ -67,7 +53,12 @@ class SeekerProfileController extends Controller
             ->where('a.deleted_at', '=', null)
             ->orderBy('a.updated_at', 'desc')
             ->get();
-        return view('seeker.profile.dashboard', compact('job_alerts', 'saveJobs', 'employers', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries', 'educations', 'experiences', 'skills', 'languages', 'references', 'cvs', 'jobPosts', 'jobsApplyBySeeker'));
+        return view('seeker.profile.dashboard', compact('employers', 'jobPosts'));
+    }
+
+    public function edit($id)
+    {
+        return view('seeker.profile.edit-profile');
     }
 
     public function getTownship($id)
@@ -689,5 +680,26 @@ class SeekerProfileController extends Controller
             return redirect()->back()->with('success', 'Job Apply Successfully!');
         }
 
+    }
+
+    public function getApplication()
+    {
+        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        return view('seeker.profile.job-application', compact('jobsApplyBySeeker'));
+    }
+    
+    public function getSavedJob()
+    {
+        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        return view('seeker.profile.favourite-job', compact('saveJobs'));
+    }
+
+    public function getJobAlert()
+    {
+        $job_alerts           = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        $industries           = Industry::whereNull('deleted_at')->get();
+        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
+        return view('seeker.profile.job-alert', compact('job_alerts', 'industries', 'functional_areas', 'states'));
     }
 }
