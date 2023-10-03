@@ -851,6 +851,9 @@ page {
     .job-post-des {
         width: 230px
     }
+    .search-job-btn {
+        width: 100%;
+    }
 }
 
 @media (max-width: 375px) {
@@ -870,7 +873,7 @@ page {
 
 @media (max-width: 992px){
     .search-sec{
-        background: #1A4668;
+        background: #0355D0;
     }
 
     .company-search-btn {
