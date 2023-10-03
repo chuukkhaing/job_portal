@@ -56,7 +56,7 @@ class SeekerLoginController extends Controller
                 $request->session()->regenerate();
                 return redirect()->route('home')->with('error', 'Your account is not active.');
             }else {
-                return redirect()->route('profile.index')->with('success', 'Login Successfully.');
+                return redirect()->intended('seeker/profile')->with('success', 'Login Successfully.');
             }
         } else {
             return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('email', 'remember'));

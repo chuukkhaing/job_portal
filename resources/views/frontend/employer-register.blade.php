@@ -43,70 +43,68 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active">
-                            <div class="py-3">
-                                <article class="mx-auto">
-                                    <form action="{{ route('employer-register') }}" method="post">
-                                        @csrf
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <input name="company_name" class="form-control border-0 @error('company_name') is-invalid @enderror" placeholder="Company Name" type="text" value="{{ old('company_name') }}" >
-                                        </div>
-                                        @error('company_name')
-                                            <span class="text-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <div class="form-group input-group my-3 industry_id">
-                                            <select name="industry_id" id="industry_id" class="border-0 @error('industry_id') is-invalid @enderror industry_id" style="width: 100%" >
-                                                <option value="">Select Industry</option>
-                                                @foreach($industries as $industry)
-                                                <option value="{{ $industry->id }}">{{ $industry->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @error('industry_id')
-                                            <span class="text-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <input name="company_email" class="form-control border-0 @error('company_email') is-invalid @enderror" placeholder="Company Email" type="email" value="{{ old('company_email') }}" >
-                                        </div>
-                                        @error('company_email')
-                                            <span class="text-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <input name="company_phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('company_phone') }}">
-                                        </div>
+                            <article class="mx-auto">
+                                <form action="{{ route('employer-register') }}" method="post">
+                                    @csrf
+                                    <div class="form-group input-group register-form-input p-1 my-2">
+                                        <input name="company_name" class="form-control border-0 @error('company_name') is-invalid @enderror" placeholder="Company Name" type="text" value="{{ old('company_name') }}" >
+                                    </div>
+                                    @error('company_name')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                    <div class="form-group input-group my-2 industry_id">
+                                        <select name="industry_id" id="industry_id" class="border-0 @error('industry_id') is-invalid @enderror industry_id" style="width: 100%" >
+                                            <option value="">Select Industry</option>
+                                            @foreach($industries as $industry)
+                                            <option value="{{ $industry->id }}">{{ $industry->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @error('industry_id')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                    <div class="form-group input-group register-form-input p-1 my-2">
+                                        <input name="company_email" class="form-control border-0 @error('company_email') is-invalid @enderror" placeholder="Company Email" type="email" value="{{ old('company_email') }}" >
+                                    </div>
+                                    @error('company_email')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                    <div class="form-group input-group register-form-input p-1 my-2">
+                                        <input name="company_phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('company_phone') }}">
+                                    </div>
+                                    
+                                    <div class="form-group input-group register-form-input p-1 my-2">
+                                        <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Create password" type="password" name="company_password" id="company_password"><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
+                                    </div>
+                                    @error('company_password')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                    <div class="form-group input-group register-form-input p-1 my-2">
+                                        <input class="form-control border-0 @error('company_confirmed') is-invalid @enderror" placeholder="Confirm password" type="password" name="company_confirmed" id="company_confirm_password"><i style="cursor: pointer" id="company-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyConfirmPassword()"></i>
+                                    </div>   
+                                    @error('company_confirmed')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
+                                    <div class="form-group input-group input-group my-2">     
+                                        <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
+                                    </div>
+                                    <div class="form-group p-1">
+                                        <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
+                                    </div>      
                                         
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Create password" type="password" name="company_password" id="company_password"><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
-                                        </div>
-                                        @error('company_password')
-                                            <span class="text-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <div class="form-group input-group register-form-input p-2 my-3">
-                                            <input class="form-control border-0 @error('company_confirmed') is-invalid @enderror" placeholder="Confirm password" type="password" name="company_confirmed" id="company_confirm_password"><i style="cursor: pointer" id="company-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyConfirmPassword()"></i>
-                                        </div>   
-                                        @error('company_confirmed')
-                                            <span class="text-danger">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                        <div class="form-group input-group input-group my-3">     
-                                            <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
-                                        </div>
-                                        <div class="form-group p-2">
-                                            <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
-                                        </div>      
-                                         
-                                        <p class="text-center">Already Registered ? <a href="{{ route('employer-login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
-                                    </form>
-                                </article>
-                            </div>
+                                    <p class="text-center">Already Sign Up ? <a href="{{ route('employer-login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                </form>
+                            </article>
                         </div>
                     </div>
                 </div>

@@ -16,9 +16,9 @@
     <div class="row pt-3 px-3">
         <div class="col-lg-6 col-md-6 col-6">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="company-detail-logo" style=" border-radius: 8px" alt="{{ $employer->name }}">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="company-detail-logo" style="background: #0355D0; width: 100px; height: 100px; border-radius: 8px" alt="{{ $employer->name }}">
             @else
-            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="company-detail-logo" style=" border-radius: 8px" alt="{{ $employer->name }}">
+            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" class="company-detail-logo" style="background: #0355D0; width: 100px; height: 100px; border-radius: 8px" alt="{{ $employer->name }}">
             @endif
         </div>
 
@@ -277,7 +277,7 @@
             <div class="row job-opening me-1 p-2 h-100">
                 <div class="col-lg-9 col-md-9 p-0">
                     <div class="row col-12 m-0 p-0">
-                        <div class="col-lg-2 col-md-3 align-self-center">
+                        <div class="col-lg-2 col-md-3 col-4 align-self-center">
                             @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                             @if($employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
@@ -290,7 +290,7 @@
                             @endif
                         </div>
 
-                        <div class="col-lg-10 col-md-9 align-self-center">
+                        <div class="col-lg-10 col-md-9 col-8 align-self-center">
                             <div class="mt-1 job-company">{{ $employer->name }}</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
@@ -301,18 +301,24 @@
                             @endif
                             <div class="mt-1 ">
                                 <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                                <div class="text-end mt-auto p-1 d-md-none d-block">
+                                    
+                                    <div>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</div>
+                                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="text-decoration-none fw-bold">View...</a>
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
-
-                <div class="col-lg-3 col-md-3 d-flex align-items-end flex-column bd-highlight p-0">
+                
+                <div class="col-lg-3 col-md-3 d-md-flex d-none align-items-end flex-column bd-highlight p-0">
                     <div class="row col-12 m-0 p-0">
                         <div class="text-end p-0">
                             <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="btn view-detail-btn p-0">View Details</a>
                         </div>
 
-                        <div class="text-end mt-auto p-1">
+                        <div class="text-end mt-auto p-1 ">
                             <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                         </div>
                     </div>

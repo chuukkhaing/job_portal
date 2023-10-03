@@ -34,20 +34,20 @@
                         <h6 class="my-3"><strong>For Jobseekers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links py-2" href="{{ route('register-form') }}">Registration</a>
+                            <a class="footer-links py-2" href="{{ route('register-form') }}">Sign up</a>
                             <a class="footer-links py-2" href="{{ route('find-jobs') }}">Find Jobs</a>
                             <a class="footer-links py-2" href="{{ route('job-categories') }}">Job Category</a>
-                            <a class="footer-links py-2" href="{{ route('login-form') }}">Seeker Sign In</a>
+                            <a class="footer-links py-2" href="{{ route('login-form') }}">Sign In</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
                         <h6 class="my-3"><strong>For Employers</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links py-2" href="{{ route('employer-register-form') }}">Employer Registration</a>
+                            <a class="footer-links py-2" href="{{ route('employer-register-form') }}">Sign up</a>
                             <a class="footer-links py-2" href="{{ route('employer-job-post.create') }}">Post a Job</a>
                             <a class="footer-links py-2" href="{{ route('register-form') }}">Advertise with Us</a>
-                            <a class="footer-links py-2" href="{{ route('employer-login-form') }}">Employer Sign In</a>
+                            <a class="footer-links py-2" href="{{ route('employer-login-form') }}">Sign In</a>
                             {{--<a class="footer-links mb-2" href="#">News & Blogs</a>--}}
                         </div>
                     </div>

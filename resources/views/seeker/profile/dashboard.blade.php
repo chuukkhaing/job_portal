@@ -13,16 +13,16 @@
     <div class="edit-profile-tab-border">
         <ul class="nav d-flex justify-content-between py-3 px-5" id="seekerTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a href="#profile-dashboard" class="seeker-single-tab active" id="profile-dashboard-tab" data-bs-toggle="tab" data-bs-target="#profile-dashboard" role="tab" aria-controls="profile-dashboard" aria-selected="true">Profile Dashboard</a>
+                <a href="#profile-dashboard" class="seeker-single-tab active" id="profile-dashboard-tab" data-bs-toggle="tab" data-bs-target="#profile-dashboard" role="tab" aria-controls="profile-dashboard" aria-selected="true">Dashboard</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a href="#edit-profile" class="seeker-single-tab" id="edit-profile-tab" data-bs-toggle="tab" data-bs-target="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">Edit Profile</a>
+                <a href="#edit-profile" class="seeker-single-tab" id="edit-profile-tab" data-bs-toggle="tab" data-bs-target="#edit-profile" role="tab" aria-controls="edit-profile" aria-selected="false">Profile</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a href="#job-application" class="seeker-single-tab" id="job-application-tab" data-bs-toggle="tab" data-bs-target="#job-application" role="tab" aria-controls="job-application" aria-selected="false">Job Applications</a>
+                <a href="#job-application" class="seeker-single-tab" id="job-application-tab" data-bs-toggle="tab" data-bs-target="#job-application" role="tab" aria-controls="job-application" aria-selected="false">Applications</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a href="#fav-job" class="seeker-single-tab" id="fav-job-tab" data-bs-toggle="tab" data-bs-target="#fav-job" role="tab" aria-controls="fav-job" aria-selected="false">Favourite Jobs</a>
+                <a href="#fav-job" class="seeker-single-tab" id="fav-job-tab" data-bs-toggle="tab" data-bs-target="#fav-job" role="tab" aria-controls="fav-job" aria-selected="false">Saved Jobs</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a href="#job-alert" class="seeker-single-tab" id="job-alert-tab" data-bs-toggle="tab" data-bs-target="#job-alert" role="tab" aria-controls="job-alert" aria-selected="false">Job Alerts</a>

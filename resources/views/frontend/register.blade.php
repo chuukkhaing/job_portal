@@ -112,7 +112,7 @@
                                         </div>
                                     </div>    
                                         
-                                    <p class="text-center">Already Registered ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                    <p class="text-center">Already Sign Up ? <a href="{{ route('login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
                                 </form>
                             </article>
                         </div>

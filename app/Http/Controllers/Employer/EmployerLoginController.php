@@ -13,7 +13,7 @@ class EmployerLoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/employer/profile';
+    protected $redirectTo = '/employer/employer-profile';
 
     /**
      * Where to redirect users after login.
@@ -53,7 +53,7 @@ class EmployerLoginController extends Controller
                 $request->session()->regenerate();
                 return redirect()->route('home')->with('error', 'Your account is not active.');
             }else {
-                return redirect()->route('employer-profile.index')->with('success', 'Login Successfully.');
+                return redirect()->intended('/employer/employer-profile')->with('success', 'Login Successfully.');
             }
         } else {
             return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('company_email', 'company_remember'));

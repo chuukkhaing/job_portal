@@ -22,6 +22,7 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+            
             if ($guard == "admin" && Auth::guard($guard)->check()) {
                 return redirect('/admin');
             }
@@ -34,8 +35,9 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 return redirect('/');
             }
+            if($next && $request) {
+                return $next($request);
+            }
         }
-
-        return $next($request);
     }
 }

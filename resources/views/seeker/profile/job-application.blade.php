@@ -1,13 +1,11 @@
 <div class="container-fluid px-5 py-3 edit-profile-header-border" id="edit-profile-header">
     <div class="">
-        <h5>Applied Jobs ( {{ $jobsApplyBySeeker->count() }} )</h5>
+        <h5>My Applications ( {{ $jobsApplyBySeeker->count() }} )</h5>
     </div>
 </div>
 @if($jobsApplyBySeeker->count() > 0)
 <div class="my-2" id="edit-profile-body">
-    <div class="px-5 m-0 pb-0 pt-3">
-        <h5>Your Applied Jobs</h5>
-    </div>
+    
     <div class="row px-5 m-0 pb-0 pt-3">
         @foreach($jobsApplyBySeeker as $jobApplyBySeeker)
         <div class="col-md-6 col-12">

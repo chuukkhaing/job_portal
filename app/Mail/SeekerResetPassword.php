@@ -29,6 +29,7 @@ class SeekerResetPassword extends Mailable
 
     public function build()
     {
-        return $this->view('seeker.verify.reset-mail');
+        return $this->subject('Reset Your Infinity Careers Password')
+                    ->view('seeker.verify.reset-mail');
     }
 }

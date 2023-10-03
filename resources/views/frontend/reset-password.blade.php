@@ -4,7 +4,7 @@
 @php
     $route_name = Route::currentRouteName();
 @endphp
-
+@include('frontend.layouts.alert')
 <div class="container">
     <div class="py-3">
         <article class="col-md-6 col-lg-4 col-12 mx-auto">
@@ -12,21 +12,34 @@
                 <form action="{{ route('seeker-reset-post') }}" method="post">
                     <input type="hidden" name="id" value="{{ $id }}">
                     @csrf
-                    <label for="password">Password <span class="text-danger">*</span></label>
-                    <div class="form-group input-group register-form-input">
-                        <div class="input-group-prepend d-flex">
-                            <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                    <div>
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <div class="form-group input-group register-form-input p-1 my-1">
+                            <div class="input-group-prepend d-flex">
+                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input class="form-control border-0" placeholder="Create password" type="password" name="password" id="password"><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2 @error('password') is-invalid @enderror" onclick="showPassword()"></i>
                         </div>
-                        <input class="form-control border-0" placeholder="Create password" type="password" name="password" id="password" required><i style="cursor: pointer" id="seeker-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showPassword()"></i>
+                        @error('password')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <label for="confirmPassword">Confirm Password <span class="text-danger">*</span></label>
-                    <div class="form-group input-group register-form-input">
-                        <div class="input-group-prepend d-flex">
-                            <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
-                        </div>
-                        <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed" id="confirmPassword" required><i style="cursor: pointer" id="seeker-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showConfirmPassword()"></i>
-                    </div> 
-
+                    <div>
+                        <div class="form-group input-group register-form-input p-1 my-1">
+                            <div class="input-group-prepend d-flex">
+                                <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                            </div>
+                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="confirmed" id="confirmPassword"><i style="cursor: pointer" id="seeker-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2 @error('confirmed') is-invalid @enderror" onclick="showConfirmPassword()"></i>
+                        </div> 
+                        @error('confirmed')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
+                    </div>
                     <div class="form-group p-2 text-center">
                         <button type="submit" class="btn btn-sm btn-signup"> Reset Password  </button>
                     </div>                                                             
@@ -36,18 +49,32 @@
                     <input type="hidden" name="id" value="{{ $id }}">
                     @csrf
                     <label for="company_password">Password <span class="text-danger">*</span></label>
-                    <div class="form-group input-group register-form-input">
-                        <div class="input-group-prepend d-flex">
-                            <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                    <div>
+                        <div class="form-group input-group register-form-input p-1 my-1">
+                            <div class="input-group-prepend d-flex">
+                                <span class="input-group-text border-0 bg-transparent"> <i class="fa fa-lock"></i> </span>
+                            </div>
+                            <input class="form-control border-0" placeholder="Create password" type="password" name="company_password" id="company_password" ><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2 @error('company_password') is-invalid @enderror" onclick="showCompanyPassword()"></i>
                         </div>
-                        <input class="form-control border-0" placeholder="Create password" type="password" name="company_password" id="company_password" required><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
+                        @error('company_password')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
                     <label for="company_confirm_password">Confirm Password <span class="text-danger">*</span></label>
-                    <div class="form-group input-group register-form-input">
-                        <div class="input-group-prepend d-flex">
-                            <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                    <div>
+                        <div class="form-group input-group register-form-input p-1 my-1">
+                            <div class="input-group-prepend d-flex">
+                                <span class="input-group-text border-0 bg-transparent"> <i class="fa-solid fa-key"></i> </span>
+                            </div>
+                            <input class="form-control border-0" placeholder="Confirm password" type="password" name="company_confirmed" id="company_confirm_password" ><i style="cursor: pointer" id="company-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2 @error('company_confirmed') is-invalid @enderror" onclick="showCompanyConfirmPassword()"></i>
                         </div>
-                        <input class="form-control border-0" placeholder="Confirm password" type="password" name="company_confirmed" id="company_confirm_password" required><i style="cursor: pointer" id="company-confirm-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyConfirmPassword()"></i>
+                        @error('company_confirmed')
+                            <small class="text-danger">
+                                {{ $message }}
+                            </small>
+                        @enderror
                     </div>
 
                     <div class="form-group p-2 text-center">

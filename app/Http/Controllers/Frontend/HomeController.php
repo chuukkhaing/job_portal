@@ -91,7 +91,7 @@ class HomeController extends Controller
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
         $jobPostsCount         = JobPost::where('is_active', 1)->where('status', 'Online')->count();
-        $jobPosts              = JobPost::where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
+        $jobPosts              = JobPost::where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->paginate(10);
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(15);
         $jobPostName           = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
@@ -139,9 +139,9 @@ class HomeController extends Controller
         }
         $jobPostsCount = $jobPosts->count();
         $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
-        $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
+        $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->paginate(10);
         
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->whereIn('id',$jobPost_industry)->get();
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
@@ -154,7 +154,7 @@ class HomeController extends Controller
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
-        $jobPosts              = JobPost::where('is_active', 1)->where('main_functional_area_id', $id)->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->paginate(10);
+        $jobPosts              = JobPost::where('is_active', 1)->where('main_functional_area_id', $id)->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->paginate(10);
         $jobPostsCount         = JobPost::where('is_active', 1)->where('main_functional_area_id', $id)->where('status','Online')->orderBy('updated_at','desc')->count();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);
@@ -180,12 +180,13 @@ class HomeController extends Controller
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
-        $jobPosts              = JobPost::where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->where('industry_id', $id)->paginate(10);
+        $jobPosts              = JobPost::where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->where('industry_id', $id)->paginate(10);
         $jobPostsCount         = JobPost::where('is_active', 1)->where('status', 'Online')->orderBy('updated_at', 'desc')->where('industry_id', $id)->count();
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(15);
         $jobPostName           = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
-        return view('frontend.find-jobs', compact('industries', 'jobPostName' ,'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas'));
+        $industry_id = $id;
+        return view('frontend.find-jobs', compact('industries', 'jobPostName' ,'jobPostsCount', 'packages', 'trending_jobs', 'feature_jobs', 'jobPosts', 'states', 'sub_functional_areas', 'main_functional_areas', 'industry_id'));
     }
 
     public function findCompany(Request $request)
@@ -202,7 +203,7 @@ class HomeController extends Controller
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
-        $jobPosts = JobPost::where('is_active',1)->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->whereEmployerId($id)->paginate(10);
+        $jobPosts = JobPost::where('is_active',1)->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->whereEmployerId($id)->paginate(10);
         $jobPost_industry = JobPost::where('is_active', 1)->whereEmployerId($id)->groupBy('industry_id')->pluck('industry_id')->toArray();
         
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->whereIn('id',$jobPost_industry)->get();

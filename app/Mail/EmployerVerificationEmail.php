@@ -20,6 +20,7 @@ class EmployerVerificationEmail extends Mailable
 
     public function build()
     {
-        return $this->view('employer.verify.verifyEmail');
+        return $this->subject('Activate Your Infinity Careers Employer Account')
+                    ->view('employer.verify.verifyEmail');
     }
 }

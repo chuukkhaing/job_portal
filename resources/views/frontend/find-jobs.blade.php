@@ -61,7 +61,7 @@
                     <select name="industry" id="industry" class="form-input find-jobs-input w-100">
                         <option value="">Job Industry</option>
                         @foreach($industries as $industry)
-                        <option value="{{ $industry->id }}" @if(isset($_GET['industry']) && $_GET['industry'] == $industry->id) selected @endif>{{ $industry->name }}</option>
+                        <option value="{{ $industry->id }}" @if(isset($_GET['industry']) && $_GET['industry'] == $industry->id) selected @endif @if(isset($industry_id) && $industry_id == $industry->id) selected @endif >{{ $industry->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -149,11 +149,11 @@
                             @if($jobPost->job_post_type == 'trending')
                             <p class="job-post-preview text-black text-wrap job-post-des">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
                             @endif
-                            <div class="mt-1 row">
-                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area col-8"># {{ $jobPost->MainFunctionalArea->name }}</a>
-                                <div class="d-md-none d-block col-4">
+                            <div class="row d-flex">
+                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="job-post-area col-8 align-self-end"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                                <div class="d-md-none d-block col-4 text-end">
                                     @auth('seeker')
-                                    <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                    <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
                                     @endauth
                                     <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                                 </div>
@@ -208,10 +208,10 @@
         <!-- Left Sidebar End -->
 
         <!-- Right Sidebar Start -->
-        <div class="col-lg-4 col-12 px-0 px-sm-5 find-jobs-right-sidebar">
+        <div class="col-lg-4 col-12 px-0 px-sm-3 px-md-5 find-jobs-right-sidebar">
             <!-- Trending Jobs Start -->
             @if($trending_jobs->count() > 0)
-            <div class="row mb-5">
+            <div class="row mb-5 px-3 px-md-0">
                 <div class="right-trending-title text-center">
                     <h5 class="text-white py-2">Trending Jobs</h5>
                 </div>
@@ -252,7 +252,7 @@
 
             <!-- Featured Jobs Start -->
             @if($feature_jobs->count() > 0)
-            <div class="row mb-5">
+            <div class="row mb-5 px-3 px-md-0">
                 <div class="right-trending-title text-center">
                     <h5 class="text-white py-2">Featured Jobs</h5>
                 </div>

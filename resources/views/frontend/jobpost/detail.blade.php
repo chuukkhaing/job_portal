@@ -1,10 +1,20 @@
 @extends('frontend.layouts.app')
 @section('content')
+@if ($message = Session::get('error'))
+<div class="container-fluid alert-danger m-0">
+    <div class="container m-auto m-0 alert alert-danger border-0 alert-block">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        {{ $message }}
+    </div>
+</div>
+@endif
 <div class="container my-5" id="">
     <div class="card shadow" id="edit-profile-body">
         <div class="card-header bg-transparent">
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mb-2 d-flex">
+                <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
                     @if($jobpost->Employer->logo)
                     <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
                     @else
@@ -15,7 +25,7 @@
                         <div><a class="text-muted h6" href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }}</a></div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-2 align-self-center">
+                <div class="col-12 col-lg-6 col-xl-5 mb-2 align-self-center">
                     <div>
                         <span>{{ $jobpost->job_type }} @if($jobpost->country == 'Myanmar') | {{ $jobpost->State->name ?? '' }}, {{ $jobpost->Township->name ?? '' }} @endif {{ $jobpost->gender }}</span>
                     </div>
@@ -24,7 +34,7 @@
                         <span class="h5 fw-bold">@if($jobpost->hide_salary == 1) Negotiate @else {{ $jobpost->salary_range }} {{ $jobpost->currency }} @endif</span>
                     </div>
                 </div>
-                <div class="col-12 col-md-12 col-lg-4 mb-2 text-end">
+                <div class="col-12 col-lg-12 col-xl-2 mb-2 text-end">
                     @php
                         $disabled = '';
                         $btn_text = 'Apply Job';
@@ -59,7 +69,9 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="p-md-3 p-2 job-post-detail nav-link active" id="nav-job-description-tab" data-bs-toggle="tab" data-bs-target="#nav-job-description" type="button" role="tab" aria-controls="nav-job-description" aria-selected="true">Job Description</button>
+                    @if($jobpost->hide_company != 1)
                     <button class="p-md-3 p-2 job-post-detail nav-link" id="nav-company-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-company-profile" type="button" role="tab" aria-controls="nav-company-profile" aria-selected="false">Company Profile</button>
+                    @endif
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -124,7 +136,7 @@
                         <div class="card job-post-detail-company-profile mb-2">
                             <div class="header">
                                 <div class="row">
-                                    <div class="col-2 px-5">
+                                    <div class="col-2 px-xl-5 p-0">
                                         @if($jobpost->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
                                         @else

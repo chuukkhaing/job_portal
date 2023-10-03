@@ -122,7 +122,7 @@
             <textarea name="address_detail" id="address_detail" class="form-control" cols="30" rows="2" onchange="updateProfile('address_detail', this.value)">{{ Auth::guard('seeker')->user()->address_detail }}</textarea>
         </div>
         <div class="form-group col-12">
-            <label for="summary" class="">Summary</label>
+            <label for="summary" class="">Profile Summary</label>
             <textarea name="summary" id="summary" class="form-control summernote_resume" cols="30" rows="2" >{!! Auth::guard('seeker')->user()->summary !!}</textarea>
         </div>
     </div>
