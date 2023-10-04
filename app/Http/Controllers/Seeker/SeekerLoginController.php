@@ -48,13 +48,13 @@ class SeekerLoginController extends Controller
         Auth::viaRemember();
         $remember = $request->has('remember') ? true : false; 
         if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $remember)) {
-            if(Auth::guard('seeker')->user()->is_active == 0) {
+            if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at)) {
                 Auth::guard('seeker')->logout();
 
                 $request->session()->flush();
         
                 $request->session()->regenerate();
-                return redirect()->route('home')->with('error', 'Your account is not active.');
+                return redirect()->route('login-form')->with('error', 'Your account is not active.');
             }else {
                 return redirect()->intended('seeker/profile')->with('success', 'Login Successfully.');
             }

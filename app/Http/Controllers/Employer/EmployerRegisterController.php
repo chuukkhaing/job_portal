@@ -34,7 +34,7 @@ class EmployerRegisterController extends Controller
             'company_phone'    => ['nullable', new MyanmarPhone],
             'company_name'     => ['required', 'string'],
             'industry_id'      => ['required'],
-            'company_email'    => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
+            'company_email'    => ['required', 'string', 'email', 'max:255', 'unique:employers,email,NULL,id,deleted_at,NULL'],
             'company_password' => ['required', 'string', 'min:8', 'same:company_confirmed'],
             'company_confirmed' => ['required', 'string', 'min:8', 'same:company_password'],
         ]);

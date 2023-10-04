@@ -836,6 +836,10 @@ page {
     .company-detail-media {
         margin-top: 50px;
     }
+    .edit-profile-header-border {
+        border: 1px solid #95B6D8 !important;
+        border-radius: 8px !important;
+    }
 }
 
 @media (max-width: 425px) {

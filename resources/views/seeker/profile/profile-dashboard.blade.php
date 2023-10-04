@@ -1,4 +1,4 @@
-<div class="container-fluid px-5 edit-profile-header-border" id="edit-profile-header">
+<div class="container-fluid px-xl-5 px-lg-3 edit-profile-header-border d-lg-block d-none" id="edit-profile-header">
     <div class="row">
         <div class="col-12">
             <div class="row pb-3">
@@ -41,9 +41,9 @@
         </div>
     </div>
 </div>
-<div class="container-fluid my-2" id="edit-profile-body">
+<div class="container-fluid my-2 d-none d-md-block" id="edit-profile-body">
     <div class="col-12 row">
-        <div class="align-self-center col px-5 py-3">
+        <div class="align-self-center col px-xl-5 px-lg-3 py-3">
             <div class="border-right-profile">
             <p class="profile-count">Profile Views</p>
             <span class="profile-number">0</span>
@@ -55,21 +55,43 @@
             <span class="profile-number">{{ Auth::guard('seeker')->user()->SeekerAttach->count() }}</span>
             </div>
         </div>
-        <div class="align-self-center col px-5 py-3">
+        <div class="align-self-center col px-xl-5 px-lg-3 py-3">
             <div class="border-right-profile">
             <p class="profile-count">My Following</p>
             <span class="profile-number">0</span>
             </div>
         </div>
-        {{--<div class="col py-3">
-            <div class="border-right-profile">
-            <p class="profile-count">Message</p>
-            <span class="profile-number">0</span>
-            </div>
-        </div>--}}
+        
         <div class="align-self-center col py-3">
             <div class="text-center">
                 <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid my-2 d-md-none d-block text-center" id="edit-profile-body">
+    <div class="col-12 m-0 row">
+        <div class="align-self-center col-12 py-3">
+            <div class="text-center">
+                <div class="pie animate" style="--p:{{ Auth::guard('seeker')->user()->percentage }};"> {{ Auth::guard('seeker')->user()->percentage }}%</div>
+            </div>
+        </div>
+        <div class="align-self-center col-6 px-0 py-3">
+            <div class="border-right-profile">
+            <p class="profile-count">Profile Views</p>
+            <span class="profile-number">0</span>
+            </div>
+        </div>
+        <div class="align-self-center col-6 px-0 py-3">
+            <div class="">
+            <p class="profile-count">My CV Lists</p>
+            <span class="profile-number">{{ Auth::guard('seeker')->user()->SeekerAttach->count() }}</span>
+            </div>
+        </div>
+        <div class="align-self-center col-6 px-0 py-3">
+            <div class="border-right-profile">
+            <p class="profile-count">My Following</p>
+            <span class="profile-number">0</span>
             </div>
         </div>
     </div>
@@ -87,17 +109,17 @@
     @endif
     <div class="row p-0">
         <div class="col-12 col-md-9">
-            <div class="px-5 py-3 m-0">
+            <div class="px-xl-5 px-lg-3 py-3 m-0">
                 <h5 style="color: #0355D0">Recommended Jobs</h5>
             </div>
-            <div class="px-5 m-0 pb-0 ex3">
+            <div class="px-xl-5 px-md-3 m-0 pb-0 ex3">
                 @if($jobPosts->count() >0)
                 @foreach($jobPosts as $jobPost)
                 <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                     <div class="row job-content mb-3">
                         <!-- Job List Start -->
                         
-                        <div class="col-lg-10 col-md-10 py-4 d-flex">
+                        <div class="col-lg-10 col-md-10 py-4 px-0 d-flex">
                             <div style="width: 100px" class="align-self-center">
                                 @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
                                 @if($jobPost->Employer->logo)
@@ -314,11 +336,7 @@
         }).done(function(response){
             if(response.status == 'success') {
                 if(response.status == 'success') {
-                    // MSalert.principal({
-                    //     icon:'success',
-                    //     title:'',
-                    //     description:response.msg,
-                    // })
+                    
                 }
             }
         })
@@ -331,19 +349,11 @@
             url: "save-job/"+id,
         }).done(function(response){
             if(response.status == 'create') {
-                // MSalert.principal({
-                //     icon:'success',
-                //     title:'',
-                //     description:response.msg,
-                // });
+                
                 $('#savejobdashboard-'+id).removeClass('fa-regular');
                 $('#savejobdashboard-'+id).addClass('fa-solid');
             }else if(response.status == 'remove') {
-                // MSalert.principal({
-                //     icon:'success',
-                //     title:'',
-                //     description:response.msg,
-                // });
+                
                 $('#savejobdashboard-'+id).removeClass('fa-solid');
                 $('#savejobdashboard-'+id).addClass('fa-regular');
             }

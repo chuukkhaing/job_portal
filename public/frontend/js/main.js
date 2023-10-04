@@ -60,5 +60,13 @@
            $(this).find(':submit').attr( 'disabled',false );
        }, 2000)
     });
+
+    $("#seeker-toggle-mobile").click(function() {
+        if($(this).attr('aria-expanded') == 'true') {
+            $(".seeker-profile-mobile").addClass('d-none');
+        }else {
+            $(".seeker-profile-mobile").removeClass('d-none')
+        }
+    })
 })(jQuery);
 

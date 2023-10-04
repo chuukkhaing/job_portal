@@ -29,12 +29,15 @@ class SaveJobController extends Controller
     public function create($id)
     {
         if(Auth::guard('seeker')->user()->id) {
+            
             $find_save_job = SaveJob::whereJobPostId($id)->whereSeekerId(Auth::guard('seeker')->user()->id)->get();
             if($find_save_job->count() > 0) {
                 $find_save_job = SaveJob::whereJobPostId($id)->whereSeekerId(Auth::guard('seeker')->user()->id)->delete();
+                $saveJobCount             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->count();
                 return response()->json([
                     'status' => 'remove',
-                    'msg' => 'Removed Job'
+                    'msg' => 'Removed Job',
+                    'saveJobCount' => $saveJobCount
                 ]);
             }else {
                 SaveJob::create([

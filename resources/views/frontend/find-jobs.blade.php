@@ -153,7 +153,7 @@
                                 <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="job-post-area col-8 align-self-end"># {{ $jobPost->MainFunctionalArea->name }}</a>
                                 <div class="d-md-none d-block col-4 text-end">
                                     @auth('seeker')
-                                    <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
+                                    <i style="cursor: pointer" onclick="saveJob({{ $jobPost->id }})" class="savejob-{{ $jobPost->id }} text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
                                     @endauth
                                     <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                                 </div>
@@ -171,7 +171,7 @@
                     <div class="row col-12 m-0 p-0">
                         <div class="text-end p-0">
                             @auth('seeker')
-                            <i style="cursor: pointer" id="savejob-{{ $jobPost->id }}" onclick="saveJob({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                            <i style="cursor: pointer" onclick="saveJob({{ $jobPost->id }})" class="savejob-{{ $jobPost->id }} text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
                             @endauth
                         </div>
 
@@ -381,21 +381,13 @@
             url: "seeker/save-job/"+id,
         }).done(function(response){
             if(response.status == 'create') {
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-                $('#savejob-'+id).removeClass('fa-regular');
-                $('#savejob-'+id).addClass('fa-solid');
+                
+                $('.savejob-'+id).removeClass('fa-regular');
+                $('.savejob-'+id).addClass('fa-solid');
             }else if(response.status == 'remove') {
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-                $('#savejob-'+id).removeClass('fa-solid');
-                $('#savejob-'+id).addClass('fa-regular');
+                
+                $('.savejob-'+id).removeClass('fa-solid');
+                $('.savejob-'+id).addClass('fa-regular');
             }
         })
     }

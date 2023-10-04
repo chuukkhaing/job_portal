@@ -45,7 +45,7 @@ class EmployerLoginController extends Controller
         ]);
 
         if (\Auth::guard('employer')->attempt(['email' => $request->company_email, 'password' => $request->company_password], $request->get('company_remember'))) {
-            if(Auth::guard('employer')->user()->is_active == 0) {
+            if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at)) {
                 Auth::guard('employer')->logout();
 
                 $request->session()->flush();

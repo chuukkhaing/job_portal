@@ -37,7 +37,7 @@ class SeekerRegisterController extends Controller
     {
         $this->validate($request, [
             'phone'    => ['nullable', new MyanmarPhone],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:seekers'],
+            'email' => 'required|string|email|max:255|unique:seekers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8', 'same:confirmed'],
             'confirmed' => ['required', 'string', 'min:8', 'same:password'],
         ]);
@@ -88,8 +88,9 @@ class SeekerRegisterController extends Controller
         $request->validate([
             'email' => 'required|email|exists:seekers',
         ]);
-        $seeker = Seeker::whereEmail($request->email)->first();
-        if ($seeker) {
+        $seeker = Seeker::whereEmail($request->email)->whereIsActive(1)->whereNull('deleted_at')->first();
+        
+        if (isset($seeker)) {
             $seeker_update = $seeker->update([
                 'email_verification_token' => Str::random(32),
             ]);
@@ -104,7 +105,7 @@ class SeekerRegisterController extends Controller
         } else {
             return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
         }
-        return view('frontend.forgot-password');
+        
     }
 
     public function getResetPassword($id)

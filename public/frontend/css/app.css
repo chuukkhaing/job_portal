@@ -317,6 +317,11 @@ body {
     border-radius: 8px 8px 0 0;
     border-bottom: 0;
 }
+.seeker-dashboard-mobile {
+    background-color: #0355D0;
+    color: #ffffff;
+    border-radius: 8px;
+}
 #seekerTab li{
     padding: 16px 0;
 }
@@ -569,7 +574,8 @@ a:hover {
 }
 .ex3 {
     max-height: 765px;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .jobpost-attr {
