@@ -219,7 +219,7 @@ class SeekerProfileController extends Controller
             'from'          => $request->from,
             'to'            => $request->to,
             'school'        => $request->school,
-            'is_current'    => $request->current_school
+            'is_current'    => $request->is_current
         ]);
         return response()->json([
             'status'    => 'success',

@@ -121,7 +121,7 @@
             </div>
             <span class="text-danger" id="edit-from-error"></span>
         </div>
-        <div class="form-group mt-1 col-6 col-md-3 @if($education->is_current == 1) d-none @else  @endif" id="edit-end-date-school">
+        <div class="form-group mt-1 col-6 col-md-3 " id="edit-end-date-school">
             <label for="edit-to" class="seeker_label my-2">End Year <span class="text-danger">*</span></label>
             <div class="datepicker date input-group year">
                 <input type="text" name="edit-to" id="edit-to" class="form-control seeker_input" value="" placeholder="Start Year">
@@ -256,13 +256,14 @@
                     $("#edu-table").removeClass('d-none');
                     $(".education_label").removeClass('d-none');
                     var responseTo = '';
+                    console.log(response.education)
                     if(response.education.is_current == 1) {
                         responseTo = 'Present';
                     }else {
                         responseTo = response.education.to;
                     }
 
-                    $("#edu-table").append('<div class="row edu-tr-'+response.education.id+'" py-2><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-4"><span class="edu-degree-'+response.education.id+' fw-bold">{{ $education->degree }} (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div><div class="col-4"><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
+                    $("#edu-table").append('<div class="row edu-tr-'+response.education.id+'" py-2><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-4"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div><div class="col-4"><a onclick="editEdu('+response.education.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteEdu-'+response.education.id+'" class="deleteEdu btn border-0 text-danger" value="'+response.education.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                     $(".resume-edu-form").addClass('d-none');
 
@@ -328,9 +329,12 @@
             if(response.status == 'success') {
                 if(response.education.is_current == 1) {
                     $("#edit-current_school").prop("checked", true);
+                    $("#edit-end-date-school").addClass('d-none');
                 }else {
                     $("#edit-current_school").prop("checked", false);
+                    $("#edit-end-date-school").removeClass('d-none');
                 }
+                
                 $("#edit-degree").val(response.education.degree);
                 $("#edit-major_subject").val(response.education.major_subject);
                 $("#edit-location").val(response.education.location);
@@ -414,6 +418,7 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     var edit_responseTo = '';
+                    console.log(response.education)
                     if(response.education.is_current == 1) {
                         edit_responseTo = 'Present';
                     }else {
