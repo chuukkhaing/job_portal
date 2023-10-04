@@ -43,12 +43,12 @@ class SeekerLoginController extends Controller
     {
         $this->validate($request, [
             'email'    => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
         ]);
         Auth::viaRemember();
         $remember = $request->has('remember') ? true : false; 
         if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')], $remember)) {
-            if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at)) {
+            if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null) {
                 Auth::guard('seeker')->logout();
 
                 $request->session()->flush();
