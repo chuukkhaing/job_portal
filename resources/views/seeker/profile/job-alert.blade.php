@@ -251,7 +251,7 @@
                                     @if($job_alert->functional_area_id)
                                     <a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" style="border: 1px solid #95B6D8; border-radius: 50px" class="text-dark p-2">{{ $job_alert->FunctionalArea->name }}</a>
                                     @endif
-                                    <div class="text-end">
+                                    <div class="text-end d-md-none d-block">
                                         <i class="fa-regular fa-bookmark"></i>
                                         <span>{{ date('M d, Y',strtotime($job_alert->created_at)) }}</span>
                                     </div>
