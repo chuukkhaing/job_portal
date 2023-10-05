@@ -1,20 +1,15 @@
-@extends('frontend.layouts.app')
-@section('content')
-
-<div class="container-fluid my-2 res">
-    <div class="m-0 pb-0 pt-3">
+<div class="container-fluid">
+    <div class="px-3">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="p-3 job-post-detail nav-link active" id="nav-cv-build-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-build" type="button" role="tab" aria-controls="nav-cv-build" aria-selected="true">Build Your CV </button>
-                <button class="p-3 job-post-detail nav-link" id="nav-career-choice-tab" data-bs-toggle="tab" data-bs-target="#nav-career-choice" type="button" role="tab" aria-controls="nav-career-choice" aria-selected="false">Career of Choice</button>
-                <button class="p-3 job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">CV Attachment</button>
+                <button class="job-post-detail nav-link active" id="nav-cv-build-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-build" type="button" role="tab" aria-controls="nav-cv-build" aria-selected="true">Build Your CV </button>
+                <button class="job-post-detail nav-link" id="nav-career-choice-tab" data-bs-toggle="tab" data-bs-target="#nav-career-choice" type="button" role="tab" aria-controls="nav-career-choice" aria-selected="false">Career of Choice</button>
+                <button class="job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">CV Attachment</button>
             </div>
         </nav>
-        <div class="text-end pt-1 pr-5">
-            <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Back</a>
-        </div>
+        
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane p-3 fade show active" id="nav-cv-build" role="tabpanel" aria-labelledby="nav-cv-build-tab">
+            <div class="tab-pane fade show active" id="nav-cv-build" role="tabpanel" aria-labelledby="nav-cv-build-tab">
                 
                 <div class="container-fluid p-0">
                     <div class="row">
@@ -131,8 +126,6 @@
         </div>
     </div>
 </div>
-
-@endsection
 @push('scripts')
 <script>
     $('.next-career-history').click(function() {
