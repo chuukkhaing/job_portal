@@ -564,7 +564,7 @@ span.form-control-feedback.company-icon {
 }
 
 page[size="A4"] {  
-    width: 21cm;
+    
     overflow-y: scroll;
     height: 15cm; 
 }
@@ -944,8 +944,19 @@ page::-webkit-scrollbar-thumb
     height: auto;
 }
 .login-page {
-    background-image: url(../img/background/viber_image_2023-09-29_14-42-26-551.jpg);
+    background-image: url(../img/background/seeker_login.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+}
+.employer-login-page {
+    background-image: url(../img/background/employer_login.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #0255CF;
+    font-weight: bold;
 }

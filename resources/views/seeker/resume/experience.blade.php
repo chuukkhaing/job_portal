@@ -125,7 +125,7 @@
                     <div class="col-12 col-md-6"></div>
                     <div class="form-group mt-1 col-12 col-md-6">
                         <label for="exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
-                        <textarea name="exp_job_responsibility" id="exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote" style="width: 100%"></textarea>
+                        <textarea name="exp_job_responsibility" id="exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote_exp" style="width: 100%"></textarea>
                         <span class="text-danger exp_job_responsibility-error"></span>
                     </div>
                     <div class="col-12 col-md-6"></div>
@@ -254,7 +254,7 @@
                     <div class="col-12 col-md-6"></div>
                     <div class="form-group mt-1 col-12 col-md-6">
                         <label for="edit_exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
-                        <textarea name="edit_exp_job_responsibility" id="edit_exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote" style="width: 100%"></textarea>
+                        <textarea name="edit_exp_job_responsibility" id="edit_exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote_exp" style="width: 100%"></textarea>
                         <span class="text-danger edit_exp_job_responsibility-error"></span>
                     </div>
                     <div class="col-12 col-md-6"></div>
@@ -300,6 +300,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
 <script>
     $(document).ready(function() {
+        $('.summernote_exp').summernote({
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+        });
+
         $('.exp-date').datepicker({
             format: "yyyy-mm",
             viewMode: "months", 
@@ -368,7 +375,7 @@
             var exp_main_functional_area_id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'get-sub-functional-area/'+exp_main_functional_area_id,
+                url: '/seeker/get-sub-functional-area/'+exp_main_functional_area_id,
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#exp_sub_functional_area_id").empty();
@@ -390,7 +397,7 @@
             var exp_main_functional_area_id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'get-sub-functional-area/'+exp_main_functional_area_id,
+                url: '/seeker/get-sub-functional-area/'+exp_main_functional_area_id,
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#edit_exp_sub_functional_area_id").empty();
@@ -662,7 +669,7 @@
         $("#experienceEditModal").modal('show');
         $.ajax({
             type: 'GET',
-            url: 'experience/edit/'+id,
+            url: '/seeker/experience/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
                 $("#edit_is_experience").val(response.experience.is_experience);
@@ -701,7 +708,7 @@
                         'is_experience' : $("#edit_is_experience").val(),
                         'is_current_job' : 0
                     },
-                    url: 'experience/update/'+id,
+                    url: 'seeker/experience/update/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#exp-table").removeClass('d-none');
@@ -797,7 +804,7 @@
                                 'exp_country' : edit_exp_country,
                                 'exp_job_responsibility' : edit_exp_job_responsibility
                             },
-                            url: 'experience/update/'+id,
+                            url: '/seeker/experience/update/'+id,
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
@@ -867,7 +874,7 @@
                                 'exp_country' : edit_exp_country,
                                 'exp_job_responsibility' : edit_exp_job_responsibility
                             },
-                            url: 'experience/update/'+id,
+                            url: '/seeker/experience/update/'+id,
                         }).done(function(response){
                             if(response.status == 'success') {
                                 $(".exp-tr-"+id).html('');
@@ -925,7 +932,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'experience/destory/'+id,
+                    url: '/seeker/experience/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".exp-tr-"+id).empty();

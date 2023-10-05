@@ -153,6 +153,10 @@
     $(document).ready(function() {
         // onChange callback
         $('.summernote_resume').summernote({
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ],
         callbacks: {
             onChange: function(contents, $editable) {
                 updateProfile('summary', contents)
@@ -408,8 +412,10 @@
                     if(name == "state_id") {
                         var state_name = $("#state_id :selected").text();
                         if(state_name == 'Choose...' || state_name == 'Choose') {
+                            $('.state_label').addClass('d-none');
                             $(".state").text('');
                         }else {
+                            $('.state_label').removeClass('d-none');
                             $(".state").text(state_name);
                         }
                         updateProfile('township_id', '')
@@ -419,8 +425,10 @@
                     if(name == "township_id") {
                         var township_name = $("#township_id :selected").text();
                         if(township_name == 'Choose...' || township_name == 'Choose' || township_name == '') {
+                            $('.township_label').addClass('d-none');
                             $(".township").text('');
                         }else {
+                            $('.township_label').removeClass('d-none');
                             $(".township").text(township_name);
                         }
                     }

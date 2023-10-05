@@ -65,7 +65,7 @@
             var skill_main_functional_area_id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: 'get-skill/'+skill_main_functional_area_id,
+                url: '/seeker/get-skill/'+skill_main_functional_area_id,
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#skill_id").empty();
@@ -161,7 +161,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'skill/destory/'+id,
+                    url: '/seeker/skill/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".skill-tr-"+id).empty();

@@ -1,3 +1,4 @@
+
 <div class="my-2">
     <button type="button" class="btn btn-sm profile-save-btn" onclick="createEduForm()">
         <i class="fa-solid fa-plus"></i> Add Education
@@ -299,7 +300,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'education/destory/'+id,
+                    url: '/seeker/education/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".edu-tr-"+id).empty();
@@ -324,7 +325,7 @@
         $(".resume-edu-edit-form").removeClass('d-none');
         $.ajax({
             type: 'GET',
-            url: 'education/edit/'+id,
+            url: '/seeker/education/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
                 if(response.education.is_current == 1) {
@@ -413,7 +414,7 @@
                     'school' : edit_school,
                     'is_current' : edit_current_school,
                 },
-                url: 'education/update/'+id,
+                url: '/seeker/education/update/'+id,
                 cache: false,
             }).done(function(response){
                 if(response.status == 'success') {

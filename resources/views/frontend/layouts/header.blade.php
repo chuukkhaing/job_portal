@@ -34,6 +34,12 @@
                             </a>
                         </li>
                         <li>
+                            <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Change Password
+                            </a>
+                        </li>
+                        <li>
                             <a class="dropdown-item" href="{{ route('seeker.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
@@ -76,9 +82,10 @@
                 @elseauth('web')
                 <a href="{{ route('dashboard') }}" class="nav-item nav-link">Admin</a>
                 @else
-                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Seeker <br> Sign In</a>
-                <a href="{{ route('employer-login-form') }}" class="nav-item nav-link {{ Request::is('employer/login-form') ? 'active' : '' }}">Employer <br> Sign In</a>
+                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Sign In</a>
                 <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Sign Up</a></span>
+                <span class="nav-item nav-link"><a href="{{ route('employer-login-form') }}" class="header-btn">For Employer</a></span>
+                
                 @endauth
             </div>
         </div>

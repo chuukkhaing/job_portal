@@ -165,7 +165,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'language/destory/'+id,
+                    url: '/seeker/language/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".language-tr-"+id).empty();
@@ -192,7 +192,7 @@
         $("#langEditModal").modal('show');
         $.ajax({
             type: 'GET',
-            url: 'language/edit/'+id,
+            url: '/seeker/language/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
                 $("#edit_language_name").val(response.language.name);
@@ -223,7 +223,7 @@
                         'language_level' : edit_language_level,
                         'seeker_id' : seeker_id
                     },
-                    url: 'language/update/'+id,
+                    url: '/seeker/language/update/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $('.language-name-'+id).html(response.language.name);

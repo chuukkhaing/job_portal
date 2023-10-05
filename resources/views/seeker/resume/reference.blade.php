@@ -208,7 +208,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'reference/destory/'+id,
+                    url: '/seeker/reference/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".reference-tr-"+id).empty();
@@ -233,7 +233,7 @@
         $("#refEditModal").modal('show');
         $.ajax({
             type: 'GET',
-            url: 'reference/edit/'+id,
+            url: '/seeker/reference/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
                 $("#edit_ref_name").val(response.reference.name);
@@ -281,7 +281,7 @@
                         'ref_contact' : edit_ref_contact,
                         'seeker_id' : seeker_id
                     },
-                    url: 'reference/update/'+id,
+                    url: '/seeker/reference/update/'+id,
                     success: function(edit_response){
                                 if(edit_response.status == 'success') {
                                     $('.reference-name-'+id).html(edit_response.reference.name);
