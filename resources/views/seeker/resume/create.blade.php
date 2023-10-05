@@ -1,9 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
-<div class="text-end pt-5 pr-5">
-    <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Back</a>
-</div>
-<div class="container-fluid my-2">
+
+<div class="container-fluid my-2 res">
     <div class="m-0 pb-0 pt-3">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -12,6 +10,9 @@
                 <button class="p-3 job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">CV Attachment</button>
             </div>
         </nav>
+        <div class="text-end pt-1 pr-5">
+            <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Back</a>
+        </div>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane p-3 fade show active" id="nav-cv-build" role="tabpanel" aria-labelledby="nav-cv-build-tab">
                 
@@ -97,23 +98,19 @@
                         </div>
                         <div class="col resume-template-background">
                             <page size="A4">
-                                <div class="mt-4">
-                                    <div class="mb-4">
-                                        <h3 class="text-center">Resume</h3>
-                                        @include('seeker.resume.personal_details')
-                                        <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
-                                            <h5 class="text-white resume-header py-2">Profile Summary</h5>
-                                            <div class="col py-2">
-                                                <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
-                                            </div>
-                                        </div>
-                                        @include('seeker.resume.exp_details')
-                                        @include('seeker.resume.edu_details')
-                                        @include('seeker.resume.skill_details')
-                                        @include('seeker.resume.language_details')
-                                        @include('seeker.resume.reference_details')
+                                <h4 class="text-center">Resume</h4>
+                                @include('seeker.resume.personal_details')
+                                <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
+                                    <h6 class="text-white resume-header py-2">Profile Summary</h6>
+                                    <div class="col py-2">
+                                        <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
                                     </div>
                                 </div>
+                                @include('seeker.resume.exp_details')
+                                @include('seeker.resume.edu_details')
+                                @include('seeker.resume.skill_details')
+                                @include('seeker.resume.language_details')
+                                @include('seeker.resume.reference_details')
                             </page>
                         </div>
                     </div>

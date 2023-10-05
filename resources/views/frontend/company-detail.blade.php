@@ -301,10 +301,10 @@
                             @endif
                             <div class="mt-1 ">
                                 <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
-                                <div class="text-end mt-auto p-1 d-md-none d-block">
+                                <div class="mt-auto p-1 d-md-none d-flex justify-content-between">
                                     
                                     <div>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</div>
-                                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="text-decoration-none fw-bold">View...</a>
+                                    <div class="text-end"><a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="text-decoration-none fw-bold">View...</a></div>
                                 </div>
                             </div>
                         </div>

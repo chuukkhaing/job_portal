@@ -123,45 +123,42 @@
             @foreach($jobPosts as $jobPost)
             <div class="row job-content mb-2">
                 <!-- Job List Start -->
-                
-                <div class="col-sm-10 col-12 py-2 row">
-                    <div class="col-lg-3 col-4 col-xl-2 align-self-center text-center">
-                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="">
-                            @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
-                            @if($jobPost->Employer->logo)
-                            <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
-                            @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
-                            @endif
-                            <div class="">
-                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
-                            </div>
-                            @endif
-                        </a>
-                    </div>
-                    <div class="col-lg-9 col-8 col-xl-10 align-self-center">
-                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                            <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }}</div>
-                            <div class="mt-1">{{ $jobPost->job_title }}</div>
-                            @if($jobPost->township_id)
-                            <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
-                            @endif
-                            @if($jobPost->job_post_type == 'trending')
-                            <p class="job-post-preview text-black text-wrap job-post-des">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
-                            @endif
-                            <div class="row d-flex">
-                                <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="job-post-area col-8 align-self-end"># {{ $jobPost->MainFunctionalArea->name }}</a>
-                                <div class="d-md-none d-block col-4 text-end">
-                                    @auth('seeker')
-                                    <i style="cursor: pointer" onclick="saveJob({{ $jobPost->id }})" class="savejob-{{ $jobPost->id }} text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
-                                    @endauth
-                                    <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
-                                </div>
-                                
+                <div class="col-md-2 col-3 align-self-center text-center py-2">
+                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}" class="">
+                        @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
+                        @if($jobPost->Employer->logo)
+                        <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
+                        @else 
+                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
+                        @endif
+                        <div class="">
+                        @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
+                        </div>
+                        @endif
+                    </a>
+                </div>
+                <div class="col-md-8 col-9 align-self-center py-2">
+                    <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                        <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }}</div>
+                        <div class="mt-1">{{ $jobPost->job_title }}</div>
+                        @if($jobPost->township_id)
+                        <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
+                        @endif
+                        @if($jobPost->job_post_type == 'trending')
+                        <p class="job-post-preview text-black text-wrap">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
+                        @endif
+                        <div class="row d-flex">
+                            <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="job-post-area col-8 align-self-end"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                            <div class="d-md-none d-block col-4 text-end">
+                                @auth('seeker')
+                                <i style="cursor: pointer" onclick="saveJob({{ $jobPost->id }})" class="savejob-{{ $jobPost->id }} text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
+                                @endauth
+                                <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                             </div>
                             
-                        </a>
-                    </div>
+                        </div>
+                        
+                    </a>
                 </div>
                 
                 <!-- Job List End -->

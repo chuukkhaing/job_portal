@@ -1,5 +1,5 @@
 <div class="row resume-section mb-3 reference_label @if($references->count() == 0) d-none @endif">
-    <h5 class="text-white resume-header py-2">Reference</h5>
+    <h6 class="text-white resume-header py-2">Reference</h6>
     @foreach($references as $reference)
     <div class="row py-2 reference-resume-{{ $reference->id }}">
         <span class="reference-name-{{$reference->id}} fw-bold">{{ $reference->name }}</span>

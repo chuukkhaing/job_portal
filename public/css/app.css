@@ -11162,7 +11162,7 @@ textarea.form-control-lg {
   background: #fff;
   color: #545454;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 14px;
 }
 .swal2-popup:focus {
   outline: none;

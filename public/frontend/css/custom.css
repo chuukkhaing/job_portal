@@ -25,7 +25,7 @@ input.form-control.search-slt.job-title {
 select.form-control.search-slt.location {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    font-size: 1rem;
+    font-size: 14px;
     background-color: #fff;
 }
 
@@ -373,7 +373,7 @@ a.interview-btn:hover {
 }
 
 .job-title {
-    font-size: 1rem;
+    font-size: 14px;
     color: #181722;
     line-height: 1.5;
 }
@@ -409,7 +409,7 @@ a.interview-btn:hover {
 
 .job-post-preview {
     color: #959499;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
 }
 
@@ -564,17 +564,29 @@ span.form-control-feedback.company-icon {
 }
 
 page[size="A4"] {  
-    /* width: 21cm; */
+    width: 21cm;
     overflow-y: scroll;
-    height: 25cm; 
+    height: 15cm; 
 }
 
 page {
     background: white;
     display: block;
-    margin: 0.5cm auto;
     box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-    padding: 50px;
+    padding: 20px 50px;
+}
+
+page::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #E8EFF7;
+    border-radius: 50px;
+}
+page::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #1860AA;
 }
 
 #resume_profile_img:hover {
@@ -592,7 +604,20 @@ page {
 
 #resume-form {
     overflow-y: scroll;
-    height: 25cm;
+    height: 15cm;
+}
+
+#resume-form::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #E8EFF7;
+    border-radius: 50px;
+}
+#resume-form::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #1860AA;
 }
 
 #resume_img {
@@ -632,17 +657,17 @@ page {
 /* Employer Dashboard Popup css start here*/
 .economy-title {
     color: #0565FF;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
 .standard-title {
     color: #C72C91;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
 .premium-title {
     color: #F58220;
-    font-size: 1rem;
+    font-size: 14px;
 }
 
 .economy-desc,
@@ -721,7 +746,7 @@ page {
     font-weight: 900;
     color: #0355D0;
     background-color: transparent;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .job-post-detail.nav-link.active {

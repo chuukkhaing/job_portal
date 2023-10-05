@@ -1,7 +1,11 @@
 body {
     font-family: 'Source Sans Pro';
     background: #FFFFFF;
-    font-size: 1rem;
+    font-size: 14px
+}
+
+.form-control {
+    font-size: 14px;
 }
 .h2, h2 {
     font-size: 1.5rem;
@@ -323,7 +327,7 @@ body {
     border-radius: 8px;
 }
 #seekerTab li{
-    padding: 16px 0;
+    padding: 10px 0;
 }
 .nav-item .active {
     color: #0355D0;

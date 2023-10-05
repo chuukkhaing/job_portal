@@ -1,5 +1,5 @@
 <div class="row resume-section mb-3 experience_label @if($experiences->count() == 0) d-none @endif">
-    <h5 class="text-white resume-header py-2">Career History</h5>
+    <h6 class="text-white resume-header py-2">Career History</h6>
     @foreach($experiences as $experience)
     
     <div class="row py-2 exp-resume-{{ $experience->id }}">

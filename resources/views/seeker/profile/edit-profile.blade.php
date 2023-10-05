@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-<div class="container m-auto">
-    <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-block">
+<div class="container-fluid m-auto" style="">
+    <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-none">
         @if(Auth::guard('seeker')->user()->image)
         <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
         @else
@@ -10,8 +10,8 @@
         @endif
         <div class="seeker-name p-0" style="color: #fff">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
     </div>
-    <div class="edit-profile-tab-border d-none d-lg-block">
-        <ul class="nav d-flex justify-content-between py-3 px-xl-5 px-lg-3" id="seekerTab" role="tablist">
+    <div class="edit-profile-tab-border mt-4 d-none d-lg-block" style="border-radius: 8px 8px 0 0;">
+        <ul class="nav d-flex justify-content-between px-xl-5 px-lg-3 shadow" id="seekerTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a href="{{ route('profile.index') }}" class="seeker-single-tab" id="profile-dashboard-tab">Dashboard</a>
             </li>
@@ -86,41 +86,135 @@
         </div>
     </div>
     <div class="tab-content" id="seekerTabContent">
-        <div class="tab-pane fade p-0 show active" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
-            <form action="{{ route('profile.update', Auth::guard('seeker')->user()->id) }}" method="post" enctype="multipart/form-data">
-                @csrf 
-                @method('PUT')
-                <div class="container-fluid px-xl-5 px-lg-3 py-3 edit-profile-header-border"  id="edit-profile-header">
-                    <h5>Account Information</h5>
-                        
-                    <div class="row">
-                        <div class="form-group mt-1 col-lg col-md-5">
-                            <label for="email" class="seeker_label my-2">Mail <span class="text-danger">*</span></label>
-                            <input type="email" name="email" id="email" class="form-control seeker_input" value="{{ old('email', Auth::guard('seeker')->user()->email) }}" placeholder="Mail Address">
-
-                            @error('email')
-                                <span class="text-danger mb-1">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+        <div class="tab-pane fade p-0 show active edit-profile-header-border pt-3" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
+            <div class="container-fluid">
+                <div class="m-0 px-3">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="job-post-detail nav-link active" id="nav-cv-build-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-build" type="button" role="tab" aria-controls="nav-cv-build" aria-selected="true">Build Your CV </button>
+                            <button class="job-post-detail nav-link" id="nav-career-choice-tab" data-bs-toggle="tab" data-bs-target="#nav-career-choice" type="button" role="tab" aria-controls="nav-career-choice" aria-selected="false">Career of Choice</button>
+                            <button class="job-post-detail nav-link" id="nav-cv-attach-tab" data-bs-toggle="tab" data-bs-target="#nav-cv-attach" type="button" role="tab" aria-controls="nav-cv-attach" aria-selected="false">CV Attachment</button>
                         </div>
+                    </nav>
                     
-                        <div class="form-group mt-1 col-lg col-md-5">
-                            <label for="password" class="seeker_label my-2">Password</label>
-                            <input type="password" name="password" id="password" class="form-control seeker_input" value="" placeholder="********">
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-cv-build" role="tabpanel" aria-labelledby="nav-cv-build-tab">
+                            
+                            <div class="container-fluid p-0">
+                                <div class="row">
+                                    <div class="col mx-0" id="resume-form">
+                                        <div class="container-fluid m-auto px-0">
+                                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                                                        Personal Information
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        @include('seeker.resume.personal_information')
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingTwo">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                    Career History
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                    <div class="accordion-body">
+                                                        @include('seeker.resume.experience')
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingThree">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                                                        Education
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            @include('seeker.resume.education')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingFour">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                                                        Skills
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            @include('seeker.resume.skill')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingFive">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                                                        Languages
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            @include('seeker.resume.language')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingSive">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSive" aria-expanded="false" aria-controls="flush-collapseSive">
+                                                        References
+                                                    </button>
+                                                    </h2>
+                                                    <div id="flush-collapseSive" class="accordion-collapse collapse" aria-labelledby="flush-headingSive" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body">
+                                                            @include('seeker.resume.reference')
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col p-2 resume-template-background">
+                                        <page size="A4">
+                                            <h4 class="text-center">Resume</h4>
+                                            @include('seeker.resume.personal_details')
+                                            <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
+                                                <h6 class="text-white resume-header py-2">Profile Summary</h6>
+                                                <div class="col py-2">
+                                                    <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
+                                                </div>
+                                            </div>
+                                            @include('seeker.resume.exp_details')
+                                            @include('seeker.resume.edu_details')
+                                            @include('seeker.resume.skill_details')
+                                            @include('seeker.resume.language_details')
+                                            @include('seeker.resume.reference_details')
+                                        </page>
+                                    </div>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-12 text-end">
+                                        <a href="{{ url('/seeker/download-ic-cv/'. Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Download CV</a>
+                                        <button type="button" class="btn btn-sm profile-save-btn next-career-history">Next</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group mt-1 col-lg col-md-5">
-                            <label for="confirm-password" class="seeker_label my-2">Confirm Password</label>
-                            <input type="password" name="confirm-password" id="confirm-password" class="form-control seeker_input" value="" placeholder="********">
+                        <div class="tab-pane p-3 fade" id="nav-career-choice" role="tabpanel" aria-labelledby="nav-career-choice-tab">
+                            @include('seeker.resume.career-of-choice')
                         </div>
-                        <div class="form-group mt-1 col-lg col-md-5 align-self-end">
-                            <button type="submit" class="btn btn-sm profile-save-btn">Update</button>
-                            <a href="{{ route('resume.create') }}" class="btn btn-sm profile-save-btn">Build Your CV</a>
+                        <div class="tab-pane p-3 fade" id="nav-cv-attach" role="tabpanel" aria-labelledby="nav-cv-attach-tab">
+                            @include('seeker.resume.cv-attach')
                         </div>
                     </div>
-                    
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     
@@ -159,6 +253,15 @@
                 }
             })
         })
+    })
+
+    $('.next-career-history').click(function() {
+        $("#nav-cv-build-tab").removeClass('active');
+        $("#nav-career-choice-tab").addClass('active');
+        $("#nav-cv-attach-tab").removeClass('active');
+        $("#nav-cv-build").removeClass('show active');
+        $("#nav-career-choice").addClass('show active');
+        $("#nav-cv-attach").removeClass('show active');
     })
 </script>
 @endpush

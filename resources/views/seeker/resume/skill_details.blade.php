@@ -1,5 +1,5 @@
 <div class="row resume-section mb-3 skill_label @if($skills->count() == 0) d-none @endif">
-    <h5 class="text-white resume-header py-2">Skill</h5>
+    <h6 class="text-white resume-header py-2">Skill</h6>
     
     <div class="row py-2" id="skill_body">
         @foreach($skills as $skill)
