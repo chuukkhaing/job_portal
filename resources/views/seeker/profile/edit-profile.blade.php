@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-<div class="container-fluid m-auto" style="">
-    <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-none">
+<div class="col-xl-10 col-lg-12 m-auto" style="">
+    <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-block">
         @if(Auth::guard('seeker')->user()->image)
         <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
         @else
@@ -10,8 +10,8 @@
         @endif
         <div class="seeker-name p-0" style="color: #fff">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
     </div>
-    <div class="edit-profile-tab-border mt-4 d-none d-lg-block" style="border-radius: 8px 8px 0 0;">
-        <ul class="nav d-flex justify-content-between px-xl-5 px-lg-3 shadow" id="seekerTab" role="tablist">
+    <div class="edit-profile-tab-border d-none d-lg-block">
+        <ul class="nav d-flex justify-content-between py-3 px-xl-5 px-lg-3" id="seekerTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a href="{{ route('profile.index') }}" class="seeker-single-tab" id="profile-dashboard-tab">Dashboard</a>
             </li>
@@ -86,7 +86,7 @@
         </div>
     </div>
     <div class="tab-content" id="seekerTabContent">
-        <div class="tab-pane fade p-0 show active edit-profile-header-border pt-3" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
+        <div class="tab-pane fade p-0 show active edit-profile-header-border" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
             <div class="container-fluid">
                 <div class="m-0 px-3">
                     <nav>
