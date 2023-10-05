@@ -115,7 +115,7 @@
                         </div>
                         <div class="form-group mt-1 col-lg col-md-5 align-self-end">
                             <button type="submit" class="btn btn-sm profile-save-btn">Update</button>
-                            <a href="{{ route('resume.create') }}" class="btn btn-sm profile-save-btn">CV build</a>
+                            <a href="{{ route('resume.create') }}" class="btn btn-sm profile-save-btn">Build Your CV</a>
                         </div>
                     </div>
                     
