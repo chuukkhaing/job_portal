@@ -33,7 +33,7 @@
         </div>
         <div class="form-group col-6">
             <label for="last_name" class="">Last Name <span class="text-danger">*</span></label>
-            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ Auth::guard('seeker')->user()->last_name }}" onchange="updateProfile('last_name', this.value)" placeholder="First Name">
+            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ Auth::guard('seeker')->user()->last_name }}" onchange="updateProfile('last_name', this.value)" placeholder="Last Name">
         </div>
         
     </div>
@@ -159,7 +159,6 @@
                 }
             }
         });
-
     })
     
     $.ajaxSetup({
@@ -435,6 +434,29 @@
                     if(name == "summary" && value == ""){
                         $(".summary").text(value);
                         $('.summary_label').addClass('d-none');
+                    }
+
+                    if($('.resume-separater').height() > $('page').height()) {
+                        let content = $('page').html();
+                        $('page').html('');
+
+                        let currentDiv;
+
+                        content.split('<div>').forEach(word => {
+                            if (!currentDiv) {
+                                currentDiv = document.createElement('page');
+                                $('.resume-template-background').append(currentDiv);
+                            }
+
+                            // Append words to the current div
+                            console.log(currentDiv, word)
+                            currentDiv.append(word)
+
+                            // Check the height and create a new div if needed
+                            if (currentDiv.clientHeight > $('page').height()) {
+                                currentDiv = null; // Reset the current div
+                            }
+                        });
                     }
                     
                 }
