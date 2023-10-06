@@ -95,7 +95,7 @@
             @endif
             @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','application_tracking')->count() > 0))
             @foreach($packageItems as $packageItem)
-            @if($packageItem->name == 'Applicant Tracking')
+            @if($packageItem->name == 'Application Management')
             <li class="nav-item">
                 <a href="{{ route('applicantTracking') }}" class="employer-single-tab active" >Applicant Tracking</a>
             </li>
