@@ -111,7 +111,7 @@
                     </div>
                     <div class="row my-4">
                         <div class="col-12 text-end">
-                            <button type="button" class="btn btn-sm profile-save-btn m-2" data-bs-toggle="modal" data-bs-target="#resume_preview" id="create-exp">
+                            <button type="button" class="btn btn-sm profile-save-btn m-2 d-inline d-lg-none" data-bs-toggle="modal" data-bs-target="#resume_preview" id="create-exp">
                                 Preview
                             </button>
                             <a href="{{ url('/seeker/download-ic-cv/'. Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Download CV</a>
@@ -138,21 +138,20 @@
             </div>
             
             <div class="modal-body">
-                <page>
-                    <h4 class="text-center">Resume</h4>
-                    @include('seeker.resume.personal_details')
-                    <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
-                        <h6 class="text-white resume-header py-2">Profile Summary</h6>
-                        <div class="col py-2">
-                            <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
-                        </div>
+                
+                @include('seeker.resume.personal_details')
+                <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
+                    <h6 class="text-white resume-header py-2">Profile Summary</h6>
+                    <div class="col py-2">
+                        <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
                     </div>
-                    @include('seeker.resume.exp_details')
-                    @include('seeker.resume.edu_details')
-                    @include('seeker.resume.skill_details')
-                    @include('seeker.resume.language_details')
-                    @include('seeker.resume.reference_details')
-                </page>
+                </div>
+                @include('seeker.resume.exp_details')
+                @include('seeker.resume.edu_details')
+                @include('seeker.resume.skill_details')
+                @include('seeker.resume.language_details')
+                @include('seeker.resume.reference_details')
+                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger close-btn" data-bs-dismiss="modal">Close</button>

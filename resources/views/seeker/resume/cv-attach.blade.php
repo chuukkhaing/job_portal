@@ -28,7 +28,13 @@
             
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
+                        <input type="checkbox" name="is_ic_cv" id="is_ic_cv" class="seeker_input">
+                        <label for="is_ic_cv" class="seeker_label">Do you want to use IC Resume?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group mt-1 col-12 col-md-6 org_cv">
                         <label for="cv_attach" class="seeker_label my-2">Upload CV <span class="text-danger">*</span></label>
                         <input type="file" name="cv_attach" id="cv_attach" class="form_control seeker_input" >
                         <span class="text-danger" id="cv_attach-error"></span>
@@ -67,27 +73,28 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $('#is_ic_cv').change(function() {
+        if($(this).is(":checked")){ 
+            $(this).val(1);
+            $(".org_cv").addClass('d-none');
+        }else {
+            $(this).val(0);
+            $(".org_cv").removeClass('d-none');
+        }
+    })
+
     var seeker_id = {{ Auth::guard("seeker")->user()->id }};
     $("#save-cv").click(function() {
-        
-        var fd = new FormData();
-        var cv_attach = $('#cv_attach')[0].files[0];
-        fd.append('cv_attach', cv_attach);
-        fd.append('seeker_id', seeker_id);
-        if(cv_attach == undefined) {
-            $("#cv_attach-error").html('CV need to upload.');
-        }else {
-            $("#cv_attach-error").html('');
-        }
-        
-        if(cv_attach != undefined)
-        {
+        var is_ic_cv = $("#is_ic_cv").val();
+        if(is_ic_cv == 1) {
             $('.btn-close').click();
             $.ajax({
                 type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
+                data: {
+                    'is_ic_cv' : is_ic_cv,
+                    'seeker_id' : seeker_id
+                },
                 url: '{{ route("seekerAttach.store") }}',
             }).done(function(response){
                 if(response.status == 'success') {
@@ -102,6 +109,38 @@
                 }
             })
         }
+        // var fd = new FormData();
+        // var cv_attach = $('#cv_attach')[0].files[0];
+        // fd.append('cv_attach', cv_attach);
+        // fd.append('seeker_id', seeker_id);
+        // if(cv_attach == undefined) {
+        //     $("#cv_attach-error").html('CV need to upload.');
+        // }else {
+        //     $("#cv_attach-error").html('');
+        // }
+        
+        // if(cv_attach != undefined)
+        // {
+            // $('.btn-close').click();
+            // $.ajax({
+            //     type: 'POST',
+            //     data: fd,
+            //     contentType: false,
+            //     processData: false,
+            //     url: '{{ route("seekerAttach.store") }}',
+            // }).done(function(response){
+            //     if(response.status == 'success') {
+            //         $("#cv-table").removeClass('d-none');
+            //         $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV btn border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+            //         MSalert.principal({
+            //             icon:'success',
+            //             title:'',
+            //             description:response.msg,
+            //         })
+            //         $("#cv_attach").val('');
+            //     }
+            // })
+        // }
     })
 
     $(document).on('click', '.deleteCV', function (e) {

@@ -26,6 +26,8 @@ use Hash;
 use Illuminate\Http\Request;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\JobAlert;
+use PDF;
+use Storage;
 
 class SeekerProfileController extends Controller
 {
@@ -610,33 +612,77 @@ class SeekerProfileController extends Controller
     public function seekerAttachStore(Request $request)
     {
 
-        $file = $request->file('cv_attach');
-        $cv   = date('YmdHi') . $file->getClientOriginalName();
-        $path = $file->move(public_path('storage/seeker/cv'), $cv);
+        if($request->is_ic_cv == 1) {
+            $seeker = Seeker::findOrFail($request->seeker_id);
+            $skill_main_functional_areas = DB::table('seeker_skills as a')
+                            ->where('a.seeker_id','=',$seeker->id)
+                            ->join('skills as b','a.skill_id','=','b.id')
+                            ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                            ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
+                            ->groupBy('a.main_functional_area_id')
+                            ->get();
+            view()->share('seeker',$seeker);
 
-        $attach = seekerAttach::create([
-            'seeker_id' => $request->seeker_id,
-            'name'      => $cv,
-        ]);
-
-        $seeker         = Seeker::findOrFail($request->seeker_id);
-        $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
-        if ($seeker_attachs->count() > 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 10,
+            $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
+            // $path = Storage::put('public/storage/seeker/cv', $pdf->output());
+            $path = public_path('storage/seeker/cv');
+            $fileName =  $seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf';
+            $pdf->save($path . '/' . $fileName);
+            // $path = $pdf->output()->move(public_path('storage/seeker/cv'), $seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
+            
+            $attach = seekerAttach::create([
+                'seeker_id' => $request->seeker_id,
+                'name'      => $fileName,
             ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
+
+            $seeker         = Seeker::findOrFail($request->seeker_id);
+            $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
+            if ($seeker_attachs->count() > 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 10,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
+    
+            return response()->json([
+                'status' => 'success',
+                'attach' => $attach,
+                'msg'    => 'CV Upload successfully!',
+            ]);
+
+        }else {
+            $file = $request->file('cv_attach');
+            $cv   = date('YmdHi') . $file->getClientOriginalName();
+            $path = $file->move(public_path('storage/seeker/cv'), $cv);
+    
+            $attach = seekerAttach::create([
+                'seeker_id' => $request->seeker_id,
+                'name'      => $cv,
+            ]);
+    
+            $seeker         = Seeker::findOrFail($request->seeker_id);
+            $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
+            if ($seeker_attachs->count() > 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 10,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
+    
+            return response()->json([
+                'status' => 'success',
+                'attach' => $attach,
+                'msg'    => 'CV Upload successfully!',
             ]);
         }
-
-        return response()->json([
-            'status' => 'success',
-            'attach' => $attach,
-            'msg'    => 'CV Upload successfully!',
-        ]);
     }
 
     public function seekerAttachDestory($id, Request $request)
@@ -711,5 +757,10 @@ class SeekerProfileController extends Controller
         $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
         return view('seeker.profile.job-alert', compact('job_alerts', 'industries', 'functional_areas', 'states'));
+    }
+
+    public function changePassword()
+    {
+        return view('seeker.profile.changePassword');
     }
 }

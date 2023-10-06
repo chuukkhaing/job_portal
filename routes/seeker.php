@@ -40,6 +40,7 @@ Route::group([], function () {
         Route::get('/get-township/{id}', [SeekerProfileController::class, 'getTownship']);
         Route::get('/get-sub-functional-area/{id}', [SeekerProfileController::class, 'getSubFunctionalArea']);
         Route::get('/get-skill/{id}', [SeekerProfileController::class, 'getSkill']);
+        Route::get('/change-password', [SeekerProfileController::class, 'changePassword'])->name('seeker-change-password');
 
         Route::post('/education/store', [SeekerProfileController::class, 'educationStore'])->name('education.store');
         Route::get('/education/edit/{id}', [SeekerProfileController::class, 'educationEdit'])->name('education.edit');
