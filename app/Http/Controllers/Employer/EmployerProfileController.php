@@ -45,19 +45,10 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $industries = Industry::whereNull('deleted_at')->get();
-        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
-        $states = State::whereNull('deleted_at')->get();
-        $townships = Township::whereNull('deleted_at')->get();
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        $jobPosts = JobPost::whereEmployerId($employer->id)->paginate(10);
-        $jobApplicants = JobPost::whereEmployerId($employer->id)->get();
         $lastJobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at','desc')->get()->take(5);
-        $employer_image_media = EmployerMedia::whereEmployerId($employer->id)->whereType('Image')->get();
-        return view ('employer.profile.dashboard', compact('packageItems', 'employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobPosts', 'jobApplicants', 'lastJobPosts','employer_image_media'));
+        return view ('employer.profile.dashboard', compact('employer', 'packages', 'lastJobPosts', 'packageItems'));
     }
 
     /**
@@ -100,7 +91,23 @@ class EmployerProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $industries = Industry::whereNull('deleted_at')->get();
+        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
+        $states = State::whereNull('deleted_at')->get();
+        $townships = Township::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
+        
+        $jobApplicants = JobPost::whereEmployerId($employer->id)->get();
+        $lastJobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at','desc')->get()->take(5);
+        $employer_image_media = EmployerMedia::whereEmployerId($employer->id)->whereType('Image')->get();
+        return view ('employer.profile.edit', compact('packageItems', 'employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'jobApplicants', 'lastJobPosts','employer_image_media'));
     }
 
     /**
@@ -383,5 +390,17 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'msg'    => 'Background removed successfully.'
         ]);
+    }
+
+    public function manageJob()
+    {
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        $jobPosts = JobPost::whereEmployerId($employer->id)->paginate(10);
+        return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'jobPosts'));
     }
 }

@@ -1,6 +1,6 @@
 <div class="container-fluid p-5">
     <div class="row">
-        <div class=" col-4">
+        <div class="col-lg-4 col-md-6 col-12">
             <div class="row me-0 p-3 shadow" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Opening Jobs</p>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class=" col-4">
+        <div class="col-lg-4 col-md-6 col-12 mt-3 mt-md-0">
             <div class="row p-3 shadow" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Point Balance</p>
@@ -26,8 +26,8 @@
                 </div>
             </div>
         </div>
-        <div class=" col-4">
-            <div class="row ms-0 p-3 shadow" style="border-radius: 8px;">
+        <div class="col-lg-4 col-md-6 col-12 mt-3 mt-lg-0">
+            <div class="row ms-lg-0 me-md-0 p-md-3 p-3 shadow" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Purchased Points</p>
                     <span class="fw-bold fs-3">{{ $employer->purchased_point }}</span>
@@ -40,9 +40,9 @@
             </div>
         </div>
         
-        <div class=" col-4 mt-3">
+        <div class="col-lg-4 col-md-6 col-12 mt-3">
             <a href="{{ route('point-history.index') }}">
-                <div class="row me-0 p-3 shadow employer-point-box" style="border-radius: 8px;">
+                <div class="row me-lg-0 p-3 shadow employer-point-box" style="border-radius: 8px;">
                     <div class="col-8">
                         <p class="overview-title">Used Point History</p>
                         <span class="fw-bold fs-3">{{ $employer->PointRecord->where('status','Complete')->sum('point') }}</span>
@@ -59,12 +59,12 @@
     </div>
     @if($lastJobPosts->count() > 0)
     <div class="row mt-1">
-        <div class="col-8 ps-0 pe-2 my-5">
-            <div id="last-job-post" class="p-5 h-100 shadow-lg">
+        <div class="col-md-8 col-12 ps-0 pe-md-2 pe-0 my-3 m-0">
+            <div id="last-job-post" class="p-lg-5 p-md-3 p-3 h-100 shadow-lg">
                 <h5 class="fw-bold">Last Job Posts </h5>
-                <div class="row p-3">
+                <div class="row pb-3">
                     @foreach($lastJobPosts as $jobPost)
-                    <div class="col-8 p-2">
+                    <div class="col-8 p-3">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
                             <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
                             @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
@@ -83,10 +83,10 @@
                 <a style="cursor: pointer" onclick="seeAllPost('#employer-job')" class="text-dark fw-bold">SEE ALL POSTS <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
-        <div class="col-4 ps-2 pe-0 my-5">
-            <div id="last-job-post" class="py-5 px-3 h-100 shadow-lg">
+        <div class="col-md-4 col-12 ps-md-2 pe-0 ps-0 m-0 my-3">
+            <div id="last-job-post" class="py-lg-5 py-md-3 p-3 h-100 shadow-lg">
                 <h5 class="fw-bold">Job applied ranking</h5>
-                <div class="row p-3">
+                <div class="row pb-3">
                     @foreach($lastJobPosts as $jobPost)
                     <div class="col-12 p-3">
                         <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
@@ -109,15 +109,6 @@
 </div>
 @push('scripts')
 <script>
-    function seeAllPost(employerJob)
-    {
-        localStorage.setItem('target',employerJob)
     
-        var employer_tab = localStorage.getItem('target');
-        var employerJobTab = document.querySelector('#employerTab li a[href="'+employer_tab+'"]')
-        var showTab = new bootstrap.Tab(employerJobTab)
-
-        showTab.show()
-    }
 </script>
 @endpush
