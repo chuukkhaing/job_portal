@@ -97,7 +97,7 @@
             @foreach($packageItems as $packageItem)
             @if($packageItem->name == 'Application Management')
             <li class="nav-item">
-                <a href="#applicant-tracking" class="employer-single-tab" >Applicant Tracking</a>
+                <a href="{{ route('applicantTracking') }}" class="employer-single-tab" >Applicant Tracking</a>
             </li>
             @endif
             @endforeach

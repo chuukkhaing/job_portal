@@ -403,4 +403,16 @@ class EmployerProfileController extends Controller
         $jobPosts = JobPost::whereEmployerId($employer->id)->paginate(10);
         return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'jobPosts'));
     }
+
+    public function applicantTracking()
+    {
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $packages = Package::whereNull('deleted_at')->get();
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        $jobApplicants = JobPost::whereEmployerId($employer->id)->get();
+        return view ('employer.profile.applicant-tracking', compact('jobApplicants', 'employer', 'packages', 'packageItems'));
+    }
 }

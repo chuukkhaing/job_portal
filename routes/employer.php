@@ -37,6 +37,7 @@ Route::group([], function () {
     Route::group(['middleware' => 'auth:employer'], function () {
         Route::resource('employer-profile', EmployerProfileController::class);
         Route::get('manage-job', [EmployerProfileController::class, 'manageJob'])->name('manageJob');
+        Route::get('applicant-tracking', [EmployerProfileController::class, 'applicantTracking'])->name('applicantTracking');
         Route::get('/get-township/{id}', [EmployerProfileController::class, 'getTownship']);
         Route::get('/get-sub-functional-area/{id}', [EmployerProfileController::class, 'getSubFunctionalArea']);
         Route::post('/employer-address', [EmployerProfileController::class, 'employerAddressStore'])->name('employer-address.store');
