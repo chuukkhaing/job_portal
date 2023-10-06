@@ -146,6 +146,11 @@ class MemberUserController extends Controller
             'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
         ]);
         $member = Employer::findOrFail($id);
+        if($id == Auth::guard('employer')->user()->id) {
+            $is_active = $member->is_active;
+        }else {
+            $is_active = $request->is_active;
+        }
         if($request->password){ 
             $password = Hash::make($request->password);
         }else{
@@ -154,10 +159,8 @@ class MemberUserController extends Controller
         $member_update = $member->update([
             'email' => $request->email,
             'password' => $password,
-            'employer_id' => Auth::guard('employer')->user()->id,
-            'is_active' => $request->is_active,
+            'is_active' => $is_active,
             'register_at' => now(),
-            'is_active' => $request->is_active,
             'updated_by' => Auth::guard('employer')->user()->id,
         ]);
         $permission_delete = MemberPermission::whereEmployerId($member->id)->delete();

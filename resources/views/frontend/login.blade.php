@@ -18,21 +18,22 @@
 <div class="container-fluid login-page">
     <div class="row container m-auto p-0 m-0">
         <div class="col-12 col-md-6 p-3 p-lg-5">
-            {{--<div class="register-header py-3">
+            <div class="register-header p-3">
                 <h2 class="">Welcome Back!</h2>
-                <h5>Please sign in to continue your job search journey</h5>
+                {{--<h5>Please sign in to continue your job search journey</h5>--}}
             </div>
-            <div class="hr-speech py-3">
+            <div class="hr-speech p-3">
                 <div class="open-quote d-inline-block my-3">
                     <i class="fa-solid fa-quote-left"></i>
                 </div>
-                <p class="py-3">
-                "Compose a text review on the sign-in form for job seekers website to provide feedback on the recommended tips to increase the chances of getting good job offers."<br><br>
-
-                "Include relevant skills, keep your profile up-to-date, and use keywords to increase your chances of being noticed by potential employers on the job seeker website."
+                <p class="py-3 fw-bold">
+                "Embark on Your Career Odyssey with Infinity Careers. From Fresh Graduates Aiming to Spread Their Wings, Entry-Level Enthusiasts Seeking Their Niche, Experienced Professionals Looking to Elevate, to Visionary Executives Ready to Lead – Our Portal Offers a Diverse Tapestry of Opportunities. We Believe Every Career Story Deserves a Chance to Shine, and We're Here to Illuminate the Path Ahead. Join Infinity Careers Today and Unlock the Door to Your Next Chapter."
+                </p>
+                <p class="py-3 fw-bold">
+                Your Career Journey Starts Here. Whether You're a Fresher Eager to Begin, an Entry-Level Explorer, an Experienced Trailblazer, or an Executive Ready to Lead – Infinity Careers Has Your Next Step.
                 </p>
             </div>
-            <div class="row">
+            {{--<div class="row">
                 <div class="col-2">
                     <img src="{{ asset('img/undraw_profile_3.svg') }}" alt="HR_Photo" class="">
                 </div>

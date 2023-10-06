@@ -564,7 +564,7 @@ span.form-control-feedback.company-icon {
 }
 
 page[size="A4"] { 
-    width: 15cm; 
+    width: 13cm; 
     overflow-y: scroll;
     margin: auto;
     height: 15cm; 
@@ -629,7 +629,7 @@ page::-webkit-scrollbar-thumb
 }
 
 .resume-template-background {
-    background: rgb(204,204,204); 
+    /* background: rgb(204,204,204);  */
 }
 
 .bdr2{

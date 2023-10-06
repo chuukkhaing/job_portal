@@ -44,14 +44,16 @@ class EmployerLoginController extends Controller
             'company_password' => 'required|min:6',
         ]);
 
-        if (\Auth::guard('employer')->attempt(['email' => $request->company_email, 'password' => $request->company_password], $request->get('company_remember'))) {
-            if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at)) {
+        Auth::viaRemember();
+        $remember = $request->has('company_remember') ? true : false; 
+        if (\Auth::guard('employer')->attempt(['email' => $request->input('company_email'), 'password' => $request->input('company_password')], $remember)) {
+            if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at) || Auth::guard('employer')->user()->email_verified_at == Null) {
                 Auth::guard('employer')->logout();
 
                 $request->session()->flush();
         
                 $request->session()->regenerate();
-                return redirect()->route('home')->with('error', 'Your account is not active.');
+                return redirect()->route('employer-login-form')->with('error', 'Your account is not active.');
             }else {
                 return redirect()->intended('/employer/employer-profile')->with('success', 'Login Successfully.');
             }

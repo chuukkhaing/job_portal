@@ -62,7 +62,7 @@ class EmployerRegisterController extends Controller
 
     public function notice($id)
     {
-        $employer = Employer::findOrFail($id);
+        $employer = Employer::whereId($id)->whereNull('deleted_at')->whereIsActive(0)->first();
         if ($employer) {
             return view('employer.verify.notice', compact('id'));
         }
@@ -70,14 +70,17 @@ class EmployerRegisterController extends Controller
 
     public function resend($id)
     {
-        $employer        = Employer::findOrFail($id);
-        $employer_update = $employer->update([
-            'email_verification_token' => Str::random(32),
-        ]);
+        $employer        = Employer::whereId($id)->whereNull('deleted_at')->whereIsActive(0)->first();
         if ($employer) {
-            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
+            $employer_update = $employer->update([
+                'email_verification_token' => Str::random(32),
+            ]);
+
+            \Mail::to($employer->email)->send(new SeekerVerificationEmail($employer));
 
             return redirect()->route('employer-verify-notice', $employer->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
+        }else {
+            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
         }
     }
 
@@ -92,9 +95,9 @@ class EmployerRegisterController extends Controller
             'company_email' => 'required|email|exists:employers,email',
         ]);
 
-        $employer = Employer::whereEmail($request->company_email)->first();
+        $employer = Employer::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
 
-        if ($employer) {
+        if (isset($employer)) {
             $employer_update = $employer->update([
                 'email_verification_token' => Str::random(32),
             ]);
@@ -108,7 +111,6 @@ class EmployerRegisterController extends Controller
         } else {
             return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
         }
-        return view('frontend.forgot-password');
     }
 
     public function getResetPassword($id)
@@ -130,6 +132,5 @@ class EmployerRegisterController extends Controller
         ]);
 
         return redirect()->route('employer-login-form')->with('success', 'Reset Password Successfully.');
-
     }
 }

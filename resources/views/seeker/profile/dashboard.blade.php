@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-<div class="container m-auto">
+<div class="col-xl-10 col-lg-12 m-auto">
     <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-block">
         @if(Auth::guard('seeker')->user()->image)
         <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
