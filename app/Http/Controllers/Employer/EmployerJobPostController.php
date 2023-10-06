@@ -616,7 +616,7 @@ class EmployerJobPostController extends Controller
         view()->share('seeker',$seeker);
 
         $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-        return $pdf->download($seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
+        return $pdf->download($seeker->id.'_ic_format_cv.pdf');
     }
 
     public function changeStatus($jobPostId, $seekerId, $status)

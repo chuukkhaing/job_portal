@@ -10,7 +10,8 @@
                     <div class="py-3">
                         <p class="text-dark">
                             <span><strong>Call us </strong></span>
-                            <span><a class="footer-phone ps-3" href="tel:+959784569632"><strong> 09 784569632</strong></a></span>
+                            <span><a href="tel:+959880915475" class="fw-bold" style="color: #0355D0">09 880915475</a>, <a href="tel:+959880915476" class="fw-bold" style="color: #0355D0">09 880915476</a>
+                            </span>
                         </p>
                     </div>
                     <div class="py-3">

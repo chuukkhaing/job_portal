@@ -99,7 +99,7 @@
                                         <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
                                     </div>      
                                         
-                                    <p class="text-center">Don’t have an account yet ? Free <a href="{{ route('employer-register-form') }}" class="signIn_link">Sign Up</a><br> Office Phone Number <a href="tel:+959880915475" class="fw-bold" style="color: #0355D0">09 880915475</a>, <a href="tel:+959880915476" class="fw-bold" style="color: #0355D0">09 880915476</a></p>                                                                 
+                                    <p class="text-center">Don’t have an account yet ? Free <a href="{{ route('employer-register-form') }}" class="signIn_link">Sign Up</a></p>                                                                 
                                 </form>
                             </article>
                         </div>

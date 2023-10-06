@@ -1,10 +1,10 @@
 @extends('frontend.layouts.app')
 @section('content')
 
-<div class="container">
+<div class="container-fluid employer-login-page">
     <div class="row">
         <div class="col-12 col-md-6 p-3 p-lg-5">
-            <div class="register-header py-3">
+            {{--<div class="register-header py-3">
                 <h2 class="">Join our job seeker community and find your dream job</h2>
             </div>
             <div class="hr-speech py-3">
@@ -31,7 +31,7 @@
                         <span>HR. Manager</span>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
         <div class="col-12 col-md-6 p-lg-5">
             <div class="shadow-lg p-0 p-lg-3 mb-5 bg-body register-box">

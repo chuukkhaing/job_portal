@@ -624,11 +624,9 @@ class SeekerProfileController extends Controller
             view()->share('seeker',$seeker);
 
             $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-            // $path = Storage::put('public/storage/seeker/cv', $pdf->output());
             $path = public_path('storage/seeker/cv');
-            $fileName =  $seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf';
+            $fileName =  $seeker->id.'_ic_format_cv.pdf';
             $pdf->save($path . '/' . $fileName);
-            // $path = $pdf->output()->move(public_path('storage/seeker/cv'), $seeker->first_name.'_'.$seeker->last_name.'_ic_format_cv.pdf');
             
             $attach = seekerAttach::create([
                 'seeker_id' => $request->seeker_id,
