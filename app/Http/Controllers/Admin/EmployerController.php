@@ -139,7 +139,6 @@ class EmployerController extends Controller
         
         $request->validate([
             'email' => 'required|string|email|max:255|unique:employers,email,'.$id.',id,deleted_at,NULL',
-            'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
         ]);
         $employer = Employer::findOrFail($id);
 
@@ -147,12 +146,6 @@ class EmployerController extends Controller
             $logo = $this->storeBase64($request->image_base64);
         }else {
             $logo = '';
-        }
-
-        if($request->password) {
-            $password = Hash::make($request->password);
-        }else {
-            $password = $employer->password;
         }
 
         $package_id = $request->package_id;
@@ -180,7 +173,6 @@ class EmployerController extends Controller
             'name' => $request->name,
             'logo' => $logo,
             'email' => $request->email,
-            'password' => $password,
             'package_id' => $package_id,
             'package_start_date' => $package_start_date,
             'package_end_date' => $package_end_date,

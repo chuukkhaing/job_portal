@@ -159,7 +159,7 @@
                     data: {
                         "seeker_id": seeker_id
                     },
-                    url: 'seekerAttach/destory/'+id,
+                    url: '/seeker/seekerAttach/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".cv-tr-"+id).empty();

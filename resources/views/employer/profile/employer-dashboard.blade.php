@@ -58,54 +58,50 @@
         
     </div>
     @if($lastJobPosts->count() > 0)
-    <div class="row mt-1 p-0">
-        <div class="px-5">
-            <div class="row">
-                <div class="col-8 my-5">
-                    <div id="last-job-post" class="p-5 h-100 shadow-lg">
-                        <h5 class="fw-bold">Last Job Posts </h5>
-                        <div class="row p-3">
-                            @foreach($lastJobPosts as $jobPost)
-                            <div class="col-8 p-2">
-                                <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
-                                    @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
-                                    <br>
-                                    <span class=" text-primary">{{ $jobPost->Township->name }}</span>
-                                    @endif
-                                </a>
-                            </div>
-                            <div class="col-4 p-2 d-flex align-items-end flex-row-reverse bd-highlight">
-                                <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                <span class="text-dark fw-bold fs-6">{{ date('M d', strtotime($jobPost->updated_at)) }}</span>
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                        <a style="cursor: pointer" onclick="seeAllPost('#employer-job')" class="text-dark fw-bold">SEE ALL POSTS <i class="fa-solid fa-chevron-right"></i></a>
+    <div class="row mt-1">
+        <div class="col-8 ps-0 pe-2 my-5">
+            <div id="last-job-post" class="p-5 h-100 shadow-lg">
+                <h5 class="fw-bold">Last Job Posts </h5>
+                <div class="row p-3">
+                    @foreach($lastJobPosts as $jobPost)
+                    <div class="col-8 p-2">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                            <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
+                            @if($jobPost->country == 'Myanmar' && $jobPost->township_id)
+                            <br>
+                            <span class=" text-primary">{{ $jobPost->Township->name }}</span>
+                            @endif
+                        </a>
                     </div>
-                </div>
-                <div class="col-4 my-5">
-                    <div id="last-job-post" class="py-5 px-3 h-100 shadow-lg">
-                        <h5 class="fw-bold">Job applied ranking</h5>
-                        <div class="row p-3">
-                            @foreach($lastJobPosts as $jobPost)
-                            <div class="col-12 p-3">
-                                <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                                    <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
-                                    <span class="title float-end text-dark">{{ $jobPost->JobApply->count() }}</span>
-                                    <div class="progress">
-                                        <div class="apply-progress-bar" role="progressbar" aria-valuenow="{{ $jobPost->JobApply->count() }}" aria-valuemin="0" aria-valuemax="100" style="max-width: {{ $jobPost->JobApply->count() }}%">
-                                        </div>
-                                    </div>
-                                    
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                        <a style="cursor: pointer" onclick="seeAllPost('#applicant-tracking')" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
+                    <div class="col-4 p-2 d-flex align-items-end flex-row-reverse bd-highlight">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                        <span class="text-dark fw-bold fs-6">{{ date('M d', strtotime($jobPost->updated_at)) }}</span>
+                        </a>
                     </div>
+                    @endforeach
                 </div>
+                <a style="cursor: pointer" onclick="seeAllPost('#employer-job')" class="text-dark fw-bold">SEE ALL POSTS <i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <div class="col-4 ps-2 pe-0 my-5">
+            <div id="last-job-post" class="py-5 px-3 h-100 shadow-lg">
+                <h5 class="fw-bold">Job applied ranking</h5>
+                <div class="row p-3">
+                    @foreach($lastJobPosts as $jobPost)
+                    <div class="col-12 p-3">
+                        <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                            <span class="text-muted fs-6">{{ $jobPost->job_title }}</span>
+                            <span class="title float-end text-dark">{{ $jobPost->JobApply->count() }}</span>
+                            <div class="progress">
+                                <div class="apply-progress-bar" role="progressbar" aria-valuenow="{{ $jobPost->JobApply->count() }}" aria-valuemin="0" aria-valuemax="100" style="max-width: {{ $jobPost->JobApply->count() }}%">
+                                </div>
+                            </div>
+                            
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+                <a style="cursor: pointer" onclick="seeAllPost('#applicant-tracking')" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
     </div>

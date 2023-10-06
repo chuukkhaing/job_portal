@@ -63,7 +63,7 @@
                         <input type="email" class="form-control" name="email" id="email" placeholder="Enter Employer Email" required value="{{ $employer->email }}">
                     </div>
 
-                    <div class="col-6 form-group">
+                    {{--<div class="col-6 form-group">
                         <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="">
                     </div>
@@ -71,7 +71,7 @@
                     <div class="col-6 form-group">
                         <label for="confirm-password">Confirm Password <span class="text-danger">*</span></label>
                         <input type="password" class="datepicker form-control" name="confirm-password" id="confirm-password" placeholder="Enter Password" value="">
-                    </div>
+                    </div>--}}
 
                     <div class="col-4 form-group">
                         <label for="package_id">Choose Package <span class="text-danger">*</span> </label>
