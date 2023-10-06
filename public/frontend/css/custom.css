@@ -563,9 +563,10 @@ span.form-control-feedback.company-icon {
     background-color: #0355d0;
 }
 
-page[size="A4"] {  
-    
+page[size="A4"] { 
+    width: 15cm; 
     overflow-y: scroll;
+    margin: auto;
     height: 15cm; 
 }
 

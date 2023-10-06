@@ -13,7 +13,7 @@
                 
                 <div class="container-fluid p-0">
                     <div class="row">
-                        <div class="col mx-0" id="resume-form">
+                        <div class="col-12 col-lg-6 mx-0" id="resume-form">
                             <div class="container-fluid m-auto px-0">
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                     <div class="accordion-item">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col resume-template-background">
+                        <div class="col-6 d-none d-lg-block resume-template-background">
                             <page size="A4">
                                 <h4 class="text-center">Resume</h4>
                                 @include('seeker.resume.personal_details')
@@ -111,18 +111,54 @@
                     </div>
                     <div class="row my-4">
                         <div class="col-12 text-end">
+                            <button type="button" class="btn btn-sm profile-save-btn m-2" data-bs-toggle="modal" data-bs-target="#resume_preview" id="create-exp">
+                                Preview
+                            </button>
                             <a href="{{ url('/seeker/download-ic-cv/'. Auth::guard('seeker')->user()->id) }}" class="btn btn-sm profile-save-btn">Download CV</a>
                             <button type="button" class="btn btn-sm profile-save-btn next-career-history">Next</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane p-3 fade" id="nav-career-choice" role="tabpanel" aria-labelledby="nav-career-choice-tab">
+            <div class="tab-pane px-0 px-md-3 fade" id="nav-career-choice" role="tabpanel" aria-labelledby="nav-career-choice-tab">
                 @include('seeker.resume.career-of-choice')
             </div>
-            <div class="tab-pane p-3 fade" id="nav-cv-attach" role="tabpanel" aria-labelledby="nav-cv-attach-tab">
+            <div class="tab-pane px-0 px-md-3 fade" id="nav-cv-attach" role="tabpanel" aria-labelledby="nav-cv-attach-tab">
                 @include('seeker.resume.cv-attach')
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="resume_preview" tabindex="-1" aria-labelledby="resume_previewLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resume_previewLabel">Resume Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body">
+                <page>
+                    <h4 class="text-center">Resume</h4>
+                    @include('seeker.resume.personal_details')
+                    <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
+                        <h6 class="text-white resume-header py-2">Profile Summary</h6>
+                        <div class="col py-2">
+                            <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
+                        </div>
+                    </div>
+                    @include('seeker.resume.exp_details')
+                    @include('seeker.resume.edu_details')
+                    @include('seeker.resume.skill_details')
+                    @include('seeker.resume.language_details')
+                    @include('seeker.resume.reference_details')
+                </page>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger close-btn" data-bs-dismiss="modal">Close</button>
+                
+            </div>
+            
         </div>
     </div>
 </div>
@@ -136,5 +172,7 @@
         $("#nav-career-choice").addClass('show active');
         $("#nav-cv-attach").removeClass('show active');
     })
+
+    
 </script>
 @endpush

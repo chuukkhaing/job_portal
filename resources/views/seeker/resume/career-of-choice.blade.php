@@ -1,5 +1,5 @@
 
-<div class="px-5 m-0 pb-0 pt-3">
+<div class="px-lg-3 px-0 m-0 pb-0 pt-3">
     <div class="row">
         <div class="form-group mt-1 col-12 col-md-6">
             <label for="main_functional_area_id" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>

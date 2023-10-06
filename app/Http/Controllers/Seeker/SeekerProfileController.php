@@ -328,9 +328,7 @@ class SeekerProfileController extends Controller
 
     public function experienceUpdate($id, Request $request)
     {
-        if ($request->is_experience == 0) {
-            $exp = SeekerExperience::whereSeekerId($request->seeker_id)->delete();
-        }
+        
         $experience        = SeekerExperience::findOrFail($id);
         $experience_update = $experience->update([
             'seeker_id'               => $request->seeker_id,

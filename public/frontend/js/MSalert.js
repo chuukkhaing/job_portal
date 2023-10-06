@@ -43,7 +43,7 @@ class MSalert{
 
             .MSalert-principal-ventana{
                 position: absolute;
-                width: 25%;
+                
                 height: fit-content;
                 background-color: white;
                 border-radius: 10px;

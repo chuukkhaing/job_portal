@@ -78,28 +78,6 @@
             }
         });
         
-        $("#immediate_available").change(function(){
-            var is_immediate_available = {{ Auth::guard("seeker")->user()->is_immediate_available }};
-            if($(this).is(":checked") == true) {
-                var is_immediate_available = 1
-            }else {
-                var is_immediate_available = 0
-            }
-            var seeker_id = {{ Auth::guard("seeker")->user()->id }};
-            $.ajax({
-                type: 'POST',
-                data: {
-                    'is_immediate_available' : is_immediate_available
-                },
-                url: '/seeker/immediate-available/update/'+seeker_id,
-            }).done(function(response){
-                if(response.status == 'success') {
-                    if(response.status == 'success') {
-                        
-                    }
-                }
-            })
-        })
     })
 
     $('.next-career-history').click(function() {

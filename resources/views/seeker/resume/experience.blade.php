@@ -47,28 +47,25 @@
             
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group mt-1 col-12 col-md-6">
-                        <label for="is_experience" class="seeker_label my-2 experience_status">Experience <span class="text-danger">*</span> </label><br>
-                        <select name="is_experience" id="is_experience" class="seeker_input" style="width: 100%">
-                            <option value="1" selected>Experience</option>
-                            <option value="0">No Experience</option>
-                        </select>
+                    <div class="form-group col-12 col-md-6 my-0 experience_status">
+                        <input type="checkbox" name="is_experience" id="is_experience" class="seeker_input">
+                        <label for="is_experience" class="seeker_label">Do you have experience?</label>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
                         <input type="text" name="exp_job_title" id="exp_job_title" class="form-control seeker_input" placeholder="Job Title" value="">
                         <span class="text-danger exp_job_title-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_company" class="seeker_label my-2">Employment Company/Organization <span class="text-danger">*</span></label>
                         <input type="text" name="exp_company" id="exp_company" class="form-control seeker_input" placeholder="Employment Company/Organization" value="">
                         <span class="text-danger exp_company-error"></span>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_main_functional_area_id" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
                         <select name="exp_main_functional_area_id" id="exp_main_functional_area_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -79,7 +76,7 @@
                         <span class="text-danger exp_main_functional_area_id-error"></span>
                     </div>
                 
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_sub_functional_area_id" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
                         <select name="exp_sub_functional_area_id" id="exp_sub_functional_area_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -91,7 +88,7 @@
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_career_level" class="seeker_label my-2">Career Level <span class="text-danger">*</span></label>
                         <select name="exp_career_level" id="exp_career_level" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -101,7 +98,7 @@
                         </select>
                         <span class="text-danger exp_career_level-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
                         <select name="exp_industry_id" id="exp_industry_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -114,7 +111,7 @@
                 </div>
                 <div class="row no-experience">
                     
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label><br>
                         <select name="exp_country" id="exp_country" class="seeker_input" style="width: 100%">
                             <option value="Myanmar" selected>Myanmar</option>
@@ -122,20 +119,20 @@
                         </select>
                         <span class="text-danger exp_country-error"></span>
                     </div>
-                    <div class="col-12 col-md-6"></div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="col-12 col-md-6 my-0"></div>
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
-                        <textarea name="exp_job_responsibility" id="exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote_exp" style="width: 100%"></textarea>
+                        <textarea name="exp_job_responsibility" id="exp_job_responsibility" cols="30" rows="5" class="seeker_input edit_summernote_exp" style="width: 100%"></textarea>
                         <span class="text-danger exp_job_responsibility-error"></span>
                     </div>
-                    <div class="col-12 col-md-6"></div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="col-12 col-md-6 my-0"></div>
+                    <div class="form-group col-12 col-md-6 my-0">
                         <input type="checkbox" name="current_job" id="current_job" checked="1">
                         <label for="current_job" class="seeker_label my-2">Present </label>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_start_date" class="seeker_label my-2">Start Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group exp-date">
                             <input type="text" name="exp_start_date" id="exp_start_date" class="form-control seeker_input" value="" placeholder="Start Date">
@@ -145,7 +142,7 @@
                         </div>
                         <span class="text-danger exp_start_date-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6 d-none" id="end_date_field">
+                    <div class="form-group col-12 col-md-6 my-0 d-none" id="end_date_field">
                         <label for="exp_end_date" class="seeker_label my-2">End Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group exp-date">
                             <input type="text" name="exp_end_date" id="exp_end_date" class="form-control seeker_input" value="" placeholder="End Date">
@@ -176,28 +173,25 @@
             
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group mt-1 col-12 col-md-6">
-                        <label for="edit_is_experience" class="seeker_label my-2">Experience <span class="text-danger">*</span> </label><br>
-                        <select name="edit_is_experience" id="edit_is_experience" class="seeker_input" style="width: 100%">
-                            <option value="1">Experience</option>
-                            <option value="0">No Experience</option>
-                        </select>
+                    <div class="form-group col-12 col-md-6 my-0 edit_experience_status">
+                        <input type="checkbox" name="edit_is_experience" id="edit_is_experience" class="seeker_input">
+                        <label for="edit_is_experience" class="seeker_label">Do you have experience?</label>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
                         <input type="text" name="edit_exp_job_title" id="edit_exp_job_title" class="form-control seeker_input" placeholder="Job Title" value="">
                         <span class="text-danger edit_exp_job_title-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_company" class="seeker_label my-2">Employment Company/Organization <span class="text-danger">*</span></label>
                         <input type="text" name="edit_exp_company" id="edit_exp_company" class="form-control seeker_input" placeholder="Employment Company/Organization" value="">
                         <span class="text-danger edit_exp_company-error"></span>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_main_functional_area_id" class="seeker_label my-2">Main Functional Area <span class="text-danger">*</span></label>
                         <select name="edit_exp_main_functional_area_id" id="edit_exp_main_functional_area_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -208,7 +202,7 @@
                         <span class="text-danger edit_exp_main_functional_area_id-error"></span>
                     </div>
                 
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_sub_functional_area_id" class="seeker_label my-2">Sub Functional Area <span class="text-danger">*</span></label>
                         <select name="edit_exp_sub_functional_area_id" id="edit_exp_sub_functional_area_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -220,7 +214,7 @@
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_career_level" class="seeker_label my-2">Career Level <span class="text-danger">*</span></label>
                         <select name="edit_exp_career_level" id="edit_exp_career_level" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -230,7 +224,7 @@
                         </select>
                         <span class="text-danger edit_exp_career_level-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
                         <select name="edit_exp_industry_id" id="edit_exp_industry_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
@@ -243,7 +237,7 @@
                 </div>
                 <div class="row no-experience">
                     
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_country" class="seeker_label my-2">Country <span class="text-danger">*</span></label><br>
                         <select name="edit_exp_country" id="edit_exp_country" class="seeker_input" style="width: 100%">
                             <option value="Myanmar" >Myanmar</option>
@@ -251,20 +245,20 @@
                         </select>
                         <span class="text-danger edit_exp_country-error"></span>
                     </div>
-                    <div class="col-12 col-md-6"></div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="col-12 col-md-6 my-0"></div>
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_job_responsibility" class="seeker_label my-2">Job Responsibility <span class="text-danger">*</span></label><br>
                         <textarea name="edit_exp_job_responsibility" id="edit_exp_job_responsibility" cols="30" rows="5" class="seeker_input summernote_exp" style="width: 100%"></textarea>
                         <span class="text-danger edit_exp_job_responsibility-error"></span>
                     </div>
-                    <div class="col-12 col-md-6"></div>
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="col-12 col-md-6 my-0"></div>
+                    <div class="form-group col-12 col-md-6 my-0">
                         <input type="checkbox" name="edit_current_job" id="edit_current_job" checked="1">
                         <label for="edit_current_job" class="seeker_label my-2">Present </label>
                     </div>
                 </div>
                 <div class="row no-experience">
-                    <div class="form-group mt-1 col-12 col-md-6">
+                    <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_start_date" class="seeker_label my-2">Start Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group exp-date">
                             <input type="text" name="edit_exp_start_date" id="edit_exp_start_date" class="form-control seeker_input" value="" placeholder="Start Date">
@@ -274,7 +268,7 @@
                         </div>
                         <span class="text-danger edit_exp_start_date-error"></span>
                     </div>
-                    <div class="form-group mt-1 col-12 col-md-6 d-none" id="edit_end_date_field">
+                    <div class="form-group col-12 col-md-6 my-0 d-none" id="edit_end_date_field">
                         <label for="edit_exp_end_date" class="seeker_label my-2">End Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group exp-date">
                             <input type="text" name="edit_exp_end_date" id="edit_exp_end_date" class="form-control seeker_input" value="" placeholder="End Date">
@@ -307,6 +301,13 @@
         ]
         });
 
+        $('.edit_summernote_exp').summernote({
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ]
+        });
+
         $('.exp-date').datepicker({
             format: "yyyy-mm",
             viewMode: "months", 
@@ -325,18 +326,23 @@
             }).done(function(response) {
                 if(response.status == 'success') {
                     if(response.experience > 0) {
-                        $(".experience_status").addClass('d-none')
+                        $(".experience_status").addClass('d-none');
+                        $("#is_experience").val(1)
                     }else {
-                        $(".experience_status").removeClass('d-none')
+                        $(".experience_status").removeClass('d-none');
+                        $("#is_experience").prop('checked', false);
+                        $("#is_experience").val(0)
                     }
                 }
             })
         })
 
         $('#is_experience').change(function() {
-            if($(this).val() == 0) {
+            if($(this).is(":checked")){ 
+                $(this).val(0);
                 $(".no-experience").addClass('d-none');
             }else {
+                $(this).val(1);
                 $(".no-experience").removeClass('d-none');
             }
         })
@@ -351,10 +357,11 @@
         })
 
         $('#edit_is_experience').change(function() {
-            if($(this).val() == 0) {
+            if($(this).is(":checked")){ 
+                $(this).val(0);
                 $(".no-experience").addClass('d-none');
             }else {
-                $("#edit_exp_start_date").val('');
+                $(this).val(1);
                 $(".no-experience").removeClass('d-none');
             }
         })
@@ -422,7 +429,7 @@
 
     $('#save-exp').click(function() {
         if($("#is_experience").val() == 0) {
-            $('.btn-close').click();
+            $("#experienceModal").modal('toggle');
             $.ajax({
                 type: 'POST',
                 data: {
@@ -436,7 +443,7 @@
                     $("#exp-table").removeClass('d-none');
                     $(".experience_label").removeClass('d-none');
 
-                    $("#exp-tbody").html('');
+                    $("#exp-table").html('');
                     $(".experience_label").html('');
 
                     $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><span class="fw-bold col text-center">No Experience</span><span class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></span></div>');
@@ -460,6 +467,7 @@
                     $("#exp_end_date").val('');
                     $("#exp_country").val('Myanmar');
                     $("#exp_job_responsibility").val('');
+                    $('.summernote_exp').summernote('code','');
                 }
             })
         }else {
@@ -519,7 +527,7 @@
             if($("#current_job").is(":checked")){
                 if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_job_responsibility != '')
                 {
-                    $('.btn-close').click();
+                    $("#experienceModal").modal('toggle');
                     $.ajax({
                         type: 'POST',
                         data: {
@@ -581,6 +589,7 @@
                             $("#exp_end_date").val('');
                             $("#exp_country").val('Myanmar');
                             $("#exp_job_responsibility").val('');
+                            $('.summernote_exp').summernote('code','');
                         }
                     })
                 }
@@ -595,7 +604,7 @@
                 }
                 if(exp_job_title != '' && exp_company != '' && exp_main_functional_area_id != '' && exp_sub_functional_area_id != '' && exp_career_level != '' && exp_industry_id != '' && exp_start_date != '' && exp_end_date != '' && exp_job_responsibility != '' && exp_end_date > exp_start_date)
                 {
-                    $('.btn-close').click();
+                    $("#experienceModal").modal('toggle');
                     $.ajax({
                         type: 'POST',
                         data: {
@@ -655,6 +664,7 @@
                             $("#exp_end_date").val('');
                             $("#exp_country").val('Myanmar');
                             $("#exp_job_responsibility").val('');
+                            $('.summernote_exp').summernote('code','');
                             $(".exp_end_date-error").html('');
                             $(".exp_start_date-error").html('');
                         }
@@ -672,35 +682,42 @@
             url: '/seeker/experience/edit/'+id,
         }).done(function(response){
             if(response.status == 'success') {
-                $("#edit_is_experience").val(response.experience.is_experience);
-                $("#edit_exp_job_title").val(response.experience.job_title);
-                $("#edit_exp_company").val(response.experience.company);
-                $("#edit_exp_main_functional_area_id").val(response.experience.main_functional_area_id);
-                $("#edit_exp_sub_functional_area_id").val(response.experience.sub_functional_area_id);
-                $("#edit_exp_career_level").val(response.experience.career_level);
-                $("#edit_exp_industry_id").val(response.experience.industry_id);
-                $("#edit_exp_country").val(response.experience.country);
-                $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
-                $("#edit_exp_start_date").val(moment(response.experience.start_date).format("YYYY-MM"));
-                $("#edit_exp_end_date").val(moment(response.experience.end_date).format("YYYY-MM"));
-                if(response.experience.is_current_job) {
-                    $("#edit_current_job").prop('checked',true);
-                }else {
-                    $("#edit_current_job").prop('checked',false);
-                    $("#edit_end_date_field").removeClass('d-none');
-                }
                 if(response.experience.is_experience == 0) {
                     $(".no-experience").addClass('d-none');
+                    $("#edit_is_experience").prop('checked', true);
+                    $("#edit_current_job").prop('checked',true);
+                    $(".edit_experience_status").removeClass('d-none');
+                    $("#edit_is_experience").val(0)
                 }else {
                     $(".no-experience").removeClass('d-none');
+                    $(".edit_experience_status").addClass('d-none');
+                    $("#edit_is_experience").prop('checked', false);
+                    $("#edit_is_experience").val(1)
+                    $("#edit_exp_job_title").val(response.experience.job_title);
+                    $("#edit_exp_company").val(response.experience.company);
+                    $("#edit_exp_main_functional_area_id").val(response.experience.main_functional_area_id);
+                    $("#edit_exp_sub_functional_area_id").val(response.experience.sub_functional_area_id);
+                    $("#edit_exp_career_level").val(response.experience.career_level);
+                    $("#edit_exp_industry_id").val(response.experience.industry_id);
+                    $("#edit_exp_country").val(response.experience.country);
+                    $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
+                    $("#edit_exp_start_date").val(moment(response.experience.start_date).format("YYYY-MM"));
+                    $("#edit_exp_end_date").val(moment(response.experience.end_date).format("YYYY-MM"));
+                    if(response.experience.is_current_job) {
+                        $("#edit_current_job").prop('checked',true);
+                    }else {
+                        $("#edit_current_job").prop('checked',false);
+                        $("#edit_end_date_field").removeClass('d-none');
+                    }
                 }
             }
         })
 
         $("#update-exp").one('click', function(e) {
+            var seeker_id ={{ Auth::guard('seeker')->user()->id }}
             e.preventDefault();
             if($("#edit_is_experience").val() == 0) {
-                $('.btn-close').click();
+                $("#experienceEditModal").modal('toggle');
                 $.ajax({
                     type: 'POST',
                     data: {
@@ -708,11 +725,11 @@
                         'is_experience' : $("#edit_is_experience").val(),
                         'is_current_job' : 0
                     },
-                    url: 'seeker/experience/update/'+id,
+                    url: '/seeker/experience/update/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#exp-table").removeClass('d-none');
-                        $("#exp-tbody").html('');
+                        $("#exp-table").html('');
 
                         $(".experience_label").removeClass('d-none');
                         $(".experience_label").html('');
@@ -721,6 +738,20 @@
                         $("#add_career_history").addClass('d-none');
 
                         $(".experience_label").append('<h5 class="text-white resume-header py-2">Career History</h5><div class="row py-2 exp-resume-'+response.experience.id+'"><p>No Experience</p></div>');
+
+                        $("#edit_exp_job_title").val('');
+                        $("#edit_exp_company").val('');
+                        $("#edit_exp_main_functional_area_id").val('');
+                        $("#edit_exp_sub_functional_area_id").val('');
+                        $("#edit_exp_career_level").val('');
+                        $("#edit_exp_industry_id").val('');
+                        $("#edit_exp_start_date").val('');
+                        $("#edit_exp_end_date").val('');
+                        $("#edit_exp_country").val('Myanmar');
+                        $("#edit_exp_job_responsibility").val('');
+                        $('.edit_summernote_exp').summernote('code','');
+                        $(".edit_exp_end_date-error").html('');
+                        $(".edit_exp_start_date-error").html('');
 
                         MSalert.principal({
                             icon:'success',
@@ -786,7 +817,7 @@
                 if($("#edit_current_job").is(":checked")){
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_job_responsibility != '')
                     {
-                        $('.btn-close').click();
+                        $("#experienceEditModal").modal('toggle');
                         $.ajax({
                             type: 'POST',
                             data: {
@@ -833,7 +864,19 @@
 
                                 $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 fw-bold"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' fw-bold">'+response.experience.job_title+'</span><br><span class="exp-company-'+response.experience.id+' text-blue">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
 
-
+                                $("#edit_exp_job_title").val('');
+                        $("#edit_exp_company").val('');
+                        $("#edit_exp_main_functional_area_id").val('');
+                        $("#edit_exp_sub_functional_area_id").val('');
+                        $("#edit_exp_career_level").val('');
+                        $("#edit_exp_industry_id").val('');
+                        $("#edit_exp_start_date").val('');
+                        $("#edit_exp_end_date").val('');
+                        $("#edit_exp_country").val('Myanmar');
+                        $("#edit_exp_job_responsibility").val('');
+                        $('.edit_summernote_exp').summernote('code','');
+                        $(".edit_exp_end_date-error").html('');
+                        $(".edit_exp_start_date-error").html('');
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',
@@ -856,7 +899,7 @@
                     
                     if(edit_exp_job_title != '' && edit_exp_company != '' && edit_exp_main_functional_area_id != '' && edit_exp_sub_functional_area_id != '' && edit_exp_career_level != '' && edit_exp_industry_id != '' && edit_exp_start_date != '' && edit_exp_end_date != '' && edit_exp_job_responsibility != '' && edit_exp_end_date > edit_exp_start_date)
                     {
-                        $('.btn-close').click();
+                        $("#experienceEditModal").modal('toggle');
                         $.ajax({
                             type: 'POST',
                             data: {
@@ -900,7 +943,19 @@
                                 $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><div class="col"><span class="fw-bold exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+' -</span><span class="fw-bold exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span><div class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</div><div class="exp-company-'+response.experience.id+'">'+response.experience.company+'</div><div class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</div></div><div class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
                                 $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 fw-bold"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' fw-bold">'+response.experience.job_title+'</span><br><span class="exp-company-'+response.experience.id+' text-blue">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
-                                
+                                $("#edit_exp_job_title").val('');
+                        $("#edit_exp_company").val('');
+                        $("#edit_exp_main_functional_area_id").val('');
+                        $("#edit_exp_sub_functional_area_id").val('');
+                        $("#edit_exp_career_level").val('');
+                        $("#edit_exp_industry_id").val('');
+                        $("#edit_exp_start_date").val('');
+                        $("#edit_exp_end_date").val('');
+                        $("#edit_exp_country").val('Myanmar');
+                        $("#edit_exp_job_responsibility").val('');
+                        $('.edit_summernote_exp').summernote('code','');
+                        $(".edit_exp_end_date-error").html('');
+                        $(".edit_exp_start_date-error").html('');
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',
