@@ -400,7 +400,7 @@ class EmployerProfileController extends Controller
         }
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $jobPosts = JobPost::whereEmployerId($employer->id)->paginate(10);
+        $jobPosts = JobPost::whereEmployerId($employer->id)->get();
         return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'jobPosts'));
     }
 
