@@ -229,31 +229,30 @@
     </div>
     <div class="row resume-section mb-3 experience_label @if($seeker->SeekerExperience->count() == 0) d-none @endif">
         <h5 class="text-white resume-header py-2"><span>Career History</span></h5>
-        <table>
-            @foreach($seeker->SeekerExperience as $experience)
+        @foreach($seeker->SeekerExperience as $experience)
             
-            <tr class="row py-2 exp-resume-{{ $experience->id }}">
-                @if($experience->is_experience == 0)
-                <td>No Experience</td>
+        <div class="py-2 exp-resume-{{ $experience->id }}" style="padding: 0 20px;">
+            @if($experience->is_experience == 0)
+            <p>No Experience</p>
+            @else
+            <div class="fw-bold" style="vertical-align: top; width: 30%; float:left; ">
+                <p class="exp-start_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->start_date)) }} - 
+                @if($experience->is_current_job == 1)
+                Present
                 @else
-                <td class="col-4 fw-bold" style="vertical-align: top">
-                    <span class="exp-start_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->start_date)) }}</span> - 
-                    @if($experience->is_current_job == 1)
-                    <span class="exp-end_date-{{$experience->id}}">Present</span>
-                    @else
-                    <span class="exp-end_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->end_date)) }}</span>
-                    @endif
-                </td>
-                <td class="col-8">
-                    <span class="exp-job_title-{{$experience->id}} fw-bold">{{ $experience->job_title }}</span><br>
-                    <span class="exp-company-{{$experience->id}} text-blue">{{ $experience->company }}</span><br>
-                    {!! $experience->job_responsibility !!}
-                </td>
+                {{ date('M Y', strtotime($experience->end_date)) }}
                 @endif
-            </tr>
+                </p>
+            </div>
+            <div class="" style="padding: 0 20px;">
+                <p>{{ $experience->job_title }}</p>
+                <p class="exp-company-{{$experience->id}} text-blue">{{ $experience->company }}</p>
+                <p>{!! $experience->job_responsibility !!}</p>
+            </div>
+            @endif
+    </div>
 
-            @endforeach
-        </table>
+        @endforeach
         
     </div>
     <div class="row resume-section mb-3 education_label @if($seeker->SeekerEducation->count() == 0) d-none @endif">

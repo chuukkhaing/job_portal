@@ -274,7 +274,7 @@
                 var state_id = $(this).val();
                 $.ajax({
                     type: 'GET',
-                    url: 'get-township/'+state_id,
+                    url: '/seeker/get-township/'+state_id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#township_id").empty();
