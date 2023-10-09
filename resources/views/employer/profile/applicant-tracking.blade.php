@@ -108,7 +108,7 @@
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
         <div class="tab-pane fade p-0 show active" id="employer-dashboard">
             <div class="container-fluid" id="edit-profile-header">
-                <div class="px-5 m-0 pb-0 pt-3">
+                <div class="px-lg-5 px-md-3 px-0 m-0 pb-0 pt-3">
                     <div class="table-responsive" id="applicant-tracking-section">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>

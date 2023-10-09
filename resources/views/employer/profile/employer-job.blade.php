@@ -109,74 +109,72 @@
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','manage_job')->count() > 0))
         <div class="tab-pane fade p-0 show active" id="employer-dashboard">
             <div class="container-fluid" id="edit-profile-header">
-                <div class="row mt-1 px-5 py-3" style="border-radius: 8px">
+                <div class="row mt-1 px-lg-5 px-md-3 px-0 py-3" style="border-radius: 8px">
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <h5>Manage Job</h5>
                         </div>
                         
                     </div>
-                    <div id="jobPostList">
-                        @if($jobPosts->count() > 0)
-                        <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Job Title</th>
-                                        <th>Job Function</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($jobPosts as $key => $jobPost)
+                    @if($jobPosts->count() > 0)
+                    <div class="table-responsive" id="applicant-tracking-section">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>{{ $jobPost->job_title }}</td>
-                                    <td class="fw-bold text-black">
-                                        {{ $jobPost->MainFunctionalArea->name }} , 
-                                        {{ $jobPost->SubFunctionalArea->name }}
-                                    </td>
-                                    <td>
-                                        <div class="px-4 job-post-status-{{$jobPost->id}}">
-                                            @if($jobPost->is_active == 0)
-                                            <span class="badge rounded-pill bg-warning">Deactive</span>
-                                            @else
-                                                @if($jobPost->status == 'Pending')
-                                                <span class="badge rounded-pill bg-secondary">{{ $jobPost->status }}</span>
-                                                @elseif($jobPost->status == 'Online')
-                                                <span class="badge rounded-pill bg-success">{{ $jobPost->status }}</span>
-                                                @elseif($jobPost->status == 'Reject')
-                                                <span class="badge rounded-pill bg-warning">{{ $jobPost->status }}</span>
-                                                @elseif($jobPost->status == 'Expire')
-                                                <span class="badge rounded-pill bg-danger">{{ $jobPost->status }}</span>
-                                                @endif
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span style="" class="px-3 text-black">
-                                        {{ date('d M,Y', strtotime($jobPost->updated_at)) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="mt-auto p-2 bd-highlight ">
-                                            <a href="{{ route('employer-job-post.edit', $jobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
-                                            <div class="d-inline-block form-switch ms-3">
-                                                <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($jobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $jobPost->id }}" onclick="changeJobPostStatus({{ $jobPost->id }}, {{ $jobPost->is_active }})">
-                                                <label for="job_post_is_active">Activate/Deactivate</label>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th>No.</th>
+                                    <th>Job Title</th>
+                                    <th>Job Function</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
                                 </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        @endif
+                            </thead>
+                            <tbody>
+                            @foreach($jobPosts as $key => $jobPost)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $jobPost->job_title }}</td>
+                                <td class="fw-bold text-black">
+                                    {{ $jobPost->MainFunctionalArea->name }} , 
+                                    {{ $jobPost->SubFunctionalArea->name }}
+                                </td>
+                                <td>
+                                    <div class="px-4 job-post-status-{{$jobPost->id}}">
+                                        @if($jobPost->is_active == 0)
+                                        <span class="badge rounded-pill bg-warning">Deactive</span>
+                                        @else
+                                            @if($jobPost->status == 'Pending')
+                                            <span class="badge rounded-pill bg-secondary">{{ $jobPost->status }}</span>
+                                            @elseif($jobPost->status == 'Online')
+                                            <span class="badge rounded-pill bg-success">{{ $jobPost->status }}</span>
+                                            @elseif($jobPost->status == 'Reject')
+                                            <span class="badge rounded-pill bg-warning">{{ $jobPost->status }}</span>
+                                            @elseif($jobPost->status == 'Expire')
+                                            <span class="badge rounded-pill bg-danger">{{ $jobPost->status }}</span>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <span style="" class="px-3 text-black">
+                                    {{ date('d M,Y', strtotime($jobPost->updated_at)) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="mt-auto p-2 bd-highlight ">
+                                        <a href="{{ route('employer-job-post.edit', $jobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
+                                        <div class="d-inline-block form-switch ms-3">
+                                            <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($jobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $jobPost->id }}" onclick="changeJobPostStatus({{ $jobPost->id }}, {{ $jobPost->is_active }})">
+                                            <label for="job_post_is_active">Activate/Deactivate</label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
