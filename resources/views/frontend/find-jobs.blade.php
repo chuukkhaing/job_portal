@@ -58,7 +58,7 @@
         <div class="row m-0 p-0">
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="industry" id="industry" class="form-input find-jobs-input w-100">
+                    <select name="industry" id="industry" class="form-input find-jobs-input w-100" @if(isset($_GET['industry'])  && $_GET['industry'] != "") style="border: 2px solid #FB5404; color: #FB5404" @endif>
                         <option value="">Job Industry</option>
                         @foreach($industries as $industry)
                         <option value="{{ $industry->id }}" @if(isset($_GET['industry']) && $_GET['industry'] == $industry->id) selected @endif @if(isset($industry_id) && $industry_id == $industry->id) selected @endif >{{ $industry->name }}</option>
@@ -68,7 +68,7 @@
             </div>
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="job_type" id="job_type" class="form-input find-jobs-input w-100">
+                    <select name="job_type" id="job_type" class="form-input find-jobs-input w-100" @if(isset($_GET['job_type']) && $_GET['job_type'] != "") style="border: 2px solid #FB5404; color: #FB5404" @endif>
                         <option value="">All Job Type</option>
                         @foreach(config('jobtype') as $jobtype)
                         <option value="{{ $jobtype }}" @if(isset($_GET['job_type']) && $_GET['job_type'] == $jobtype) selected @endif>{{ $jobtype }}</option>
@@ -78,7 +78,7 @@
             </div>
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="career_level" id="career_level" class="form-input find-jobs-input w-100">
+                    <select name="career_level" id="career_level" class="form-input find-jobs-input w-100" @if(isset($_GET['career_level']) && $_GET['career_level'] != "") style="border: 2px solid #FB5404; color: #FB5404" @endif>
                         <option value="">Career Level</option>
                         @foreach(config('careerlevel') as $careerlevel)
                         <option value="{{ $careerlevel }}" @if(isset($_GET['career_level']) && $_GET['career_level'] == $careerlevel) selected @endif>{{ $careerlevel }}</option>
@@ -88,7 +88,7 @@
             </div>
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="qualification" id="qualification" class="form-input find-jobs-input w-100">
+                    <select name="qualification" id="qualification" class="form-input find-jobs-input w-100" @if(isset($_GET['qualification']) && $_GET['qualification'] != "")style="border: 2px solid #FB5404; color: #FB5404" @endif>
                         <option value="">Qualification</option>
                         @foreach(config('seekerdegree') as $degree)
                         <option value="{{ $degree }}" @if(isset($_GET['qualification']) && $_GET['qualification'] == $degree) selected @endif>{{ $degree }}</option>
@@ -98,7 +98,7 @@
             </div>
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="job_sorting" id="job_sorting" class="form-input find-jobs-input w-100">
+                    <select name="job_sorting" id="job_sorting" class="form-input find-jobs-input w-100" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] != "") style="border: 2px solid #FB5404; color: #FB5404" @endif>
                         <option value="">Job Sort By</option>
                         <option value="7" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "7") selected @endif >Last 7 Days</option>
                         <option value="30" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "30") selected @endif >Last 30 Days</option>
