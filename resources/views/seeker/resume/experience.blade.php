@@ -701,6 +701,7 @@
                     $("#edit_exp_industry_id").val(response.experience.industry_id);
                     $("#edit_exp_country").val(response.experience.country);
                     $("#edit_exp_job_responsibility").val(response.experience.job_responsibility);
+                    $('#edit_exp_job_responsibility').summernote('code',response.experience.job_responsibility);
                     $("#edit_exp_start_date").val(moment(response.experience.start_date).format("YYYY-MM"));
                     $("#edit_exp_end_date").val(moment(response.experience.end_date).format("YYYY-MM"));
                     if(response.experience.is_current_job) {
@@ -749,7 +750,7 @@
                         $("#edit_exp_end_date").val('');
                         $("#edit_exp_country").val('Myanmar');
                         $("#edit_exp_job_responsibility").val('');
-                        $('.edit_summernote_exp').summernote('code','');
+                        $('#edit_exp_job_responsibility').summernote('code','');
                         $(".edit_exp_end_date-error").html('');
                         $(".edit_exp_start_date-error").html('');
 
@@ -944,18 +945,18 @@
 
                                 $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 fw-bold"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' fw-bold">'+response.experience.job_title+'</span><br><span class="exp-company-'+response.experience.id+' text-blue">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
                                 $("#edit_exp_job_title").val('');
-                        $("#edit_exp_company").val('');
-                        $("#edit_exp_main_functional_area_id").val('');
-                        $("#edit_exp_sub_functional_area_id").val('');
-                        $("#edit_exp_career_level").val('');
-                        $("#edit_exp_industry_id").val('');
-                        $("#edit_exp_start_date").val('');
-                        $("#edit_exp_end_date").val('');
-                        $("#edit_exp_country").val('Myanmar');
-                        $("#edit_exp_job_responsibility").val('');
-                        $('.edit_summernote_exp').summernote('code','');
-                        $(".edit_exp_end_date-error").html('');
-                        $(".edit_exp_start_date-error").html('');
+                                $("#edit_exp_company").val('');
+                                $("#edit_exp_main_functional_area_id").val('');
+                                $("#edit_exp_sub_functional_area_id").val('');
+                                $("#edit_exp_career_level").val('');
+                                $("#edit_exp_industry_id").val('');
+                                $("#edit_exp_start_date").val('');
+                                $("#edit_exp_end_date").val('');
+                                $("#edit_exp_country").val('Myanmar');
+                                $("#edit_exp_job_responsibility").val('');
+                                $('.edit_summernote_exp').summernote('code','');
+                                $(".edit_exp_end_date-error").html('');
+                                $(".edit_exp_start_date-error").html('');
                                 MSalert.principal({
                                     icon:'success',
                                     title:'',

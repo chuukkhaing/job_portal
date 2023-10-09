@@ -244,9 +244,12 @@
                 @endif
                 </p>
             </div>
-            <div class="" style="padding: 0 20px;">
-                <p>{{ $experience->job_title }}</p>
-                <p class="exp-company-{{$experience->id}} text-blue">{{ $experience->company }}</p>
+            <div>
+            <p class="fw-bold">{{ $experience->job_title }}</p>
+            <p class="exp-company-{{$experience->id}} text-blue">{{ $experience->company }}</p>
+            </div>
+            <div class="" style="margin-left: 30%; padding: 0 20px;">
+                
                 <p>{!! $experience->job_responsibility !!}</p>
             </div>
             @endif
