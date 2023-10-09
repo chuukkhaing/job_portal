@@ -284,11 +284,11 @@
 
 <!-- Job Interview Start -->
 <div class="container mt-5 p-0">
-    <div class="row" id="">
+    <div class="row d-flex align-items-end" id="">
         <div class="col-md-6 col-12 p-5 text-center border-end">
             <h1 style="color: #FB5404">Jobseeker</h1>
             <h5>Ready to apply? It is easy now!</h5>
-            <img src="{{ asset('img/background/jobseeker_signup.png') }}" alt="">
+            <img src="{{ asset('img/background/jobseeker_signup.png') }}" class="img-fluid" alt="">
             <div>
             <a href="{{ route('register-form') }}" class="btn text-white" style="background: #FB5404">Sign up here</a>
             </div>
@@ -296,7 +296,7 @@
         <div class="col-md-6 col-12 p-5 text-center">
             <h1>Employer</h1>
             <h5>We have comprehensive solutions that can meet your needs and requirements.</h5>
-            <img src="{{ asset('img/background/employer_signup.png') }}" alt="">
+            <img src="{{ asset('img/background/employer_signup.png') }}" class="img-fluid" alt="">
             <div>
             <a href="{{ route('employer-register-form') }}" class="btn text-white" style="background: #091E3E">Sign up here</a>
             </div>
