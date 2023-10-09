@@ -29,9 +29,7 @@
                 <p class="py-3 fw-bold">
                 "Embark on Your Career Odyssey with Infinity Careers. From Fresh Graduates Aiming to Spread Their Wings, Entry-Level Enthusiasts Seeking Their Niche, Experienced Professionals Looking to Elevate, to Visionary Executives Ready to Lead – Our Portal Offers a Diverse Tapestry of Opportunities. We Believe Every Career Story Deserves a Chance to Shine, and We're Here to Illuminate the Path Ahead. Join Infinity Careers Today and Unlock the Door to Your Next Chapter."
                 </p>
-                <p class="py-3 fw-bold">
-                Your Career Journey Starts Here. Whether You're a Fresher Eager to Begin, an Entry-Level Explorer, an Experienced Trailblazer, or an Executive Ready to Lead – Infinity Careers Has Your Next Step.
-                </p>
+                
             </div>
             {{--<div class="row">
                 <div class="col-2">
