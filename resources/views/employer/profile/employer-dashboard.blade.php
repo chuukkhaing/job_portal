@@ -80,7 +80,7 @@
                     </div>
                     @endforeach
                 </div>
-                <a style="cursor: pointer" onclick="seeAllPost('#employer-job')" class="text-dark fw-bold">SEE ALL POSTS <i class="fa-solid fa-chevron-right"></i></a>
+                <a style="cursor: pointer" href="{{ route('manageJob') }}" class="text-dark fw-bold">SEE ALL POSTS <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
         <div class="col-md-4 col-12 ps-md-2 pe-0 ps-0 m-0 my-3">
@@ -101,7 +101,7 @@
                     </div>
                     @endforeach
                 </div>
-                <a style="cursor: pointer" onclick="seeAllPost('#applicant-tracking')" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
+                <a style="cursor: pointer" href="{{ route('applicantTracking') }}" class="text-dark fw-bold">SEE ALL <i class="fa-solid fa-chevron-right"></i></a>
             </div>
         </div>
     </div>
