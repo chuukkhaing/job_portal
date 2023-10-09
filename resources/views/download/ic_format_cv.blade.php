@@ -223,7 +223,7 @@
     </div>
     <div class="row resume-section mb-3 summary_label @if($seeker->summary) @else d-none @endif">
         <h5 class="text-white resume-header py-2"><span>Profile Summary</span></h5>
-        <div class="col py-2">
+        <div class="col py-2" style="padding: 0 20px;">
             {!! $seeker->summary !!}
         </div>
     </div>
