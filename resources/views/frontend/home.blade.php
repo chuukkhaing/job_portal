@@ -295,7 +295,7 @@
         </div>
         <div class="col-md-6 col-12 p-5 text-center">
             <h1>Employer</h1>
-            <h5>We have comprehensive solutions that can meet your needs and requirements.</h5>
+            <h5>Ready to hire? It is easy now!</h5>
             <img src="{{ asset('img/background/employer_signup.png') }}" class="img-fluid" alt="">
             <div>
             <a href="{{ route('employer-register-form') }}" class="btn text-white" style="background: #091E3E">Sign up here</a>
