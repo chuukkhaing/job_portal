@@ -283,15 +283,23 @@
 <!-- Featured Jobs End  -->
 
 <!-- Job Interview Start -->
-<div class="container-fluid mt-5 p-0">
-    <div class="row" id="job-interview">
-        <div class="offset-lg-1 col-lg-6 p-5">
-
-            <h3 class="job-interview-title pt-4">Are You Looking For Job!</h3>
-
-            <p class="job-interview-content pt-3 pb-5">"Unlock Your Dream Job with Us! Discovering your ideal job might seem like a puzzle, but we've got the pieces to help you succeed. Define your job aspirations, refine your resume and cover letter, tap into industry networks, explore job listings with our search tools, and get ready to shine in interviews. We're here to make your job search smoother and lead you to the perfect opportunity."</p>
-            
-            <a href="#" class="interview-btn">Get Started Today </a>
+<div class="container mt-5 p-0">
+    <div class="row" id="">
+        <div class="col-md-6 col-12 p-5 text-center border-end">
+            <h1 style="color: #FB5404">Jobseeker</h1>
+            <h5>Ready to apply? It is easy now!</h5>
+            <img src="{{ asset('img/background/jobseeker_signup.png') }}" alt="">
+            <div>
+            <a href="{{ route('register-form') }}" class="btn text-white" style="background: #FB5404">Sign up here</a>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 p-5 text-center">
+            <h1>Employer</h1>
+            <h5>We have comprehensive solutions that can meet your needs and requirements.</h5>
+            <img src="{{ asset('img/background/employer_signup.png') }}" alt="">
+            <div>
+            <a href="{{ route('employer-register-form') }}" class="btn text-white" style="background: #091E3E">Sign up here</a>
+            </div>
         </div>
     </div>
 </div>
