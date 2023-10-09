@@ -202,7 +202,7 @@ class EmployerJobPostController extends Controller
                     ]);
                 }
             }
-            return redirect()->route('employer-profile.index')->with('success','Create Job Post Successfully.');
+            return redirect()->route('employer-profile.index')->with('success','Create Job Post with '.$jobPost->job_post_type. ' Successfully.');
         }
     }
 
