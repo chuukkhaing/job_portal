@@ -15,7 +15,7 @@
                 @if($industry->JobPost->count() > 0)
                 <a href="{{ route('industry-job',$industry->id) }}">
                 @endif
-                    <div id="job-category-box" class="text-center px-0 px-sm-3 h-100">
+                    <div id="job-category-box" class="text-center px-0 px-sm-3 h-100 shadow">
                         <div id="job-category-icon">
                         <i class="{{ $industry->icon }}"></i>
                         </div>

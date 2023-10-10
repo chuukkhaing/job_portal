@@ -18,20 +18,20 @@
                 <h2 class="">Get In Touch</h2>
                 <p>Our team is available to provide support and help you find what you're looking for.</p>
             </div>
-            <div class="hr-speech my-3 mx-1 mx-md-3">
+            <div class="my-3 mx-1 mx-md-3">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 text-end">
                         <div class="contact-icon d-inline-block my-3">
                             <i class="fa-regular fa-envelope"></i>
                         </div>
                     </div>
                     <div class="col-10 my-3">
-                    <h5 class="text-light">Chat with Us</h5>
+                    <h5 class="text-light">Contact with Us</h5>
                     <p class="text-light">"Connect with us directly to get the help you need by reaching out through our chat feature."</p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 text-end">
                         <div class="contact-icon d-inline-block my-3">
                             <i class="fa-solid fa-location-dot"></i>
                         </div>
@@ -43,15 +43,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-2 text-end">
                         <div class="contact-icon d-inline-block my-3">
                             <i class="fa-solid fa-phone"></i>
                         </div>
                     </div>
                     <div class="col-10 my-3">
-                    <h5 class="text-light">Office Phone</h5>
+                    <h5 class="text-light">Phone</h5>
                     <p class="text-light">"Give us a call to speak directly with a member of our team by dialing our office's phone line."</p>
-                    <p class="text-light"><a href="tel:+959447962279">09447962279</a> , <a href="tel:+959782436801">09782436801</a></p>
+                    <p class="text-light"><a href="tel:+959880915475" class="text-decoration-none text-white">09 880915475</a> , <a class="text-decoration-none text-white" href="tel:+959 880915476">09 880915476</a></p>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-12 col-md-6 p-3 p-lg-5 mt-2 mt-md-0 contact-form-box">
             <div class="contact-form-header py-3">
-                <h2 class="">Contact us</h2>
+                <h2 class="" style="color: #FB5404">Contact us</h2>
                 <p>"Get in touch with our team by reaching out through one of our available communication channels."</p>
             </div>
             <div class="hr-speech my-3">
@@ -122,6 +122,7 @@
     </div>
 </div>
 <div class="container my-5 p-0">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.8328077832693!2d96.12906685040467!3d16.78499174288229!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb728636d585%3A0x105c347c8acf4853!2sIGS!5e0!3m2!1sen!2snl!4v1689523356335!5m2!1sen!2snl" width="100%" height="290" style="border:1px solid #88C3FF;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d30558.6606030118!2d96.1135371!3d16.7850033!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1eb145fa8c913%3A0x99b9dad98198dd4e!2sInfinity%20Careers%20Co.%2CLtd!5e0!3m2!1sen!2snl!4v1696927244836!5m2!1sen!2snl" width="100%" height="290" style="border:1px solid #88C3FF;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
 </div>
 @endsection

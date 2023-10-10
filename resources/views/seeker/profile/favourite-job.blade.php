@@ -66,84 +66,45 @@
                     <h5>My Favorite Jobs ( <span id="save-job-count">{{ $saveJobs->count() }}</span> )</h5>
                 </div>
             </div>
-            @if($saveJobs->count() > 0)
-            <div class="my-2" id="edit-profile-body">
-                
-                <div class="row m-0 pb-0 pt-3">
-                    @foreach($saveJobs as $saveJob)
-                    <div class="col-lg-6 col-12" id="job-id-{{ $saveJob->JobPost->id }}">
-                        
-                        <div class="row job-content mb-3 m-1">
-                            <!-- Job List Start -->
-                            
-                            <div class="col-lg-9 col-md-9 py-4 d-flex">
-                                <a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}">
-                                    <div style="width: 100px" class="align-self-center">
-                                        @if($saveJob->JobPost->job_post_type == 'feature' || $saveJob->JobPost->job_post_type == 'trending')
-                                        @if($saveJob->JobPost->Employer->logo)
-                                        <img src="{{ asset('storage/employer_logo/'.$saveJob->JobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
-                                        @else 
-                                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
-                                        @endif
-                                        <div class="text-center">
-                                        @if($saveJob->JobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($saveJob->JobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
-                                        </div>
-                                        @endif
-                                    </div>
-                                    <div class="align-self-center">
-                                        <div class="mt-1 job-company">{{ $saveJob->JobPost->Employer->name }}</div>
-                                        <div class="mt-1">{{ $saveJob->JobPost->job_title }}</div>
-                                        @if($saveJob->JobPost->township_id)
-                                        <div class="mt-1 job-location">{{ $saveJob->JobPost->Township->name }}</div>
-                                        @endif
-                                        @if($saveJob->JobPost->job_post_type == 'trending')
-                                        <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($saveJob->JobPost->job_requirement), $limit = 100, $end = '...') !!}</p>
-                                        @endif
-                                        <div class="row mt-1 d-flex">
-                                            <a href="{{ route('search-main-function', $saveJob->JobPost->main_functional_area_id) }}" class="job-post-area col-8 align-self-end"># {{ $saveJob->JobPost->MainFunctionalArea->name }}</a>
-                                            <div class="d-md-none d-block col-4 text-end">
-                                                @auth('seeker')
-                                                <i style="cursor: pointer" id="savejob-{{ $saveJob->JobPost->id }}" onclick="saveJob({{ $saveJob->JobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $saveJob->JobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i><br>
-                                                @endauth
-                                                <span>{{ $saveJob->JobPost->updated_at->shortRelativeDiffForHumans() }}</span>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            
-                            <!-- Job List End -->
-
-                            <!-- Wishlist Start -->
-                            <div class="col-lg-3 col-md-3 d-md-flex d-none align-items-end flex-column bd-highlight py-4">
-                                <div class="row col-12 m-0 p-0">
-                                    @auth('seeker')
-                                    <div class="text-end p-0" style="cursor:pointer">
-                                            <i id="savejobapply-{{ $saveJob->JobPost->id }}" onclick="saveJob({{ $saveJob->JobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $saveJob->JobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
-                                    </div>
-                                    @endauth
-                                    <div class="text-end mt-auto p-1">
-                                        <span>{{ $saveJob->JobPost->updated_at->shortRelativeDiffForHumans() }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Wishlist End -->
-                        </div>
-                    </div>
-                    @endforeach
-                    <div class="row">
-                        <div class="col pt-2">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                            {{ $saveJobs->appends(request()->all())->links('pagination::bootstrap-4') }}
-                            </ul>
-                        </nav>
-                        </div>
-                    </div>
+            
+            <div class="my-2 py-3 px-lg-5 px-md-3" id="edit-profile-body">
+                @if($saveJobs->count() > 0)
+                <div class="table-responsive" id="applicant-tracking-section">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Job Function</th>
+                                <th>Location</th>
+                                <th>Applied Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($saveJobs as $key => $saveJob)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td class="fw-bold"><a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}" class="text-black">{{ $saveJob->JobPost->job_title }}</a></td>
+                                <td class="text-blue">{{ $saveJob->JobPost->Employer->name }}</td>
+                                <td>
+                                    {{ $saveJob->JobPost->MainFunctionalArea->name }} , 
+                                    {{ $saveJob->JobPost->SubFunctionalArea->name }}
+                                </td>
+                                <td>
+                                    {{ $saveJob->JobPost->Township->name ?? '' }} {{ $saveJob->JobPost->Township->name ? ',' : '' }} 
+                                    {{ $saveJob->JobPost->State->name ?? '' }}
+                                </td>
+                                <td class="fw-bold">{{ date('d M,Y', strtotime($saveJob->created_at)) }}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
+                @endif
             </div>
-            @endif
         </div>
     </div>
     

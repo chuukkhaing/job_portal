@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container-fluid employer-login-page">
-    <div class="row">
+    <div class="row container m-auto p-0 m-0 d-flex justify-content-center">
         <div class="col-12 col-md-6 p-3 p-lg-5">
             {{--<div class="register-header py-3">
                 <h2 class="">Join our job seeker community and find your dream job</h2>
@@ -33,8 +33,8 @@
                 </div>
             </div>--}}
         </div>
-        <div class="col-12 col-md-6 p-lg-5">
-            <div class="shadow-lg p-0 p-lg-3 mb-5 bg-body register-box">
+        <div class="col-12 col-md-6 col-lg-4 align-self-end p-lg-5">
+            <div class="shadow p-0 p-lg-3 mb-5 bg-body register-box">
                 <div class="p-3">
                     <ul class="nav register-btn mb-3 row">
                         <li class="nav-item col">
@@ -96,7 +96,7 @@
                                         </small>
                                     @enderror
                                     <div class="form-group input-group input-group my-2">     
-                                        <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity</label>                              
+                                        <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers</label>                              
                                     </div>
                                     <div class="form-group p-1">
                                         <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>

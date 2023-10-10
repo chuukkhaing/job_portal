@@ -103,7 +103,7 @@ body {
 }
 
 .contact-icon {
-    background: #42A1FF;
+    background: #FB5404;
     border-radius: 8px;
     color: #fff;
     padding: 12px 15px;
@@ -427,7 +427,7 @@ body {
 
 .select2-container--default .select2-selection--single {
     border: 1px solid #95B6D8;
-    Padding: 6px 12px;
+    Padding: 3px 6px;
     border-radius: 8px;
 }
 
@@ -441,7 +441,7 @@ body {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: 8px;
+    top: 6px;
 }
 span.select2.select2-container.select2-container--default.select2-container--focus {
     border-radius: 8px;
@@ -536,7 +536,7 @@ a:hover {
 }
 
 .industry_id .select2-container .select2-selection--single {
-    height: 55px;
+    height: 48px;
 }
 .industry_id .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 43px;
