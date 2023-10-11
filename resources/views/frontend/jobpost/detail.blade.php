@@ -304,11 +304,6 @@
         }
     });
 
-    $(document).ready(function() {
-        var success_msg = {{ Session::get('success') }};
-        alert(success_msg)
-    })
-
     function saveJob(id) {
         $.ajax({
             type: 'GET',
