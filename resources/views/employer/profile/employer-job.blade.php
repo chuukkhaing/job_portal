@@ -165,7 +165,7 @@
                                         <a href="{{ route('employer-job-post.edit', $jobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
                                         <div class="d-inline-block form-switch ms-3">
                                             <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($jobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $jobPost->id }}" onclick="changeJobPostStatus({{ $jobPost->id }}, {{ $jobPost->is_active }})">
-                                            <label for="job_post_is_active">Activate/Deactivate</label>
+                                            <label for="job_post_is_active" id="job_post_is_active-{{$jobPost->id}}">@if($jobPost->is_active == 1) Activate @else Deactivate @endif</label>
                                         </div>
                                     </div>
                                 </td>
@@ -211,6 +211,8 @@
                 if(response.data.is_active == 0) {
                     $('.job-post-status-'+id).html('<span class="badge rounded-pill bg-warning">Deactive</span>');
                     $("#job_post_is_active_"+id).attr('onclick','changeJobPostStatus('+id+', '+response.data.is_active+')');
+                    $("#job_post_is_active-"+id).text('');
+                    $("#job_post_is_active-"+id).text('Deactivate');
                 }else {
                     $("#job_post_is_active_"+id).attr('onclick','changeJobPostStatus('+id+', '+response.data.is_active+')');
                     var bg_color = 'secondary';
@@ -219,7 +221,9 @@
                     }else if(response.data.status == 'Expire' || response.data.status == 'Reject') {
                         var bg_color = 'danger'
                     }
-                    $('.job-post-status-'+id).html('<span class="badge rounded-pill bg-'+bg_color+'">'+response.data.status+'</span>')
+                    $('.job-post-status-'+id).html('<span class="badge rounded-pill bg-'+bg_color+'">'+response.data.status+'</span>');
+                    $("#job_post_is_active-"+id).text('');
+                    $("#job_post_is_active-"+id).text('Activate');
                 }
             }
         })

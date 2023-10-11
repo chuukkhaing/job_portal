@@ -419,7 +419,7 @@ body {
     border-radius: 8px;
 }
 .select2-container .select2-selection--single {
-    height: 40px;
+    height: 35px;
 }
 .select2-container .select2-selection--multiple {
     min-height: 38px;
@@ -441,7 +441,7 @@ body {
 }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: 6px;
+    top: 3px;
 }
 span.select2.select2-container.select2-container--default.select2-container--focus {
     border-radius: 8px;
