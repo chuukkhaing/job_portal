@@ -738,19 +738,19 @@ class SeekerProfileController extends Controller
 
     public function getApplication()
     {
-        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         return view('seeker.profile.job-application', compact('jobsApplyBySeeker'));
     }
     
     public function getSavedJob()
     {
-        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         return view('seeker.profile.favourite-job', compact('saveJobs'));
     }
 
     public function getJobAlert()
     {
-        $job_alerts           = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->paginate(10);
+        $job_alerts           = JobAlert::whereSeekerId(Auth::guard('seeker')->user()->id)->get();
         $industries           = Industry::whereNull('deleted_at')->get();
         $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();

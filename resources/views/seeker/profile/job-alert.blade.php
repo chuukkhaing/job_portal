@@ -199,64 +199,35 @@
                     </form>
                 </div>
             </div>
-            @if($job_alerts->count() > 0)
             <div class="my-2 pb-3" id="edit-profile-body">
-                
-                <div class="row px-xl-5 px-lg-3 m-0 pb-0 pt-3">
-                    @foreach($job_alerts as $job_alert)
-                    <div class="col-md-6 col-12 m-0 p-0">
-                        
-                        <div class="row job-content mb-3 m-1">
-                            <!-- Job List Start -->
-                            
-                            <div class="col-lg-8 col-md-7 py-4">
-                                @if(isset($job_alert->country))
-                                <p>
-                                    <span><i class="text-gray pe-2 fa-solid fa-location-pin"></i></span>
-                                    <span class="text-gray">{{ $job_alert->country }} @if(isset($job_alert->state_id)) , {{ $job_alert->State->name }} @endif</span>
-                                </p>
-                                @endif
-                                <h5 class="text-blue">{{ $job_alert->job_title }}</h5>
-                                @if($job_alert->job_type)
-                                <p>{{ $job_alert->job_type }}</p>
-                                @endif
-                                
-                                <div class="">
-                                    @if($job_alert->functional_area_id)
-                                    <a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" style="border: 1px solid #95B6D8; border-radius: 50px" class="text-dark p-2">{{ $job_alert->FunctionalArea->name }}</a>
-                                    @endif
-                                    <div class="text-end d-md-none d-block">
-                                        <i class="fa-regular fa-bookmark"></i>
-                                        <span>{{ date('M d, Y',strtotime($job_alert->created_at)) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Job List End -->
-
-                            <!-- Wishlist Start -->
-                            <div class="col-lg-4 col-md-5 d-md-flex d-none py-4">
-                                <div class="row col-12 m-0 p-0">
-                                    <div class="text-end p-1">
-                                        <span><i class="fa-regular fa-bookmark"></i></span>
-                                        <span>{{ date('M d, Y',strtotime($job_alert->created_at)) }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Wishlist End -->
-                        </div>
-                    </div>
-                    @endforeach
-                    <div class="row">
-                        <div class="col pt-2">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-center">
-                            {{ $job_alerts->appends(request()->all())->links('pagination::bootstrap-4') }}
-                            </ul>
-                        </nav>
-                        </div>
-                    </div>
-                    
+            @if($job_alerts->count() > 0)
+                <div class="table-responsive" id="applicant-tracking-section">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Job Title</th>
+                                <th>Job Type</th>
+                                <th>Job Function</th>
+                                <th>Location</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($job_alerts as $key => $job_alert)
+                            <tr>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $job_alert->job_title }}</td>
+                                <td>{{ $job_alert->job_type ?? '-' }}</td>
+                                <td><a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" class="fw-bold">{{ $job_alert->FunctionalArea->name }}</a></td>
+                                <td>{{ $job_alert->country }} @if(isset($job_alert->state_id)) , {{ $job_alert->State->name }} @endif</td>
+                                <td class="fw-bold">{{ date('M d, Y',strtotime($job_alert->created_at)) }}</td>
+                                <td></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
             @endif
