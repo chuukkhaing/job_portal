@@ -192,7 +192,7 @@ class MemberUserController extends Controller
             ]);
         }
         
-        return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
+        return redirect()->route('member-user.index')->with('success', 'Member Updated Successfully!');
     }
 
     /**

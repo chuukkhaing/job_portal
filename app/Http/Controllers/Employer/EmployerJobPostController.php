@@ -202,7 +202,15 @@ class EmployerJobPostController extends Controller
                     ]);
                 }
             }
-            return redirect()->route('employer-profile.index')->with('success','Create Job Post with '.$jobPost->job_post_type. ' Successfully.');
+
+            if($jobPost->job_post_type == 'standard') {
+                $jobpostType = "Standard";
+            }elseif($jobPost->job_post_type == 'trending') {
+                $jobpostType = "Trending";
+            }elseif($jobPost->job_post_type == 'feature') {
+                $jobpostType = "Feature";
+            }
+            return redirect()->route('manageJob')->with('success','Your '.$jobpostType. ' Job Post has been created successfully.');
         }
     }
 
@@ -395,7 +403,14 @@ class EmployerJobPostController extends Controller
                 }
             }
         }
-        return redirect()->route('employer-profile.index')->with('success','Update Job Post Successfully.');
+        if($jobPost->job_post_type == 'standard') {
+            $jobpostType = "Standard";
+        }elseif($jobPost->job_post_type == 'trending') {
+            $jobpostType = "Trending";
+        }elseif($jobPost->job_post_type == 'feature') {
+            $jobpostType = "Feature";
+        }
+        return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
     }
 
     /**

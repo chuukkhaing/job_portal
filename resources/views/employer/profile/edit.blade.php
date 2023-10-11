@@ -701,7 +701,25 @@
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    
+    $(document).ready(function() {
+        var show_success_modal = "{{ session()->pull('success') }}";
+        if(show_success_modal != '') {
+            MSalert.principal({
+                icon:'success',
+                title:'',
+                description: show_success_modal,
+            })
+        }
+
+        var show_error_modal = "{{ session()->pull('error') }}";
+        if(show_error_modal != '') {
+            MSalert.principal({
+                icon:'error',
+                title:'',
+                description: show_error_modal,
+            })
+        }
+    })
     var el = document.getElementById('resizer_logo');
     $(".employer-logo-upload").on("change", function(event) {
         $("#upload_logo").modal('show');
