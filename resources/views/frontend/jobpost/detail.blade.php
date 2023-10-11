@@ -10,6 +10,19 @@
     </div>
 </div>
 @endif
+@if ($message = Session::get('success'))
+<div class="container-fluid alert-success m-0">
+    <div class="container m-auto m-0 alert alert-success border-0 d-flex align-items-center" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </svg>
+        <div>
+        {{ $message }}
+        </div>
+    </div>
+</div>
+
+@endif
 <div class="container my-5" id="">
     <div class="card shadow" id="edit-profile-body">
         <div class="card-header bg-transparent">
@@ -242,7 +255,7 @@
                             </div>
                         </div>
                         <div class="card job-post-detail-company-profile">
-                            <div class="px-2 px-md-5 py-3">
+                            <div class="px-2 px-md-3 px-lg-5 py-3">
                                 <h5 class="fw-bold text-dark">Company Details</h5>
                                 <div class="row">
                                     @if($jobpost->Employer->Industry->name)
@@ -290,6 +303,11 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    $(document).ready(function() {
+        var success_msg = {{ Session::get('success') }};
+        alert(success_msg)
+    })
 
     function saveJob(id) {
         $.ajax({

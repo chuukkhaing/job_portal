@@ -2,10 +2,10 @@
     <h6 class="text-white resume-header py-2">Personal details</h6>
     <div class="col-9 row py-2">
         <div class="row py-0">
-            <div class="col-6 fw-bold name_label @if(Auth::guard('seeker')->user()->first_name && Auth::guard('seeker')->user()->last_name) @else d-none @endif">
+            <div class="col-6 fw-bold name_label @if(Auth::guard('seeker')->user()->first_name || Auth::guard('seeker')->user()->last_name) @else d-none @endif">
                 Name
             </div>
-            <div class="col-6 name_label @if(Auth::guard('seeker')->user()->first_name && Auth::guard('seeker')->user()->last_name) @else d-none @endif">
+            <div class="col-6 name_label @if(Auth::guard('seeker')->user()->first_name || Auth::guard('seeker')->user()->last_name) @else d-none @endif">
                 <sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span>
             </div>
         </div>
