@@ -169,7 +169,7 @@ class HomeController extends Controller
     public function companies()
     {
         $packages  = Package::whereNull('deleted_at')->get();
-        $employers = Employer::whereIsActive(1)->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
+        $employers = Employer::whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
         return view('frontend.company', compact('packages', 'employers'));
     }
 
