@@ -57,7 +57,7 @@
         <div class="row m-0 p-0">
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
-                    <select name="industry" id="industry" class="find-job-select w-100" @if(isset($_GET['industry'])  && $_GET['industry'] != "") style="border: 2px solid #FB5404;" @endif>
+                    <select name="industry" id="industry" class="find-job-select w-100" @if((isset($_GET['industry'])  && $_GET['industry'] != "") || isset($industry_id)) style="border: 2px solid #FB5404;" @endif>
                         <option value="">Job Industry</option>
                         @foreach($industries as $industry)
                         <option value="{{ $industry->id }}" @if(isset($_GET['industry']) && $_GET['industry'] == $industry->id) selected @endif @if(isset($industry_id) && $industry_id == $industry->id) selected @endif >{{ $industry->name }}</option>
