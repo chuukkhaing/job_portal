@@ -606,7 +606,7 @@
                     }
                     if(response.seeker.summary) {
                         $(".app_receive_career_des_box").removeClass('d-none');
-                        $(".app_receive_career_des").text(response.seeker.summary)
+                        $(".app_receive_career_des").html(response.seeker.summary)
                     }else {
                         $(".app_receive_career_des_box").addClass('d-none');
                     }
@@ -614,7 +614,18 @@
                         $('.app_receive_education_box').removeClass('d-none');
                         $('.app_receive_education').empty();
                         $(response.educations).each(function(edu_index, edu_value){
-                            $('.app_receive_education').append('<div class="my-3 px-3 border-bottom"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_value.from+' to '+edu_value.to+'</p></div>')
+                            var edu_to = '';
+                            if(edu_value.is_current == 1) {
+                                edu_to = 'Present';
+                            }else {
+                                edu_to = edu_value.to;
+                            }
+                            if(edu_value.school == null) {
+                                edu_school = '';
+                            }else {
+                                edu_school = edu_value.school;
+                            }
+                            $('.app_receive_education').append('<div class="my-3 px-3 border-bottom"><p><h4>'+edu_value.location+'</h4></p><p><h4 class="d-inline-block">'+edu_value.degree+'</h4> - '+edu_value.major_subject+'</p><p>'+edu_school+'</p><p>'+edu_value.from+' to '+edu_to+'</p></div>')
                         })
                     }else {
                         $('.app_receive_education_box').addClass('d-none');
