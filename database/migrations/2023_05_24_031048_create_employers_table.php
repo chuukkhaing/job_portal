@@ -40,6 +40,8 @@ class CreateEmployersTable extends Migration
             $table->bigInteger('package_id')->nullable();
 			$table->datetime('package_start_date')->nullable();
 			$table->datetime('package_end_date')->nullable();
+            $table->string('legal_docs')->nullable();
+            $table->boolean('is_verified')->default(0);
             $table->integer('package_point');
             $table->integer('add_on_point');
             $table->integer('purchased_point');

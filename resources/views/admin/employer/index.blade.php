@@ -39,7 +39,7 @@
                         @foreach($employers as $key => $employer)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td>{{ $employer->name ?? '' }}</td>
+                            <td>{{ $employer->name ?? '' }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</td>
                             <td>{{ $employer->email }}</td>
                             <td>{{ $employer->Package->name ?? '' }}</td>
                             <td>{{ $employer->package_start_date }}</td>

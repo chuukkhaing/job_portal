@@ -75,7 +75,7 @@ Route::group([], function () {
 
         Route::get('save-job/{id}', [SaveJobController::class, 'create'])->name('save-job');
 
-        Route::post('job-alert', [SeekerJobAlertController::class, 'store'])->name('job-alert.store');
+        Route::resource('job-alert', SeekerJobAlertController::class);
 
         Route::get('resume-create', [ResumeController::class, 'create'])->name('resume.create');
 

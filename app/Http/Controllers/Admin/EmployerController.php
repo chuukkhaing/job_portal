@@ -181,6 +181,7 @@ class EmployerController extends Controller
             'slug' => $slug,
             'register_at' => now(),
             'is_active' => $request->is_active,
+            'is_verified' => $request->is_verified,
             'updated_by' => Auth::user()->id,
         ]);
 

@@ -105,6 +105,29 @@ class SeekerJobAlertController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $job_alert = JobAlert::findOrFail($id);
+        
+        try {
+            $job_alert = JobAlert::findOrFail($id)->delete();
+            if ($job_alert) {
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Delete Job Alert Successfully!'
+                ]);
+            }
+            else {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Job Alert deleted failed'
+                ]);
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Job Alert deleted failed'
+                ]);
+            } 
+        }
     }
 }

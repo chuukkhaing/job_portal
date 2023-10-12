@@ -216,14 +216,16 @@
                         </thead>
                         <tbody>
                         @foreach($job_alerts as $key => $job_alert)
-                            <tr>
+                            <tr class="job-alert-tr-{{ $job_alert->id }}">
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $job_alert->job_title }}</td>
                                 <td>{{ $job_alert->job_type ?? '-' }}</td>
                                 <td><a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" class="fw-bold">{{ $job_alert->FunctionalArea->name }}</a></td>
                                 <td>{{ $job_alert->country }} @if(isset($job_alert->state_id)) , {{ $job_alert->State->name }} @endif</td>
                                 <td class="fw-bold">{{ date('M d, Y',strtotime($job_alert->created_at)) }}</td>
-                                <td></td>
+                                <td>
+                                    <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit" id="confirmation-{{ $job_alert->id }}" value="{{ $job_alert->id }}"><i class="fas fa-trash-can"></i></button>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -262,6 +264,36 @@
         });
 
     })
+
+    $(document).on('click', '.delete-confirm', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'DELETE',
+                    data: {
+                        "id": id
+                    },
+                    url: "/seeker/job-alert/"+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".job-alert-tr-"+id).empty();
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
+        })
+    });
 
     function createJobAlert(){
         $(".job-alert-create-form").removeClass('d-none');

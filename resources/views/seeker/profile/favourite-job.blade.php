@@ -93,11 +93,13 @@
                                     {{ $saveJob->JobPost->SubFunctionalArea->name }}
                                 </td>
                                 <td>
-                                    {{ $saveJob->JobPost->Township->name ?? '' }} {{ $saveJob->JobPost->Township->name ? ',' : '' }} 
+                                    {{ $saveJob->JobPost->Township->name ?? '' }} {{ $saveJob->JobPost->Township ? ',' : '' }} 
                                     {{ $saveJob->JobPost->State->name ?? '' }}
                                 </td>
                                 <td class="fw-bold">{{ date('d M,Y', strtotime($saveJob->created_at)) }}</td>
-                                <td></td>
+                                <td>
+                                <a href="" onclick="saveJob({{ $saveJob->JobPost->id }})" class="text-danger"><i class="fas fa-trash-can"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

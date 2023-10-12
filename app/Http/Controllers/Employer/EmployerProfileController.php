@@ -128,17 +128,21 @@ class EmployerProfileController extends Controller
         ]);
 
         $employer = Employer::findOrFail($id);
-        $qr = $employer->qr;
 
-        if($request->qrStatus == 'empty') {
-            File::deleteDirectory(public_path('storage/employer_qr/'.'/'.$qr));
-            $qr = Null;
+        if($request->hasFile('legal_docs')) {
+            if($employer->legal_docs){
+                File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+            }
+            $file    = $request->file('legal_docs');
+            $legal_docs = date('YmdHi').$file->getClientOriginalName();
+            $path = $file-> move(public_path('storage/employer_legal_docs/'), $legal_docs);
+        }else {
+            $legal_docs = $employer->legal_docs;
         }
 
-        if($request->hasFile('qr')) {
-            $file    = $request->file('qr');
-            $qr = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_qr/'), $qr);
+        if($request->legal_docs_status == 'empty') {
+            File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+            $legal_docs = NULL;
         }
 
         if($request->password) {
@@ -148,7 +152,7 @@ class EmployerProfileController extends Controller
         }
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
-            'qr' => $qr,
+            'legal_docs' => $legal_docs,
             'name' => $request->name,
             'industry_id' => $request->industry_id,
             'ownership_type_id' => $request->ownership_type_id,
@@ -347,6 +351,7 @@ class EmployerProfileController extends Controller
     public function removeLogo(Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$employer->logo));
         $employer = $employer->update([
             'logo' => Null,
             'updated_by' => Auth::guard('employer')->user()->id,
@@ -381,6 +386,7 @@ class EmployerProfileController extends Controller
     public function removeBackground(Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        File::deleteDirectory(public_path('storage/employer_background/'.'/'.$employer->background));
         $employer = $employer->update([
             'background' => Null,
             'updated_by' => Auth::guard('employer')->user()->id,

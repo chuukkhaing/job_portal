@@ -55,11 +55,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                     </div>
         
                     <div class="company-name py-2 text-center">
-                        @if(env('IS_STAGING') == 'TRUE')
-                        <h3 style="height: 32px">{{ $employer->name }}</h3>
-                        @else
-                        <h3 style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 50, $end='...') }}</h3>
-                        @endif
+                        <h3 style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 50, $end='...') }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</h3>
                     </div>
         
                     {{--<div class="company-address">

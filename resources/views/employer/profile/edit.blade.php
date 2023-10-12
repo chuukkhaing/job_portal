@@ -317,6 +317,17 @@
                                                 </select>
                                             </div>
 
+                                            <div class="col-lg-6 col-12 form-group">
+                                                <label class="seeker_label" for="legal_docs">Please Attach Legal Document </label>
+                                                @if($employer->legal_docs)
+                                                <div class="pb-2 legal_docs_link">
+                                                    <a class="" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a> <a class="btn btn-sm btn-danger ms-2" onclick="removeLegalDocs()"><i class="fa-solid fa-xmark text-white"></i></a>
+                                                </div>
+                                                @endif
+                                                <input type="hidden" name="legal_docs_status" value="" id="legal_docs_status">
+                                                <input type="file" name="legal_docs" id="legal_docs" class="form-control" value="{{ $employer->legal_docs }}">
+                                            </div>
+
                                             <h5 class="py-3">Employer Address Detail</h5>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered employer-address @if($employer->EmployerAddress->count() > 0) @else d-none @endif">
@@ -719,7 +730,18 @@
                 description: show_error_modal,
             })
         }
+
+        $("#legal_docs").change(function() {
+            $("#legal_docs_status").val('');
+        })
     })
+
+    function removeLegalDocs()
+    {
+        $("#legal_docs_status").val('empty');
+        $(".legal_docs_link").addClass('d-none');
+    }
+
     var el = document.getElementById('resizer_logo');
     $(".employer-logo-upload").on("change", function(event) {
         $("#upload_logo").modal('show');

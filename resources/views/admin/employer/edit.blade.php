@@ -84,25 +84,37 @@
                     </div>
 
                     <div class="col-4 form-group">
-                        <label for="package_id">Package Effective Date </label>
+                        <label for="package_id">Package Effective Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group" id="package_start_date">
                             @if($employer->package_start_date)
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" placeholder="Package Effective Date">
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" placeholder="Package Effective Date" required>
                             @else
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="" placeholder="Package Effective Date">
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="" placeholder="Package Effective Date" required>
                             @endif
                             <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-4 form-group">
+                        <label for="legal_docs">Employer Legal Docs</label>
+                        @if($employer->legal_docs)
+                        <div class="pb-2 legal_docs_link">
+                            <a class="text-decoration-none" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a>
+                        </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group">
+                    <div class="col-4 form-group">
                         <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                         <input type="radio" name="is_active" id="active" class="" value="1" @if($employer->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
                         <input type="radio" name="is_active" id="in_active" class="" value="0" @if($employer->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="is_verified">Employer Verification <span class="text-danger">*</span></label> <br>
+                        <input type="radio" name="is_verified" id="verify" class="" value="1" @if($employer->is_verified == 1) checked required @endif> <label for="verify"> Verified Employer</label><br>
+                        <input type="radio" name="is_verified" id="not_verify" class="" value="0" @if($employer->is_verified == 0) checked required @endif> <label for="not_verify"> Not Verified Employer</label>
                     </div>
                 </div>
                 <button class="btn btn-primary btn-icon-split btn-sm" type="submit">
