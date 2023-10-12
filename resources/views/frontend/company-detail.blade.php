@@ -34,7 +34,7 @@
     <div class="row px-3">
         <div class="col-lg-6 col-md-6 col-12">
             <div class="company-name pt-4 pb-2">
-                <h3>{{ $employer->name }}</h3>
+                <h3>{{ $employer->name }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</h3>
             </div>
 
             <div class="company-address">
@@ -291,7 +291,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-9 col-8 align-self-center">
-                            <div class="mt-1 job-company">{{ $employer->name }}</div>
+                            <div class="mt-1 job-company">{{ $employer->name }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</div>
                             <div class="mt-1">{{ $jobPost->job_title }}</div>
                             @if($jobPost->township_id)
                             <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>

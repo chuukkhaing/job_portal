@@ -87,7 +87,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td class="fw-bold"><a href="{{ route('jobpost-detail', $jobApplyBySeeker->JobPost->slug) }}" class="text-black">{{ $jobApplyBySeeker->JobPost->job_title }}</a></td>
-                                <td class="text-blue">{{ $jobApplyBySeeker->JobPost->Employer->name }}</td>
+                                <td class="text-blue">{{ $jobApplyBySeeker->JobPost->Employer->name }} @if($jobApplyBySeeker->JobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</td>
                                 <td>
                                     {{ $jobApplyBySeeker->JobPost->MainFunctionalArea->name }} , 
                                     {{ $jobApplyBySeeker->JobPost->SubFunctionalArea->name }}

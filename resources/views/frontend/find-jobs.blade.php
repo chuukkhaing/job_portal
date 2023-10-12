@@ -138,7 +138,7 @@
                 </div>
                 <div class="col-md-8 col-9 align-self-center py-2">
                     <a href="{{ route('jobpost-detail', $jobPost->slug) }}">
-                        <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }}</div>
+                        <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</div>
                         <div class="mt-1">{{ $jobPost->job_title }}</div>
                         @if($jobPost->township_id)
                         <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
@@ -228,7 +228,7 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }}</span>
+                                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</span>
                                         </div>
 
                                         <div class="fz13">
@@ -253,12 +253,12 @@
                     <h5 class="text-white py-2">Featured Jobs</h5>
                 </div>
 
-                <div class="job-trending-scroll shadow rounded p-2">
+                <div class="job-trending-scroll shadow rounded">
                     @foreach($feature_jobs as $feature_job)
                     <a href="{{ route('jobpost-detail', $feature_job->slug) }}">
                         <div class="col-lg-12 border-bottom p-0">
-                            <div class="m-0 my-2 p-2 trending-job-list rounded">
-                                <div class="row m-0 p-2">
+                            <div class="m-0 my-2 trending-job-list rounded">
+                                <div class="row m-0">
                                     <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
@@ -269,12 +269,12 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }}</span>
+                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</span>
                                         </div>
 
                                         <div class="fz13">
                                             <span class="me-2 d-block" style="margin: 0px 0 -15px 0"><i class="fa fa-briefcase me-2"></i></i>{{ $feature_job->MainFunctionalArea->name }}</span>
-                                            @if($feature_job->country == 'Myanmar' && $feature_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $feature_job->Township->name }}</span> @endif
+                                            @if($feature_job->township_id )<span style="margin: -15px 0"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> {{ $feature_job->Township->name }}</span> @endif
                                         </div>
                                     </div>
                                 </div>

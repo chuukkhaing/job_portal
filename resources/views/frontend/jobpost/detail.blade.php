@@ -22,7 +22,7 @@
                     @endif
                     <div class="align-self-center">
                         <span class="h4 fw-bold">{{ $jobpost->job_title }} @if($jobpost->no_of_candidate) ( {{ $jobpost->no_of_candidate }} - Posts ) @endif</span>
-                        <div><a class="text-muted h6" href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }}</a></div>
+                        <div><a class="text-muted h6" href="{{ route('company-detail',$jobpost->Employer->slug ?? '') }}">{{ $jobpost->Employer->name }} @if($jobpost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</a></div>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 col-xl-5 mb-2 align-self-center">
@@ -130,7 +130,7 @@
                                 
                             </div>
                             <div class="col-10">
-                                <h4 class="fw-bold text-black">{{ $jobpost->Employer->name }}</h4>
+                                <h4 class="fw-bold text-black">{{ $jobpost->Employer->name }} @if($jobpost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</h4>
                             </div>
                         </div>
                         <div class="card job-post-detail-company-profile mb-2">
@@ -212,7 +212,7 @@
                                             <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
                                             @endif
                                         </div>
-                                        <h4 class="fw-bold text-black job-post-company-name">{{ $jobpost->Employer->name }}</h4>
+                                        <h4 class="fw-bold text-black job-post-company-name">{{ $jobpost->Employer->name }} @if($jobpost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</h4>
                                         <h5 class="fw-bold text-dark">Company Overview</h5>
                                         @if($jobpost->Employer->summary)
                                         <p class="mb-4">

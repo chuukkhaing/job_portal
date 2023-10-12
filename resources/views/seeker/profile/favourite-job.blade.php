@@ -87,7 +87,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td class="fw-bold"><a href="{{ route('jobpost-detail', $saveJob->JobPost->slug) }}" class="text-black">{{ $saveJob->JobPost->job_title }}</a></td>
-                                <td class="text-blue">{{ $saveJob->JobPost->Employer->name }}</td>
+                                <td class="text-blue">{{ $saveJob->JobPost->Employer->name }} @if($saveJob->JobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</td>
                                 <td>
                                     {{ $saveJob->JobPost->MainFunctionalArea->name }} , 
                                     {{ $saveJob->JobPost->SubFunctionalArea->name }}
