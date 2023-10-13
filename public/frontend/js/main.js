@@ -45,7 +45,7 @@
 
     $('.dataTable').dataTable({
         ordering: false,
-        dom: '<rtp>',
+        dom: '<frtp>',
     });
 
     $('#dataTable').dataTable({
