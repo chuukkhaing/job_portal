@@ -31,7 +31,7 @@ class CreateEmployersTable extends Migration
 			$table->integer('no_of_offices')->nullable();
 			$table->string('website')->nullable();
 			$table->string('no_of_employees')->nullable();
-			$table->boolean('is_active')->default(1);
+			$table->boolean('is_active')->default(0);
 			$table->string('slug')->nullable();
 			$table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
