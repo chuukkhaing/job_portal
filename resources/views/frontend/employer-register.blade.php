@@ -33,8 +33,8 @@
                 </div>
             </div>--}}
         </div>
-        <div class="col-12 col-md-6 col-lg-4 align-self-end p-lg-5">
-            <div class="shadow p-0 p-lg-3 mb-5 bg-body register-box">
+        <div class="col-12 col-md-6 col-lg-4 align-self-end p-2 p-xl-5">
+            <div class="shadow p-0 my-5 bg-body register-box">
                 <div class="p-3">
                     <ul class="nav register-btn mb-3 row">
                         <li class="nav-item col">

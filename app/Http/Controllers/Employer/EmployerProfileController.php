@@ -407,7 +407,11 @@ class EmployerProfileController extends Controller
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $jobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at', 'desc')->get();
-        return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'jobPosts'));
+        if($jobPosts->count() > 0) {
+            return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'jobPosts'));
+        }else {
+            return redirect()->route('employer-job-post.create');
+        }
     }
 
     public function applicantTracking()

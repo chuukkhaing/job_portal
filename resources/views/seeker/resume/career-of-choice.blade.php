@@ -103,7 +103,7 @@
                 var main_functional_area_id = $(this).val();
                 $.ajax({
                     type: 'GET',
-                    url: 'get-sub-functional-area/'+main_functional_area_id,
+                    url: '/seeker/get-sub-functional-area/'+main_functional_area_id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#sub_functional_area_id").empty();
