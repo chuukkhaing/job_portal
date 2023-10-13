@@ -104,7 +104,7 @@
             @endif
         </ul>
     </div>
-    
+    <hr style="border-bottom: 5px solid gray;">
     <div class="tab-content" id="employerTabContent">
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','profile')->count() > 0))
         <div class="tab-pane fade p-0 show active" id="employer-dashboard" >

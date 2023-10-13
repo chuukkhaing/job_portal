@@ -43,6 +43,11 @@
         height: 200
     });
 
+    $('.dataTable').dataTable({
+        ordering: false,
+        dom: '<rtp>',
+    });
+
     $('#dataTable').dataTable({
         ordering: false
     });

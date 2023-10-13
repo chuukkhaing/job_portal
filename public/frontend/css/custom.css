@@ -842,6 +842,46 @@ page::-webkit-scrollbar-thumb
 select::-ms-expand {
     display: none;
 }
+
+.manage-jobs {
+    border: none;
+}
+
+.manage-jobs .nav-link {
+    font-weight: bold;
+    color: #000000;
+}
+
+.manage-jobs .nav-link.active {
+    font-weight: bold;
+    color: #0355D0;
+    background: #EBF3FF;
+    border: none;
+    border-bottom: 2px solid #0355D0;
+    border-radius: 0;
+}
+
+#employerTab {
+    border: none;
+}
+
+.page-item.active .page-link {
+    background: #F9F5FF;
+    color: #0355d0;
+    border: 1px solid #D0D5DD;
+    font-weight: bold;
+}
+
+.page-item .page-link {
+    color: #344054;
+    border: 1px solid #D0D5DD;
+    font-weight: bold;
+}
+
+.page-item.disabled .page-link {
+    color: #344054;
+    border: 1px solid #D0D5DD;
+}
 /* @media css start */
 @media (max-width: 1024px) {
     .multiselect-selected-text {

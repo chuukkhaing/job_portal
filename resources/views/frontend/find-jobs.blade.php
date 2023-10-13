@@ -128,7 +128,7 @@
                         @if($jobPost->Employer->logo)
                         <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                         @else 
-                        <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
+                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                         @endif
                         <div class="">
                         @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
@@ -222,7 +222,7 @@
                                         @if($trending_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
-                                        <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
                                     </div>
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
@@ -263,7 +263,7 @@
                                         @if($feature_job->Employer->logo)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
-                                        <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                        <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
                                     </div>
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">

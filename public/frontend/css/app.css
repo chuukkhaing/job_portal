@@ -547,6 +547,9 @@ a:hover {
 .industry_id .select2-container .select2-selection--single .select2-selection__rendered {
     padding-left: 8px;
 }
+.industry_id .select2-container--default .select2-selection--single .select2-selection__clear {
+    height: 40px;
+}
 #edit-profile-text {
     background: #FFE0E5;
     border-radius: 8px 8px 0 0;
@@ -825,12 +828,12 @@ a.disabled {
     border: 1px solid #B7CEE5;
 }
 .form-switch .employer-form-check:checked {
-    background-color: #FB5404;
-    border-color: #FB5404;
+    background-color: #6C757D;
+    border-color: #6C757D;
 }
 .form-switch .employer-form-check {
     background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"%3e%3ccircle r="3" fill="%23fff"/%3e%3c/svg%3e');
-    background-color: #0255CF;
+    background-color: #0355D0;
 }
 .form-switch .employer-form-check:focus {
     background-image: url('data:image/svg+xml,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 8 8"%3e%3ccircle r="3" fill="%23fff"/%3e%3c/svg%3e');
