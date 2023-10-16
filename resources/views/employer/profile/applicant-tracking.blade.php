@@ -119,7 +119,7 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
                         
-                        <div class="table-responsive" id="applicant-tracking-section">
+                        <div class="table-responsive applicant-tracking-section">
                             <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="tab-pane fade " id="nav-expire" role="tabpanel" aria-labelledby="nav-expire-tab">
                         
-                        <div class="table-responsive" id="applicant-tracking-section">
+                        <div class="table-responsive applicant-tracking-section">
                             <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
@@ -247,7 +247,7 @@
                     </div>
                     <div class="tab-pane fade " id="nav-deactive" role="tabpanel" aria-labelledby="nav-deactive-tab">
                         
-                        <div class="table-responsive" id="applicant-tracking-section">
+                        <div class="table-responsive applicant-tracking-section">
                             <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
@@ -579,8 +579,15 @@
         ]
     });
 
+    $(document).ready(function() {
+        $('.nav-link').click(function() {
+            $(".applicant-tracking-section").removeClass('d-none');
+            $("#cv-list-section").addClass('d-none');
+        })
+    })
+
     function getCVList(id,status) {
-        $("#applicant-tracking-section").addClass('d-none');
+        $(".applicant-tracking-section").addClass('d-none');
         $("#cv-list-section").removeClass('d-none');
         table.rows().remove();
         getRelatedApplicantList(id,status);
