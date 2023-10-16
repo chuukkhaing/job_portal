@@ -455,14 +455,18 @@ class EmployerJobPostController extends Controller
             $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
             $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
             $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
-            if($experiences->is_experience == 1) {
-                $experiences = DB::table('seeker_experiences as a')
-                            ->where('a.seeker_id','=',$seeker->id)
-                            ->join('industries as b','a.industry_id','=','b.id')
-                            ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
-                            ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
-                            ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
-                            ->get();
+            if($experiences) {
+                if($experiences->is_experience == 1) {
+                    $experiences = DB::table('seeker_experiences as a')
+                                ->where('a.seeker_id','=',$seeker->id)
+                                ->join('industries as b','a.industry_id','=','b.id')
+                                ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
+                                ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
+                                ->select('a.*','b.name as industry_name', 'c.name as main_functional_area_name', 'd.name as sub_functional_area_name')
+                                ->get();
+                }
+            }else {
+                $experiences = [];
             }
             $skill_main_functional_areas = DB::table('seeker_skills as a')
                             ->where('a.seeker_id','=',$seeker->id)
