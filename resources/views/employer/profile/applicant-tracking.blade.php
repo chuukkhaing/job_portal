@@ -104,69 +104,210 @@
             @endif
         </ul>
     </div>
-    <hr style="border-bottom: 5px solid gray;">
+    <hr style="border-bottom: 5px solid gray;">   
     <div class="tab-content" id="employerTabContent">
-        @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
+        @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','application_tracking')->count() > 0))
         <div class="tab-pane fade p-0 show active" id="employer-dashboard">
             <div class="container-fluid" id="edit-profile-header">
-                <div class="px-lg-5 px-md-3 px-0 m-0 pb-0 pt-3">
-                    <div class="table-responsive" id="applicant-tracking-section">
-                        <table class="table table-hover table-sm dataTable" width="100%">
-                            <thead>
-                                <tr>
-                                    <td>No.</td>
-                                    <td>Job Title</td>
-                                    <td># Apps</td>
-                                    <td>Contact Name</td>
-                                    <td>Not Suitable</td>
-                                    <td>Shorted List</td>
-                                    <td>Hired</td>
-                                    {{--<td>Note</td>
-                                    <td>QR</td>--}}
-                                    <td>Posted Date</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($jobApplicants as $key => $jobApplicant)
-                                <tr>
-                                    <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black"><a href="{{ route('jobpost-detail', $jobApplicant->slug) }}">{{ $jobApplicant->job_title }}</a></td>
-                                    <td class ="text-blue fw-bold">
-                                        @if($jobApplicant->JobApply->count() > 0)
-                                        <a href="#" onclick="getCVList({{$jobApplicant->id}},'received')" class="text-blue">{{ $jobApplicant->JobApply->count() }} CVs</a>
-                                        @else 
-                                        {{ $jobApplicant->JobApply->count() }} CV
-                                        @endif
-                                    </td>
-                                    <td class="text-black">{{ $jobApplicant->recruiter_name }}</td>
-                                    <td>
-                                        @if($jobApplicant->JobApply->where('status','not-suitable')->count() > 0)
-                                        <a href="#" class="text-danger fw-bold" onclick="getCVList({{$jobApplicant->id}},'not-suitable')">{{ $jobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>
-                                        @else 
-                                        <span class="text-danger fw-bold">{{ $jobApplicant->JobApply->where('status','not-suitable')->count() }} CV</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($jobApplicant->JobApply->where('status','short-listed')->count() > 0)
-                                        <a href="#" class="fw-bold" style="color: #4AA8BF" onclick="getCVList({{$jobApplicant->id}},'short-listed')">{{ $jobApplicant->JobApply->where('status','short-listed')->count() }} CVs</a>
-                                        @else 
-                                        <span class="fw-bold" style="color: #4AA8BF">{{ $jobApplicant->JobApply->where('status','short-listed')->count() }} CV</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if($jobApplicant->JobApply->where('status','hire')->count() > 0)
-                                        <a href="#" class="text-success fw-bold" onclick="getCVList({{$jobApplicant->id}},'hire')">{{ $jobApplicant->JobApply->where('status','hire')->count() }} CVs</a>
-                                        @else 
-                                        <span class="text-success fw-bold">{{ $jobApplicant->JobApply->where('status','hire')->count() }} CV</span>
-                                        @endif
-                                    </td>
-                                    {{--<td></td>
-                                    <td></td>--}}
-                                    <td class="fw-bold text-black">{{ date('d M, Y', strtotime($jobApplicant->created_at)) }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                <nav class="py-3">
+                    <div class="nav nav-tabs manage-jobs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-active-tab" data-bs-toggle="tab" data-bs-target="#nav-active" type="button" role="tab" aria-controls="nav-active" aria-selected="true">Active Jobs</button>
+                        <button class="nav-link" id="nav-expire-tab" data-bs-toggle="tab" data-bs-target="#nav-expire" type="button" role="tab" aria-controls="nav-expire" aria-selected="false">Expired Jobs</button>
+                        <button class="nav-link" id="nav-deactive-tab" data-bs-toggle="tab" data-bs-target="#nav-deactive" type="button" role="tab" aria-controls="nav-deactive" aria-selected="false">Deactivated Jobs</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
+                        
+                        <div class="table-responsive" id="applicant-tracking-section">
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Shorted List</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Hired</th>
+                                        {{--<th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Note</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">QR</th>--}}
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Posted Date</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    @foreach($activejobApplicants as $key => $activejobApplicant)
+                                    <tr>
+                                        <td class="text-black">{{ $key+1 }}</td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $activejobApplicant->slug) }}">{{ $activejobApplicant->job_title }}</a></td>
+                                        <td class ="text-blue ">
+                                            @if($activejobApplicant->JobApply->count() > 0)
+                                            <a href="#" onclick="getCVList({{$activejobApplicant->id}},'received')" class="text-blue">{{ $activejobApplicant->JobApply->count() }} CVs</a>
+                                            @else 
+                                            {{ $activejobApplicant->JobApply->count() }} CV
+                                            @endif
+                                        </td>
+                                        <td class="text-black">{{ $activejobApplicant->recruiter_name }}</td>
+                                        <td>
+                                            @if($activejobApplicant->JobApply->where('status','not-suitable')->count() > 0)
+                                            <a href="#" class="text-danger " onclick="getCVList({{$activejobApplicant->id}},'not-suitable')">{{ $activejobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-danger ">{{ $activejobApplicant->JobApply->where('status','not-suitable')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($activejobApplicant->JobApply->where('status','short-listed')->count() > 0)
+                                            <a href="#" class="" style="color: #4AA8BF" onclick="getCVList({{$activejobApplicant->id}},'short-listed')">{{ $activejobApplicant->JobApply->where('status','short-listed')->count() }} CVs</a>
+                                            @else 
+                                            <span class="" style="color: #4AA8BF">{{ $activejobApplicant->JobApply->where('status','short-listed')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($activejobApplicant->JobApply->where('status','hire')->count() > 0)
+                                            <a href="#" class="text-success " onclick="getCVList({{$activejobApplicant->id}},'hire')">{{ $activejobApplicant->JobApply->where('status','hire')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-success ">{{ $activejobApplicant->JobApply->where('status','hire')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        {{--<td></td>
+                                        <td></td>--}}
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($activejobApplicant->created_at)) }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade " id="nav-expire" role="tabpanel" aria-labelledby="nav-expire-tab">
+                        
+                        <div class="table-responsive" id="applicant-tracking-section">
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Shorted List</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Hired</th>
+                                        {{--<th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Note</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">QR</th>--}}
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Posted Date</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    @foreach($expirejobApplicants as $key => $expirejobApplicant)
+                                    <tr>
+                                        <td class="text-black">{{ $key+1 }}</td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $expirejobApplicant->slug) }}">{{ $expirejobApplicant->job_title }}</a></td>
+                                        <td class ="text-blue ">
+                                            @if($expirejobApplicant->JobApply->count() > 0)
+                                            <a href="#" onclick="getCVList({{$expirejobApplicant->id}},'received')" class="text-blue">{{ $expirejobApplicant->JobApply->count() }} CVs</a>
+                                            @else 
+                                            {{ $expirejobApplicant->JobApply->count() }} CV
+                                            @endif
+                                        </td>
+                                        <td class="text-black">{{ $expirejobApplicant->recruiter_name }}</td>
+                                        <td>
+                                            @if($expirejobApplicant->JobApply->where('status','not-suitable')->count() > 0)
+                                            <a href="#" class="text-danger " onclick="getCVList({{$expirejobApplicant->id}},'not-suitable')">{{ $expirejobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-danger ">{{ $expirejobApplicant->JobApply->where('status','not-suitable')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($expirejobApplicant->JobApply->where('status','short-listed')->count() > 0)
+                                            <a href="#" class="" style="color: #4AA8BF" onclick="getCVList({{$expirejobApplicant->id}},'short-listed')">{{ $expirejobApplicant->JobApply->where('status','short-listed')->count() }} CVs</a>
+                                            @else 
+                                            <span class="" style="color: #4AA8BF">{{ $expirejobApplicant->JobApply->where('status','short-listed')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($expirejobApplicant->JobApply->where('status','hire')->count() > 0)
+                                            <a href="#" class="text-success " onclick="getCVList({{$expirejobApplicant->id}},'hire')">{{ $expirejobApplicant->JobApply->where('status','hire')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-success ">{{ $expirejobApplicant->JobApply->where('status','hire')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        {{--<td></td>
+                                        <td></td>--}}
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($expirejobApplicant->created_at)) }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade " id="nav-deactive" role="tabpanel" aria-labelledby="nav-deactive-tab">
+                        
+                        <div class="table-responsive" id="applicant-tracking-section">
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Shorted List</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Hired</th>
+                                        {{--<th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Note</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">QR</th>--}}
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Posted Date</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody>
+                                    @foreach($inactivejobApplicants as $key => $inactivejobApplicant)
+                                    <tr>
+                                        <td class="text-black">{{ $key+1 }}</td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $inactivejobApplicant->slug) }}">{{ $inactivejobApplicant->job_title }}</a></td>
+                                        <td class ="text-blue ">
+                                            @if($inactivejobApplicant->JobApply->count() > 0)
+                                            <a href="#" onclick="getCVList({{$inactivejobApplicant->id}},'received')" class="text-blue">{{ $inactivejobApplicant->JobApply->count() }} CVs</a>
+                                            @else 
+                                            {{ $inactivejobApplicant->JobApply->count() }} CV
+                                            @endif
+                                        </td>
+                                        <td class="text-black">{{ $inactivejobApplicant->recruiter_name }}</td>
+                                        <td>
+                                            @if($inactivejobApplicant->JobApply->where('status','not-suitable')->count() > 0)
+                                            <a href="#" class="text-danger " onclick="getCVList({{$inactivejobApplicant->id}},'not-suitable')">{{ $inactivejobApplicant->JobApply->where('status','not-suitable')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-danger ">{{ $inactivejobApplicant->JobApply->where('status','not-suitable')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($inactivejobApplicant->JobApply->where('status','short-listed')->count() > 0)
+                                            <a href="#" class="" style="color: #4AA8BF" onclick="getCVList({{$inactivejobApplicant->id}},'short-listed')">{{ $inactivejobApplicant->JobApply->where('status','short-listed')->count() }} CVs</a>
+                                            @else 
+                                            <span class="" style="color: #4AA8BF">{{ $inactivejobApplicant->JobApply->where('status','short-listed')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($inactivejobApplicant->JobApply->where('status','hire')->count() > 0)
+                                            <a href="#" class="text-success " onclick="getCVList({{$inactivejobApplicant->id}},'hire')">{{ $inactivejobApplicant->JobApply->where('status','hire')->count() }} CVs</a>
+                                            @else 
+                                            <span class="text-success ">{{ $inactivejobApplicant->JobApply->where('status','hire')->count() }} CV</span>
+                                            @endif
+                                        </td>
+                                        {{--<td></td>
+                                        <td></td>--}}
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($inactivejobApplicant->created_at)) }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                        
                     </div>
                     <h3 class="job-tracking-title" id="receive-job-title"></h3>
                     <div class="d-none" id="cv-list-section">
@@ -403,18 +544,18 @@
                         </div>
                         
                     </div>
-                </div>
-            </div>
-            <div id="" class="loading hide-loader">
-                <div class="loader">
-                    <div class="spinner-grow text-primary m-1" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-dark m-1" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="spinner-grow text-secondary m-1" role="status">
-                        <span class="sr-only">Loading...</span>
+                    <div id="" class="loading hide-loader">
+                        <div class="loader">
+                            <div class="spinner-grow text-primary m-1" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-dark m-1" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div class="spinner-grow text-secondary m-1" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -439,8 +580,6 @@
     });
 
     function getCVList(id,status) {
-        $(".employer-single-tab").removeClass('active');
-        $("#applicant-tracking-tab").addClass('active');
         $("#applicant-tracking-section").addClass('d-none');
         $("#cv-list-section").removeClass('d-none');
         table.rows().remove();

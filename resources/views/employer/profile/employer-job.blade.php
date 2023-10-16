@@ -121,15 +121,15 @@
                     <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-hover table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
-                                        <td>No.</td>
-                                        <td>Job Title</td>
-                                        <td>Job Function</td>
-                                        <td>Status</td>
-                                        <td>Date</td>
-                                        <td>Action</td>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,15 +182,15 @@
                     <div class="tab-pane fade" id="nav-online" role="tabpanel" aria-labelledby="nav-online-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-hover table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
-                                        <td>No.</td>
-                                        <td>Job Title</td>
-                                        <td>Job Function</td>
-                                        <td>Status</td>
-                                        <td>Date</td>
-                                        <td>Action</td>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -243,15 +243,15 @@
                     <div class="tab-pane fade" id="nav-reject" role="tabpanel" aria-labelledby="nav-reject-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-hover table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
-                                        <td>No.</td>
-                                        <td>Job Title</td>
-                                        <td>Job Function</td>
-                                        <td>Status</td>
-                                        <td>Date</td>
-                                        <td>Action</td>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -304,15 +304,15 @@
                     <div class="tab-pane fade" id="nav-expire" role="tabpanel" aria-labelledby="nav-expire-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-hover table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
                                 <thead>
                                     <tr>
-                                        <td>No.</td>
-                                        <td>Job Title</td>
-                                        <td>Job Function</td>
-                                        <td>Status</td>
-                                        <td>Date</td>
-                                        <td>Action</td>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

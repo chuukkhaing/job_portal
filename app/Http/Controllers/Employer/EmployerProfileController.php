@@ -425,7 +425,9 @@ class EmployerProfileController extends Controller
         }
         $packages = Package::whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $jobApplicants = JobPost::whereEmployerId($employer->id)->get();
-        return view ('employer.profile.applicant-tracking', compact('jobApplicants', 'employer', 'packages', 'packageItems'));
+        $activejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(1)->where('status','!=', 'Expire')->get();
+        $inactivejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(0)->where('status','!=', 'Expire')->get();
+        $expirejobApplicants = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->get();
+        return view ('employer.profile.applicant-tracking', compact('activejobApplicants', 'inactivejobApplicants', 'expirejobApplicants', 'employer', 'packages', 'packageItems'));
     }
 }
