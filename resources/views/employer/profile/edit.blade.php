@@ -858,21 +858,27 @@
     $('.employer-background-upload').change(function() {
         $("#upload_background").modal('show');
         croppie = new Croppie(el_bg, {
+            type: 'canvas',
             viewport: {
-                width: 828,
-                height: 230,
+                width: 400,
+                height: 125,
                 type: 'square'
             },
             boundary: {
-                width: 850,
-                height: 250
+                width: 450,
+                height: 175,
             }
         });
         getImage(event.target, croppie); 
     });
 
     $("#upload_background_submit").on("click", function() {
-        croppie.result('base64').then(function(base64) {
+        croppie.result({
+                typ: 'base64',
+                size: { 
+                    width: 1920, height: 600 
+                }
+            }).then(function(base64) {
             $("#upload_background").modal("hide"); 
             
             $('.employer-background-remove').removeClass('d-none');
