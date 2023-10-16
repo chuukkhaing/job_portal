@@ -567,7 +567,7 @@ class EmployerJobPostController extends Controller
                             ->get();
             }
         }else {
-            $experiences = []
+            $experiences = [];
         }
         
         $skill_main_functional_areas = DB::table('seeker_skills as a')
