@@ -17,7 +17,7 @@
                 <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
                 <div class="float-end">
                     {{--<a href="http://" class="btn btn-outline-primary">Add-on Features</a>--}}
-                    <a href="http://" class="btn profile-save-btn" data-bs-toggle="modal" data-bs-target="#cardModal">Package Details</a>
+                    <a href="http://" class="btn profile-save-btn btn-sm" data-bs-toggle="modal" data-bs-target="#cardModal">Package Details</a>
                 </div>
             </div>
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
@@ -116,7 +116,7 @@
                                 <h5 class="text-dark">Edit Employer Information</h5>
                             </div>
                             <div class="col-12 col-md-6 text-end">
-                                <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+                                <button type="submit" class="btn profile-save-btn btn-sm">Update Profile and Save</button>
                             </div>
                         </div>
                         
@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="pt-2">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table ">
                                                 <thead>
                                                     <tr>
                                                         <th>Email</th>
@@ -150,14 +150,14 @@
                                                         <td>@if(Auth::guard('employer')->user()->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
                                                         <td>{{ Auth::guard('employer')->user()->employer_id ? 'Member' : 'Admin' }}</td>
                                                         <td>
-                                                            <a href="{{ route('member-user.edit', Auth::guard('employer')->user()->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                                            <a href="{{ route('member-user.edit', Auth::guard('employer')->user()->id) }}" class="btn  btn-sm"><i class="fas fa-edit"></i></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             @if(Auth::guard('employer')->user()->employer_id == Null)
                                             <div class="text-end">
-                                                <a href="{{ route('member-user.index') }}" class="btn profile-save-btn">Manage User</a>
+                                                <a href="{{ route('member-user.index') }}" class="btn profile-save-btn btn-sm">Manage User</a>
                                             </div>
                                             @endif
                                         </div>
@@ -179,39 +179,47 @@
                                     <div class="row">
                                         <div class="col-lg-2 col-md-3">
                                             <div class="py-3">
-                                                <span class="employer-image-text">Employer Logo</span> <span style="color: #696968">200 * 200</span>
+                                                <span class="employer-image-text">Logo</span> <span style="color: #696968">200 * 200</span>
                                             </div>
-                                            <label for="imageUpload" style="color: #696968">
-                                                <div>
+                                            
+                                            <div class="position-relative">
+                                                <label for="imageUpload" style="color: #696968">
                                                     @if($employer->logo)
-                                                    <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive w-100 employer-logo rounded-3" alt="employer-logo">
+                                                    <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive employer-logo w-100 rounded-3" alt="employer-logo" >
                                                     @else
-                                                    <img src="https://placehold.jp/200x200.png" class="img-responsive w-100 employer-logo rounded-3" alt="employer-logo">
+                                                    <img src="https://placehold.jp/200x200.png" class="img-responsive employer-logo w-100 rounded-3" alt="employer-logo" >
                                                     @endif
-                                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->logo) @else d-none @endif employer-logo-remove"><i class="fa-solid fa-xmark"></i></button>
-                                                </div>
-                                                <div class="py-3 text-center">
-                                                    Tap to Change
-                                                    
-                                                </div>
-                                            </label>
+                                                    <div class="py-3 text-center">
+                                                        Tap to Change
+                                                    </div>
+                                                </label>
+                                                <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger @if($employer->logo) @else d-none @endif employer-logo-remove text-white p-2">
+                                                    <i class="fa-solid fa-trash-can"></i></a>
+                                                </a>
+                                            </div>
+                                            
                                             <input type="file" class="employer-logo-upload" name="logo" id="imageUpload" accept="image/*" />
                                         </div>
                                         <div class="col-lg-8 col-md-9">
                                             <div class="py-3">
-                                                <span class="employer-image-text">Employer Background Photo</span> <span style="color: #696968">1835 * 510</span>
+                                                <span class="employer-image-text">Background Photo</span> <span style="color: #696968">1835 * 510</span>
                                             </div>
-                                            <label for="backgroundUpload" style="color: #696968">
-                                                @if($employer->background)
-                                                <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background rounded-3" height="200px" alt="employer-background">
-                                                @else
-                                                <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background rounded-3" alt="employer-background" height="200px">
-                                                @endif
-                                                <div class="py-3 text-center">
-                                                    Tap to Change
-                                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if($employer->background) @else d-none @endif employer-background-remove"><i class="fa-solid fa-xmark"></i></button>
-                                                </div>
-                                            </label>
+                                            <div class="position-relative">
+                                                <label for="backgroundUpload" style="color: #696968">
+                                                    @if($employer->background)
+                                                    <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background rounded-3" alt="employer-background">
+                                                    @else
+                                                    <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background rounded-3" alt="employer-background" >
+                                                    @endif
+                                                    <div class="py-3 text-center">
+                                                        Tap to Change
+                                                    </div>
+                                                </label>
+                                                <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger @if($employer->background) @else d-none @endif employer-background-remove text-white p-2">
+                                                    <i class="fa-solid fa-trash-can"></i></a>
+                                                </a>
+                                            </div>
+                                            
                                             <input type="file" class="employer-background-upload" name="background" id="backgroundUpload" accept="image/*" />
                                         </div>
                                         {{--<div class="col-2">
@@ -329,67 +337,76 @@
                                             </div>
 
                                             <h5 class="py-3">Employer Address Detail</h5>
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered employer-address @if($employer->EmployerAddress->count() > 0) @else d-none @endif">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Country</th>
-                                                            <th>State</th>
-                                                            <th>Township</th>
-                                                            <th>Address Detail</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach($employer->EmployerAddress as $address)
-                                                        <tr class="address-tr-{{ $address->id }}">
-                                                            <td>{{ $address->country }}</td>
-                                                            <td>{{ $address->State->name ?? '-' }}</td>
-                                                            <td>{{ $address->Township->name ?? '-' }}</td>
-                                                            <td>{{ $address->address_detail ?? '-' }}</td>
-                                                            <td><a id="deleteAddress-{{ $address->id }}" class="deleteAddress btn border-0 text-danger" value="{{ $address->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
-                                                        </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="form-group col-md-6 col-12">
-                                                <label for="country" class="seeker_label">Country </label>
-                                                <select name="country" id="country_address" class="seeker_input" style="width: 100%">
-                                                    <option value="Myanmar">Myanmar</option>
-                                                    <option value="Other">Other</option>
-                                                </select>
-                                                <small class="text-danger d-none error-country">Need to Choose Country</small>
-                                            </div>
+                                            <div class="row">
+                                                
+                                                <div class="col p-3 shadow" style="background: #F5F9FF; border: 1px solid #E8EFF7">
+                                                    <div class="form-group  col-12">
+                                                        <label for="country" class="seeker_label">Country </label>
+                                                        <select name="country" id="country_address" class="seeker_input" style="width: 100%">
+                                                            <option value="Myanmar">Myanmar</option>
+                                                            <option value="Other">Other</option>
+                                                        </select>
+                                                        <small class="text-danger d-none error-country">Need to Choose Country</small>
+                                                    </div>
 
-                                            <div class="form-group col-md-6 col-12">
-                                                <label for="address_detail" class="seeker_label">Address Detail</label>
-                                                <textarea name="address_detail" id="address_detail" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                                                    <div class="form-group  col-12" id="state_id_field">
+                                                        <label for="state_id" class="seeker_label">State or Region </label><br>
+                                                        <select name="state_id" id="state_id" class="select_2 form-control seeker_input" style="width: 100%">
+                                                            <option value="">Choose...</option>
+                                                            @foreach($states as $state)
+                                                            <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <small class="text-danger d-none error-state">Need to Choose State</small>
+                                                    </div>
+                                                    
+                                                    <div class="form-group  col-12" id="township_id_field">
+                                                        <label for="township_id" class="seeker_label">City/ Township </label><br>
+                                                        <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
+                                                            <option value="">Choose...</option>
+                                                            @foreach($townships as $township)
+                                                            <option value="{{ $township->id }}">{{ $township->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <small class="text-danger d-none error-township">Need to Choose Township</small>
+                                                    </div>
+                                                    <div class="form-group  col-12">
+                                                        <label for="address_detail" class="seeker_label">Address Detail</label>
+                                                        <textarea name="address_detail" id="address_detail" class="form-control seeker_input" cols="30" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="form-group  col-12">
+                                                        <a id="addNewAddress" onclick="addNewAddress()" class="btn profile-save-btn btn-sm text-white float-end rounded-3"><i class="fa-solid fa-plus"></i> Add New Address</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="table-responsive">
+                                                        <table class="table employer-address @if($employer->EmployerAddress->count() > 0) @else d-none @endif">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Country</th>
+                                                                    <th>State</th>
+                                                                    <th>Township</th>
+                                                                    <th>Address Detail</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($employer->EmployerAddress as $address)
+                                                                <tr class="address-tr-{{ $address->id }}">
+                                                                    <td>{{ $address->country }}</td>
+                                                                    <td>{{ $address->State->name ?? '-' }}</td>
+                                                                    <td>{{ $address->Township->name ?? '-' }}</td>
+                                                                    <td>{{ $address->address_detail ?? '-' }}</td>
+                                                                    <td><a id="deleteAddress-{{ $address->id }}" class="deleteAddress btn border-0 text-danger" value="{{ $address->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                                </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            <div class="form-group col-md-6 col-12" id="state_id_field">
-                                                <label for="state_id" class="seeker_label">State or Region </label><br>
-                                                <select name="state_id" id="state_id" class="select_2 form-control seeker_input" style="width: 100%">
-                                                    <option value="">Choose...</option>
-                                                    @foreach($states as $state)
-                                                    <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <small class="text-danger d-none error-state">Need to Choose State</small>
-                                            </div>
-                                            <div class="col-6">
-                                                <a id="addNewAddress" onclick="addNewAddress()" class="btn btn-outline-primary float-end rounded-3"><i class="fa-solid fa-plus"></i> Add New Address</a>
-                                            </div>
-                                            <div class="form-group col-md-6 col-12" id="township_id_field">
-                                                <label for="township_id" class="seeker_label">City/ Township </label><br>
-                                                <select name="township_id" id="township_id" class="select_2 form-control seeker_input" style="width: 100%">
-                                                    <option value="">Choose...</option>
-                                                    @foreach($townships as $township)
-                                                    <option value="{{ $township->id }}">{{ $township->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                <small class="text-danger d-none error-township">Need to Choose Township</small>
-                                            </div>
+                                            
+                                            
 
                                         </div>
                                     </div>
@@ -412,7 +429,7 @@
                                             </div>
                                         </div>
                                         <div class="col-3">
-                                            <a onclick="addTestimonial()" class="btn profile-save-btn float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
+                                            <a onclick="addTestimonial()" class="btn profile-save-btn btn-sm float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -499,125 +516,52 @@
                                         </div>
                                         
                                     </div>
+                                    
                                     @foreach($packageItems as $packageItem)
-                                    @if($packageItem->name == 'Employer Profile with Photos')
-                                    <div class="row mb-4">
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_1">
-                                            @if(isset($employer_image_media[0]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[0]->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $employer_image_media[0]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_1" alt="">
+                                        @if($packageItem->name == 'Employer Profile with Photos')
+                                            @if($employer_image_media->count() > 0)
+                                            <div class="row mb-4">
+                                                <div class="col-md-3 col-4">
+                                                    <label for="upload_image_1">
+                                                    @if(isset($employer_image_media))
+                                                    <img src="{{ asset('storage/employer_media/'.$employer_image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $employer_image_media->name }}">
+                                                    @else
+                                                    <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_1" alt="">
+                                                    @endif
+                                                    </label>
+                                                    <input type="file" name="upload_image_1" id="upload_image_1" accept="image/*" class="d-none">
+                                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media)) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media)) "{{ $employer_image_media->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
+                                                </div>
+                                                
+                                            </div>
                                             @endif
-                                            </label>
-                                            <input type="file" name="upload_image_1" id="upload_image_1" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[0])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[0])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_2">
-                                            @if(isset($employer_image_media[1]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[1]->name) }}"  class="w-100" id="image_upload_preview_2" alt="{{ $employer_image_media[1]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_2" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_2" id="upload_image_2" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[1])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[1])) "{{ $employer_image_media[1]->id}}" @else "" @endif id="image_upload_remove_2"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_3">
-                                            @if(isset($employer_image_media[2]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[2]->name) }}"  class="w-100" id="image_upload_preview_3" alt="{{ $employer_image_media[2]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_3" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_3" id="upload_image_3" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[2])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[2])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_3"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_4">
-                                            @if(isset($employer_image_media[3]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[3]->name) }}"  class="w-100" id="image_upload_preview_4" alt="{{ $employer_image_media[3]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_4" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_4" id="upload_image_4" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[3])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[3])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_4"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_5">
-                                            @if(isset($employer_image_media[4]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[4]->name) }}"  class="w-100" id="image_upload_preview_5" alt="{{ $employer_image_media[4]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_5" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_5" id="upload_image_5" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[4])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[4])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_5"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_6">
-                                            @if(isset($employer_image_media[5]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[5]->name) }}"  class="w-100" id="image_upload_preview_6" alt="{{ $employer_image_media[5]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_6" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_6" id="upload_image_6" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[5])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[5])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_6"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_7">
-                                            @if(isset($employer_image_media[6]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[6]->name) }}"  class="w-100" id="image_upload_preview_7" alt="{{ $employer_image_media[6]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_7" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_7" id="upload_image_7" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[6])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[6])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_7"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                        <div class="col-md-3 col-4">
-                                            <label for="upload_image_8">
-                                            @if(isset($employer_image_media[7]))
-                                            <img src="{{ asset('storage/employer_media/'.$employer_image_media[7]->name) }}"  class="w-100" id="image_upload_preview_8" alt="{{ $employer_image_media[7]->name }}">
-                                            @else
-                                            <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_8" alt="">
-                                            @endif
-                                            </label>
-                                            <input type="file" name="upload_image_8" id="upload_image_8" accept="image/*" class="d-none">
-                                            <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media[7])) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media[7])) "{{ $employer_image_media[0]->id}}" @else "" @endif id="image_upload_remove_8"><i class="fa-solid fa-xmark"></i></button>
-                                        </div>
-                                    </div>
-                                    @endif
+                                        @endif
                                     
                                     
-                                    @if($packageItem->name == 'Employer Profile with Videos')
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
-                                            <tbody>
-                                                @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
-                                                <tr class="media-tr-{{ $link->id }}">
-                                                    <td>{{ $link->name ?? '-' }}</td>
-                                                    <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia btn border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row d-flex align-items-end">
-                                        <div class="col-lg-6 col-12 form-group video_add mb-4">
-                                            <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
-                                            <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube link">
-                                            <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
+                                        @if($packageItem->name == 'Employer Profile with Videos')
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
+                                                <tbody>
+                                                    @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
+                                                    <tr class="media-tr-{{ $link->id }}">
+                                                        <td>{{ $link->name ?? '-' }}</td>
+                                                        <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia btn border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                    </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="col-lg-6 col-12 form-group mb-4">
-                                            <a onclick="addLink()" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Link</a>
+                                        <div class="row d-flex align-items-end">
+                                            <div class="col-lg-6 col-12 form-group video_add mb-4">
+                                                <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
+                                                <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube embed">
+                                                <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
+                                            </div>
+                                            <div class="col-lg-6 col-12 form-group mb-4">
+                                                <a onclick="addLink()" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Link</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endif
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>
@@ -656,7 +600,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn profile-save-btn">Update Profile and Save</button>
+                                        <button type="submit" class="btn profile-save-btn btn-sm">Update Profile and Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -670,14 +614,16 @@
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Crop Image And Upload</h4>
+                            <h5 class="modal-title">Crop Image And Upload</h5>
                             <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div id="resizer_logo"></div>
-                            <button class="btn btn-block btn-dark" id="upload_logo_submit" > 
-                            Crop And Upload</button>
+                            <div class="text-center">
+                                <button class="btn profile-save-btn" id="upload_logo_submit" > 
+                                Crop And Upload</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -689,14 +635,16 @@
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Crop Image And Upload</h4>
+                            <h5 class="modal-title">Crop Image And Upload</h5>
                             <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
                             <div id="resizer_background"></div>
-                            <button class="btn btn-block btn-dark" id="upload_background_submit" > 
-                            Crop And Upload</button>
+                            <div class="text-center">
+                                <button class="btn profile-save-btn" id="upload_background_submit" > 
+                                Crop And Upload</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -717,7 +665,7 @@
         if(show_success_modal != '') {
             MSalert.principal({
                 icon:'success',
-                title:'',
+                title:'Success',
                 description: show_success_modal,
             })
         }
@@ -726,7 +674,7 @@
         if(show_error_modal != '') {
             MSalert.principal({
                 icon:'error',
-                title:'',
+                title:'Error',
                 description: show_error_modal,
             })
         }
@@ -798,7 +746,7 @@
                         $('.employer-logo').attr('src', base64);
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }
@@ -846,7 +794,7 @@
                     $('.employer-logo-remove').addClass('d-none');
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     });
                 }
@@ -861,12 +809,12 @@
             type: 'canvas',
             viewport: {
                 width: 400,
-                height: 125,
+                height: 112,
                 type: 'square'
             },
             boundary: {
                 width: 450,
-                height: 175,
+                height: 162,
             }
         });
         getImage(event.target, croppie); 
@@ -876,7 +824,7 @@
         croppie.result({
                 typ: 'base64',
                 size: { 
-                    width: 1920, height: 600 
+                    width: 1835, height: 510 
                 }
             }).then(function(base64) {
             $("#upload_background").modal("hide"); 
@@ -904,7 +852,7 @@
                         $('.employer-background').attr('src', base64);
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }
@@ -933,7 +881,7 @@
                     $('.employer-background-remove').addClass('d-none');
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     });
                 }
@@ -1012,7 +960,7 @@
                         }
                         $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>'+response.data.state_name+'</td><td>'+township_name+'</td><td>'+addressDetail+'</td><td><a id="deleteAddress-'+response.data.id+'" class="deleteAddress btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
-                        $("#state_id").empty().trigger('change');
+                        $('#state_id').val('').trigger('change');
                         $("#township_id").empty().trigger('change');
                         $("#address_detail").val('');
                         $('.error-state').addClass('d-none');
@@ -1050,7 +998,7 @@
                         }
                         $('.employer-address').append('<tr class="address-tr-'+response.data.id+'"><td>'+response.data.country+'</td><td>-</td><td>-</td><td>'+addressDetail+'</td><td><a id="deleteAddress-'+response.data.id+'" class="deleteAddress btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         $("#country_address").val('');
-                        $("#state_id").empty().trigger('change');
+                        $('#state_id').val('').trigger('change');
                         $("#township_id").empty().trigger('change');
                         $("#address_detail").val('');
                         $('.error-state').addClass('d-none');
@@ -1109,7 +1057,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -1128,7 +1076,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }
@@ -1211,7 +1159,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -1230,7 +1178,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }
@@ -1239,464 +1187,5 @@
         })
     });
 
-    function addLink()
-    {
-        if($("#video_link").val() == '') {
-            $(".video-link-error").removeClass('d-none');
-        }else {
-            $(".video-link-error").addClass('d-none');
-            var fd = new FormData();
-            fd.append("video_link", $("#video_link").val());
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    $("#video_link").val('');
-                    $(".employer-media").removeClass('d-none');
-                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a id="deleteMedia-'+response.data.id+'" class="deleteMedia btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
-                }
-            })
-        }
-        
-    }
-
-    $(document).on('click', '.deleteMedia', function (e) {
-        var id       = $(this).attr('value');
-
-        MSalert.principal({
-            icon:'warning',
-            title:'',
-            description:'Are you sure to delete this entry?',
-            button:true
-        }).then(result => {
-            if (result === true){
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        'employer_id' : {{ $employer->id }}
-                    },
-                    url: '/employer/employer-media/destory/'+id,
-                }).done(function(response){
-                    if(response.status == 'success') {
-                        $(".media-tr-"+id).empty();
-                        if(response.media_count == 0) {
-                            $(".employer-media").addClass('d-none');
-                        }
-                        MSalert.principal({
-                            icon:'success',
-                            title:'',
-                            description:response.msg,
-                        });
-                    }
-                })
-            }            
-        })
-    });
-
-    $("#upload_image_1").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_1').attr('src', e.target.result);
-                $('#image_upload_remove_1').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_1")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_1').click(function() {
-        $('#image_upload_preview_1').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_1').addClass('d-none');
-        $('#upload_image_1').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_2").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_2').attr('src', e.target.result);
-                $('#image_upload_remove_2').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_2")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_2').click(function() {
-        $('#image_upload_preview_2').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_2').addClass('d-none');
-        $('#upload_image_2').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_3").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_3').attr('src', e.target.result);
-                $('#image_upload_remove_3').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_3")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_3').click(function() {
-        $('#image_upload_preview_3').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_3').addClass('d-none');
-        $('#upload_image_3').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_4").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_4').attr('src', e.target.result);
-                $('#image_upload_remove_4').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_4")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_4').click(function() {
-        $('#image_upload_preview_4').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_4').addClass('d-none');
-        $('#upload_image_4').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_5").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_5').attr('src', e.target.result);
-                $('#image_upload_remove_5').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_5")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_5').click(function() {
-        $('#image_upload_preview_5').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_5').addClass('d-none');
-        $('#upload_image_5').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_6").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_6').attr('src', e.target.result);
-                $('#image_upload_remove_6').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_6")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_6').click(function() {
-        $('#image_upload_preview_6').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_6').addClass('d-none');
-        $('#upload_image_6').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_7").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_7').attr('src', e.target.result);
-                $('#image_upload_remove_7').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_7")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_7').click(function() {
-        $('#image_upload_preview_7').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_7').addClass('d-none');
-        $('#upload_image_7').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
-
-    $("#upload_image_8").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image_upload_preview_8').attr('src', e.target.result);
-                $('#image_upload_remove_8').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-            var fd = new FormData();
-            fd.append("upload_image", $("#upload_image_8")[0].files[0]);
-            fd.append('employer_id',{{ $employer->id }});
-
-            $.ajax({
-                type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
-                url: '{{ route("employer-media.store") }}'
-            }).done(function(response){
-                if(response.status == 'success') {
-                    
-                }
-            })
-        }
-    })
-
-    $('#image_upload_remove_8').click(function() {
-        $('#image_upload_preview_8').attr('src', 'https://placehold.co/280x140/#E4E3E2');
-        $('#image_upload_remove_8').addClass('d-none');
-        $('#upload_image_8').val('');
-        var id = $(this).attr('attr-id');
-        $.ajax({
-            type: 'POST',
-            data: {
-                'employer_id' : {{ $employer->id }}
-            },
-            url: '/employer/employer-media/destory/'+id,
-        }).done(function(response){
-            if(response.status == 'success') {
-                
-                MSalert.principal({
-                    icon:'success',
-                    title:'',
-                    description:response.msg,
-                });
-            }
-        })
-    })
 </script>
 @endpush

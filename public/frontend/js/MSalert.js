@@ -43,32 +43,30 @@ class MSalert{
 
             .MSalert-principal-ventana{
                 position: absolute;
-                
+                width: 450px;
                 height: fit-content;
                 background-color: white;
-                border-radius: 10px;
+                border-radius: 8px;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 box-size: border-box;
                 padding: 20px;
-                padding-bottom: 30px;
+                
                 gap: 10px;
             }
 
             .MSalert-principal-ventana h2{
-                font-size: 35px;
+                
                 margin-top: 0;
                 width: 100%;
                 text-align: center;
             }
 
             .MSalert-principal-ventana span{
-                font-size: 20px;
+                
                 // margin-top: -30px;
-                margin-top: -10px;
-                margin-bottom: 20px;
-                width: 100%;
+                
                 text-align: center;
             }
 
@@ -272,7 +270,7 @@ class MSalert{
                 d="M 8,1 C 4.1340066,1 1,4.1340066 1,8 c 0,3.865993 3.1340066,7 7,7 3.865993,0 7,-3.134007 7,-7 C 15,4.1340066 11.865993,1 8,1 z m 3.3125,3.0625 1.5625,1.40625 -5.25,6.9375 -4.0625,-3.5 1.34375,-1.78125 2.375,2.0625 4.03125,-5.125 z"
                 inkscape:connector-curvature="0"
                 id="path2922-6-6-0"
-                style="color:#000000;fill:#5cb85c;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.84323651;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+                style="color:#000000;fill:#0355D0;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.84323651;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
             </g>`;break;
         }
 
@@ -392,7 +390,7 @@ class MSalert{
                 let fontColor = "#000";
                 switch(datos.status){
                     case "success" :
-                            color = "#5cb85c"
+                            color = "#0355D0"
                             fontColor = "#114B07"
                             ; break;
                     case "warning" : 

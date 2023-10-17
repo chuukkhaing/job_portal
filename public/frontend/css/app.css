@@ -400,7 +400,7 @@ body {
 .profile-save-btn {
     align-items: center;
     border-radius: 8px;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #ffffff;
     padding: 6px 12px;
     background-color:  #0355D0;

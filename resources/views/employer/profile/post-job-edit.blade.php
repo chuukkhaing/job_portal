@@ -104,6 +104,7 @@
             @endif
         </ul>
     </div>
+    <hr style="border-bottom: 5px solid gray;">
     <div class="container-fluid mt-1 py-5" id="edit-profile-header">
     <form action="{{ route('employer-job-post.update', $jobPost->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
