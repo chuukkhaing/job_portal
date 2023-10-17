@@ -552,7 +552,6 @@
                                         </div>
                                         @endif
                                         
-                                    
                                         @if($packageItem->name == 'Employer Profile with Videos')
                                         <div class="table-responsive">
                                             <table class="table employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
@@ -560,7 +559,7 @@
                                                     @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
                                                     <tr class="media-tr-{{ $link->id }}">
                                                         <td>{!! $link->name ?? '-' !!}</td>
-                                                        <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia btn border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                        <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
                                                     </tr>
                                                     @endforeach
                                                 </tbody>
