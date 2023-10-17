@@ -199,7 +199,7 @@
             {{--<iframe width="420" height="315"
                 src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
             </iframe>--}}
-            {{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}
+            {!! $employer->EmployerMedia->where('type','Video Link')->first()->name !!}
         </div>
     </div>
     @endif

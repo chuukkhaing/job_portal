@@ -16,7 +16,7 @@ class CreateEmployerMediaTable extends Migration
         Schema::create('employer_media', function (Blueprint $table) {
             $table->id();
             $table->integer('employer_id')->nullable();
-            $table->string('name')->nullable();
+            $table->longtext('name')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
         });

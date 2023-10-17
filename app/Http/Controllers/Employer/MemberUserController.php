@@ -129,7 +129,8 @@ class MemberUserController extends Controller
         $packages = Package::whereNull('deleted_at')->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         $member = Employer::findOrFail($id);
-        return view('employer.profile.manage-user-edit', compact('packages', 'employer', 'member'));
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.manage-user-edit', compact('packages', 'employer', 'member', 'packageItems'));
     }
 
     /**

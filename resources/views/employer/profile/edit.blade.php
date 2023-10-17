@@ -164,6 +164,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-lg-1 col-md-2">
                                     <div class="step">
@@ -194,7 +195,7 @@
                                                     </div>
                                                 </label>
                                                 <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger @if($employer->logo) @else d-none @endif employer-logo-remove text-white p-2">
-                                                    <i class="fa-solid fa-trash-can"></i></a>
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </a>
                                             </div>
                                             
@@ -202,7 +203,7 @@
                                         </div>
                                         <div class="col-lg-8 col-md-9">
                                             <div class="py-3">
-                                                <span class="employer-image-text">Background Photo</span> <span style="color: #696968">1835 * 510</span>
+                                                <span class="employer-image-text">Background Image</span> <span style="color: #696968">1835 * 510</span>
                                             </div>
                                             <div class="position-relative">
                                                 <label for="backgroundUpload" style="color: #696968">
@@ -216,7 +217,7 @@
                                                     </div>
                                                 </label>
                                                 <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger @if($employer->background) @else d-none @endif employer-background-remove text-white p-2">
-                                                    <i class="fa-solid fa-trash-can"></i></a>
+                                                    <i class="fa-solid fa-trash-can"></i>
                                                 </a>
                                             </div>
                                             
@@ -423,46 +424,23 @@
                                 <div class="col-lg-11 col-md-10">
                                     <div class="row">
                                         <div class="col-9">
-                                            <div class="pt-2">
+                                            <div class="py-3">
                                                 <h5>Add Testimonials to Elevate Your Profile</h5>
                                                 <span>Discover how incorporating testimonials can enhance your profile, showcasing your credibility and building trust with potential clients or employers.</span>
                                             </div>
                                         </div>
-                                        <div class="col-3">
-                                            <a onclick="addTestimonial()" class="btn profile-save-btn btn-sm float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
-                                        </div>
+                                        
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered employer-testimonial @if($employer->EmployerTestimonial->count() > 0) @else d-none @endif">
-                                            <thead>
-                                                <tr>
-                                                    <th>Photo</th>
-                                                    <th>Name</th>
-                                                    <th>Title</th>
-                                                    <th>Remark</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($employer->EmployerTestimonial as $test)
-                                                <tr class="test-tr-{{ $test->id }}">
-                                                    <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" width="80px" height="80px" alt="Testimonial Image"> @else - @endif</td>
-                                                    <td>{{ $test->name ?? '-' }}</td>
-                                                    <td>{{ $test->title ?? '-' }}</td>
-                                                    <td>{{ $test->remark ?? '-' }}</td>
-                                                    <td><a id="deleteTest-{{ $test->id }}" class="deleteTest btn border-0 text-danger" value="{{ $test->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="pt-2">
-                                        <div class="row" style="background: #F5F9FF; border: 1px solid #E8EFF7">
+                                    
+                                    <div class="row">
+                                        <div class="col p-3 shadow" style="background: #F5F9FF; border: 1px solid #E8EFF7">
                                             <div class="d-flex align-items-center py-3">
-                                                <div class="test-image-box d-inline-block">
+                                                <div class="test-image-box d-inline-block position-relative">
                                                     <img src="https://placehold.co/200x200/#E4E3E2" class="test-image-preview">
-                                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle d-none test-image-remove"><i class="fa-solid fa-xmark"></i></button>
-                                                    
+                                                    <input type="hidden" name="test_image_base64">
+                                                    <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none test-image-remove text-white p-2">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
                                                 </div>
                                                 <div class="px-3">
                                                     <label for="test-image" class="btn btn-outline-secondary"><i class="fa-solid fa-plus"></i> Upload Photo</label><br>
@@ -486,8 +464,36 @@
                                                     <label for="test-remark" class="seeker_label">Remark</label>
                                                     <textarea name="test-remark" id="test-remark" cols="30" rows="5" class="form-control seeker_input"></textarea>
                                                 </div>
+                                                <div class="col-12">
+                                                    <a onclick="addTestimonial()" class="btn profile-save-btn btn-sm float-end text-light"><i class="fa-solid fa-plus"></i> Add</a>
+                                                </div>
                                             </div>
-                                            
+                                        </div>
+                                        <div class="col">
+                                            <div class="table-responsive">
+                                                <table class="table employer-testimonial @if($employer->EmployerTestimonial->count() > 0) @else d-none @endif">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Photo</th>
+                                                            <th>Name</th>
+                                                            <th>Title</th>
+                                                            <th>Remark</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($employer->EmployerTestimonial as $test)
+                                                        <tr class="test-tr-{{ $test->id }}">
+                                                            <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" width="80px" height="80px" alt="Testimonial Image"> @else - @endif</td>
+                                                            <td>{{ $test->name ?? '-' }}</td>
+                                                            <td>{{ $test->title ?? '-' }}</td>
+                                                            <td>{{ $test->remark ?? '-' }}</td>
+                                                            <td><a id="deleteTest-{{ $test->id }}" class="deleteTest btn border-0 text-danger" value="{{ $test->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -519,32 +525,41 @@
                                     
                                     @foreach($packageItems as $packageItem)
                                         @if($packageItem->name == 'Employer Profile with Photos')
+                                        <div class="mb-4">
                                             @if($employer_image_media->count() > 0)
-                                            <div class="row mb-4">
-                                                <div class="col-md-3 col-4">
-                                                    <label for="upload_image_1">
-                                                    @if(isset($employer_image_media))
-                                                    <img src="{{ asset('storage/employer_media/'.$employer_image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $employer_image_media->name }}">
-                                                    @else
-                                                    <img src="https://placehold.co/280x140/#E4E3E2" class="w-100" id="image_upload_preview_1" alt="">
-                                                    @endif
-                                                    </label>
-                                                    <input type="file" name="upload_image_1" id="upload_image_1" accept="image/*" class="d-none">
-                                                    <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($employer_image_media)) @else d-none @endif image_upload_remove" attr-id=@if(isset($employer_image_media)) "{{ $employer_image_media->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
+                                                @foreach($employer_image_media as $image_media)
+                                                <div class="row mb-4">
+                                                    <div class="col-md-3 col-4 media_image">
+                                                        <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $image_media->name }}">
+                                                        <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($image_media)) @else d-none @endif image_upload_remove" attr-id=@if(isset($image_media)) "{{ $image_media->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
+                                                    </div>
                                                 </div>
-                                                
-                                            </div>
+                                                @endforeach
                                             @endif
+                                            <div class="d-flex align-items-center py-3">
+                                                
+                                                <label for="media-image" style="color: #696968">
+                                                    <img src="https://placehold.co/280x140/#E4E3E2" class="media-image-preview">
+                                                    <div class="py-3 text-center">
+                                                        Tap to Change
+                                                    </div>
+                                                </label><br>
+                                                <a class="mx-3 btn btn-sm profile-save-btn text-white upload_media_image"><i class="fa-solid fa-plus"></i> Upload Photo</a>
+                                                <input type="file" name="media-image" id="media-image" accept="image/*" class="d-none">
+                                                
+                                                <input type="hidden" name="media_image_base64">
+                                            </div>
+                                        </div>
                                         @endif
-                                    
+                                        
                                     
                                         @if($packageItem->name == 'Employer Profile with Videos')
                                         <div class="table-responsive">
-                                            <table class="table table-bordered employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
+                                            <table class="table employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
                                                 <tbody>
                                                     @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
                                                     <tr class="media-tr-{{ $link->id }}">
-                                                        <td>{{ $link->name ?? '-' }}</td>
+                                                        <td>{!! $link->name ?? '-' !!}</td>
                                                         <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia btn border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
                                                     </tr>
                                                     @endforeach
@@ -558,7 +573,7 @@
                                                 <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
                                             </div>
                                             <div class="col-lg-6 col-12 form-group mb-4">
-                                                <a onclick="addLink()" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Add Link</a>
+                                                <a onclick="addLink()" class="btn profile-save-btn btn-sm text-white"><i class="fa-solid fa-plus"></i> Add Link</a>
                                             </div>
                                         </div>
                                         @endif
@@ -643,6 +658,48 @@
                             <div id="resizer_background"></div>
                             <div class="text-center">
                                 <button class="btn profile-save-btn" id="upload_background_submit" > 
+                                Crop And Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- upload test_image modal  -->
+            <div class="modal" id="upload_test_image">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title">Crop Image And Upload</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div id="resizer_test_image"></div>
+                            <div class="text-center">
+                                <button class="btn profile-save-btn" id="upload_test_image_submit" > 
+                                Crop And Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- upload media_image modal  -->
+            <div class="modal" id="upload_media_image">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h5 class="modal-title">Crop Image And Upload</h5>
+                            <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div id="resizer_media_image"></div>
+                            <div class="text-center">
+                                <button class="btn profile-save-btn" id="upload_media_image_submit" > 
                                 Crop And Upload</button>
                             </div>
                         </div>
@@ -1085,23 +1142,38 @@
         })
     });
 
-    $("#test-image").change(function(){
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('.test-image-preview').attr('src', e.target.result);
-                $('.test-image-remove').removeClass('d-none');
-                
-            };
-            reader.readAsDataURL(this.files[0]);
-        }
-    })
+    var el = document.getElementById('resizer_test_image');
+    $("#test-image").on("change", function(event) {
+        $("#upload_test_image").modal('show');
+        croppie = new Croppie(el, {
+            viewport: {
+                width: 200,
+                height: 200,
+                type: 'square'
+            },
+            boundary: {
+                width: 250,
+                height: 250
+            }
+        });
+        getImage(event.target, croppie); 
+    });
+
+    $("#upload_test_image_submit").on("click", function() {
+        croppie.result('base64').then(function(base64) {
+            $("#upload_test_image").modal("hide"); 
+            $('.test-image-remove').removeClass('d-none');
+            $('.test-image-preview').attr('src', base64);
+            $("input[name='test_image_base64']").val(base64);
+            croppie.destroy();
+        });
+    });
     
     $('.test-image-remove').click(function() {
         $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
         $('.test-image-remove').addClass('d-none');
         $('#test-image').val('');
-        
+        $("input[name='test_image_base64']").val('');
     })
     function addTestimonial()
     {
@@ -1120,18 +1192,15 @@
             $(".test-title-error").addClass('d-none');
         }
         if(test_name != '' && test_title != '') {
-            var fd = new FormData();
-            var test_image = $("#test-image")[0].files[0];
-            fd.append('test_image',test_image);
-            fd.append('test_name',test_name);
-            fd.append('test_title',test_title);
-            fd.append('test_remark',test_remark);
-            fd.append('employer_id',{{ $employer->id }});
             $.ajax({
                 type: 'POST',
-                data: fd,
-                contentType: false,
-                processData: false,
+                data: {
+                    'test_image' : $("input[name='test_image_base64']").val(),
+                    'test_name' : test_name,
+                    'test_title' : test_title,
+                    'test_remark' : test_remark,
+                    'employer_id' : {{ $employer->id }},
+                },
                 url: '{{ route("employer-testimonial.store") }}'
             }).done(function(response){
                 if(response.status == 'success') {
@@ -1149,6 +1218,7 @@
                     $("#test-title").val('');
                     $("#test-remark").val('');
                     $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
+                    $('.test-image-remove').addClass('d-none');
                 }
             })
         }
@@ -1187,5 +1257,116 @@
         })
     });
 
+    function addLink()
+    {
+        if($("#video_link").val() == '') {
+            $(".video-link-error").removeClass('d-none');
+        }else {
+            $(".video-link-error").addClass('d-none');
+            var fd = new FormData();
+            fd.append("video_link", $("#video_link").val());
+            fd.append('employer_id',{{ $employer->id }});
+
+            $.ajax({
+                type: 'POST',
+                data: fd,
+                contentType: false,
+                processData: false,
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $("#video_link").val('');
+                    $(".employer-media").removeClass('d-none');
+                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a id="deleteMedia-'+response.data.id+'" class="deleteMedia btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                }
+            })
+        }
+        
+    }
+
+    $(document).on('click', '.deleteMedia', function (e) {
+        var id       = $(this).attr('value');
+
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'employer_id' : {{ $employer->id }}
+                    },
+                    url: '/employer/employer-media/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $(".media-tr-"+id).empty();
+                        if(response.media_count == 0) {
+                            $(".employer-media").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
+        })
+    });
+
+    var media_el = document.getElementById('resizer_media_image');
+    $("#media-image").on("change", function(event) {
+        $("#upload_media_image").modal('show');
+        croppie = new Croppie(media_el, {
+            viewport: {
+                width: 280,
+                height: 140,
+                type: 'square'
+            },
+            boundary: {
+                width: 330,
+                height: 190
+            }
+        });
+        getImage(event.target, croppie); 
+    });
+
+    $("#upload_media_image_submit").on("click", function() {
+        croppie.result('base64').then(function(base64) {
+            $("#upload_media_image").modal("hide"); 
+            $('.media-image-preview').attr('src', base64);
+            $("input[name='media_image_base64']").val(base64);
+            croppie.destroy();
+        });
+    });
+
+    $(".upload_media_image").click(function() {
+        var media_image = $("input[name='media_image_base64']").val();
+        $.ajax({
+                type: 'POST',
+                data: {
+                    'employer_id' : {{ $employer->id }},
+                    'upload_image' : media_image
+                },
+                url: '{{ route("employer-media.store") }}'
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $('.media-image-preview').attr('src', 'https://placehold.co/280x140/#E4E3E2');
+                    $("input[name='media_image_base64']").val('');
+                    $(".media_image").append()
+                }
+            })
+    })
+
+    $('.test-image-remove').click(function() {
+        $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
+        $('.test-image-remove').addClass('d-none');
+        $('#test-image').val('');
+        $("input[name='test_image_base64']").val('');
+    })
+    
 </script>
 @endpush

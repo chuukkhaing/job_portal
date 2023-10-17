@@ -248,12 +248,12 @@ class EmployerProfileController extends Controller
 
     public function employerTestimonialStore(Request $request)
     {
-        $image = Null;
-        if ($request->hasFile('test_image')) {
-            $file    = $request->file('test_image');
-            $image = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_testimonial/'), $image);
+        if($request->test_image != ''){
+            $image = $this->storeBase64($request->test_image);
+        }else {
+            $image = '';
         }
+
         $test_create = EmployerTestimonial::create([
             'employer_id' => $request->employer_id,
             'name' => $request->test_name,
@@ -429,5 +429,18 @@ class EmployerProfileController extends Controller
         $inactivejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(0)->where('status','!=', 'Expire')->get();
         $expirejobApplicants = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->get();
         return view ('employer.profile.applicant-tracking', compact('activejobApplicants', 'inactivejobApplicants', 'expirejobApplicants', 'employer', 'packages', 'packageItems'));
+    }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_testimonial/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
     }
 }

@@ -49,6 +49,36 @@
             </div>
         </div>
     </div>
+    <div class="px-xl-5 px-lg-3 px-0 ">
+        <ul class="nav nav-tabs d-flex justify-content-between p-2 my-1" id="employerTab">
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('employer-profile.index') }}" class="employer-single-tab ">Dashboard</a>
+            </li>
+            @endif
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','profile')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('employer-profile.edit', $employer->id) }}" class="employer-single-tab active">Profile</a>
+            </li>
+            @endif
+            
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','manage_job')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('manageJob') }}" class="employer-single-tab" >Manage Job</a>
+            </li>
+            @endif
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','application_tracking')->count() > 0))
+            @foreach($packageItems as $packageItem)
+            @if($packageItem->name == 'Application Management')
+            <li class="nav-item">
+                <a href="{{ route('applicantTracking') }}" class="employer-single-tab" >Applicant Tracking</a>
+            </li>
+            @endif
+            @endforeach
+            @endif
+        </ul>
+    </div>
+    <hr style="border-bottom: 5px solid gray;">
     <div class="container-fluid mt-1 py-5" id="edit-profile-header">
 
         <!-- Page Heading -->

@@ -49,6 +49,36 @@
             </div>
         </div>
     </div>
+    <div class="px-xl-5 px-lg-3 px-0 ">
+        <ul class="nav nav-tabs d-flex justify-content-between p-2 my-1" id="employerTab">
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('employer-profile.index') }}" class="employer-single-tab ">Dashboard</a>
+            </li>
+            @endif
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','profile')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('employer-profile.edit', $employer->id) }}" class="employer-single-tab active">Profile</a>
+            </li>
+            @endif
+            
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','manage_job')->count() > 0))
+            <li class="nav-item">
+                <a href="{{ route('manageJob') }}" class="employer-single-tab" >Manage Job</a>
+            </li>
+            @endif
+            @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','application_tracking')->count() > 0))
+            @foreach($packageItems as $packageItem)
+            @if($packageItem->name == 'Application Management')
+            <li class="nav-item">
+                <a href="{{ route('applicantTracking') }}" class="employer-single-tab" >Applicant Tracking</a>
+            </li>
+            @endif
+            @endforeach
+            @endif
+        </ul>
+    </div>
+    <hr style="border-bottom: 5px solid gray;">
     <div class="container-fluid mt-1 py-5" id="edit-profile-header">
         @foreach($packageItems as $packageItem)
         @if($packageItem->name == 'Up to 10 User Accounts' || $packageItem->name == 'Up to 5 User Accounts')
@@ -65,7 +95,7 @@
         @endif
         @endforeach
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="dataTable">
+            <table class="table table-hover " id="dataTable">
                 <thead>
                     <tr>
                         <th>Email</th>
@@ -80,7 +110,7 @@
                         <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
                         <td>{{ $employer->employer_id ? 'Member' : 'Admin' }}</td>
                         <td>
-                            <a href="{{ route('member-user.edit', $employer->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                            <a href="{{ route('member-user.edit', $employer->id) }}" class="text-black"><i class="fas fa-edit"></i></a>
                         </td>
                     </tr>
                     @foreach($packageItems as $packageItem)
@@ -91,8 +121,8 @@
                         <td>@if($member->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif</td>
                         <td>{{ $member->employer_id ? 'Member' : 'Admin' }}</td>
                         <td>@if($member->employer_id) 
-                                <a href="{{ route('member-user.edit', $member->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit" id="confirmation-{{ $member->id }}" value="{{ $member->id }}"><i class="fas fa-trash"></i></button>
+                                <a href="{{ route('member-user.edit', $member->id) }}" class="text-black"><i class="fas fa-edit"></i></a>
+                                <button class="delete-confirm text-black" type="submit" id="confirmation-{{ $member->id }}" value="{{ $member->id }}"><i class="fas fa-trash"></i></button>
                             @endif
                         </td>
                     </tr>

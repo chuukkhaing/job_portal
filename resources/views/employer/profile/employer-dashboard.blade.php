@@ -1,10 +1,11 @@
 <div class="container-fluid p-5">
     <div class="row">
         <div class="col-lg-4 col-md-6 col-12">
+            <a href="{{ route('manageJob') }}">
             <div class="row me-0 p-3 shadow" style="border-radius: 8px;">
                 <div class="col-8">
                     <p class="overview-title">Opening Jobs</p>
-                    <span class="fw-bold fs-3">{{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}</span>
+                    <span class="fw-bold fs-3 text-black">{{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}</span>
                 </div>
                 <div class="col-4">
                     <div class="opening-job-icon float-end">
@@ -12,6 +13,7 @@
                     </div>
                 </div>
             </div>
+            </a>
         </div>
         <div class="col-lg-4 col-md-6 col-12 mt-3 mt-md-0">
             <div class="row p-3 shadow" style="border-radius: 8px;">
@@ -45,7 +47,7 @@
                 <div class="row me-lg-0 p-3 shadow employer-point-box" style="border-radius: 8px;">
                     <div class="col-8">
                         <p class="overview-title">Used Point History</p>
-                        <span class="fw-bold fs-3">{{ $employer->PointRecord->where('status','Complete')->sum('point') }}</span>
+                        <span class="fw-bold fs-3 text-black ">{{ $employer->PointRecord->where('status','Complete')->sum('point') }}</span>
                     </div>
                     <div class="col-4">
                         <div class="points-icon float-end">

@@ -46,6 +46,7 @@
     $('.dataTable').dataTable({
         ordering: false,
         dom: '<frtp>',
+        pageLength: 15
     });
 
     $('#dataTable').dataTable({

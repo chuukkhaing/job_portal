@@ -691,7 +691,7 @@ a.disabled {
 .app_receive_experience h4 {
     font-size: 18px;
 }
-.applicant-receive-table-tr {
+.applicant-receive-table tr {
     cursor: pointer;
 }
 #edit-profile-body table {
@@ -809,6 +809,11 @@ a.disabled {
 .test-image-preview {
     width: 120px;
     height: 120px;
+    border-radius: 8px;
+}
+.media-image-preview{
+    width: 280px;
+    height: 140px;
     border-radius: 8px;
 }
 .test-image-remove {

@@ -338,7 +338,7 @@
                                 </div>
                                 <div class="my-4">
                                     <div class="table-responsive seeker_table">
-                                        <table class="table table-bordered applicant-receive-table" width="100%" cellspacing="0">
+                                        <table class="table applicant-receive-table" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
                                                     <th>Job Seeker Name</th>
@@ -683,7 +683,7 @@
                     table.draw();
                     $('#applicant_tr'+value.seeker_id).attr('onClick','getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+',"'+value.status+'")');
                     $('#applicant_tr'+value.seeker_id).addClass(active);
-                    console.log(response.cvunlock)
+                    
                     if(response.cvunlock.length > 0) {
                         $(response.cvunlock).each(function(cv_index, cv_value) {
                             if(value.seeker_id == response.seeker.id && cv_value.job_apply_id != value.id) {
