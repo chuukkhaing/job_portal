@@ -1,12 +1,12 @@
 <div class="my-2 row table-responsive">
-    <table id="cv-table" class="table-bordered @if($cvs->count() == 0) d-none @endif table">
+    <table id="cv-table" class="table-sm table-bordered @if($cvs->count() == 0) d-none @endif table">
         
         <tbody>
             @foreach($cvs as $cv)
             <tr class="cv-tr-{{ $cv->id }}">
                 <td class="cv-name-{{$cv->id}}"><a target="_blank" href="{{ asset('storage/seeker/cv/'.$cv->name) }}">{{ $cv->name }}</a></td>
                 <td>
-                    <a id="deleteCV-{{ $cv->id }}" class="deleteCV btn border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
+                    <a id="deleteCV-{{ $cv->id }}" class="deleteCV border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
                 </td>
             </tr>
             @endforeach
@@ -99,7 +99,7 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#cv-table").removeClass('d-none');
-                    $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV btn border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     MSalert.principal({
                         icon:'success',
                         title:'',
@@ -131,7 +131,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#cv-table").removeClass('d-none');
-                        $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV btn border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         MSalert.principal({
                             icon:'success',
                             title:'',

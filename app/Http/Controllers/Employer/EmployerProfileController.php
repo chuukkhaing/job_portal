@@ -143,11 +143,6 @@ class EmployerProfileController extends Controller
             $legal_docs = NULL;
         }
 
-        if($request->password) {
-            $password = Hash::make($request->password);
-        }else {
-            $password = $employer->password;
-        }
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
             'legal_docs' => $legal_docs,
@@ -162,11 +157,10 @@ class EmployerProfileController extends Controller
             'slug' => $slug,
             'summary' => $request->company_summary,
             'value' => $request->company_value,
-            'password' => $password,
             'updated_by_admin' => $id,
         ]);
 
-        return redirect()->back()->with('success','Profile Edit Successfully.');
+        return redirect()->route('employer-job-post.create')->with('success','Profile Edit Successfully.');
     }
 
     /**

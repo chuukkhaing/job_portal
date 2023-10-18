@@ -133,7 +133,7 @@
                                 @endif
                             </div>
                             <div class="align-self-center">
-                                <div class="mt-1 job-company">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</div>
+                                <div class="mt-1 job-company">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif <span class="badge badge-info">@if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0) Applied @endif</span></div>
                                 <div class="mt-1">{{ $jobPost->job_title }}</div>
                                 @if($jobPost->township_id)
                                 <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>

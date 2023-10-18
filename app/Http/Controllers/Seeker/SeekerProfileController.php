@@ -731,7 +731,7 @@ class SeekerProfileController extends Controller
                 'job_post_id' => $id,
                 'seeker_id'   => Auth::guard('seeker')->user()->id,
             ]);
-            return redirect()->back()->with('success', 'Job Apply Successfully!');
+            return redirect()->route('find-jobs')->with('success', 'Job Apply Successfully!');
         }
 
     }
