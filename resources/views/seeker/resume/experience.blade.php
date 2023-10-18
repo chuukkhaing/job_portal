@@ -1,7 +1,12 @@
-<div class="my-2 row @if($experiences->count() > 0 && $experiences->first()->is_experience == 0) d-none @endif" id="add_career_history">
-    <button type="button" class="btn btn-sm profile-save-btn m-2 col-6" data-bs-toggle="modal" data-bs-target="#experienceModal" id="create-exp">
+<div class="my-2 row">
+    <button type="button" class="btn btn-sm profile-save-btn m-2 col-6 @if(($experiences->count() > 0 && $experiences->first()->is_experience == 0) || $experiences->count() == 0) d-none @endif" data-bs-toggle="modal" data-bs-target="#experienceModal" id="create-exp add_career_history">
         <i class="fa-solid fa-plus"></i> Add Career History
     </button>
+    <div class="form-group col-12 col-md-6 my-0 experience_status @if($experiences->count() > 0) d-none @endif">
+        <label for="is_experience" class="seeker_label">Do you have experience?</label><br>
+        <input type="radio" name="is_experience" id="yes" class="seeker_input ps-2"> <label for="yes" class="seeker_label pe-4"> Yes</label>
+        <input type="radio" name="is_experience" id="no" class="seeker_input ps-2"> <label for="no" class="seeker_label"> No</label>
+    </div>
 </div>
 <div class="my-2 row">
     <div id="exp-table" class="@if($experiences->count() == 0) d-none @endif">
@@ -46,12 +51,7 @@
             </div>
             
             <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-12 col-md-6 my-0 experience_status">
-                        <input type="checkbox" name="is_experience" id="is_experience" class="seeker_input">
-                        <label for="is_experience" class="seeker_label">Do you have experience?</label>
-                    </div>
-                </div>
+                
                 <div class="row no-experience">
                     <div class="form-group col-12 col-md-6 my-0">
                         <label for="exp_job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
@@ -172,12 +172,7 @@
             </div>
             
             <div class="modal-body">
-                <div class="row">
-                    <div class="form-group col-12 col-md-6 my-0 edit_experience_status">
-                        <input type="checkbox" name="edit_is_experience" id="edit_is_experience" class="seeker_input">
-                        <label for="edit_is_experience" class="seeker_label">Do you have experience?</label>
-                    </div>
-                </div>
+                
                 <div class="row no-experience">
                     <div class="form-group col-12 col-md-6 my-0">
                         <label for="edit_exp_job_title" class="seeker_label my-2">Job Title <span class="text-danger">*</span></label>
@@ -315,35 +310,54 @@
             autoclose: true
         });
 
-        $("#create-exp").click(function() {
-            var seeker_id ={{ Auth::guard('seeker')->user()->id }}
-            $.ajax({
-                type : 'POST',
-                data : {
-                    'seeker_id' : seeker_id
-                },
-                url : '{{ route("experience.get") }}'
-            }).done(function(response) {
-                if(response.status == 'success') {
-                    if(response.experience > 0) {
-                        $(".experience_status").addClass('d-none');
-                        $("#is_experience").val(1)
-                    }else {
-                        $(".experience_status").removeClass('d-none');
-                        $("#is_experience").prop('checked', false);
-                        $("#is_experience").val(0)
-                    }
-                }
-            })
-        })
-
-        $('#is_experience').change(function() {
-            if($(this).is(":checked")){ 
+        $('input[name="is_experience"]').change(function() {
+            
+            if($("#yes").is(":checked")){ 
                 $(this).val(0);
                 $(".no-experience").addClass('d-none');
             }else {
                 $(this).val(1);
-                $(".no-experience").removeClass('d-none');
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'seeker_id' : seeker_id,
+                        'is_experience' : 1,
+                        'is_current_job' : 0
+                    },
+                    url: '{{ route("experience.store") }}',
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $("#exp-table").removeClass('d-none');
+                        $(".experience_label").removeClass('d-none');
+
+                        $("#exp-table").html('');
+                        $(".experience_label").html('');
+
+                        $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><span class="fw-bold col text-center">No Experience</span><span class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></span></div>');
+
+                        $(".experience_label").append('<h5 class="text-white resume-header py-2">Career History</h5><div class="row py-2 exp-resume-'+response.experience.id+'"><p>No Experience</p></div>');
+
+                        $("#add_career_history").addClass('d-none');
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                        $("#is_experience").val(1);
+                        $("#exp_job_title").val('');
+                        $("#exp_company").val('');
+                        $("#exp_main_functional_area_id").val('');
+                        $("#exp_sub_functional_area_id").val('');
+                        $("#exp_career_level").val('');
+                        $("#exp_industry_id").val('');
+                        $("#exp_start_date").val('');
+                        $("#exp_end_date").val('');
+                        $("#exp_country").val('Myanmar');
+                        $("#exp_job_responsibility").val('');
+                        $('.summernote_exp').summernote('code','');
+                        $(".experience_status").addClass('d-none');
+                    }
+                })
             }
         })
         
@@ -686,11 +700,11 @@
                     $(".no-experience").addClass('d-none');
                     $("#edit_is_experience").prop('checked', true);
                     $("#edit_current_job").prop('checked',true);
-                    $(".edit_experience_status").removeClass('d-none');
+                    
                     $("#edit_is_experience").val(0)
                 }else {
                     $(".no-experience").removeClass('d-none');
-                    $(".edit_experience_status").addClass('d-none');
+                    
                     $("#edit_is_experience").prop('checked', false);
                     $("#edit_is_experience").val(1)
                     $("#edit_exp_job_title").val(response.experience.job_title);
