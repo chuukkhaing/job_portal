@@ -527,14 +527,17 @@
                                         @if($packageItem->name == 'Employer Profile with Photos')
                                         <div class="mb-4">
                                             @if($employer_image_media->count() > 0)
+                                            <div class="mb-4 row media_image @if($employer_image_media->count() > 0) @else d-none @endif">
                                                 @foreach($employer_image_media as $image_media)
-                                                <div class="row mb-4">
-                                                    <div class="col-md-3 col-4 media_image">
-                                                        <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $image_media->name }}">
-                                                        <button type="button" class="position-absolute btn btn-danger btn-sm rounded-circle @if(isset($image_media)) @else d-none @endif image_upload_remove" attr-id=@if(isset($image_media)) "{{ $image_media->id}}" @else "" @endif id="image_upload_remove_1"><i class="fa-solid fa-xmark"></i></button>
-                                                    </div>
+                                                <div class="col-md-3 col-4" id="media_image_{{ $image_media->id }}">
+                                                    <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $image_media->name }}">
+                                                    
+                                                    <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia({{ $image_media->id }})">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
                                                 </div>
                                                 @endforeach
+                                            </div>
                                             @endif
                                             <div class="d-flex align-items-center py-3">
                                                 
@@ -1356,17 +1359,42 @@
                 if(response.status == 'success') {
                     $('.media-image-preview').attr('src', 'https://placehold.co/280x140/#E4E3E2');
                     $("input[name='media_image_base64']").val('');
-                    $(".media_image").append()
+                    $(".media_image").removeClass('d-none');
+                    $(".media_image").append('<div class="col-md-3 col-4" id="media_image_'+response.data.id+'"><img src="'+document.location.origin+'/storage/employer_media/'+response.data.name+'"  class="w-100" id="image_upload_preview_1" alt="'+response.data.name+'"><a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia('+response.data.id+')"><i class="fa-solid fa-trash-can"></i></a></div>')
                 }
             })
     })
 
-    $('.test-image-remove').click(function() {
-        $('.test-image-preview').attr('src', 'https://placehold.co/200x200/#E4E3E2');
-        $('.test-image-remove').addClass('d-none');
-        $('#test-image').val('');
-        $("input[name='test_image_base64']").val('');
-    })
+    function removeMedia(id) {
+        MSalert.principal({
+            icon:'warning',
+            title:'',
+            description:'Are you sure to delete this entry?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    data: {
+                        'employer_id' : {{ $employer->id }}
+                    },
+                    url: '/employer/employer-media/destory/'+id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $("#media_image_"+id).remove();
+                        if(response.media_count == 0) {
+                            $(".media_image").addClass('d-none');
+                        }
+                        MSalert.principal({
+                            icon:'success',
+                            title:'',
+                            description:response.msg,
+                        });
+                    }
+                })
+            }            
+        })
+    }
     
 </script>
 @endpush

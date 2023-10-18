@@ -286,10 +286,8 @@ class EmployerProfileController extends Controller
 
     public function employerMediaStore(Request $request)
     {
-        if ($request->hasFile('upload_image')) {
-            $file    = $request->file('upload_image');
-            $image = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_media/'), $image);
+        if ($request->upload_image) {
+            $image = $this->storeMediaBase64($request->upload_image);
             $media_create = EmployerMedia::create([
                 'employer_id' => $request->employer_id,
                 'name' => $image,
@@ -438,6 +436,19 @@ class EmployerProfileController extends Controller
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
         $path = public_path() . "/storage/employer_testimonial/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
+    }
+
+    private function storeMediaBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_media/" . $imageName;
   
         file_put_contents($path, $imageBase64);
           

@@ -186,80 +186,82 @@
 <!-- About Company End -->
 
 <div class="container my-3">
-    <!-- Company Video Start -->
-    @if($employer->EmployerMedia->where('type','Video Link')->count() > 0)
-    <div class="col-6 p-0">
-        <div class="row py-3">
-            <div class="about-company-header py-3">
-                <h3 class="about-company-title mt-3">Company Video</h3>
+    <div class="row">
+        <!-- Company Video Start -->
+        @if($employer->EmployerMedia->where('type','Video Link')->count() > 0)
+        <div class="col-6 pe-5">
+            <div class="row py-3">
+                <div class="about-company-header py-3">
+                    <h3 class="about-company-title mt-3">Company Video</h3>
+                </div>
+            </div>
+
+            <div class="row pb-3">
+                {{--<iframe width="420" height="315"
+                    src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
+                </iframe>--}}
+                {!! $employer->EmployerMedia->where('type','Video Link')->first()->name !!}
             </div>
         </div>
+        @endif
+        <!-- Company Video End -->
 
-        <div class="row pb-3">
-            {{--<iframe width="420" height="315"
-                src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
-            </iframe>--}}
-            {!! $employer->EmployerMedia->where('type','Video Link')->first()->name !!}
-        </div>
-    </div>
-    @endif
-    <!-- Company Video End -->
-
-    <!-- Company Photo Start -->
-    @if($employer->EmployerMedia->where('type','Image')->count() > 0)
-    <div class="col-6 p-0">
-        <div class="row py-3">
-            <div class="about-company-header py-3">
-                <h3 class="about-company-title mt-3">Company Photos</h3>
+        <!-- Company Photo Start -->
+        @if($employer->EmployerMedia->where('type','Image')->count() > 0)
+        <div class="col-6 ps-5">
+            <div class="row py-3">
+                <div class="about-company-header py-3">
+                    <h3 class="about-company-title mt-3">Company Photos</h3>
+                </div>
             </div>
-        </div>
 
-        <div class="row pb-3">
-            {{--@foreach($employer->EmployerMedia->where('type','Image') as $image)
-            <div class="col-lg-3 col-md-3 p-0 company-photo">
-                <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
-            </div>
-            @endforeach--}}
-            <div class="container py-5">
-                <div class="row">
-                    <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
-                    <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
-                        <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                                @foreach($employer->EmployerMedia->where('type','Image') as $image)
-                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}" style="width:80%;">
+            <div class="row pb-3">
+                {{--@foreach($employer->EmployerMedia->where('type','Image') as $image)
+                <div class="col-lg-3 col-md-3 p-0 company-photo">
+                    <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="w-100 py-1 pe-2" height="200px" alt="">
+                </div>
+                @endforeach--}}
+                <div class="container py-5">
+                    <div class="row">
+                        <!--Ik gebruik hieronder alleen het middiv omdat dat de enige info is die ik wil vervangen-->
+                        <div class="col-md-12" id="middiv" style="background-color: rgba(255, 255, 255, 0.1)">
+                            <div id="companyCarousel" class="carousel slide" data-ride="carousel" align="center">
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    @foreach($employer->EmployerMedia->where('type','Image') as $image)
+                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                        <img src="{{ asset('storage/employer_media/'.$image->name) }}" alt="{{ $employer->name }}" style="width:80%;">
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
+
+                                <!-- Left and right controls -->
+                                <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                </a>
+                                <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                </a>
+
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators list-inline">
+                                    @foreach($employer->EmployerMedia->where('type','Image') as $key => $image)
+                                    <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
+                                        <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
+                                            <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                </ol>
                             </div>
-
-                            <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#companyCarousel" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#companyCarousel" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
-                            </a>
-
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators list-inline">
-                                @foreach($employer->EmployerMedia->where('type','Image') as $key => $image)
-                                <li class="list-inline-item {{ $loop->first ? 'active' : '' }}">
-                                    <a id="carousel-selector-0" class="selected" data-slide-to="{{ $key }}" data-target="#companyCarousel">
-                                        <img src="{{ asset('storage/employer_media/'.$image->name) }}" class="img-fluid">
-                                    </a>
-                                </li>
-                                @endforeach
-                            </ol>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endif
+        <!-- Company Photo End -->
     </div>
-    @endif
-    <!-- Company Photo End -->
 </div>
 
 <!-- Job Openings Start -->
