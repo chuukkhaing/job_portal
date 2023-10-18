@@ -53,4 +53,12 @@ $(document).ready(function(){
     $('.summernote').summernote({
         height: 200
     });
+
+    $('.employer_summernote').summernote({
+        toolbar: [
+            ['font', ['bold', 'italic', 'underline']],
+            ['para', ['ul', 'ol', 'paragraph']]
+        ],
+        height: 200
+    })
 });

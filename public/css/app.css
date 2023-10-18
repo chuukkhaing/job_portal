@@ -21,7 +21,7 @@
 .logo-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px 0;
+    margin: -80px 0 50px 0;
 }
 .logo-edit {
     position: absolute;
@@ -129,6 +129,9 @@
     position: absolute;
     width: 1px;
     height: 1px;
+}
+.employer-background-edit-icon {
+    cursor: pointer;
 }
 @charset "UTF-8"; /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
@@ -11162,7 +11165,7 @@ textarea.form-control-lg {
   background: #fff;
   color: #545454;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 1rem;
 }
 .swal2-popup:focus {
   outline: none;

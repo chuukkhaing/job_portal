@@ -182,7 +182,7 @@ class EmployerController extends Controller
             'register_at' => now(),
             'is_active' => $request->is_active,
             'is_verified' => $request->is_verified,
-            'updated_by' => Auth::user()->id,
+            'updated_by_admin' => Auth::user()->id,
         ]);
 
         Alert::success('Success', 'Employer Updated Successfully!');
@@ -235,7 +235,7 @@ class EmployerController extends Controller
 
     public function getTownship($id)
     {
-        $townships = Township::whereStateId($id)->whereNull('deleted_at')->whereIsActive(1)->get();
+        $townships = Township::whereStateId($id)->whereNull('deleted_at')->whereIsActive(1)->orderBy('name')->get();
         return response()->json([
             'status' => 'success',
             'data' => $townships

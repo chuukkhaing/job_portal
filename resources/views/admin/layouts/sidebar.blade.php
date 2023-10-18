@@ -156,12 +156,23 @@
     @endcan
     <!-- Nav Item - Employer Menu -->
     @canany(['employer-list'])
-    <li class="nav-item {{ Request::is('admin/employers*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('employers.index') }}">
+    <li class="nav-item {{ Request::is('admin/employers*') ? 'active' : '' }} {{ Request::is('admin/employer-info*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employers"
+            aria-expanded="true" aria-controls="employers">
             <i class="fas fa-user-tie"></i>
             <span>Employers</span>
         </a>
+        <div id="employers" class="collapse {{ Request::is('admin/employers*') ? 'show' : '' }} {{ Request::is('admin/employer-info*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('employer-list')
+                <a class="collapse-item {{ Request::is('admin/employers*') ? 'active' : '' }}" href="{{ route('employers.index') }}">Account Info</a>
+                
+                <a class="collapse-item {{ Request::is('admin/employer-info*') ? 'active' : '' }}" href="{{ route('employer-info.index') }}">Personal Info</a>
+                @endcan
+            </div>
+        </div>
     </li>
+    
     @endcan
     <!-- Nav Item - Seeker Menu -->
     @can(['seeker-list'])

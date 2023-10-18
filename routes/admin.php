@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\JobPostController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SeekerController;
+use App\Http\Controllers\Admin\EmployerInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,5 +99,14 @@ Route::group([], function(){
         // seeker 
         Route::resource('seeker', SeekerController::class);
         Route::get('download-ic-cv/{id}', [SeekerController::class, 'icFormatCVDownload'])->name('ic-format-cv');
+
+        // employer info 
+        Route::resource('employer-info', EmployerInfoController::class);
+        Route::post('/employer-info-address', [EmployerInfoController::class, 'employerAddressStore'])->name('employer-info-address.store');
+        Route::post('employer-info-address/destory/{id}', [EmployerInfoController::class, 'employerAddressDestroy']);
+        Route::post('/employer-info-testimonial', [EmployerInfoController::class, 'employerTestimonialStore'])->name('employer-info-testimonial.store');
+        Route::post('employer-info-testimonial/destory/{id}', [EmployerInfoController::class, 'employerTestimonialDestroy']);
+        Route::post('/employer-info-media', [EmployerInfoController::class, 'employerMediaStore'])->name('employer-info-media.store');
+        Route::post('employer-info-media/destory/{id}', [EmployerInfoController::class, 'employerMediaDestroy']);
     });
 });

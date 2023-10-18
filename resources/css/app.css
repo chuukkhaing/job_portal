@@ -20,7 +20,7 @@
 .logo-upload {
     position: relative;
     max-width: 205px;
-    margin: 50px 0;
+    margin: -80px 0 50px 0;
 }
 .logo-edit {
     position: absolute;
@@ -128,4 +128,7 @@
     position: absolute;
     width: 1px;
     height: 1px;
+}
+.employer-background-edit-icon {
+    cursor: pointer;
 }

@@ -48,6 +48,7 @@ class CreateEmployersTable extends Migration
 			$table->datetime('register_at')->nullable();
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);
+            $table->integer('updated_by_admin')->default(0);
             $table->integer('deleted_by')->default(0);
             $table->softDeletes();
             $table->timestamps();

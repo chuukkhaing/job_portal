@@ -525,25 +525,12 @@
                                     
                                     @foreach($packageItems as $packageItem)
                                         @if($packageItem->name == 'Employer Profile with Photos')
-                                        <div class="mb-4">
-                                            @if($employer_image_media->count() > 0)
-                                            <div class="mb-4 row media_image @if($employer_image_media->count() > 0) @else d-none @endif">
-                                                @foreach($employer_image_media as $image_media)
-                                                <div class="col-md-3 col-4" id="media_image_{{ $image_media->id }}">
-                                                    <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100" id="image_upload_preview_1" alt="{{ $image_media->name }}">
-                                                    
-                                                    <a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia({{ $image_media->id }})">
-                                                    <i class="fa-solid fa-trash-can"></i>
-                                                    </a>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                            @endif
-                                            <div class="d-flex align-items-center py-3">
+                                        <div class="row mb-4">
+                                            <div class="col-5 d-flex align-items-center pt-3">
                                                 
                                                 <label for="media-image" style="color: #696968">
                                                     <img src="https://placehold.co/280x140/#E4E3E2" class="media-image-preview">
-                                                    <div class="py-3 text-center">
+                                                    <div class="pt-2 text-center">
                                                         Tap to Change
                                                     </div>
                                                 </label><br>
@@ -552,30 +539,50 @@
                                                 
                                                 <input type="hidden" name="media_image_base64">
                                             </div>
+                                            @if($employer_image_media->count() > 0)
+                                            <div class="col row media_image @if($employer_image_media->count() > 0) @else d-none @endif">
+                                                @foreach($employer_image_media as $image_media)
+                                                <div class="col-md-3" id="media_image_{{ $image_media->id }}">
+                                                    <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100 rounded-3" id="image_upload_preview" alt="{{ $image_media->name }}">
+                                                    
+                                                    <a class="position-absolute top-0 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia({{ $image_media->id }})">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                    </a>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                            
                                         </div>
                                         @endif
                                         
                                         @if($packageItem->name == 'Employer Profile with Videos')
-                                        <div class="table-responsive">
-                                            <table class="table employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
-                                                <tbody>
-                                                    @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
-                                                    <tr class="media-tr-{{ $link->id }}">
-                                                        <td>{!! $link->name ?? '-' !!}</td>
-                                                        <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="row d-flex align-items-end">
-                                            <div class="col-lg-6 col-12 form-group video_add mb-4">
-                                                <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
-                                                <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube embed">
-                                                <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
+                                        <div class="shadow p-3" style="border: 1px dashed #95B6D8; border-radius: 8px">
+                                            <div class="table-responsive">
+                                                <table class="table employer-media @if($employer->EmployerMedia->where('type','Video Link')->count() > 0) @else d-none @endif">
+                                                    <thead>
+                                                        <th>Link</th>
+                                                        <th>Action</th>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach($employer->EmployerMedia->where('type','Video Link') as $link)
+                                                        <tr class="media-tr-{{ $link->id }}">
+                                                            <td>{!! $link->name ?? '-' !!}</td>
+                                                            <td><a id="deleteMedia-{{ $link->id }}" class="deleteMedia border-0 text-danger" value="{{ $link->id }}"><i class="fa-solid fa-trash-can"></i></a></td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-lg-6 col-12 form-group mb-4">
-                                                <a onclick="addLink()" class="btn profile-save-btn btn-sm text-white"><i class="fa-solid fa-plus"></i> Add Link</a>
+                                            <div class="row d-flex align-items-end">
+                                                <div class="col-lg-6 col-12 form-group video_add mb-4">
+                                                    <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
+                                                    <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube embed">
+                                                    <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
+                                                </div>
+                                                <div class="col-lg-6 col-12 form-group mb-4">
+                                                    <a onclick="addLink()" class="btn profile-save-btn btn-sm text-white"><i class="fa-solid fa-plus"></i> Add Link</a>
+                                                </div>
                                             </div>
                                         </div>
                                         @endif
@@ -718,6 +725,7 @@
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
     $(document).ready(function() {
         var show_success_modal = "{{ session()->pull('success') }}";
@@ -946,30 +954,6 @@
                 }
             }
         });
-    })
-
-    $('.employer-qr-upload').change(function() {
-        var employer_qr = '.employer-qr';
-        readQRURL(this, employer_qr);
-    });
-
-    function readQRURL(input, employer_qr) {
-        if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $(employer_qr).attr('src', e.target.result);
-            $('.employer-qr-remove').removeClass('d-none');
-            $('#qrStatus').val('');
-        };
-        reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    $('.employer-qr-remove').click(function() {
-        $('.employer-qr').attr('src', 'https://placehold.jp/1835x510.png');
-        $('.employer-qr-remove').addClass('d-none');
-        $('.employer-qr-upload').val('');
-        $('#qrStatus').val('empty');
     })
 
     function addNewAddress() {
@@ -1279,7 +1263,7 @@
                 if(response.status == 'success') {
                     $("#video_link").val('');
                     $(".employer-media").removeClass('d-none');
-                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a id="deleteMedia-'+response.data.id+'" class="deleteMedia btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $(".employer-media").append('<tr class="media-tr-'+response.data.id+'"><td>'+response.data.name+'</td><td><a id="deleteMedia-'+response.data.id+'" class="deleteMedia border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                 }
             })
         }
@@ -1359,7 +1343,7 @@
                     $('.media-image-preview').attr('src', 'https://placehold.co/280x140/#E4E3E2');
                     $("input[name='media_image_base64']").val('');
                     $(".media_image").removeClass('d-none');
-                    $(".media_image").append('<div class="col-md-3 col-4" id="media_image_'+response.data.id+'"><img src="'+document.location.origin+'/storage/employer_media/'+response.data.name+'"  class="w-100" id="image_upload_preview_1" alt="'+response.data.name+'"><a class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia('+response.data.id+')"><i class="fa-solid fa-trash-can"></i></a></div>')
+                    $(".media_image").append('<div class="col-md-3 col-4" id="media_image_'+response.data.id+'"><img src="'+document.location.origin+'/storage/employer_media/'+response.data.name+'"  class="w-100 rounded-3" id="image_upload_preview" alt="'+response.data.name+'"><a class="position-absolute top-0 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia('+response.data.id+')"><i class="fa-solid fa-trash-can"></i></a></div>')
                 }
             })
     })
@@ -1386,7 +1370,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }

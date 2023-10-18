@@ -96,14 +96,15 @@
                             </div>
                         </div>
                     </div>
+                    @if($employer->legal_docs)
                     <div class="col-4 form-group">
                         <label for="legal_docs">Employer Legal Docs</label>
-                        @if($employer->legal_docs)
+                        
                         <div class="pb-2 legal_docs_link">
                             <a class="text-decoration-none" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a>
                         </div>
-                        @endif
                     </div>
+                    @endif
                 </div>
                 <div class="row">
                     <div class="col-4 form-group">
@@ -111,11 +112,13 @@
                         <input type="radio" name="is_active" id="active" class="" value="1" @if($employer->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
                         <input type="radio" name="is_active" id="in_active" class="" value="0" @if($employer->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
                     </div>
+                    @if($employer->legal_docs)
                     <div class="col-4 form-group">
                         <label for="is_verified">Employer Verification <span class="text-danger">*</span></label> <br>
                         <input type="radio" name="is_verified" id="verify" class="" value="1" @if($employer->is_verified == 1) checked required @endif> <label for="verify"> Verified Employer</label><br>
                         <input type="radio" name="is_verified" id="not_verify" class="" value="0" @if($employer->is_verified == 0) checked required @endif> <label for="not_verify"> Not Verified Employer</label>
                     </div>
+                    @endif
                 </div>
                 <button class="btn btn-primary btn-icon-split btn-sm" type="submit">
                     <span class="icon text-white-50">

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Employer;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,31 +9,20 @@ use App\Models\Admin\Industry;
 use App\Models\Admin\OwnershipType;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
-use App\Models\Admin\Package;
 use App\Models\Admin\FunctionalArea;
-use App\Models\Employer\JobPost;
 use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerMedia;
 use App\Models\Employer\EmployerTestimonial;
 use App\Models\Admin\PackageItem;
-use File;
-use Str;
-use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use DB;
 use Auth;
+use Str;
+use Alert;
+use File;
 
-class EmployerProfileController extends Controller
+class EmployerInfoController extends Controller
 {
-    public function logout(Request $request)
-    {
-        Auth::guard('employer')->logout();
-
-        $request->session()->flush();
-
-        $request->session()->regenerate();
-
-        return redirect()->route('home');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -41,14 +30,8 @@ class EmployerProfileController extends Controller
      */
     public function index()
     {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
-        $packages = Package::whereNull('deleted_at')->get();
-        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $lastJobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at','desc')->get()->take(5);
-        return view ('employer.profile.dashboard', compact('employer', 'packages', 'lastJobPosts', 'packageItems'));
+        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->get();
+        return view ('admin.employer-info.index', compact('employers'));
     }
 
     /**
@@ -91,21 +74,16 @@ class EmployerProfileController extends Controller
      */
     public function edit($id)
     {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
+        $employer = Employer::findOrFail($id);
         $industries = Industry::whereNull('deleted_at')->get();
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();
         $townships = Township::whereNull('deleted_at')->get();
-        $packages = Package::whereNull('deleted_at')->get();
-        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        
         $employer_image_media = EmployerMedia::whereEmployerId($employer->id)->whereType('Image')->get();
-        return view ('employer.profile.edit', compact('packageItems', 'employer', 'industries', 'ownershipTypes', 'states', 'townships', 'packages', 'functional_areas', 'sub_functional_areas', 'employer_image_media'));
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view ('admin.employer-info.edit', compact('employer', 'industries', 'ownershipTypes', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'employer_image_media', 'packageItems'));
     }
 
     /**
@@ -142,12 +120,19 @@ class EmployerProfileController extends Controller
             File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
             $legal_docs = NULL;
         }
-
-        if($request->password) {
-            $password = Hash::make($request->password);
-        }else {
-            $password = $employer->password;
+        $logo = $employer->logo;
+        if($request->image_base64 != ''){
+            $logo = $this->storeBase64($request->image_base64);
+        }elseif($request->image_base64 == 'Empty') {
+            $logo = '';
         }
+        $background = $employer->background;
+        if($request->background_base64 != ''){
+            $background = $this->storeBackgroundBase64($request->background_base64);
+        }elseif($request->background_base64 == 'Empty') {
+            $background = '';
+        }
+
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
         $employer = $employer->update([
             'legal_docs' => $legal_docs,
@@ -162,11 +147,13 @@ class EmployerProfileController extends Controller
             'slug' => $slug,
             'summary' => $request->company_summary,
             'value' => $request->company_value,
-            'password' => $password,
-            'updated_by_admin' => $id,
+            'logo' => $logo,
+            'background' => $background,
+            'updated_by_admin' => Auth::user()->id,
         ]);
 
-        return redirect()->back()->with('success','Profile Edit Successfully.');
+        Alert::success('Success', 'Employer Updated Successfully!');
+        return redirect()->route('employer-info.index');
     }
 
     /**
@@ -180,22 +167,43 @@ class EmployerProfileController extends Controller
         //
     }
 
-    public function getTownship($id)
+    private function storeBase64($imageBase64)
     {
-        $townships = Township::whereStateId($id)->whereNull('deleted_at')->orderBy('name')->whereIsActive(1)->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $townships
-        ]);
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_logo/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
+    }
+    
+    private function storeBackgroundBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_background/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
     }
 
-    public function getSubFunctionalArea($id)
+    private function storeTestBase64($imageBase64)
     {
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id',$id)->whereIsActive(1)->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $sub_functional_areas
-        ]);
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $path = public_path() . "/storage/employer_testimonial/" . $imageName;
+  
+        file_put_contents($path, $imageBase64);
+          
+        return $imageName;
     }
 
     public function employerAddressStore(Request $request)
@@ -248,7 +256,7 @@ class EmployerProfileController extends Controller
     public function employerTestimonialStore(Request $request)
     {
         if($request->test_image != ''){
-            $image = $this->storeBase64($request->test_image);
+            $image = $this->storeTestBase64($request->test_image);
         }else {
             $image = '';
         }
@@ -324,122 +332,6 @@ class EmployerProfileController extends Controller
             'msg' => 'Media deleted successfully!',
             'media_count' => $media_count
         ]);
-    }
-
-    public function uploadLogo (Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-
-        if($request->hasFile('employer_logo')) {
-            $file    = $request->file('employer_logo');
-            $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
-        }
-        $employer = $employer->update([
-            'logo' => $logo,
-            'updated_by' => Auth::guard('employer')->user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Logo uploaded successfully.'
-        ]);
-    }
-
-    public function removeLogo(Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-        File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$employer->logo));
-        $employer = $employer->update([
-            'logo' => Null,
-            'updated_by' => Auth::guard('employer')->user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Logo removed successfully.'
-        ]);
-    }
-
-    public function uploadBackground (Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-
-        if($request->hasFile('employer_background')) {
-            $file    = $request->file('employer_background');
-            $background = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_background/'), $background);
-        }
-        $employer = $employer->update([
-            'background' => $background,
-            'updated_by' => Auth::guard('employer')->user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Background uploaded successfully.'
-        ]);
-    }
-
-    public function removeBackground(Request $request)
-    {
-        $employer = Employer::findOrFail($request->employer_id);
-        File::deleteDirectory(public_path('storage/employer_background/'.'/'.$employer->background));
-        $employer = $employer->update([
-            'background' => Null,
-            'updated_by' => Auth::guard('employer')->user()->id,
-        ]);
-
-        return response()->json([
-            'status' => 'success',
-            'msg'    => 'Background removed successfully.'
-        ]);
-    }
-
-    public function manageJob()
-    {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
-        $packages = Package::whereNull('deleted_at')->get();
-        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $pendingjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
-        $onlinejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
-        $rejectjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
-        $expirejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
-        if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0) {
-            return redirect()->route('employer-job-post.create');
-        }else {
-            return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts'));
-        }
-    }
-
-    public function applicantTracking()
-    {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
-        $packages = Package::whereNull('deleted_at')->get();
-        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $activejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(1)->where('status','!=', 'Expire')->get();
-        $inactivejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(0)->where('status','!=', 'Expire')->get();
-        $expirejobApplicants = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->get();
-        return view ('employer.profile.applicant-tracking', compact('activejobApplicants', 'inactivejobApplicants', 'expirejobApplicants', 'employer', 'packages', 'packageItems'));
-    }
-
-    private function storeBase64($imageBase64)
-    {
-        list($type, $imageBase64) = explode(';', $imageBase64);
-        list(, $imageBase64)      = explode(',', $imageBase64);
-        $imageBase64 = base64_decode($imageBase64);
-        $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_testimonial/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
-          
-        return $imageName;
     }
 
     private function storeMediaBase64($imageBase64)
