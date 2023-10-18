@@ -135,7 +135,7 @@
                     <img src="{{ asset('/img/logo/ICLogo.png') }}" class="" width="100" alt="{{ $employer->name }}">
                     @endif
                     <div class="mt-2" id="job-category-name">
-                    <span id="job-category-name-position">{{ $employer->name }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif</span>
+                    <span id="job-category-name-position">{{ $employer->name }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</span>
                     </div>
                 </a>
             </div>
@@ -183,7 +183,7 @@
                         <div class="col-9 p-0">
                             <div>
                                 <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
-                                <span id="trending-job-sub-title">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif @auth('seeker')<span class="badge badge-info">@if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0) Applied @endif </span> @endauth</span>
+                                <span id="trending-job-sub-title">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0)<span class="badge badge-info"> Applied </span> @endif @endauth</span>
                             </div>
 
                             <div class="">
@@ -227,7 +227,7 @@
                                         </div>
                                         <div class="col-9 p-0 pt-3">
                                             <h3 class="fz15 text-truncate" id="trending-job-title">{{ $feature_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check" style="color: #0355D0"></i> @endif @auth('seeker')<span class="badge badge-info">@if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) Applied @endif </span>@endauth</span>
+                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) <span class="badge badge-info"> Applied </span>@endif @endauth</span>
                                         </div>
                                     </div>
                                 </div>

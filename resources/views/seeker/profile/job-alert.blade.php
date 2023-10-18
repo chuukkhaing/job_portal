@@ -65,7 +65,7 @@
                 <div class="">
                     <h5 class="pb-3">My Job Alert List ( {{ $job_alerts->count() }} )</h5>
 
-                    <a href="#" class="btn profile-save-btn" onclick="createJobAlert()"><i class="fa-solid fa-plus pe-2"></i>Create Job Alerts</a>
+                    <a href="#" class="btn profile-save-btn btn-sm" onclick="createJobAlert()"><i class="fa-solid fa-plus pe-2"></i>Create Job Alerts</a>
                 </div>
             </div>
             <div class="my-2 pb-3 job-alert-create-form d-none" id="edit-profile-body">
@@ -202,7 +202,7 @@
             <div class="my-2 py-3 px-lg-5 px-md-3" id="edit-profile-body">
             @if($job_alerts->count() > 0)
                 <div class="table-responsive" id="applicant-tracking-section">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-sm" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -224,7 +224,7 @@
                                 <td>{{ $job_alert->country }} @if(isset($job_alert->state_id)) , {{ $job_alert->State->name }} @endif</td>
                                 <td class="fw-bold">{{ date('M d, Y',strtotime($job_alert->created_at)) }}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit" id="confirmation-{{ $job_alert->id }}" value="{{ $job_alert->id }}"><i class="fas fa-trash-can"></i></button>
+                                    <button class="border-0 bg-transparent delete-confirm text-light" type="submit" id="confirmation-{{ $job_alert->id }}" value="{{ $job_alert->id }}"><i class="fas fa-trash-can text-danger"></i></button>
                                 </td>
                             </tr>
                         @endforeach

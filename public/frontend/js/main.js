@@ -50,7 +50,9 @@
     });
 
     $('#dataTable').dataTable({
-        ordering: false
+        ordering: false,
+        dom: '<frtp>',
+        pageLength: 15
     });
     
     $('input[type=number]').on('mousewheel', function(e) {
