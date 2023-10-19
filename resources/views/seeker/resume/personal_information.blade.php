@@ -121,10 +121,7 @@
             <label for="address_detail" class="">Address Detail</label>
             <textarea name="address_detail" id="address_detail" class="form-control" cols="30" rows="2" onchange="updateProfile('address_detail', this.value)">{{ Auth::guard('seeker')->user()->address_detail }}</textarea>
         </div>
-        <div class="form-group col-12">
-            <label for="summary" class="">Profile Summary</label>
-            <textarea name="summary" id="summary" class="form-control summernote_resume" cols="30" rows="2" >{!! Auth::guard('seeker')->user()->summary !!}</textarea>
-        </div>
+        
     </div>
 </div>
 
@@ -157,6 +154,7 @@
             ['font', ['bold', 'italic', 'underline']],
             ['para', ['ul', 'ol', 'paragraph']]
         ],
+        height: 100,
         callbacks: {
             onChange: function(contents, $editable) {
                 updateProfile('summary', contents)
