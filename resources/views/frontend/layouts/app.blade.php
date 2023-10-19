@@ -104,7 +104,27 @@
     <script src="{{ asset('frontend/js/MSalert.js') }}"></script>
 
     @stack('scripts')
-    
+    <script>
+        $(document).ready(function() {
+            var show_success_modal = "{{ session()->pull('success') }}";
+            if(show_success_modal != '') {
+                MSalert.principal({
+                    icon:'success',
+                    title:'Success',
+                    description: show_success_modal,
+                })
+            }
+
+            var show_error_modal = "{{ session()->pull('error') }}";
+            if(show_error_modal != '') {
+                MSalert.principal({
+                    icon:'error',
+                    title:'Error',
+                    description: show_error_modal,
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -724,14 +724,14 @@ class SeekerProfileController extends Controller
     {
         $jobpost = JobPost::findOrFail($id);
         if (Auth::guard('seeker')->user()->percentage < 80) {
-            return redirect()->route('jobpost-detail', $jobpost->slug)->with('error', 'Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications.!');
+            return redirect()->back()->with('error', 'Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications.!');
         } else {
             $jobApply = JobApply::create([
                 'employer_id' => $jobpost->employer_id,
                 'job_post_id' => $id,
                 'seeker_id'   => Auth::guard('seeker')->user()->id,
             ]);
-            return redirect()->route('find-jobs')->with('success', 'Job Apply Successfully!');
+            return redirect()->back()->with('success', 'Job Apply Successfully!');
         }
 
     }

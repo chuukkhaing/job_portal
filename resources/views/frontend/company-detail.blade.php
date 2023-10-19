@@ -276,7 +276,7 @@
     <div class="row" style="">
         @foreach($jobPosts as $jobPost)
         <!-- Button trigger modal -->
-        <div class="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div class="" data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
             <div class="col-lg-12 col-12 pb-2">
                 <div class="row job-opening me-1 p-2 h-100">
                     <div class="col-lg-9 col-md-9 p-0">
@@ -331,11 +331,10 @@
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="JobPostModal{{$jobPost->id}}" tabindex="-1" aria-labelledby="JobPostModal{{$jobPost->id}}Label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -397,14 +396,14 @@
                             <div class="card-body p-0">
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <button class="p-md-3 p-2 job-post-detail nav-link active" id="nav-job-description-tab" data-bs-toggle="tab" data-bs-target="#nav-job-description" type="button" role="tab" aria-controls="nav-job-description" aria-selected="true">Job Description</button>
+                                        <button class="p-md-3 p-2 job-post-detail nav-link active" id="nav-job-description-{{$jobPost->id}}-tab" data-bs-toggle="tab" data-bs-target="#nav-job-description-{{$jobPost->id}}" type="button" role="tab" aria-controls="nav-job-description-{{$jobPost->id}}" aria-selected="true">Job Description</button>
                                         @if($jobPost->hide_company != 1)
-                                        <button class="p-md-3 p-2 job-post-detail nav-link" id="nav-company-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-company-profile" type="button" role="tab" aria-controls="nav-company-profile" aria-selected="false">Company Profile</button>
+                                        <button class="p-md-3 p-2 job-post-detail nav-link" id="nav-company-profile-{{$jobPost->id}}-tab" data-bs-toggle="tab" data-bs-target="#nav-company-profile-{{$jobPost->id}}" type="button" role="tab" aria-controls="nav-company-profile-{{$jobPost->id}}" aria-selected="false">Company Profile</button>
                                         @endif
                                     </div>
                                 </nav>
                                 <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane p-3 fade show active" id="nav-job-description" role="tabpanel" aria-labelledby="nav-job-description-tab">
+                                    <div class="tab-pane p-3 fade show active" id="nav-job-description-{{$jobPost->id}}" role="tabpanel" aria-labelledby="nav-job-description-{{$jobPost->id}}-tab">
                                         @if($jobPost->JobPostSkill->count() > 0)
                                         <h5 class="fw-bold text-black">Skills</h5>
                                         <div class="badge-group mb-3">
@@ -452,7 +451,7 @@
                                         </div>
                                         @endif
                                     </div>
-                                    <div class="tab-pane fade" id="nav-company-profile" role="tabpanel" aria-labelledby="nav-company-profile-tab">
+                                    <div class="tab-pane fade" id="nav-company-profile-{{$jobPost->id}}" role="tabpanel" aria-labelledby="nav-company-profile-{{$jobPost->id}}-tab">
                                         <div class=" p-1 d-none d-lg-block">
                                             <div class="row py-3">
                                                 <div class="col-2">
@@ -613,7 +612,16 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        @auth('seeker')
+                            <a href="{{ route('jobpost-apply', $jobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
+                                <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
+                            </a>
+                        @elseauth('employer')
+                        @else
+                            <a href="{{ route('jobpost-apply', $jobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
+                                <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
+                            </a>
+                        @endguest
                     </div>
                 </div>
             </div>
