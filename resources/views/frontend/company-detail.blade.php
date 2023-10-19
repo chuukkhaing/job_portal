@@ -520,7 +520,7 @@
                                                         </div>
                                                         <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                         <p class="mb-4">
-                                                            {{ $jobPost->Employer->value ?? '-' }}
+                                                            {!! $jobPost->Employer->value ?? '-' !!}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -595,7 +595,7 @@
                                                         </div>
                                                         <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                         <p class="mb-4">
-                                                            {{ $jobPost->Employer->value ?? '-' }}
+                                                            {!! $jobPost->Employer->value ?? '-' !!}
                                                         </p>
                                                     </div>
                                                 </div>

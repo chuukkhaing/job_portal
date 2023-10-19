@@ -137,7 +137,7 @@
                                                             <h5 class="fw-bold text-dark">Company Overview</h5>
                                                             @if($jobpost->Employer->summary)
                                                             <p class="mb-4">
-                                                                {{ $jobpost->Employer->summary }}
+                                                                {!! $jobpost->Employer->summary !!}
                                                             </p>
                                                             @endif
                                                             <h5 class="fw-bold text-dark">Specialties:</h5>
@@ -182,7 +182,7 @@
                                                         </div>
                                                         <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                         <p class="mb-4">
-                                                            {{ $jobpost->Employer->value ?? '-' }}
+                                                            {!! $jobPost->Employer->value ?? '-' !!}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -257,7 +257,7 @@
                                                         </div>
                                                         <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                         <p class="mb-4">
-                                                            {{ $jobpost->Employer->value ?? '-' }}
+                                                            {!! $jobPost->Employer->value ?? '-' !!}
                                                         </p>
                                                     </div>
                                                 </div>
