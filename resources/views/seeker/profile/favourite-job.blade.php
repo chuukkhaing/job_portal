@@ -382,6 +382,7 @@
                                             
                                         </div>
                                         <div class="modal-footer">
+                                            <button type="button" class="btn btn-success copyText" onclick="copyText('{{ route('jobpost-detail', $saveJob->JobPost->slug) }}')"  ><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                             @auth('seeker')
                                                 <a href="{{ route('jobpost-apply', $saveJob->JobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">

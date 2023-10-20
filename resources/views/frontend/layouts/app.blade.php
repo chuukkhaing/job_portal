@@ -124,6 +124,15 @@
                 })
             }
         })
+
+        function copyText(link)
+        {
+            navigator.clipboard.writeText(link);
+            $('.copyText').attr('data-bs-original-title', 'Copied').tooltip('show');
+            setTimeout(function() {
+                $('.copyText').attr('data-bs-original-title', '').tooltip('hide');
+            }, 1000);
+        }
     </script>
 </body>
 

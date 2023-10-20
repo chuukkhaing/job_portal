@@ -459,6 +459,7 @@
                             
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-success copyText" onclick="copyText('{{ route('jobpost-detail', $jobPost->slug) }}')"  ><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             @auth('seeker')
                                 <a href="{{ route('jobpost-apply', $jobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
@@ -817,6 +818,7 @@
                                     
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-success copyText" onclick="copyText('{{ route('jobpost-detail', $trending_job->slug) }}')"  ><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     @auth('seeker')
                                         <a href="{{ route('jobpost-apply', $trending_job->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
@@ -1154,6 +1156,7 @@
                                     
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-success copyText" onclick="copyText('{{ route('jobpost-detail', $feature_job->slug) }}')"  ><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     @auth('seeker')
                                         <a href="{{ route('jobpost-apply', $feature_job->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
