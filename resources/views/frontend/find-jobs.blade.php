@@ -124,8 +124,7 @@
                 <!-- Job List Start -->
                 <div class="col-md-2 col-3 align-self-center text-center py-2">
                     <a data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
-                        @if($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending')
-                        @if($jobPost->Employer->logo)
+                        @if(($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending') && $jobPost->Employer->logo && $jobPost->hide_company == 0)
                         <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                         @else 
                         <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
@@ -133,12 +132,11 @@
                         <div class="">
                         @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
                         </div>
-                        @endif
                     </a>
                 </div>
                 <div class="col-md-8 col-9 align-self-center py-2">
                     <a data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
-                        <div class="mt-1 job-company text-black">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</div>
+                        <div class="mt-1 job-company text-black">@if($jobPost->hide_company == 0) {{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</div>
                         <div class="mt-1">{{ $jobPost->job_title }}</div>
                         @if($jobPost->township_id)
                         <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
@@ -191,14 +189,16 @@
                                 <div class="card-header bg-transparent">
                                     <div class="row">
                                         <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                            @if($jobPost->Employer->logo)
+                                            @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                             <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobPost->Employer->name }}">
                                             @else
-                                            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobPost->Employer->name }}">
+                                            <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                             @endif
                                             <div class="align-self-center">
                                                 <span class="h4 fw-bold">{{ $jobPost->job_title }} @if($jobPost->no_of_candidate) ( {{ $jobPost->no_of_candidate }} - Posts ) @endif</span>
+                                                @if($jobPost->hide_company == 0)
                                                 <div><a class="text-muted h6" href="{{ route('company-detail',$jobPost->Employer->slug ?? '') }}">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-6 col-xl-5 mb-2 align-self-center">
@@ -305,18 +305,20 @@
                                                     <div class="col-2">
                                                         
                                                     </div>
+                                                    @if($jobPost->hide_company == 0)
                                                     <div class="col-10">
                                                         <h4 class="fw-bold text-black">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                     </div>
+                                                    @endif
                                                 </div>
                                                 <div class="card job-post-detail-company-profile mb-2">
                                                     <div class="header">
                                                         <div class="row">
                                                             <div class="col-2 ">
-                                                                @if($jobPost->Employer->logo)
+                                                                @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                                                 <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobPost->Employer->name }}">
                                                                 @else
-                                                                <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobPost->Employer->name }}">
+                                                                <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                                 @endif
                                                             </div>
                                                             <div class="col-10 py-4">
@@ -382,13 +384,15 @@
                                                             
                                                             <div class="col py-4" >
                                                                 <div class="col-6 mx-auto text-center">
-                                                                    @if($jobPost->Employer->logo)
+                                                                    @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                                                     <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobPost->Employer->name }}">
                                                                     @else
-                                                                    <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobPost->Employer->name }}">
+                                                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                     @endif
                                                                 </div>
+                                                                @if($jobPost->hide_company == 0)
                                                                 <h4 class="fw-bold text-black job-post-company-name">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                @endif
                                                                 <h5 class="fw-bold text-dark">Company Overview</h5>
                                                                 @if($jobPost->Employer->summary)
                                                                 <p class="mb-4">
@@ -452,9 +456,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                @if($jobPost->hide_company == 0)
                                 <div class="card-footer text-center">
                                     <a href="{{ route('company-jobs', $jobPost->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                                 </div>
+                                @endif
                             </div>
                             
                         </div>
@@ -516,7 +522,7 @@
                             <div class="m-0 my-2 trending-job-list rounded">
                                 <div class="row m-0">
                                     <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
-                                        @if($trending_job->Employer->logo)
+                                        @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
                                         <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
@@ -525,7 +531,7 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
+                                            <span id="trending-job-sub-title">@if($trending_job->hide_company == 0) {{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
                                         </div>
 
                                         <div class="fz13">
@@ -550,14 +556,16 @@
                                         <div class="card-header bg-transparent">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                                    @if($trending_job->Employer->logo)
+                                                    @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
                                                     <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
                                                     @else
-                                                    <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
+                                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
                                                     @endif
                                                     <div class="align-self-center">
                                                         <span class="h4 fw-bold">{{ $trending_job->job_title }} @if($trending_job->no_of_candidate) ( {{ $trending_job->no_of_candidate }} - Posts ) @endif</span>
+                                                        @if($trending_job->hide_company == 0)
                                                         <div><a class="text-muted h6" href="{{ route('company-detail',$trending_job->Employer->slug ?? '') }}">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 align-self-center">
@@ -664,18 +672,20 @@
                                                             <div class="col-2">
                                                                 
                                                             </div>
+                                                            @if($trending_job->hide_company == 0)
                                                             <div class="col-10">
                                                                 <h4 class="fw-bold text-black">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                             </div>
+                                                            @endif
                                                         </div>
                                                         <div class="card job-post-detail-company-profile mb-2">
                                                             <div class="header">
                                                                 <div class="row">
                                                                     <div class="col-2 ">
-                                                                        @if($trending_job->Employer->logo)
+                                                                        @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
                                                                         <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job->Employer->name }}">
                                                                         @else
-                                                                        <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job->Employer->name }}">
+                                                                        <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-10 py-4">
@@ -741,13 +751,15 @@
                                                                     
                                                                     <div class="col py-4" >
                                                                         <div class="col-6 mx-auto text-center">
-                                                                            @if($trending_job->Employer->logo)
+                                                                            @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
                                                                             <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job->Employer->name }}">
                                                                             @else
-                                                                            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job->Employer->name }}">
+                                                                            <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                             @endif
                                                                         </div>
+                                                                        @if($trending_job->hide_company == 0)
                                                                         <h4 class="fw-bold text-black job-post-company-name">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                        @endif
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
                                                                         @if($trending_job->Employer->summary)
                                                                         <p class="mb-4">
@@ -811,9 +823,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($trending_job->hide_company == 0)
                                         <div class="card-footer text-center">
                                             <a href="{{ route('company-jobs', $trending_job->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                                         </div>
+                                        @endif
                                     </div>
                                     
                                 </div>
@@ -854,7 +868,7 @@
                             <div class="m-0 my-2 trending-job-list rounded">
                                 <div class="row m-0">
                                     <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
-                                        @if($feature_job->Employer->logo)
+                                        @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
@@ -863,7 +877,7 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
+                                            <span id="trending-job-sub-title">@if($feature_job->hide_company == 0) {{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
                                         </div>
 
                                         <div class="fz13">
@@ -888,14 +902,16 @@
                                         <div class="card-header bg-transparent">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                                    @if($feature_job->Employer->logo)
+                                                    @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
                                                     <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job->Employer->name }}">
                                                     @else
-                                                    <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job->Employer->name }}">
+                                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                                     @endif
                                                     <div class="align-self-center">
                                                         <span class="h4 fw-bold">{{ $feature_job->job_title }} @if($feature_job->no_of_candidate) ( {{ $feature_job->no_of_candidate }} - Posts ) @endif</span>
+                                                        @if($feature_job->hide_company == 0)
                                                         <div><a class="text-muted h6" href="{{ route('company-detail',$feature_job->Employer->slug ?? '') }}">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 align-self-center">
@@ -1002,18 +1018,20 @@
                                                             <div class="col-2">
                                                                 
                                                             </div>
+                                                            @if($feature_job->hide_company == 0)
                                                             <div class="col-10">
                                                                 <h4 class="fw-bold text-black">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                             </div>
+                                                            @endif
                                                         </div>
                                                         <div class="card job-post-detail-company-profile mb-2">
                                                             <div class="header">
                                                                 <div class="row">
                                                                     <div class="col-2 ">
-                                                                        @if($feature_job->Employer->logo)
+                                                                        @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
                                                                         <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job->Employer->name }}">
                                                                         @else
-                                                                        <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job->Employer->name }}">
+                                                                        <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-10 py-4">
@@ -1079,13 +1097,15 @@
                                                                     
                                                                     <div class="col py-4" >
                                                                         <div class="col-6 mx-auto text-center">
-                                                                            @if($feature_job->Employer->logo)
+                                                                            @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
                                                                             <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job->Employer->name }}">
                                                                             @else
-                                                                            <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job->Employer->name }}">
+                                                                            <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                             @endif
                                                                         </div>
+                                                                        @if($feature_job->hide_company == 0)
                                                                         <h4 class="fw-bold text-black job-post-company-name">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                        @endif
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
                                                                         @if($feature_job->Employer->summary)
                                                                         <p class="mb-4">
@@ -1149,9 +1169,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @if($feature_job->hide_company == 0)
                                         <div class="card-footer text-center">
                                             <a href="{{ route('company-jobs', $feature_job->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                                         </div>
+                                        @endif
                                     </div>
                                     
                                 </div>

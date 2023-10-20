@@ -20,7 +20,7 @@
                 @if($jobpost->Employer->logo)
                 <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
                 @else
-                <img src="{{ asset('frontend/img/company/profile-image.png') }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
+                <img src="{{ asset('img/icon/company.png') }}" class="" style="width: 120px; height: 120px" alt="{{ $jobpost->Employer->name }}">
                 @endif
                 <div class=" pt-3 pb-2">
                     <h3 class="text-dark">{{ $jobpost->job_title }}</h3>

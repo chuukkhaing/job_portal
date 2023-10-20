@@ -27,7 +27,7 @@ class JobPostController extends Controller
 
     public function index()
     {
-        $jobPosts = JobPost::whereIsActive(1)->orderBy('created_at')->get();
+        $jobPosts = JobPost::whereIsActive(1)->orderBy('updated_at', 'desc')->get();
         return view ('admin.jobpost.index', compact('jobPosts'));
     }
 
@@ -145,5 +145,11 @@ class JobPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function filter(Request $request)
+    {
+        $jobPosts = JobPost::whereIsActive(1)->orderBy('updated_at', 'desc')->where('status', $request->status)->get();
+        return view ('admin.jobpost.index', compact('jobPosts'));
     }
 }
