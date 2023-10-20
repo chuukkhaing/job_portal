@@ -476,6 +476,7 @@
                         
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-success copyText" onclick="copyText('{{ route('jobpost-detail', $trending_job->slug) }}')" data-bs-toggle="tooltip" title="Copied"><i class="fa-solid fa-copy"></i> Copy to Clipboard</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         @auth('seeker')
                             <a href="{{ route('jobpost-apply', $trending_job->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
@@ -1059,6 +1060,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
+        $('.copyText').tooltip('hide');
         $('#function-area').multiselect({
             enableClickableOptGroups: true,
             enableCollapsibleOptGroups: true,
@@ -1131,5 +1133,10 @@
             }
         })
     });
+    function copyText(link)
+    {
+        navigator.clipboard.writeText(link);
+        $('.copyText').tooltip('show');
+    }
 </script>
 @endpush
