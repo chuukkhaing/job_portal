@@ -8,7 +8,7 @@
             @if($employer->logo)
             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
             @else
-            <img src="{{ asset('img/icon/company.png') }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
+            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
             @endif
             </a>
         </div>
@@ -1128,10 +1128,10 @@
         })
     });
 
-    var el = document.getElementById('resizer_test_image');
+    var el_test = document.getElementById('resizer_test_image');
     $("#test-image").on("change", function(event) {
         $("#upload_test_image").modal('show');
-        croppie = new Croppie(el, {
+        croppie = new Croppie(el_test, {
             viewport: {
                 width: 200,
                 height: 200,
