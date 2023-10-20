@@ -9,6 +9,7 @@ use App\MOdels\Admin\Employer;
 use App\Models\Admin\PackageItem;
 use App\Models\Employer\PointRecord;
 use App\Models\Employer\MemberPermission;
+use App\Mail\EmployerVerificationEmail;
 use Auth;
 use Hash;
 
@@ -104,7 +105,11 @@ class MemberUserController extends Controller
             ]);
         }
         
-        return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
+        if ($employer) {
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
+
+            return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
+        }
     }
 
     /**
@@ -192,7 +197,11 @@ class MemberUserController extends Controller
                 'name' => 'application_tracking'
             ]);
         }
-        
+        if ($employer) {
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
+
+            return redirect()->route('member-user.index')->with('success', 'Member Updated Successfully!');
+        }
         return redirect()->route('member-user.index')->with('success', 'Member Updated Successfully!');
     }
 
