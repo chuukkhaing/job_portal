@@ -598,13 +598,7 @@
                             </div>
                         </div>
                 
-                        <div class="col-lg-6 col-md-6 col-6">
-                            <div class="float-end py-3">
-                                <a href="#" class="btn apply-company-btn py-2 rounded-pill">
-                                    <i class="fa-solid fa-arrow-right rotate45"></i> <span class="p-1">Apply Job</span>
-                                </a>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div class="row col-12 m-0 p-0 py-3">
