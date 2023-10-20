@@ -155,7 +155,7 @@
     </li>
     @endcan
     <!-- Nav Item - Employer Menu -->
-    @canany(['employer-list'])
+    @canany(['employer-list', 'employer-info-list'])
     <li class="nav-item {{ Request::is('admin/employers*') ? 'active' : '' }} {{ Request::is('admin/employer-info*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#employers"
             aria-expanded="true" aria-controls="employers">
@@ -166,7 +166,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('employer-list')
                 <a class="collapse-item {{ Request::is('admin/employers*') ? 'active' : '' }}" href="{{ route('employers.index') }}">Employer Account</a>
-                
+                @endcan
+                @can('employer-info-list')
                 <a class="collapse-item {{ Request::is('admin/employer-info*') ? 'active' : '' }}" href="{{ route('employer-info.index') }}">Employer Information</a>
                 @endcan
             </div>

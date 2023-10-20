@@ -37,7 +37,7 @@
                             <td>@if($employer->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 
-                                @can('employer-edit')
+                                @can('employer-info-edit')
                                 <a href="{{ route('employer-info.edit', $employer->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                                 @endcan
                                 

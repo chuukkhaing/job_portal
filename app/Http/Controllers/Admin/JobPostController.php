@@ -25,9 +25,12 @@ class JobPostController extends Controller
         $this->middleware('permission:job-post-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $jobPosts = JobPost::whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $jobPosts = JobPost::orderBy('updated_at', 'desc')->get();
+        if($request->has('status')) {
+            $jobPosts = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')->get();
+        }
         return view ('admin.jobpost.index', compact('jobPosts'));
     }
 
@@ -145,11 +148,5 @@ class JobPostController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function filter(Request $request)
-    {
-        $jobPosts = JobPost::whereIsActive(1)->orderBy('updated_at', 'desc')->where('status', $request->status)->get();
-        return view ('admin.jobpost.index', compact('jobPosts'));
     }
 }

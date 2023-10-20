@@ -92,7 +92,7 @@ Route::group([], function(){
 
         // jobpost 
         Route::resource('job-posts', JobPostController::class);
-        Route::get('job-posts-filter', [JobPostController::class, 'filter'])->name('job-posts.filter');
+        
         // profile 
         Route::resource('admin-profile', ProfileController::class);
 

@@ -28,9 +28,17 @@ class EmployerInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:employer-info-list|employer-info-create|employer-info-edit|employer-info-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:employer-info-create', ['only' => ['create','store']]);
+        $this->middleware('permission:employer-info-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:employer-info-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->get();
+        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->orderBy('created_at','desc')->get();
         return view ('admin.employer-info.index', compact('employers'));
     }
 

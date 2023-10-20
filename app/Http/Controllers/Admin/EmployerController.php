@@ -31,9 +31,12 @@ class EmployerController extends Controller
         $this->middleware('permission:employer-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->get();
+        $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->orderBy('created_at','desc')->get();
+        if($request->has('is_active')) {
+            $employers = Employer::whereNull('deleted_at')->whereNull('employer_id')->where('is_active', $request->is_active)->orderBy('created_at','desc')->get();
+        }
         return view ('admin.employer.index', compact('employers'));
     }
 

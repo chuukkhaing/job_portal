@@ -24,9 +24,12 @@ class SeekerController extends Controller
         $this->middleware('permission:seeker-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:seeker-delete', ['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $seekers = Seeker::whereNull('deleted_at')->get();
+        $seekers = Seeker::whereNull('deleted_at')->orderBy('created_at', 'desc')->get();
+        if($request->has('is_active')) {
+            $seekers = Seeker::whereNull('deleted_at')->where('is_active', $request->is_active)->orderBy('created_at', 'desc')->get();
+        }
         return view('admin.seeker.index', compact('seekers'));
     }
 

@@ -718,6 +718,23 @@
             $("#seeker-list").prop('checked',false);
         }
     });
+
+    $("#employer-info-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#employer-info-edit").prop('checked',true);
+        }
+    });
+    $("#employer-info-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#employer-info-edit").prop('checked',false);
+        }
+    });
+    
+    $("#employer-info-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#employer-info-list").prop('checked',true);
+        }
+    });
     
 </script>
 @endpush
