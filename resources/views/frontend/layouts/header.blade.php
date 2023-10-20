@@ -58,7 +58,7 @@
                     </a>
                     @else
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('img/profile.svg') }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
+                        <img src="{{ asset('img/icon/company.png') }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
                     </a>
                     @endif
                     <ul class="dropdown-menu profile-dropdown">

@@ -177,7 +177,7 @@
                             @if($trending_job->Employer->logo)
                             <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
                             @else 
-                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
+                            <img src="{{ asset('img/icon/job-post.png') }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
                             @endif
                         </div>
                         <div class="col-9 p-0">
@@ -519,7 +519,7 @@
                                             @if($feature_job->Employer->logo)
                                             <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="w-100 rounded-circle border" >
                                             @else 
-                                            <img src="{{ asset('img/profile.svg') }}" alt="{{ $feature_job->Employer->name }}" class="w-100 rounded-circle border" >
+                                            <img src="{{ asset('img/icon/job-post.png') }}" alt="{{ $feature_job->Employer->name }}" class="w-100 rounded-circle border" >
                                             @endif
                                         </div>
                                         <div class="col-9 p-0 pt-3">

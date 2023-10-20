@@ -8,7 +8,7 @@
             @if($employer->logo)
             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @else
-            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" alt="Company Logo" class="employer-header-logo shadow-lg">
+            <img src="{{ asset('img/icon/company.png') }}" alt="Company Logo" class="employer-header-logo shadow-lg">
             @endif
             </a>
         </div>

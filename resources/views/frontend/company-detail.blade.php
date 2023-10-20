@@ -18,7 +18,7 @@
             @if($employer->logo)
             <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="company-detail-logo" style="background: #0355D0; width: 100px; height: 100px; border-radius: 8px" alt="{{ $employer->name }}">
             @else
-            <img src="{{ asset('img/employer/Vertical Logo.svg') }}" class="company-detail-logo" style="background: #0355D0; width: 100px; height: 100px; border-radius: 8px" alt="{{ $employer->name }}">
+            <img src="{{ asset('img/icon/company.png') }}" class="company-detail-logo" style="background: #0355D0; width: 100px; height: 100px; border-radius: 8px" alt="{{ $employer->name }}">
             @endif
         </div>
 
@@ -286,7 +286,7 @@
                                 @if($employer->logo)
                                 <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
                                 @else 
-                                <img src="{{ asset('img/profile.svg') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
+                                <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="" id="ProfilePreview">
                                 @endif
                                 <div class="text-center">
                                 @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending @endif</span>
