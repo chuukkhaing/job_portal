@@ -158,6 +158,7 @@
                                         <option value="6 years">6 years</option>
                                         <option value="7 years">7 years</option>
                                         <option value="8 years">8 years</option>
+                                        <option value="over 8 years">over 8 years</option>
                                     </select>
                                     @error('job_alert_experience_level')
                                     <small class="text-danger">{{ $message }}</small>

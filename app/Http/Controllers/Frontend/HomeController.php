@@ -204,9 +204,8 @@ class HomeController extends Controller
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
         $jobPosts = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->whereEmployerId($id)->paginate(10);
-        $jobPost_industry = JobPost::where('is_active', 1)->whereEmployerId($id)->groupBy('industry_id')->pluck('industry_id')->toArray();
         
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->whereIn('id',$jobPost_industry)->get();
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $jobPostsCount = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy('updated_at','desc')->whereEmployerId($id)->count();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);

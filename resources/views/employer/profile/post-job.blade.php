@@ -205,6 +205,7 @@
                                         <option value="6 years" @if('6 years' == old('experience_level')) selected @endif>6 years</option>
                                         <option value="7 years" @if('7 years' == old('experience_level')) selected @endif>7 years</option>
                                         <option value="8 years" @if('8 years' == old('experience_level')) selected @endif>8 years</option>
+                                        <option value="over 8 years" @if('over 8 years' == old('experience_level')) selected @endif>over 8 years</option>
                                     </select>
                                     @error('experience_level')
                                     <small class="text-danger">{{ $message }}</small>

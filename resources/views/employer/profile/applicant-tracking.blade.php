@@ -378,7 +378,7 @@
                                     <button class="btn profile-save-btn btn-sm precious-btn">Back</button>
                                 </div>
                                 <div class="modal fade" id="pointDetection" tabindex="-1" role="dialog" aria-labelledby="pointDetectionLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-dialog" role="document" style="min-width: 30%">
                                         <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="pointDetectionLabel">Application Unlock</h5>

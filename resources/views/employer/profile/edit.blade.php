@@ -330,7 +330,7 @@
                                                 <label class="seeker_label" for="legal_docs">Please Attach Legal Document </label>
                                                 @if($employer->legal_docs)
                                                 <div class="pb-2 legal_docs_link">
-                                                    <a class="" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a> <a class="btn btn-sm btn-danger ms-2" onclick="removeLegalDocs()"><i class="fa-solid fa-xmark text-white"></i></a>
+                                                    <a class="" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a> <a class="ms-2" onclick="removeLegalDocs()" style="cursor: pointer"><i class="fa-solid fa-trash-can text-danger"></i></a>
                                                 </div>
                                                 @endif
                                                 <input type="hidden" name="legal_docs_status" value="" id="legal_docs_status">

@@ -430,7 +430,6 @@ class EmployerProfileController extends Controller
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
         $path = public_path() . "/storage/employer_testimonial/" . $imageName;
-  
         file_put_contents($path, $imageBase64);
           
         return $imageName;
