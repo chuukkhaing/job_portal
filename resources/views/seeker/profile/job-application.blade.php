@@ -93,8 +93,8 @@
                                     {{ $jobApplyBySeeker->JobPost->SubFunctionalArea->name }}
                                 </td>
                                 <td>
-                                    {{ $jobApplyBySeeker->JobPost->Township->name ?? '' }} {{ $jobApplyBySeeker->JobPost->Township->name ? ',' : '' }} 
-                                    {{ $jobApplyBySeeker->JobPost->State->name ?? '' }}
+                                    {{ $jobApplyBySeeker->JobPost->Township ? $jobApplyBySeeker->JobPost->Township->name : '' }} {{ $jobApplyBySeeker->JobPost->Township ? ',' : '' }} 
+                                    {{ $jobApplyBySeeker->JobPost->State ? $jobApplyBySeeker->JobPost->State->name : '' }}
                                 </td>
                                 <td class="fw-bold">{{ date('d M,Y', strtotime($jobApplyBySeeker->created_at)) }}</td>
                                 
