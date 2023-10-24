@@ -56,16 +56,20 @@
 
                 <div class="image-upload form-group">
                     
-                    <div class="image-edit">
-                        <label for="slider-image">Slider Image <span class="text-danger">*</span>
+                    <div class="image-edit position-relative">
+                        <span>Slider Image <span class="text-danger">*</span>
                             <div class="image-preview">
-                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x600);">
-                                </div>
+                                <label for="slider-image">
+                                    <img src="https://via.placeholder.com/1920x600" alt="" id="imagePreview" class="w-100">
+                                </label>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger slider-remove d-none ">
+                                <i class="fa-solid fa-xmark text-white"></i>
+                                </span>
                             </div>
-                        </label>
+                        </span>
+                        
                         <input type="file" class="form-control slider-image" name="image" id="slider-image" accept="image/*" />
                         <input type="hidden" name="image_base64">
-                        <span class="slider-remove btn-sm btn-danger d-none">x</span>
                     </div>
                 </div>
                 
@@ -154,7 +158,7 @@
                 
                 $('.slider-remove').removeClass('d-none');
                 
-                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                $('#imagePreview').attr('src', base64);
 
                 $("input[name='image_base64']").val(base64);
                 
@@ -163,7 +167,7 @@
         });
 
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x600)');
+            $('#imagePreview').attr('src', 'https://via.placeholder.com/1920x600');
             $('.slider-remove').addClass('d-none');
             $('.slider-image').val('');
             $("input[name='image_base64']").val('');

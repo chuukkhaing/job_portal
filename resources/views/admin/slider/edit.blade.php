@@ -58,18 +58,22 @@
 
                 <div class="image-upload form-group">
                     <div class="image-edit">
-                        <label for="slider-image">Slider Image <span class="text-danger">*</span>
+                        
+                        <span>Slider Image <span class="text-danger">*</span>
                             <div class="image-preview">
+                                <label for="slider-image">
                                 @if($slider->image)
-                                <div id="imagePreview" style="background-image: url({{ asset('storage/slider/'.$slider->image) }});">
+                                <img src="{{ asset('storage/slider/'.$slider->image) }}" alt="" id="imagePreview" class="w-100">
                                 @else
-                                <div id="imagePreview" style="background-image: url(https://via.placeholder.com/1920x600);">
+                                    <img src="https://via.placeholder.com/1920x600" alt="" id="imagePreview" class="w-100">
                                 @endif
-                                </div>
+                                </label>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger slider-remove @if($slider->image) @else d-none @endif">
+                                <i class="fa-solid fa-xmark text-white"></i>
+                                </span>
                             </div>
-                        </label>
+                        </span>
                         <input type="file" class="form-control slider-image" name="image" id="slider-image" accept="image/*" />
-                        <span class="slider-remove btn-sm btn-danger @if($slider->image) @else d-none @endif">x</span>
                         <input type="hidden" name="image_base64">
                         <input type="hidden" name="image_status" class="image_status" value="true">
                     </div>
@@ -161,7 +165,7 @@
 
                 $('.slider-remove').removeClass('d-none');
                 
-                $('#imagePreview').attr('style', 'background-image: url('+base64+')');
+                $('#imagePreview').attr('src', base64);
 
                 $("input[name='image_base64']").val(base64);
 
@@ -172,7 +176,7 @@
         });
 
         $('.slider-remove').click(function() {
-            $('#imagePreview').attr('style', 'background-image: url(https://via.placeholder.com/1920x600)');
+            $('#imagePreview').attr('src', 'https://via.placeholder.com/1920x600');
             $('.slider-remove').addClass('d-none');
             $(".image_status").val('false');
             $("input[name='image_base64']").val('');
