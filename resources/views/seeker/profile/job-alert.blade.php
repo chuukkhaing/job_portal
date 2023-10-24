@@ -199,7 +199,7 @@
                     </form>
                 </div>
             </div>
-            <div class="my-2 py-3 px-lg-5 px-md-3" id="edit-profile-body">
+            <div class="my-2 py-3 px-lg-5 px-md-3 @if($job_alerts->count() > 0) @else d-none @endif" id="edit-profile-body">
             @if($job_alerts->count() > 0)
                 <div class="table-responsive" id="applicant-tracking-section">
                     <table class="table table-sm" id="dataTable" width="100%" cellspacing="0">
@@ -220,7 +220,7 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $job_alert->job_title }}</td>
                                 <td>{{ $job_alert->job_type ?? '-' }}</td>
-                                <td><a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" class="fw-bold">{{ $job_alert->FunctionalArea->name }}</a></td>
+                                <td>@if(isset($job_alert->functional_area_id))<a href="{{ route('search-main-function', $job_alert->functional_area_id) }}" class="fw-bold">{{ $job_alert->FunctionalArea->name }}</a>@else - @endif</td>
                                 <td>{{ $job_alert->country }} @if(isset($job_alert->state_id)) , {{ $job_alert->State->name }} @endif</td>
                                 <td class="fw-bold">{{ date('M d, Y',strtotime($job_alert->created_at)) }}</td>
                                 <td>

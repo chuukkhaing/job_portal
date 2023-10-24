@@ -24,7 +24,7 @@ class EmployerRegisterController extends Controller
 
     public function frontendEmployerRegister()
     {
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->orderBy('name')->get();
         return view('frontend.employer-register', compact('industries'));
     }
 

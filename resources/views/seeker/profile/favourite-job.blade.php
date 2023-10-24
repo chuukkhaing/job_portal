@@ -67,7 +67,7 @@
                 </div>
             </div>
             
-            <div class="my-2 py-3 px-lg-5 px-md-3" id="edit-profile-body">
+            <div class="my-2 py-3 px-lg-5 px-md-3 @if($saveJobs->count() > 0) @else d-none @endif" id="edit-profile-body">
                 @if($saveJobs->count() > 0)
                 <div class="table-responsive" id="applicant-tracking-section">
                     <table class="table table-sm" id="dataTable" width="100%" cellspacing="0">

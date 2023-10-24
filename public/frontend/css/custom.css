@@ -336,6 +336,19 @@ a.interview-btn:hover {
     overflow: auto;
 }
 
+.job-trending-scroll::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #E8EFF7;
+    border-radius: 50px;
+}
+.job-trending-scroll::-webkit-scrollbar-thumb
+{
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #1860AA;
+}
+
 .job-similar-scroll {
     background: #fff;
     height:580px;
