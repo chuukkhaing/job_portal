@@ -151,12 +151,12 @@
                                                                 @endphp
                                                             @endauth
                                                             @auth('seeker')
-                                                                <a href="{{ route('jobpost-apply', $saveJob->JobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
+                                                                <a href="{{ route('jobpost-apply', $saveJob->JobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $saveJob->JobPost->id }})">
                                                                     <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
                                                                 </a>
                                                             @elseauth('employer')
                                                             @else
-                                                                <a href="{{ route('jobpost-apply', $saveJob->JobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3">
+                                                                <a href="{{ route('jobpost-apply', $saveJob->JobPost->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $saveJob->JobPost->id }})">
                                                                     <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
                                                                 </a>
                                                             @endguest
@@ -442,6 +442,12 @@
                     $("#edit-profile-body").removeClass('d-none');
                 }
             }
+        })
+    }
+
+    function applyJob(id) {
+        $(this).on('submit', function(){
+            $(this).attr('disabled','true');
         })
     }
 

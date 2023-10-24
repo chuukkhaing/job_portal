@@ -11,27 +11,36 @@
 Start exploring now and uncover the companies that could be the perfect match for your aspirations!</span>--}}
             </div>
         </div>
-        <form action="{{ route('search-company') }}" method="get">
+        <form action="{{ route('search-company') }}" class="d-none d-sm-block" method="get">
             <div class="row company-banner-search col-sm-8 col-12 p-0 m-auto">
                 @csrf
-                <div class="col-lg-9 col-md-9 col-sm-9 col-12 d-none d-sm-block">
+                <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <div class="form-group has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
                         <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Employers" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
-                <div class="col-lg-9 col-md-9 col-sm-9 col-8 d-sm-none d-block">
+                
+                
+                <div class="col-lg-3 col-md-3 col-sm-3 col-12 pe-0">
+                    <button type="submit" class="btn company-search-btn pull-right">Search</button>
+                </div>
+            </div>
+        </form>
+        <form action="{{ route('search-company') }}" method="get" class="d-block d-sm-none">
+            <div class="row company-banner-search col-sm-8 col-12 p-0 m-auto">
+                @csrf
+                
+                <div class="col-lg-9 col-md-9 col-sm-9 col-8">
                     <div class=" has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
                         <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Employers" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-4 pe-1 d-block d-sm-none">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-4 pe-0">
                     <button type="submit" class="btn company-search-btn pull-right">Search</button>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-12 pe-1 d-none d-sm-block">
-                    <button type="submit" class="btn company-search-btn pull-right">Search</button>
-                </div>
+                
             </div>
         </form>
     </div>
