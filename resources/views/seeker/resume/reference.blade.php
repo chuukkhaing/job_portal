@@ -170,7 +170,7 @@
 
                                 MSalert.principal({
                                         icon:'success',
-                                        title:'',
+                                        title:'Success',
                                         description:response.msg,
                                     });
                                 $("#ref_name").val('');
@@ -184,7 +184,7 @@
                     if(errors.errors['ref_contact']) {
                         MSalert.principal({
                             icon:'error',
-                            title:'',
+                            title:'Error',
                             description:'The contact No. must be valid myanmar phone number.',
                         })
                     }
@@ -198,7 +198,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -219,7 +219,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }
@@ -290,7 +290,7 @@
                                     $('.reference-position-'+id).html(edit_response.reference.position);
                                     MSalert.principal({
                                         icon:'success',
-                                        title:'',
+                                        title:'Success',
                                         description:edit_response.msg,
                                     })
                                 }
@@ -300,7 +300,7 @@
                         if(errors.errors['ref_contact']) {
                             MSalert.principal({
                                 icon:'error',
-                                title:'',
+                                title:'Error',
                                 description:'The contact No. must be valid myanmar phone number.',
                             })
                         }

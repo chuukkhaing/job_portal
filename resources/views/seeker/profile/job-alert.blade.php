@@ -271,7 +271,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -287,7 +287,7 @@
                         $(".job-alert-tr-"+id).empty();
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }

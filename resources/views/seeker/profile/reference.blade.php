@@ -174,7 +174,7 @@
                                 $('#reference-table').append('<tr class="reference-tr-'+response.reference.id+'"><td class="reference-name-'+response.reference.id+'">'+response.reference.name+'</td><td class="reference-position-'+response.reference.id+'">'+response.reference.position+'</td><td class="reference-company-'+response.reference.id+'">'+response.reference.company+'</td><td class="reference-contact-'+response.reference.id+'">'+response.reference.contact+'</td><td>    <a onclick="editReference('+response.reference.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteReference-'+response.reference.id+'" class="deleteReference btn border-0 text-danger" value="'+response.reference.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 MSalert.principal({
                                         icon:'success',
-                                        title:'',
+                                        title:'Success',
                                         description:response.msg,
                                     });
                                 $("#ref_name").val('');
@@ -188,7 +188,7 @@
                     if(errors.errors['ref_contact']) {
                         MSalert.principal({
                             icon:'error',
-                            title:'',
+                            title:'Error',
                             description:'The contact No. must be valid myanmar phone number.',
                         })
                     }
@@ -202,7 +202,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -221,7 +221,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }
@@ -292,7 +292,7 @@
                                     $('.reference-position-'+id).html(edit_response.reference.position);
                                     MSalert.principal({
                                         icon:'success',
-                                        title:'',
+                                        title:'Success',
                                         description:edit_response.msg,
                                     })
                                 }
@@ -302,7 +302,7 @@
                         if(errors.errors['ref_contact']) {
                             MSalert.principal({
                                 icon:'error',
-                                title:'',
+                                title:'Error',
                                 description:'The contact No. must be valid myanmar phone number.',
                             })
                         }

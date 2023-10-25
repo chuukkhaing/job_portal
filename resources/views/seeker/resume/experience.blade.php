@@ -340,7 +340,7 @@
                         $("#add_career_history").addClass('d-none');
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                         $("#is_experience").val();
@@ -524,7 +524,7 @@
 
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                         $("#exp_job_title").val('');
@@ -598,7 +598,7 @@
 
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                         $("#exp_job_title").val('');
@@ -769,7 +769,7 @@
                     $(".edit_exp_start_date-error").html('');
                             MSalert.principal({
                                 icon:'success',
-                                title:'',
+                                title:'Success',
                                 description:response.msg,
                             })
                         }
@@ -848,7 +848,7 @@
                             $(".edit_exp_start_date-error").html('');
                             MSalert.principal({
                                 icon:'success',
-                                title:'',
+                                title:'Success',
                                 description:response.msg,
                             })
                             $("#add_career_history").removeClass('d-none');
@@ -866,7 +866,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -891,7 +891,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }

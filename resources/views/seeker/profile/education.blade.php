@@ -238,7 +238,7 @@
                     // alert(response.msg);
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     })
                     $("#degree").val('');
@@ -325,7 +325,7 @@
                         $('.edu-to-'+id).html(response.education.to);
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }
@@ -339,7 +339,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -358,7 +358,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }

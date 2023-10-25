@@ -83,7 +83,7 @@
                     $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV btn border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     })
                     $("#cv_attach").val('');
@@ -97,7 +97,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -117,7 +117,7 @@
 
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }

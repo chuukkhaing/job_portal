@@ -70,7 +70,7 @@
     @include('frontend.layouts.header')
     @endauth
     @auth
-    @include('frontend.layouts.alert')
+    
     @endauth
     <!-- Header End  -->
     @yield('content')
@@ -121,6 +121,24 @@
                     icon:'error',
                     title:'Error',
                     description: show_error_modal,
+                })
+            }
+
+            var show_info_modal = "{{ session()->pull('info') }}";
+            if(show_info_modal != '') {
+                MSalert.principal({
+                    icon:'info',
+                    title:'Info',
+                    description: show_info_modal,
+                })
+            }
+
+            var show_warning_modal = "{{ session()->pull('warning') }}";
+            if(show_warning_modal != '') {
+                MSalert.principal({
+                    icon:'warning',
+                    title:'Warning',
+                    description: show_warning_modal,
                 })
             }
         })

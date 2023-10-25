@@ -629,23 +629,7 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        var show_success_modal = "{{ session()->pull('success') }}";
-        if(show_success_modal != '') {
-            MSalert.principal({
-                icon:'success',
-                title:'',
-                description: show_success_modal,
-            })
-        }
-
-        var show_error_modal = "{{ session()->pull('error') }}";
-        if(show_error_modal != '') {
-            MSalert.principal({
-                icon:'error',
-                title:'',
-                description: show_error_modal,
-            })
-        }
+        
         var JobpostSkills = @json ( $jobPost->JobPostSkill );
         $('#total_point').val(0);
         var job_post_point = 0;

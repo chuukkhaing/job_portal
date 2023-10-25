@@ -728,23 +728,6 @@
 
 <script>
     $(document).ready(function() {
-        var show_success_modal = "{{ session()->pull('success') }}";
-        if(show_success_modal != '') {
-            MSalert.principal({
-                icon:'success',
-                title:'Success',
-                description: show_success_modal,
-            })
-        }
-
-        var show_error_modal = "{{ session()->pull('error') }}";
-        if(show_error_modal != '') {
-            MSalert.principal({
-                icon:'error',
-                title:'Error',
-                description: show_error_modal,
-            })
-        }
 
         $("#legal_docs").change(function() {
             $("#legal_docs_status").val('');
@@ -1275,7 +1258,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -1294,7 +1277,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                     }
@@ -1351,7 +1334,7 @@
     function removeMedia(id) {
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {

@@ -4,7 +4,7 @@
 @php
     $route_name = Route::currentRouteName();
 @endphp
-@include('frontend.layouts.alert')
+
 <div class="container">
     <div class="py-3">
         <article class="col-md-6 col-lg-4 col-12 mx-auto">

@@ -144,7 +144,7 @@
                     $('#language-table').append('<tr class="language-tr-'+response.language.id+'"><td class="language-name-'+response.language.id+'">'+response.language.name+'</td><td class="language-level-'+response.language.id+'">'+response.language.level+'</td><td><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteLanguage-'+response.language.id+'" class="deleteLanguage btn border-0 text-danger" value="'+response.language.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     });
                     $("#language_name").val('');
@@ -159,7 +159,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -178,7 +178,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                         $("#language_name").val('');
@@ -232,7 +232,7 @@
                         $('.language-level-'+id).html(response.language.level);
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }

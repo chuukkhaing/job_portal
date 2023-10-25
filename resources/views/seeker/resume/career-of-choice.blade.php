@@ -189,7 +189,7 @@
                     if(response.status == 'success') {
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         });
                         $("#nav-cv-build-tab").removeClass('active');

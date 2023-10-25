@@ -145,7 +145,7 @@
                     })
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     })
                     $("#skill_main_functional_area_id").val('');
@@ -161,7 +161,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -181,7 +181,7 @@
 
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }

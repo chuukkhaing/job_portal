@@ -333,7 +333,7 @@
                     if(errors.errors['phone']) {
                         MSalert.principal({
                             icon:'error',
-                            title:'',
+                            title:'Error',
                             description: errors.errors['phone'],
                         })
                     }
@@ -472,7 +472,7 @@
                 if(errors.errors[value]) {
                     MSalert.principal({
                         icon:'error',
-                        title:'',
+                        title:'Error',
                         description: errors.errors[value],
                     })
                 }

@@ -87,7 +87,7 @@ class EmployerJobPostController extends Controller
             'job_post_state' => ['required_if:job_post_country,Myanmar']
         ]);
         if($request->total_point && $request->total_point > Auth::guard('employer')->user()->package_point) {
-            return redirect()->back()->with('error','Your Balance Points are not enough to Post Job.');
+            return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
         }else {
             $gender = Null;
             if($request->male == 'on' && $request->female == 'on') {
@@ -273,7 +273,7 @@ class EmployerJobPostController extends Controller
             'job_post_state' => ['required_if:job_post_country,Myanmar']
         ]);
         if($request->total_point && $request->total_point > Auth::guard('employer')->user()->package_point) {
-            return redirect()->back()->with('error','Your Balance Points are not enough to Post Job.');
+            return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
         }else {
             $jobPost = JobPost::findOrFail($id);
             $gender = $jobPost->gender;

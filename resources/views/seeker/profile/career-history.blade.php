@@ -433,7 +433,7 @@
                     $("#add_career_history").addClass('d-none');
                     MSalert.principal({
                         icon:'success',
-                        title:'',
+                        title:'Success',
                         description:response.msg,
                     });
                     $("#is_experience").val(1);
@@ -549,7 +549,7 @@
                             $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">Current Job</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             MSalert.principal({
                                 icon:'success',
-                                title:'',
+                                title:'Success',
                                 description:response.msg,
                             });
                             $("#is_experience").val(1);
@@ -620,7 +620,7 @@
                             $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("YYYY-MM")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                             MSalert.principal({
                                 icon:'success',
-                                title:'',
+                                title:'Success',
                                 description:response.msg,
                             });
                             $("#is_experience").val(1);
@@ -694,7 +694,7 @@
                         $("#add_career_history").addClass('d-none');
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }
@@ -800,7 +800,7 @@
                                 $("#add_career_history").removeClass('d-none');
                                 MSalert.principal({
                                     icon:'success',
-                                    title:'',
+                                    title:'Success',
                                     description:response.msg,
                                 })
                             }
@@ -860,7 +860,7 @@
                                 $("#exp-table").append('<tr class="exp-tr-'+response.experience.id+'"><td class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</td><td class="exp-company-'+response.experience.id+'">'+response.experience.company+'</td><td class="exp-main_functional_area_id-'+response.experience.id+'">'+exp_main_function+'</td><td class="exp-sub_functional_area_id-'+response.experience.id+'">'+exp_sub_function_name+'</td><td class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</td><td class="exp-industry_id-'+response.experience.id+'">'+exp_industry_name+'</td><td class="exp-country-'+response.experience.id+'">'+response.experience.country+'</td><td class="exp-job_responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</td><td class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("YYYY-MM")+'</td><td class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("YYYY-MM")+'</td><td>    <a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a>    <a id="deleteExp-'+response.experience.id+'" class="deleteExp btn border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>')
                                 MSalert.principal({
                                     icon:'success',
-                                    title:'',
+                                    title:'Success',
                                     description:response.msg,
                                 })
                                 $("#add_career_history").removeClass('d-none');
@@ -877,7 +877,7 @@
 
         MSalert.principal({
             icon:'warning',
-            title:'',
+            title:'Warning',
             description:'Are you sure to delete this entry?',
             button:true
         }).then(result => {
@@ -897,7 +897,7 @@
                         }
                         MSalert.principal({
                             icon:'success',
-                            title:'',
+                            title:'Success',
                             description:response.msg,
                         })
                     }
