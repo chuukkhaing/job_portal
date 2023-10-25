@@ -22,13 +22,13 @@
     <hr class="sidebar-divider">
     @canany(['role-list','user-list'])  
     <!-- Nav Item - Manage Admin User Menu -->
-    <li class="nav-item {{ Request::is('admin/roles*') ? 'active' : '' }} {{ Request::is('admin/users*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/roles*') ? 'active' : '' }} {{ Request::is('admin/users*') ? 'active' : '' }} {{ Request::is('admin/job-posts*') ? 'active' : '' }} {{ Request::is('admin/state*') ? 'active' : '' }} {{ Request::is('admin/city*') ? 'active' : '' }} {{ Request::is('admin/package-item*') ? 'active' : '' }} {{ Request::is('admin/package-type*') ? 'active' : '' }} {{ Request::is('admin/point-package*') ? 'active' : '' }} {{ Request::is('admin/slider*') ? 'active' : '' }} {{ Request::is('admin/feedback*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user_manage"
             aria-expanded="true" aria-controls="user_manage">
-            <i class="fa-solid fa-users"></i>
-            <span>Manage Admin User</span>
+            <i class="fa-solid fa-user-lock"></i>
+            <span>Admin</span>
         </a>
-        <div id="user_manage" class="collapse {{ Request::is('admin/roles*') ? 'show' : '' }} {{ Request::is('admin/users*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="user_manage" class="collapse {{ Request::is('admin/roles*') ? 'show' : '' }} {{ Request::is('admin/users*') ? 'show' : '' }} {{ Request::is('admin/job-posts*') ? 'show' : '' }} {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/city*') ? 'show' : '' }} {{ Request::is('admin/package-item*') ? 'show' : '' }} {{ Request::is('admin/package-type*') ? 'show' : '' }} {{ Request::is('admin/point-package*') ? 'show' : '' }} {{ Request::is('admin/slider*') ? 'show' : '' }} {{ Request::is('admin/feedback*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('role-list')
                 <a class="collapse-item {{ Request::is('admin/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">Roles</a>
@@ -36,47 +36,35 @@
                 @can('user-list')
                 <a class="collapse-item {{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('users.index') }}">Users</a>
                 @endcan
-            </div>
-        </div>
-    </li>
-    @endcan
-    @canany('job-post-list')  
-    <!-- Nav Item - Manage Job Posts Menu -->
-    <li class="nav-item {{ Request::is('admin/job-posts*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#job_post_manage"
-            aria-expanded="true" aria-controls="job_post_manage">
-            <i class="fa-solid fa-briefcase"></i>
-            <span>Manage Job Posts</span>
-        </a>
-        <div id="job_post_manage" class="collapse {{ Request::is('admin/job-posts*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
                 @can('job-post-list')
                 <a class="collapse-item {{ Request::is('admin/job-posts*') ? 'active' : '' }}" href="{{ route('job-posts.index') }}">Job Posts</a>
                 @endcan
-            </div>
-        </div>
-    </li>
-    @endcan
-    <!-- Nav Item - Location Menu -->
-    @canany(['state-list','township-list']) 
-    <li class="nav-item {{ Request::is('admin/state*') ? 'active' : '' }} {{ Request::is('admin/city*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#location"
-            aria-expanded="true" aria-controls="location">
-            <i class="fas fa-map-marked-alt"></i>
-            <span>Locations</span>
-        </a>
-        <div id="location" class="collapse {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/city*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
                 @can('state-list')
                 <a class="collapse-item {{ Request::is('admin/state*') ? 'active' : '' }}" href="{{ route('state.index') }}">States & Regions</a>
                 @endcan
                 @can('township-list')
                 <a class="collapse-item {{ Request::is('admin/city*') ? 'active' : '' }}" href="{{ route('city.index') }}">Cities & Townships</a>
                 @endcan
+                @can('package-item-list')
+                <a class="collapse-item {{ Request::is('admin/package-item*') ? 'active' : '' }}" href="{{ route('package-item.index') }}">Package Items</a>
+                @endcan
+                @can('package-type-list')
+                <a class="collapse-item {{ Request::is('admin/package-type*') ? 'active' : '' }}" href="{{ route('package-type.index') }}">Package Type</a>
+                @endcan
+                @can('point-package-list')
+                <a class="collapse-item {{ Request::is('admin/point-package*') ? 'active' : '' }}" href="{{ route('point-package.index') }}">Point Package</a>
+                @endcan
+                @can('slider-list')
+                <a class="collapse-item {{ Request::is('admin/slider*') ? 'active' : '' }}" href="{{ route('slider.index') }}">Sliders</a>
+                @endcan
+                @can('seeker-employer-contact-list')
+                <a class="collapse-item {{ Request::is('admin/feedback*') ? 'active' : '' }}" href="{{ route('feedback.index') }}">Seeker/Employer Contact</a>
+                @endcan
             </div>
         </div>
     </li>
     @endcan
+    
     <!-- Nav Item - Employer Attribute Menu -->
     @canany(['industry-list','ownership-type-list'])
     <li class="nav-item {{ Request::is('admin/industry*') ? 'active' : '' }} {{ Request::is('admin/ownership-type*') ? 'active' : '' }}">
@@ -97,23 +85,7 @@
         </div>
     </li>
     @endcan
-    <!-- Nav Item - Seeker Attribute Menu -->
-    @canany(['skill-list'])
-    <li class="nav-item {{ Request::is('admin/skill*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#seekerAttribute"
-            aria-expanded="true" aria-controls="seekerAttribute">
-            <i class="fa-solid fa-user-pen"></i>
-            <span>Seeker Attributes</span>
-        </a>
-        <div id="seekerAttribute" class="collapse {{ Request::is('admin/skill*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @can('skill-list')
-                <a class="collapse-item {{ Request::is('admin/skill*') ? 'active' : '' }}" href="{{ route('skill.index') }}">Skills</a>
-                @endcan
-            </div>
-        </div>
-    </li>
-    @endcan
+    
     <!-- Nav Item - Job Attribute Menu -->
     @canany(['main-functional-area-list','sub-functional-area-list'])
     <li class="nav-item {{ Request::is('admin/main-functional-area*') ? 'active' : '' }} {{ Request::is('admin/sub-functional-area*') ? 'active' : '' }}">
@@ -130,44 +102,6 @@
                 @can('sub-functional-area-list')
                 <a class="collapse-item {{ Request::is('admin/sub-functional-area*') ? 'active' : '' }}" href="{{ route('sub-functional-area.index') }}">Sub Functional Areas</a>
                 @endcan
-            </div>
-        </div>
-    </li>
-    @endcan
-    <!-- Nav Item - Package Menu -->
-    @canany(['package-item-list','package-type-list'])
-    <li class="nav-item {{ Request::is('admin/package-item*') ? 'active' : '' }} {{ Request::is('admin/package-type*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#package"
-            aria-expanded="true" aria-controls="package">
-            <i class="fas fa-cubes"></i>
-            <span>Packages</span>
-        </a>
-        <div id="package" class="collapse {{ Request::is('admin/package-item*') ? 'show' : '' }} {{ Request::is('admin/package*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                @can('package-item-list')
-                <a class="collapse-item {{ Request::is('admin/package-item*') ? 'active' : '' }}" href="{{ route('package-item.index') }}">Package Items</a>
-                @endcan
-                @can('package-type-list')
-                <a class="collapse-item {{ Request::is('admin/package-type*') ? 'active' : '' }}" href="{{ route('package-type.index') }}">Package Type</a>
-                @endcan
-            </div>
-        </div>
-    </li>
-    @endcan
-
-    <!-- Nav Item - Employer Menu -->
-    @canany('point-package-list')
-    <li class="nav-item {{ Request::is('admin/point-package*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#point_package"
-            aria-expanded="true" aria-controls="point_package">
-            <i class="fa-solid fa-coins"></i>
-            <span>Point Package</span>
-        </a>
-        <div id="point_package" class="collapse {{ Request::is('admin/point-package*') ? 'show' : '' }} {{ Request::is('admin/package*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                
-                <a class="collapse-item {{ Request::is('admin/point-package*') ? 'active' : '' }}" href="{{ route('point-package.index') }}">Package Items</a>
-                
             </div>
         </div>
     </li>
@@ -195,32 +129,26 @@
     
     @endcan
     <!-- Nav Item - Seeker Menu -->
-    @can(['seeker-list'])
-    <li class="nav-item {{ Request::is('admin/seeker*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('seeker.index') }}">
-            <i class="fas fa-users-gear"></i>
+    @canany(['seeker-list'])
+    <li class="nav-item {{ Request::is('admin/seeker*') ? 'active' : '' }} {{ Request::is('admin/skill*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#seekers"
+            aria-expanded="true" aria-controls="seekers">
+            <i class="fa-solid fa-user-pen"></i>
             <span>Seekers</span>
         </a>
+        <div id="seekers" class="collapse {{ Request::is('admin/seeker*') ? 'show' : '' }} {{ Request::is('admin/skill*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('seeker-list')
+                <a class="collapse-item {{ Request::is('admin/seeker*') ? 'active' : '' }}" href="{{ route('seeker.index') }}">Seekers</a>
+                @endcan
+                @can('skill-list')
+                <a class="collapse-item {{ Request::is('admin/skill*') ? 'active' : '' }}" href="{{ route('skill.index') }}">Skills</a>
+                @endcan
+            </div>
+        </div>
     </li>
     @endcan
-    <!-- Nav Item - Slider Menu -->
-    @canany(['slider-list'])
-    <li class="nav-item {{ Request::is('admin/slider*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('slider.index') }}">
-            <i class="fas fa-images"></i>
-            <span>Sliders</span>
-        </a>
-    </li>
-    @endcan
-    <!-- Nav Item - Feedback Menu -->
-    @canany(['seeker-employer-contact-list'])
-    <li class="nav-item {{ Request::is('admin/feedback*') ? 'active' : '' }}">
-        <a class="nav-link collapsed" href="{{ route('feedback.index') }}">
-            <i class="fas fa-comments"></i>
-            <span>Seeker/Employer Contact</span>
-        </a>
-    </li>
-    @endcan
+    
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

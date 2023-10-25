@@ -598,7 +598,7 @@
                                                         </a>
                                                     @elseauth('employer')
                                                     @else
-                                                        <a href="{{ route('trending_job-apply', $trending_job->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $trending_job->id }})">
+                                                        <a href="{{ route('jobpost-apply', $trending_job->id) }}" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $trending_job->id }})">
                                                             <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
                                                         </a>
                                                     @endguest
