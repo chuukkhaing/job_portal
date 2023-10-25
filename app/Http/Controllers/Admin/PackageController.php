@@ -115,7 +115,7 @@ class PackageController extends Controller
             'number_of_users' => $request->number_of_users,
             'number_of_days' => $request->number_of_days,
             'is_active' => $request->is_active,
-            'created_by' => Auth::user()->id,
+            'updated_by' => Auth::user()->id,
         ]);
 
         if(isset($request->package_item_id)){

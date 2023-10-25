@@ -718,6 +718,7 @@
         }
     });
 
+    // employer info 
     $("#employer-info-list").change(function() {
         if($(this).is(":checked")) {
             $("#employer-info-edit").prop('checked',true);
@@ -732,6 +733,52 @@
     $("#employer-info-edit").change(function() {
         if($(this).is(":checked")) {
             $("#employer-info-list").prop('checked',true);
+        }
+    });
+
+    // point-package
+    $("#point-package-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-package-create").prop('checked',true);
+            $("#point-package-edit").prop('checked',true);
+            $("#point-package-delete").prop('checked',true);
+        }
+    });
+    $("#point-package-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#point-package-create").prop('checked',false);
+            $("#point-package-edit").prop('checked',false);
+            $("#point-package-delete").prop('checked',false);
+        }
+    });
+    $("#point-package-create").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-package-list").prop('checked',true);
+        }
+    });
+    $("#point-package-create").change(function() {
+        if($("#point-package-create").is(":checked") == false && $("#point-package-edit").is(":checked") == false && $("#point-package-delete").is(":checked") == false) {
+            $("#point-package-list").prop('checked',false);
+        }
+    });
+    $("#point-package-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-package-list").prop('checked',true);
+        }
+    });
+    $("#point-package-edit").change(function() {
+        if($("#point-package-create").is(":checked") == false && $("#point-package-edit").is(":checked") == false && $("#point-package-delete").is(":checked") == false) {
+            $("#point-package-list").prop('checked',false);
+        }
+    });
+    $("#point-package-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-package-list").prop('checked',true);
+        }
+    });
+    $("#slider-delete").change(function() {
+        if($("#slider-create").is(":checked") == false && $("#slider-edit").is(":checked") == false && $("#slider-delete").is(":checked") == false) {
+            $("#slider-list").prop('checked',false);
         }
     });
 </script>

@@ -154,6 +154,25 @@
         </div>
     </li>
     @endcan
+
+    <!-- Nav Item - Employer Menu -->
+    @canany('point-package-list')
+    <li class="nav-item {{ Request::is('admin/point-package*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#point_package"
+            aria-expanded="true" aria-controls="point_package">
+            <i class="fa-solid fa-coins"></i>
+            <span>Point Package</span>
+        </a>
+        <div id="point_package" class="collapse {{ Request::is('admin/point-package*') ? 'show' : '' }} {{ Request::is('admin/package*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                
+                <a class="collapse-item {{ Request::is('admin/point-package*') ? 'active' : '' }}" href="{{ route('point-package.index') }}">Package Items</a>
+                
+            </div>
+        </div>
+    </li>
+    @endcan
+
     <!-- Nav Item - Employer Menu -->
     @canany(['employer-list', 'employer-info-list'])
     <li class="nav-item {{ Request::is('admin/employers*') ? 'active' : '' }} {{ Request::is('admin/employer-info*') ? 'active' : '' }}">

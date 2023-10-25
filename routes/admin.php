@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\JobPostController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SeekerController;
 use App\Http\Controllers\Admin\EmployerInfoController;
+use App\Http\Controllers\Admin\PointPackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,5 +109,8 @@ Route::group([], function(){
         Route::post('employer-info-testimonial/destory/{id}', [EmployerInfoController::class, 'employerTestimonialDestroy']);
         Route::post('/employer-info-media', [EmployerInfoController::class, 'employerMediaStore'])->name('employer-info-media.store');
         Route::post('employer-info-media/destory/{id}', [EmployerInfoController::class, 'employerMediaDestroy']);
+
+        // point package 
+        Route::resource('point-package', PointPackageController::class);
     });
 });
