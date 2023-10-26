@@ -125,6 +125,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
@@ -140,7 +141,10 @@
                                     @foreach($activejobApplicants as $key => $activejobApplicant)
                                     <tr>
                                         <td class="text-black">{{ $key+1 }}</td>
-                                        <td class="text-black"><a href="{{ route('jobpost-detail', $activejobApplicant->slug) }}">{{ $activejobApplicant->job_title }}</a></td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $activejobApplicant->slug) }}">{{ $activejobApplicant->job_title }} ({{ $activejobApplicant->no_of_candidate }} - posts)</a></td>
+                                        <td>
+                                        @if($activejobApplicant->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($activejobApplicant->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                        </td>
                                         <td class ="text-blue ">
                                             @if($activejobApplicant->JobApply->count() > 0)
                                             <a href="#" onclick="getCVList({{$activejobApplicant->id}},'received')" class="text-blue">{{ $activejobApplicant->JobApply->count() }} CVs</a>
@@ -189,6 +193,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
@@ -204,7 +209,10 @@
                                     @foreach($expirejobApplicants as $key => $expirejobApplicant)
                                     <tr>
                                         <td class="text-black">{{ $key+1 }}</td>
-                                        <td class="text-black"><a href="{{ route('jobpost-detail', $expirejobApplicant->slug) }}">{{ $expirejobApplicant->job_title }}</a></td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $expirejobApplicant->slug) }}">{{ $expirejobApplicant->job_title }} ({{ $expirejobApplicant->no_of_candidate }} - posts)</a></td>
+                                        <td>
+                                        @if($expirejobApplicant->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($expirejobApplicant->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                        </td>
                                         <td class ="text-blue ">
                                             @if($expirejobApplicant->JobApply->count() > 0)
                                             <a href="#" onclick="getCVList({{$expirejobApplicant->id}},'received')" class="text-blue">{{ $expirejobApplicant->JobApply->count() }} CVs</a>
@@ -253,6 +261,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB"># Apps</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Contact Name</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Not Suitable</th>
@@ -268,7 +277,10 @@
                                     @foreach($inactivejobApplicants as $key => $inactivejobApplicant)
                                     <tr>
                                         <td class="text-black">{{ $key+1 }}</td>
-                                        <td class="text-black"><a href="{{ route('jobpost-detail', $inactivejobApplicant->slug) }}">{{ $inactivejobApplicant->job_title }}</a></td>
+                                        <td class="text-black"><a href="{{ route('jobpost-detail', $inactivejobApplicant->slug) }}">{{ $inactivejobApplicant->job_title }} ({{ $inactivejobApplicant->no_of_candidate }} - posts)</a></td>
+                                        <td>
+                                        @if($inactivejobApplicant->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($inactivejobApplicant->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                        </td>
                                         <td class ="text-blue ">
                                             @if($inactivejobApplicant->JobApply->count() > 0)
                                             <a href="#" onclick="getCVList({{$inactivejobApplicant->id}},'received')" class="text-blue">{{ $inactivejobApplicant->JobApply->count() }} CVs</a>

@@ -112,7 +112,7 @@
                 <nav class="py-3">
                     <div class="nav nav-tabs manage-jobs" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" type="button" role="tab" aria-controls="nav-pending" aria-selected="true">Pending</button>
-                        <button class="nav-link" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="false">Online (Approved)</button>
+                        <button class="nav-link" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="false">Approved</button>
                         <button class="nav-link" id="nav-reject-tab" data-bs-toggle="tab" data-bs-target="#nav-reject" type="button" role="tab" aria-controls="nav-reject" aria-selected="false">Reject</button>
                         <button class="nav-link" id="nav-expire-tab" data-bs-toggle="tab" data-bs-target="#nav-expire" type="button" role="tab" aria-controls="nav-expire" aria-selected="false">Expire</button>
                     </div>
@@ -126,6 +126,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
@@ -136,7 +137,8 @@
                                 @foreach($pendingjobPosts as $key => $pendingjobPost)
                                 <tr>
                                     <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black">{{ $pendingjobPost->job_title }}</td>
+                                    <td class="text-black">{{ $pendingjobPost->job_title }} ({{ $pendingjobPost->no_of_candidate }} - posts)</td>
+                                    <td>@if($pendingjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($pendingjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif</td>
                                     <td class="text-black">
                                         {{ $pendingjobPost->MainFunctionalArea->name }} , 
                                         {{ $pendingjobPost->SubFunctionalArea->name }}
@@ -187,6 +189,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
@@ -197,7 +200,10 @@
                                 @foreach($onlinejobPosts as $key => $onlinejobPost)
                                 <tr>
                                     <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black">{{ $onlinejobPost->job_title }}</td>
+                                    <td class="text-black">{{ $onlinejobPost->job_title }} ({{ $onlinejobPost->no_of_candidate }} - posts)</td>
+                                    <td>
+                                    @if($onlinejobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($onlinejobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                    </td>
                                     <td class="text-black">
                                         {{ $onlinejobPost->MainFunctionalArea->name }} , 
                                         {{ $onlinejobPost->SubFunctionalArea->name }}
@@ -248,6 +254,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
@@ -258,7 +265,10 @@
                                 @foreach($rejectjobPosts as $key => $rejectjobPost)
                                 <tr>
                                     <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black">{{ $rejectjobPost->job_title }}</td>
+                                    <td class="text-black">{{ $rejectjobPost->job_title }} ({{ $rejectjobPost->no_of_candidate }} - posts)</td>
+                                    <td>
+                                    @if($rejectjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($rejectjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                    </td>
                                     <td class="text-black">
                                         {{ $rejectjobPost->MainFunctionalArea->name }} , 
                                         {{ $rejectjobPost->SubFunctionalArea->name }}
@@ -309,6 +319,7 @@
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
@@ -319,7 +330,10 @@
                                 @foreach($expirejobPosts as $key => $expirejobPost)
                                 <tr>
                                     <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black">{{ $expirejobPost->job_title }}</td>
+                                    <td class="text-black">{{ $expirejobPost->job_title }} ({{ $expirejobPost->no_of_candidate }} - posts)</td>
+                                    <td>
+                                    @if($expirejobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($expirejobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
+                                    </td>
                                     <td class="text-black">
                                         {{ $expirejobPost->MainFunctionalArea->name }} , 
                                         {{ $expirejobPost->SubFunctionalArea->name }}
@@ -374,11 +388,14 @@
 @push('scripts')
 <script>
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    })
+
     function changeJobPostStatus(id, is_active) {
         var status = is_active;
         if(is_active == 1) {
