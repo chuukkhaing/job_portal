@@ -2,26 +2,26 @@
 @section('content')
 
 <div class="container employer-dashboard mt-3">
-    <div class="row employer-dashboard-header m-0">
-        <div class="col-2 p-3">
+<div class="row employer-dashboard-header m-0">
+        <div class="col-lg-2 col-md-3 p-3">
             <a href="{{ route('employer-profile.index') }}">
             @if($employer->logo)
-            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Company Logo" class="employer-header-logo shadow-lg">
+            <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
             @else
-            <img src="{{ asset('img/icon/company.png') }}" alt="Company Logo" class="employer-header-logo shadow-lg">
+            <img src="{{ asset('img/icon/company.png') }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
             @endif
             </a>
         </div>
-        <div class="col-10 p-3">
+        <div class="col-lg-10 col-md-9 p-3">
             <div class="mb-4">
                 <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
                 <div class="float-end">
                     {{--<a href="http://" class="btn btn-outline-primary">Add-on Features</a>--}}
-                    <a data-bs-toggle="modal" data-bs-target="#cardModal" class="btn profile-save-btn text-light">Package Details</a>
+                    <a href="http://" class="btn profile-save-btn" data-bs-toggle="modal" data-bs-target="#cardModal">Package Details</a>
                 </div>
             </div>
             <p>Our packing pricing design allows you to choose the right package that best fits your business needs. We offer a variety of options, each with different features, points, and pricing. Simply select the package that works best for you, and our team will take care of the rest.</p>
-            <div class="row">
+            <div class="row d-lg-flex d-none">
                 <div class="col-4 p-1">
                     <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy Package") style="border: 1px solid #0565FF" @endif>
                         Economy
@@ -48,12 +48,42 @@
                 </div>
             </div>
         </div>
+        <div class="row d-lg-none d-flex">
+            <div class="col-4 p-1">
+                <div class="economy p-3" @if($employer->Package && $employer->Package->name == "Economy Package") style="border: 1px solid #0565FF" @endif>
+                    Economy
+                    @if($employer->Package && $employer->Package->name == "Economy Package")
+                    <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-4 p-1">
+                <div class="standard p-3" @if($employer->Package && $employer->Package->name == "Standard Package") style="border: 1px solid #C72C91" @endif>
+                    Standard
+                    @if($employer->Package && $employer->Package->name == "Standard Package")
+                    <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                    @endif
+                </div>
+            </div>
+            <div class="col-4 p-1">
+                <div class="premium p-3" @if($employer->Package && $employer->Package->name == "Premium Package") style="border: 1px solid #F58220" @endif>
+                    Premium
+                    @if($employer->Package && $employer->Package->name == "Premium Package")
+                    <span class="float-end"><i class="fa-solid fa-check"></i></span>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="container-fluid mt-1 py-5" id="edit-profile-header">
+    
+    <hr style="border-bottom: 5px solid gray;">  
+    <div class="container-fluid mt-1 py-3" id="edit-profile-header">
+    <h5>Used Point History</h5>
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="dataTable">
+            <table class="table table-hover table-sm" id="dataTable">
                 <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Job Post Title</th>
                         <th>Job Apply Seeker</th>
                         <th>Package Item Name</th>
@@ -62,8 +92,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($point_records as $point_record)
+                    @foreach($point_records as $key => $point_record)
                     <tr>
+                        <td>{{ $key+1 }}</td>
                         <td>@if($point_record->job_post_id) {{ $point_record->JobPost->job_title }} @else - @endif</td>
                         <td>@if($point_record->job_apply_id) {{ $point_record->JobApply->Seeker->first_name }} {{ $point_record->JobApply->Seeker->last_name }} @else - @endif</td>
                         <td>{{ $point_record->PackageItem->name }}</td>
