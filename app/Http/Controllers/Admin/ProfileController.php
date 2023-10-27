@@ -8,6 +8,7 @@ use App\Models\User;
 use Hash;
 use Alert;
 use Arr;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -86,7 +87,7 @@ class ProfileController extends Controller
         }else{
             $input = Arr::except($input,array('password'));    
         }
-    
+        $input['updated_by'] = Auth::user()->id;
         $user = User::find($id);
         $user->update($input);
         Alert::success('Success', 'Profile updated successfully');

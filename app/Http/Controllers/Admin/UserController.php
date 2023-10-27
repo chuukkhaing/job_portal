@@ -61,6 +61,7 @@ class UserController extends Controller
     
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
+        $input['created_by'] = Auth::user()->id;
     
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
@@ -118,6 +119,7 @@ class UserController extends Controller
         }else{
             $input = Arr::except($input,array('password'));    
         }
+        $input['updated_by'] = Auth::user()->id;
     
         $user = User::find($id);
         $user->update($input);
