@@ -6,6 +6,7 @@ use App\Http\Controllers\Employer\EmployerProfileController;
 use App\Http\Controllers\Employer\EmployerRegisterController;
 use App\Http\Controllers\Employer\MemberUserController;
 use App\Http\Controllers\Employer\PointHistoryController;
+use App\Http\Controllers\Employer\BuyPointController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,5 +65,7 @@ Route::group([], function () {
 
         Route::resource('point-history', PointHistoryController::class);
         Route::resource('member-user', MemberUserController::class);
+
+        Route::resource('buy-point', BuyPointController::class);
     });
 });
