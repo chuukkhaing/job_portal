@@ -73,7 +73,7 @@
                     <h5 class="fw-bold text-black">Skills</h5>
                     <div class="badge-group mb-3">
                         @foreach($jobpost->JobPostSkill as $jobpostSkill)
-                        <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3" style="background: #0355d0">{{ $jobpostSkill->Skill->name }}</span>
+                        <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3 text-wrap" style="background: #0355d0">{{ $jobpostSkill->Skill->name }}</span>
                         @endforeach
                     </div>
                     @endif

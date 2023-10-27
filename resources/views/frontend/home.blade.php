@@ -275,7 +275,7 @@
                                         <h5 class="fw-bold text-black">Skills</h5>
                                         <div class="badge-group mb-3">
                                             @foreach($trending_job->JobPostSkill as $trending_jobSkill)
-                                            <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3" style="background: #0355d0">{{ $trending_jobSkill->Skill->name }}</span>
+                                            <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3 text-wrap" style="background: #0355d0">{{ $trending_jobSkill->Skill->name }}</span>
                                             @endforeach
                                         </div>
                                         @endif
@@ -626,7 +626,7 @@
                                 <h5 class="fw-bold text-black">Skills</h5>
                                 <div class="badge-group mb-3">
                                     @foreach($feature_job->JobPostSkill as $feature_jobSkill)
-                                    <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3" style="background: #0355d0">{{ $feature_jobSkill->Skill->name }}</span>
+                                    <span class="my-1 badge text-white fz14 rounede-3 py-2 px-3 text-wrap" style="background: #0355d0">{{ $feature_jobSkill->Skill->name }}</span>
                                     @endforeach
                                 </div>
                                 @endif
