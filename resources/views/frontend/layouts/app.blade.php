@@ -67,12 +67,12 @@
     <!-- Header Start  -->
     @auth('employer')
         @include('frontend.layouts.employer-header')
-        @include('frontend.layouts.alert_js')
+        
     @else
         @include('frontend.layouts.header')
     @endauth
     @auth
-    
+        @include('frontend.layouts.alert_js')
     @endauth
     <!-- Header End  -->
     @yield('content')

@@ -783,4 +783,16 @@ class EmployerJobPostController extends Controller
             'data' => $cvunlock
         ]);
     }
+
+    public function pointBalance($id)
+    {
+        $employer = Employer::findOrFail($id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        return response()->json([
+            'status' => 'success',
+            'point'  => $employer->package_point
+        ]);
+    }
 }

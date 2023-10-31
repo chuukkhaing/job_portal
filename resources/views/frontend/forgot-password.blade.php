@@ -4,7 +4,7 @@
 @php
     $route_name = Route::currentRouteName();
 @endphp
-
+@include('frontend.layouts.alert_js')
 <div class="container">
     <div class="py-3">
         <article class="mx-auto">

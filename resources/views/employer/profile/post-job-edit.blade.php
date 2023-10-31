@@ -450,7 +450,7 @@
                 <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
             </div>
             <div class="col-6 d-flex flex-row-reverse">
-            <button type="submit" class="btn profile-save-btn mx-3">
+            <button type="submit" class="btn profile-save-btn savejobpost mx-3">
                 <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
             </button>
             <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
@@ -523,6 +523,25 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="pointBalance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pointBalanceLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="pointBalanceLabel">Point Balance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+      Your Balance Points are not enough to Post Job.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{{ route('buy-point.create') }}" target="_blank" class="btn profile-save-btn">Buy Your Points</a>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 @push('scripts')
 <script>
@@ -565,7 +584,28 @@
         function calculatePoint()
         {
             total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
+            var employer_point = checkPointBalance();
+
+            if(total_point > employer_point) {
+                $(".savejobpost").addClass('disabled');
+                $("#pointBalance").modal('show');
+            }else {
+                $(".savejobpost").removeClass('disabled');
+            }
             $("#total_point").val(total_point)
+        }
+
+        function checkPointBalance()
+        {
+            var employer_id = {{ Auth::guard('employer')->user()->id }};
+            var point = 0;
+            $.ajax({
+                type: 'GET',
+                url: '/employer/point-balance/'+employer_id,
+            }).done(function(response){
+                point = response.point;
+            })
+            return point;
         }
 
         $("#currency").change(function(){
