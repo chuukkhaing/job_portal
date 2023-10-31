@@ -12,6 +12,7 @@ use App\Models\Employer\MemberPermission;
 use App\Mail\EmployerVerificationEmail;
 use Auth;
 use Hash;
+use Str;
 
 class MemberUserController extends Controller
 {
@@ -60,6 +61,12 @@ class MemberUserController extends Controller
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
+            'confirm-password' => ['required', 'string', 'min:8'],
+            'is_active' => ['required'],
+            'dashboard' => 'required_without_all:profile,manage_job,application_tracking',
+            'profile' => 'required_without_all:dashboard,manage_job,application_tracking',
+            'manage_job' => 'required_without_all:dashboard,profile,application_tracking',
+            'application_tracking' => 'required_without_all:dashboard,profile,manage_job',
         ]);
         $check_member = Employer::whereEmployerId(Auth::guard('employer')->user()->id)->count();
         $employer = Employer::create([
@@ -71,6 +78,7 @@ class MemberUserController extends Controller
             'register_at' => now(),
             'is_active' => $request->is_active,
             'created_by' => Auth::guard('employer')->user()->id,
+            'email_verification_token' => Str::random(32)
         ]);
         
         if($employer) {
@@ -158,8 +166,14 @@ class MemberUserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,'.$id],
+            'email' => 'required|string|email|max:255|unique:employers,email,'.$id.',id,deleted_at,NULL',
             'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
+            'confirm-password' => ['nullable', 'string', 'min:8'],
+            'is_active' => ['required'],
+            'dashboard' => 'required_without_all:profile,manage_job,application_tracking',
+            'profile' => 'required_without_all:dashboard,manage_job,application_tracking',
+            'manage_job' => 'required_without_all:dashboard,profile,application_tracking',
+            'application_tracking' => 'required_without_all:dashboard,profile,manage_job',
         ]);
         $member = Employer::findOrFail($id);
         if($id == Auth::guard('employer')->user()->id) {
@@ -207,12 +221,10 @@ class MemberUserController extends Controller
                 'name' => 'application_tracking'
             ]);
         }
-        if ($employer) {
-            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
 
+        if($member_update) {
             return redirect()->route('member-user.index')->with('success', 'Member Updated Successfully!');
         }
-        return redirect()->route('member-user.index')->with('success', 'Member Updated Successfully!');
     }
 
     /**

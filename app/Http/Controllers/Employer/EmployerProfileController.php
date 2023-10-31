@@ -147,7 +147,7 @@ class EmployerProfileController extends Controller
         }
 
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
-        $employer = $employer->update([
+        $employer_update = $employer->update([
             'legal_docs' => $legal_docs,
             'name' => $request->name,
             'industry_id' => $request->industry_id,
@@ -163,7 +163,9 @@ class EmployerProfileController extends Controller
             'updated_by_admin' => $id,
         ]);
 
-        return redirect()->route('employer-job-post.create')->with('success','Profile Edit Successfully.');
+        if($employer_update) {
+            return redirect()->route('employer-job-post.create')->with('success','Profile Edit Successfully.');
+        }
     }
 
     /**

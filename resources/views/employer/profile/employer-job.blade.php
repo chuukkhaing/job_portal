@@ -51,7 +51,7 @@
                                                 @elseif($pendingjobPost->status == 'Online')
                                                 <span class="badge rounded-pill px-3 bg-success">{{ $pendingjobPost->status }}</span>
                                                 @elseif($pendingjobPost->status == 'Reject')
-                                                <span class="badge rounded-pill px-3 bg-warning text-black">{{ $pendingjobPost->status }}</span>
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $pendingjobPost->status }}</span>
                                                 @elseif($pendingjobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $pendingjobPost->status }}</span>
                                                 @endif
@@ -116,7 +116,7 @@
                                                 @elseif($onlinejobPost->status == 'Online')
                                                 <span class="badge rounded-pill px-3 bg-success">{{ $onlinejobPost->status }}</span>
                                                 @elseif($onlinejobPost->status == 'Reject')
-                                                <span class="badge rounded-pill px-3 bg-warning text-black">{{ $onlinejobPost->status }}</span>
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $onlinejobPost->status }}</span>
                                                 @elseif($onlinejobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $onlinejobPost->status }}</span>
                                                 @endif
@@ -181,7 +181,7 @@
                                                 @elseif($rejectjobPost->status == 'Online')
                                                 <span class="badge rounded-pill px-3 bg-success">{{ $rejectjobPost->status }}</span>
                                                 @elseif($rejectjobPost->status == 'Reject')
-                                                <span class="badge rounded-pill px-3 bg-warning text-black">{{ $rejectjobPost->status }}</span>
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $rejectjobPost->status }}</span>
                                                 @elseif($rejectjobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $rejectjobPost->status }}</span>
                                                 @endif
@@ -246,7 +246,7 @@
                                                 @elseif($expirejobPost->status == 'Online')
                                                 <span class="badge rounded-pill px-3 bg-success">{{ $expirejobPost->status }}</span>
                                                 @elseif($expirejobPost->status == 'Reject')
-                                                <span class="badge rounded-pill px-3 bg-warning text-black">{{ $expirejobPost->status }}</span>
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $expirejobPost->status }}</span>
                                                 @elseif($expirejobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $expirejobPost->status }}</span>
                                                 @endif

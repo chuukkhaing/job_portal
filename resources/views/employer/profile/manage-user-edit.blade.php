@@ -34,30 +34,31 @@
                 <form action="{{ route('member-user.update', $member->id) }}" method="post" enctype="multipart/form-data">
                     @csrf 
                     @method('PUT')
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    
                     <div class="row">
 
                         <div class="col-6 form-group">
                             <label for="email">Member Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" name="email" id="email" placeholder="Enter Member Email" required value="{{ $member->email }}">
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email" placeholder="Enter Member Email" value="{{ $member->email }}">
+                            @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="col-6 form-group">
                             <label for="password">Password <span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" value="">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Enter Password" value="">
+                            @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="col-6 form-group">
                             <label for="confirm-password">Confirm Password <span class="text-danger">*</span></label>
-                            <input type="password" class="datepicker form-control" name="confirm-password" id="confirm-password" placeholder="Enter Password" value="">
+                            <input type="password" class="datepicker form-control @error('confirm-password') is-invalid @enderror" name="confirm-password" id="confirm-password" placeholder="Enter Password" value="">
+                            @error('confirm-password')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
                     <div class="row">
@@ -67,6 +68,9 @@
                             <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                             <input type="radio" name="is_active" id="active" class="" value="1" @if($member->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
                             <input type="radio" name="is_active" id="in_active" class="" value="0" @if($member->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
+                            @error('is_active')
+                            <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         
                         <div class="col-6 form-group">
@@ -88,6 +92,15 @@
                                     <input type="checkbox" name="application_tracking" id="application_tracking" @if($member->MemberPermission->where('name','application_tracking')->count() == 1) checked @endif>
                                     <label for="application_tracking">Application Tracking</label>
                                 </div>
+                                @if($errors->has('dashboard'))
+                                    <small class="text-danger">{{ $errors->first('dashboard') }}</small>
+                                @elseif($errors->has('profile'))
+                                    <small class="text-danger">{{ $errors->first('profile') }}</small>
+                                @elseif($errors->has('manage_job'))
+                                    <small class="text-danger">{{ $errors->first('manage_job') }}</small>
+                                @elseif($errors->has('application_tracking'))
+                                    <small class="text-danger">{{ $errors->first('application_tracking') }}</small>
+                            @endif
                             </div>
                         </div>
                         @endif

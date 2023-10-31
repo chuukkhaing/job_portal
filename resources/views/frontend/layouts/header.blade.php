@@ -50,35 +50,7 @@
                         </li>
                     </ul>
                 </div>
-                @elseauth('employer')
-                <div class="btn-group">
-                    @if(Auth::guard('employer')->user()->logo)
-                    <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('/storage/employer_logo/'.Auth::guard('employer')->user()->logo) }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
-                    </a>
-                    @else
-                    <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('img/icon/company.png') }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
-                    </a>
-                    @endif
-                    <ul class="dropdown-menu profile-dropdown">
-                        <li>
-                            <a class="dropdown-item" href="{{ route('employer-profile.index') }}">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                My Profile
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{{ route('employer.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Logout
-                            </a>
-                            <form id="logout-form" action="{{ route('employer.logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </div>
+                
                 @elseauth('web')
                 <a href="{{ route('dashboard') }}" class="nav-item nav-link">Admin</a>
                 @else

@@ -76,9 +76,13 @@
                                         </small>
                                     @enderror
                                     <div class="form-group input-group register-form-input p-1 my-2">
-                                        <input name="company_phone" class="form-control border-0" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('company_phone') }}">
+                                        <input name="company_phone" class="form-control border-0 @error('company_phone') is-invalid @enderror" placeholder="Eg., 09xxxxxxxxx" type="number" value="{{ old('company_phone') }}">
                                     </div>
-                                    
+                                    @error('company_phone')
+                                        <small class="text-danger">
+                                            {{ $message }}
+                                        </small>
+                                    @enderror
                                     <div class="form-group input-group register-form-input p-1 my-2">
                                         <input class="form-control border-0 @error('company_password') is-invalid @enderror" placeholder="Create password" type="password" name="company_password" id="company_password"><i style="cursor: pointer" id="company-password-eye" class="bi bi-eye-slash ms-5 mt-2" onclick="showCompanyPassword()"></i>
                                     </div>
