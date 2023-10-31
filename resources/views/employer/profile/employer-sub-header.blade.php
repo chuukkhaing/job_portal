@@ -13,7 +13,7 @@
             <h4 class="fw-bold d-inline-block">Upgrade Your Package</h4>
             <div class="float-end">
                 {{--<a href="http://" class="btn btn-outline-primary">Add-on Features</a>--}}
-                <a href="{{ route('buy-point.index') }}" class="btn profile-save-btn">Buy Your Points</a>
+                <a href="{{ route('buy-point.create') }}" class="btn profile-save-btn">Buy Your Points</a>
                 <a href="http://" class="btn profile-save-btn" data-bs-toggle="modal" data-bs-target="#cardModal">Package Details</a>
             </div>
         </div>
@@ -72,7 +72,7 @@
         </div>
     </div>
 </div>
-@if(Request::is('employer/point-history') || Request::is('employer/buy-point'))
+@if(Request::is('employer/point-history') || Request::is('employer/buy-point*'))
 @else
 <div class="px-lg-5 px-md-3 px-0 ">
     <ul class="nav nav-tabs d-flex justify-content-between p-2 my-1" id="employerTab">

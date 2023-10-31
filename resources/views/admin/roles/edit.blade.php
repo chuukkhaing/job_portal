@@ -782,6 +782,24 @@
             $("#slider-list").prop('checked',false);
         }
     });
+
+    // point topup
+    $("#point-topup-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-topup-edit").prop('checked',true);
+        }
+    });
+    $("#point-topup-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#point-topup-edit").prop('checked',false);
+        }
+    });
+    
+    $("#point-topup-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#point-topup-list").prop('checked',true);
+        }
+    });
     
 </script>
 @endpush

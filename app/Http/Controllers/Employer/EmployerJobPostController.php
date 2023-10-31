@@ -50,7 +50,10 @@ class EmployerJobPostController extends Controller
     public function create()
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        $packages = Package::whereNull('deleted_at')->get();
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();
@@ -235,7 +238,10 @@ class EmployerJobPostController extends Controller
     {
         $jobPost = JobPost::findOrFail($id);
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        $packages = Package::whereNull('deleted_at')->get();
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $industries = Industry::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();

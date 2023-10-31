@@ -38,7 +38,7 @@ class HomeController extends Controller
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(18);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(20);
         $live_job              = JobPost::whereIsActive(1)->count();
-        $packages              = Package::whereNull('deleted_at')->get();
+        $packages              = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $today_job             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         $functional_areas      = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
@@ -52,14 +52,14 @@ class HomeController extends Controller
     {
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $live_job   = JobPost::whereIsActive(1)->count();
-        $packages   = Package::whereNull('deleted_at')->get();
+        $packages   = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $today_job  = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return view('frontend.all-categories', compact('packages', 'industries', 'live_job', 'today_job'));
     }
 
     public function contactUs()
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         return view('frontend.contact', compact('packages'));
     }
 
@@ -86,7 +86,7 @@ class HomeController extends Controller
     public function findJobs()
     {
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
-        $packages              = Package::whereNull('deleted_at')->get();
+        $packages              = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
@@ -100,7 +100,7 @@ class HomeController extends Controller
 
     public function searchJob(Request $request)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
@@ -150,7 +150,7 @@ class HomeController extends Controller
 
     public function searchMainFunction($id)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
@@ -168,7 +168,7 @@ class HomeController extends Controller
 
     public function companies()
     {
-        $packages  = Package::whereNull('deleted_at')->get();
+        $packages  = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employers = Employer::whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
         return view('frontend.company', compact('packages', 'employers'));
     }
@@ -176,7 +176,7 @@ class HomeController extends Controller
     public function industryJob($id)
     {
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
-        $packages              = Package::whereNull('deleted_at')->get();
+        $packages              = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
@@ -191,7 +191,7 @@ class HomeController extends Controller
 
     public function findCompany(Request $request)
     {
-        $packages  = Package::whereNull('deleted_at')->get();
+        $packages  = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employers = Employer::whereIsActive(1)->where('name', 'like', '%' . $request->company_name . '%')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
         return view('frontend.company', compact('packages', 'employers'));
     }
@@ -199,7 +199,7 @@ class HomeController extends Controller
     public function companyJob($id)
     {
         
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
@@ -215,19 +215,19 @@ class HomeController extends Controller
     
     public function aboutUs(Request $request)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         return view('frontend.about', compact('packages'));
     }
 
     public function termsOfUse(Request $request)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         return view('frontend.terms-of-use', compact('packages'));
     }
 
     public function privacyPolicy(Request $request)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         return view('frontend.privacy-policy', compact('packages'));
     }
 }

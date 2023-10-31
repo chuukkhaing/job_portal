@@ -46,6 +46,14 @@
                             </a>
                         </li>
                         @endif
+                        
+                        <li>
+                            <a class="dropdown-item" href="{{ route('buy-point.index') }}">
+                                <i class="fas fa-coins fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Point Order History
+                            </a>
+                        </li>
+                        
                         <li>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

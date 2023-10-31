@@ -78,7 +78,9 @@ class PermissionSeeder extends Seeder
             'point-package-list',
             'point-package-create',
             'point-package-edit',
-            'point-package-delete'
+            'point-package-delete',
+            'point-topup-list',
+            'point-topup-edit'
         ];
       
         foreach ($permissions as $permission) {

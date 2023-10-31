@@ -14,7 +14,7 @@ class CompanyDetailController extends Controller
     {
         $employer = Employer::whereSlug($slug)->first();
         $jobPosts = JobPost::whereEmployerId($employer->id)->where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get()->take(6);
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         return view('frontend.company-detail', compact('packages','employer', 'jobPosts'));
     }
 }

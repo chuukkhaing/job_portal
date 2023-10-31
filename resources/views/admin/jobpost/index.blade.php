@@ -51,7 +51,7 @@
                                 @elseif($jobPost->status == 'Online')
                                 <span class="badge text-light bg-success">{{ $jobPost->status }}</span>
                                 @elseif($jobPost->status == 'Reject')
-                                <span class="badge text-light bg-warning">{{ $jobPost->status }}</span>
+                                <span class="badge text-dark bg-warning">{{ $jobPost->status }}</span>
                                 @elseif($jobPost->status == 'Expire')
                                 <span class="badge text-light bg-danger">{{ $jobPost->status }}</span>
                                 @endif

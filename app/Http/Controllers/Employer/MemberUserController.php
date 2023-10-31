@@ -22,8 +22,12 @@ class MemberUserController extends Controller
      */
     public function index()
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        
         $members  = Employer::whereEmployerId($employer->id)->whereNull('deleted_at')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         return view('employer.profile.manage-user', compact('packageItems','packages', 'employer', 'members'));
@@ -36,8 +40,11 @@ class MemberUserController extends Controller
      */
     public function create()
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         return view('employer.profile.manage-user-create', compact('packages','packageItems', 'employer'));
     }
@@ -131,8 +138,11 @@ class MemberUserController extends Controller
      */
     public function edit($id)
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         $member = Employer::findOrFail($id);
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         return view('employer.profile.manage-user-edit', compact('packages', 'employer', 'member', 'packageItems'));
@@ -214,6 +224,9 @@ class MemberUserController extends Controller
     public function destroy($id)
     {
         $employer = Employer::findOrFail($id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         
         try {
             $employer = Employer::findOrFail($id)->update([

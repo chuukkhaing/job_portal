@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SeekerController;
 use App\Http\Controllers\Admin\EmployerInfoController;
 use App\Http\Controllers\Admin\PointPackageController;
+use App\Http\Controllers\Admin\PointOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,5 +113,8 @@ Route::group([], function(){
 
         // point package 
         Route::resource('point-package', PointPackageController::class);
+
+        // point order 
+        Route::resource('point-topup', PointOrderController::class);
     });
 });

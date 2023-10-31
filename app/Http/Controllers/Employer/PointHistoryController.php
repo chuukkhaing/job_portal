@@ -18,7 +18,7 @@ class PointHistoryController extends Controller
      */
     public function index()
     {
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);

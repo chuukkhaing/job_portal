@@ -45,7 +45,7 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $lastJobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at','desc')->get()->take(5);
         return view ('employer.profile.dashboard', compact('employer', 'packages', 'lastJobPosts', 'packageItems'));
@@ -91,7 +91,7 @@ class EmployerProfileController extends Controller
      */
     public function edit($id)
     {
-        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        $employer = Employer::findOrFail($id);
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
@@ -99,7 +99,7 @@ class EmployerProfileController extends Controller
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
         $states = State::whereNull('deleted_at')->get();
         $townships = Township::whereNull('deleted_at')->get();
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
@@ -126,6 +126,9 @@ class EmployerProfileController extends Controller
         ]);
 
         $employer = Employer::findOrFail($id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
 
         if($request->hasFile('legal_docs')) {
             if($employer->legal_docs){
@@ -230,6 +233,9 @@ class EmployerProfileController extends Controller
     {
         $address = EmployerAddress::findOrFail($id)->delete();
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         $address_count = EmployerAddress::whereEmployerId($employer->id)->count();
 
         return response()->json([
@@ -268,6 +274,9 @@ class EmployerProfileController extends Controller
         File::deleteDirectory(public_path('storage/employer_testimonial/'.'/'.$test->image));
         $test = $test->delete();
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         $test_count = EmployerTestimonial::whereEmployerId($employer->id)->count();
 
         return response()->json([
@@ -311,6 +320,9 @@ class EmployerProfileController extends Controller
         $media_type = $media->type;
         $media = $media->delete();
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         $media_count = EmployerMedia::whereEmployerId($employer->id)->whereType($media_type)->count();
 
         return response()->json([
@@ -323,6 +335,9 @@ class EmployerProfileController extends Controller
     public function uploadLogo (Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
 
         if($request->hasFile('employer_logo')) {
             $file    = $request->file('employer_logo');
@@ -343,6 +358,9 @@ class EmployerProfileController extends Controller
     public function removeLogo(Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$employer->logo));
         $employer = $employer->update([
             'logo' => Null,
@@ -358,6 +376,9 @@ class EmployerProfileController extends Controller
     public function uploadBackground (Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
 
         if($request->hasFile('employer_background')) {
             $file    = $request->file('employer_background');
@@ -378,6 +399,9 @@ class EmployerProfileController extends Controller
     public function removeBackground(Request $request)
     {
         $employer = Employer::findOrFail($request->employer_id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
         File::deleteDirectory(public_path('storage/employer_background/'.'/'.$employer->background));
         $employer = $employer->update([
             'background' => Null,
@@ -396,7 +420,7 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $pendingjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
         $onlinejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
@@ -415,7 +439,7 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $packages = Package::whereNull('deleted_at')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         $activejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(1)->where('status','!=', 'Expire')->get();
         $inactivejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(0)->where('status','!=', 'Expire')->get();

@@ -46,7 +46,7 @@
                         <td>{{ $member->employer_id ? 'Member' : 'Admin' }}</td>
                         <td>@if($member->employer_id) 
                                 <a href="{{ route('member-user.edit', $member->id) }}" class="text-black"><i class="fas fa-edit"></i></a>
-                                <button class="delete-confirm text-black" type="submit" id="confirmation-{{ $member->id }}" value="{{ $member->id }}"><i class="fas fa-trash"></i></button>
+                                <button class="delete-confirm btn btn-sm text-black" type="submit" id="confirmation-{{ $member->id }}" value="{{ $member->id }}"><i class="fas fa-trash"></i></button>
                             @endif
                         </td>
                     </tr>
