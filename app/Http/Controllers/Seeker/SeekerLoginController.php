@@ -36,6 +36,7 @@ class SeekerLoginController extends Controller
 
     public function frontendLogin()
     {
+        session(['returnUrl' => 'jobpost-detail']);
         return view('frontend.login');
     }
 

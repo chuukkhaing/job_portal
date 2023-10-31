@@ -72,8 +72,6 @@
         </div>
     </div>
 </div>
-@if(Request::is('employer/point-history') || Request::is('employer/buy-point*'))
-@else
 <div class="px-lg-5 px-md-3 px-0 ">
     <ul class="nav nav-tabs d-flex justify-content-between p-2 my-1" id="employerTab">
         @if(Auth::guard('employer')->user()->employer_id == Null || (Auth::guard('employer')->user()->employer_id && Auth::guard('employer')->user()->MemberPermission->where('name','dashboard')->count() > 0))
@@ -103,5 +101,5 @@
         @endif
     </ul>
 </div>
-@endif
+
 <hr style="border-bottom: 5px solid gray;">   

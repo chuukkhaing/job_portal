@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employer\PointRecord;
 use App\Models\Admin\Package;
 use App\Models\Admin\Employer;
+use App\Models\Admin\PackageItem;
 use Auth;
 
 class PointHistoryController extends Controller
@@ -24,7 +25,8 @@ class PointHistoryController extends Controller
             $employer = Employer::findOrFail($employer->employer_id);
         }
         $point_records = PointRecord::whereEmployerId($employer->id)->orderBy('created_at','desc')->get();
-        return view('employer.profile.point-history', compact('packages', 'employer', 'point_records'));
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.point-history', compact('packages', 'employer', 'point_records', 'packageItems'));
     }
 
     /**

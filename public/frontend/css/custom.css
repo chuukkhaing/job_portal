@@ -326,10 +326,6 @@ a.interview-btn:hover {
     background-image: url('../../img/findjobs_banner.svg');
 }
 
-.find-jobs-header {
-    /* font-family: 'SourceSansPro'; */
-}
-
 .job-trending-scroll {
     background: #fff;
     height:980px;
@@ -639,10 +635,6 @@ page::-webkit-scrollbar-thumb
     position: absolute;
     width: 1px;
     height: 1px;
-}
-
-.resume-template-background {
-    /* background: rgb(204,204,204);  */
 }
 
 .bdr2{

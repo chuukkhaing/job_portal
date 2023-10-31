@@ -9,6 +9,7 @@ use App\Models\Admin\Package;
 use App\Models\Admin\PointPackage;
 use App\Models\Admin\PointOrder;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\PackageItem;
 use Auth;
 
 class BuyPointController extends Controller
@@ -27,7 +28,8 @@ class BuyPointController extends Controller
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $pointPackages = PointPackage::whereNull('deleted_at')->whereIsActive(1)->get();
         $orders = PointOrder::whereNull('deleted_at')->whereEmployerId($employer->id)->orderBy('updated_at','desc')->get();
-        return view('employer.profile.buy-point.index', compact('employer', 'packages', 'pointPackages', 'orders'));
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.buy-point.index', compact('employer', 'packages', 'pointPackages', 'orders', 'packageItems'));
     }
 
     /**
@@ -43,7 +45,8 @@ class BuyPointController extends Controller
         }
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $pointPackages = PointPackage::whereNull('deleted_at')->whereIsActive(1)->get();
-        return view('employer.profile.buy-point.create', compact('employer', 'packages', 'pointPackages'));
+        $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
+        return view('employer.profile.buy-point.create', compact('employer', 'packages', 'pointPackages', 'packageItems'));
     }
 
     /**
