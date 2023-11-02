@@ -7,9 +7,9 @@
             <i class="py-2 fa-regular fa-circle" style="color: #0563C1"></i>
             </div>
             <div class="col">
-            <span class="reference-name-{{$reference->id}} exp-job-title">{{ $reference->name }}</span> | <span class="reference-position-{{$reference->id}}">{{ $reference->position }}</span> <br>
-            <span class="reference-company-{{$reference->id}} exp-company">{{ $reference->company }}</span> <br>
-            <span class="reference-contact-{{$reference->id}} exp-company">{{ $reference->contact }}</span>
+            <span class="reference-name-{{$reference->id}} ref-header text-uppercase">{{ $reference->name }}</span> | <span class="text-uppercase ref-sub-header reference-position-{{$reference->id}}">{{ $reference->position }}</span> <br>
+            <span class="reference-company-{{$reference->id}} ref-text text-uppercase">{{ $reference->company }}</span> <br>
+            <span class="reference-contact-{{$reference->id}} ref-text">{{ $reference->contact }}</span>
             </div>
         </div>
 

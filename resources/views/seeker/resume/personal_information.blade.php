@@ -150,18 +150,27 @@
     $(document).ready(function() {
         // onChange callback
         $('.summernote_resume').summernote({
-        toolbar: [
-            ['font', ['bold', 'italic', 'underline']],
-            ['para', ['ul', 'ol', 'paragraph']]
-        ],
-        callbacks: {
-            onChange: function(contents, $editable) {
-                updateProfile('summary', contents)
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline']],
+                ['para', ['ul', 'ol', 'paragraph']]
+            ],
+            callbacks: {
+                
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('text/html');
+                    e.preventDefault();
+                    var div = $('<div />');
+                    div.append(bufferText);
+                    div.find('*').removeAttr('style');
+                    setTimeout(function () {
+                        document.execCommand('insertHtml', false, div.html());
+                    }, 10);
+                    updateProfile('summary', div.html())
+                },
+                onChange: function(contents, $editable) {
+                    updateProfile('summary', contents)
                 }
             }
-        }).on("summernote.enter", function(we, e) {
-            $(this).summernote("pasteHTML", "<br>");
-                e.preventDefault();
         });
     })
     

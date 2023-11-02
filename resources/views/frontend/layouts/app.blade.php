@@ -17,7 +17,8 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
-    <link href="https://fonts.cdnfonts.com/css/agency-fb" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/f9b9a4fce362a3a9111c138859ccb422?family=Agency+FB+V2" rel="stylesheet">
+    <link href="https://db.onlinewebfonts.com/c/356e1c3e737c1bf31dea2ce604eec3ab?family=Agency+FB+Bold" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/gill-sans-mt-2" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->

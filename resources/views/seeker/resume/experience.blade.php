@@ -289,17 +289,43 @@
 <script>
     $(document).ready(function() {
         $('.summernote_exp').summernote({
-        toolbar: [
-            ['font', ['bold', 'italic', 'underline']],
-            ['para', ['ul', 'ol', 'paragraph']]
-        ]
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline']],
+                ['para', ['ul', 'ol', 'paragraph']]
+            ],
+            callbacks: {
+                
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('text/html');
+                    e.preventDefault();
+                    var div = $('<div />');
+                    div.append(bufferText);
+                    div.find('*').removeAttr('style');
+                    setTimeout(function () {
+                        document.execCommand('insertHtml', false, div.html());
+                    }, 10);
+                }
+            }
         });
 
         $('.edit_summernote_exp').summernote({
-        toolbar: [
-            ['font', ['bold', 'italic', 'underline']],
-            ['para', ['ul', 'ol', 'paragraph']]
-        ]
+            toolbar: [
+                ['font', ['bold', 'italic', 'underline']],
+                ['para', ['ul', 'ol', 'paragraph']]
+            ],
+            callbacks: {
+                
+                onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('text/html');
+                    e.preventDefault();
+                    var div = $('<div />');
+                    div.append(bufferText);
+                    div.find('*').removeAttr('style');
+                    setTimeout(function () {
+                        document.execCommand('insertHtml', false, div.html());
+                    }, 10);
+                }
+            }
         });
 
         $('.exp-date').datepicker({
@@ -336,7 +362,7 @@
 
                         $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><span class="fw-bold col text-center">No Experience</span><span class="col"><a id="deleteExp-'+response.experience.id+'" class="deleteExp border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></span></div>');
 
-                        $(".experience_label").append('<h5 class="resume-header">Experience</h5><div class="row py-2 exp-resume-'+response.experience.id+'"><p>No Experience</p></div>');
+                        $(".experience_label").append('<h5 class="resume-header">Experience</h5><div class="row py-2 exp-resume-'+response.experience.id+' job-responsibility"><p>No Experience</p></div>');
 
                         $("#add_career_history").addClass('d-none');
                         MSalert.principal({
@@ -521,7 +547,7 @@
 
                         $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><div class="col"><span class="fw-bold exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+' -</span><span class="fw-bold exp-end_date-'+response.experience.id+'">Present</span><div class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</div><div class="exp-company-'+response.experience.id+'">'+response.experience.company+'</div><div class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</div></div><div class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
-                        $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+                        $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8" style="border-left: 2px solid #0563C1;"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break text-uppercase">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+' job-responsibility">'+response.experience.job_responsibility+'</span></div></div>');
 
                         MSalert.principal({
                             icon:'success',
@@ -595,7 +621,7 @@
                         })
                         $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><div class="col"><span class="fw-bold exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+' -</span><span class="fw-bold exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span><div class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</div><div class="exp-company-'+response.experience.id+'">'+response.experience.company+'</div><div class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</div></div><div class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
-                        $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+                        $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8" style="border-left: 2px solid #0563C1;"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break text-uppercase">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+' job-responsibility">'+response.experience.job_responsibility+'</span></div></div>');
 
                         MSalert.principal({
                             icon:'success',
@@ -753,7 +779,7 @@
                             $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><div class="col"><span class="fw-bold exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+' -</span><span class="fw-bold exp-end_date-'+response.experience.id+'">Present</span><div class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</div><div class="exp-company-'+response.experience.id+'">'+response.experience.company+'</div><div class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</div></div><div class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>')
                             $("#add_career_history").removeClass('d-none');
 
-                            $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+                            $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">Present</span></div><div class="col-8" style="border-left: 2px solid #0563C1;"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break text-uppercase">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+' job-responsibility">'+response.experience.job_responsibility+'</span></div></div>');
 
                             $("#edit_exp_job_title").val('');
                     $("#edit_exp_company").val('');
@@ -833,7 +859,7 @@
                             })
                             $("#exp-table").append('<div class="row exp-tr-'+response.experience.id+'"><div class="col"><span class="fw-bold exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+' -</span><span class="fw-bold exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span><div class="exp-job_title-'+response.experience.id+'">'+response.experience.job_title+'</div><div class="exp-company-'+response.experience.id+'">'+response.experience.company+'</div><div class="exp-career_lavel-'+response.experience.id+'">'+response.experience.career_level+'</div></div><div class="col"><a onclick="editExp('+response.experience.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteExp-'+response.experience.id+'" class="deleteExp border-0 text-danger" value="'+response.experience.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
-                            $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+'">'+response.experience.job_responsibility+'</span></div></div>');
+                            $(".experience_label").append('<div class="row py-2 exp-resume-'+response.experience.id+'"><div class="col-4 exp-date-range"><span class="exp-start_date-'+response.experience.id+'">'+moment(response.experience.start_date).format("MMM-YYYY")+'</span> - <span class="exp-end_date-'+response.experience.id+'">'+moment(response.experience.end_date).format("MMM-YYYY")+'</span></div><div class="col-8" style="border-left: 2px solid #0563C1;"><span class="exp-job_title-'+response.experience.id+' exp-job-title text-break text-uppercase">'+response.experience.job_title+'</span> | <span class="exp-company-'+response.experience.id+' text-uppercase text-break exp-company">'+response.experience.company+'</span><br><span class="exp-job-responsibility-'+response.experience.id+' job-responsibility">'+response.experience.job_responsibility+'</span></div></div>');
                             $("#edit_exp_job_title").val('');
                             $("#edit_exp_company").val('');
                             $("#edit_exp_main_functional_area_id").val('');

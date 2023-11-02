@@ -14,10 +14,10 @@
             <span class="exp-end_date-{{$experience->id}}">{{ date('M Y', strtotime($experience->end_date)) }}</span>
             @endif
         </div>
-        <div class="col-8">
-            <span class="exp-job_title-{{$experience->id}} text-break exp-job-title">{{ $experience->job_title }}</span> | 
+        <div class="col-8" style="border-left: 2px solid #0563C1;">
+            <span class="exp-job_title-{{$experience->id}} text-uppercase text-break exp-job-title">{{ $experience->job_title }}</span> | 
             <span class="exp-company-{{$experience->id}} text-uppercase text-break exp-company">{{ $experience->company }}</span><br>
-            <span class="exp-job-responsibility-{{$experience->id}}">{!! $experience->job_responsibility !!}</span>
+            <span class="exp-job-responsibility-{{$experience->id}} job-responsibility">{!! $experience->job_responsibility !!}</span>
         </div>
         @endif
     </div>

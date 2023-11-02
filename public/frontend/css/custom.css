@@ -573,7 +573,7 @@ span.form-control-feedback.company-icon {
 }
 
 page[size="A4"] { 
-    width: 13cm; 
+    width: 100%; 
     overflow-y: scroll;
     margin: auto;
     height: 15cm; 
@@ -609,20 +609,20 @@ page::-webkit-scrollbar-thumb
 
 .resume-header {
     color: #0563C1;
-    font-family: 'Agency FB', sans-serif;
+    font-family: 'Agency FB V2', sans-serif;
     font-size: 1.5rem;
 }
 
 .exp-date-range {
     color: #0563C1;
-    font-family: 'Agency FB', sans-serif;
-    font-weight: 100;
+    font-family: 'Agency FB V2', sans-serif;
     font-size: 0.8rem;
+    text-transform: uppercase;
 }
 
 .exp-job-title {
     color: #0563C1;
-    font-family: 'Agency FB', sans-serif;
+    font-family: 'Agency FB Bold', sans-serif;
     font-size: 1rem;
     font-weight: bold;
 }
@@ -630,6 +630,23 @@ page::-webkit-scrollbar-thumb
 .exp-company {
     color: #0563C1;
     font-size: 1rem;
+    font-family: 'Agency FB V2', sans-serif;
+}
+
+.ref-header {
+    color: #0563C1;
+    font-size: 1rem;
+    font-family: 'Gill Sans MT', sans-serif;
+}
+
+.ref-sub-header {
+    color: #0563C1;
+    font-size: 0.8rem;
+    font-family: 'Gill Sans MT', sans-serif;
+}
+
+.ref-text {
+    font-family: 'Gill Sans MT', sans-serif;
 }
 
 #resume-form {
@@ -875,7 +892,7 @@ page::-webkit-scrollbar-thumb
 
 .name_label {
     text-transform: uppercase;
-    font-family: 'Agency FB', sans-serif;
+    font-family: 'Agency FB Bold', sans-serif;
     color: #0563C1;
     font-size: 1.5rem;
 }
@@ -884,7 +901,7 @@ page::-webkit-scrollbar-thumb
     color: #0563C1;
     font-family: 'Gill Sans MT', sans-serif;  
 }
-.summary_label, .skill-list {
+.summary, .skill-list, .job-responsibility {
     font-family: 'Gill Sans MT', sans-serif;  
 }
 /* For IE (thanks to @SaiManoj) */
