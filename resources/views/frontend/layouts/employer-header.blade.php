@@ -55,7 +55,7 @@
                         </li>
                         
                         <li>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="#" id="LogoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -74,28 +74,6 @@
     </div>
 </nav>
 <!-- Navbar End -->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ route('employer.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                    <form id="logout-form" action="{{ route('employer.logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-<!-- Modal -->
 @if($packages->count() > 0)
 <div class="modal fade" id="cardModal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-pricing modal-dialog-scrollable" style="">
@@ -509,3 +487,27 @@
 </div>
 @endif
 <!-- Modal End -->
+@push('scripts')
+<script>
+    $(document).on('click', '#LogoutModal', function (e) {
+        
+        MSalert.principal({
+            icon:'info',
+            title:'Info',
+            description:'Are you sure to leave?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('employer.logout') }}",
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        window.location.href = "{{ route('home') }}";
+                    }
+                })
+            }            
+        })
+    });
+</script>
+@endpush

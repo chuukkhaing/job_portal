@@ -40,13 +40,11 @@
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('seeker.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="#" id="seekerLogoutModal">
                                 <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
-                            <form id="logout-form" action="{{ route('seeker.logout') }}" method="POST" class="d-none">
-                                @csrf
-                            </form>
+                            
                         </li>
                     </ul>
                 </div>
@@ -64,3 +62,27 @@
     </div>
 </nav>
 <!-- Navbar End -->
+@push('scripts')
+<script>
+    $(document).on('click', '#seekerLogoutModal', function (e) {
+        
+        MSalert.principal({
+            icon:'info',
+            title:'Info',
+            description:'Are you sure to leave?',
+            button:true
+        }).then(result => {
+            if (result === true){
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('seeker.logout') }}",
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        window.location.href = "{{ route('home') }}";
+                    }
+                })
+            }            
+        })
+    });
+</script>
+@endpush

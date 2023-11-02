@@ -123,7 +123,7 @@
             <div class="row job-content mb-2">
                 <!-- Job List Start -->
                 <div class="col-md-2 col-3 align-self-center text-center py-2">
-                    <a data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
+                    <a data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$jobPost->id}}">
                         @if(($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending') && $jobPost->Employer->logo && $jobPost->hide_company == 0)
                         <img src="{{ asset('storage/employer_logo/'.$jobPost->Employer->logo) }}" alt="Profile Image" class="pb-2" id="job-post-preview-company-logo">
                         @else 
@@ -135,7 +135,7 @@
                     </a>
                 </div>
                 <div class="col-md-8 col-9 align-self-center py-2">
-                    <a data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
+                    <a data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$jobPost->id}}">
                         <div class="mt-1 job-company text-black">@if($jobPost->hide_company == 0) {{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</div>
                         <div class="mt-1">{{ $jobPost->job_title }}</div>
                         @if($jobPost->township_id)
@@ -517,7 +517,7 @@
 
                 <div class="job-trending-scroll shadow rounded">
                     @foreach($trending_jobs as $trending_job)
-                    <a data-bs-toggle="modal" data-bs-target="#JobPostModal{{$trending_job->id}}">
+                    <a data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$trending_job->id}}">
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 trending-job-list rounded">
                                 <div class="row m-0">

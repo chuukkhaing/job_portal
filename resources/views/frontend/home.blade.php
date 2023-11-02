@@ -170,7 +170,7 @@
     <div class="row pt-4 pb-4 trending-scroll">
         @foreach($trending_jobs as $trending_job)
         <div class="col-lg-4 col-sm-6 col-12 align-self-center">
-            <div data-bs-toggle="modal" data-bs-target="#JobPostModal{{$trending_job->id}}">
+            <div data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$trending_job->id}}">
                 <div class="m-0 mb-2 pb-0 p-2 trending-job-list rounded">
                     <div class="row h-100 p-2">
                         <div class="col-3 text-center h-100 align-self-center">

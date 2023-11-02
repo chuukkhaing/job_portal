@@ -276,7 +276,7 @@
     <div class="row" style="">
         @foreach($jobPosts as $jobPost)
         <!-- Button trigger modal -->
-        <div class="" data-bs-toggle="modal" data-bs-target="#JobPostModal{{$jobPost->id}}">
+        <div  data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$jobPost->id}}">
             <div class="col-lg-12 col-12 pb-2">
                 <div class="row job-opening me-1 p-2 h-100">
                     <div class="col-lg-9 col-md-9 p-0">

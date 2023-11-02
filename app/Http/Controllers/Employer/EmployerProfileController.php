@@ -32,7 +32,9 @@ class EmployerProfileController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('home');
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
     /**
      * Display a listing of the resource.

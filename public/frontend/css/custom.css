@@ -843,6 +843,10 @@ page::-webkit-scrollbar-thumb
     border-radius: 50px;
 }
 
+.jobpostModal {
+    cursor: pointer;
+}
+
 /* For IE (thanks to @SaiManoj) */
 select::-ms-expand {
     display: none;

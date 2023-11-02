@@ -39,7 +39,9 @@ class SeekerProfileController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('home');
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
     public function index()

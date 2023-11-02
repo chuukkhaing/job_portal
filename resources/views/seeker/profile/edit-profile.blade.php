@@ -2,63 +2,7 @@
 @section('content')
 
 <div class="col-xl-10 col-lg-12 m-auto" style="">
-    <div class="seeker-dashboard-header text-center py-5 mt-4 d-none d-lg-block">
-        @if(Auth::guard('seeker')->user()->image)
-        <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-        @else
-        <img src="{{ asset('img/undraw_profile_1.svg') }}" alt="Profile Image" class="seeker-profile rounded-circle" id="ProfilePreview">
-        @endif
-        <div class="seeker-name p-0" style="color: #fff">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
-    </div>
-    <div class="edit-profile-tab-border d-none d-lg-block">
-        <ul class="nav d-flex justify-content-between py-3 px-xl-5 px-lg-3" id="seekerTab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a href="{{ route('profile.index') }}" class="seeker-single-tab" id="profile-dashboard-tab">Dashboard</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="seeker-single-tab active" id="edit-profile-tab">Profile</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a href="{{ route('seeker-applications') }}" class="seeker-single-tab" id="job-application-tab">Applications</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a href="{{ route('seeker-saved-jobs') }}" class="seeker-single-tab" id="fav-job-tab">Saved Jobs</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a href="{{ route('seeker-job-alerts') }}" class="seeker-single-tab" id="job-alert-tab">Job Alerts</a>
-            </li>
-        </ul>
-    </div>
-    <div class="d-block d-lg-none p-4 my-4 seeker-dashboard-mobile">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Seeker Toggle Mobile" id="seeker-toggle-mobile">
-                <i class="fa-solid fa-bars text-white"></i> <span class="text-white">Profile Dashboard</span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggler">
-
-                <ul class="navbar-nav">
-                    <li class="nav-item pt-3">
-                        <a href="{{ route('profile.index') }}" class="text-white" id="">Dashboard</a>
-                    </li>
-                    <li class="nav-item pt-3">
-                        <a href="{{ route('profile.edit', Auth::guard('seeker')->user()->id) }}" class="text-white active" id="">Profile</a>
-                    </li>
-                    <li class="nav-item pt-3">
-                        <a href="{{ route('seeker-applications') }}" class="text-white" id="">Applications</a>
-                    </li>
-                    <li class="nav-item pt-3">
-                        <a href="{{ route('seeker-saved-jobs') }}" class="text-white" id="">Saved Jobs</a>
-                    </li>
-                    <li class="nav-item pt-3">
-                        <a href="{{ route('seeker-job-alerts') }}" class="text-white" id="">Job Alerts</a>
-                    </li>
-                </ul>
-                </div>
-            </div>
-        </nav>
-        
-    </div>
+    @include('seeker.profile.seeker-sub-header')
     <div class="tab-content" id="seekerTabContent">
         <div class="tab-pane fade p-0 show active edit-profile-header-border" id="edit-profile" role="tabpanel" aria-labelledby="edit-profile-tab">
             @include('seeker.resume.create')

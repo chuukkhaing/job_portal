@@ -34,9 +34,9 @@ Route::group([], function () {
 
     Route::group(['middleware' => 'auth:seeker'], function () {
         Route::resource('profile', SeekerProfileController::class);
-        Route::get('seeker/application', [SeekerProfileController::class, 'getApplication'])->name('seeker-applications');
-        Route::get('seeker/saved-job', [SeekerProfileController::class, 'getSavedJob'])->name('seeker-saved-jobs');
-        Route::get('seeker/job-alert', [SeekerProfileController::class, 'getJobAlert'])->name('seeker-job-alerts');
+        Route::get('application', [SeekerProfileController::class, 'getApplication'])->name('seeker-applications');
+        Route::get('saved-job', [SeekerProfileController::class, 'getSavedJob'])->name('seeker-saved-jobs');
+        Route::get('job-alerts', [SeekerProfileController::class, 'getJobAlert'])->name('seeker-job-alerts');
         Route::get('/get-township/{id}', [SeekerProfileController::class, 'getTownship']);
         Route::get('/get-sub-functional-area/{id}', [SeekerProfileController::class, 'getSubFunctionalArea']);
         Route::get('/get-skill/{id}', [SeekerProfileController::class, 'getSkill']);
