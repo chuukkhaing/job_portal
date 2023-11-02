@@ -200,7 +200,7 @@
                 {{--<iframe width="420" height="315"
                     src="{{ $employer->EmployerMedia->where('type','Video Link')->first()->name }}">
                 </iframe>--}}
-                {!! $employer->EmployerMedia->where('type','Video Link')->first()->name !!}
+                <iframe id="myIframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
         @endif
@@ -655,5 +655,16 @@
             $(this).attr('disabled','true');
         })
     }
+
+    $(document).ready(function() {
+        var url = @json($videourl);
+        
+        var id = url.split("?v=")[1]; //sGbxmsDFVnE
+
+        var embedlink = "http://www.youtube.com/embed/" + id;
+
+        $("#myIframe").attr('src',embedlink );
+        
+    })
 </script>
 @endpush
