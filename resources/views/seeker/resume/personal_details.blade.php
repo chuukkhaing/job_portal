@@ -26,7 +26,7 @@
             @endif
         </div>
         <div class=" summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">       
-            <span class="summary">{!! nl2br(Auth::guard('seeker')->user()->summary) !!}</span>
+            <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
         </div>
         {{--<div class="row py-0">
             <div class="col-6 fw-bold date_of_birth_label @if(Auth::guard('seeker')->user()->date_of_birth) @else d-none @endif">

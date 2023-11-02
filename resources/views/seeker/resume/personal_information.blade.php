@@ -154,7 +154,6 @@
             ['font', ['bold', 'italic', 'underline']],
             ['para', ['ul', 'ol', 'paragraph']]
         ],
-        height: 100,
         callbacks: {
             onChange: function(contents, $editable) {
                 updateProfile('summary', contents)

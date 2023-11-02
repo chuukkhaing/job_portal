@@ -131,7 +131,7 @@
                         
                         $("#skill-tbody").append('<div class="row skill-tr-'+skill.id+'"><div class="col skill-skill_id-'+skill.id+'">'+skill_name_org+'</div><div class="col"><a id="deleteSkill-'+skill.id+'" class="deleteSkill btn border-0 text-danger" value="'+skill.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
-                        $("#skill_body").append('<div class="row col-6 py-2 skill-list skill-resume-'+skill.id+' skill-skill_id-'+skill.id+'"><div class="col-1"><i class="fa-regular fa-circle" style="color: #0563C1"></i></div><div class="col"><span class="phone">'+skill_name_org+'</span></div></div>');
+                        $("#skill_body").append('<div class="row col-6 skill-list skill-resume-'+skill.id+' skill-skill_id-'+skill.id+'"><div class="row"><div class="col-1"><i class="fa-regular fa-circle" style="color: #0563C1"></i></div><div class="col"><span class="">'+skill_name_org+'</span></div></div></div>');
                     })
                     MSalert.principal({
                         icon:'success',

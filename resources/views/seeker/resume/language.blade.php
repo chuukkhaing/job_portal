@@ -136,7 +136,7 @@
 
                     $('#language-table').append('<div class="row language-tr-'+response.language.id+'"><div class="col language-name-'+response.language.id+'">'+response.language.name+'</div><div class="col language-level-'+response.language.id+'">'+response.language.level+'</div><div class="col"><a onclick="editLanguage('+response.language.id+')" class="btn border-0 text-warning"><i class="fa-solid fa-pencil"></i></a><a id="deleteLanguage-'+response.language.id+'" class="deleteLanguage btn border-0 text-danger" value="'+response.language.id+'"><i class="fa-solid fa-trash-can"></i></a></div></div>');
 
-                    $('.language_label').append('<div class="row py-2 skill-list language-resume-'+response.language.id+'"><div class="col-6"><span class="language-name-'+response.language.id+'">'+response.language.name+'</span></div><div class="col-6"><span class="language-level-'+response.language.id+'">'+response.language.level+'</span></div></div>');
+                    $('.language_label').append('<div class="row skill-list language-resume-'+response.language.id+'"><div class="col-1"><i class="fa-regular fa-circle" style="color: #0563C1"></i></div><div class="col-5"><i class="fa-regular fa-circle" style="color: #0563C1"></i><span class="language-name-'+response.language.id+'">'+response.language.name+'</span></div><div class="col-6"><span class="language-level-'+response.language.id+'"> - '+response.language.level+'</span></div></div>');
 
                     MSalert.principal({
                         icon:'success',

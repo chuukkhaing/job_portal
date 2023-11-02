@@ -1,4 +1,4 @@
-<div class="row education_label @if($educations->count() == 0) d-none @endif">
+<div class="row mb-3 education_label @if($educations->count() == 0) d-none @endif">
     <h6 class="resume-header">Education</h6>
     @foreach($educations as $education)
     <div class="row py-2 edu-resume-{{ $education->id }}">

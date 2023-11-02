@@ -1,4 +1,4 @@
-<div class="row experience_label @if($experiences->count() == 0) d-none @endif">
+<div class="row mb-3 experience_label @if($experiences->count() == 0) d-none @endif">
     <h6 class="resume-header">Experience</h6>
     @foreach($experiences as $experience)
     
