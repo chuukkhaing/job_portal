@@ -65,7 +65,11 @@
 @push('scripts')
 <script>
     $(document).on('click', '#seekerLogoutModal', function (e) {
-        
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
         MSalert.principal({
             icon:'info',
             title:'Info',
