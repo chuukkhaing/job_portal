@@ -268,7 +268,7 @@
 
                     $(".resume-edu-form").addClass('d-none');
 
-                    $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 fw-bold"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' fw-bold">'+response.education.degree+' (<span class="edu-major_subject-'+response.education.id+'">'+response.education.major_subject+'</span>)</span><br><span class="edu-location-'+response.education.id+' text-blue">'+response.education.location+'</span></div></div>');
+                    $(".education_label").append('<div class="row py-2 edu-resume-'+response.education.id+'"><div class="col-4 exp-date-range"><span class="edu-from-'+response.education.id+'">'+response.education.from+'</span> - <span class="edu-to-'+response.education.id+'">'+responseTo+'</span></div><div class="col-8"><span class="edu-degree-'+response.education.id+' text-break exp-job-title">'+response.education.degree+'</span> | <span class="edu-school-'+response.education.id+' text-break exp-company">'+response.education.school+'</span> | <span class="edu-location-'+response.education.id+' text-break exp-company">'+response.education.location+'</span></div></div>');
 
                     MSalert.principal({
                         icon:'success',
@@ -428,6 +428,7 @@
 
                     $('.edu-degree-'+id).html(response.education.degree);
                     $('.edu-major_subject-'+id).html(response.education.major_subject);
+                    $('.edu-school-'+id).html(response.education.school);
                     $('.edu-location-'+id).html(response.education.location);
                     $('.edu-from-'+id).html(response.education.from);
                     $('.edu-to-'+id).html(edit_responseTo);

@@ -1,8 +1,8 @@
-<div class="row resume-section mb-3 language_label @if($languages->count() == 0) d-none @endif">
-    <h6 class="text-white resume-header py-2">Languages</h6>
+<div class="row language_label @if($languages->count() == 0) d-none @endif">
+    <h6 class="resume-header">Languages</h6>
     @foreach($languages as $language)
-    <div class="row py-2 language-resume-{{ $language->id }}">
-        <div class="col-6 fw-bold">
+    <div class="row py-2 skill-list language-resume-{{ $language->id }}">
+        <div class="col-6">
             <span class="language-name-{{$language->id}}">{{ $language->name }}</span>
         </div>
         <div class="col-6">

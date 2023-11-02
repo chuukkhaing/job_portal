@@ -160,6 +160,9 @@
                 updateProfile('summary', contents)
                 }
             }
+        }).on("summernote.enter", function(we, e) {
+            $(this).summernote("pasteHTML", "<br>");
+                e.preventDefault();
         });
     })
     

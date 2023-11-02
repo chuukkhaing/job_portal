@@ -96,7 +96,7 @@
                                         </h2>
                                         <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
-                                                <textarea name="summary" id="summary" class="form-control summernote_resume" cols="30" rows="2" >{!! Auth::guard('seeker')->user()->summary !!}</textarea>
+                                                <textarea name="summary" id="summary" class="form-control summernote_resume">{!! Auth::guard('seeker')->user()->summary !!}</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -105,19 +105,14 @@
                         </div>
                         <div class="col-6 d-none d-lg-block resume-template-background">
                             <page size="A4">
-                                <h4 class="text-center">Resume</h4>
-                                @include('seeker.resume.personal_details')
-                                <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
-                                    <h6 class="text-white resume-header py-2">Profile Summary</h6>
-                                    <div class="col py-2">
-                                        <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
-                                    </div>
+                                <div class="resume-border">
+                                    @include('seeker.resume.personal_details')
+                                    @include('seeker.resume.exp_details')
+                                    @include('seeker.resume.edu_details')
+                                    @include('seeker.resume.skill_details')
+                                    @include('seeker.resume.language_details')
+                                    @include('seeker.resume.reference_details')
                                 </div>
-                                @include('seeker.resume.exp_details')
-                                @include('seeker.resume.edu_details')
-                                @include('seeker.resume.skill_details')
-                                @include('seeker.resume.language_details')
-                                @include('seeker.resume.reference_details')
                             </page>
                         </div>
                     </div>
@@ -150,20 +145,20 @@
             </div>
             
             <div class="modal-body">
-                
-                @include('seeker.resume.personal_details')
-                <div class="row resume-section mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
-                    <h6 class="text-white resume-header py-2">Profile Summary</h6>
-                    <div class="col py-2">
-                        <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
+                <div class="resume-border">
+                    @include('seeker.resume.personal_details')
+                    <div class="row mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
+                        <h6 class="py-2">Profile Summary</h6>
+                        <div class="col py-2">
+                            <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
+                        </div>
                     </div>
+                    @include('seeker.resume.exp_details')
+                    @include('seeker.resume.edu_details')
+                    @include('seeker.resume.skill_details')
+                    @include('seeker.resume.language_details')
+                    @include('seeker.resume.reference_details')
                 </div>
-                @include('seeker.resume.exp_details')
-                @include('seeker.resume.edu_details')
-                @include('seeker.resume.skill_details')
-                @include('seeker.resume.language_details')
-                @include('seeker.resume.reference_details')
-                
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger close-btn" data-bs-dismiss="modal">Close</button>

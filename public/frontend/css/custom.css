@@ -583,7 +583,7 @@ page {
     background: white;
     display: block;
     box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-    padding: 20px 50px;
+    padding: 20px;
 }
 
 page::-webkit-scrollbar
@@ -608,8 +608,28 @@ page::-webkit-scrollbar-thumb
 }
 
 .resume-header {
-    border: solid 1px #0355d0;
-    background-color: #0355D0;
+    color: #0563C1;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 1.5rem;
+}
+
+.exp-date-range {
+    color: #0563C1;
+    font-family: 'Agency FB', sans-serif;
+    font-weight: 100;
+    font-size: 0.8rem;
+}
+
+.exp-job-title {
+    color: #0563C1;
+    font-family: 'Agency FB', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.exp-company {
+    color: #0563C1;
+    font-size: 1rem;
 }
 
 #resume-form {
@@ -847,6 +867,26 @@ page::-webkit-scrollbar-thumb
     cursor: pointer;
 }
 
+.resume-border {
+    border: 2px solid #0355D0;
+    border-radius: 10px;
+    padding: 20px
+}
+
+.name_label {
+    text-transform: uppercase;
+    font-family: 'Agency FB', sans-serif;
+    color: #0563C1;
+    font-size: 1.5rem;
+}
+
+.address_detail_label, .phone_label, .email_label {
+    color: #0563C1;
+    font-family: 'Gill Sans MT', sans-serif;  
+}
+.summary_label, .skill-list {
+    font-family: 'Gill Sans MT', sans-serif;  
+}
 /* For IE (thanks to @SaiManoj) */
 select::-ms-expand {
     display: none;

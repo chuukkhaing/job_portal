@@ -1,45 +1,34 @@
-<div class="row resume-section mb-3">
-    <h6 class="text-white resume-header py-2">Personal details</h6>
-    <div class="col-9 row py-2">
-        <div class="row py-0">
-            <div class="col-6 fw-bold name_label @if(Auth::guard('seeker')->user()->first_name || Auth::guard('seeker')->user()->last_name) @else d-none @endif">
-                Name
-            </div>
-            <div class="col-6 name_label @if(Auth::guard('seeker')->user()->first_name || Auth::guard('seeker')->user()->last_name) @else d-none @endif">
-                <sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span>
-            </div>
+<div class="row">
+    <div class="col pt-3 profile-img-preview @if(Auth::guard('seeker')->user()->image) @else d-none @endif">
+        @if(Auth::guard('seeker')->user()->image)
+        <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="profile_pic" width="130px" height="130px">
+        @else
+        <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="130px" height="130px">
+        @endif
+    </div>
+    <div class="col-9 row">
+        <div class="name_label @if(Auth::guard('seeker')->user()->first_name || Auth::guard('seeker')->user()->last_name) @else d-none @endif">
+            <sapn class="first_name">{{ Auth::guard('seeker')->user()->first_name }}</sapn> <span class="last_name">{{ Auth::guard('seeker')->user()->last_name }}</span>
         </div>
-        
-        <div class="row py-0">
+        <div class="row address_detail_label @if(Auth::guard('seeker')->user()->address_detail) @else d-none @endif">
+            <div class="col-1"><i class="fa-solid fa-house"></i></div>
+            <div class="col"><span class="address_detail">{{ Auth::guard('seeker')->user()->address_detail }}</span></div>
+        </div>
+        <div class="row phone_label @if(Auth::guard('seeker')->user()->phone) @else d-none @endif">
+            <div class="col-1"><i class="fa-solid fa-mobile-screen"></i> </div>
+            <div class="col"><span class="phone">{{ Auth::guard('seeker')->user()->phone }}</span></div>
+        </div>
+        <div class="row email_label">
             @if(Auth::guard('seeker')->user()->email)
-            <div class="col-6 fw-bold">
-                Email Address
-            </div>
-            <div class="col-6">
-                {{ Auth::guard('seeker')->user()->email }}
-            </div>
+            <div class="col-1"><i class="fa-regular fa-envelope"></i></div>
+            <div class="col">{{ Auth::guard('seeker')->user()->email }}</div>
+            
             @endif
         </div>
-        
-        <div class="row py-0">
-            <div class="col-6 fw-bold phone_label @if(Auth::guard('seeker')->user()->phone) @else d-none @endif">
-                Phone
-            </div>
-            <div class="col-6 phone_label @if(Auth::guard('seeker')->user()->phone) @else d-none @endif">
-                <span class="phone">{{ Auth::guard('seeker')->user()->phone }}</span>
-            </div>
+        <div class=" summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">       
+            <span class="summary">{!! nl2br(Auth::guard('seeker')->user()->summary) !!}</span>
         </div>
-        
-        <div class="row py-0">
-            <div class="col-6 fw-bold address_detail_label @if(Auth::guard('seeker')->user()->address_detail) @else d-none @endif">
-                Address Detail
-            </div>
-            <div class="col-6 address_detail_label @if(Auth::guard('seeker')->user()->address_detail) @else d-none @endif">
-                <span class="address_detail">{{ Auth::guard('seeker')->user()->address_detail }}</span>
-            </div>
-        </div>
-
-        <div class="row py-0">
+        {{--<div class="row py-0">
             <div class="col-6 fw-bold date_of_birth_label @if(Auth::guard('seeker')->user()->date_of_birth) @else d-none @endif">
                 Date Of Birth
             </div>
@@ -118,13 +107,7 @@
             <div class="col-6 marital_status_label @if(Auth::guard('seeker')->user()->marital_status) @else d-none @endif">
                 <span class="marital_status">{{ Auth::guard('seeker')->user()->marital_status }}</span>
             </div>
-        </div>
+        </div>--}}
     </div>
-    <div class="col text-end profile-img-preview @if(Auth::guard('seeker')->user()->image) @else d-none @endif">
-        @if(Auth::guard('seeker')->user()->image)
-        <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="profile_pic" width="130px" height="130px">
-        @else
-        <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="130px" height="130px">
-        @endif
-    </div>
+    
 </div>
