@@ -475,7 +475,7 @@
                                             <div class="row d-flex align-items-end">
                                                 <div class="col-lg-6 col-12 form-group video_add mb-4">
                                                     <label for="video_link" class="seeker_label">Video Link (Youtube Link)</label>
-                                                    <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube embed">
+                                                    <input type="url" name="video_link" id="video_link" class="form-control seeker_input" placeholder="Paste youtube link">
                                                     <span class="text-danger video-link-error d-none">Please Fill the Video Link</span>
                                                 </div>
                                                 <div class="col-lg-6 col-12 form-group mb-4">
