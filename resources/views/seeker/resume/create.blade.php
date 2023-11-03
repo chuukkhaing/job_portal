@@ -147,12 +147,6 @@
             <div class="modal-body">
                 <div class="resume-border">
                     @include('seeker.resume.personal_details')
-                    <div class="row mb-3 summary_label @if(Auth::guard('seeker')->user()->summary) @else d-none @endif">
-                        <h6 class="py-2">Profile Summary</h6>
-                        <div class="col py-2">
-                            <span class="summary">{!! Auth::guard('seeker')->user()->summary !!}</span>
-                        </div>
-                    </div>
                     @include('seeker.resume.exp_details')
                     @include('seeker.resume.edu_details')
                     @include('seeker.resume.skill_details')

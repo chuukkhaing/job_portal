@@ -627,7 +627,7 @@ class SeekerProfileController extends Controller
 
             $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
             $path = public_path('storage/seeker/cv');
-            $fileName =  $seeker->id.'_ic_format_cv.pdf';
+            $fileName =  date('YmdHi').$seeker->id.'_ic_format_cv.pdf';
             $pdf->save($path . '/' . $fileName);
             
             $attach = seekerAttach::create([

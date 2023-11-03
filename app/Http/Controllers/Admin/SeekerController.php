@@ -134,6 +134,6 @@ class SeekerController extends Controller
 
         $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
         
-        return $pdf->download($seeker->id.'_ic_format_cv.pdf');
+        return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
     }
 }
