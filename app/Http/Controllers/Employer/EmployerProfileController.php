@@ -21,6 +21,7 @@ use Str;
 use DB;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Auth;
+use Storage;
 
 class EmployerProfileController extends Controller
 {
@@ -134,17 +135,20 @@ class EmployerProfileController extends Controller
 
         if($request->hasFile('legal_docs')) {
             if($employer->legal_docs){
-                File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+                Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             }
             $file    = $request->file('legal_docs');
             $legal_docs = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_legal_docs/'), $legal_docs);
+            
+            $path     = 'employer_legal_docs/' . $legal_docs;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
         }else {
             $legal_docs = $employer->legal_docs;
         }
 
         if($request->legal_docs_status == 'empty') {
-            File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+            Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             $legal_docs = NULL;
         }
 
@@ -346,7 +350,10 @@ class EmployerProfileController extends Controller
         if($request->hasFile('employer_logo')) {
             $file    = $request->file('employer_logo');
             $logo = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_logo/'), $logo);
+            
+            $path     = 'employer_logo/' . $logo;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
         }
         $employer = $employer->update([
             'logo' => $logo,
@@ -365,7 +372,7 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        File::deleteDirectory(public_path('storage/employer_logo/'.'/'.$employer->logo));
+        Storage::disk('s3')->delete('employer_logo/' . $employer->logo);
         $employer = $employer->update([
             'logo' => Null,
             'updated_by' => Auth::guard('employer')->user()->id,
@@ -386,11 +393,15 @@ class EmployerProfileController extends Controller
 
         if($request->hasFile('employer_background')) {
             $file    = $request->file('employer_background');
-            $background = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_background/'), $background);
+            $imageName = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'employer_background/' . $imageName;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+            
         }
         $employer = $employer->update([
-            'background' => $background,
+            'background' => $imageName,
             'updated_by' => Auth::guard('employer')->user()->id,
         ]);
 
@@ -406,7 +417,8 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        File::deleteDirectory(public_path('storage/employer_background/'.'/'.$employer->background));
+        Storage::disk('s3')->delete('employer_background/' . $employer->background);
+
         $employer = $employer->update([
             'background' => Null,
             'updated_by' => Auth::guard('employer')->user()->id,

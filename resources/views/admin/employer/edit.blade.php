@@ -44,7 +44,7 @@
                     </div>
                     <div class="logo-preview">
                         @if($employer->logo)
-                        <div id="imagePreview" style="background-image: url({{url('storage/employer_logo/'.$employer->logo)}});">
+                        <div id="imagePreview" style="background-image: url({{getS3File('employer_logo',$employer->logo)}});">
                         @else
                         <div id="imagePreview" style="background-image: url(https://placehold.jp/200x200.png);">
                         @endif
@@ -101,7 +101,7 @@
                         <label for="legal_docs">Employer Legal Docs</label>
                         
                         <div class="pb-2 legal_docs_link">
-                            <a class="text-decoration-none" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a>
+                            <a class="text-decoration-none" href="{{ getS3File('employer_legal_docs',$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a>
                         </div>
                     </div>
                     @endif

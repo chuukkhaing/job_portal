@@ -149,7 +149,7 @@
 
         $("#upload_slider_submit").on("click", function() {
             croppie.result({
-                typ: 'base64',
+                type: 'base64',
                 size: { 
                     width: 1920, height: 600 
                 }

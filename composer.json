@@ -15,6 +15,7 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
         "laraveldaily/laravel-charts": "^0.2.3",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "maatwebsite/excel": "^3.1",
         "pyaesoneaung/myanmar-phone-validation-rules": "^1.0",
         "realrashid/sweet-alert": "^7.0",
@@ -33,7 +34,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/globalhelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -57,7 +57,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                 <div class="company-content p-4 h-100 shadow">
                     <div class="company-image text-center">
                         @if($employer->logo)
-                        <img src="{{ asset('/storage/employer_logo/'.$employer->logo) }}" style="width: 65px; height: 65px; border-radius: 8px" class="img-fluid" alt="{{ $employer->name }}">
+                        <img src="{{ getS3File('employer_logo',$employer->logo) }}" style="width: 65px; height: 65px; border-radius: 8px" class="img-fluid" alt="{{ $employer->name }}">
                         @else
                         <img src="{{ asset('img/icon/company.png') }}" style="background: #0355D0; width: 65px; height: 65px; border-radius: 8px" class="img-fluid" alt="{{ $employer->name }}">
                         @endif

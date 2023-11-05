@@ -229,9 +229,10 @@ class EmployerController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_logo/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
+
+        $path     = 'employer_logo/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
           
         return $imageName;
     }

@@ -36,7 +36,7 @@
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-lg-4 mb-2 d-flex">
                                         @if($jobpost->Employer->logo)
-                                        <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
+                                        <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
                                         @else
                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
                                         @endif
@@ -128,7 +128,7 @@
                                                     <div class="row">
                                                         <div class="col-2 px-5">
                                                             @if($jobpost->Employer->logo)
-                                                            <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
+                                                            <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
                                                             @else
                                                             <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
                                                             @endif
@@ -197,7 +197,7 @@
                                                         <div class="col py-4" >
                                                             <div class="col-6 mx-auto text-center">
                                                                 @if($jobpost->Employer->logo)
-                                                                <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
+                                                                <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
                                                                 @else
                                                                 <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
                                                                 @endif

@@ -20,6 +20,7 @@ use Auth;
 use Str;
 use Alert;
 use File;
+use Storage;
 
 class EmployerInfoController extends Controller
 {
@@ -115,17 +116,20 @@ class EmployerInfoController extends Controller
 
         if($request->hasFile('legal_docs')) {
             if($employer->legal_docs){
-                File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+                Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             }
             $file    = $request->file('legal_docs');
             $legal_docs = date('YmdHi').$file->getClientOriginalName();
-            $path = $file-> move(public_path('storage/employer_legal_docs/'), $legal_docs);
+            
+            $path     = 'employer_legal_docs/' . $legal_docs;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
         }else {
             $legal_docs = $employer->legal_docs;
         }
 
         if($request->legal_docs_status == 'empty') {
-            File::deleteDirectory(public_path('storage/employer_legal_docs/'.'/'.$employer->legal_docs));
+            Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             $legal_docs = NULL;
         }
         $logo = $employer->logo;
@@ -135,10 +139,12 @@ class EmployerInfoController extends Controller
             $logo = '';
         }
         $background = $employer->background;
-        if($request->background_base64 != ''){
-            $background = $this->storeBackgroundBase64($request->background_base64);
-        }elseif($request->background_base64 == 'Empty') {
+        
+        if($request->background_base64 == 'Empty') {
             $background = '';
+            Storage::disk('s3')->delete('employer_background/' . $employer->background);
+        }elseif($request->background_base64 != ''){
+            $background = $this->storeBackgroundBase64($request->background_base64);
         }
 
         $slug = Str::slug($request->name, '-') . '-' . $employer->id;
@@ -181,9 +187,10 @@ class EmployerInfoController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_logo/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
+        
+        $path     = 'employer_logo/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
           
         return $imageName;
     }
@@ -194,10 +201,11 @@ class EmployerInfoController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_background/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
-          
+
+        $path     = 'employer_background/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
+        
         return $imageName;
     }
 

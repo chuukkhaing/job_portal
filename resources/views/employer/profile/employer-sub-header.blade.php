@@ -2,7 +2,7 @@
     <div class="col-lg-2 col-md-3 p-3">
         <a href="{{ route('employer-profile.index') }}">
         @if($employer->logo)
-        <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
+        <img src="{{ getS3File('employer_logo',$employer->logo) }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
         @else
         <img src="{{ asset('img/icon/company.png') }}" alt="Employer Logo" class="employer-header-logo shadow-lg">
         @endif

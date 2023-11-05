@@ -84,7 +84,7 @@
                                             <div class="position-relative">
                                                 <label for="imageUpload" style="color: #696968">
                                                     @if($employer->logo)
-                                                    <img src="{{ asset('storage/employer_logo/'.$employer->logo) }}" class="img-responsive employer-logo w-100 rounded-3" alt="employer-logo" >
+                                                    <img src="{{ getS3File('employer_logo',$employer->logo) }}" class="img-responsive employer-logo w-100 rounded-3" alt="employer-logo" >
                                                     @else
                                                     <img src="https://placehold.jp/200x200.png" class="img-responsive employer-logo w-100 rounded-3" alt="employer-logo" >
                                                     @endif
@@ -106,7 +106,7 @@
                                             <div class="position-relative">
                                                 <label for="backgroundUpload" style="color: #696968">
                                                     @if($employer->background)
-                                                    <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="img-responsive w-100 employer-background rounded-3" alt="employer-background">
+                                                    <img src="{{ getS3File('employer_background',$employer->background) }}" class="img-responsive w-100 employer-background rounded-3" alt="employer-background">
                                                     @else
                                                     <img src="https://placehold.jp/1835x510.png" class="img-responsive w-100 employer-background rounded-3" alt="employer-background" >
                                                     @endif
@@ -228,7 +228,7 @@
                                                 <label class="seeker_label" for="legal_docs">Please Attach Legal Document </label>
                                                 @if($employer->legal_docs)
                                                 <div class="pb-2 legal_docs_link">
-                                                    <a class="" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a> <a class="ms-2" onclick="removeLegalDocs()" style="cursor: pointer"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                                                    <a class="" href="{{ getS3File('employer_legal_docs',$employer->legal_docs) }}" target="_blank">{{ $employer->legal_docs }}</a> <a class="ms-2" onclick="removeLegalDocs()" style="cursor: pointer"><i class="fa-solid fa-trash-can text-danger"></i></a>
                                                 </div>
                                                 @endif
                                                 <input type="hidden" name="legal_docs_status" value="" id="legal_docs_status">
@@ -441,7 +441,7 @@
                                             <div class="col row media_image @if($employer_image_media->count() > 0) @else d-none @endif">
                                                 @foreach($employer_image_media as $image_media)
                                                 <div class="col-md-3" id="media_image_{{ $image_media->id }}">
-                                                    <img src="{{ asset('storage/employer_media/'.$image_media->name) }}"  class="w-100 rounded-3" id="image_upload_preview" alt="{{ $image_media->name }}">
+                                                    <img src="{{ getS3File('employer_media',$image_media->name) }}"  class="w-100 rounded-3" id="image_upload_preview" alt="{{ $image_media->name }}">
                                                     
                                                     <a class="position-absolute top-0 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia({{ $image_media->id }})">
                                                     <i class="fa-solid fa-trash-can"></i>
@@ -770,7 +770,7 @@
 
     $("#upload_background_submit").on("click", function() {
         croppie.result({
-                typ: 'base64',
+                type: 'base64',
                 size: { 
                     width: 1835, height: 510 
                 }

@@ -24,7 +24,7 @@
                 <div class="btn-group">
                     @if(Auth::guard('employer')->user()->logo)
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('/storage/employer_logo/'.Auth::guard('employer')->user()->logo) }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
+                        <img src="{{ getS3File('employer_logo',Auth::guard('employer')->user()->logo) }}" alt="{{ auth()->guard('employer')->user()->email }}" class="img-profile rounded-circle">
                     </a>
                     @else
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">

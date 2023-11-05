@@ -130,7 +130,7 @@
             <div class="col-lg-2 col-md-3 col-sm-4 col-12 text-center h-100 align-self-center">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
-                    <img src="{{ asset('/storage/employer_logo'.'/'.$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
+                    <img src="{{ getS3File('employer_logo',$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">
                     @else
                     <img src="{{ asset('/img/icon/company.png') }}" class="" width="100" alt="Employer Profile">
                     @endif
@@ -175,7 +175,7 @@
                     <div class="row h-100 p-2">
                         <div class="col-3 text-center h-100 align-self-center">
                             @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
+                            <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" alt="{{ $trending_job->Employer->name }}" class="w-75 border rounded-circle">
                             @else 
                             <img src="{{ asset('img/icon/job-post.png') }}" alt="Employer Profile" class="w-75 border rounded-circle">
                             @endif
@@ -209,7 +209,7 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
                                         @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                        <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
+                                        <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
                                         @else
                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                         @endif
@@ -335,7 +335,7 @@
                                                     <div class="row">
                                                         <div class="col-2 ">
                                                             @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                                            <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job->Employer->name }}">
+                                                            <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job->Employer->name }}">
                                                             @else
                                                             <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                             @endif
@@ -404,7 +404,7 @@
                                                         <div class="col py-4" >
                                                             <div class="col-6 mx-auto text-center">
                                                                 @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                                                <img src="{{ asset('storage/employer_logo/'.$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job->Employer->name }}">
+                                                                <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job->Employer->name }}">
                                                                 @else
                                                                 <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                 @endif
@@ -525,7 +525,7 @@
                                     <div class="row px-3 align-items-center h-100">
                                         <div class="col-3">
                                             @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                            <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="w-100 rounded-circle border" >
+                                            <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" alt="{{ $feature_job->Employer->name }}" class="w-100 rounded-circle border" >
                                             @else 
                                             <img src="{{ asset('img/icon/job-post.png') }}" alt="Employer Profile" class="w-100 rounded-circle border" >
                                             @endif
@@ -560,7 +560,7 @@
                         <div class="row">
                             <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
                                 @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job->Employer->name }}">
+                                <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job->Employer->name }}">
                                 @else
                                 <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                 @endif
@@ -686,7 +686,7 @@
                                             <div class="row">
                                                 <div class="col-2 ">
                                                     @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                                    <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job->Employer->name }}">
+                                                    <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job->Employer->name }}">
                                                     @else
                                                     <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                     @endif
@@ -755,7 +755,7 @@
                                                 <div class="col py-4" >
                                                     <div class="col-6 mx-auto text-center">
                                                         @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                                        <img src="{{ asset('storage/employer_logo/'.$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job->Employer->name }}">
+                                                        <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job->Employer->name }}">
                                                         @else
                                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                         @endif

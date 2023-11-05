@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     @if($employer->background)
-                    <img src="{{ asset('storage/employer_background/'.$employer->background) }}" class="w-100 img-responsive img-fluid background" alt="">
+                    <img src="{{ getS3File('employer_background',$employer->background) }}" class="w-100 img-responsive img-fluid background" alt="">
                     @else
                     <img src="https://placehold.jp/1835x510.png" class="w-100 img-responsive img-fluid background" alt="">
                     @endif
@@ -61,7 +61,7 @@
                     </div>
                     <div class="logo-preview">
                         @if($employer->logo)
-                        <div id="imagePreview" style="background-image: url({{url('storage/employer_logo/'.$employer->logo)}});">
+                        <div id="imagePreview" style="background-image: url({{getS3File('employer_logo',$employer->logo)}});">
                         @else
                         <div id="imagePreview" style="background-image: url(https://placehold.jp/200x200.png);">
                         @endif
@@ -160,7 +160,7 @@
                         <label class="seeker_label" for="legal_docs">Please Attach Legal Document </label>
                         @if($employer->legal_docs)
                         <span class="legal_docs_link">
-                            <a class="" href="{{ asset('storage/employer_legal_docs/'.$employer->legal_docs) }}" class="text-decoration-none" target="_blank">{{ $employer->legal_docs }}</a> <a class="ms-2" onclick="removeLegalDocs()" style="cursor: pointer"><i class="fa-solid fa-trash-can text-danger"></i></a>
+                            <a class="" href="{{ getS3File('employer_legal_docs',$employer->legal_docs) }}" class="text-decoration-none" target="_blank">{{ $employer->legal_docs }}</a> <a class="ms-2" onclick="removeLegalDocs()" style="cursor: pointer"><i class="fa-solid fa-trash-can text-danger"></i></a>
                         </span>
                         @endif
                         <input type="hidden" name="legal_docs_status" value="" id="legal_docs_status">
@@ -565,7 +565,7 @@
 
         $("#upload_background_submit").on("click", function() {
             croppie.result({
-                    typ: 'base64',
+                    type: 'base64',
                     size: { 
                         width: 1835, height: 510 
                     }

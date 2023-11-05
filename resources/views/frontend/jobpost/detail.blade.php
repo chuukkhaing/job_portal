@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
                     @if($jobpost->Employer->logo && $jobpost->hide_company == 0)
-                    <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
+                    <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobpost->Employer->name }}">
                     @else
                     <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                     @endif
@@ -133,7 +133,7 @@
                                 <div class="row">
                                     <div class="col-2 px-xl-5 p-0">
                                         @if($jobpost->Employer->logo && $jobpost->hide_company == 0)
-                                        <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
+                                        <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobpost->Employer->name }}">
                                         @else
                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                         @endif
@@ -202,7 +202,7 @@
                                     <div class="col py-4" >
                                         <div class="col-6 mx-auto text-center">
                                             @if($jobpost->Employer->logo && $jobpost->hide_company == 0)
-                                            <img src="{{ asset('storage/employer_logo/'.$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
+                                            <img src="{{ getS3File('employer_logo',$jobpost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobpost->Employer->name }}">
                                             @else
                                             <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                             @endif
