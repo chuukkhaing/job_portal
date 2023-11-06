@@ -12,7 +12,7 @@
                             <div class="col-1">
                                 
                                 @if(Auth::guard('seeker')->user()->image)
-                                <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
+                                <img src="{{ getS3File('seeker/profile/'.Auth::guard('seeker')->user()->id ,Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                                 @else
                                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                                 @endif

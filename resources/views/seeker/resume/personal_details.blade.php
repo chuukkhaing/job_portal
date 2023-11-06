@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col pt-3 profile-img-preview @if(Auth::guard('seeker')->user()->image) @else d-none @endif">
         @if(Auth::guard('seeker')->user()->image)
-        <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="profile_pic" width="130px" height="130px">
+        <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ getS3File('seeker/profile/'.Auth::guard('seeker')->user()->id ,Auth::guard('seeker')->user()->image) }}" alt="profile_pic" width="130px" height="130px">
         @else
         <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="130px" height="130px">
         @endif

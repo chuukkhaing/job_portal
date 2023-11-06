@@ -22,6 +22,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use File;
 use PDF;
 use DB;
+use Storage;
 
 class ResumeController extends Controller
 {
@@ -48,7 +49,10 @@ class ResumeController extends Controller
         if ($request->file('profile_image')) {
             $file  = $request->file('profile_image');
             $image = date('YmdHi') . $file->getClientOriginalName();
-            $path  = $file->move(public_path('storage/seeker/profile' . '/' . $request->seeker_id), $image);
+
+            $path     = 'seeker/profile/'. $request->seeker_id . '/' . $image;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
         }
         
         $seeker->update([
@@ -63,7 +67,7 @@ class ResumeController extends Controller
     {
         $seeker = Seeker::findOrFail($request->seeker_id);
         $image  = $seeker->image;
-        $image_delete = File::deleteDirectory(public_path('storage/seeker/profile' . '/' . $request->seeker_id . '/' . $image));
+        Storage::disk('s3')->delete('seeker/profile/'. $request->seeker_id . '/' . $image);
         $image        = null;
         
         $seeker->update([

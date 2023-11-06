@@ -618,7 +618,7 @@
                             $('.cv-unlock-data').addClass('d-none');
                         }
                     }
-                    $(".download_seeker_cv").attr('href',document.location.origin+'/storage/seeker/cv/'+response.seeker_attach.name);
+                    $(".download_seeker_cv").attr('href',response.seeker_cv);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
                     btnColor(value.status)
                     
@@ -628,7 +628,7 @@
                         $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }
                     if(response.seeker.image){
-                        $('.app_receive_pic').attr('src',document.location.origin+'/storage/seeker/profile/'+response.seeker.id+'/'+response.seeker.image);
+                        $('.app_receive_pic').attr('src',response.seeker_img);
                     }else {
                         $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
                     }

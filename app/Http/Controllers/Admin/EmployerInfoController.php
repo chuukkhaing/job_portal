@@ -215,9 +215,10 @@ class EmployerInfoController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_testimonial/" . $imageName;
   
-        file_put_contents($path, $imageBase64);
+        $path     = 'employer_testimonial/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
           
         return $imageName;
     }
@@ -284,10 +285,13 @@ class EmployerInfoController extends Controller
             'remark' => $request->test_remark,
             'image' => $image
         ]);
+
+        $test_img = getS3File('employer_testimonial',$test_create->image);
         
         return response()->json([
             'status' => 'success',
-            'data' => $test_create
+            'data' => $test_create,
+            'test_img' => $test_img
         ]);
     }
 
@@ -295,7 +299,7 @@ class EmployerInfoController extends Controller
     {
 
         $test = EmployerTestimonial::findOrFail($id);
-        File::deleteDirectory(public_path('storage/employer_testimonial/'.'/'.$test->image));
+        Storage::disk('s3')->delete('employer_testimonial/' . $test->image);
         $test = $test->delete();
         $employer = Employer::findOrFail($request->employer_id);
         $test_count = EmployerTestimonial::whereEmployerId($employer->id)->count();

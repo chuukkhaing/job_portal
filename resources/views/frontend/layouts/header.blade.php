@@ -19,7 +19,7 @@
                 <div class="btn-group">
                     @if(Auth::guard('seeker')->user()->image)
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('storage/seeker/profile/'.(Auth::guard('seeker')->user()->id).'/'.Auth::guard('seeker')->user()->image) }}" alt="{{ auth()->guard('seeker')->user()->email }}" class="img-profile rounded-circle">
+                        <img src="{{ getS3File('seeker/profile/'.Auth::guard('seeker')->user()->id ,Auth::guard('seeker')->user()->image) }}" alt="{{ auth()->guard('seeker')->user()->email }}" class="img-profile rounded-circle">
                     </a>
                     @else
                     <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">

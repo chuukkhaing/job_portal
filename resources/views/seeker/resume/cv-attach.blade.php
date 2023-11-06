@@ -4,7 +4,7 @@
         <tbody>
             @foreach($cvs as $cv)
             <tr class="cv-tr-{{ $cv->id }}">
-                <td class="cv-name-{{$cv->id}}"><a target="_blank" href="{{ asset('storage/seeker/cv/'.$cv->name) }}">{{ $cv->name }}</a></td>
+                <td class="cv-name-{{$cv->id}}"><a target="_blank" href="{{ getS3File('seeker/cv',$cv->name) }}">{{ $cv->name }}</a></td>
                 <td>
                     <a id="deleteCV-{{ $cv->id }}" class="deleteCV border-0 text-danger" value="{{ $cv->id }}"><i class="fa-solid fa-trash-can"></i></a>
                 </td>
@@ -99,7 +99,7 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#cv-table").removeClass('d-none');
-                    $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                    $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+response.seeker_cv+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     MSalert.principal({
                         icon:'success',
                         title:'Success',
@@ -131,7 +131,7 @@
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#cv-table").removeClass('d-none');
-                        $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+document.location.origin+'/storage/seeker/cv/'+response.attach.name+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
+                        $("#cv-table").append('<tr class="cv-tr-'+response.attach.id+'"><td class="cv-name-'+response.attach.id+'"><a target="_blank" href="'+response.seeker_cv+'">'+response.attach.name+'</a></td><td><a id="deleteCV-'+response.attach.id+'" class="deleteCV border-0 text-danger" value="'+response.attach.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                         MSalert.principal({
                             icon:'success',
                             title:'Success',

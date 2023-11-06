@@ -111,13 +111,15 @@ class SeekerProfileController extends Controller
         $image  = $seeker->image;
         if ($request->imageStatus == "empty") {
 
-            $image_delete = File::deleteDirectory(public_path('storage/seeker/profile' . '/' . $id . '/' . $image));
+            Storage::disk('s3')->delete('seeker/profile/' . $id . '/' . $image);
             $image        = null;
         }
         if ($request->file('image')) {
             $file  = $request->file('image');
             $image = date('YmdHi') . $file->getClientOriginalName();
-            $path  = $file->move(public_path('storage/seeker/profile' . '/' . $id), $image);
+            
+            $path     = 'seeker/profile/'. $id . '/' . $image;
+            Storage::disk('s3')->put($path, file_get_contents($file));
         }
         $date_of_birth = $request->date_of_birth ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
 
@@ -626,9 +628,11 @@ class SeekerProfileController extends Controller
             view()->share('seeker',$seeker);
 
             $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-            $path = public_path('storage/seeker/cv');
             $fileName =  date('YmdHi').$seeker->id.'_ic_format_cv.pdf';
-            $pdf->save($path . '/' . $fileName);
+            
+            $path     = 'seeker/cv/' . $fileName;
+            Storage::disk('s3')->put($path, $pdf->output());
+            $path = Storage::disk('s3')->url($path);
             
             $attach = seekerAttach::create([
                 'seeker_id' => $request->seeker_id,
@@ -657,12 +661,16 @@ class SeekerProfileController extends Controller
         }else {
             $file = $request->file('cv_attach');
             $cv   = date('YmdHi') . $file->getClientOriginalName();
-            $path = $file->move(public_path('storage/seeker/cv'), $cv);
-    
+
+            $path     = 'seeker/cv/' . $cv;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
             $attach = seekerAttach::create([
                 'seeker_id' => $request->seeker_id,
                 'name'      => $cv,
             ]);
+
+            $seeker_cv = getS3File('seeker/cv',$attach->name);
     
             $seeker         = Seeker::findOrFail($request->seeker_id);
             $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
@@ -681,6 +689,7 @@ class SeekerProfileController extends Controller
                 'status' => 'success',
                 'attach' => $attach,
                 'msg'    => 'CV Upload successfully!',
+                'seeker_cv' => $seeker_cv
             ]);
         }
     }
@@ -688,7 +697,7 @@ class SeekerProfileController extends Controller
     public function seekerAttachDestory($id, Request $request)
     {
         $cv               = SeekerAttach::findOrFail($id);
-        $cv_delete        = File::deleteDirectory(public_path('storage/seeker/cv/' . $cv->name));
+        Storage::disk('s3')->delete('seeker/cv/' . $cv->name);
         $cv               = SeekerAttach::findOrFail($id)->delete();
         $seeker           = Seeker::findOrFail($request->seeker_id);
         $seeker_cvs_count = SeekerAttach::whereSeekerId($seeker->id)->count();

@@ -459,6 +459,7 @@ class EmployerJobPostController extends Controller
                             ->first();
             }
             $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
+            $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
             $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
             $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
             if($experiences) {
@@ -515,6 +516,8 @@ class EmployerJobPostController extends Controller
             'hire' => $hire,
             'notsuitable' => $notsuitable,
         ];
+
+        $seeker_img = getS3File('seeker/profile/'.$seeker->id ,$seeker->image);
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
@@ -528,7 +531,9 @@ class EmployerJobPostController extends Controller
             'references' => $references,
             'seeker_attach' => $seeker_attach,
             'count' => $count,
-            'cvunlock' => $cvunlock
+            'cvunlock' => $cvunlock,
+            'seeker_cv' => $seeker_cv,
+            'seeker_img' => $seeker_img
         ]);
     }
 

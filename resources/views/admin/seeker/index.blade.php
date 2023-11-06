@@ -53,7 +53,7 @@
                                 {{--<a href="{{ route('seeker.edit', $seeker->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>--}}
                                 <a href="{{ route('ic-format-cv', $seeker->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Download IC Format CV" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-download"></i></a>
                                 @if($seeker->SeekerAttach->last())
-                                <a href="{{ url('/storage/seeker/cv/'.$seeker->SeekerAttach->last()->name) }}" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download CV Attachment" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-file-arrow-down"></i></a>
+                                <a href="{{ getS3File('seeker/cv',$seeker->SeekerAttach->last()->name) }}" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download CV Attachment" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-file-arrow-down"></i></a>
                                 @endif
                                 @can(['seeker-delete'])
                                 <form method="POST" action="{{ route('seeker.destroy', $seeker->id) }}" class="d-inline">

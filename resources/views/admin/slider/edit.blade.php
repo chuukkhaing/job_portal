@@ -63,7 +63,7 @@
                             <div class="image-preview">
                                 <label for="slider-image">
                                 @if($slider->image)
-                                <img src="{{ asset('storage/slider/'.$slider->image) }}" alt="" id="imagePreview" class="w-100">
+                                <img src="{{ getS3File('slider' ,$slider->image) }}" alt="" id="imagePreview" class="w-100">
                                 @else
                                     <img src="https://via.placeholder.com/1920x600" alt="" id="imagePreview" class="w-100">
                                 @endif

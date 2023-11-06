@@ -12,7 +12,7 @@
         <div class="carousel-inner">
             @foreach($sliders as $slider)
             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                <img class="" src="{{ asset('storage/slider/'.$slider->image) }}" alt="{{ $slider->Employer->name }}">
+                <img class="" src="{{ getS3File('slider' ,$slider->image) }}" alt="{{ $slider->Employer->name }}">
             </div>
             @endforeach
         </div>

@@ -151,7 +151,7 @@
                                 </td>
                                 <td class="col text-end profile-img-preview @if($seeker->image) @else d-none @endif" style="vertical-align: top">
                                     @if($seeker->image)
-                                    <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ asset('storage/seeker/profile/'.($seeker->id).'/'.$seeker->image) }}" alt="profile_pic" width="130px" height="130px">
+                                    <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="130px" height="130px">
                                     @else
                                     <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="130px" height="130px">
                                     @endif

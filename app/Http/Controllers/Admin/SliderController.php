@@ -9,6 +9,7 @@ use App\Models\Admin\Employer;
 use DB;
 use Alert;
 use Auth;
+use Storage;
 
 class SliderController extends Controller
 {
@@ -163,6 +164,7 @@ class SliderController extends Controller
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);
+            Storage::disk('s3')->delete('slider/' . $slider->image);
             if ($slider) {
                 Alert::success('Success', 'Delete Slider Successfully!');
                 return redirect()->route('slider.index');
@@ -185,10 +187,11 @@ class SliderController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/slider/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
-          
+
+        $path     = 'slider/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
+        
         return $imageName;
     }
 

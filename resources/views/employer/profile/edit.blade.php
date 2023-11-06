@@ -382,7 +382,7 @@
                                                     <tbody>
                                                         @foreach($employer->EmployerTestimonial as $test)
                                                         <tr class="test-tr-{{ $test->id }}">
-                                                            <td>@if(isset($test->image)) <img src="{{ asset('storage/employer_testimonial/'.$test->image) }}" width="80px" height="80px" alt="Testimonial Image"> @else - @endif</td>
+                                                            <td>@if(isset($test->image)) <img src="{{ getS3File('employer_testimonial',$test->image) }}" width="80px" height="80px" alt="Testimonial Image"> @else - @endif</td>
                                                             <td>{{ $test->name ?? '-' }}</td>
                                                             <td>{{ $test->title ?? '-' }}</td>
                                                             <td>{{ $test->remark ?? '-' }}</td>
@@ -1078,7 +1078,7 @@
                     }
                     var image = '-';
                     if(response.data.image){
-                        image = '<img src="'+window.origin+'/storage/employer_testimonial/'+response.data.image+'" width="80px" height="80px" alt="Testimonial Image">';
+                        image = '<img src="'+response.test_img+'" width="80px" height="80px" alt="Testimonial Image">';
                     }
                     $(".employer-testimonial").append('<tr class="test-tr-'+response.data.id+'"><td>'+image+'</td><td>'+response.data.name+'</td><td>'+response.data.title+'</td><td>'+remark+'</td><td><a id="deleteTest-'+response.data.id+'" class="deleteTest btn border-0 text-danger" value="'+response.data.id+'"><i class="fa-solid fa-trash-can"></i></a></td></tr>');
                     $("#test-name").val('');
