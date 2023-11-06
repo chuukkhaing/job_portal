@@ -76,7 +76,7 @@ class EmployerRegisterController extends Controller
                 'email_verification_token' => Str::random(32),
             ]);
 
-            \Mail::to($employer->email)->send(new SeekerVerificationEmail($employer));
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
 
             return redirect()->route('employer-verify-notice', $employer->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
         }else {
