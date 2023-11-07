@@ -701,12 +701,14 @@
         $('#main_functional_area').change(function(e){
             e.preventDefault();
             if($(this).val() != "") {
+                var main_function = $(this).val();
                 $.ajax({
                     type: 'GET',
-                    url: '/employer/get-sub-functional-area/'+main_functional_area,
+                    url: '/employer/get-sub-functional-area/'+main_function,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#sub_functional_area").empty();
+                        $("#sub_functional_area").val('').trigger('change');
                         $("#sub_functional_area").append('<option value="">Choose</option>')
                         $.each(response.data, function(index, sub_functional_area) {
                         
@@ -716,10 +718,11 @@
                 })
                 $.ajax({
                     type: 'GET',
-                    url: '/employer/get-skill/'+main_functional_area,
+                    url: '/employer/get-skill/'+main_function,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#skill_id").empty();
+                        $("#skill_id").val('').trigger('change');
                         $("#skill_id").append('<option value="">Choose...</option>')
                         $.each(response.data, function(index, skill) {
                         
@@ -728,8 +731,8 @@
                     }
                 })
             }else {
-                $("#sub_functional_area").empty();
-                $("#skill_id").empty();
+                $("#sub_functional_area").val('').trigger('change');
+                $("#skill_id").val('').trigger('change');
             }
         });
     })
