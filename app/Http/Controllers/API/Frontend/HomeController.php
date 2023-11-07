@@ -10,19 +10,12 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function getSliderandIndustry()
+    public function getSlider()
     {
-        $sliders    = Slider::whereNull('deleted_at')->whereIsActive(1)->orderBy('serial_no')->pluck('id')->toArray();
-        $industries = JobPost::select('industry_id', DB::raw('count(*) as total'))
-            ->groupBy('industry_id')
-            ->orderBy('total', 'desc')->whereIsActive(1)->whereStatus('Online')
-            ->pluck('industry_id')
-            ->take(8)
-            ->toArray();
+        $sliders    = Slider::whereNull('deleted_at')->whereIsActive(1)->orderBy('serial_no')->select('id','image')->get();
         return response()->json([
             'status' => 'success',
-            'sliders' => $sliders,
-            'industries' => $industries
+            'sliders' => $sliders
         ], 200);
     }
 }

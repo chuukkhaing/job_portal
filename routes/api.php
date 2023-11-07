@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/get-slider-industry', [HomeController::class, 'getSliderandIndustry']);
+Route::get('/get-slider', [HomeController::class, 'getSlider']);
