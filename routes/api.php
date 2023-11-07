@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/get-slider', [HomeController::class, 'getSlider']);
-Route::get('/get-top-category', [HomeController::class, 'getTopCategory']);
+Route::get('/get-popular-category', [HomeController::class, 'getPopularCategory']);

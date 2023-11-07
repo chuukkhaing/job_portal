@@ -19,7 +19,7 @@ class HomeController extends Controller
         ], 200);
     }
 
-    public function getTopCategory()
+    public function getPopularCategory()
     {
         $industries = DB::table('job_posts as a')->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
             ->join('industries as b', 'b.id','=','a.industry_id')
