@@ -20,6 +20,7 @@ class HomeController extends Controller
             ->take(8)
             ->toArray();
         return response()->json([
+            'status' => 'success',
             'sliders' => $sliders,
             'industries' => $industries
         ], 200);
