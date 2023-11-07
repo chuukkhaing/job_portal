@@ -80,7 +80,7 @@
                     <div class="col-4 form-group">
                         <label for="package_id">Package Effective Date <span class="text-danger">*</span></label>
                         <div class="datepicker date input-group" id="package_start_date">
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ old('package_start_date') }}" placeholder="Package Effective Date" required>
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y',strtotime(now())) }}" placeholder="Package Effective Date" required>
                             <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
