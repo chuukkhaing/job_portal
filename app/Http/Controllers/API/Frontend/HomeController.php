@@ -21,14 +21,18 @@ class HomeController extends Controller
 
     public function getTopCategory()
     {
-        $industries = JobPost::select('industry_id', DB::raw('count(*) as total'))
-            ->groupBy('industry_id')
-            ->orderBy('total', 'desc')->whereIsActive(1)->whereStatus('Online')
+        $industries = DB::table('job_posts as a')->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
+            ->join('industries as b', 'b.id','=','a.industry_id')
+            ->groupBy('a.industry_id')
+            ->orderBy('open_position', 'desc')->where('a.is_active',1)->where('a.status', 'Online')
             ->get()->take(8);
-        
+        $live_job_post              = JobPost::whereIsActive(1)->count();
+        $today_job_post             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
             'status' => 'success',
-            'industries' => $industries
+            'industries' => $industries,
+            'live_job_post' => $live_job_post,
+            'today_job_post' => $today_job_post
         ], 200);
     }
 }
