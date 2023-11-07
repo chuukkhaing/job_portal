@@ -53,6 +53,7 @@ class IndustryController extends Controller
         $industry = Industry::create([
             'name' => $request->name,
             'icon' => $request->icon,
+            'color_code' => $request->color_code,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
@@ -97,6 +98,7 @@ class IndustryController extends Controller
         $industry = $industry->update([
             'name' => $request->name,
             'icon' => $request->icon,
+            'color_code' => $request->color_code,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);

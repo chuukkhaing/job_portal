@@ -17,6 +17,7 @@ class CreateIndustriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('icon')->nullable();
+            $table->string('color_code')->nullable();
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

@@ -47,6 +47,10 @@
                     </div>
                     <input type="hidden" name="icon" value="" id="icon">
                 </div>
+                <div class="form-group col-md-6 color-code">
+                    <label for="color_code">Color code <span class="text-danger">*</span></label>
+                    <input type="color" name="color_code" id="color_code" class="form-control colorpicker w-25" value="#FB5404">
+                </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                     <input type="radio" name="is_active" id="active" class="" value="1" checked required> <label for="active"> Active</label><br>

@@ -38,7 +38,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $industry->name }}</td>
-                            <td><i class="{{ $industry->icon }}"></i></td>
+                            <td><i class="{{ $industry->icon }}" style="color: {{ $industry->color_code }}"></i></td>
                             <td>@if($industry->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 @can('industry-edit')
