@@ -451,9 +451,14 @@
                     <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent w-25" readonly>
                 </div>
                 <div class="col-12 col-sm-8 d-flex justify-content-end">
+                    
                     <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
                         <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
                     </div>
+                    <input type="hidden" name="status" id="job-post-status" value="Pending">
+                    <button type="submit" class="btn btn-secondary ms-3" id="job-post-submit-draft">
+                        <span>Save as Draft</span>
+                    </button>
                     <button type="submit" class="btn profile-save-btn mx-3">
                         <span>Post Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
                     </button>
@@ -528,7 +533,7 @@
 <!-- Modal -->
 <div class="modal fade" id="pointBalance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pointBalanceLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 50%; margin: auto">
       <div class="modal-header">
         <h5 class="modal-title" id="pointBalanceLabel">Point Balance</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -612,6 +617,10 @@
                 // $("#job_post_state_id").prop('required',false);
                 
             }
+        })
+
+        $("#job-post-submit-draft").click(function() {
+            $("#job-post-status").val('Draft');
         })
 
         $.ajaxSetup({
