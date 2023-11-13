@@ -70,7 +70,7 @@
                             <ul class="dropdown-menu profile-dropdown">
                                 <li>
                                     <a href="{{ route('changeLang', ['lang' => 'en']) }}" class="text-decoration-none text-black">
-                                    <img src="{{ asset('frontend/img/logo/mm.svg') }}" alt="" style="width: 25px; margin: 0 10px">
+                                    <img src="{{ asset('frontend/img/logo/us.svg') }}" alt="" style="width: 25px; margin: 0 10px">
                                     English
                                     </a>
                                 </li>
