@@ -69,6 +69,40 @@
                 <a href="{{ route('employer-login-form') }}" class="nav-item nav-link {{ Request::is('employer/login-form') ? 'active' : '' }}">Employer <br> Sign In</a>
                 <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Sign Up</a></span>
                 @endauth
+                <a class="nav-item nav-link d-none d-lg-block">|</a>
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="btn-group">
+                        
+                            <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe" style="color: #fff"></i>
+                            </a>
+                            
+                            <ul class="dropdown-menu profile-dropdown">
+                                <li>
+                                    <a href="{{ route('changeLang', ['lang' => 'en']) }}" class="text-decoration-none text-black">
+                                    <img src="{{ asset('frontend/img/logo/us.svg') }}" alt="" style="width: 25px; margin: 0 10px">
+                                    English
+                                    @if(session()->get('locale') == 'en')
+                                    <i class="fa-solid fa-check text-blue float-end mt-1 me-2"></i>
+                                    @endif
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('changeLang', ['lang' => 'mm']) }}" class="text-decoration-none text-black">
+                                    <img src="{{ asset('frontend/img/logo/mm.svg') }}" alt="" style="width: 25px; margin: 0 10px">
+                                    Myanmar
+                                    @if(session()->get('locale') == 'mm')
+                                    <i class="fa-solid fa-check text-blue float-end mt-1 me-2"></i>
+                                    @endif
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    </div>
+                </div>
             </div>
         </div>
     </div>

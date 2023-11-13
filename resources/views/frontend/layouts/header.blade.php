@@ -58,11 +58,11 @@
                 
                 @endauth
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
-                    <div class="row">
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="btn-group">
                         
-                        <div class="col-md-4">
-                            <div class="btn-group">
-                            
                             <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-globe" style="color: #fff"></i>
                             </a>
@@ -88,7 +88,7 @@
                                 </li>
                             </ul>
                         </div>
-                        
+                    
                     </div>
                 </div>
             </div>
