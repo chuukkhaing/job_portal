@@ -774,6 +774,31 @@
             }
 
         })
+
+        $("#phone").on('keyup change', function(e){
+            e.preventDefault();
+            $.ajax({
+                type        : 'GET',
+                url         : "{{ route('phone-check') }}",
+                data        : {
+                    'phone'     : $(this).val()
+                },
+                success: function(response) {
+                    $('.phone-error').addClass('d-none');
+                    $('.phone-input').removeClass('is-invalid');
+                },
+                error: function (data, response) {
+                    var errors = $.parseJSON(data.responseText);
+                    console.log(errors.errors['phone'])
+                    if(errors.errors['phone'] !== undefined) {
+                        
+                        $('.phone-error').removeClass('d-none');
+                        $('.phone-input').addClass('is-invalid');
+                        $('.phone-error').text(errors.errors['phone']);
+                    }
+                }
+            });
+        });
     })
     var anonymous_posting_point = 0;
     $('#hide_company_name').change(function () {

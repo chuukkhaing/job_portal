@@ -63,6 +63,7 @@ Route::group([], function () {
         Route::get('download-ic-cv/{id}', [EmployerJobPostController::class, 'icFormatCVDownload']);
         Route::get('change-status/{jobPostId}/{seekerId}/{status}', [EmployerJobPostController::class, 'changeStatus']);
         Route::get('point-balance/{id}', [EmployerJobPostController::class, 'pointBalance']);
+        Route::get('phone-check', [EmployerJobPostController::class, 'phoneCheck'])->name('phone-check');
 
         Route::resource('point-history', PointHistoryController::class);
         Route::resource('member-user', MemberUserController::class);

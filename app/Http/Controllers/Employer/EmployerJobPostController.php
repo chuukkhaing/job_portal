@@ -802,4 +802,16 @@ class EmployerJobPostController extends Controller
             'point'  => $employer->package_point
         ]);
     }
+
+    public function phoneCheck(Request $request)
+    {
+        $this->validate($request, [
+            'phone'    => ['nullable', new MyanmarPhone],
+        ]);
+        $phone = $request->phone;
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 }
