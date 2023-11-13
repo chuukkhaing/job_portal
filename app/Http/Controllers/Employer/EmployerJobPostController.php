@@ -26,6 +26,8 @@ use App\Models\Admin\PackageItem;
 use App\Models\Employer\PointRecord;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Admin\PointPackage;
+use App\Models\Admin\PointOrder;
+use App\Models\Employer\JobPostPointDetect;
 use Auth;
 use Str;
 use DB;
@@ -809,6 +811,161 @@ class EmployerJobPostController extends Controller
             'phone'    => ['nullable', new MyanmarPhone],
         ]);
         $phone = $request->phone;
+
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
+
+    public function buypointWithJobPost(Request $request)
+    {
+        
+        $gender = Null;
+        if($request->male == 'on' && $request->female == 'on') {
+            $gender = 'Male/Female';
+        }elseif($request->male == 'on' && $request->female == '') {
+            $gender = 'Male';
+        }elseif($request->male == '' && $request->female == 'on') {
+            $gender = 'Female';
+        }
+
+        $salary_range = Null;
+        if($request->mmk_salary) {
+            $salary_range = $request->mmk_salary;
+        }else {
+            $salary_range = $request->usd_salary;
+        }
+
+        if($request->hide_salary == 'on') {
+            $hide_salary = 1;
+        }else{
+            $hide_salary = 0;
+        }
+
+        if($request->hide_company_name == 'on') {
+            $hide_company = 1;
+        }else{
+            $hide_company = 0;
+        }
+
+        $job_title = '-';
+        if($request->job_title) {
+            $job_title = $request->job_title;
+        }
+        $jobPost = JobPost::create([
+            'employer_id' => Auth::guard('employer')->user()->id,
+            'job_title' => $job_title,
+            'main_functional_area_id' => $request->main_functional_area,
+            'sub_functional_area_id' => $request->sub_functional_area,
+            'industry_id' => $request->job_post_industry,
+            'career_level' => $request->career_level,
+            'job_type' => $request->job_type,
+            'experience_level' => $request->experience_level,
+            'degree' => $request->degree,
+            'gender' => $gender,
+            'currency' => $request->currency,
+            'salary_range' => $salary_range,
+            'hide_salary' => $hide_salary,
+            'hide_company' => $hide_company,
+            'no_of_candidate' => $request->no_of_candidate,
+            'recruiter_name' => $request->recruiter_name,
+            'recruiter_email' => $request->recruiter_email,
+            'country' => $request->job_post_country,
+            'state_id' => $request->job_post_state,
+            'township_id' => $request->job_post_township_id,
+            'job_description' => $request->job_description,
+            'job_requirement' => $request->job_requirement,
+            'benefit' => $request->benefit,
+            'job_highlight' => $request->highlight,
+            'job_post_type' => $request->job_post_type,
+            'status' => 'Draft',
+            'total_point' => $request->total_point
+        ]);
+
+        $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
+        $jobPost_slug = $jobPost->update([
+            'slug' => $slug
+        ]);
+
+        if($request->job_post_type == "trending") {
+            $trending_record = PointRecord::create([
+                'employer_id' => Auth::guard('employer')->user()->id,
+                'job_post_id' => $jobPost->id,
+                'package_item_id' => $request->trending_job_package_item_id,
+                'point' => $request->trending_job_point,
+                'status' => 'Pending'
+            ]);
+        }elseif($request->job_post_type == "feature") {
+            $feature_record = PointRecord::create([
+                'employer_id' => Auth::guard('employer')->user()->id,
+                'job_post_id' => $jobPost->id,
+                'package_item_id' => $request->feature_job_package_item_id,
+                'point' => $request->feature_job_point,
+                'status' => 'Pending'
+            ]);
+        }
+        if($hide_company == 1) {
+            $anonymous_record = PointRecord::create([
+                'employer_id' => Auth::guard('employer')->user()->id,
+                'job_post_id' => $jobPost->id,
+                'package_item_id' => $request->anonymous_posting_package_item_id,
+                'point' => $request->anonymous_posting_point,
+                'status' => 'Pending'
+            ]);
+        }
+        if($request->questions) {
+            $question_record = PointRecord::create([
+                'employer_id' => Auth::guard('employer')->user()->id,
+                'job_post_id' => $jobPost->id,
+                'package_item_id' => $request->question_package_item_id,
+                'point' => $request->question_point,
+                'status' => 'Pending'
+            ]);
+            foreach($request->questions as $key => $question) {
+                foreach($request->answer_types as $answer_key => $answer_type) {
+                    if($key == $answer_key) {
+                        $question_create = JobPostQuestion::create([
+                            'employer_id' => Auth::guard('employer')->user()->id,
+                            'job_post_id' => $jobPost->id,
+                            'question' => $question,
+                            'answer' => $answer_type
+                        ]);
+                    }
+                }
+            }
+        }
+        if($request->skills) {
+            foreach($request->skills as $key => $skill) {
+                $skill_create = JobPostSkill::create([
+                    'employer_id' => Auth::guard('employer')->user()->id,
+                    'job_post_id' => $jobPost->id,
+                    'skill_id' => $skill,
+                ]);
+            }
+        }
+
+        if($jobPost->job_post_type == 'standard') {
+            $jobpostType = "Standard";
+        }elseif($jobPost->job_post_type == 'trending') {
+            $jobpostType = "Trending";
+        }elseif($jobPost->job_post_type == 'feature') {
+            $jobpostType = "Feature";
+        }
+
+        $order = PointOrder::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'point_package_id' => $request->point_package_id,
+            'employer_id' => Auth::guard('employer')->user()->id,
+            'status' => 'Pending'
+        ]);
+
+        if($request->is_make_point_detect == 'on') {
+            JobPostPointDetect::create([
+                'point_order_id' => $order->id,
+                'job_post_id' => $jobPost->id
+            ]);
+        }
 
         return response()->json([
             'status' => 'success'

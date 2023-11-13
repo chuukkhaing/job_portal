@@ -464,6 +464,60 @@
                     </button>
                 </div>
             </div>
+            <div class="modal fade" id="buyPointForm">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width: 50%; margin: auto">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="buyPointFormLabel">Buy Point</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        
+                            <div class="col-12 m-auto">
+                                <div class="row">
+                                    <div class="form-group col-12">
+                                        
+                                        <input type="text" name="name" id="name" class="form-control seeker_input name-input" placeholder="Name *" value="{{ old('name') }}">
+                                        <small class="text-danger d-none name-error">Name is required</small>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        
+                                        <input type="text" name="phone" id="phone" class="form-control seeker_input phone-input" placeholder="Phone *" value="{{ old('phone') }}">
+                                        <small class="text-danger d-none phone-error">Phone is required</small>
+                                    </div>
+                                    <div class="form-group col-12">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                @foreach($pointPackages as $pointPackage)
+                                                <label class="card-radio-btn" for="pointPackage-{{ $pointPackage->id }}">
+                                                    <input type="radio" name="point_package_id" class="card-input-element d-none" id="pointPackage-{{ $pointPackage->id }}" @if($loop->first || (old('point_package_id') == $pointPackage->id)) checked @endif value="{{ $pointPackage->id }}">
+                                                    <div class="card card-body">
+                                                        <div class="content_head">{{ number_format($pointPackage->point) }} Points</div>
+                                                        <div class="content_sub">{{ number_format($pointPackage->price) }} MMK</div>
+                                                    </div>
+                                                </label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="is_make_point_detect" id="is_make_point_detect">
+                                        <label for="is_make_point_detect">We'll detect <span id="point_detect"></span> point(s) for current Job Post.</label>
+                                        
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <a class="btn profile-save-btn btn-sm text-white" id="point-order-confirm">Confirm</a>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -544,61 +598,6 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button class="btn profile-save-btn" id="buyYourPoint">Buy Your Points</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="buyPointForm">
-  <div class="modal-dialog">
-    <div class="modal-content" style="width: 50%; margin: auto">
-      <div class="modal-header">
-        <h5 class="modal-title" id="buyPointFormLabel">Buy Point</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        
-            <div class="col-12 m-auto">
-                <div class="row">
-                    <div class="form-group col-12">
-                        
-                        <input type="text" name="name" id="name" class="form-control seeker_input name-input" placeholder="Name *" value="{{ old('name') }}">
-                        <small class="text-danger d-none name-error">Name is required</small>
-                    </div>
-                    <div class="form-group col-12">
-                        
-                        <input type="text" name="phone" id="phone" class="form-control seeker_input phone-input" placeholder="Phone *" value="{{ old('phone') }}">
-                        <small class="text-danger d-none phone-error">Phone is required</small>
-                    </div>
-                    <div class="form-group col-12">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                @foreach($pointPackages as $pointPackage)
-                                <label class="card-radio-btn" for="pointPackage-{{ $pointPackage->id }}">
-                                    <input type="radio" name="point_package_id" class="card-input-element d-none" id="pointPackage-{{ $pointPackage->id }}" @if($loop->first || (old('point_package_id') == $pointPackage->id)) checked @endif value="{{ $pointPackage->id }}">
-                                    <div class="card card-body">
-                                        <div class="content_head">{{ number_format($pointPackage->point) }} Points</div>
-                                        <div class="content_sub">{{ number_format($pointPackage->price) }} MMK</div>
-                                    </div>
-                                </label>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="checkbox" name="is_make_point_detect" id="is_make_point_detect">
-                        <label for="is_make_point_detect">We'll detect <span id="point_detect"></span> point(s) for current Job Post.</label>
-                        
-                    </div>
-                    <div class="col-12 text-center">
-                        <button class="btn profile-save-btn btn-sm" id="point-order-confirm">Confirm</button>
-                    </div>
-                </div>
-            </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -755,8 +754,6 @@
             var point_package_id = $('input[name="point_package_id"]').val();
             var is_make_point_detect = $("#is_make_point_detect").val();
 
-            console.log(name, phone, point_package_id, is_make_point_detect)
-
             if(name == '') {
                 $('.name-error').removeClass('d-none');
                 $('.name-input').addClass('is-invalid');
@@ -773,6 +770,23 @@
                 $('.phone-input').removeClass('is-invalid');
             }
 
+            if(name != '' && phone != '') {
+                var formData = $('form').serialize();
+                $.ajax({
+                    'type' : 'POST',
+                    'url'  : "{{ route('job-post-buy-point') }}",
+                    'data' : formData,
+
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        
+                        window.location.href = "{{ route('manageJob') }}";
+                        console.log(window.location.href)
+                    }
+                })
+            }
+            
+            
         })
 
         $("#phone").on('keyup change', function(e){
@@ -786,6 +800,7 @@
                 success: function(response) {
                     $('.phone-error').addClass('d-none');
                     $('.phone-input').removeClass('is-invalid');
+                    $("#point-order-confirm").removeClass('disabled');
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
@@ -795,6 +810,7 @@
                         $('.phone-error').removeClass('d-none');
                         $('.phone-input').addClass('is-invalid');
                         $('.phone-error').text(errors.errors['phone']);
+                        $("#point-order-confirm").addClass('disabled');
                     }
                 }
             });

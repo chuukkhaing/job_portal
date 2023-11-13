@@ -13,6 +13,7 @@
                         <button class="nav-link" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="false">Approved</button>
                         <button class="nav-link" id="nav-reject-tab" data-bs-toggle="tab" data-bs-target="#nav-reject" type="button" role="tab" aria-controls="nav-reject" aria-selected="false">Reject</button>
                         <button class="nav-link" id="nav-expire-tab" data-bs-toggle="tab" data-bs-target="#nav-expire" type="button" role="tab" aria-controls="nav-expire" aria-selected="false">Expire</button>
+                        <button class="nav-link" id="nav-draft-tab" data-bs-toggle="tab" data-bs-target="#nav-draft" type="button" role="tab" aria-controls="nav-draft" aria-selected="false">Draft</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -38,8 +39,8 @@
                                     <td class="text-black">{{ $pendingjobPost->job_title }} ({{ $pendingjobPost->no_of_candidate }} - posts)</td>
                                     <td>@if($pendingjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($pendingjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif</td>
                                     <td class="text-black">
-                                        {{ $pendingjobPost->MainFunctionalArea->name }} , 
-                                        {{ $pendingjobPost->SubFunctionalArea->name }}
+                                        {{ $pendingjobPost->MainFunctionalArea ? $pendingjobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $pendingjobPost->SubFunctionalArea ? $pendingjobPost->SubFunctionalArea->name : '' }}
                                     </td>
                                     <td>
                                         <div class="job-post-status-{{$pendingjobPost->id}}">
@@ -54,6 +55,8 @@
                                                 <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $pendingjobPost->status }}</span>
                                                 @elseif($pendingjobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $pendingjobPost->status }}</span>
+                                                @elseif($pendingjobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $pendingjobPost->status }}</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -103,8 +106,8 @@
                                     @if($onlinejobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($onlinejobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
                                     </td>
                                     <td class="text-black">
-                                        {{ $onlinejobPost->MainFunctionalArea->name }} , 
-                                        {{ $onlinejobPost->SubFunctionalArea->name }}
+                                        {{ $onlinejobPost->MainFunctionalArea ? $onlinejobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $onlinejobPost->SubFunctionalArea ? $onlinejobPost->SubFunctionalArea->name : '' }}
                                     </td>
                                     <td>
                                         <div class="job-post-status-{{$onlinejobPost->id}}">
@@ -119,6 +122,8 @@
                                                 <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $onlinejobPost->status }}</span>
                                                 @elseif($onlinejobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $onlinejobPost->status }}</span>
+                                                @elseif($onlinejobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $onlinejobPost->status }}</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -168,8 +173,8 @@
                                     @if($rejectjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($rejectjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
                                     </td>
                                     <td class="text-black">
-                                        {{ $rejectjobPost->MainFunctionalArea->name }} , 
-                                        {{ $rejectjobPost->SubFunctionalArea->name }}
+                                        {{ $rejectjobPost->MainFunctionalArea ? $rejectjobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $rejectjobPost->SubFunctionalArea ? $rejectjobPost->SubFunctionalArea->name : '' }}
                                     </td>
                                     <td>
                                         <div class="job-post-status-{{$rejectjobPost->id}}">
@@ -184,6 +189,8 @@
                                                 <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $rejectjobPost->status }}</span>
                                                 @elseif($rejectjobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $rejectjobPost->status }}</span>
+                                                @elseif($rejectjobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $rejectjobPost->status }}</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -233,8 +240,8 @@
                                     @if($expirejobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($expirejobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif
                                     </td>
                                     <td class="text-black">
-                                        {{ $expirejobPost->MainFunctionalArea->name }} , 
-                                        {{ $expirejobPost->SubFunctionalArea->name }}
+                                        {{ $expirejobPost->MainFunctionalArea ? $expirejobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $expirejobPost->SubFunctionalArea ? $expirejobPost->SubFunctionalArea->name : '' }}
                                     </td>
                                     <td>
                                         <div class="job-post-status-{{$expirejobPost->id}}">
@@ -249,6 +256,8 @@
                                                 <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $expirejobPost->status }}</span>
                                                 @elseif($expirejobPost->status == 'Expire')
                                                 <span class="badge rounded-pill px-3 bg-danger">{{ $expirejobPost->status }}</span>
+                                                @elseif($expirejobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $expirejobPost->status }}</span>
                                                 @endif
                                             @endif
                                         </div>
@@ -264,6 +273,71 @@
                                             <div class="d-inline-block form-switch ms-3 fw-bold">
                                                 <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($expirejobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $expirejobPost->id }}" onclick="changeJobPostStatus({{ $expirejobPost->id }}, {{ $expirejobPost->is_active }})">
                                                 <label for="job_post_is_active" id="job_post_is_active-{{$expirejobPost->id}}">@if($expirejobPost->is_active == 1) Activate @else Deactivate @endif</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="nav-draft" role="tabpanel" aria-labelledby="nav-draft-tab">
+                        
+                        <div class="table-responsive" id="applicant-tracking-section">
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($draftjobPosts as $key => $draftjobPost)
+                                <tr>
+                                    <td class="text-black">{{ $key+1 }}</td>
+                                    <td class="text-black">{{ $draftjobPost->job_title }} ({{ $draftjobPost->no_of_candidate }} - posts)</td>
+                                    <td>@if($draftjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($draftjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif</td>
+                                    <td class="text-black">
+                                        {{ $draftjobPost->MainFunctionalArea ? $draftjobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $draftjobPost->SubFunctionalArea ? $draftjobPost->SubFunctionalArea->name : '' }}
+                                    </td>
+                                    <td>
+                                        <div class="job-post-status-{{$draftjobPost->id}}">
+                                            @if($draftjobPost->is_active == 0)
+                                            <span class="badge rounded-pill px-3 bg-secondary">Deactive</span>
+                                            @else
+                                                @if($draftjobPost->status == 'draft')
+                                                <span class="badge rounded-pill px-3 bg-primary">{{ $draftjobPost->status }}</span>
+                                                @elseif($draftjobPost->status == 'Online')
+                                                <span class="badge rounded-pill px-3 bg-success">{{ $draftjobPost->status }}</span>
+                                                @elseif($draftjobPost->status == 'Reject')
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $draftjobPost->status }}</span>
+                                                @elseif($draftjobPost->status == 'Expire')
+                                                <span class="badge rounded-pill px-3 bg-danger">{{ $draftjobPost->status }}</span>
+                                                @elseif($draftjobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $draftjobPost->status }}</span>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($draftjobPost->updated_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <a href="{{ route('employer-job-post.edit', $draftjobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
+                                            <div class="d-inline-block form-switch ms-3 fw-bold">
+                                                <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($draftjobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $draftjobPost->id }}" onclick="changeJobPostStatus({{ $draftjobPost->id }}, {{ $draftjobPost->is_active }})">
+                                                <label for="job_post_is_active" id="job_post_is_active-{{$draftjobPost->id}}">@if($draftjobPost->is_active == 1) Activate @else Deactivate @endif</label>
                                             </div>
                                         </div>
                                     </td>

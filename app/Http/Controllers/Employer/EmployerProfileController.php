@@ -445,10 +445,11 @@ class EmployerProfileController extends Controller
         $onlinejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
         $rejectjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
         $expirejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
+        $draftjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
         if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0) {
             return redirect()->route('employer-job-post.create');
         }else {
-            return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts'));
+            return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts', 'draftjobPosts'));
         }
     }
 

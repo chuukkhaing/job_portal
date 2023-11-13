@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\PointOrder;
+use App\Models\Employer\JobPostPointDetect;
+use App\Models\Employer\JobPost;
 use Auth;
 use Alert;
 
@@ -98,6 +100,14 @@ class PointOrderController extends Controller
             'status' => $request->status,
             'updated_by' => Auth()->user()->id
         ]);
+
+        $jobpostpoint = JobPostPointDetect::wherePointOrderId($id)->first();
+        if(isset($jobpostpoint)) {
+            $jobPost = JobPost::findOrFail($jobpostpoint->job_post_id);
+            $jobPost->update([
+                'status' => 'Pending'
+            ]);
+        }
 
         if($order_update) {
             Alert::success('Success', 'Point Topup Successfully!');
