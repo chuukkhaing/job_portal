@@ -20,6 +20,7 @@ class CreatePackagesTable extends Migration
             $table->integer('number_of_days');
             $table->integer('number_of_users')->default(1);
             $table->integer('price');
+            $table->boolean('is_clear_point')->default(0);
             $table->boolean('is_active')->default(1);
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

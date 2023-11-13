@@ -34,7 +34,7 @@ class HomeController extends Controller
             ->where('a.deleted_at', '=', null)
             ->orderBy('a.updated_at', 'desc')
             ->get()
-            ->take(6);
+            ->take(12);
         $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(18);
         $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(20);
         $live_job              = JobPost::whereIsActive(1)->count();

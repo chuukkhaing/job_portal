@@ -58,6 +58,7 @@ class PackageController extends Controller
             'number_of_days' => $request->number_of_days,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
+            'is_clear_point' => $request->is_clear_point
         ]);
 
         if(isset($request->package_item_id)){
@@ -116,6 +117,7 @@ class PackageController extends Controller
             'number_of_days' => $request->number_of_days,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
+            'is_clear_point' => $request->is_clear_point
         ]);
 
         if(isset($request->package_item_id)){

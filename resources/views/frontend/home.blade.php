@@ -127,7 +127,7 @@
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
-            <div class="col-lg-2 col-md-3 col-sm-4 col-12 text-center h-100 align-self-center">
+            <div class="col-lg-2 col-md-3 col-sm-4 col-12 text-center h-100 align-self-center mt-3">
                 <a href="{{ route('company-detail',$employer->slug) }}">
                     @if($employer->logo)
                     <img src="{{ getS3File('employer_logo',$employer->logo) }}" class="" width="100" alt="{{ $employer->name }}">

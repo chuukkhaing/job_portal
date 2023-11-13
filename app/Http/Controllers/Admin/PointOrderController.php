@@ -23,9 +23,12 @@ class PointOrderController extends Controller
         $this->middleware('permission:point-topup-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $orders = PointOrder::whereNull('deleted_at')->orderBy('updated_at','desc')->get();
+        if($request->status) {
+            $orders = PointOrder::whereNull('deleted_at')->whereStatus($request->status)->orderBy('updated_at','desc')->get();
+        }
         return view ('admin.point-topup.index', compact('orders'));
     }
 

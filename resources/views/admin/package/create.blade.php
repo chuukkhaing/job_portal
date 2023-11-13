@@ -62,6 +62,10 @@
                     <input type="number" class="form-control" name="number_of_days" id="number_of_days" placeholder="Enter Number of Days" required value="{{ old('number_of_days') }}">
                 </div>
                 <div class="form-group">
+                    <input type="checkbox" name="is_clear_point" id="is_clear_point">
+                    <label for="is_clear_point">Clear Point After Package was Expire</label>
+                </div>
+                <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
                     <input type="radio" name="is_active" id="active" class="" value="1" checked required> <label for="active"> Active</label><br>
                     <input type="radio" name="is_active" id="in_active" class="" value="0"> <label for="in_active"> In Active</label>

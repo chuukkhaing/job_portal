@@ -60,7 +60,6 @@
         </a>
 
         <!-- Active Employer -->
-        
         <a href="{{ route('employers.index', ['is_active' => 1]) }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2 dashboard-card">
                 <div class="card-body">
@@ -69,6 +68,42 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Active Employer</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $employers }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Pending Point Order -->
+        <a href="{{ route('point-topup.index', ['status' => 'Pending']) }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 dashboard-card">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Pending Point Order</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pointorderpending }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <!-- Point Order -->
+        <a href="{{ route('point-topup.index') }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 dashboard-card">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Point Order</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pointOrder }}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-tie fa-2x text-gray-300"></i>

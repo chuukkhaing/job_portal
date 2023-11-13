@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Employer;
 use App\Models\Seeker\Seeker;
 use App\Models\Employer\JobPost;
+use App\Models\Admin\PointOrder;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class DashboardController extends Controller
@@ -17,6 +18,8 @@ class DashboardController extends Controller
         $seekers    = Seeker::whereNull('deleted_at')->whereIsActive(1)->count();
         $jobposts   = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $jobpostpending = JobPost::whereStatus('Pending')->count();
+        $pointorderpending = PointOrder::whereNull('deleted_at')->whereStatus('Pending')->count();
+        $pointOrder = $pointorderpending = PointOrder::whereNull('deleted_at')->count();
         $chart1_options = [
             'chart_title' => 'Seekers by months',
             'report_type' => 'group_by_date',
@@ -38,6 +41,6 @@ class DashboardController extends Controller
         ];
         $chart1 = new LaravelChart($chart1_options);
         $chart2 = new LaravelChart($chart2_options);
-        return view ('admin.dashboard', compact('employers', 'seekers', 'jobposts', 'jobpostpending', 'chart1', 'chart2'));
+        return view ('admin.dashboard', compact('employers', 'seekers', 'jobposts', 'jobpostpending', 'chart1', 'chart2', 'pointorderpending', 'pointOrder'));
     }
 }
