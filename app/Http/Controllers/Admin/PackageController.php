@@ -50,6 +50,11 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->is_clear_point == 'on') {
+            $is_clear_point = 1;
+        }else {
+            $is_clear_point = 0;
+        }
         $package = Package::create([
             'name' => $request->name,
             'point' => $request->point,
@@ -58,7 +63,7 @@ class PackageController extends Controller
             'number_of_days' => $request->number_of_days,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
-            'is_clear_point' => $request->is_clear_point
+            'is_clear_point' => $is_clear_point
         ]);
 
         if(isset($request->package_item_id)){
@@ -109,6 +114,10 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
         $package = Package::findOrFail($id);
+        $is_clear_point = $package->is_clear_point;
+        if($request->is_clear_point == 'on') {
+            $is_clear_point = 1;
+        }
         $package = $package->update([
             'name' => $request->name,
             'point' => $request->point,
@@ -117,7 +126,7 @@ class PackageController extends Controller
             'number_of_days' => $request->number_of_days,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
-            'is_clear_point' => $request->is_clear_point
+            'is_clear_point' => $is_clear_point
         ]);
 
         if(isset($request->package_item_id)){

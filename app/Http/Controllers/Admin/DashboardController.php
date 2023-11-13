@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $jobposts   = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $jobpostpending = JobPost::whereStatus('Pending')->count();
         $pointorderpending = PointOrder::whereNull('deleted_at')->whereStatus('Pending')->count();
-        $pointOrder = $pointorderpending = PointOrder::whereNull('deleted_at')->count();
+        $pointOrder = PointOrder::whereNull('deleted_at')->count();
         $chart1_options = [
             'chart_title' => 'Seekers by months',
             'report_type' => 'group_by_date',
