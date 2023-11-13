@@ -72,12 +72,18 @@
                                     <a href="{{ route('changeLang', ['lang' => 'en']) }}" class="text-decoration-none text-black">
                                     <img src="{{ asset('frontend/img/logo/us.svg') }}" alt="" style="width: 25px; margin: 0 10px">
                                     English
+                                    @if(session()->get('locale') == 'en')
+                                    <i class="fa-solid fa-check text-blue float-end mt-1 me-2"></i>
+                                    @endif
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('changeLang', ['lang' => 'mm']) }}" class="text-decoration-none text-black">
                                     <img src="{{ asset('frontend/img/logo/mm.svg') }}" alt="" style="width: 25px; margin: 0 10px">
                                     Myanmar
+                                    @if(session()->get('locale') == 'mm')
+                                    <i class="fa-solid fa-check text-blue float-end mt-1 me-2"></i>
+                                    @endif
                                     </a>
                                 </li>
                             </ul>
