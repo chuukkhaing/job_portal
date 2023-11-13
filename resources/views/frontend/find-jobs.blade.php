@@ -10,7 +10,7 @@
                     <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title" @if(isset($_GET['job_title'])) value="{{ $_GET['job_title'] }}" @endif>
+                            <input type="text" class="form-control search-slt job-title" placeholder="{{ __('message.Job title or keyword') }}" name="job_title" @if(isset($_GET['job_title'])) value="{{ $_GET['job_title'] }}" @endif>
                             <ul class="autocomplete"></ul>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                            <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
+                            <select name="location" id="location" class="form-control search-slt location" placeholder="{{ __('message.Loction') }}" name="location">
                                 <option value="" selected>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}" @if(isset($_GET['location']) && $_GET['location'] == $state->id) selected @endif>{{ $state->name }}</option>
@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-3 p-0 mt-lg-0 mt-md-3">
-                        <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
+                        <button type="submit" class="btn pull-right search-job-btn">{{ __('message.Search Jobs') }}</button>
                     </div>
                 </div>
             </div>
@@ -1221,7 +1221,7 @@
             enableCollapsibleOptGroups: true,
             enableFiltering: true,
             includeSelectAllOption: true,
-            nonSelectedText: "Select function area",
+            nonSelectedText: "{{ __('message.Select function area') }}",
             numberDisplayed: 1
         });
 

@@ -9,11 +9,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto py-0 d-flex align-items-center">
-                <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
-                <a href="{{ route('find-jobs') }}" class="nav-item nav-link {{ Request::is('find-jobs') ? 'active' : '' }} {{ Request::is('search-job') ? 'active' : '' }} {{ Request::is('industry-job*') ? 'active' : '' }} {{ Request::is('job-post*') ? 'active' : '' }}">Find Jobs</a>
-                <a href="{{ route('job-categories') }}" class="nav-item nav-link {{ Request::is('job-categories') ? 'active' : '' }}">Job Category</a>
-                <a href="{{ route('companies') }}" class="nav-item nav-link {{ Request::is('company*') ? 'active' : '' }} {{ Request::is('find-company*') ? 'active' : '' }}">Employers</a>
-                <a href="{{ route('contact-us') }}" class="nav-item nav-link {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
+                <a href="{{ route('home') }}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">{{ __('message.Home') }}</a>
+                <a href="{{ route('find-jobs') }}" class="nav-item nav-link {{ Request::is('find-jobs') ? 'active' : '' }} {{ Request::is('search-job') ? 'active' : '' }} {{ Request::is('industry-job*') ? 'active' : '' }} {{ Request::is('job-post*') ? 'active' : '' }}">{{ __('message.Find Jobs') }}</a>
+                <a href="{{ route('job-categories') }}" class="nav-item nav-link {{ Request::is('job-categories') ? 'active' : '' }}">{{ __('message.Job Category') }}</a>
+                <a href="{{ route('companies') }}" class="nav-item nav-link {{ Request::is('company*') ? 'active' : '' }} {{ Request::is('find-company*') ? 'active' : '' }}">{{ __('message.Employers') }}</a>
+                <a href="{{ route('contact-us') }}" class="nav-item nav-link {{ Request::is('contact-us') ? 'active' : '' }}">{{ __('message.Contact Us') }}</a>
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
                 @auth('seeker')
                 <div class="btn-group">
@@ -52,11 +52,39 @@
                 @elseauth('web')
                 <a href="{{ route('dashboard') }}" class="nav-item nav-link">Admin</a>
                 @else
-                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Sign In</a>
-                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Sign Up</a></span>
-                <span class="nav-item nav-link"><a href="{{ route('employer-login-form') }}" class="header-btn">For Employer</a></span>
+                <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">{{ __('message.Sign In') }}</a>
+                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">{{ __('message.Sign Up') }}</a></span>
+                <span class="nav-item nav-link"><a href="{{ route('employer-login-form') }}" class="header-btn">{{ __('message.For Employer') }}</a></span>
                 
                 @endauth
+                <a class="nav-item nav-link d-none d-lg-block">|</a>
+                    <div class="row">
+                        
+                        <div class="col-md-4">
+                            <div class="btn-group">
+                            
+                            <a class="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-globe" style="color: #fff"></i>
+                            </a>
+                            
+                            <ul class="dropdown-menu profile-dropdown">
+                                <li>
+                                    <a href="{{ route('changeLang', ['lang' => 'en']) }}" class="text-decoration-none text-black">
+                                    <img src="{{ asset('frontend/img/logo/mm.svg') }}" alt="" style="width: 25px; margin: 0 10px">
+                                    English
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('changeLang', ['lang' => 'mm']) }}" class="text-decoration-none text-black">
+                                    <img src="{{ asset('frontend/img/logo/mm.svg') }}" alt="" style="width: 25px; margin: 0 10px">
+                                    Myanmar
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     </div>

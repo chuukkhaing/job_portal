@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\JobPostDetailController;
 use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\Seeker\SeekerRegisterController;
+use App\Http\Controllers\LangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-// Home
+Route::get('lang/change', [LangController::class, 'change'])->name('changeLang');
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find-jobs');

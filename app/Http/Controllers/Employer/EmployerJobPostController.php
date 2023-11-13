@@ -25,6 +25,7 @@ use App\Models\Employer\JobPostSkill;
 use App\Models\Admin\PackageItem;
 use App\Models\Employer\PointRecord;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\PointPackage;
 use Auth;
 use Str;
 use DB;
@@ -49,6 +50,7 @@ class EmployerJobPostController extends Controller
      */
     public function create()
     {
+        $pointPackages = PointPackage::whereNull('deleted_at')->whereIsActive(1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
@@ -60,7 +62,7 @@ class EmployerJobPostController extends Controller
         $townships = Township::whereNull('deleted_at')->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id','!=',0)->whereIsActive(1)->get();
-        return view ('employer.profile.post-job', compact('packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'packageItems'));
+        return view ('employer.profile.post-job', compact('pointPackages', 'packages', 'employer','industries', 'states', 'townships', 'functional_areas', 'sub_functional_areas', 'packageItems'));
     }
 
     /**

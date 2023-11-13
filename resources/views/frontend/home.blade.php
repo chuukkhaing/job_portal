@@ -41,7 +41,7 @@
                     <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-search fa-md"></i></span>
-                            <input type="text" class="form-control search-slt job-title" placeholder="Job title or keyword" name="job_title">
+                            <input type="text" class="form-control search-slt job-title" placeholder="{{ __('message.Job title or keyword') }}" name="job_title">
                             <ul class="autocomplete"></ul>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                            <select name="location" id="location" class="form-control search-slt location" placeholder="location" name="location">
+                            <select name="location" id="location" class="form-control search-slt location" placeholder="{{ __('message.Location') }}" name="location">
                                 <option value="" selected disabled>Location</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="col-lg-2 col-md-3 p-0 mt-lg-0 mt-md-3">
-                        <button type="submit" class="btn pull-right search-job-btn">Search Jobs</button>
+                        <button type="submit" class="btn pull-right search-job-btn">{{ __('message.Search Jobs') }}</button>
                     </div>
                 </div>
             </div>
@@ -90,8 +90,8 @@
 <div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-3">
-            <h3 id="popular-job-category-title">Popular Job Categories</h3>
-            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
+            <h3 id="popular-job-category-title">{{ __('message.Popular Job Categories') }}</h3>
+            <span id="popular-job-category-sub-title">{{ $live_job }} {{ __('message.Jobs live') }} - {{ $today_job }} added today</span>
         </div>
         <div id="body-popular-job-category" class="row">
             @foreach($industries as $industry)
@@ -1083,7 +1083,7 @@
             enableCollapsibleOptGroups: true,
             enableFiltering: true,
             includeSelectAllOption: true,
-            nonSelectedText: "Select function area",
+            nonSelectedText: "{{ __('message.Select function area') }}",
             numberDisplayed: 1
         });
 
