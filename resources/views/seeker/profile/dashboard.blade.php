@@ -580,7 +580,7 @@
             <div class="container-fluid my-2 bg-white" id="edit-profile-body">
                 <div class="row m-auto py-3 justify-content-center">
                     <div class="px-3 pb-3 m-0 bg-white">
-                        <h5 style="color: #0355D0">Top Employers</h5>
+                        <h5 style="color: #0355D0">{{ __('message.Top Employers') }}</h5>
                     </div>
                     <div class="owl-slider py-3">
                         <div class="row col-12 m-0">

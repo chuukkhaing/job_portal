@@ -35,8 +35,8 @@
                     <div class="col-lg-3 col-md-4 p-0">
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
-                            <select name="location" id="location" class="form-control search-slt location" placeholder="{{ __('message.Loction') }}" name="location">
-                                <option value="" selected>Location</option>
+                            <select name="location" id="location" class="form-control search-slt location" placeholder="{{ __('message.Location') }}" name="location">
+                                <option value="" selected>{{ __('message.Location') }}</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}" @if(isset($_GET['location']) && $_GET['location'] == $state->id) selected @endif>{{ $state->name }}</option>
                                 @endforeach
@@ -98,9 +98,9 @@
             <div class="col-12 col-sm-3 col-md-4 col-lg">
                 <div class="form-group">
                     <select name="job_sorting" id="job_sorting" class="find-job-select w-100" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] != "") style="border: 2px solid #FB5404;" @endif>
-                        <option value="">Job Sort By</option>
-                        <option value="7" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "7") selected @endif >Last 7 Days</option>
-                        <option value="30" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "30") selected @endif >Last 30 Days</option>
+                        <option value="">{{ __('message.Job Sort By') }}</option>
+                        <option value="7" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "7") selected @endif >{{ __('message.Last 7 Days') }}</option>
+                        <option value="30" @if(isset($_GET['job_sorting']) && $_GET['job_sorting'] == "30") selected @endif >{{ __('message.Last 30 Days') }}</option>
                     </select>
                 </div>
             </div>
@@ -111,7 +111,7 @@
 <div class="container my-3">
     <div class="row my-3">
         <div class="find-jobs-header py-3">
-            <h3 class="find-jobs-title">Explore your career journey via {{ $jobPostsCount }} @if($jobPostsCount > 1) Jobs @else Job @endif</h3>
+            <h3 class="find-jobs-title">{{ __('message.Explore your career journey via') }} {{ $jobPostsCount }} {{ __('message.Job(s)') }}</h3>
             {{--<span class="find-jobs-sub-title">Suggestions tailored to your profile, career preferences, and engagement history on our platform are provided to guide you towards the most relevant job opportunities.</span>--}}
         </div>
     </div>

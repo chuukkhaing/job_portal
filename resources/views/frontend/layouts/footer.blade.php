@@ -9,7 +9,7 @@
                     </div>
                     <div class="py-3">
                         <p class="text-dark">
-                            <span><strong>Call us </strong></span>
+                            <span><strong>{{ __('message.Call us') }} </strong></span>
                             <span><a href="tel:+959880915475" class="fw-bold" style="color: #0355D0">09 880915475</a>, <a href="tel:+959880915476" class="fw-bold" style="color: #0355D0">09 880915476</a>
                             </span>
                         </p>
@@ -22,33 +22,33 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row p-2 px-3">
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-3"><strong>About Us</strong></h6>
+                        <h6 class="my-3"><strong>{{ __('message.About Us') }}</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links py-2" href="{{ route('contact-us') }}">Contact Us</a>
-                            <a class="footer-links py-2" href="{{ route('about-us') }}">About Us</a>
-                            <a class="footer-links py-2" href="{{ route('terms-of-use') }}">Terms of Use</a>
-                            <a class="footer-links py-2" href="{{ route('privacy-policy') }}">Privacy Policies</a>
+                            <a class="footer-links py-2" href="{{ route('contact-us') }}">{{ __('message.Contact Us') }}</a>
+                            <a class="footer-links py-2" href="{{ route('about-us') }}">{{ __('message.About Us') }}</a>
+                            <a class="footer-links py-2" href="{{ route('terms-of-use') }}">{{ __('message.Terms of Use') }}</a>
+                            <a class="footer-links py-2" href="{{ route('privacy-policy') }}">{{ __('message.Privacy Policies') }}</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-3"><strong>For Jobseekers</strong></h6>
+                        <h6 class="my-3"><strong>{{ __('message.For Jobseekers') }}</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links py-2" href="{{ route('register-form') }}">Sign up</a>
-                            <a class="footer-links py-2" href="{{ route('find-jobs') }}">Find Jobs</a>
-                            <a class="footer-links py-2" href="{{ route('job-categories') }}">Job Category</a>
-                            <a class="footer-links py-2" href="{{ route('login-form') }}">Sign In</a>
+                            <a class="footer-links py-2" href="{{ route('register-form') }}">{{ __('message.Sign Up') }}</a>
+                            <a class="footer-links py-2" href="{{ route('find-jobs') }}">{{ __('message.Find Jobs') }}</a>
+                            <a class="footer-links py-2" href="{{ route('job-categories') }}">{{ __('message.Job Category') }}</a>
+                            <a class="footer-links py-2" href="{{ route('login-form') }}">{{ __('message.Sign In') }}</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 p-0">
-                        <h6 class="my-3"><strong>For Employers</strong></h6>
+                        <h6 class="my-3"><strong>{{ __('message.For Employers') }}</strong></h6>
                         <hr class="footer-hr">
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="footer-links py-2" href="{{ route('employer-register-form') }}">Sign up</a>
-                            <a class="footer-links py-2" href="{{ route('employer-job-post.create') }}">Post a Job</a>
-                            <a class="footer-links py-2" href="{{ route('register-form') }}">Advertise with Us</a>
-                            <a class="footer-links py-2" href="{{ route('employer-login-form') }}">Sign In</a>
+                            <a class="footer-links py-2" href="{{ route('employer-register-form') }}">{{ __('message.Sign Up') }}</a>
+                            <a class="footer-links py-2" href="{{ route('employer-job-post.create') }}">{{ __('message.Post a Job') }}</a>
+                            <a class="footer-links py-2" href="{{ route('register-form') }}">{{ __('message.Advertise with Us') }}</a>
+                            <a class="footer-links py-2" href="{{ route('employer-login-form') }}">{{ __('message.Sign In') }}</a>
                             {{--<a class="footer-links mb-2" href="#">News & Blogs</a>--}}
                         </div>
                     </div>

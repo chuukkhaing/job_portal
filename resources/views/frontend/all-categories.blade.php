@@ -7,7 +7,7 @@
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-5">
             <h3 id="popular-job-category-title">{{ __('message.Popular Job Categories') }}</h3>
-            <span id="popular-job-category-sub-title">{{ $live_job }} jobs live - {{ $today_job }} added today</span>
+            <span id="popular-job-category-sub-title">{{ $live_job }} {{ __('message.jobs live') }} - {{ $today_job }} added today</span>
         </div>
         <div id="body-popular-job-category" class="row">
             @foreach($industries as $industry)
@@ -21,7 +21,7 @@
                         </div>
                         <div id="job-category-name">
                         <span id="job-category-name-title" class="d-block">{{ $industry->name }}</span>
-                        <span id="job-category-name-position">{{ $industry->JobPost->where('is_active',1)->where('status','Online')->count() }} open positions</span>
+                        <span id="job-category-name-position">{{ $industry->JobPost->where('is_active',1)->where('status','Online')->count() }} {{ __('message.open positions') }}</span>
                         </div>
                     </div>
                 @if($industry->JobPost->count() > 0)

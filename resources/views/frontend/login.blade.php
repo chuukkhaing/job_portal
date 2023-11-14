@@ -95,10 +95,10 @@
                                         <div class="float-end"><a href="{{ route('seeker-forgot') }}" style="font-size: 0.9rem" class="ms-1 forger_password">Forgot Password? </a></div>          
                                     </div>
                                     <div class="form-group p-1">
-                                        <button type="submit" class="btn col-12 btn-signup"> Sign In  </button>
+                                        <button type="submit" class="btn col-12 btn-signup"> {{ __('message.Sign In') }}  </button>
                                     </div>      
                                         
-                                    <p class="text-center">Don’t have an account yet ? <a href="{{ route('register-form') }}" class="signIn_link">Sign Up</a> </p>                                                                 
+                                    <p class="text-center">Don’t have an account yet ? <a href="{{ route('register-form') }}" class="signIn_link">{{ __('message.Sign Up') }}</a> </p>                                                                 
                                 </form>
                             </article>
                         </div>

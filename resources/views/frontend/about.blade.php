@@ -3,7 +3,7 @@
 
 <div class="container my-5">
     <div class="about-us-header py-0">
-        <h2 class="">About us</h2>
+        <h2 class="">{{ __('message.About Us') }}</h2>
     </div>
     
     <div class="row my-3">

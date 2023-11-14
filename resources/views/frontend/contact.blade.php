@@ -65,7 +65,7 @@
         </div>
         <div class="col-12 col-md-6 p-3 p-lg-5 mt-2 mt-md-0 contact-form-box">
             <div class="contact-form-header py-3">
-                <h2 class="" style="color: #FB5404">Contact us</h2>
+                <h2 class="" style="color: #FB5404">{{ __('message.Contact Us') }}</h2>
                 <p>"Get in touch with our team by reaching out through one of our available communication channels."</p>
             </div>
             <div class="hr-speech my-3">

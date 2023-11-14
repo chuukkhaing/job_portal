@@ -67,7 +67,7 @@
                         <div class="form-group has-search">
                             <span class="form-control-feedback"><i class="fa fa-map-marker fa-md"></i></span>
                             <select name="location" id="location" class="form-control search-slt location" placeholder="{{ __('message.Location') }}" name="location">
-                                <option value="" selected disabled>Location</option>
+                                <option value="" selected disabled>{{ __('message.Location') }}</option>
                                 @foreach($states as $state)
                                 <option value="{{ $state->id }}">{{ $state->name }}</option>
                                 @endforeach
@@ -103,14 +103,14 @@
                         </div>
                         <div id="job-category-name">
                             <span id="job-category-name-title" class="d-block">{{ $industry->Industry->name }}</span>
-                            <span id="job-category-name-position">{{ $industry->total }} open positions</span>
+                            <span id="job-category-name-position">{{ $industry->total }} {{ __('message.open positions') }}</span>
                         </div>
                     </div>
                 </a>
             </div>
             @endforeach
             <div class="text-end py-3">
-                <a href="{{ route('job-categories') }}" class="btn-browse-category">Browse All Categories <i class="fas fa-arrow-right"></i></a>
+                <a href="{{ route('job-categories') }}" class="btn-browse-category">{{ __('message.Browse All Categories') }} <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
@@ -123,7 +123,7 @@
 <div class="container">
     <div class="popular-job-category">
         <div id="header-popular-job-category" class="text-center py-3">
-            <h3 id="popular-job-category-title">Top Employers</h3>
+            <h3 id="popular-job-category-title">{{ __('message.Top Employers') }}</h3>
         </div>
         <div id="body-popular-job-category" class="row col-12 pb-5">
             @foreach($employers as $employer)
@@ -860,7 +860,7 @@
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
             <div class="gradient-text">
-                <span class="ps-3 pt-3">For Employers</span>
+                <span class="ps-3 pt-3">{{ __('message.For Employers') }}</span>
             </div>      
         </div>
 
@@ -869,7 +869,7 @@
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
             <div class="gradient-text">
-                <span class="ps-3 pt-3">For Jobseekers</span>
+                <span class="ps-3 pt-3">{{ __('message.For Jobseekers') }}</span>
             </div>      
         </div>
 
@@ -878,7 +878,7 @@
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
             <div class="gradient-text">
-                <span class="ps-3 pt-3">For Jobseekers</span>
+                <span class="ps-3 pt-3">{{ __('message.For Jobseekers') }}</span>
             </div>      
         </div>
 
@@ -887,7 +887,7 @@
                 <img src="{{ asset('frontend/img/featured/bg-image.jpg') }}" class="img-responsive w-100">
             </div>
             <div class="gradient-text">
-                <span class="ps-3 pt-3">For Jobseekers</span>
+                <span class="ps-3 pt-3">{{ __('message.For Jobseekers') }}</span>
             </div>      
         </div>
  </div>
@@ -898,19 +898,19 @@
 <div class="container mt-5 p-0">
     <div class="row d-flex align-items-end" id="">
         <div class="col-md-6 col-12 p-5 text-center border-end">
-            <h1 style="color: #FB5404">Jobseeker</h1>
+            <h1 style="color: #FB5404">{{ __('message.Jobseeker') }}</h1>
             <h5>Ready to apply? It is easy now!</h5>
             <img src="{{ asset('img/background/jobseeker_signup.png') }}" class="img-fluid my-3" alt="">
             <div>
-            <a href="{{ route('register-form') }}" class="btn text-white" style="background: #FB5404">Sign up here</a>
+            <a href="{{ route('register-form') }}" class="btn text-white" style="background: #FB5404">{{ __('message.Sign up here') }}</a>
             </div>
         </div>
         <div class="col-md-6 col-12 p-5 text-center">
-            <h1>Employer</h1>
+            <h1>{{ __('message.Employers') }}</h1>
             <h5>Ready to hire? It is easy now!</h5>
             <img src="{{ asset('img/background/employer_signup.png') }}" class="img-fluid my-3" alt="">
             <div>
-            <a href="{{ route('employer-register-form') }}" class="btn text-white" style="background: #091E3E">Sign up here</a>
+            <a href="{{ route('employer-register-form') }}" class="btn text-white" style="background: #091E3E">{{ __('message.Sign up here') }}</a>
             </div>
         </div>
     </div>

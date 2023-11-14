@@ -103,10 +103,10 @@
                                         <input type="checkbox" name="employer_terms" id="employer_terms" class="" style="width: 15px" required> <label style="font-size: 0.9rem" for="employer_terms" class="mt-2 ms-1 terms_link"> I agree with the <a href="{{ route('terms-of-use') }}">Terms & Conditions</a> of Infinity Careers</label>                              
                                     </div>
                                     <div class="form-group p-1">
-                                        <button type="submit" class="btn col-12 btn-signup"> Sign Up  </button>
+                                        <button type="submit" class="btn col-12 btn-signup"> {{ __('message.Sign Up') }}  </button>
                                     </div>      
                                         
-                                    <p class="text-center">Already Sign Up ? <a href="{{ route('employer-login-form') }}" class="signIn_link">Sign In</a> </p>                                                                 
+                                    <p class="text-center">Already Sign Up ? <a href="{{ route('employer-login-form') }}" class="signIn_link">{{ __('message.Sign In') }}</a> </p>                                                                 
                                 </form>
                             </article>
                         </div>

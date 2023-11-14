@@ -17,7 +17,7 @@
                 <span class="text-light fw-bold">{{ date('F d, Y', strtotime(Auth::guard('employer')->user()->package_end_date)) }}</span>
                 @endif
                 <a href="{{ route('employer-job-post.create') }}" class="btn bg-light" style="color: #0355D0; margin: 10px">
-                    Post a Job
+                {{ __('message.Post a Job') }}
                 </a>
                 
                 @auth('employer')
@@ -67,7 +67,7 @@
                 @else
                 <a href="{{ route('login-form') }}" class="nav-item nav-link {{ Request::is('login-form') ? 'active' : '' }}">Seeker <br> Sign In</a>
                 <a href="{{ route('employer-login-form') }}" class="nav-item nav-link {{ Request::is('employer/login-form') ? 'active' : '' }}">Employer <br> Sign In</a>
-                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">Sign Up</a></span>
+                <span class="nav-item nav-link"><a href="{{ route('register-form') }}" class="header-btn">{{ __('message.Sign Up') }}</a></span>
                 @endauth
                 <a class="nav-item nav-link d-none d-lg-block">|</a>
                 <div class="row">
