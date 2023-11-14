@@ -79,7 +79,7 @@
                                         <h5 class="fw-bold text-black">Qualification :</h5>
                                         <div class="mb-4 fz14 fw-bold">{{ $jobpost->degree }}</div>
                                         <h5 class="fw-bold text-black">Job Specializations :</h5>
-                                        <div class="mb-4 fz14 fw-bold">{{ $jobPost->MainFunctionalArea ? $jobpost->MainFunctionalArea->name : '' }} , {{ $jobpost->SubFunctionalArea ? $jobpost->SubFunctionalArea->name : '' }}</div>
+                                        <div class="mb-4 fz14 fw-bold">{{ $jobpost->MainFunctionalArea ? $jobpost->MainFunctionalArea->name : '' }} , {{ $jobpost->SubFunctionalArea ? $jobpost->SubFunctionalArea->name : '' }}</div>
                                         @if($jobpost->job_description)
                                         <h5 class="fw-bold text-black">Job Description</h5>
                                         <div class="mb-4">
