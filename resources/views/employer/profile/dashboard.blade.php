@@ -12,7 +12,7 @@
                         <a href="{{ route('manageJob') }}">
                         <div class="row me-0 p-3 shadow" style="border-radius: 8px;">
                             <div class="col-8">
-                                <p class="overview-title">Opening Jobs</p>
+                                <p class="overview-title">{{ __('message.Opening Jobs') }}</p>
                                 <span class="fw-bold fs-3 text-black">{{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}</span>
                             </div>
                             <div class="col-4">

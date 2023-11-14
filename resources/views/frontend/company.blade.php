@@ -17,7 +17,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                 <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                     <div class="form-group has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Employers" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
+                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="{{ __('message.Search Employers') }}" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
                 
@@ -34,7 +34,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                 <div class="col-lg-9 col-md-9 col-sm-9 col-8">
                     <div class=" has-search">
                         <span class="form-control-feedback company-icon"><i class="fa fa-search fa-md"></i></span>
-                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="Search Employers" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
+                        <input type="text" name="company_name" class="form-control search-slt company-search" placeholder="{{ __('message.Search Employers') }}" @if(isset($_GET['company_name'])) value="{{ $_GET['company_name'] }}" @endif>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-4 pe-0">
@@ -80,7 +80,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                     </div>--}}
         
                     <div class="company-job-count py-2 text-center">
-                        Opening Jobs - {{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}
+                    {{ __('message.Opening Jobs') }} - {{ $employer->JobPost->where('is_active',1)->where('status','Online')->count() }}
                     </div>
                 </div>
             </a>

@@ -59,7 +59,7 @@
     </div>
     <div class="row">
         <div class="form-group mt-1 col-12 col-md-6">
-            <label for="industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
+            <label for="industry_id" class="seeker_label my-2">{{ __message('Industry') }} <span class="text-danger">*</span></label>
             <select name="industry_id" id="industry_id" class="select_2 form-control seeker_input" style="width: 100%" required>
                 <option value="">Choose...</option>
                 @foreach($industries as $industry)

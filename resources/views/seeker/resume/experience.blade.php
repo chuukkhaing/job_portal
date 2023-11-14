@@ -98,7 +98,7 @@
                         <span class="text-danger exp_career_level-error"></span>
                     </div>
                     <div class="form-group col-12 col-md-6 my-0">
-                        <label for="exp_industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
+                        <label for="exp_industry_id" class="seeker_label my-2">{{ __message('Industry') }} <span class="text-danger">*</span></label>
                         <select name="exp_industry_id" id="exp_industry_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
                             @foreach($industries as $industry)
@@ -219,7 +219,7 @@
                         <span class="text-danger edit_exp_career_level-error"></span>
                     </div>
                     <div class="form-group col-12 col-md-6 my-0">
-                        <label for="edit_exp_industry_id" class="seeker_label my-2">Industry <span class="text-danger">*</span></label>
+                        <label for="edit_exp_industry_id" class="seeker_label my-2">{{ __message('Industry') }} <span class="text-danger">*</span></label>
                         <select name="edit_exp_industry_id" id="edit_exp_industry_id" class="form-control seeker_input">
                             <option value="">Choose...</option>
                             @foreach($industries as $industry)
