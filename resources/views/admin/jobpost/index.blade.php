@@ -42,7 +42,7 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $jobPost->job_title }}</td>
                             <td><a href="{{ route('employers.edit', $jobPost->Employer->id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->name }}</a>@if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</td>
-                            <td>{{ $jobPost->Industry->name }}</td>
+                            <td>{{ $jobPost->Industry ? $jobPost->Industry->name : '' }}</td>
                             <td>{{ $jobPost->MainFunctionalArea ? $jobPost->MainFunctionalArea->name : '' }}</td>
                             <td>@if($jobPost->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
