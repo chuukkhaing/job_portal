@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SeekerController;
 use App\Http\Controllers\Admin\EmployerInfoController;
 use App\Http\Controllers\Admin\PointPackageController;
 use App\Http\Controllers\Admin\PointOrderController;
+use App\Http\Controllers\Admin\BankInfoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,5 +117,8 @@ Route::group([], function(){
 
         // point order 
         Route::resource('point-topup', PointOrderController::class);
+
+        // bank info
+        Route::resource('bank-info', BankInfoController::class);
     });
 });

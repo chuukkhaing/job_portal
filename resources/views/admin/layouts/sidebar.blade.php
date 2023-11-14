@@ -28,7 +28,7 @@
             <i class="fa-solid fa-user-lock"></i>
             <span>Admin</span>
         </a>
-        <div id="user_manage" class="collapse {{ Request::is('admin/roles*') ? 'show' : '' }} {{ Request::is('admin/users*') ? 'show' : '' }} {{ Request::is('admin/job-posts*') ? 'show' : '' }} {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/city*') ? 'show' : '' }} {{ Request::is('admin/package-item*') ? 'show' : '' }} {{ Request::is('admin/package-type*') ? 'show' : '' }} {{ Request::is('admin/point-package*') ? 'show' : '' }} {{ Request::is('admin/point-topup*') ? 'show' : '' }} {{ Request::is('admin/slider*') ? 'show' : '' }} {{ Request::is('admin/feedback*') ? 'show' : '' }} {{ Request::is('admin/industry*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }} {{ Request::is('admin/main-functional-area*') ? 'show' : '' }} {{ Request::is('admin/sub-functional-area*') ? 'show' : '' }} {{ Request::is('admin/skill*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="user_manage" class="collapse {{ Request::is('admin/roles*') ? 'show' : '' }} {{ Request::is('admin/users*') ? 'show' : '' }} {{ Request::is('admin/job-posts*') ? 'show' : '' }} {{ Request::is('admin/state*') ? 'show' : '' }} {{ Request::is('admin/city*') ? 'show' : '' }} {{ Request::is('admin/package-item*') ? 'show' : '' }} {{ Request::is('admin/package-type*') ? 'show' : '' }} {{ Request::is('admin/point-package*') ? 'show' : '' }} {{ Request::is('admin/point-topup*') ? 'show' : '' }} {{ Request::is('admin/slider*') ? 'show' : '' }} {{ Request::is('admin/feedback*') ? 'show' : '' }} {{ Request::is('admin/industry*') ? 'show' : '' }} {{ Request::is('admin/ownership-type*') ? 'show' : '' }} {{ Request::is('admin/main-functional-area*') ? 'show' : '' }} {{ Request::is('admin/sub-functional-area*') ? 'show' : '' }} {{ Request::is('admin/skill*') ? 'show' : '' }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('role-list')
                 <a class="collapse-item {{ Request::is('admin/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">Roles</a>
@@ -134,7 +134,7 @@
             <i class="fa-solid fa-user-pen"></i>
             <span>Seekers</span>
         </a>
-        <div id="seekers" class="collapse {{ Request::is('admin/seeker*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="seekers" class="collapse {{ Request::is('admin/seeker*') ? 'show' : '' }}" aria-labelledby="headingThree" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('seeker-list')
                 <a class="collapse-item {{ Request::is('admin/seeker*') ? 'active' : '' }}" href="{{ route('seeker.index') }}">Seekers</a>
@@ -143,6 +143,23 @@
         </div>
     </li>
     @endcan
+
+    <!-- Nav Item - Finance Menu -->
+    
+    <li class="nav-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#finance"
+            aria-expanded="true" aria-controls="finance">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+            <span>Finance</span>
+        </a>
+        <div id="finance" class="collapse {{ Request::is('admin/bank-info*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                
+                <a class="collapse-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}" href="{{ route('bank-info.index') }}">Bank Information</a>
+                
+            </div>
+        </div>
+    </li>
     
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
