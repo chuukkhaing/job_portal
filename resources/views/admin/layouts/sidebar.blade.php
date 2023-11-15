@@ -146,16 +146,17 @@
 
     <!-- Nav Item - Finance Menu -->
     
-    <li class="nav-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('admin/bank-info*') ? 'active' : '' }} {{ Request::is('admin/tax*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#finance"
             aria-expanded="true" aria-controls="finance">
             <i class="fa-solid fa-hand-holding-dollar"></i>
             <span>Finance</span>
         </a>
-        <div id="finance" class="collapse {{ Request::is('admin/bank-info*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div id="finance" class="collapse {{ Request::is('admin/bank-info*') ? 'show' : '' }} {{ Request::is('admin/tax*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 
                 <a class="collapse-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}" href="{{ route('bank-info.index') }}">Bank Information</a>
+                <a class="collapse-item {{ Request::is('admin/tax*') ? 'active' : '' }}" href="{{ route('tax.index') }}">Commercial Tax</a>
                 
             </div>
         </div>

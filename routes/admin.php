@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\EmployerInfoController;
 use App\Http\Controllers\Admin\PointPackageController;
 use App\Http\Controllers\Admin\PointOrderController;
 use App\Http\Controllers\Admin\BankInfoController;
+use App\Http\Controllers\Admin\TaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,5 +121,8 @@ Route::group([], function(){
 
         // bank info
         Route::resource('bank-info', BankInfoController::class);
+
+        // tax 
+        Route::resource('tax', TaxController::class);
     });
 });
