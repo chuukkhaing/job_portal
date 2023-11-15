@@ -135,6 +135,7 @@
     <div>
         <p class="ic_name">Infinity Careers Co.,Ltd</p>
         <p class="ic_address">No (47), Thazin Street, Ahlone Township, Yangon</p>
+        <p class="company_email">www.infinitycareers.com.mm, support@infinitycareers.com.mm</p>
         <p class="ic_phone">09 880915475, 09 880915476</p>
     </div>
     <div class="invoice-section">
