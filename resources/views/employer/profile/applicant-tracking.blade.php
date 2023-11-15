@@ -627,7 +627,7 @@
                     }else {
                         $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
                     }
-                    if(response.seeker.image){
+                    if(response.seeker_img){
                         $('.app_receive_pic').attr('src',response.seeker_img);
                     }else {
                         $('.app_receive_pic').attr('src',document.location.origin+'/img/undraw_profile_1.svg');
