@@ -626,6 +626,7 @@ class EmployerJobPostController extends Controller
             'notsuitable' => $notsuitable,
         ];
         $seeker_img = getS3File('seeker/profile/'.$seeker->id ,$seeker->image);
+        $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
@@ -640,7 +641,8 @@ class EmployerJobPostController extends Controller
             'seeker_attach' => $seeker_attach,
             'count' => $count,
             'cvunlock' => $cvunlock,
-            'seeker_img' => $seeker_img
+            'seeker_img' => $seeker_img,
+            'seeker_cv' => $seeker_cv
         ]);
     }
 
@@ -729,6 +731,7 @@ class EmployerJobPostController extends Controller
             'notsuitable' => $notsuitable,
         ];
         $seeker_img = getS3File('seeker/profile/'.$seeker->id ,$seeker->image);
+        $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost,
@@ -743,7 +746,8 @@ class EmployerJobPostController extends Controller
             'seeker_attach' => $seeker_attach,
             'count' => $count,
             'cvunlock' => $cvunlock,
-            'seeker_img' => $seeker_img
+            'seeker_img' => $seeker_img,
+            'seeker_cv' => $seeker_cv
         ]);
     }
 

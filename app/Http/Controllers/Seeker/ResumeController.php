@@ -49,8 +49,9 @@ class ResumeController extends Controller
         if ($request->file('profile_image')) {
             $file  = $request->file('profile_image');
             $image = date('YmdHi') . $file->getClientOriginalName();
-
+            
             $path     = 'seeker/profile/'. $request->seeker_id . '/' . $image;
+            Storage::disk('s3')->makeDirectory($path);
             Storage::disk('s3')->put($path, file_get_contents($file));
             $path = Storage::disk('s3')->url($path);
         }
