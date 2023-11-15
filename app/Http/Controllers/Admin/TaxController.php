@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Admin\Tax;
+use Alert;
+use Auth;
 
 class TaxController extends Controller
 {
@@ -14,7 +17,8 @@ class TaxController extends Controller
      */
     public function index()
     {
-        //
+        $tax = Tax::whereNull('deleted_at')->first();
+        return view('admin.tax.index', compact('tax'));
     }
 
     /**
@@ -69,7 +73,15 @@ class TaxController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tax = Tax::findOrFail($id);
+        $tax = $tax->update([
+            'tax' => $request->tax,
+            'is_active' => $request->is_active,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        Alert::success('Success', 'Commercial Tax Updated Successfully!');
+        return redirect()->route('tax.index');
     }
 
     /**
