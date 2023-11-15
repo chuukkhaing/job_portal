@@ -152,12 +152,12 @@
             <i class="fa-solid fa-hand-holding-dollar"></i>
             <span>Finance</span>
         </a>
-        <div id="finance" class="collapse {{ Request::is('admin/bank-info*') ? 'show' : '' }} {{ Request::is('admin/tax*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div id="finance" class="collapse {{ Request::is('admin/invoice*') ? 'show' : '' }} {{ Request::is('admin/bank-info*') ? 'show' : '' }} {{ Request::is('admin/tax*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 
                 <a class="collapse-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}" href="{{ route('bank-info.index') }}">Bank Information</a>
                 <a class="collapse-item {{ Request::is('admin/tax*') ? 'active' : '' }}" href="{{ route('tax.index') }}">Commercial Tax</a>
-                
+                <a class="collapse-item {{ Request::is('admin/invoice*') ? 'active' : '' }}" href="{{ route('invoice.index') }}">Invoices</a>
             </div>
         </div>
     </li>

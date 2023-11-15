@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Admin\PointOrder;
 use App\Models\Employer\JobPostPointDetect;
 use App\Models\Employer\JobPost;
+use App\Models\Admin\Invoice;
+use App\Models\Admin\Tax;
+use App\Models\Admin\BankInfo;
 use Auth;
 use Alert;
+use PDF;
+use Storage;
 
 class PointOrderController extends Controller
 {
@@ -88,31 +93,65 @@ class PointOrderController extends Controller
     public function update(Request $request, $id)
     {
         $order = PointOrder::findOrFail($id);
-        if($request->status == 'Approved') {
-            $point = $order->PointPackage->point;
-            $employer = $order->Employer;
-            $employer_update = $employer->update([
-                'add_on_point' => $employer->add_on_point + $point,
-                'purchased_point' => $employer->purchased_point + $point
-            ]);
-        }
-        $order_update = $order->update([
-            'status' => $request->status,
-            'updated_by' => Auth()->user()->id
-        ]);
-
-        $jobpostpoint = JobPostPointDetect::wherePointOrderId($id)->first();
-        if(isset($jobpostpoint)) {
-            $jobPost = JobPost::findOrFail($jobpostpoint->job_post_id);
-            $jobPost->update([
-                'status' => 'Pending'
-            ]);
-        }
-
-        if($order_update) {
-            Alert::success('Success', 'Point Topup Successfully!');
+        if($order->status == $request->status) {
+            Alert::success('Success', 'There is no Changes!');
             return redirect()->route('point-topup.index');
+        }else {
+            if($request->status == 'Approved') {
+                $point = $order->PointPackage->point;
+                $employer = $order->Employer;
+                $employer_update = $employer->update([
+                    'add_on_point' => $employer->add_on_point + $point,
+                    'purchased_point' => $employer->purchased_point + $point
+                ]);
+                $last_invoice_no = Invoice::orderBy('invoice_no', 'desc')->first();
+                if(isset($last_invoice_no)){
+                    $last_invoice_no = $last_invoice_no->invoice_no;
+                }else {
+                    $last_invoice_no = 000000;
+                }
+                $invoice_no = sprintf('%06d', $last_invoice_no + 1);
+                $tax = Tax::first();
+                $tax_amount = ($order->PointPackage->price * $tax->tax) / 100 ;
+                $final_balance = $order->PointPackage->price + $tax_amount;
+                $banks = BankInfo::whereNull('deleted_at')->whereIsActive(1)->get();
+                $fileName =  date('YmdHi').$invoice_no.'_ic_point_invoice.pdf';
+                $invoice = Invoice::create([
+                    'invoice_no' => $invoice_no,
+                    'point_order_id' => $id,
+                    'tax' => $tax_amount,
+                    'sub_total' => $order->PointPackage->price,
+                    'final_balance' => $final_balance,
+                    'file_name' => $fileName,
+                    'created_by' => Auth::user()->id
+                ]);
+                $pdf = PDF::loadView('download.invoice', compact('invoice', 'tax', 'tax_amount', 'final_balance', 'banks'));
+                
+                $fileName =  date('YmdHi').$invoice_no.'_ic_point_invoice.pdf';
+                
+                $path     = 'invoice/' . $fileName;
+                Storage::disk('s3')->put($path, $pdf->output());
+                $path = Storage::disk('s3')->url($path);
+            }
+            $order_update = $order->update([
+                'status' => $request->status,
+                'updated_by' => Auth()->user()->id
+            ]);
+    
+            $jobpostpoint = JobPostPointDetect::wherePointOrderId($id)->first();
+            if(isset($jobpostpoint)) {
+                $jobPost = JobPost::findOrFail($jobpostpoint->job_post_id);
+                $jobPost->update([
+                    'status' => 'Pending'
+                ]);
+            }
+    
+            if($order_update) {
+                Alert::success('Success', 'Point Topup Successfully!');
+                return redirect()->route('point-topup.index');
+            }
         }
+        
     }
 
     /**

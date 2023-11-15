@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\PointPackageController;
 use App\Http\Controllers\Admin\PointOrderController;
 use App\Http\Controllers\Admin\BankInfoController;
 use App\Http\Controllers\Admin\TaxController;
+use App\Http\Controllers\Admin\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,5 +125,8 @@ Route::group([], function(){
 
         // tax 
         Route::resource('tax', TaxController::class);
+
+        // invoice 
+        Route::resource('invoice', InvoiceController::class);
     });
 });
