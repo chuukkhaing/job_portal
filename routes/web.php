@@ -44,3 +44,4 @@ Route::get('/company-jobs/{id}', [HomeController::class, 'companyJob'])->name('c
 Route::get('/about-us', [HomeController::class, 'aboutUs'])->name('about-us');
 Route::get('/terms-of-use', [HomeController::class, 'termsOfUse'])->name('terms-of-use');
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/seeker-application-create', [SeekerRegisterController::class, 'applicationCreate'])->name('application-create');

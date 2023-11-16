@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\State;
+use App\Models\Admin\Township;
+use App\Models\Admin\FunctionalArea;
 use URL;
 
 class SeekerRegisterController extends Controller
@@ -131,5 +134,15 @@ class SeekerRegisterController extends Controller
 
         return redirect()->route('login-form')->with('success', 'Reset Password Successfully.');
 
+    }
+
+    public function applicationCreate()
+    {
+        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
+        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
+        $functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
+        $industries           = Industry::whereNull('deleted_at')->get();
+        return view ('frontend.application.create', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries'));
     }
 }
