@@ -279,7 +279,7 @@
                                         </a>
 
                                         <ul class="dropdown-menu d-none" aria-labelledby="dropdownMenuLink">
-                                            <li><a class="dropdown-item download_seeker_cv" href="" download>Download Seeker's CV</a></li>
+                                            <li><a class="dropdown-item download_seeker_cv" target="_blank" href="" download>Download Seeker's CV</a></li>
                                             <li><a class="dropdown-item download_ic_cv" href="#">Download IC Format CV</a></li>
                                         </ul>
                                     </div>
@@ -593,16 +593,16 @@
                     table.draw();
                     $('#applicant_tr'+value.seeker_id).attr('onClick','getRelatedApplicantInfo('+value.seeker_id+','+value.job_post_id+',"'+value.status+'")');
                     $('#applicant_tr'+value.seeker_id).addClass(active);
-                    
                     if(response.cvunlock.length > 0) {
                         $(response.cvunlock).each(function(cv_index, cv_value) {
+                            console.log(value.seeker_id == response.seeker.id, cv_value.job_apply_id == value.id)
                             if(value.seeker_id == response.seeker.id && cv_value.job_apply_id != value.id) {
                                 $("#cv-unlock").attr('onclick','cvUnlock('+response.jobPost.employer_id+','+response.jobPost.id+','+value.id+')');
                                 $("#dropdownMenuLink").attr('data-toggle','modal');
                                 $("#dropdownMenuLink").attr('data-target','#pointDetection');
                                 $(".dropdown-menu").addClass('d-none');
                                 $('.cv-unlock-data').addClass('d-none');
-                            }else if (value.seeker_id == response.seeker.id && cv_value.job_apply_id == value.id) {
+                            }else if (cv_value.job_apply_id == value.id) {
                                 $("#dropdownMenuLink").attr('data-toggle','');
                                 $("#dropdownMenuLink").attr('data-target','');
                                 $(".dropdown-menu").removeClass('d-none');
