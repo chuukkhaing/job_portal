@@ -436,16 +436,14 @@ class EmployerProfileController extends Controller
     public function manageJob()
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
+        
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $pendingjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
-        $onlinejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
-        $rejectjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
-        $expirejobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
-        $draftjobPosts = JobPost::whereEmployerId($employer->id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
+        $pendingjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
+        $onlinejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
+        $rejectjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
+        $expirejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
+        $draftjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
         if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0) {
             return redirect()->route('employer-job-post.create');
         }else {
@@ -456,14 +454,12 @@ class EmployerProfileController extends Controller
     public function applicantTracking()
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
+        
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $activejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(1)->where('status','!=', 'Expire')->get();
-        $inactivejobApplicants = JobPost::whereEmployerId($employer->id)->whereIsActive(0)->where('status','!=', 'Expire')->get();
-        $expirejobApplicants = JobPost::whereEmployerId($employer->id)->where('status', 'Expire')->get();
+        $activejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->whereIsActive(1)->where('status','!=', 'Expire')->get();
+        $inactivejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->whereIsActive(0)->where('status','!=', 'Expire')->get();
+        $expirejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->get();
         return view ('employer.profile.applicant-tracking', compact('activejobApplicants', 'inactivejobApplicants', 'expirejobApplicants', 'employer', 'packages', 'packageItems'));
     }
 

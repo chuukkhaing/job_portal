@@ -85,4 +85,9 @@ class Employer extends Authenticatable
     {
         return $this->hasMany(self::class, 'employer_id', 'id');
     }
+
+    public function MainEmployer()
+    {
+        return $this->belongsTo(self::class, 'employer_id', 'id');
+    }
 }

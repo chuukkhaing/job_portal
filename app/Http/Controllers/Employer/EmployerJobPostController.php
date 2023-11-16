@@ -93,7 +93,13 @@ class EmployerJobPostController extends Controller
             'job_post_type' => 'required',
             'job_post_state' => ['required_if:job_post_country,Myanmar']
         ]);
-        if($request->total_point && $request->total_point > Auth::guard('employer')->user()->package_point) {
+
+        $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+
+        if($request->total_point && $request->total_point > $employer->package_point) {
             return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
         }else {
             $gender = Null;

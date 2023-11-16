@@ -21,10 +21,7 @@ class PointHistoryController extends Controller
     {
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
-        if($employer->employer_id) {
-            $employer = Employer::findOrFail($employer->employer_id);
-        }
-        $point_records = PointRecord::whereEmployerId($employer->id)->orderBy('created_at','desc')->get();
+        $point_records = PointRecord::whereIn('employer_id', [$employer->id, $employer->employer_id])->orderBy('created_at','desc')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
         return view('employer.profile.point-history', compact('packages', 'employer', 'point_records', 'packageItems'));
     }

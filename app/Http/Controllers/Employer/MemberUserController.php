@@ -59,7 +59,7 @@ class MemberUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employers,email,NULL,id,deleted_at,NULL'],
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
             'confirm-password' => ['required', 'string', 'min:8'],
             'is_active' => ['required'],
@@ -82,6 +82,7 @@ class MemberUserController extends Controller
         ]);
         
         if($employer) {
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
             if($check_member == 1) {
                 $member_point = PointRecord::create([
                     'employer_id' => $employer->employer_id,
@@ -121,7 +122,6 @@ class MemberUserController extends Controller
         }
         
         if ($employer) {
-            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
 
             return redirect()->route('member-user.index')->with('success', 'New Member Created Successfully!');
         }

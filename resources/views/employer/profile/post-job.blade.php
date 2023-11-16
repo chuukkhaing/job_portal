@@ -880,29 +880,24 @@
     function calculatePoint()
     {
         total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
-        var employer_point = checkPointBalance();
-
-        if(total_point > employer_point) {
-            $(".savejobpost").addClass('disabled');
-            $("#pointBalance").modal('show');
-        }else {
-            $(".savejobpost").removeClass('disabled');
-        }
-        $("#total_point").val(total_point);
-        $("#point_detect").text(total_point);
-    }
-
-    function checkPointBalance()
-    {
         var employer_id = {{ Auth::guard('employer')->user()->id }};
-        var point = 0;
+        var employer_point = 0;
         $.ajax({
             type: 'GET',
             url: '/employer/point-balance/'+employer_id,
-        }).done(function(response){
-            point = response.point;
-        })
-        return point;
+            dataType: "json",
+            success:function(response) {
+                employer_point = response.point;
+                if(total_point > employer_point) {
+                    $(".savejobpost").addClass('disabled');
+                    $("#pointBalance").modal('show');
+                }else {
+                    $(".savejobpost").removeClass('disabled');
+                }
+                $("#total_point").val(total_point);
+                $("#point_detect").text(total_point);
+            }
+        });
     }
 
     $(".job-post-question").on("click", "#DeleteButton", function() {

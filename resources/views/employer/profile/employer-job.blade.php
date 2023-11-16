@@ -9,80 +9,15 @@
             <div class="container-fluid" id="edit-profile-header">
                 <nav class="py-3">
                     <div class="nav nav-tabs manage-jobs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" type="button" role="tab" aria-controls="nav-pending" aria-selected="true">Pending</button>
-                        <button class="nav-link" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="false">Approved</button>
+                        <button class="nav-link active" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="true">Approved</button>
+                        <button class="nav-link" id="nav-pending-tab" data-bs-toggle="tab" data-bs-target="#nav-pending" type="button" role="tab" aria-controls="nav-pending" aria-selected="false">Pending</button>
                         <button class="nav-link" id="nav-reject-tab" data-bs-toggle="tab" data-bs-target="#nav-reject" type="button" role="tab" aria-controls="nav-reject" aria-selected="false">Reject</button>
                         <button class="nav-link" id="nav-expire-tab" data-bs-toggle="tab" data-bs-target="#nav-expire" type="button" role="tab" aria-controls="nav-expire" aria-selected="false">Expire</button>
                         <button class="nav-link" id="nav-draft-tab" data-bs-toggle="tab" data-bs-target="#nav-draft" type="button" role="tab" aria-controls="nav-draft" aria-selected="false">Draft</button>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
-                        
-                        <div class="table-responsive" id="applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
-                                <thead>
-                                    <tr>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($pendingjobPosts as $key => $pendingjobPost)
-                                <tr>
-                                    <td class="text-black">{{ $key+1 }}</td>
-                                    <td class="text-black">{{ $pendingjobPost->job_title }} ({{ $pendingjobPost->no_of_candidate }} - posts)</td>
-                                    <td>@if($pendingjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($pendingjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif</td>
-                                    <td class="text-black">
-                                        {{ $pendingjobPost->MainFunctionalArea ? $pendingjobPost->MainFunctionalArea->name : '' }} , 
-                                        {{ $pendingjobPost->SubFunctionalArea ? $pendingjobPost->SubFunctionalArea->name : '' }}
-                                    </td>
-                                    <td>
-                                        <div class="job-post-status-{{$pendingjobPost->id}}">
-                                            @if($pendingjobPost->is_active == 0)
-                                            <span class="badge rounded-pill px-3 bg-secondary">Deactive</span>
-                                            @else
-                                                @if($pendingjobPost->status == 'Pending')
-                                                <span class="badge rounded-pill px-3 bg-primary">{{ $pendingjobPost->status }}</span>
-                                                @elseif($pendingjobPost->status == 'Online')
-                                                <span class="badge rounded-pill px-3 bg-success">{{ $pendingjobPost->status }}</span>
-                                                @elseif($pendingjobPost->status == 'Reject')
-                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $pendingjobPost->status }}</span>
-                                                @elseif($pendingjobPost->status == 'Expire')
-                                                <span class="badge rounded-pill px-3 bg-danger">{{ $pendingjobPost->status }}</span>
-                                                @elseif($pendingjobPost->status == 'Draft')
-                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $pendingjobPost->status }}</span>
-                                                @endif
-                                            @endif
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span style="" class="text-black">
-                                        {{ date('d M, Y', strtotime($pendingjobPost->updated_at)) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="">
-                                            <a href="{{ route('employer-job-post.edit', $pendingjobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
-                                            <div class="d-inline-block form-switch ms-3 fw-bold">
-                                                <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($pendingjobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $pendingjobPost->id }}" onclick="changeJobPostStatus({{ $pendingjobPost->id }}, {{ $pendingjobPost->is_active }})">
-                                                <label for="job_post_is_active" id="job_post_is_active-{{$pendingjobPost->id}}">@if($pendingjobPost->is_active == 1) Activate @else Deactivate @endif</label>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                    </div>
-                    <div class="tab-pane fade" id="nav-online" role="tabpanel" aria-labelledby="nav-online-tab">
+                    <div class="tab-pane fade show active" id="nav-online" role="tabpanel" aria-labelledby="nav-online-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
                             <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
@@ -149,6 +84,72 @@
                         </div>
                         
                     </div>
+                    <div class="tab-pane fade" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+                        
+                        <div class="table-responsive" id="applicant-tracking-section">
+                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Title</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($pendingjobPosts as $key => $pendingjobPost)
+                                <tr>
+                                    <td class="text-black">{{ $key+1 }}</td>
+                                    <td class="text-black">{{ $pendingjobPost->job_title }} ({{ $pendingjobPost->no_of_candidate }} - posts)</td>
+                                    <td>@if($pendingjobPost->job_post_type == 'trending') <span class="badge rounded-pill px-3" style="background: #FB5404">Trending</span> @elseif($pendingjobPost->job_post_type == 'feature') <span class="badge rounded-pill px-3" style="background: #0355D0">Feature</span> @else <span class="badge rounded-pill px-3 bg-success"> Standard </span> @endif</td>
+                                    <td class="text-black">
+                                        {{ $pendingjobPost->MainFunctionalArea ? $pendingjobPost->MainFunctionalArea->name : '' }} , 
+                                        {{ $pendingjobPost->SubFunctionalArea ? $pendingjobPost->SubFunctionalArea->name : '' }}
+                                    </td>
+                                    <td>
+                                        <div class="job-post-status-{{$pendingjobPost->id}}">
+                                            @if($pendingjobPost->is_active == 0)
+                                            <span class="badge rounded-pill px-3 bg-secondary">Deactive</span>
+                                            @else
+                                                @if($pendingjobPost->status == 'Pending')
+                                                <span class="badge rounded-pill px-3 bg-primary">{{ $pendingjobPost->status }}</span>
+                                                @elseif($pendingjobPost->status == 'Online')
+                                                <span class="badge rounded-pill px-3 bg-success">{{ $pendingjobPost->status }}</span>
+                                                @elseif($pendingjobPost->status == 'Reject')
+                                                <span class="badge rounded-pill px-3 bg-warning text-dark">{{ $pendingjobPost->status }}</span>
+                                                @elseif($pendingjobPost->status == 'Expire')
+                                                <span class="badge rounded-pill px-3 bg-danger">{{ $pendingjobPost->status }}</span>
+                                                @elseif($pendingjobPost->status == 'Draft')
+                                                <span class="badge rounded-pill px-3 bg-secondary">{{ $pendingjobPost->status }}</span>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($pendingjobPost->updated_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="">
+                                            <a href="{{ route('employer-job-post.edit', $pendingjobPost->id) }}" class="text-black"><i class="fas fa-edit"></i> Edit</a>
+                                            <div class="d-inline-block form-switch ms-3 fw-bold">
+                                                <input class="form-check-input employer-form-check form-switch" type="checkbox" @if($pendingjobPost->is_active == 0) checked @endif role="switch" id="job_post_is_active_{{ $pendingjobPost->id }}" onclick="changeJobPostStatus({{ $pendingjobPost->id }}, {{ $pendingjobPost->is_active }})">
+                                                <label for="job_post_is_active" id="job_post_is_active-{{$pendingjobPost->id}}">@if($pendingjobPost->is_active == 1) Activate @else Deactivate @endif</label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    
                     <div class="tab-pane fade" id="nav-reject" role="tabpanel" aria-labelledby="nav-reject-tab">
                         
                         <div class="table-responsive" id="applicant-tracking-section">
