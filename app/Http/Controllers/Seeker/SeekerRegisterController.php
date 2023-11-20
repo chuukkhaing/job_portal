@@ -145,4 +145,29 @@ class SeekerRegisterController extends Controller
         $industries           = Industry::whereNull('deleted_at')->get();
         return view ('frontend.application.create', compact('states', 'townships', 'functional_areas', 'sub_functional_areas', 'industries'));
     }
+
+    public function applicationRegister(Request $request)
+    {
+        $this->validate($request, [
+            'phone'    => ['required', new MyanmarPhone],
+            'email' => 'required|string|email|max:255|unique:seekers,email,NULL,id,deleted_at,NULL',
+        ]);
+        $seeker = Seeker::create([
+            'email'                    => $request['email'],
+            'phone'                    => $request['phone'],
+            'date_of_birth'            => null,
+            'password'                 => Hash::make($request['phone']),
+            'email_verification_token' => Str::random(32),
+            'register_at'              => Carbon::now(),
+            'is_active'                => 0
+        ]);
+        if ($seeker) {
+            \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
+
+            return response()->json([
+                'status' => 'success',
+                'seeker' => $seeker
+            ]);
+        }
+    }
 }

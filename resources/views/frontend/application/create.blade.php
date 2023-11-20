@@ -19,12 +19,24 @@
                             <div class="container-fluid m-auto px-0">
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
                                     <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingEmail">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEmail" aria-expanded="true" aria-controls="flush-collapseEmail">
+                                            Email
+                                        </button>
+                                        </h2>
+                                        <div id="flush-collapseEmail" class="accordion-collapse collapse show" aria-labelledby="flush-headingEmail" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                        @include('frontend.application.email')
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                             Personal Information
                                         </button>
                                         </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                         @include('frontend.application.personal_information')
                                         </div>
@@ -38,7 +50,7 @@
                                         </h2>
                                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
-                                            
+                                        @include('frontend.application.experience')
                                         </div>
                                         </div>
                                     </div>
@@ -79,12 +91,12 @@
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingSive">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSive" aria-expanded="false" aria-controls="flush-collapseSive">
+                                        <h2 class="accordion-header" id="flush-headingSix">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
                                             References
                                         </button>
                                         </h2>
-                                        <div id="flush-collapseSive" class="accordion-collapse collapse" aria-labelledby="flush-headingSive" data-bs-parent="#accordionFlushExample">
+                                        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
                                                 
                                             </div>
@@ -108,7 +120,7 @@
                         <div class="col-6 d-none d-lg-block resume-template-background">
                             <page size="A4">
                                 <div class="resume-border">
-                                    
+                                @include('frontend.application.personal_details')
                                 </div>
                             </page>
                         </div>
@@ -166,6 +178,15 @@
         $("#nav-cv-attach").removeClass('show active');
     })
 
+    function checkEmail() {
+        if($(this).val() == '' && $("#email").val() == '') {
+            MSalert.principal({
+                icon:'error',
+                title:'Error',
+                description: 'Please fill the Email and Phone first.',
+            })
+        }
+    }
     
 </script>
 @endpush
