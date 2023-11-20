@@ -8,9 +8,9 @@
         </div>
         
         <div class="form-group col-12 col-lg-12">
-            <label for="phone" class="">Phone <span class="text-danger">*</span></label>
-            <input type="number" name="phone" id="phone" class="form-control" onchange="updateProfile('phone', this.value)" value="{{ old('phone') }}" placeholder="09xxxxxxxxx">
-            <small class="text-danger phone-error"></small>
+            <label for="password" class="">Password <span class="text-danger">*</span></label>
+            <input type="password" name="password" id="password" class="form-control" onchange="updateProfile('password', this.value)" value="" placeholder="password">
+            <small class="text-danger password-error"></small>
         </div>
         <input type="hidden" name="seeker_id" id="seeker_id" value="">
     </div>
@@ -30,22 +30,22 @@
     }
 
     $("#email").change(function() {
-        if($(this).val() != '' && $("#phone").val() != '') {
+        if($(this).val() != '' && $("#password").val() != '') {
             $.ajax({
                 type        : 'POST',
                 url         : "{{ route('application-register') }}",
                 data        : {
                     'email' : $("#email").val(),
-                    'phone' : $("#phone").val()
+                    'password' : $("#password").val()
                 },
                 success     : function(response) {
                     
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
-                    if(errors.errors['phone']) {
-                        $("#phone").addClass('is-invalid');
-                        $('.phone-error').text(errors.errors['phone'])
+                    if(errors.errors['password']) {
+                        $("#password").addClass('is-invalid');
+                        $('.password-error').text(errors.errors['password'])
                     }
                     if(errors.errors['email']) {
                         $("#email").addClass('is-invalid')
@@ -55,23 +55,23 @@
             });
         }
     })
-    $("#phone").change(function() {
+    $("#password").change(function() {
         if($(this).val() != '' && $("#email").val() != '') {
             $.ajax({
                 type        : 'POST',
                 url         : "{{ route('application-register') }}",
                 data        : {
                     'email' : $("#email").val(),
-                    'phone' : $("#phone").val()
+                    'password' : $("#password").val()
                 },
                 success     : function(response) {
                     $("#seeker_id").val(response.seeker.id)
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
-                    if(errors.errors['phone']) {
-                        $("#phone").addClass('is-invalid');
-                        $('.phone-error').text(errors.errors['phone'])
+                    if(errors.errors['password']) {
+                        $("#password").addClass('is-invalid');
+                        $('.password-error').text(errors.errors['password'])
                     }
                     if(errors.errors['email']) {
                         $("#email").addClass('is-invalid')

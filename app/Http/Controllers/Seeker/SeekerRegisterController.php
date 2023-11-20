@@ -170,4 +170,13 @@ class SeekerRegisterController extends Controller
             ]);
         }
     }
+
+    public function getTownship($id)
+    {
+        $townships = Township::whereStateId($id)->whereNull('deleted_at')->orderBy('name')->whereIsActive(1)->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $townships,
+        ]);
+    }
 }

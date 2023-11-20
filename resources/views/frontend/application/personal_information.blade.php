@@ -47,6 +47,10 @@
             </div>
         </div>
         <div class="form-group col-12 col-lg-6">
+            <label for="phone" class="">Phone <span class="text-danger">*</span></label>
+            <input type="number" name="phone" id="phone" class="form-control " value="" placeholder="09xxxxxxxxx">
+        </div>
+        <div class="form-group col-12 col-lg-6">
             <label for="gender" class="">Gender  <span class="text-danger">*</span></label>
             <select name="gender" id="gender" class="form-control resume_select_2" style="width: 100%" onchange="updateProfile('gender', this.value)">
                 <option value="">Choose</option>
@@ -242,11 +246,18 @@
             e.preventDefault();
             if($(this).val() != "") {
                 var state_id = $(this).val();
-                $("#township_id").empty();
-                $("#township_id").append('<option value="">Choose</option>')
-                $.each(response.data, function(index, township) {
-                
-                $("#township_id").append('<option value=' + township.id + '>' + township.name +'</option>');
+                $.ajax({
+                    type: 'GET',
+                    url: '/get-township/'+state_id,
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        $("#township_id").empty();
+                        $("#township_id").append('<option value="">Choose</option>')
+                        $.each(response.data, function(index, township) {
+                        
+                        $("#township_id").append('<option value=' + township.id + '>' + township.name +'</option>');
+                        })
+                    }
                 })
             }else {
                 $("#township_id").empty();
@@ -272,6 +283,16 @@
             language: "es",
             autoclose: true,
             format: "dd-mm-yyyy",
+        });
+
+        $("#phone").change(function(e){
+            e.preventDefault();
+            $(".phone").text($(this).val());
+            if($(this).val()) {
+                $('.phone_label').removeClass('d-none');
+            }else {
+                $('.phone_label').addClass('d-none');
+            }
         });
     })
 

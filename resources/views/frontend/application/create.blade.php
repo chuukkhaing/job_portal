@@ -21,7 +21,7 @@
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingEmail">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEmail" aria-expanded="true" aria-controls="flush-collapseEmail">
-                                            Email
+                                            Account Information
                                         </button>
                                         </h2>
                                         <div id="flush-collapseEmail" class="accordion-collapse collapse show" aria-labelledby="flush-headingEmail" data-bs-parent="#accordionFlushExample">

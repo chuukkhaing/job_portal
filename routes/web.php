@@ -46,3 +46,4 @@ Route::get('/terms-of-use', [HomeController::class, 'termsOfUse'])->name('terms-
 Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('/seeker-application-create', [SeekerRegisterController::class, 'applicationCreate'])->name('application-create');
 Route::post('/seeker-application-register', [SeekerRegisterController::class, 'applicationRegister'])->name('application-register');
+Route::get('/get-township/{id}', [SeekerRegisterController::class, 'getTownship']);
