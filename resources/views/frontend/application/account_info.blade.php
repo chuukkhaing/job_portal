@@ -12,6 +12,7 @@
             <input type="password" name="password" id="password" class="form-control" onchange="updateProfile('password', this.value)" value="" placeholder="password">
             <small class="text-danger password-error"></small>
         </div>
+        
         <input type="hidden" name="seeker_id" id="seeker_id" value="">
     </div>
 </div>
@@ -26,6 +27,7 @@
     });
 
     function updateProfile(name, value) {
+        $("."+name+"_label").removeClass("d-none");
         $('.'+name).text(value);
     }
 
@@ -39,7 +41,19 @@
                     'password' : $("#password").val()
                 },
                 success     : function(response) {
+                    $("#seeker_id").val(response.seeker.id);
+                    $(".accordion-button").attr('disabled', false);
+                    $("#email").attr('readonly', true);
+                    $("#password").attr('readonly', true);
+                    $(".tab-disable").attr('data-bs-toggle', 'tab');
+                    $(".external-cv-download").attr('disabled', false);
                     
+                    $(".external-cv-download-link").attr('action', window.location.origin + '/seeker/download-ic-cv/' + $("#seeker_id").val())
+                    MSalert.principal({
+                        icon:'success',
+                        title:'Success',
+                        description:response.msg,
+                    })
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
@@ -65,7 +79,19 @@
                     'password' : $("#password").val()
                 },
                 success     : function(response) {
-                    $("#seeker_id").val(response.seeker.id)
+                    $("#seeker_id").val(response.seeker.id);
+                    $(".accordion-button").attr('disabled', false);
+                    $("#email").attr('readonly', true);
+                    $("#password").attr('readonly', true);
+                    $(".tab-disable").attr('data-bs-toggle', 'tab');
+                    $(".external-cv-download").attr('disabled', false);
+                    
+                    $(".external-cv-download-link").attr('action', window.location.origin + '/seeker/download-ic-cv/' + $("#seeker_id").val())
+                    MSalert.principal({
+                        icon:'success',
+                        title:'Success',
+                        description:response.msg,
+                    })
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);

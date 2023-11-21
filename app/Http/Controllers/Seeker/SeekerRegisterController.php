@@ -16,6 +16,8 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Admin\FunctionalArea;
 use URL;
+use App\Models\Seeker\SeekerPercentage;
+use Auth;
 
 class SeekerRegisterController extends Controller
 {
@@ -149,24 +151,31 @@ class SeekerRegisterController extends Controller
     public function applicationRegister(Request $request)
     {
         $this->validate($request, [
-            'phone'    => ['required', new MyanmarPhone],
             'email' => 'required|string|email|max:255|unique:seekers,email,NULL,id,deleted_at,NULL',
+            'password' => ['required', 'string', 'min:8'],
         ]);
         $seeker = Seeker::create([
             'email'                    => $request['email'],
-            'phone'                    => $request['phone'],
             'date_of_birth'            => null,
-            'password'                 => Hash::make($request['phone']),
-            'email_verification_token' => Str::random(32),
+            'password'                 => Hash::make($request['password']),
             'register_at'              => Carbon::now(),
-            'is_active'                => 0
+            'email_verified'           => 1,
+            'email_verified_at'        => Carbon::now(),
+            'is_active'                => 1,
+            'email_verification_token' => '',
         ]);
+        foreach (config('seekerPercentTitle')['name'] as $title) {
+            $seeker_percent = SeekerPercentage::create([
+                'seeker_id' => $seeker->id,
+                'title'     => $title,
+            ]);
+        }
+        Auth::guard('seeker')->login($seeker);
         if ($seeker) {
-            \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
-
             return response()->json([
                 'status' => 'success',
-                'seeker' => $seeker
+                'seeker' => $seeker,
+                'msg' => 'Thank for your information.'
             ]);
         }
     }
