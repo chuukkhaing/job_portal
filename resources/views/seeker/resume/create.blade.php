@@ -96,6 +96,7 @@
                                         </h2>
                                         <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
+                                                <a class="btn btn-sm btn-outline-primary" id="use_ai">Use AI</a><br><br>
                                                 <textarea name="summary" id="summary" class="form-control summernote_resume">{!! Auth::guard('seeker')->user()->summary !!}</textarea>
                                             </div>
                                         </div>
@@ -171,8 +172,33 @@
         $("#nav-cv-build").removeClass('show active');
         $("#nav-career-choice").addClass('show active');
         $("#nav-cv-attach").removeClass('show active');
-    })
+    });
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#use_ai").click(function() {
+        var seeker_id = {{ Auth::guard('seeker')->user()->id }};
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('seeker-summary-generate') }}",
+            data        : {
+                'seeker_id' : seeker_id,
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $(".summernote_resume").summernote('code', response.summary_ai)
+                }
+            },
+            error: function (data, response) {
+                
+            }
+        });
+        
+    })
     
 </script>
 @endpush

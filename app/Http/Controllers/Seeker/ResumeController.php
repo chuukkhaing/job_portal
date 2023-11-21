@@ -19,6 +19,7 @@ use App\Models\Seeker\SeekerPercentage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerSkill;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use OpenAI\Laravel\Facades\OpenAI;
 use File;
 use PDF;
 use DB;
@@ -199,5 +200,34 @@ class ResumeController extends Controller
         $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
         // return $pdf->stream();
         return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
+    }
+
+    public function summaryGenerate(Request $request, \OpenAI\Client $client)
+    {
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        $educations           = SeekerEducation::whereSeekerId($request->seeker_id)->get();
+        $experiences          = SeekerExperience::whereSeekerId($request->seeker_id)->get();
+        $skills               = SeekerSkill::whereSeekerId($request->seeker_id)->get();
+        $languages            = SeekerLanguage::whereSeekerId($request->seeker_id)->get();
+        $references           = SeekerReference::whereSeekerId($request->seeker_id)->get();
+        $experience_content = 'His or her Job Experience was';
+        foreach ($experiences as $experience) {
+            if($experience->is_experience == 0) {
+                $experience_content = $experience_content . 'No experience';
+            }else {
+                $experience_content = $experience_content . $experience->job_title . ' in ' . $experience->company . '. His or her  Job Responsibility  was ' . $experience->job_responsibility . '. Worked from ' . $experience->start_date . ' to ' . $experience->end_date;
+            }
+        }
+        
+        $result = $client->completions()->create([
+            'prompt' => 'Write about my summary ' . $seeker  . $experiences . $educations . $skills . $languages . $references,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'summary_ai' => ltrim($result->choices[0]->text)
+        ]);
     }
 }
