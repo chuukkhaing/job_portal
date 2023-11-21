@@ -747,7 +747,9 @@ class SeekerProfileController extends Controller
                     'seeker_id'   => Auth::guard('seeker')->user()->id,
                 ]);
                 if(session('previous_url')) {
-                    return redirect(session('previous_url'))->with('success', 'Job Apply Successfully!');
+                    $previous_url = session('previous_url');
+                    session()->forget('previous_url');
+                    return redirect($previous_url)->with('success', 'Job Apply Successfully!');
                 }else {
                     return redirect()->back()->with('success', 'Job Apply Successfully!');
                 }
