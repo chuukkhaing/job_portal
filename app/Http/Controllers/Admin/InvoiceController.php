@@ -98,7 +98,7 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         $employer = Employer::findOrFail($invoice->PointOrder->Employer->id);
-        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS'), 'chuukkhaing96@gmail.com'])->send(new InvoiceEmail($invoice));
+        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS')])->send(new InvoiceEmail($invoice));
         Alert::success('Success', 'Invoice Send Successfully!');
         return redirect()->route('invoice.index');
     }
