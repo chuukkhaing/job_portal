@@ -47,3 +47,6 @@ Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('p
 Route::get('/seeker-application-create', [SeekerRegisterController::class, 'applicationCreate'])->name('application-create');
 Route::post('/seeker-application-register', [SeekerRegisterController::class, 'applicationRegister'])->name('application-register');
 Route::get('/get-township/{id}', [SeekerRegisterController::class, 'getTownship']);
+Route::get('/loaderio-829b80250d745c882b07e226881e201b', function() {
+    return view('loaderio-829b80250d745c882b07e226881e201b');
+});
