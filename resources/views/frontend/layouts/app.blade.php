@@ -6,6 +6,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- SEO meta -->
+    <meta name="keywords" content="Myanmar jobs,Job opportunities,Career openings,Employment,Vacancies,Job search,Recruitment,Work in Myanmar,Job listings,Professional jobs,Hiring,Career advancement,Job market,Work opportunities,Job portal,Local jobs,Employment in Myanmar,Job vacancies,Find jobs,Apply for jobs,Myanmar workforce,Job site,CV submission,Job alerts,Job applications,Explore careers,Employment agency,Job board,Myanmar companies,Workforce,Job openings,Career development,Job seekers,Employer profiles,Job fair,Recruitment agency,Job opportunities in Myanmar,Myanmar job search,Job fair in Myanmar,CV database,Hiring solutions,Employee search,Jobs for foreigners">
     <meta name="description" content="">
     <meta name="author" content="">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
