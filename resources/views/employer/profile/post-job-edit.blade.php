@@ -458,6 +458,60 @@
             </div>
             </div>
         </div>
+        <div class="modal fade" id="buyPointForm">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width: 50%; margin: auto">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buyPointFormLabel">Buy Point</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    
+                        <div class="col-12 m-auto">
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    
+                                    <input type="text" name="name" id="name" class="form-control seeker_input name-input" placeholder="Name *" value="{{ old('name') }}">
+                                    <small class="text-danger d-none name-error">Name is required</small>
+                                </div>
+                                <div class="form-group col-12">
+                                    
+                                    <input type="text" name="phone" id="phone" class="form-control seeker_input phone-input" placeholder="Phone *" value="{{ old('phone') }}">
+                                    <small class="text-danger d-none phone-error">Phone is required</small>
+                                </div>
+                                <div class="form-group col-12">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            @foreach($pointPackages as $pointPackage)
+                                            <label class="card-radio-btn" for="pointPackage-{{ $pointPackage->id }}">
+                                                <input type="radio" name="point_package_id" class="card-input-element d-none" id="pointPackage-{{ $pointPackage->id }}" @if($loop->first || (old('point_package_id') == $pointPackage->id)) checked @endif value="{{ $pointPackage->id }}">
+                                                <div class="card card-body">
+                                                    <div class="content_head">{{ number_format($pointPackage->point) }} Points</div>
+                                                    <div class="content_sub">{{ number_format($pointPackage->price) }} MMK</div>
+                                                </div>
+                                            </label>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="is_make_point_detect" id="is_make_point_detect">
+                                    <label for="is_make_point_detect">We'll detect <span id="point_detect"></span> point(s) for current Job Post.</label>
+                                    
+                                </div>
+                                <div class="col-12 text-center">
+                                    <a class="btn profile-save-btn btn-sm text-white" id="point-order-confirm">Confirm</a>
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </form>
     </div>
 </div>
@@ -527,7 +581,7 @@
 <!-- Modal -->
 <div class="modal fade" id="pointBalance" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pointBalanceLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 50%; margin: auto">
       <div class="modal-header">
         <h5 class="modal-title" id="pointBalanceLabel">Point Balance</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -537,7 +591,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <a href="{{ route('buy-point.create') }}" target="_blank" class="btn profile-save-btn">Buy Your Points</a>
+        <button class="btn profile-save-btn" id="buyYourPoint">Buy Your Points</button>
       </div>
     </div>
   </div>
@@ -624,20 +678,20 @@
         $.ajax({
             type: 'GET',
             url: '/employer/get-skill/'+main_functional_area,
-        }).done(function(response){
-            if(response.status == 'success') {
-                $("#skill_id").empty();
-                $("#skill_id").append('<option value="">Choose...</option>');
-                $.each(response.data, function(index, skill) {
-                    $.each(JobpostSkills, function(jobpostSkill_index, jobpostSkill) {
-                        var selected = '';
-                        if(jobpostSkill.skill_id == skill.id) {
-                            selected = 'selected';
-                        }
-                        $("#skill_id").append('<option value="' + skill.id + '" '+ selected +'>' + skill.name +'</option>');
+            }).done(function(response){
+                if(response.status == 'success') {
+                    $("#skill_id").empty();
+                    $("#skill_id").append('<option value="">Choose...</option>');
+                    $.each(response.data, function(index, skill) {
+                        $.each(JobpostSkills, function(jobpostSkill_index, jobpostSkill) {
+                            var selected = '';
+                            if(jobpostSkill.skill_id == skill.id) {
+                                selected = 'selected';
+                            }
+                            $("#skill_id").append('<option value="' + skill.id + '" '+ selected +'>' + skill.name +'</option>');
+                        })
                     })
-                })
-            }
+                }
         });
 
         if($("#job_post_country").val() == "Myanmar") {
@@ -782,6 +836,11 @@
         $(".preview_salary").html($("#mmk_salary").val()+''+ $("#usd_salary").val() +' '+ $("#currency").val());
         $(".preview_job_description").html($("#job_description").val());
         $(".preview_job_requirement").html($("#job_requirement").val());
+    })
+
+    $("#buyYourPoint").click(function() {
+        $("#pointBalance").modal('hide');
+        $("#buyPointForm").modal('show')
     })
 </script>
 @endpush
