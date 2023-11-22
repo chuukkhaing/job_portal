@@ -110,7 +110,7 @@
                                         </h2>
                                         <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingSeven" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
-                                                <a class="btn btn-sm btn-outline-primary" id="use_ai">Use AI</a><br><br>
+                                                <a class="btn btn-sm btn-outline-primary" id="use_ai">Use AI ?</a><br><br>
                                                 <textarea name="summary" id="summary" class="form-control summernote_resume"></textarea>
                                             </div>
                                         </div>
