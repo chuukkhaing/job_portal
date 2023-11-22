@@ -33,10 +33,16 @@
                             <td>
                             <a href="{{ route('employers.edit', $invoice->PointOrder->Employer->id) }}" class="text-decoration-none text-black">{{ $invoice->PointOrder->Employer->name }}</a>@if($invoice->PointOrder->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
                             </td>
-                            <td>{{ date('d-m-Y', strtotime($invoice->created_at)) }}</td>
+                            <td>{{ date('d-m-Y h:m:i', strtotime($invoice->created_at)) }}</td>
                             <td>
+                                @canany(['invoice-download', 'invoice-email-send'])
+                                @can('invoice-download')
                                 <a href="{{ getS3File('invoice',$invoice->file_name) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Invoice" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-download"></i></a>
-                                
+                                @endcan
+                                @can('invoice-email-send')
+                                <a href="{{ route('send-invoice', $invoice->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Invoice" class="btn btn-success btn-circle btn-sm"><i class="fa-solid fa-paper-plane"></i></a>
+                                @endcan
+                                @endcan
                             </td>
                         </tr>
                         @endforeach

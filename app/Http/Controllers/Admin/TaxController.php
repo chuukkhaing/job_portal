@@ -15,6 +15,11 @@ class TaxController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:commercial-tax', ['only' => ['index','update']]);
+    }
+
     public function index()
     {
         $tax = Tax::whereNull('deleted_at')->first();

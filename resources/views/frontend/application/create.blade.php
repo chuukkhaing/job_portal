@@ -24,7 +24,7 @@
                                             Account Information
                                         </button>
                                         </h2>
-                                        <div id="flush-collapseAccountInfo" class="accordion-collapse collapse show" aria-labelledby="flush-headingAccountInfo" data-bs-parent="#accordionFlushExample">
+                                        <div id="flush-collapseAccountInfo" class="accordion-collapse collapse account_info_collapse show" aria-labelledby="flush-headingAccountInfo" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                         @include('frontend.application.account_info')
                                         </div>
@@ -32,11 +32,11 @@
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed" type="button" disabled data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                        <button class="accordion-button personal_info collapsed" type="button" disabled data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                                             Personal Information
                                         </button>
                                         </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div id="flush-collapseOne" class="accordion-collapse collapse personal_info_collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body">
                                         @include('frontend.application.personal_information')
                                         </div>

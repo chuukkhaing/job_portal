@@ -145,7 +145,7 @@
     @endcan
 
     <!-- Nav Item - Finance Menu -->
-    
+    @canany(['bank-info-list', 'commercial-tax', 'invoice-list'])
     <li class="nav-item {{ Request::is('admin/bank-info*') ? 'active' : '' }} {{ Request::is('admin/tax*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#finance"
             aria-expanded="true" aria-controls="finance">
@@ -154,14 +154,19 @@
         </a>
         <div id="finance" class="collapse {{ Request::is('admin/invoice*') ? 'show' : '' }} {{ Request::is('admin/bank-info*') ? 'show' : '' }} {{ Request::is('admin/tax*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                
+                @can('bank-info-list')
                 <a class="collapse-item {{ Request::is('admin/bank-info*') ? 'active' : '' }}" href="{{ route('bank-info.index') }}">Bank Information</a>
+                @endcan
+                @can('commercial-tax')
                 <a class="collapse-item {{ Request::is('admin/tax*') ? 'active' : '' }}" href="{{ route('tax.index') }}">Commercial Tax</a>
+                @endcan
+                @can('invoice-list')
                 <a class="collapse-item {{ Request::is('admin/invoice*') ? 'active' : '' }}" href="{{ route('invoice.index') }}">Invoices</a>
+                @endcan
             </div>
         </div>
     </li>
-    
+    @endcan
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

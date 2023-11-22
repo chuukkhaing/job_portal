@@ -153,6 +153,7 @@ class SeekerRegisterController extends Controller
         $this->validate($request, [
             'email' => 'required|string|email|max:255|unique:seekers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8'],
+            'confirmed' => ['required', 'string', 'min:8', 'same:password'],
         ]);
         $seeker = Seeker::create([
             'email'                    => $request['email'],

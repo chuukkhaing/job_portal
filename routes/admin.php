@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\PointOrderController;
 use App\Http\Controllers\Admin\BankInfoController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\InvoiceController;
+use App\Http\Controllers\Admin\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -128,5 +129,9 @@ Route::group([], function(){
 
         // invoice 
         Route::resource('invoice', InvoiceController::class);
+        Route::get('invoice-send/{id}', [InvoiceController::class, 'sendInvoice'])->name('send-invoice');
+
+        // permission 
+        Route::resource('permission', PermissionController::class);
     });
 });

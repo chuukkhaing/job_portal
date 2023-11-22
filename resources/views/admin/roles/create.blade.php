@@ -799,5 +799,85 @@
             $("#point-topup-list").prop('checked',true);
         }
     });
+
+    // bank-info 
+    $("#bank-info-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#bank-info-create").prop('checked',true);
+            $("#bank-info-edit").prop('checked',true);
+            $("#bank-info-delete").prop('checked',true);
+        }
+    });
+    $("#bank-info-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#bank-info-create").prop('checked',false);
+            $("#bank-info-edit").prop('checked',false);
+            $("#bank-info-delete").prop('checked',false);
+        }
+    });
+    $("#bank-info-create").change(function() {
+        if($(this).is(":checked")) {
+            $("#bank-info-list").prop('checked',true);
+        }
+    });
+    $("#bank-info-create").change(function() {
+        if($("#bank-info-create").is(":checked") == false && $("#bank-info-edit").is(":checked") == false && $("#bank-info-delete").is(":checked") == false) {
+            $("#bank-info-list").prop('checked',false);
+        }
+    });
+    $("#bank-info-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#bank-info-list").prop('checked',true);
+        }
+    });
+    $("#bank-info-edit").change(function() {
+        if($("#bank-info-create").is(":checked") == false && $("#bank-info-edit").is(":checked") == false && $("#bank-info-delete").is(":checked") == false) {
+            $("#bank-info-list").prop('checked',false);
+        }
+    });
+    $("#bank-info-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#bank-info-list").prop('checked',true);
+        }
+    });
+    $("#bank-info-delete").change(function() {
+        if($("#bank-info-create").is(":checked") == false && $("#bank-info-edit").is(":checked") == false && $("#bank-info-delete").is(":checked") == false) {
+            $("#bank-info-list").prop('checked',false);
+        }
+    });
+
+    // invoice 
+    $("#invoice-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#invoice-download").prop('checked',true);
+            $("#invoice-email-send").prop('checked',true);
+        }
+    });
+    $("#invoice-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#invoice-download").prop('checked',false);
+            $("#invoice-email-send").prop('checked',false);
+        }
+    });
+    $("#invoice-download").change(function() {
+        if($(this).is(":checked")) {
+            $("#invoice-list").prop('checked',true);
+        }
+    });
+    $("#invoice-download").change(function() {
+        if($("#invoice-download").is(":checked") == false && $("#invoice-email-send").is(":checked") == false) {
+            $("#invoice-list").prop('checked',false);
+        }
+    });
+    $("#invoice-email-send").change(function() {
+        if($(this).is(":checked")) {
+            $("#invoice-list").prop('checked',true);
+        }
+    });
+    $("#invoice-email-send").change(function() {
+        if($("#invoice-download").is(":checked") == false && $("#invoice-email-send").is(":checked") == false) {
+            $("#invoice-list").prop('checked',false);
+        }
+    });
 </script>
 @endpush

@@ -4,28 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\Invoice;
-use App\Models\Admin\Employer;
-use App\Mail\InvoiceEmail;
+use Spatie\Permission\Models\Permission;
 use Alert;
 
-class InvoiceController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-        $this->middleware('permission:invoice-list', ['only' => ['index']]);
-        
-    }
-
     public function index()
     {
-        $invoices = Invoice::whereNull('deleted_at')->orderBy('invoice_no','asc')->get();
-        return view ('admin.invoice.index', compact('invoices'));
+        $permissions = Permission::get();
+        return view ('admin.permission.index', compact('permissions'));
     }
 
     /**
@@ -35,7 +27,7 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.permission.create');
     }
 
     /**
@@ -46,7 +38,11 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $permission = Permission::create([
+            'name' => $request->name
+        ]);
+        Alert::success('Success', 'New Permission Created Successfully!');
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -68,7 +64,8 @@ class InvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        return view ('admin.permission.edit', compact('permission'));
     }
 
     /**
@@ -80,7 +77,12 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $permission = Permission::findOrFail($id);
+        $permission->update([
+            'name' => $request->name
+        ]);
+        Alert::success('Success', 'Permission Update Successfully!');
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -91,15 +93,11 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function sendInvoice($id)
-    {
-        $invoice = Invoice::findOrFail($id);
-        $employer = Employer::findOrFail($invoice->PointOrder->Employer->id);
-        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS'), 'chuukkhaing96@gmail.com'])->send(new InvoiceEmail($invoice));
-        Alert::success('Success', 'Invoice Send Successfully!');
-        return redirect()->route('invoice.index');
+        $permission = Permission::findOrFail($id)->delete();
+        
+        if ($permission) {
+            Alert::success('Success', 'Delete Package Successfully!');
+            return redirect()->route('package-type.index');
+        }
     }
 }

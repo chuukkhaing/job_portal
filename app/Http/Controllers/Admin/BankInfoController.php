@@ -15,6 +15,14 @@ class BankInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:bank-info-list|bank-info-create|bank-info-edit|bank-info-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:bank-info-create', ['only' => ['create','store']]);
+        $this->middleware('permission:bank-info-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:bank-info-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $banks = BankInfo::whereNull('deleted_at')->orderBy('created_at','desc')->get();
