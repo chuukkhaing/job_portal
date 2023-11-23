@@ -50,7 +50,7 @@ class EmployerProfileController extends Controller
         }
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $lastJobPosts = JobPost::whereEmployerId($employer->id)->orderBy('updated_at','desc')->get()->take(5);
+        $lastJobPosts = JobPost::whereEmployerId($employer->id)->where('status','Online')->orderBy('updated_at','desc')->get()->take(5);
         return view ('employer.profile.dashboard', compact('employer', 'packages', 'lastJobPosts', 'packageItems'));
     }
 
@@ -444,7 +444,7 @@ class EmployerProfileController extends Controller
         $rejectjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
         $expirejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
         $draftjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
-        if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0) {
+        if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0 && $draftjobPosts->count() == 0) {
             return redirect()->route('employer-job-post.create');
         }else {
             return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts', 'draftjobPosts'));

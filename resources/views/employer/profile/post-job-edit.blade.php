@@ -7,7 +7,7 @@
     <form action="{{ route('employer-job-post.update', $jobPost->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
             @csrf 
-            @method('PUT')
+            
             <div class="row">
                 <div class="col-1">
                     <div class="step">
@@ -274,14 +274,16 @@
                             </div>
                             <div class="col-6"></div>
                             <div class="col-6 form-group">
-                                <label for="job_description" class="seeker_label">Job Description</label>
+                                <label for="job_description" class="seeker_label">Job Description</label><br>
+                                <a class="btn btn-sm btn-outline-primary" id="ai-description">Use AI ?</a><br><br>
                                 <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-invalid @enderror">{{ $jobPost->job_description }}</textarea>
                                 @error('job_description')
                                 <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-6 form-group">
-                                <label for="job_requirement" class="seeker_label">Job Requirement <span class="text-danger">*</span></label>
+                                <label for="job_requirement" class="seeker_label">Job Requirement <span class="text-danger">*</span></label><br>
+                                <a class="btn btn-sm btn-outline-primary" id="ai-requirement">Use AI ?</a><br><br>
                                 <textarea name="job_requirement" class="summernote" id="job_requirement" cols="30" rows="5" class="seeker_input form-control @error('job_requirement') is-invalid @enderror">{{ $jobPost->job_requirement }}</textarea>
                                 @error('job_requirement')
                                 <small class="text-danger">{{ $message }}</small>
@@ -443,6 +445,7 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="job_post_id" id="job_post_id" value="{{ $jobPost->id }}">
         </div>
         <div class="row mb-2 text-center">
             <div class="col-6">
@@ -461,11 +464,11 @@
         <div class="modal fade" id="buyPointForm">
             <div class="modal-dialog">
                 <div class="modal-content" style="width: 50%; margin: auto">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="buyPointFormLabel">Buy Point</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="buyPointFormLabel">Buy Point</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
                     
                         <div class="col-12 m-auto">
                             <div class="row">
@@ -599,11 +602,13 @@
 @endsection
 @push('scripts')
 <script>
+    var JobpostSkills = @json ( $jobPost->JobPostSkill );
+    $('#total_point').val(0);
+    var job_post_point = 0;
+    var anonymous_posting_point = 0;
+    var question_point = 0;
     $(document).ready(function() {
         
-        var JobpostSkills = @json ( $jobPost->JobPostSkill );
-        $('#total_point').val(0);
-        var job_post_point = 0;
         $('input[name="job_post_type"]').change(function () {
             var feature = 0;
             var trending = 0;
@@ -624,7 +629,6 @@
             calculatePoint();
         })
 
-        var anonymous_posting_point = 0;
         $('#hide_company_name').change(function () {
             anonymous_posting_point = 0;
             if($(this).is(":checked")) {
@@ -634,33 +638,6 @@
             }
             calculatePoint();
         });
-
-        function calculatePoint()
-        {
-            total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
-            var employer_point = checkPointBalance();
-
-            if(total_point > employer_point) {
-                $(".savejobpost").addClass('disabled');
-                $("#pointBalance").modal('show');
-            }else {
-                $(".savejobpost").removeClass('disabled');
-            }
-            $("#total_point").val(total_point)
-        }
-
-        function checkPointBalance()
-        {
-            var employer_id = {{ Auth::guard('employer')->user()->id }};
-            var point = 0;
-            $.ajax({
-                type: 'GET',
-                url: '/employer/point-balance/'+employer_id,
-            }).done(function(response){
-                point = response.point;
-            })
-            return point;
-        }
 
         $("#currency").change(function(){
             if($(this).val() == 'USD') {
@@ -789,8 +766,50 @@
                 $("#skill_id").val('').trigger('change');
             }
         });
+
+        $("#point-order-confirm").click(function() {
+            var name = $("#name").val();
+            var phone = $("#phone").val();
+            var point_package_id = $('input[name="point_package_id"]').val();
+            var is_make_point_detect = $("#is_make_point_detect").val();
+
+            if(name == '') {
+                $('.name-error').removeClass('d-none');
+                $('.name-input').addClass('is-invalid');
+            }else {
+                $('.name-error').addClass('d-none');
+                $('.name-input').removeClass('is-invalid');
+            }
+
+            if(phone == '') {
+                $('.phone-error').removeClass('d-none');
+                $('.phone-input').addClass('is-invalid');
+            }else {
+                $('.phone-error').addClass('d-none');
+                $('.phone-input').removeClass('is-invalid');
+            }
+
+            if(name != '' && phone != '') {
+                var formData = $('form').serialize();
+                
+                $.ajax({
+                    'type' : 'POST',
+                    'url'  : "{{ route('job-post-buy-point-edit') }}",
+                    'data' : formData,
+
+                }).done(function(response){
+                    if(response.status == 'success') {
+                        
+                        window.location.href = "{{ route('manageJob') }}";
+                        
+                    }
+                })
+            }
+            
+            
+        })
     })
-    var question_point = 0;
+    
     function createQuestion()
     {
         var question = $("#job_post_question").val();
@@ -815,6 +834,7 @@
             if(rowCount > 0) {
                 question_point = 0;
                 question_point = $("#question_point").val();
+                
                 calculatePoint()
             }
         }
@@ -841,6 +861,84 @@
     $("#buyYourPoint").click(function() {
         $("#pointBalance").modal('hide');
         $("#buyPointForm").modal('show')
+    });
+
+    function calculatePoint()
+    {
+        total_point = Number(job_post_point) + Number(anonymous_posting_point) + Number(question_point);
+        var employer_id = {{ Auth::guard('employer')->user()->id }};
+        var employer_point = 0;
+        $.ajax({
+            type: 'GET',
+            url: '/employer/point-balance/'+employer_id,
+            dataType: "json",
+            success:function(response) {
+                employer_point = response.point;
+                if(total_point > employer_point) {
+                    $(".savejobpost").addClass('disabled');
+                    $("#pointBalance").modal('show');
+                }else {
+                    $(".savejobpost").removeClass('disabled');
+                }
+                $("#total_point").val(total_point);
+                $("#point_detect").text(total_point);
+            }
+        });
+        
+    }
+
+    $("#ai-description").click(function() {
+        var job_title = $("#job_title").val();
+        var experience_level =  $("#experience_level").val();
+        var career_level = $("#career_level").val();
+        
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('job-description-generate') }}",
+            data        : {
+                'job_title' : job_title,
+                'experience_level' : experience_level,
+                'career_level' : career_level
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $("#job_description").summernote('code', response.job_description_ai)
+                }
+            },
+            error: function (data, response) {
+                
+            }
+        });
+        
+    })
+
+    $("#ai-requirement").click(function() {
+        var job_title = $("#job_title").val();
+        var experience_level =  $("#experience_level").val();
+        var skill_id = $("#skill_id").val();
+        var career_level = $("#career_level").val();
+        var degree = $("#degree").val();
+
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('job-requirement-generate') }}",
+            data        : {
+                'job_title' : job_title,
+                'experience_level' : experience_level,
+                'skill_id' : skill_id,
+                'career_level' : career_level,
+                'degree' : degree
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $("#job_requirement").summernote('code', response.job_requirement_ai)
+                }
+            },
+            error: function (data, response) {
+                
+            }
+        });
+        
     })
 </script>
 @endpush
