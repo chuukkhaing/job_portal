@@ -466,7 +466,7 @@
                             }
 
                             // Append words to the current div
-                            console.log(currentDiv, word)
+                            
                             currentDiv.append(word)
 
                             // Check the height and create a new div if needed

@@ -243,7 +243,7 @@
                     $("#edu-table").removeClass('d-none');
                     $(".education_label").removeClass('d-none');
                     var responseTo = '';
-                    console.log(response.education)
+                    
                     if(response.education.is_current == 1) {
                         responseTo = 'Present';
                     }else {
@@ -406,7 +406,7 @@
             }).done(function(response){
                 if(response.status == 'success') {
                     var edit_responseTo = '';
-                    console.log(response.education)
+                    
                     if(response.education.is_current == 1) {
                         edit_responseTo = 'Present';
                     }else {

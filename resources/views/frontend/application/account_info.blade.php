@@ -49,7 +49,8 @@
         $('.'+name).text(value);
     }
 
-    $("#email").change(function() {
+    $("#email").change(function(e) {
+        event.stopImmediatePropagation();
         if($(this).val() != '' && $("#password").val() != '' && $("#confirmPassword").val() != '') {
             $.ajax({
                 type        : 'POST',
@@ -109,7 +110,8 @@
             });
         }
     })
-    $("#password").change(function() {
+    $("#password").change(function(e) {
+        event.stopImmediatePropagation();
         if($(this).val() != '' && $("#email").val() != '' && $("#confirmPassword").val() != '') {
             $.ajax({
                 type        : 'POST',
@@ -169,7 +171,8 @@
             });
         }
     })
-    $("#confirmPassword").change(function() {
+    $("#confirmPassword").change(function(e) {
+        event.stopImmediatePropagation();
         if($(this).val() != '' && $("#email").val() != '' && $("#confirmPassword").val() != '') {
             $.ajax({
                 type        : 'POST',

@@ -49,6 +49,7 @@
         <div class="form-group col-12 col-lg-6">
             <label for="phone" class="">Phone <span class="text-danger">*</span></label>
             <input type="number" name="phone" id="phone" class="form-control " value="" placeholder="09xxxxxxxxx">
+            <small class="text-danger phone-error"></small>
         </div>
         <div class="form-group col-12 col-lg-6">
             <label for="gender" class="">Gender  <span class="text-danger">*</span></label>
@@ -331,16 +332,16 @@
                         }else {
                             $('.phone_label').addClass('d-none');
                         }
+                        $("#phone").removeClass('is-invalid');
+                        $(".phone-error").text('')
                     }
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
                     if(errors.errors['phone']) {
-                        MSalert.principal({
-                            icon:'error',
-                            title:'Error',
-                            description: errors.errors['phone'],
-                        })
+                        $("#phone").addClass('is-invalid');
+                        $(".phone-error").text(errors.errors['phone'])
+                        
                     }
                 }
             });
@@ -460,7 +461,7 @@
                             }
 
                             // Append words to the current div
-                            console.log(currentDiv, word)
+                            
                             currentDiv.append(word)
 
                             // Check the height and create a new div if needed

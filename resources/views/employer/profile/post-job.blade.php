@@ -783,7 +783,7 @@
                     if(response.status == 'success') {
                         
                         window.location.href = "{{ route('manageJob') }}";
-                        console.log(window.location.href)
+                        
                     }
                 })
             }
@@ -806,7 +806,7 @@
                 },
                 error: function (data, response) {
                     var errors = $.parseJSON(data.responseText);
-                    console.log(errors.errors['phone'])
+                    
                     if(errors.errors['phone'] !== undefined) {
                         
                         $('.phone-error').removeClass('d-none');
