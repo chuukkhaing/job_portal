@@ -989,9 +989,8 @@ class EmployerJobPostController extends Controller
 
     public function jobDescriptionGenerate(Request $request, \OpenAI\Client $client)
     {
-        $skills = Skill::whereIn('id', $request->skill_id)->select('name')->get();
         $result = $client->completions()->create([
-            'prompt' => 'Write about job description for ' . $request->job_title . 'with experience ' . $request->experience_level . ' requires skills ' . $skills . '. We are hiring for ' . $request->career_level . ' level.',
+            'prompt' => 'Write about job description for ' . $request->job_title . $request->experience_level . $request->career_level,
             'model' => 'text-davinci-002',
             'max_tokens' => 250,
         ]);
@@ -999,6 +998,21 @@ class EmployerJobPostController extends Controller
         return response()->json([
             'status' => 'success',
             'job_description_ai' => ltrim($result->choices[0]->text)
+        ]);
+    }
+
+    public function jobRequirementGenerate(Request $request, \OpenAI\Client $client)
+    {
+        $skills = Skill::whereIn('id', $request->skill_id)->select('name')->get();
+        $result = $client->completions()->create([
+            'prompt' => 'Write about job requirement for ' . $request->job_title . $request->experience_level . $skills . $request->career_level .  $request->degree,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'job_requirement_ai' => ltrim($result->choices[0]->text)
         ]);
     }
 }
