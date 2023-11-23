@@ -65,6 +65,7 @@ Route::group([], function () {
         Route::get('point-balance/{id}', [EmployerJobPostController::class, 'pointBalance']);
         Route::get('phone-check', [EmployerJobPostController::class, 'phoneCheck'])->name('phone-check');
         Route::post('job-post-buy-point', [EmployerJobPostController::class, 'buypointWithJobPost'])->name('job-post-buy-point');
+        Route::post('job-description-generate', [EmployerJobPostController::class, 'jobDescriptionGenerate'])->name('job-description-generate');
 
         Route::resource('point-history', PointHistoryController::class);
         Route::resource('member-user', MemberUserController::class);

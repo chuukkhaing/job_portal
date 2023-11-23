@@ -279,7 +279,8 @@
                                 </div>
                                 <div class="col-12 col-md-6"></div>
                                 <div class="col-12 col-md-6 form-group">
-                                    <label for="job_description" class="seeker_label">Job Description <span class="text-danger">*</span></label>
+                                    <label for="job_description" class="seeker_label">Job Description <span class="text-danger">*</span></label><br>
+                                    <a class="btn btn-sm btn-outline-primary" id="ai-description">Use AI ?</a><br><br>
                                     <textarea name="job_description" class="summernote" id="job_description" cols="30" rows="5" class="seeker_input form-control @error('job_description') is-valid @enderror">{{ old('job_description') }}</textarea>
                                     @error('job_description')
                                     <small class="text-danger">{{ $message }}</small>
@@ -916,6 +917,33 @@
         $(".preview_salary").html($("#mmk_salary").val()+''+ $("#usd_salary").val() +' '+ $("#currency").val());
         $(".preview_job_description").html($("#job_description").val());
         $(".preview_job_requirement").html($("#job_requirement").val());
+    })
+
+    $("#ai-description").click(function() {
+        var job_title = $("#job_title").val();
+        var experience_level =  $("#experience_level").val();
+        var skill_id = $("#skill_id").val();
+        var career_level = $("#career_level").val();
+        
+        $.ajax({
+            type        : 'POST',
+            url         : "{{ route('job-description-generate') }}",
+            data        : {
+                'job_title' : job_title,
+                'experience_level' : experience_level,
+                'skill_id' : skill_id,
+                'career_level' : career_level
+            },
+            success     : function(response) {
+                if (response.status == "success") {
+                    $("#job_description").summernote('code', response.job_description_ai)
+                }
+            },
+            error: function (data, response) {
+                
+            }
+        });
+        
     })
 </script>
 @endpush

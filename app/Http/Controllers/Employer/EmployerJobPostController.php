@@ -986,4 +986,19 @@ class EmployerJobPostController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function jobDescriptionGenerate(Request $request, \OpenAI\Client $client)
+    {
+        $skills = Skill::whereIn('id', $request->skill_id)->select('name')->get();
+        $result = $client->completions()->create([
+            'prompt' => 'Write about job description for ' . $request->job_title . 'with experience ' . $request->experience_level . ' requires skills ' . $skills . '. We are hiring for ' . $request->career_level . ' level.',
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'job_description_ai' => ltrim($result->choices[0]->text)
+        ]);
+    }
 }
