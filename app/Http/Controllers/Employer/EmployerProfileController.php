@@ -444,11 +444,14 @@ class EmployerProfileController extends Controller
         $rejectjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
         $expirejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
         $draftjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
-        if($pendingjobPosts->count() == 0 && $onlinejobPosts->count() == 0 && $rejectjobPosts->count() == 0 && $expirejobPosts->count() == 0 && $draftjobPosts->count() == 0) {
-            return redirect()->route('employer-job-post.create');
-        }else {
+        $jobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->orderBy('updated_at', 'desc')->get();
+
+        if($jobPosts->count() > 0) {
             return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts', 'draftjobPosts'));
+        }else {
+            return redirect()->route('employer-job-post.create');
         }
+
     }
 
     public function applicantTracking()
