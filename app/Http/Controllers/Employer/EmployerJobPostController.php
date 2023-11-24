@@ -343,7 +343,7 @@ class EmployerJobPostController extends Controller
                 'job_highlight' => $request->highlight,
                 'job_post_type' => $request->job_post_type,
                 'total_point' => $request->total_point,
-                'status' => 'Pending',
+                'status' => $request->status,
             ]);
             $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
             $jobPost_slug = $jobPost->update([

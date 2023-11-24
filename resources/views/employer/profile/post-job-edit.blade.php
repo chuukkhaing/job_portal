@@ -7,7 +7,9 @@
     <form action="{{ route('employer-job-post.update', $jobPost->id) }}" method="post" enctype="multipart/form-data">
         <div class="px-5 m-0 pb-0 pt-5">
             @csrf 
-            
+            <span class="method">
+            @method('PUT')
+            </span>
             <div class="row">
                 <div class="col-1">
                     <div class="step">
@@ -453,12 +455,16 @@
                 <input type="text" name="total_point" id="total_point" class="border-0 bg-transparent" readonly>
             </div>
             <div class="col-6 d-flex flex-row-reverse">
-            <button type="submit" class="btn profile-save-btn savejobpost mx-3">
-                <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
-            </button>
-            <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
-                <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
-            </div>
+                <button type="submit" class="btn profile-save-btn savejobpost mx-3">
+                    <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
+                </button>
+                <input type="hidden" name="status" id="job-post-status" value="Pending">
+                <button type="submit" class="btn btn-secondary ms-3" id="job-post-submit-draft">
+                    <span>Save as Draft</span>
+                </button>
+                <div class="btn btn-outline-primary preview_card" data-toggle="modal" data-target="#exampleModalOut">
+                    <span>Show preview</span><i class="fa-solid fa-eye px-2"></i>
+                </div>
             </div>
         </div>
         <div class="modal fade" id="buyPointForm">
@@ -772,7 +778,7 @@
             var phone = $("#phone").val();
             var point_package_id = $('input[name="point_package_id"]').val();
             var is_make_point_detect = $("#is_make_point_detect").val();
-
+            $(".method").text('');
             if(name == '') {
                 $('.name-error').removeClass('d-none');
                 $('.name-input').addClass('is-invalid');
@@ -939,6 +945,10 @@
             }
         });
         
+    })
+
+    $("#job-post-submit-draft").click(function() {
+        $("#job-post-status").val('Draft');
     })
 </script>
 @endpush
