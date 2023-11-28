@@ -98,7 +98,7 @@ class HomeController extends Controller
 
     public function getFunctionalArea()
     {
-        $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->select('id', 'functional_area_id', 'name')->get();
+        $functional_areas = FunctionalArea::with('SubFunctionalArea:id,functional_area_id,name')->whereIsActive(1)->whereNull('deleted_at')->where('functional_area_id',0)->select('id', 'name', 'functional_area_id')->get();
         return response()->json([
             'status' => 'success',
             'functional_areas' => $functional_areas
