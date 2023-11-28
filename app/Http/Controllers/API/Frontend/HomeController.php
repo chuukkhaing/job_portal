@@ -7,6 +7,8 @@ use App\Models\Admin\Slider;
 use App\Models\Employer\JobPost;
 use DB;
 use Illuminate\Http\Request;
+use App\Models\Admin\State;
+use App\Models\Admin\FunctionalArea;
 
 class HomeController extends Controller
 {
@@ -82,6 +84,24 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success',
             'featured_jobs' => $featured_jobs
+        ], 200);
+    }
+
+    public function getState()
+    {
+        $states = State::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->get();
+        return response()->json([
+            'status' => 'success',
+            'states' => $states
+        ], 200);
+    }
+
+    public function getFunctionalArea()
+    {
+        $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->select('id', 'functional_area_id', 'name')->get();
+        return response()->json([
+            'status' => 'success',
+            'functional_areas' => $functional_areas
         ], 200);
     }
 }

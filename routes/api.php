@@ -25,3 +25,6 @@ Route::get('/get-popular-category', [HomeController::class, 'getPopularCategory'
 Route::get('/get-top-employer', [HomeController::class, 'getTopEmployer']);
 Route::get('/get-trending-jobs', [HomeController::class, 'getTrendingJob']);
 Route::get('/get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
+
+Route::get('/get-states', [HomeController::class, 'getState']);
+Route::get('/get-functional-areas', [HomeController::class, 'getFunctionalArea']);
