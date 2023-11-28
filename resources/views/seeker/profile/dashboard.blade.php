@@ -137,7 +137,6 @@
                                             </div>
                                             
                                         </div>
-                                        
                                         <div class="align-self-center">
                                             <div class="mt-1 job-company">
                                                 @if($jobPost->hide_company == 0)
@@ -168,7 +167,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{dd('test')}}
+                                    
                                     <!-- Job List End -->
 
                                     <!-- Wishlist Start -->
