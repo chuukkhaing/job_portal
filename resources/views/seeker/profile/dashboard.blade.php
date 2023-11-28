@@ -34,7 +34,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{dd('test')}}
                             <div class="col-3 pb-2 text-end">
                                 <div class="d-flex form-check form-switch mt-3">
                                     <div class="mt-3">
@@ -114,6 +113,7 @@
                     </div>
                 </div>
                 @endif
+                {{dd('test')}}
                 <div class="row p-0">
                     <div class="col-12 col-md-9">
                         <div class="px-xl-5 px-lg-3 py-3 m-0">
