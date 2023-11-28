@@ -19,5 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// home 
 Route::get('/get-slider', [HomeController::class, 'getSlider']);
 Route::get('/get-popular-category', [HomeController::class, 'getPopularCategory']);
+Route::get('/get-top-employer', [HomeController::class, 'getTopEmployer']);

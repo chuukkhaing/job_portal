@@ -35,4 +35,23 @@ class HomeController extends Controller
             'today_job_post' => $today_job_post
         ], 200);
     }
+
+    public function getTopEmployer()
+    {
+        $employers = DB::table('employers as a')
+            ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
+            ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
+            ->where('c.name', '=', 'Top Employer')
+            ->where('a.slug', '!=', null)
+            ->select('a.id', 'a.logo', 'a.name', 'a.is_verified')
+            ->where('a.is_active', '=', 1)
+            ->where('a.deleted_at', '=', null)
+            ->orderBy('a.updated_at', 'desc')
+            ->get()
+            ->take(12);
+        return response()->json([
+            'status' => 'success',
+            'top_employers' => $employers
+        ], 200);
+    }
 }

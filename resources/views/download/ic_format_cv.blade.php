@@ -16,6 +16,10 @@
     <link href="{{ public_path('frontend/css/custom.css') }}" rel="stylesheet">
     <link href="{{ public_path('frontend/css/app.css') }}" rel="stylesheet">
     <style>
+        .resume-header {
+            border: solid 1px #0355d0;
+            background-color: #0355D0;
+        }
         .resume-header span {
             padding : 0 20px
         }
