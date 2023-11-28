@@ -103,7 +103,6 @@
                 </div>
             </div>
             <div class="container-fluid my-2" id="edit-profile-body">
-                {{dd(Auth::guard('seeker')->user()->percentage)}}
                 @if(Auth::guard('seeker')->user()->percentage < 80)
                 <div class="row px-0 py-3" id="edit-profile-text">
                     <div class="col-12 col-md-9">
@@ -119,6 +118,7 @@
                         <div class="px-xl-5 px-lg-3 py-3 m-0">
                             <h5 style="color: #0355D0">Recommended Jobs</h5>
                         </div>
+                        {{dd($jobPosts->count())}}
                         <div class="px-xl-5 px-md-3 m-0 pb-0 ex3">
                             @if($jobPosts->count() >0)
                             @foreach($jobPosts as $jobPost)
