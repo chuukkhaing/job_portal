@@ -103,6 +103,7 @@
                 </div>
             </div>
             <div class="container-fluid my-2" id="edit-profile-body">
+                {{dd(Auth::guard('seeker')->user()->percentage)}}
                 @if(Auth::guard('seeker')->user()->percentage < 80)
                 <div class="row px-0 py-3" id="edit-profile-text">
                     <div class="col-12 col-md-9">
@@ -575,7 +576,6 @@
                     </div>
                 </div>
             </div>
-            {{dd('test')}}
             @if($employers->count() > 0)
             <div class="container-fluid my-2 bg-white" id="edit-profile-body">
                 <div class="row m-auto py-3 justify-content-center">
