@@ -113,7 +113,6 @@
                     </div>
                 </div>
                 @endif
-                {{dd('test')}}
                 <div class="row p-0">
                     <div class="col-12 col-md-9">
                         <div class="px-xl-5 px-lg-3 py-3 m-0">
@@ -576,6 +575,7 @@
                     </div>
                 </div>
             </div>
+            {{dd('test')}}
             @if($employers->count() > 0)
             <div class="container-fluid my-2 bg-white" id="edit-profile-body">
                 <div class="row m-auto py-3 justify-content-center">
