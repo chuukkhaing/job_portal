@@ -54,4 +54,10 @@ class HomeController extends Controller
             'top_employers' => $employers
         ], 200);
     }
+
+    public function getTrendingJob()
+    {
+        $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(18);
+        $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(20);
+    }
 }

@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/get-slider', [HomeController::class, 'getSlider']);
 Route::get('/get-popular-category', [HomeController::class, 'getPopularCategory']);
 Route::get('/get-top-employer', [HomeController::class, 'getTopEmployer']);
+Route::get('/get-trending-jobs', [HomeController::class, 'getTrendingJob']);
