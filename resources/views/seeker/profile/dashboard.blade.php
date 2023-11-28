@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="row pb-3">
                             <div class="col-1">
-                                
+                                {{dd('test')}}
                                 @if(Auth::guard('seeker')->user()->image)
                                 <img src="{{ getS3File('seeker/profile/'.Auth::guard('seeker')->user()->id ,Auth::guard('seeker')->user()->image) }}" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                                 @else
