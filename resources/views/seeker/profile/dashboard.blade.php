@@ -155,11 +155,7 @@
                                                     <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
                                                 </div>
                                                 <div class="col-4 d-md-none d-block">
-                                                    @auth('seeker')
-                                                    <div class="text-end p-0" style="cursor: pointer">
-                                                        <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
-                                                    </div>
-                                                    @endauth
+                                                    
                                                     <div class="text-end mt-auto p-1">
                                                         <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
                                                     </div>
@@ -171,7 +167,14 @@
                                     <!-- Job List End -->
 
                                     <!-- Wishlist Start -->
-                                    
+                                    <div class="col-lg-2 col-md-2 d-md-flex d-none align-items-end flex-column bd-highlight py-4">
+                                        <div class="row col-12 m-0 p-0">
+                                            
+                                            <div class="text-end mt-auto p-1">
+                                                <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Wishlist End -->
                                 </div>
                             </div>
