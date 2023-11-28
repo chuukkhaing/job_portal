@@ -16,7 +16,6 @@
                                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail resume_profile_img rounded-circle" id="resume_profile_img">
                                 @endif
                             </div>
-                            {{dd('test')}}
                             <div class="col-8 p-0 m-0 align-self-center">
                                 <div class="col-12 m-0">
                                     <div class="seeker-name">{{ Auth::guard('seeker')->user()->first_name }} {{ Auth::guard('seeker')->user()->last_name }}</div>
@@ -35,6 +34,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{dd('test')}}
                             <div class="col-3 pb-2 text-end">
                                 <div class="d-flex form-check form-switch mt-3">
                                     <div class="mt-3">
