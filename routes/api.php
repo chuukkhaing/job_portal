@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
+use App\Http\Controllers\API\Frontend\FindJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,7 @@ Route::get('/get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
 
 Route::get('/get-states', [HomeController::class, 'getState']);
 Route::get('/get-functional-areas', [HomeController::class, 'getFunctionalArea']);
+
+// findjobs 
+Route::get('/find-jobs', [FindJobController::class, 'findJob']);
+Route::get('/get-industries', [FindJobController::class, 'getIndustry']);
