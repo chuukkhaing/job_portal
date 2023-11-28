@@ -69,4 +69,19 @@ class HomeController extends Controller
             'trending_jobs' => $trending_jobs
         ], 200);
     }
+
+    public function getFeaturedJob()
+    {
+        $featured_jobs         = JobPost::with(['Employer:id,logo,name'])
+                                ->whereIsActive(1)->whereStatus('Online')
+                                ->orderBy('updated_at', 'desc')
+                                ->whereJobPostType('feature')
+                                ->select('job_title', 'employer_id', 'hide_company')
+                                ->get()
+                                ->take(20);
+        return response()->json([
+            'status' => 'success',
+            'featured_jobs' => $featured_jobs
+        ], 200);
+    }
 }
