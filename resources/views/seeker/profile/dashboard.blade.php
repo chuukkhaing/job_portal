@@ -147,13 +147,29 @@
                                             @if($jobPost->township_id)
                                             <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                             @endif
+                                            @if($jobPost->job_post_type == 'trending')
+                                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
+                                            @endif
                                             
                                         </div>
                                     </div>
                                     
                                     <!-- Job List End -->
 
-                                    
+                                    <!-- Wishlist Start -->
+                                    <div class="col-lg-2 col-md-2 d-md-flex d-none align-items-end flex-column bd-highlight py-4">
+                                        <div class="row col-12 m-0 p-0">
+                                            @auth('seeker')
+                                            <div class="text-end p-0" style="cursor: pointer">
+                                                <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                            </div>
+                                            @endauth
+                                            <div class="text-end mt-auto p-1">
+                                                <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Wishlist End -->
                                 </div>
                             </div>
                             <!-- Modal -->
