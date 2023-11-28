@@ -57,7 +57,16 @@ class HomeController extends Controller
 
     public function getTrendingJob()
     {
-        $trending_jobs         = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('trending')->get()->take(18);
-        $feature_jobs          = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at', 'desc')->whereJobPostType('feature')->get()->take(20);
+        $trending_jobs         = JobPost::with(['Employer:id,logo,name', 'MainFunctionalArea:id,name', 'Township:id,name'])
+                                ->whereIsActive(1)->whereStatus('Online')
+                                ->orderBy('updated_at', 'desc')
+                                ->whereJobPostType('trending')
+                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company')
+                                ->get()
+                                ->take(18);
+        return response()->json([
+            'status' => 'success',
+            'trending_jobs' => $trending_jobs
+        ], 200);
     }
 }
