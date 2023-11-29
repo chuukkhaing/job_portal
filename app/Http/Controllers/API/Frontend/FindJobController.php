@@ -79,4 +79,13 @@ class FindJobController extends Controller
             'jobPosts' => $jobPosts
         ], 200);
     }
+
+    public function getJobTitle()
+    {
+        $jobTitles = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
+        return response()->json([
+            'status' => 'success',
+            'jobTitles' => $jobTitles
+        ], 200);
+    }
 }
