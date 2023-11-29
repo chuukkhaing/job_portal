@@ -74,7 +74,7 @@ class HomeController extends Controller
 
     public function getFeaturedJob()
     {
-        $featured_jobs         = JobPost::with(['Employer:id,logo,name'])
+        $featured_jobs         = JobPost::with(['Employer:id,logo,name', 'MainFunctionalArea:id,name', 'Township:id,name'])
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('feature')
