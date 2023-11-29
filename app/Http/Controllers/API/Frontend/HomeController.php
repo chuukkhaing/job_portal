@@ -78,7 +78,7 @@ class HomeController extends Controller
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('feature')
-                                ->select('job_title', 'employer_id', 'hide_company')
+                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company')
                                 ->get()
                                 ->take(20);
         return response()->json([
