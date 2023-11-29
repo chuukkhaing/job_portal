@@ -32,4 +32,5 @@ Route::get('/get-functional-areas', [HomeController::class, 'getFunctionalArea']
 
 // findjobs 
 Route::get('/find-jobs', [FindJobController::class, 'findJob']);
-Route::get('/get-industries', [FindJobController::class, 'getIndustry']);
+Route::get('/get-find-job-filter-data', [FindJobController::class, 'getFindJobFilterData']);
+Route::post('/search-job', [FindJobController::class, 'searchJob']);
