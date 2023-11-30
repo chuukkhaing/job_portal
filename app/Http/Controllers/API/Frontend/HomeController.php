@@ -108,10 +108,6 @@ class HomeController extends Controller
 
     public function getAllCategory()
     {
-        // $industries = DB::table('industries')
-        //     ->select('industries.id as id', 'industries.name as name', 'industries.icon as icon', 'industries.color_code as color_code', DB::raw("count(job_posts.industry_id) as count"))
-        //     ->groupBy('industries.id')
-        //     ->get();
         $industries = Industry::select('id', 'name', 'icon', 'color_code')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
         }])->whereIsActive(1)->whereNull('deleted_at')->get();
