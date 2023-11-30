@@ -39,3 +39,4 @@ Route::get('/get-job-title', [FindJobController::class, 'getJobTitle']);
 // job category 
 Route::get('/get-all-category', [HomeController::class, 'getAllCategory']);
 Route::get('/get-all-employer', [HomeController::class, 'getAllEmployer']);
+Route::post('/job-post-detail', [HomeController::class, 'jobPostDetail']);

@@ -46,7 +46,7 @@ class EmployerLoginController extends Controller
 
         Auth::viaRemember();
         $remember = $request->has('company_remember') ? true : false; 
-        if (\Auth::guard('employer')->attempt(['email' => $request->input('company_email'), 'password' => $request->input('company_password')], $remember)) {
+        if (\Auth::guard('employer')->attempt(['email' => $request->input('company_email'), 'password' => $request->input('company_password'), 'is_active' => 1, 'deleted_at' => Null], $remember)) {
             if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at) || Auth::guard('employer')->user()->email_verified_at == Null) {
                 Auth::guard('employer')->logout();
 
@@ -60,7 +60,6 @@ class EmployerLoginController extends Controller
         } else {
             return redirect()->back()->with('error', 'You have entered wrong credentials. Please Try Again!')->withInput($request->only('company_email', 'company_remember'));
         }
-
     }
 
     public function VerifyEmail($token = null)

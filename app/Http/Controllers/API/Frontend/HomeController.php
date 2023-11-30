@@ -47,7 +47,7 @@ class HomeController extends Controller
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
             ->where('c.name', '=', 'Top Employer')
             ->where('a.slug', '!=', null)
-            ->select('a.id', 'a.logo', 'a.name', 'a.is_verified')
+            ->select('a.id', 'a.logo', 'a.name', 'a.is_verified', 'a.slug')
             ->where('a.is_active', '=', 1)
             ->where('a.deleted_at', '=', null)
             ->orderBy('a.updated_at', 'desc')
@@ -61,11 +61,11 @@ class HomeController extends Controller
 
     public function getTrendingJob()
     {
-        $trending_jobs         = JobPost::with(['Employer:id,logo,name,is_verified', 'MainFunctionalArea:id,name', 'Township:id,name'])
+        $trending_jobs         = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'Township:id,name'])
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('trending')
-                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company')
+                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company', 'slug')
                                 ->get()
                                 ->take(18);
         return response()->json([
@@ -76,11 +76,11 @@ class HomeController extends Controller
 
     public function getFeaturedJob()
     {
-        $featured_jobs         = JobPost::with(['Employer:id,logo,name,is_verified', 'MainFunctionalArea:id,name', 'Township:id,name'])
+        $featured_jobs         = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'Township:id,name'])
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('feature')
-                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company')
+                                ->select('job_title', 'employer_id', 'main_functional_area_id', 'township_id', 'hide_company', 'slug')
                                 ->get()
                                 ->take(20);
         return response()->json([
@@ -124,12 +124,23 @@ class HomeController extends Controller
 
     public function getAllEmployer()
     {
-        $employers = Employer::select('id', 'logo', 'name', 'is_verified')->withCount(['JobPost' => function ($query) {
+        $employers = Employer::select('id', 'logo', 'name', 'is_verified', 'slug')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
         }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
         return response()->json([
             'status' => 'success',
             'employers' => $employers,
+        ], 200);
+    }
+
+    public function jobPostDetail(Request $request)
+    {
+        $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+            $query->with('Industry:id,name')->select('id', 'logo', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+        }])->whereSlug($request->slug)->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type')->first();
+        return response()->json([
+            'status' => 'success',
+            'jobpost' => $jobpost,
         ], 200);
     }
 }
