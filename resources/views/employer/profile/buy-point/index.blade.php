@@ -15,6 +15,7 @@
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Phone</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Point Package</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Invoice</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Ordered Date</th>
                     </tr>
                 </thead>
@@ -36,6 +37,7 @@
                                 <span class="badge text-light bg-danger">{{ $order->status }}</span>
                                 @endif
                             </td>
+                            <td><a href="{{ getS3File('invoice',$order->Invoice->file_name) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Invoice" class=""><i class="fas fa-download"></i></a></td>
                             <td class="text-black">{{ date('d M, Y', strtotime($order->created_at)) }}</td>
                         </tr>
                         @endforeach

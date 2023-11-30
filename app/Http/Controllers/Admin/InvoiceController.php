@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Invoice;
 use App\Models\Admin\Employer;
 use App\Mail\InvoiceEmail;
+use App\Mail\ReceiptEmail;
 use Alert;
 
 class InvoiceController extends Controller
@@ -98,8 +99,17 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::findOrFail($id);
         $employer = Employer::findOrFail($invoice->PointOrder->Employer->id);
-        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS')])->send(new InvoiceEmail($invoice));
+        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS'), env('FINANCE_EMAIL')])->send(new InvoiceEmail($invoice));
         Alert::success('Success', 'Invoice Send Successfully!');
+        return redirect()->route('invoice.index');
+    }
+
+    public function sendReceipt($id)
+    {
+        $invoice = Invoice::findOrFail($id);
+        $employer = Employer::findOrFail($invoice->PointOrder->Employer->id);
+        \Mail::to($employer->email)->cc([env('MAIL_FROM_ADDRESS'), env('FINANCE_EMAIL')])->send(new ReceiptEmail($invoice));
+        Alert::success('Success', 'Receipt Send Successfully!');
         return redirect()->route('invoice.index');
     }
 }

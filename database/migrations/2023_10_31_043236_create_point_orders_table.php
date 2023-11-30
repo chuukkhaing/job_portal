@@ -17,6 +17,7 @@ class CreatePointOrdersTable extends Migration
             $table->id();
             $table->integer('employer_id');
             $table->integer('point_package_id');
+            $table->integer('invoice_id')->nullable();
             $table->string('name');
             $table->string('phone');
             $table->string('status');

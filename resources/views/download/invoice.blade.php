@@ -186,14 +186,14 @@
                 <td style="text-align: right; background: #f3f3f3; padding-right: 10px">{{ number_format($invoice->PointOrder->PointPackage->price) }}</td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align: right">Commercial Tax ({{ $tax->tax }} %)</td>
+                <td colspan="2" style="text-align: right">Commercial Tax ({{ $tax }} %)</td>
                 <td style="text-align: right; background: #f3f3f3; padding-right: 10px">{{ number_format($tax_amount) }}</td>
             </tr>
             <tr style="border: none">
                 <td colspan="3" style="border: none">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="2" style="border:none; text-align: right; color: #0355D0; font-size: 18px; font-weight: bold">Balance Due</td>
+                <td colspan="2" style="border:none; text-align: right; color: #0355D0; font-size: 18px; font-weight: bold">@if($invoice->status == 'Paid') Receipt @else Balance Due @endif</td>
                 <td style="text-align: right; background: #0355D0; color: #fff; padding-right: 10px">{{ number_format($final_balance) }}</td>
             </tr>
         </tbody>
