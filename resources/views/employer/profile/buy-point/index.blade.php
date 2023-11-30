@@ -37,7 +37,11 @@
                                 <span class="badge text-light bg-danger">{{ $order->status }}</span>
                                 @endif
                             </td>
-                            <td><a href="{{ getS3File('invoice',$order->Invoice->file_name) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Invoice" class=""><i class="fas fa-download"></i></a></td>
+                            <td>
+                                @if(isset($order->Invoice))
+                                <a href="{{ getS3File('invoice',$order->Invoice->file_name) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Invoice" class=""><i class="fas fa-download"></i></a>
+                                @endif
+                            </td>
                             <td class="text-black">{{ date('d M, Y', strtotime($order->created_at)) }}</td>
                         </tr>
                         @endforeach
