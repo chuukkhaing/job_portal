@@ -23,11 +23,20 @@ class FindJobController extends Controller
 
     public function getFindJobFilterData()
     {
-        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->pluck('name','id')->toArray();
+        $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->select('name','id')->get();
         $job_types = config('jobtype');
         $career_levels = config('careerlevel');
         $qualifications = config('seekerdegree');
-        $job_sort_by = [ 7 => 'Last 7 Days', 30 => 'Last 30 Days'];
+        $job_sort_by = array(
+            [ 
+                'value' => 7,
+                'label' => 'Last 7 Days'
+            ],
+            [ 
+                'value' => 30,
+                'label' => 'Last 30 Days'
+            ]
+        );
         return response()->json([
             'status' => 'success',
             'industries' => $industries,
