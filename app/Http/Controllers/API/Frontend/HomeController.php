@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\State;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Admin\Industry;
+use App\Models\Admin\Employer;
 
 class HomeController extends Controller
 {
@@ -118,6 +119,17 @@ class HomeController extends Controller
             'live_job' => $live_job,
             'today_job' => $today_job,
             'industries' => $industries
+        ], 200);
+    }
+
+    public function getAllEmployer()
+    {
+        $employers = Employer::select('id', 'logo', 'name', 'is_verified')->withCount(['JobPost' => function ($query) {
+            $query->where('is_active',1)->where('status','Online');
+        }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
+        return response()->json([
+            'status' => 'success',
+            'employers' => $employers,
         ], 200);
     }
 }
