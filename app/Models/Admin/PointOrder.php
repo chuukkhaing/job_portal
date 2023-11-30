@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Employer;
 use App\Models\Admin\PointPackage;
+use App\Models\Admin\Invoice;
 
 class PointOrder extends Model
 {
@@ -21,5 +22,9 @@ class PointOrder extends Model
     public function PointPackage()
     {
         return $this->belongsTo(PointPackage::class, 'point_package_id', 'id');
+    }
+
+    function Invoice() {
+        return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
     }
 }

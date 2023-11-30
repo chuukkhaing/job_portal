@@ -130,6 +130,7 @@ Route::group([], function(){
         // invoice 
         Route::resource('invoice', InvoiceController::class);
         Route::get('invoice-send/{id}', [InvoiceController::class, 'sendInvoice'])->name('send-invoice');
+        Route::get('receipt-send/{id}', [InvoiceController::class, 'sendReceipt'])->name('send-receipt');
 
         // permission 
         Route::resource('permission', PermissionController::class);

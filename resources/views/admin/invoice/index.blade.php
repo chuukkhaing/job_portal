@@ -22,6 +22,8 @@
                             <th>Invoice No.</th>
                             <th>Employer Name</th>
                             <th>Invoice Date</th>
+                            <th>Status</th>
+                            <th>Receipt</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,6 +36,21 @@
                             <a href="{{ route('employers.edit', $invoice->PointOrder->Employer->id) }}" class="text-decoration-none text-black">{{ $invoice->PointOrder->Employer->name }}</a>@if($invoice->PointOrder->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
                             </td>
                             <td>{{ date('d-m-Y h:m:i', strtotime($invoice->created_at)) }}</td>
+                            <td>
+                                @if($invoice->status == 'Pending')
+                                <span class="badge text-dark bg-warning">{{ $invoice->status }}</span>
+                                @elseif($invoice->status == 'Paid')
+                                <span class="badge text-light bg-success">{{ $invoice->status }}</span>
+                                @elseif($invoice->status == 'Reject')
+                                <span class="badge text-light bg-danger">{{ $invoice->status }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($invoice->receipt))
+                                <a href="{{ getS3File('receipt',$invoice->receipt) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Receipt" class="btn btn-success btn-circle btn-sm"><i class="fas fa-file-arrow-down"></i></a>
+                                <a href="{{ route('send-receipt', $invoice->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Send Invoice" class="btn btn-success btn-circle btn-sm"><i class="fa-solid fa-paper-plane"></i></a>
+                                @endif
+                            </td>
                             <td>
                                 @canany(['invoice-download', 'invoice-email-send'])
                                 @can('invoice-download')

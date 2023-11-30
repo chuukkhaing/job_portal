@@ -16,10 +16,13 @@ class CreateInvoicesTable extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_no');
+            $table->string('status');
             $table->string('file_name')->nullable();
+            $table->string('receipt')->nullable();
             $table->integer('point_order_id')->default(0);
             $table->integer('sub_total')->nullable();
             $table->integer('final_balance')->nullable();
+            $table->integer('tax_percent')->nullable();
             $table->integer('tax')->nullable();
             $table->integer('created_by')->default(0);
             $table->integer('updated_by')->default(0);

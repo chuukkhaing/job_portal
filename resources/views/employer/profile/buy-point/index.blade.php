@@ -15,6 +15,7 @@
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Phone</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Point Package</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
+                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Invoice</th>
                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Ordered Date</th>
                     </tr>
                 </thead>
@@ -23,7 +24,7 @@
                         @foreach($orders as $key => $order)
                         <tr>
                             <td>{{ ++$key }}</td>
-                            <td><a href="{{ route('employers.edit', $order->Employer->id) }}" class="text-decoration-none text-black">{{ $order->Employer->name }}</a>@if($order->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</td>
+                            <td>{{ $order->Employer->name }}@if($order->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</td>
                             <td>{{ $order->name }}</td>
                             <td><a href="tel:+{{ $order->phone }}" class="text-decoration-none text-black">{{ $order->phone }}</a></td>
                             <td>{{ $order->PointPackage->point }} Points - {{ $order->PointPackage->price }} MMK</td>
@@ -34,6 +35,11 @@
                                 <span class="badge text-light bg-success">{{ $order->status }}</span>
                                 @elseif($order->status == 'Reject')
                                 <span class="badge text-light bg-danger">{{ $order->status }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if(isset($order->Invoice))
+                                <a href="{{ getS3File('invoice',$order->Invoice->file_name) }}" target="_blank" download data-bs-toggle="tooltip" data-bs-placement="top" title="Download Invoice" class=""><i class="fas fa-download"></i></a>
                                 @endif
                             </td>
                             <td class="text-black">{{ date('d M, Y', strtotime($order->created_at)) }}</td>

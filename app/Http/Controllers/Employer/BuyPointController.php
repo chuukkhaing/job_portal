@@ -10,7 +10,12 @@ use App\Models\Admin\PointPackage;
 use App\Models\Admin\PointOrder;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Admin\PackageItem;
+use App\Models\Admin\Invoice;
+use App\Models\Admin\BankInfo;
+use App\Models\Admin\Tax;
+use Storage;
 use Auth;
+use PDF;
 
 class BuyPointController extends Controller
 {
@@ -76,7 +81,40 @@ class BuyPointController extends Controller
             'employer_id' => $employer_id,
             'status' => 'Pending'
         ]);
-
+        $last_invoice_no = Invoice::orderBy('invoice_no', 'desc')->first();
+        if(isset($last_invoice_no)){
+            $last_invoice_no = $last_invoice_no->invoice_no;
+        }else {
+            $last_invoice_no = 000000;
+        }
+        $invoice_no = sprintf('%06d', $last_invoice_no + 1);
+        $tax = Tax::first();
+        $tax_amount = ($order->PointPackage->price * $tax->tax) / 100 ;
+        $final_balance = $order->PointPackage->price + $tax_amount;
+        $banks = BankInfo::whereNull('deleted_at')->whereIsActive(1)->get();
+        $fileName =  date('YmdHi').$invoice_no.'_ic_point_invoice.pdf';
+        $invoice = Invoice::create([
+            'invoice_no' => $invoice_no,
+            'point_order_id' => $order->id,
+            'tax' => $tax_amount,
+            'tax_percent' => $tax->tax,
+            'sub_total' => $order->PointPackage->price,
+            'final_balance' => $final_balance,
+            'file_name' => $fileName,
+            'status' => 'Pending',
+            'created_by' => Auth::user()->id
+        ]);
+        $tax = $invoice->tax;
+        $pdf = PDF::loadView('download.invoice', compact('invoice', 'tax', 'tax_amount', 'final_balance', 'banks'));
+        
+        $fileName =  date('YmdHi').$invoice_no.'_ic_point_invoice.pdf';
+        
+        $path     = 'invoice/' . $fileName;
+        Storage::disk('s3')->put($path, $pdf->output());
+        $path = Storage::disk('s3')->url($path);
+        $order->update([
+            'invoice_id' => $invoice->id
+        ]);
         if($order) {
             return redirect()->route('employer-job-post.create')->with('success','Your Points order was successful.');
         }else {
