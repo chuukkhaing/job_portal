@@ -35,3 +35,6 @@ Route::get('/find-jobs', [FindJobController::class, 'findJob']);
 Route::get('/get-find-job-filter-data', [FindJobController::class, 'getFindJobFilterData']);
 Route::post('/search-job', [FindJobController::class, 'searchJob']);
 Route::get('/get-job-title', [FindJobController::class, 'getJobTitle']);
+
+// job category 
+Route::get('/get-all-category', [HomeController::class, 'getAllCategory']);

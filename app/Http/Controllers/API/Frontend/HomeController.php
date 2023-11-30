@@ -9,6 +9,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Models\Admin\State;
 use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
 
 class HomeController extends Controller
 {
@@ -102,6 +103,25 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success',
             'functional_areas' => $functional_areas
+        ], 200);
+    }
+
+    public function getAllCategory()
+    {
+        // $industries = DB::table('industries')
+        //     ->select('industries.id as id', 'industries.name as name', 'industries.icon as icon', 'industries.color_code as color_code', DB::raw("count(job_posts.industry_id) as count"))
+        //     ->groupBy('industries.id')
+        //     ->get();
+        $industries = Industry::select('id', 'name', 'icon', 'color_code')->withCount(['JobPost' => function ($query) {
+            $query->where('is_active',1)->where('status','Online');
+        }])->whereIsActive(1)->whereNull('deleted_at')->get();
+        $live_job   = JobPost::whereIsActive(1)->count();
+        $today_job  = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
+        return response()->json([
+            'status' => 'success',
+            'live_job' => $live_job,
+            'today_job' => $today_job,
+            'industries' => $industries
         ], 200);
     }
 }
