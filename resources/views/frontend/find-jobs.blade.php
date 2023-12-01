@@ -526,13 +526,20 @@
 
                 <div class="job-trending-scroll shadow rounded">
                     @foreach($trending_jobs as $trending_job)
+                    @php 
+                    if($trending_job->Employer->MainEmployer) {
+                        $trending_job_Employer = $trending_job->Employer->MainEmployer;
+                    }else {
+                        $trending_job_Employer = $trending_job->Employer;
+                    }
+                    @endphp
                     <a data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$trending_job->id}}">
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 trending-job-list rounded">
                                 <div class="row m-0">
                                     <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
-                                        @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                        <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                        @if($trending_job_Employer->logo && $trending_job->hide_company == 0)
+                                        <img src="{{ getS3File('employer_logo',$trending_job_Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
@@ -540,7 +547,7 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $trending_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">@if($trending_job->hide_company == 0) {{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
+                                            <span id="trending-job-sub-title">@if($trending_job->hide_company == 0) {{ $trending_job_Employer->name }} @if($trending_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$trending_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
                                         </div>
 
                                         <div class="fz13">
@@ -565,15 +572,15 @@
                                         <div class="card-header bg-transparent">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                                    @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                                    <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
+                                                    @if($trending_job_Employer->logo && $trending_job->hide_company == 0)
+                                                    <img src="{{ getS3File('employer_logo',$trending_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job_Employer->name }}">
                                                     @else
-                                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job->Employer->name }}">
+                                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $trending_job_Employer->name }}">
                                                     @endif
                                                     <div class="align-self-center">
                                                         <span class="h4 fw-bold">{{ $trending_job->job_title }} @if($trending_job->no_of_candidate) ( {{ $trending_job->no_of_candidate }} - Posts ) @endif</span>
                                                         @if($trending_job->hide_company == 0)
-                                                        <div><a class="text-muted h6" href="{{ route('company-detail',$trending_job->Employer->slug ?? '') }}">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
+                                                        <div><a class="text-muted h6" href="{{ route('company-detail',$trending_job_Employer->slug ?? '') }}">{{ $trending_job_Employer->name }} @if($trending_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -683,7 +690,7 @@
                                                             </div>
                                                             @if($trending_job->hide_company == 0)
                                                             <div class="col-10">
-                                                                <h4 class="fw-bold text-black">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                <h4 class="fw-bold text-black">{{ $trending_job_Employer->name }} @if($trending_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                             </div>
                                                             @endif
                                                         </div>
@@ -691,29 +698,29 @@
                                                             <div class="header">
                                                                 <div class="row">
                                                                     <div class="col-2 ">
-                                                                        @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                                                        <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job->Employer->name }}">
+                                                                        @if($trending_job_Employer->logo && $trending_job->hide_company == 0)
+                                                                        <img src="{{ getS3File('employer_logo',$trending_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $trending_job_Employer->name }}">
                                                                         @else
                                                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-10 py-4">
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
-                                                                        @if($trending_job->Employer->summary)
+                                                                        @if($trending_job_Employer->summary)
                                                                         <p class="mb-4">
-                                                                            {!! $trending_job->Employer->summary !!}
+                                                                            {!! $trending_job_Employer->summary !!}
                                                                         </p>
                                                                         @endif
                                                                         <h5 class="fw-bold text-dark">Specialties:</h5>
-                                                                        @if($trending_job->Employer->Industry->name)
+                                                                        @if($trending_job_Employer->Industry->name)
                                                                         <span class="mb-4 btn border seeker_image_input_label">
-                                                                            {{ $trending_job->Employer->Industry->name }}
+                                                                            {{ $trending_job_Employer->Industry->name }}
                                                                         </span>
                                                                         @endif
-                                                                        @if($trending_job->Employer->website)
+                                                                        @if($trending_job_Employer->website)
                                                                         <h5 class="fw-bold text-dark">Company Website:</h5>
                                                                         <p class="mb-4">
-                                                                            <a href="{{ $trending_job->Employer->website }}" target="_blank"><small><strong>{{ $trending_job->Employer->website }}</strong></small></a>
+                                                                            <a href="{{ $trending_job_Employer->website }}" target="_blank"><small><strong>{{ $trending_job_Employer->website }}</strong></small></a>
                                                                         </p>
                                                                         @endif
                                                                     </div>
@@ -724,11 +731,11 @@
                                                             <div class="px-5 py-3">
                                                                 <h5 class="fw-bold text-dark">Company Details</h5>
                                                                 <div class="row">
-                                                                    @if($trending_job->Employer->Industry->name)
+                                                                    @if($trending_job_Employer->Industry->name)
                                                                     <div class="col">
                                                                         <h6 class="fw-bold text-dark">Industry Type</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $trending_job->Employer->Industry->name }}
+                                                                            {{ $trending_job_Employer->Industry->name }}
                                                                         </p>
                                                                     </div>
                                                                     @endif
@@ -746,7 +753,7 @@
                                                                     </div>
                                                                     <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                                     <p class="mb-4">
-                                                                        {!! $trending_job->Employer->value ?? '-' !!}
+                                                                        {!! $trending_job_Employer->value ?? '-' !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -760,37 +767,37 @@
                                                                     
                                                                     <div class="col py-4" >
                                                                         <div class="col-6 mx-auto text-center">
-                                                                            @if($trending_job->Employer->logo && $trending_job->hide_company == 0)
-                                                                            <img src="{{ getS3File('employer_logo',$trending_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job->Employer->name }}">
+                                                                            @if($trending_job_Employer->logo && $trending_job->hide_company == 0)
+                                                                            <img src="{{ getS3File('employer_logo',$trending_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $trending_job_Employer->name }}">
                                                                             @else
                                                                             <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                             @endif
                                                                         </div>
                                                                         @if($trending_job->hide_company == 0)
-                                                                        <h4 class="fw-bold text-black job-post-company-name">{{ $trending_job->Employer->name }} @if($trending_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                        <h4 class="fw-bold text-black job-post-company-name">{{ $trending_job_Employer->name }} @if($trending_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                                         @endif
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
-                                                                        @if($trending_job->Employer->summary)
+                                                                        @if($trending_job_Employer->summary)
                                                                         <p class="mb-4">
-                                                                            {!! $trending_job->Employer->summary !!}
+                                                                            {!! $trending_job_Employer->summary !!}
                                                                         </p>
                                                                         @endif
-                                                                        @if($trending_job->Employer->EmployerAddress->count() > 0)
+                                                                        @if($trending_job_Employer->EmployerAddress->count() > 0)
                                                                         <h5 class="fw-bold text-dark">Address:</h5>
                                                                         <span class="mb-4 btn border seeker_image_input_label">
                                                                             
-                                                                                @if($trending_job->Employer->EmployerAddress->first()->address_detail)
-                                                                                <p>{{ $trending_job->Employer->EmployerAddress->first()->address_detail }}</p>
+                                                                                @if($trending_job_Employer->EmployerAddress->first()->address_detail)
+                                                                                <p>{{ $trending_job_Employer->EmployerAddress->first()->address_detail }}</p>
                                                                                 @else
-                                                                                <p>@if($trending_job->Employer->EmployerAddress->first()->country == 'Myanmar') {{ $trending_job->Employer->EmployerAddress->first()->State->name ?? '' }}, @if($trending_job->Employer->EmployerAddress->first()->township_id) {{ $trending_job->Employer->EmployerAddress->first()->Township->name }}, @endif {{ $trending_job->Employer->EmployerAddress->first()->country }} @endif</p>
+                                                                                <p>@if($trending_job_Employer->EmployerAddress->first()->country == 'Myanmar') {{ $trending_job_Employer->EmployerAddress->first()->State->name ?? '' }}, @if($trending_job_Employer->EmployerAddress->first()->township_id) {{ $trending_job_Employer->EmployerAddress->first()->Township->name }}, @endif {{ $trending_job_Employer->EmployerAddress->first()->country }} @endif</p>
                                                                                 @endif
                                                                             
                                                                         </span>
                                                                         @endif
-                                                                        @if($trending_job->Employer->website)
+                                                                        @if($trending_job_Employer->website)
                                                                         <h5 class="fw-bold text-dark">Company Website:</h5>
                                                                         <p class="mb-4">
-                                                                            <a href="{{ $trending_job->Employer->website }}" target="_blank"><small><strong>{{ $trending_job->Employer->website }}</strong></small></a>
+                                                                            <a href="{{ $trending_job_Employer->website }}" target="_blank"><small><strong>{{ $trending_job_Employer->website }}</strong></small></a>
                                                                         </p>
                                                                         @endif
                                                                     </div>
@@ -801,29 +808,29 @@
                                                             <div class="px-2 px-md-3 px-lg-5 py-3">
                                                                 <h5 class="fw-bold text-dark">Company Details</h5>
                                                                 <div class="row">
-                                                                    @if($trending_job->Employer->Industry->name)
+                                                                    @if($trending_job_Employer->Industry->name)
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">Industry Type</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $trending_job->Employer->Industry->name }}
+                                                                            {{ $trending_job_Employer->Industry->name }}
                                                                         </p>
                                                                     </div>
                                                                     @endif
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">Company Size:</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $trending_job->Employer->no_of_employees ?? '-' }}
+                                                                            {{ $trending_job_Employer->no_of_employees ?? '-' }}
                                                                         </p>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">No of Office:</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $trending_job->Employer->no_of_offices ?? '-' }}
+                                                                            {{ $trending_job_Employer->no_of_offices ?? '-' }}
                                                                         </p>
                                                                     </div>
                                                                     <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                                     <p class="mb-4">
-                                                                        {!! $trending_job->Employer->value ?? '-' !!}
+                                                                        {!! $trending_job_Employer->value ?? '-' !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -834,7 +841,7 @@
                                         </div>
                                         @if($trending_job->hide_company == 0)
                                         <div class="card-footer text-center">
-                                            <a href="{{ route('company-jobs', $trending_job->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
+                                            <a href="{{ route('company-jobs', $trending_job_Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                                         </div>
                                         @endif
                                     </div>
@@ -872,13 +879,20 @@
 
                 <div class="job-trending-scroll shadow rounded">
                     @foreach($feature_jobs as $feature_job)
+                    @php 
+                    if($feature_job->Employer->MainEmployer) {
+                        $feature_job_Employer = $feature_job->Employer->MainEmployer;
+                    }else {
+                        $feature_job_Employer = $feature_job->Employer;
+                    }
+                    @endphp
                     <a data-bs-toggle="modal" data-bs-target="#FeatureJobPostModal{{$feature_job->id}}">
                         <div class="col-lg-12 border-bottom p-0">
                             <div class="m-0 my-2 trending-job-list rounded">
                                 <div class="row m-0">
                                     <div class="col-xl-3 col-lg-12 col-4 text-center h-100 align-self-center">
-                                        @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                        <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
+                                        @if($feature_job_Employer->logo && $feature_job->hide_company == 0)
+                                        <img src="{{ getS3File('employer_logo',$feature_job_Employer->logo) }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @else 
                                         <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="img-responsive center-block d-block mx-auto" style="width: 100%" id="ProfilePreview">
                                         @endif
@@ -886,7 +900,7 @@
                                     <div class="col-xl-9 col-lg-12 col-8 p-0">
                                         <div>
                                             <h3 id="trending-job-title">{{ $feature_job->job_title }}</h3>
-                                            <span id="trending-job-sub-title">@if($feature_job->hide_company == 0) {{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
+                                            <span id="trending-job-sub-title">@if($feature_job->hide_company == 0) {{ $feature_job_Employer->name }} @if($feature_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$feature_job->id)->count() > 0) <span class="badge badge-info"> Applied </span> @endif @endauth</span>
                                         </div>
 
                                         <div class="fz13">
@@ -911,15 +925,15 @@
                                         <div class="card-header bg-transparent">
                                             <div class="row">
                                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                                    @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                                    <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job->Employer->name }}">
+                                                    @if($feature_job_Employer->logo && $feature_job->hide_company == 0)
+                                                    <img src="{{ getS3File('employer_logo',$feature_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $feature_job_Employer->name }}">
                                                     @else
                                                     <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                                     @endif
                                                     <div class="align-self-center">
                                                         <span class="h4 fw-bold">{{ $feature_job->job_title }} @if($feature_job->no_of_candidate) ( {{ $feature_job->no_of_candidate }} - Posts ) @endif</span>
                                                         @if($feature_job->hide_company == 0)
-                                                        <div><a class="text-muted h6" href="{{ route('company-detail',$feature_job->Employer->slug ?? '') }}">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
+                                                        <div><a class="text-muted h6" href="{{ route('company-detail',$feature_job_Employer->slug ?? '') }}">{{ $feature_job_Employer->name }} @if($feature_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -1029,7 +1043,7 @@
                                                             </div>
                                                             @if($feature_job->hide_company == 0)
                                                             <div class="col-10">
-                                                                <h4 class="fw-bold text-black">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                <h4 class="fw-bold text-black">{{ $feature_job_Employer->name }} @if($feature_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                             </div>
                                                             @endif
                                                         </div>
@@ -1037,29 +1051,29 @@
                                                             <div class="header">
                                                                 <div class="row">
                                                                     <div class="col-2 ">
-                                                                        @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                                                        <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job->Employer->name }}">
+                                                                        @if($feature_job_Employer->logo && $feature_job->hide_company == 0)
+                                                                        <img src="{{ getS3File('employer_logo',$feature_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $feature_job_Employer->name }}">
                                                                         @else
                                                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
                                                                         @endif
                                                                     </div>
                                                                     <div class="col-10 py-4">
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
-                                                                        @if($feature_job->Employer->summary)
+                                                                        @if($feature_job_Employer->summary)
                                                                         <p class="mb-4">
-                                                                            {!! $feature_job->Employer->summary !!}
+                                                                            {!! $feature_job_Employer->summary !!}
                                                                         </p>
                                                                         @endif
                                                                         <h5 class="fw-bold text-dark">Specialties:</h5>
-                                                                        @if($feature_job->Employer->Industry->name)
+                                                                        @if($feature_job_Employer->Industry->name)
                                                                         <span class="mb-4 btn border seeker_image_input_label">
-                                                                            {{ $feature_job->Employer->Industry->name }}
+                                                                            {{ $feature_job_Employer->Industry->name }}
                                                                         </span>
                                                                         @endif
-                                                                        @if($feature_job->Employer->website)
+                                                                        @if($feature_job_Employer->website)
                                                                         <h5 class="fw-bold text-dark">Company Website:</h5>
                                                                         <p class="mb-4">
-                                                                            <a href="{{ $feature_job->Employer->website }}" target="_blank"><small><strong>{{ $feature_job->Employer->website }}</strong></small></a>
+                                                                            <a href="{{ $feature_job_Employer->website }}" target="_blank"><small><strong>{{ $feature_job_Employer->website }}</strong></small></a>
                                                                         </p>
                                                                         @endif
                                                                     </div>
@@ -1070,11 +1084,11 @@
                                                             <div class="px-5 py-3">
                                                                 <h5 class="fw-bold text-dark">Company Details</h5>
                                                                 <div class="row">
-                                                                    @if($feature_job->Employer->Industry->name)
+                                                                    @if($feature_job_Employer->Industry->name)
                                                                     <div class="col">
                                                                         <h6 class="fw-bold text-dark">Industry Type</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $feature_job->Employer->Industry->name }}
+                                                                            {{ $feature_job_Employer->Industry->name }}
                                                                         </p>
                                                                     </div>
                                                                     @endif
@@ -1092,7 +1106,7 @@
                                                                     </div>
                                                                     <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                                     <p class="mb-4">
-                                                                        {!! $feature_job->Employer->value ?? '-' !!}
+                                                                        {!! $feature_job_Employer->value ?? '-' !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -1106,37 +1120,37 @@
                                                                     
                                                                     <div class="col py-4" >
                                                                         <div class="col-6 mx-auto text-center">
-                                                                            @if($feature_job->Employer->logo && $feature_job->hide_company == 0)
-                                                                            <img src="{{ getS3File('employer_logo',$feature_job->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job->Employer->name }}">
+                                                                            @if($feature_job_Employer->logo && $feature_job->hide_company == 0)
+                                                                            <img src="{{ getS3File('employer_logo',$feature_job_Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $feature_job_Employer->name }}">
                                                                             @else
                                                                             <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                                             @endif
                                                                         </div>
                                                                         @if($feature_job->hide_company == 0)
-                                                                        <h4 class="fw-bold text-black job-post-company-name">{{ $feature_job->Employer->name }} @if($feature_job->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
+                                                                        <h4 class="fw-bold text-black job-post-company-name">{{ $feature_job_Employer->name }} @if($feature_job_Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                                                         @endif
                                                                         <h5 class="fw-bold text-dark">Company Overview</h5>
-                                                                        @if($feature_job->Employer->summary)
+                                                                        @if($feature_job_Employer->summary)
                                                                         <p class="mb-4">
-                                                                            {!! $feature_job->Employer->summary !!}
+                                                                            {!! $feature_job_Employer->summary !!}
                                                                         </p>
                                                                         @endif
-                                                                        @if($feature_job->Employer->EmployerAddress->count() > 0)
+                                                                        @if($feature_job_Employer->EmployerAddress->count() > 0)
                                                                         <h5 class="fw-bold text-dark">Address:</h5>
                                                                         <span class="mb-4 btn border seeker_image_input_label">
                                                                             
-                                                                                @if($feature_job->Employer->EmployerAddress->first()->address_detail)
-                                                                                <p>{{ $feature_job->Employer->EmployerAddress->first()->address_detail }}</p>
+                                                                                @if($feature_job_Employer->EmployerAddress->first()->address_detail)
+                                                                                <p>{{ $feature_job_Employer->EmployerAddress->first()->address_detail }}</p>
                                                                                 @else
-                                                                                <p>@if($feature_job->Employer->EmployerAddress->first()->country == 'Myanmar') {{ $feature_job->Employer->EmployerAddress->first()->State->name ?? '' }}, @if($feature_job->Employer->EmployerAddress->first()->township_id) {{ $feature_job->Employer->EmployerAddress->first()->Township->name }}, @endif {{ $feature_job->Employer->EmployerAddress->first()->country }} @endif</p>
+                                                                                <p>@if($feature_job_Employer->EmployerAddress->first()->country == 'Myanmar') {{ $feature_job_Employer->EmployerAddress->first()->State->name ?? '' }}, @if($feature_job_Employer->EmployerAddress->first()->township_id) {{ $feature_job_Employer->EmployerAddress->first()->Township->name }}, @endif {{ $feature_job_Employer->EmployerAddress->first()->country }} @endif</p>
                                                                                 @endif
                                                                             
                                                                         </span>
                                                                         @endif
-                                                                        @if($feature_job->Employer->website)
+                                                                        @if($feature_job_Employer->website)
                                                                         <h5 class="fw-bold text-dark">Company Website:</h5>
                                                                         <p class="mb-4">
-                                                                            <a href="{{ $feature_job->Employer->website }}" target="_blank"><small><strong>{{ $feature_job->Employer->website }}</strong></small></a>
+                                                                            <a href="{{ $feature_job_Employer->website }}" target="_blank"><small><strong>{{ $feature_job_Employer->website }}</strong></small></a>
                                                                         </p>
                                                                         @endif
                                                                     </div>
@@ -1147,29 +1161,29 @@
                                                             <div class="px-2 px-md-3 px-lg-5 py-3">
                                                                 <h5 class="fw-bold text-dark">Company Details</h5>
                                                                 <div class="row">
-                                                                    @if($feature_job->Employer->Industry->name)
+                                                                    @if($feature_job_Employer->Industry->name)
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">Industry Type</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $feature_job->Employer->Industry->name }}
+                                                                            {{ $feature_job_Employer->Industry->name }}
                                                                         </p>
                                                                     </div>
                                                                     @endif
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">Company Size:</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $feature_job->Employer->no_of_employees ?? '-' }}
+                                                                            {{ $feature_job_Employer->no_of_employees ?? '-' }}
                                                                         </p>
                                                                     </div>
                                                                     <div class="col-12 col-lg-4">
                                                                         <h6 class="fw-bold text-dark">No of Office:</h6>
                                                                         <p class="mb-4 btn border seeker_image_input_label w-100">
-                                                                            {{ $feature_job->Employer->no_of_offices ?? '-' }}
+                                                                            {{ $feature_job_Employer->no_of_offices ?? '-' }}
                                                                         </p>
                                                                     </div>
                                                                     <h5 class="fw-bold text-dark">Vision, Mission, Value</h5>
                                                                     <p class="mb-4">
-                                                                        {!! $feature_job->Employer->value ?? '-' !!}
+                                                                        {!! $feature_job_Employer->value ?? '-' !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -1180,7 +1194,7 @@
                                         </div>
                                         @if($feature_job->hide_company == 0)
                                         <div class="card-footer text-center">
-                                            <a href="{{ route('company-jobs', $feature_job->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
+                                            <a href="{{ route('company-jobs', $feature_job_Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                                         </div>
                                         @endif
                                     </div>

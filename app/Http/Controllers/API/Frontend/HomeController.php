@@ -61,7 +61,9 @@ class HomeController extends Controller
 
     public function getTrendingJob()
     {
-        $trending_jobs         = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'Township:id,name'])
+        $trending_jobs         = JobPost::with(['MainFunctionalArea:id,name', 'Township:id,name', 'Employer' => function ($query) {
+            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+        }])
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('trending')
@@ -76,7 +78,9 @@ class HomeController extends Controller
 
     public function getFeaturedJob()
     {
-        $featured_jobs         = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'Township:id,name'])
+        $featured_jobs         = JobPost::with(['MainFunctionalArea:id,name', 'Township:id,name', 'Employer' => function ($query) {
+            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+        }])
                                 ->whereIsActive(1)->whereStatus('Online')
                                 ->orderBy('updated_at', 'desc')
                                 ->whereJobPostType('feature')

@@ -14,7 +14,9 @@ class FindJobController extends Controller
 {
     public function findJob()
     {
-        $jobPosts = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'Township:id,name'])->where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')->orderBy('posted_at','desc')->paginate(10);
+        $jobPosts = JobPost::with(['MainFunctionalArea:id,name', 'Township:id,name', 'Employer' => function($query) {
+            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+        }])->where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')->orderBy('posted_at','desc')->paginate(10);
         return response()->json([
             'status' => 'success',
             'jobPosts' => $jobPosts
@@ -49,7 +51,9 @@ class FindJobController extends Controller
 
     public function searchJob(Request $request)
     {
-        $jobPosts              = JobPost::with(['Employer:id,logo,name,is_verified,slug', 'MainFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Industry:id,name'])->where('is_active', 1)->where('status','Online');
+        $jobPosts              = JobPost::with(['MainFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Industry:id,name', 'Employer' => function ($query) {
+            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+        }])->where('is_active', 1)->where('status','Online');
         
         if ($request->function_area) {
             $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area);
@@ -97,4 +101,6 @@ class FindJobController extends Controller
             'jobTitles' => $jobTitles
         ], 200);
     }
+
+    
 }
