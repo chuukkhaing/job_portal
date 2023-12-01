@@ -203,10 +203,21 @@ class HomeController extends Controller
         $main_functional_areas = FunctionalArea::whereIsActive(1)->where('functional_area_id', 0)->whereNull('deleted_at')->get();
         $sub_functional_areas  = FunctionalArea::whereIsActive(1)->where('functional_area_id', '!=', 0)->whereNull('deleted_at')->get();
         $states                = State::whereIsActive(1)->whereNull('deleted_at')->get();
-        $jobPosts = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->whereEmployerId($id)->paginate(10);
+
+        $employer = Employer::findOrFail($id);
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+
+        $jobPosts = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->whereIn('employer_id', $employer_id)->paginate(10);
         
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
-        $jobPostsCount = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy('updated_at','desc')->whereEmployerId($id)->count();
+        $jobPostsCount = JobPost::where('is_active',1)->where('status','Online')->where('hide_company', 0)->orderBy('updated_at','desc')->whereIn('employer_id', $employer_id)->count();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);
         $jobPostName = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
