@@ -44,3 +44,7 @@ Route::post('/job-post-detail', [HomeController::class, 'jobPostDetail']);
 // company job 
 Route::post('/company-job', [HomeController::class, 'companyJob']);
 Route::post('/company-detail', [HomeController::class, 'companyDetail']);
+Route::post('/search-company', [HomeController::class, 'searchCompany']);
+
+// contact us 
+Route::post('/contact-us', [HomeController::class, 'contactUs']);

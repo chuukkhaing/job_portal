@@ -11,6 +11,8 @@ use App\Models\Admin\State;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Admin\Industry;
 use App\Models\Admin\Employer;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\FeedBack;
 
 class HomeController extends Controller
 {
@@ -25,11 +27,16 @@ class HomeController extends Controller
 
     public function getPopularCategory()
     {
-        $industries = DB::table('job_posts as a')->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
-            ->join('industries as b', 'b.id','=','a.industry_id')
-            ->groupBy('a.industry_id')
-            ->orderBy('open_position', 'desc')->where('a.is_active',1)->whereNull('b.deleted_at')->where('b.is_active', 1)->where('a.status', 'Online')
-            ->get()->take(8);
+        $industries = DB::table('job_posts as a')
+                        ->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
+                        ->join('industries as b', 'b.id','=','a.industry_id')
+                        ->groupBy('a.industry_id')
+                        ->orderBy('open_position', 'desc')
+                        ->where('a.is_active',1)
+                        ->whereNull('b.deleted_at')
+                        ->where('b.is_active', 1)
+                        ->where('a.status', 'Online')
+                        ->get()->take(8);
         $live_job_post              = JobPost::whereIsActive(1)->count();
         $today_job_post             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
@@ -143,8 +150,11 @@ class HomeController extends Controller
             'slug' => 'required'
         ]);
         $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
-            $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
-        }])->whereSlug($request->slug)->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type')->first();
+            $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,vlue,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+        }])
+                ->whereSlug($request->slug)
+                ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                ->first();
         return response()->json([
             'status' => 'success',
             'jobpost' => $jobpost,
@@ -194,12 +204,17 @@ class HomeController extends Controller
         $employer = Employer::with(['EmployerMedia:id,employer_id,name,type', 'JobPost' => function($query) use ($employer_id) {
             $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name'])
                     ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                    ->where('is_active', 1)
+                    ->where('status', 'Online')
+                    ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                    ->orderBy('posted_at','desc')
                     ->whereIn('employer_id', $employer_id)
+                    ->where('hide_company', 0)
                     ->take(6);
         }, 'Industry:id,name', 'EmployerAddress' => function($address) {
-                        $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id');
+                        $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id', 'address_detail');
                     }])
-                    ->select('id','slug','background','logo','name','industry_id','no_of_employees','no_of_offices','value','summary', 'is_verified')->whereIsActive(1)
+                    ->select('id','slug','background','logo','name','industry_id','no_of_employees','no_of_offices','value','summary', 'website', 'is_verified')->whereIsActive(1)
                     ->whereNull('deleted_at')
                     ->whereSlug($request->slug)
                     ->first();
@@ -207,6 +222,38 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success',
             'employer' => $employer
+        ], 200);
+    }
+
+    public function searchCompany(Request $request)
+    {
+        $employers = Employer::select('id', 'logo', 'name', 'is_verified', 'slug')->withCount(['JobPost' => function ($query) {
+            $query->where('is_active',1)->where('status','Online');
+        }])->whereIsActive(1)->whereNull('employer_id')->where('name', 'like', '%' . $request->company_name . '%')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
+        return response()->json([
+            'status' => 'success',
+            'employers' => $employers
+        ], 200);
+    }
+
+    public function contactUs(Request $request)
+    {
+        $request->validate([
+            'phone' => ['nullable', new MyanmarPhone],
+            'email' => 'required|email',
+            'name' => 'required|string',
+        ]);
+
+        $feedback = FeedBack::create([
+            'name'        => $request->name,
+            'email'       => $request->email,
+            'phone'       => $request->phone,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Thank you for your interesting.'
         ], 200);
     }
 }

@@ -15,8 +15,14 @@ class FindJobController extends Controller
     public function findJob()
     {
         $jobPosts = JobPost::with(['MainFunctionalArea:id,name', 'Township:id,name', 'Employer' => function($query) {
-            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
-        }])->where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')->orderBy('posted_at','desc')->paginate(10);
+                        $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+                    }])
+                    ->where('is_active', 1)
+                    ->where('status', 'Online')
+                    ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                    ->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')
+                    ->orderBy('posted_at','desc')
+                    ->paginate(10);
         return response()->json([
             'status' => 'success',
             'jobPosts' => $jobPosts
