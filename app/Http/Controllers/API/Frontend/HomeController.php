@@ -28,7 +28,7 @@ class HomeController extends Controller
         $industries = DB::table('job_posts as a')->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
             ->join('industries as b', 'b.id','=','a.industry_id')
             ->groupBy('a.industry_id')
-            ->orderBy('open_position', 'desc')->where('a.is_active',1)->where('a.status', 'Online')
+            ->orderBy('open_position', 'desc')->where('a.is_active',1)->whereNull('b.deleted_at')->where('b.is_active', 1)->where('a.status', 'Online')
             ->get()->take(8);
         $live_job_post              = JobPost::whereIsActive(1)->count();
         $today_job_post             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
@@ -164,11 +164,49 @@ class HomeController extends Controller
         $employer_id[] = $employer->employer_id;
 
         $jobPosts = JobPost::with(['MainFunctionalArea:id,name', 'Township:id,name', 'Employer' => function($query) {
-            $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
-        }])->where('is_active', 1)->where('status', 'Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')->orderBy('posted_at','desc')->whereIn('employer_id', $employer_id)->paginate(10);
+                        $query->select('id','employer_id','logo','name','is_verified','slug')->with('MainEmployer:id,logo,name,is_verified,slug');
+                    }])
+                    ->where('is_active', 1)
+                    ->where('status', 'Online')
+                    ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                    ->select('job_title', 'job_post_type','hide_company', 'job_requirement', 'township_id', 'main_functional_area_id', 'employer_id', 'slug', 'updated_at as posted_at')
+                    ->orderBy('posted_at','desc')
+                    ->whereIn('employer_id', $employer_id)
+                    ->where('hide_company', 0)
+                    ->paginate(10);
         return response()->json([
             'status' => 'success',
             'jobPosts' => $jobPosts,
+        ], 200);
+    }
+
+    public function companyDetail(Request $request)
+    {
+        $employer = Employer::whereSlug($request->slug)->first();
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+        $employer = Employer::with(['EmployerMedia:id,employer_id,name,type', 'JobPost' => function($query) use ($employer_id) {
+            $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name'])
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type')
+                    ->whereIn('employer_id', $employer_id)
+                    ->take(6);
+        }, 'Industry:id,name', 'EmployerAddress' => function($address) {
+                        $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id');
+                    }])
+                    ->select('id','slug','background','logo','name','industry_id','no_of_employees','no_of_offices','value','summary', 'is_verified')->whereIsActive(1)
+                    ->whereNull('deleted_at')
+                    ->whereSlug($request->slug)
+                    ->first();
+        
+        return response()->json([
+            'status' => 'success',
+            'employer' => $employer
         ], 200);
     }
 }
