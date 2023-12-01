@@ -436,15 +436,24 @@ class EmployerProfileController extends Controller
     public function manageJob()
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
+
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
         
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $pendingjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
-        $onlinejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
-        $rejectjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
-        $expirejobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
-        $draftjobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
-        $jobPosts = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->orderBy('updated_at', 'desc')->get();
+        $pendingjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
+        $onlinejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
+        $rejectjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
+        $expirejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
+        $draftjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
+        $jobPosts = JobPost::whereIn('employer_id', $employer_id)->orderBy('updated_at', 'desc')->get();
 
         if($jobPosts->count() > 0) {
             return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts', 'draftjobPosts'));
@@ -458,11 +467,20 @@ class EmployerProfileController extends Controller
     {
         $employer = Employer::findOrFail(Auth::guard('employer')->user()->id);
         
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $activejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->whereIsActive(1)->where('status','!=', 'Expire')->get();
-        $inactivejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->whereIsActive(0)->where('status','!=', 'Expire')->get();
-        $expirejobApplicants = JobPost::whereIn('employer_id', [$employer->id, $employer->employer_id])->where('status', 'Expire')->get();
+        $activejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(1)->where('status','!=', 'Expire')->get();
+        $inactivejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(0)->where('status','!=', 'Expire')->get();
+        $expirejobApplicants = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->get();
         return view ('employer.profile.applicant-tracking', compact('activejobApplicants', 'inactivejobApplicants', 'expirejobApplicants', 'employer', 'packages', 'packageItems'));
     }
 
