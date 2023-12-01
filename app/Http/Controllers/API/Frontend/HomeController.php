@@ -139,6 +139,9 @@ class HomeController extends Controller
 
     public function jobPostDetail(Request $request)
     {
+        $this->validate($request, [
+            'slug' => 'required'
+        ]);
         $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
             $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
         }])->whereSlug($request->slug)->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type')->first();
