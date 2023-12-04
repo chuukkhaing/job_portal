@@ -74,7 +74,7 @@
                                         </td>
                                         {{--<td></td>
                                         <td></td>--}}
-                                        <td class=" text-black">{{ date('d M, Y', strtotime($activejobApplicant->created_at)) }}</td>
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($activejobApplicant->updated_at)) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -142,7 +142,7 @@
                                         </td>
                                         {{--<td></td>
                                         <td></td>--}}
-                                        <td class=" text-black">{{ date('d M, Y', strtotime($expirejobApplicant->created_at)) }}</td>
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($expirejobApplicant->updated_at)) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -210,7 +210,7 @@
                                         </td>
                                         {{--<td></td>
                                         <td></td>--}}
-                                        <td class=" text-black">{{ date('d M, Y', strtotime($inactivejobApplicant->created_at)) }}</td>
+                                        <td class=" text-black">{{ date('d M, Y', strtotime($inactivejobApplicant->updated_at)) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

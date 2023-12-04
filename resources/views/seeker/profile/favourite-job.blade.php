@@ -22,7 +22,7 @@
                                 <th>Company</th>
                                 <th>Job Function</th>
                                 <th>Location</th>
-                                <th>Applied Date</th>
+                                <th>Added Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
