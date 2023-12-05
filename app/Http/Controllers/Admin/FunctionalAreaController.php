@@ -111,7 +111,7 @@ class FunctionalAreaController extends Controller
         $functional_area = FunctionalArea::findOrFail($id);
         
         try {
-            $functional_area = FunctionalArea::findOrFail($id)->update([
+            $functional_area = FunctionalArea::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

@@ -241,7 +241,7 @@ class MemberUserController extends Controller
         }
         
         try {
-            $employer = Employer::findOrFail($id)->update([
+            $employer = Employer::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::guard('employer')->user()->id
             ]);

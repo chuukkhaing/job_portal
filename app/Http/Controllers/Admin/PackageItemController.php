@@ -114,7 +114,7 @@ class PackageItemController extends Controller
         $package_item = PackageItem::findOrFail($id);
         
         try {
-            $package_item = PackageItem::findOrFail($id)->update([
+            $package_item = PackageItem::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

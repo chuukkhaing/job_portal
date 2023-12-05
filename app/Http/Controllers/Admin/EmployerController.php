@@ -204,7 +204,7 @@ class EmployerController extends Controller
         $employer = Employer::findOrFail($id);
         
         try {
-            $employer = Employer::findOrFail($id)->update([
+            $employer = Employer::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

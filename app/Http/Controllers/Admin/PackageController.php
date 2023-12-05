@@ -154,7 +154,7 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         
         try {
-            $package = Package::findOrFail($id)->update([
+            $package = Package::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

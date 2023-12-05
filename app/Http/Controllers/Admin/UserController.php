@@ -141,7 +141,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         try {
-            $user = User::findOrFail($id)->update([
+            $user = User::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

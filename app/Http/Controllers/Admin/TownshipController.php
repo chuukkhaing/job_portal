@@ -116,7 +116,7 @@ class TownshipController extends Controller
         $township = Township::findOrFail($id);
         
         try {
-            $township = Township::findOrFail($id)->update([
+            $township = Township::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

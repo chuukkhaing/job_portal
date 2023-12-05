@@ -120,7 +120,7 @@ class BankInfoController extends Controller
         $bank = BankInfo::findOrFail($id);
         
         try {
-            $bank = BankInfo::findOrFail($id)->update([
+            $bank = BankInfo::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

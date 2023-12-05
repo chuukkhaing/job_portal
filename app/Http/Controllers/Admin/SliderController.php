@@ -160,7 +160,7 @@ class SliderController extends Controller
         $slider = Slider::findOrFail($id);
         
         try {
-            $slider = Slider::findOrFail($id)->update([
+            $slider = Slider::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

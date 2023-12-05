@@ -100,7 +100,7 @@ class SeekerController extends Controller
         $seeker = Seeker::findOrFail($id);
         
         try {
-            $seeker = Seeker::findOrFail($id)->update([
+            $seeker = Seeker::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

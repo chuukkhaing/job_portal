@@ -114,7 +114,7 @@ class SkillController extends Controller
         $skill = Skill::findOrFail($id);
         
         try {
-            $skill = Skill::findOrFail($id)->update([
+            $skill = Skill::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

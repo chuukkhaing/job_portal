@@ -111,7 +111,7 @@ class OwnershipTypeController extends Controller
         $ownershipType = OwnershipType::findOrFail($id);
         
         try {
-            $ownershipType = OwnershipType::findOrFail($id)->update([
+            $ownershipType = OwnershipType::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

@@ -118,7 +118,7 @@ class IndustryController extends Controller
         $industry = Industry::findOrFail($id);
         
         try {
-            $industry = Industry::findOrFail($id)->update([
+            $industry = Industry::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

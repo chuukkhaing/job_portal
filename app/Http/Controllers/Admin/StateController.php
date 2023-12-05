@@ -111,7 +111,7 @@ class StateController extends Controller
         $state = State::findOrFail($id);
         
         try {
-            $state = State::findOrFail($id)->update([
+            $state = State::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);

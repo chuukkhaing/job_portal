@@ -112,7 +112,7 @@ class PointPackageController extends Controller
         $package = PointPackage::findOrFail($id);
         
         try {
-            $package = PointPackage::findOrFail($id)->update([
+            $package = PointPackage::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);
