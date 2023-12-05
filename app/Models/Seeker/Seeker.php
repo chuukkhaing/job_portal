@@ -17,10 +17,11 @@ use App\Models\Seeker\JobApply;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Seeker\SaveJob;
+use Laravel\Sanctum\HasApiTokens;
 
 class Seeker extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     protected $guard = 'seeker';
     protected $guarded = [];

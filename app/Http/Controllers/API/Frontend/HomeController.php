@@ -291,7 +291,7 @@ class HomeController extends Controller
     
             return response()->json([
                 'status' => 'success',
-                'msg' => 'Thank you for your interesting.'
+                'msg' => 'Thank you for your interest.'
             ], 200);
         }
     }
