@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
+use App\Http\Controllers\API\Seeker\SeekerRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +49,5 @@ Route::post('/search-company', [HomeController::class, 'searchCompany']);
 
 // contact us 
 Route::post('/contact-us', [HomeController::class, 'contactUs']);
+
+Route::post('/seeker-register', [SeekerRegisterController::class, 'register']);

@@ -156,25 +156,25 @@ class HomeController extends Controller
         
         $validator =  Validator::make($request->all(), [
             'slug' => 'required'
-            ], $messages = [
-                'required' => ['The :attribute is required.']
-            ]);
-            if ($validator->fails()) {
-                return  $validator->messages();
-            } else {
-                $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
-                    $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
-                }, 'JobPostSkill' => function($skill) {
-                    $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                }])
-                        ->whereSlug($request->slug)
-                        ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
-                        ->first();
-                return response()->json([
-                    'status' => 'success',
-                    'jobpost' => $jobpost,
-                ], 200);
-            }
+        ], $messages = [
+            'required' => ['The :attribute is required.']
+        ]);
+        if ($validator->fails()) {
+            return  $validator->messages();
+        } else {
+            $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+            }, 'JobPostSkill' => function($skill) {
+                $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+            }])
+                    ->whereSlug($request->slug)
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                    ->first();
+            return response()->json([
+                'status' => 'success',
+                'jobpost' => $jobpost,
+            ], 200);
+        }
     }
 
     public function companyJob(Request $request)
@@ -211,47 +211,47 @@ class HomeController extends Controller
     {
         $validator =  Validator::make($request->all(), [
             'slug' => 'required'
-            ], $messages = [
-                'required' => ['The :attribute is required.']
-            ]);
-            if ($validator->fails()) {
-                return  $validator->messages();
-            } else {
-                $employer = Employer::whereSlug($request->slug)->first();
-                $member_ids = $employer->Member->pluck('id')->toArray();
-                $employer_id = [];
-                foreach($member_ids as $member_id) {
-                    $employer_id[] = $member_id;
-                }
-                
-                $employer_id[] = $employer->id;
-                $employer_id[] = $employer->employer_id;
-                $employer = Employer::with(['EmployerMedia:id,employer_id,name,type', 'JobPost' => function($query) use ($employer_id) {
-                    $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
-                        $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
-                    }, 'JobPostSkill' => function($skill) {
-                        $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                    }])
-                            ->whereIsActive(1)->whereStatus('Online')
-                            ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
-                            ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
-                            ->orderBy('posted_at','desc')
-                            ->whereIn('employer_id', $employer_id)
-                            ->where('hide_company', 0)
-                            ->take(6);
-                }, 'Industry:id,name', 'EmployerAddress' => function($address) {
-                                $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id', 'address_detail');
-                            }])
-                            ->select('id','slug','background','logo','name','industry_id','no_of_employees','no_of_offices','value','summary', 'website', 'is_verified')->whereIsActive(1)
-                            ->whereNull('deleted_at')
-                            ->whereSlug($request->slug)
-                            ->first();
-                
-                return response()->json([
-                    'status' => 'success',
-                    'employer' => $employer
-                ], 200);
+        ], $messages = [
+            'required' => ['The :attribute is required.']
+        ]);
+        if ($validator->fails()) {
+            return  $validator->messages();
+        } else {
+            $employer = Employer::whereSlug($request->slug)->first();
+            $member_ids = $employer->Member->pluck('id')->toArray();
+            $employer_id = [];
+            foreach($member_ids as $member_id) {
+                $employer_id[] = $member_id;
             }
+            
+            $employer_id[] = $employer->id;
+            $employer_id[] = $employer->employer_id;
+            $employer = Employer::with(['EmployerMedia:id,employer_id,name,type', 'JobPost' => function($query) use ($employer_id) {
+                $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                    $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                }, 'JobPostSkill' => function($skill) {
+                    $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                }])
+                        ->whereIsActive(1)->whereStatus('Online')
+                        ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                        ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                        ->orderBy('posted_at','desc')
+                        ->whereIn('employer_id', $employer_id)
+                        ->where('hide_company', 0)
+                        ->take(6);
+            }, 'Industry:id,name', 'EmployerAddress' => function($address) {
+                            $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id', 'address_detail');
+                        }])
+                        ->select('id','slug','background','logo','name','industry_id','no_of_employees','no_of_offices','value','summary', 'website', 'is_verified')->whereIsActive(1)
+                        ->whereNull('deleted_at')
+                        ->whereSlug($request->slug)
+                        ->first();
+            
+            return response()->json([
+                'status' => 'success',
+                'employer' => $employer
+            ], 200);
+        }
     }
 
     public function searchCompany(Request $request)
@@ -272,26 +272,27 @@ class HomeController extends Controller
             'email' => 'required|email',
             'name' => 'required|string',
             'description' => 'required',
-            ], $messages = [
-                'required' => ['The :attribute is required.'],
-                'MyanmarPhone' => ['The :attribute must be valid myanmar phone number.']
-            ]);
+        ], $messages = [
+            'required' => ['The :attribute is required.'],
+            'MyanmarPhone' => ['The :attribute must be valid myanmar phone number.'],
+            'email' => 'The :attribute must be a valid email address.',
+        ]);
 
-            if ($validator->fails()) {
-                return  $validator->messages();
-            } else {
-                
-                $feedback = FeedBack::create([
-                    'name'        => $request->name,
-                    'email'       => $request->email,
-                    'phone'       => $request->phone,
-                    'description' => $request->description,
-                ]);
-        
-                return response()->json([
-                    'status' => 'success',
-                    'msg' => 'Thank you for your interesting.'
-                ], 200);
-            }
+        if ($validator->fails()) {
+            return  $validator->messages();
+        } else {
+            
+            $feedback = FeedBack::create([
+                'name'        => $request->name,
+                'email'       => $request->email,
+                'phone'       => $request->phone,
+                'description' => $request->description,
+            ]);
+    
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Thank you for your interesting.'
+            ], 200);
+        }
     }
 }
