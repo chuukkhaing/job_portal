@@ -55,6 +55,13 @@ class SeekerProfileController extends Controller
                                 ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
                                 ->get()
                                 ->take(16);
+        if($jobPosts->count() == 0) {
+            $jobPosts             = JobPost::whereIsActive(1)
+            ->where('status','Online')
+            ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+            ->get()
+            ->take(16);
+        }
         $employers            = DB::table('employers as a')
             ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
