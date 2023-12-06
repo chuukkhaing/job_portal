@@ -54,4 +54,16 @@ class SeekerProfileController extends Controller
             'recommended_jobs' => $recommended_jobs
         ]);
     }
+
+    public function profile(Request $request)
+    {
+        $seeker = Seeker::with(['state:id,name','township:id,name'])
+                    ->whereId($request->user()->id)
+                    ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
+                    ->first();
+        return response()->json([
+            'status' => 'success',
+            'seeker' => $seeker
+        ]);
+    }
 }

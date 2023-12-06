@@ -66,6 +66,7 @@ Route::group(['prefix' => 'seeker'], function () {
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);
+        Route::post('/profile', [SeekerProfileController::class, 'profile']);
     });
 });
 
