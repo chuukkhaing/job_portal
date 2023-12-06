@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function getPopularCategory()
     {
         $industries = DB::table('job_posts as a')
-                        ->select('b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
+                        ->select('b.id', 'b.name','b.icon','b.color_code', DB::raw('count(*) as open_position'))
                         ->join('industries as b', 'b.id','=','a.industry_id')
                         ->groupBy('a.industry_id')
                         ->orderBy('open_position', 'desc')

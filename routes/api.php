@@ -53,6 +53,7 @@ Route::post('/contact-us', [HomeController::class, 'contactUs']);
 
 // seeker register 
 Route::post('/seeker-register', [SeekerRegisterController::class, 'register']);
+Route::post('/seeker-verify-resend', [SeekerLoginController::class, 'seekerVerifyResend']);
 
 // seeker login 
 Route::post('/seeker-login', [SeekerLoginController::class, 'login']);
