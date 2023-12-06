@@ -774,13 +774,13 @@ class SeekerProfileController extends Controller
 
     public function getApplication()
     {
-        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->orderBy('created','desc')->get();
+        $jobsApplyBySeeker    = JobApply::whereSeekerId(Auth::guard('seeker')->user()->id)->orderBy('created_at','desc')->get();
         return view('seeker.profile.job-application', compact('jobsApplyBySeeker'));
     }
     
     public function getSavedJob()
     {
-        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->orderBy('created','desc')->get();
+        $saveJobs             = SaveJob::whereSeekerId(Auth::guard('seeker')->user()->id)->orderBy('created_at','desc')->get();
         return view('seeker.profile.favourite-job', compact('saveJobs'));
     }
 
