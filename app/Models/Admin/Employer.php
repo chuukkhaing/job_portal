@@ -15,10 +15,11 @@ use App\Models\Employer\PointRecord;
 use App\Models\Employer\MemberPermission;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class Employer extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     protected $guard = 'employer';
     protected $guarded = [];

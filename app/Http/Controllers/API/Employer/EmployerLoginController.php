@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API\Seeker;
+namespace App\Http\Controllers\API\Employer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Auth;
 
-class SeekerLoginController extends Controller
+class EmployerLoginController extends Controller
 {
     public function login(Request $request)
     {
@@ -22,15 +22,15 @@ class SeekerLoginController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         } else {
-            if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
-                if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null) {
-                    Auth::guard('seeker')->logout();
+            if (\Auth::guard('employer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+                if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at) || Auth::guard('employer')->user()->email_verified_at == Null) {
+                    Auth::guard('employer')->logout();
                     return response()->json([
                         'status' => 'error',
                         'msg' => 'Your account is not active.',
                     ], 200);
                 }else {
-                    $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
+                    $token = Auth::guard('employer')->user()->createToken(Auth::guard('employer')->user()->email.'-AuthToken')->plainTextToken;
             
                     return response()->json([
                         'status' => 'success',

@@ -6,6 +6,9 @@ use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
 use App\Http\Controllers\API\Seeker\SeekerLoginController;
+use App\Http\Controllers\API\Seeker\SeekerProfileController;
+use App\Http\Controllers\API\Employer\EmployerLoginController;
+use App\Http\Controllers\API\Employer\EmployerProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,9 +54,25 @@ Route::post('/search-company', [HomeController::class, 'searchCompany']);
 // contact us 
 Route::post('/contact-us', [HomeController::class, 'contactUs']);
 
-// seeker register 
-Route::post('/seeker-register', [SeekerRegisterController::class, 'register']);
-Route::post('/seeker-verify-resend', [SeekerRegisterController::class, 'seekerVerifyResend']);
+// seeker 
+Route::group(['prefix' => 'seeker'], function () {
+    // seeker register 
+    Route::post('/register', [SeekerRegisterController::class, 'register']);
+    Route::post('/verify-resend', [SeekerRegisterController::class, 'seekerVerifyResend']);
 
-// seeker login 
-Route::post('/seeker-login', [SeekerLoginController::class, 'login']);
+    // seeker login 
+    Route::post('/login', [SeekerLoginController::class, 'login']);
+
+    // seeker profile 
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);
+    });
+});
+
+// employer login 
+Route::post('/employer-login', [EmployerLoginController::class, 'login']);
+
+// seeker profile 
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::post('/employer-profile', [EmployerProfileController::class, 'index']);
+});

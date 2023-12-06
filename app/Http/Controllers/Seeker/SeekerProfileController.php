@@ -46,7 +46,15 @@ class SeekerProfileController extends Controller
 
     public function index()
     {
-        $jobPosts             = JobPost::whereIsActive(1)->where('job_title', 'like', '%' . Auth::guard('seeker')->user()->job_title . '%')->where('status','Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get()->take(16);
+        $jobPosts             = JobPost::whereIsActive(1)
+                                ->where('job_title', 'like', '%' . Auth::guard('seeker')->user()->job_title . '%')
+                                ->where('main_functional_area_id', Auth::guard('seeker')->user()->main_functional_area_id)
+                                ->where('sub_functional_area_id', Auth::guard('seeker')->user()->sub_functional_area_id)
+                                ->where('career_level', Auth::guard('seeker')->user()->career_level)
+                                ->where('status','Online')
+                                ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                                ->get()
+                                ->take(16);
         $employers            = DB::table('employers as a')
             ->join('package_with_package_items as b', 'a.package_id', '=', 'b.package_id')
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
