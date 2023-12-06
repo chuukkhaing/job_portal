@@ -46,6 +46,7 @@ class SeekerRegisterController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'msg' => 'Please check your email to activate your account.',
+                    'seeker_id' => $seeker->id,
                     'email_verification_token' => $seeker->email_verification_token
                 ], 200);
             }
@@ -54,7 +55,7 @@ class SeekerRegisterController extends Controller
 
     public function seekerVerifyResend(Request $request)
     {
-        $seeker = Seeker::where('email_verification_token', $request->email_verification_token)->whereNull('deleted_at')->whereIsActive(0)->first();
+        $seeker = Seeker::whereId($request->seeker_id)->whereNotNull('email_verification_token')->whereNull('deleted_at')->whereIsActive(0)->first();
         if ($seeker) {
             $seeker_update = $seeker->update([
                 'email_verification_token' => Str::random(32),
@@ -62,9 +63,17 @@ class SeekerRegisterController extends Controller
 
             \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
 
-            return redirect()->route('seeker-verify-notice', $seeker->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Successfully resend!Please check your email to activate your account.',
+                'seeker_id' => $seeker->id,
+                'email_verification_token' => $seeker->email_verification_token
+            ], 200);
         }else {
-            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+            return response()->json([
+                'status' => 'success',
+                'msg' => "Your email was done't exist. Please Try Again!",
+            ], 200);
         }
     }
 }
