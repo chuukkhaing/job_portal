@@ -160,7 +160,7 @@ class HomeController extends Controller
             'required' => ['The :attribute is required.']
         ]);
         if ($validator->fails()) {
-            return  $validator->messages();
+            return response(['errors'=>$validator->messages()], 422);
         } else {
             $jobpost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
                 $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
@@ -215,7 +215,7 @@ class HomeController extends Controller
             'required' => ['The :attribute is required.']
         ]);
         if ($validator->fails()) {
-            return  $validator->messages();
+            return response(['errors'=>$validator->messages()], 422);
         } else {
             $employer = Employer::whereSlug($request->slug)->first();
             $member_ids = $employer->Member->pluck('id')->toArray();
@@ -279,7 +279,7 @@ class HomeController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return  $validator->messages();
+            return response(['errors'=>$validator->messages()], 422);
         } else {
             
             $feedback = FeedBack::create([

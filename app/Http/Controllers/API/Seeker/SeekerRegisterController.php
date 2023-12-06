@@ -29,7 +29,7 @@ class SeekerRegisterController extends Controller
             'min' => 'The :attribute must be at least :min.',
         ]);
         if ($validator->fails()) {
-            return  $validator->messages();
+            return response(['errors'=>$validator->messages()], 422);
         } else {
             $seeker = Seeker::create([
                 'email'                    => $request['email'],

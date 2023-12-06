@@ -20,7 +20,7 @@ class SeekerLoginController extends Controller
             'min' => 'The :attribute must be at least :min.',
         ]);
         if ($validator->fails()) {
-            return  $validator->messages();
+            return response(['errors'=>$validator->messages()], 422);
         } else {
             if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
                 if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null) {
