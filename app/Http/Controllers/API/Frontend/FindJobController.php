@@ -66,7 +66,7 @@ class FindJobController extends Controller
                 ->whereIsActive(1)->whereStatus('Online');
         
         if ($request->function_area) {
-            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area)->whereIn('main_functional_area_id', $request->function_area);
+            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area)->orWhereIn('main_functional_area_id', $request->function_area);
         }
         if ($request->location) {
             $jobPosts = $jobPosts->where('state_id', $request->location);
