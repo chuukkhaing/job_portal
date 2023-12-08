@@ -41,7 +41,7 @@ class SeekerRegisterController extends Controller
                 'is_active'                => 0
             ]);
             if ($seeker) {
-                \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
+                \Mail::to('chuukkhaing96@gmail.com')->send(new SeekerVerificationEmail($seeker));
 
                 return response()->json([
                     'status' => 'success',
