@@ -60,6 +60,10 @@
                 <tr>
                     <td>
                         <p style="color: #0355D0; font-weight: 600;">Thanks for choosing us!</p>
+                        <a href="https://www.facebook.com/infinitycareersmyanmar2021"><img src="https://infinitycareers.com.mm/img/icon/facebook.png" alt="" style="width: 25px;"></a>
+                        <a href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm"><img src="https://infinitycareers.com.mm/img/icon/viber.webp" alt="" style="width: 25px;"></a>
+                        <a href="https://t.me/+I1qnIWndCSZjNjY1"><img src="https://infinitycareers.com.mm/img/icon/telegram.png" alt="" style="width: 25px;"></a>
+                        <a href="https://www.linkedin.com/company/infinitycareersmyanmar/"><img src="https://infinitycareers.com.mm/img/icon/icon_Linkedin.png" alt="" style="width: 25px;"></a>
                     </td>
                 </tr>
                 <tr>
