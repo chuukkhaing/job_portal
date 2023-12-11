@@ -128,7 +128,7 @@ class SeekerProfileController extends Controller
     public function getSkill(Request $request)
     {
         $validator =  Validator::make($request->all(), [
-            'state_id'    => ['required'],
+            'seeker_id'    => ['required'],
             'main_functional_area_id'    => ['required']
         ], $messages = [
             'required' => ['The :attribute is required.']
