@@ -70,11 +70,11 @@ class SeekerProfileController extends Controller
                                 ->whereId($request->user()->id)
                                 ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
                                 ->first();
-        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
-        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
-        $main_functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $industries           = Industry::whereNull('deleted_at')->get();
+        $states               = State::whereNull('deleted_at')->whereIsActive(1)->select('id','name')->get();
+        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->select('id','name','state_id')->get();
+        $main_functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->select('id','name')->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->select('id','name','functional_area_id')->get();
+        $industries           = Industry::whereNull('deleted_at')->select('id','name')->get();
         return response()->json([
             'status' => 'success',
             'seeker' => $seeker,
