@@ -147,33 +147,42 @@ class SeekerProfileController extends Controller
 
     public function profileImageStore(Request $request)
     {
-        if ($request->file('profile_image')) {
-            $seeker = Seeker::findOrFail($request->user()->id);
-            
-            $image  = $seeker->image;
-            Storage::disk('s3')->delete('seeker/profile/'. $request->user()->id . '/' . $image);
-            $image        = null;
-            
-            $seeker_update = $seeker->update([
-                'image'    => $image,
-            ]);
-            
-            $file  = $request->file('profile_image');
-            $image = date('YmdHi') . $file->getClientOriginalName();
-            
-            $path     = 'seeker/profile/'. $request->user()->id . '/' . $image;
-            Storage::disk('s3')->makeDirectory($path);
-            Storage::disk('s3')->put($path, file_get_contents($file));
-            $path = Storage::disk('s3')->url($path);
-
-            $seeker->update([
-                'image'    => $image,
-            ]);
-
-            return response()->json([
-                'status' => 'success',
-                'image' => $image
-            ], 200);
+        $validator =  Validator::make($request->all(), [
+            'profile_image'    => ['required']
+        ], $messages = [
+            'required' => ['The :attribute is required.']
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            if ($request->file('profile_image')) {
+                $seeker = Seeker::findOrFail($request->user()->id);
+                
+                $image  = $seeker->image;
+                Storage::disk('s3')->delete('seeker/profile/'. $request->user()->id . '/' . $image);
+                $image        = null;
+                
+                $seeker_update = $seeker->update([
+                    'image'    => $image,
+                ]);
+                
+                $file  = $request->file('profile_image');
+                $image = date('YmdHi') . $file->getClientOriginalName();
+                
+                $path     = 'seeker/profile/'. $request->user()->id . '/' . $image;
+                Storage::disk('s3')->makeDirectory($path);
+                Storage::disk('s3')->put($path, file_get_contents($file));
+                $path = Storage::disk('s3')->url($path);
+    
+                $seeker->update([
+                    'image'    => $image,
+                ]);
+    
+                return response()->json([
+                    'status' => 'success',
+                    'image' => $image
+                ], 200);
+            }
         }
     }
 
