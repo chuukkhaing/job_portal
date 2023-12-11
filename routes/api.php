@@ -80,6 +80,9 @@ Route::group(['prefix' => 'seeker'], function () {
         // seeker profile img
         Route::post('profile-img-store',[SeekerProfileController::class, 'profileImageStore']);
         Route::post('profile-img-delete',[SeekerProfileController::class, 'profileImageDestory']);
+
+        // seeker personal information 
+        Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
     });
 });
 

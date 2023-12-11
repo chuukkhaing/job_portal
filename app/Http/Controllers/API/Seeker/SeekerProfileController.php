@@ -13,6 +13,8 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
+use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Seeker\SeekerPercentage;
 use Storage;
 use Auth;
 use DB;
@@ -199,5 +201,89 @@ class SeekerProfileController extends Controller
         return response()->json([
             'status' => 'success'
         ], 200);
+    }
+
+    public function personalInformation(Request $request)
+    {
+        
+        if($request->column == 'phone') {
+            $validator =  Validator::make($request->all(), [
+                'value' => ['nullable', new MyanmarPhone],
+            ], $messages = [
+                'MyanmarPhone' => ['The phone number must be valid myanmar phone number.']
+            ]);
+        }else {
+            $validator =  Validator::make($request->all(), [
+                'value' => ['nullable'],
+            ]);
+        }
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+
+            $seeker = Seeker::findOrFail($request->user()->id);
+            
+            if($request->column == 'date_of_birth') {
+                $request->value = $request->value ? date('Y-m-d', strtotime($request->value)) : null;
+            }
+            $seeker->update([
+                $request->column => $request->value,
+            ]);
+
+            $seeker_info = Seeker::findOrFail($request->user()->id);
+            $seeker_percentage = $this->updateSeekerPercentage($seeker_info);
+            return response()->json([
+                'status' => 'success',
+                'seeker_info' => $seeker_info
+            ], 200);
+        }
+    }
+
+    public function updateSeekerPercentage(Seeker $seeker)
+    {
+        if (isset($seeker->first_name) && isset($seeker->last_name) && (isset($seeker->nrc) || isset($seeker->id_card)) && isset($seeker->date_of_birth) && isset($seeker->phone) && isset($seeker->country) && isset($seeker->nationality)) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Personal Information')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 15,
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }else {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Personal Information')->first();
+            if($seeker_percent->percentage > 0) {
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => $seeker_percent->percentage - 15,
+                ]);
+            }
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }
+        if (isset($seeker->main_functional_area_id) && isset($seeker->sub_functional_area_id) && isset($seeker->job_title) && isset($seeker->job_type) && isset($seeker->career_level) && isset($seeker->preferred_salary) && isset($seeker->industry_id)) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career of Choice')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 20,
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }else {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career of Choice')->first();
+            if($seeker_percent->percentage > 0) {
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => $seeker_percent->percentage - 20,
+                ]);
+            }
+            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }
+
+        return true;
     }
 }
