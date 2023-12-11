@@ -212,6 +212,12 @@ class SeekerProfileController extends Controller
             ], $messages = [
                 'MyanmarPhone' => ['The phone number must be valid myanmar phone number.']
             ]);
+        }elseif ($request->column == 'date_of_birth') {
+            $validator =  Validator::make($request->all(), [
+                'value' => ['date'],
+            ], $messages = [
+                'date' => ['The :attribute is not a valid date.']
+            ]);
         }else {
             $validator =  Validator::make($request->all(), [
                 'value' => ['nullable'],
