@@ -76,6 +76,10 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // get skill 
         Route::post('/get-skill', [SeekerProfileController::class, 'getSkill']);
+
+        // seeker profile img
+        Route::post('profile-img-store',[SeekerProfileController::class, 'profileImageStore']);
+        Route::post('profile-img-delete',[SeekerProfileController::class, 'profileImageDestory']);
     });
 });
 

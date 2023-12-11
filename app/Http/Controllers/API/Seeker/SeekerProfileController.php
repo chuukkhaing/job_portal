@@ -13,6 +13,7 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
+use Storage;
 use Auth;
 use DB;
 
@@ -128,7 +129,6 @@ class SeekerProfileController extends Controller
     public function getSkill(Request $request)
     {
         $validator =  Validator::make($request->all(), [
-            'seeker_id'    => ['required'],
             'main_functional_area_id'    => ['required']
         ], $messages = [
             'required' => ['The :attribute is required.']
@@ -136,12 +136,59 @@ class SeekerProfileController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         }else {
-            $seeker_skills = SeekerSkill::whereSeekerId($request->seeker_id)->pluck('skill_id')->toArray();
+            $seeker_skills = SeekerSkill::whereSeekerId($request->user()->id)->pluck('skill_id')->toArray();
             $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereNotIn('id', $seeker_skills)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
             return response()->json([
                 'status' => 'success',
                 'data'   => $skills,
             ]);
         }
+    }
+
+    public function profileImageStore(Request $request)
+    {
+        if ($request->file('profile_image')) {
+            $seeker = Seeker::findOrFail($request->user()->id);
+            
+            $image  = $seeker->image;
+            Storage::disk('s3')->delete('seeker/profile/'. $request->user()->id . '/' . $image);
+            $image        = null;
+            
+            $seeker_update = $seeker->update([
+                'image'    => $image,
+            ]);
+            
+            $file  = $request->file('profile_image');
+            $image = date('YmdHi') . $file->getClientOriginalName();
+            
+            $path     = 'seeker/profile/'. $request->user()->id . '/' . $image;
+            Storage::disk('s3')->makeDirectory($path);
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+
+            $seeker->update([
+                'image'    => $image,
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'image' => $image
+            ], 200);
+        }
+    }
+
+    public function profileImageDestory(Request $request)
+    {
+        $seeker = Seeker::findOrFail($request->user()->id);
+        $image  = $seeker->image;
+        Storage::disk('s3')->delete('seeker/profile/'. $request->user()->id . '/' . $image);
+        $image        = null;
+        
+        $seeker->update([
+            'image' => $image,
+        ]);
+        return response()->json([
+            'status' => 'success'
+        ], 200);
     }
 }
