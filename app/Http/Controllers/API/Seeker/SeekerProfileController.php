@@ -109,20 +109,39 @@ class SeekerProfileController extends Controller
 
     public function getSubFunctionalArea(Request $request)
     {
-        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', $request->main_functional_area_id)->whereIsActive(1)->select('id','name')->get();
-        return response()->json([
-            'status' => 'success',
-            'data'   => $sub_functional_areas,
-        ], 200);
+        $validator =  Validator::make($request->all(), [
+            'main_functional_area_id'    => ['required']
+        ], $messages = [
+            'required' => ['The :attribute is required.']
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', $request->main_functional_area_id)->whereIsActive(1)->select('id','name')->get();
+            return response()->json([
+                'status' => 'success',
+                'data'   => $sub_functional_areas,
+            ], 200);
+        }
     }
 
     public function getSkill(Request $request)
     {
-        $seeker_skills = SeekerSkill::whereSeekerId($request->seeker_id)->pluck('skill_id')->toArray();
-        $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereNotIn('id', $seeker_skills)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
-        return response()->json([
-            'status' => 'success',
-            'data'   => $skills,
+        $validator =  Validator::make($request->all(), [
+            'state_id'    => ['required'],
+            'main_functional_area_id'    => ['required']
+        ], $messages = [
+            'required' => ['The :attribute is required.']
         ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $seeker_skills = SeekerSkill::whereSeekerId($request->seeker_id)->pluck('skill_id')->toArray();
+            $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereNotIn('id', $seeker_skills)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
+            return response()->json([
+                'status' => 'success',
+                'data'   => $skills,
+            ]);
+        }
     }
 }
