@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\Seeker;
 use App\Models\Employer\JobPost;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
+use App\Models\Admin\Skill;
+use App\Models\Admin\State;
+use App\Models\Admin\Township;
 use DB;
 
 class SeekerProfileController extends Controller
@@ -57,13 +62,29 @@ class SeekerProfileController extends Controller
 
     public function profile(Request $request)
     {
-        $seeker = Seeker::with(['state:id,name','township:id,name'])
-                    ->whereId($request->user()->id)
-                    ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
-                    ->first();
+        $seeker               = Seeker::with(['state:id,name','township:id,name', 'SeekerEducation:id,seeker_id,degree,major_subject,location,from,to,school,is_current', 'SeekerExperience' => function($exp) {
+            $exp->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','seeker_id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','is_current_job','is_experience','start_date','end_date');
+        },'SeekerSkill' => function($skill) {
+            $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
+        },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact'])
+                                ->whereId($request->user()->id)
+                                ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
+                                ->first();
+        $states               = State::whereNull('deleted_at')->whereIsActive(1)->get();
+        $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->get();
+        $main_functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
+        $industries           = Industry::whereNull('deleted_at')->get();
         return response()->json([
             'status' => 'success',
-            'seeker' => $seeker
+            'seeker' => $seeker,
+            'states' => $states,
+            'townships' => $townships,
+            'main_functional_areas' => $main_functional_areas,
+            'sub_functional_areas' => $sub_functional_areas,
+            'industries' => $industries
         ]);
     }
+
+    // public function getTowhship(Request $request)
 }
