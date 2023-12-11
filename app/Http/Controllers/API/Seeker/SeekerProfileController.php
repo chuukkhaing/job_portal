@@ -220,6 +220,7 @@ class SeekerProfileController extends Controller
             ]);
         }else {
             $validator =  Validator::make($request->all(), [
+                'column' => ['required'],
                 'value' => ['nullable'],
             ]);
         }
