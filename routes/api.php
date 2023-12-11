@@ -54,6 +54,12 @@ Route::post('/search-company', [HomeController::class, 'searchCompany']);
 // contact us 
 Route::post('/contact-us', [HomeController::class, 'contactUs']);
 
+// get township 
+Route::post('/get-township', [SeekerProfileController::class, 'getTowhship']);
+
+// get sub functional area 
+Route::post('/get-sub-functional-area', [SeekerProfileController::class, 'getSubFunctionalArea']);
+
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
     // seeker register 
@@ -67,6 +73,9 @@ Route::group(['prefix' => 'seeker'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);
         Route::post('/profile', [SeekerProfileController::class, 'profile']);
+
+        // get skill 
+        Route::post('/get-skill', [SeekerProfileController::class, 'getSkill']);
     });
 });
 

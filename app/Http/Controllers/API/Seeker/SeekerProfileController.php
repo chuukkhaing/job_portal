@@ -11,6 +11,8 @@ use App\Models\Admin\Industry;
 use App\Models\Admin\Skill;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
+use App\Models\Seeker\SeekerSkill;
+use Auth;
 use DB;
 
 class SeekerProfileController extends Controller
@@ -57,7 +59,7 @@ class SeekerProfileController extends Controller
             'status' => 'success',
             'seeker' => $seeker,
             'recommended_jobs' => $recommended_jobs
-        ]);
+        ], 200);
     }
 
     public function profile(Request $request)
@@ -83,8 +85,34 @@ class SeekerProfileController extends Controller
             'main_functional_areas' => $main_functional_areas,
             'sub_functional_areas' => $sub_functional_areas,
             'industries' => $industries
-        ]);
+        ], 200);
     }
 
-    // public function getTowhship(Request $request)
+    public function getTowhship(Request $request)
+    {
+        $townships = Township::whereStateId($request->state_id)->whereNull('deleted_at')->orderBy('name')->whereIsActive(1)->select('id','name','state_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $townships,
+        ], 200);
+    }
+
+    public function getSubFunctionalArea(Request $request)
+    {
+        $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', $request->main_functional_area_id)->whereIsActive(1)->select('id','name')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $sub_functional_areas,
+        ], 200);
+    }
+
+    public function getSkill(Request $request)
+    {
+        $seeker_skills = SeekerSkill::whereSeekerId($request->seeker_id)->pluck('skill_id')->toArray();
+        $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereNotIn('id', $seeker_skills)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $skills,
+        ]);
+    }
 }
