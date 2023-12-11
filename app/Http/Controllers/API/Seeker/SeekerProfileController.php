@@ -241,7 +241,7 @@ class SeekerProfileController extends Controller
             $seeker_percentage = $this->updateSeekerPercentage($seeker_info);
             return response()->json([
                 'status' => 'success',
-                'seeker_info' => $seeker_info
+                $request->column => $request->value
             ], 200);
         }
     }
