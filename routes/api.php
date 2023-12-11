@@ -83,6 +83,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker personal information 
         Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
+
+        // seeker career history 
+        Route::get('get-career-history',[SeekerProfileController::class, 'getCareerHistory']);
     });
 });
 
