@@ -12,6 +12,7 @@ use App\Models\Admin\Skill;
 use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Seeker\SeekerSkill;
+use Illuminate\Support\Facades\Validator;
 use Auth;
 use DB;
 
@@ -90,11 +91,20 @@ class SeekerProfileController extends Controller
 
     public function getTowhship(Request $request)
     {
-        $townships = Township::whereStateId($request->state_id)->whereNull('deleted_at')->orderBy('name')->whereIsActive(1)->select('id','name','state_id')->get();
-        return response()->json([
-            'status' => 'success',
-            'data'   => $townships,
-        ], 200);
+        $validator =  Validator::make($request->all(), [
+            'state_id'    => ['required']
+        ], $messages = [
+            'required' => ['The :attribute is required.']
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $townships = Township::whereStateId($request->state_id)->whereNull('deleted_at')->orderBy('name')->whereIsActive(1)->select('id','name','state_id')->get();
+            return response()->json([
+                'status' => 'success',
+                'data'   => $townships,
+            ], 200);
+        }
     }
 
     public function getSubFunctionalArea(Request $request)
