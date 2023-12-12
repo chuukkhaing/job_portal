@@ -125,48 +125,7 @@
                                 <div class="row job-content mb-3">
                                     <!-- Job List Start -->
                                     
-                                    <div class="col-lg-10 col-md-10 py-4 d-flex">
-                                        <div style="width: 100px" class="align-self-center">
-                                            @if(($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending') && $jobPost->Employer->logo && $jobPost->hide_company == 0)
-                                            <img src="{{ getS3File('employer_logo',$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
-                                            @else 
-                                            <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
-                                            @endif
-                                            <div class="text-center">
-                                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending</span>@endif
-                                            </div>
-                                            
-                                        </div>
-                                        <div class="align-self-center">
-                                            <div class="mt-1 job-company">
-                                                @if($jobPost->hide_company == 0)
-                                                {{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif 
-                                                @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0)<span class="badge badge-info"> Applied </span> @endif @endauth
-                                            </div>
-                                            <div class="mt-1">{{ $jobPost->job_title }}</div>
-                                            @if($jobPost->township_id)
-                                            <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
-                                            @endif
-                                            @if($jobPost->job_post_type == 'trending')
-                                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
-                                            @endif
-                                            <div class="mt-1 row d-flex justify-content-between">
-                                                <div class="col-8">
-                                                    <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
-                                                </div>
-                                                <div class="col-4 d-md-none d-block">
-                                                    @auth('seeker')
-                                                    <div class="text-end p-0" style="cursor: pointer">
-                                                        <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
-                                                    </div>
-                                                    @endauth
-                                                    <div class="text-end mt-auto p-1">
-                                                        <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     
                                     <!-- Job List End -->
 
