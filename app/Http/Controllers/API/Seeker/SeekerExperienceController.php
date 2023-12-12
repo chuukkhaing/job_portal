@@ -60,20 +60,17 @@ class SeekerExperienceController extends Controller
                 'start_date'              => ['date','required'],
                 'is_current_job'          => ['required'],
                 'country'                 => ['required'],
-                'job_responsibility'      => ['required']
+                'job_responsibility'      => ['required'],
+                'end_date'                => ['date','after_or_equal:start_date', 'required_if:is_current_job,0']
             ]);
         }
-        if($request->is_current_job == 1) {
-            $request->end_date = Null;
-        }elseif($request->is_current_job == 0) {
-            
-            $validator =  Validator::make($request->all(), [
-                'end_date'                => ['date','required','after_or_equal:start_date']
-            ]);
-        }
+        
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         }else {
+            if($request->is_current_job == 1) {
+                $request->end_date = Null;
+            }
             if ($request->is_experience == 0) {
                 $exp = SeekerExperience::whereSeekerId($request->user()->id)->delete();
             }
@@ -169,21 +166,17 @@ class SeekerExperienceController extends Controller
                 'start_date'              => ['date','required'],
                 'is_current_job'          => ['required'],
                 'country'                 => ['required'],
-                'job_responsibility'      => ['required']
+                'job_responsibility'      => ['required'],
+                'end_date'                => ['date','after_or_equal:start_date', 'required_if:is_current_job,0']
             ]);
         }
         
-        if($request->is_current_job == 1) {
-            $request->end_date = Null;
-        }else {
-            
-            $validator =  Validator::make($request->all(), [
-                'end_date'                => ['date','required','after_or_equal:start_date']
-            ]);
-        }
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         }else {
+            if($request->is_current_job == 1) {
+                $request->end_date = Null;
+            }
             if ($request->is_experience == 0) {
                 $exp = SeekerExperience::whereSeekerId($request->user()->id)->delete();
             }
