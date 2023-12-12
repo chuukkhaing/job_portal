@@ -20,10 +20,10 @@ class SeekerExperienceController extends Controller
      */
     public function index(Request $request)
     {
-        $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->get();
+        $experiences = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->get();
         return response()->json([
             'status' => 'success',
-            'experience' => $experience
+            'experiences' => $experiences
         ], 200);
     }
 

@@ -4,10 +4,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
+
+// seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
 use App\Http\Controllers\API\Seeker\SeekerLoginController;
 use App\Http\Controllers\API\Seeker\SeekerProfileController;
 use App\Http\Controllers\API\Seeker\SeekerExperienceController;
+use App\Http\Controllers\API\Seeker\SeekerEducationController;
+
+// employer 
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 
@@ -87,6 +92,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
+
+        // seeker education 
+        Route::resource('education',SeekerEducationController::class);
     });
 });
 
