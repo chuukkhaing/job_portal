@@ -64,7 +64,7 @@ Start exploring now and uncover the companies that could be the perfect match fo
                     </div>
         
                     <div class="company-name py-2 text-center">
-                        <h3 style="height: 32px">{{ \Illuminate\Support\Str::limit($employer->name, 50, $end='...') }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h3>
+                        <h3 style="height: 32px">{{ \Illuminate\Support\Str::words($employer->name, 15, $end='...') }} @if($employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h3>
                     </div>
         
                     {{--<div class="company-address">
