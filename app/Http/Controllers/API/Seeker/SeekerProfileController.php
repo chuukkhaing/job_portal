@@ -298,60 +298,6 @@ class SeekerProfileController extends Controller
         return true;
     }
 
-    public function getCareerHistory(Request $request)
-    {
-        $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->get();
-        return response()->json([
-            'experience' => $experience,
-            'status' => 'success'
-        ]);
-    }
-
-    public function experienceStore(Request $request)
-    {
-        if ($request->is_experience == 0) {
-            $exp = SeekerExperience::whereSeekerId($request->seeker_id)->delete();
-        }
-        $experience = SeekerExperience::create([
-            'seeker_id'               => $request->seeker_id,
-            'job_title'               => $request->exp_job_title,
-            'company'                 => $request->exp_company,
-            'main_functional_area_id' => $request->exp_main_functional_area_id,
-            'sub_functional_area_id'  => $request->exp_sub_functional_area_id,
-            'career_level'            => $request->exp_career_level,
-            'industry_id'             => $request->exp_industry_id,
-            'start_date'              => date('Y-m-d', strtotime($request->exp_start_date)),
-            'end_date'                => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : null,
-            'is_experience'           => $request->is_experience,
-            'is_current_job'          => $request->is_current_job,
-            'country'                 => $request->exp_country,
-            'job_responsibility'      => $request->exp_job_responsibility,
-        ]);
-        $seeker      = Seeker::findOrFail($request->seeker_id);
-        $seeker_exps = SeekerExperience::whereSeekerId($seeker->id)->get();
-        if ($seeker_exps->count() > 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career History')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 30,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
-        $exp_functions     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $exp_industries    = Industry::whereNull('deleted_at')->get();
-        return response()->json([
-            'status'            => 'success',
-            'experience'        => $experience,
-            'exp_functions'     => $exp_functions,
-            'sub_exp_functions' => $sub_exp_functions,
-            'exp_industries'    => $exp_industries,
-            'msg'               => 'Experience Create successfully!',
-        ]);
-    }
-
     public function experienceEdit($id)
     {
         $experience = SeekerExperience::findOrFail($id);

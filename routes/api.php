@@ -7,6 +7,7 @@ use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
 use App\Http\Controllers\API\Seeker\SeekerLoginController;
 use App\Http\Controllers\API\Seeker\SeekerProfileController;
+use App\Http\Controllers\API\Seeker\SeekerExperienceController;
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 
@@ -85,7 +86,7 @@ Route::group(['prefix' => 'seeker'], function () {
         Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
 
         // seeker career history 
-        Route::get('get-career-history',[SeekerProfileController::class, 'getCareerHistory']);
+        Route::resource('career-history',SeekerExperienceController::class);
     });
 });
 

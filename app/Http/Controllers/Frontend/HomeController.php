@@ -113,13 +113,8 @@ class HomeController extends Controller
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
         if ($request->job_title) {
-            $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
-                                ->orWhereHas('State', function ($query1) use ($request) {
-                                    $query1->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
-                                })
-                                ->orWhereHas('Employer', function ($query) use ($request) {
-                                    $query->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
-                                });
+            $jobPosts = $jobPosts->where('job_title', 'Like', '%' . $request->job_title . '%')
+                                ;
         }
         if ($request->industry) {
             $jobPosts = $jobPosts->where('industry_id', $request->industry);
@@ -138,8 +133,9 @@ class HomeController extends Controller
             $jobPosts = $jobPosts->where('updated_at','>=',$date);
         }
         $jobPostsCount = $jobPosts->count();
-        $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
+        
         $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->paginate(10);
+        $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
         
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
