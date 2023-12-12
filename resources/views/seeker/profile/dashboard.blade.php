@@ -143,6 +143,10 @@
                                                 {{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif 
                                                 @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0)<span class="badge badge-info"> Applied </span> @endif @endauth
                                             </div>
+                                            <div class="mt-1">{{ $jobPost->job_title }}</div>
+                                            @if($jobPost->township_id)
+                                            <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
+                                            @endif
                                             
                                             <div class="mt-1 row d-flex justify-content-between">
                                                 <div class="col-8">
