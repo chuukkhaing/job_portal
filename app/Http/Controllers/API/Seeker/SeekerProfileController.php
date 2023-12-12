@@ -298,15 +298,6 @@ class SeekerProfileController extends Controller
         return true;
     }
 
-    public function experienceEdit($id)
-    {
-        $experience = SeekerExperience::findOrFail($id);
-        return response()->json([
-            'status'     => 'success',
-            'experience' => $experience,
-        ]);
-    }
-
     public function experienceUpdate($id, Request $request)
     {
         
@@ -336,29 +327,6 @@ class SeekerProfileController extends Controller
             'sub_exp_functions' => $sub_exp_functions,
             'exp_industries'    => $exp_industries,
             'msg'               => 'Experience Update successfully!',
-        ]);
-    }
-
-    public function experienceDestory($id, Request $request)
-    {
-        $experience               = SeekerExperience::findOrFail($id)->delete();
-        $seeker                   = Seeker::findOrFail($request->seeker_id);
-        $seeker_experiences_count = SeekerExperience::whereSeekerId($seeker->id)->count();
-        if ($seeker_experiences_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career History')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 0,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
-
-        return response()->json([
-            'status'                   => 'success',
-            'msg'                      => 'Experience deleted successfully!',
-            'seeker_experiences_count' => $seeker_experiences_count,
         ]);
     }
 }

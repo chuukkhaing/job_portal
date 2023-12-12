@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API\Seeker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\SeekerExperience;
+use App\Models\Seeker\Seeker;
+use App\Models\Seeker\SeekerPercentage;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
 use Illuminate\Support\Facades\Validator;
 
 class SeekerExperienceController extends Controller
@@ -54,56 +58,67 @@ class SeekerExperienceController extends Controller
                 'career_level'            => ['required'],
                 'industry_id'             => ['required'],
                 'start_date'              => ['date','required'],
-                'end_date'                => ['date','required'],
                 'is_current_job'          => ['required'],
                 'country'                 => ['required'],
                 'job_responsibility'      => ['required']
             ]);
-
-            if ($validator->fails()) {
-                return response(['errors'=>$validator->messages()], 422);
+        }
+        if($request->is_current_job == 1) {
+            $request->end_date = Null;
+        }else {
+            
+            $validator =  Validator::make($request->all(), [
+                'end_date'                => ['date','required','after_or_equal:start_date']
+            ]);
+        }
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            if ($request->is_experience == 0) {
+                $exp = SeekerExperience::whereSeekerId($request->user()->id)->delete();
+            }
+            $no_exp = SeekerExperience::whereSeekerId($request->user()->id)->whereIsExperience(0)->count();
+            if($no_exp > 0) {
+                return response()->json([
+                    'status'            => 'error',
+                    'msg'               => 'Experience Cannot Create!',
+                ], 500);
             }else {
-                if ($request->is_experience == 0) {
-                    $exp = SeekerExperience::whereSeekerId($request->user()->id)->delete();
-                }
-                $experience = SeekerExperience::create([
+                $experience_create = SeekerExperience::create([
                     'seeker_id'               => $request->user()->id,
-                    'job_title'               => $request->exp_job_title,
-                    'company'                 => $request->exp_company,
-                    'main_functional_area_id' => $request->exp_main_functional_area_id,
-                    'sub_functional_area_id'  => $request->exp_sub_functional_area_id,
-                    'career_level'            => $request->exp_career_level,
-                    'industry_id'             => $request->exp_industry_id,
-                    'start_date'              => date('Y-m-d', strtotime($request->exp_start_date)),
-                    'end_date'                => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : null,
+                    'job_title'               => $request->job_title,
+                    'company'                 => $request->company,
+                    'main_functional_area_id' => $request->main_functional_area_id,
+                    'sub_functional_area_id'  => $request->sub_functional_area_id,
+                    'career_level'            => $request->career_level,
+                    'industry_id'             => $request->industry_id,
+                    'start_date'              => date('Y-m-d', strtotime($request->start_date)),
+                    'end_date'                => $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null,
                     'is_experience'           => $request->is_experience,
-                    'is_current_job'          => $request->is_current_job,
-                    'country'                 => $request->exp_country,
-                    'job_responsibility'      => $request->exp_job_responsibility,
+                    'is_current_job'          => $request->is_current_job ?? 0,
+                    'country'                 => $request->country,
+                    'job_responsibility'      => $request->job_responsibility,
                 ]);
-                $seeker      = Seeker::findOrFail($request->user()->id);
-                $seeker_exps = SeekerExperience::whereSeekerId($seeker->id)->get();
+                $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->findOrFail($experience_create->id);
+
+                $seeker_exps = SeekerExperience::whereSeekerId($request->user()->id)->get();
+                $seeker                  = Seeker::findOrFail($request->user()->id);
                 if ($seeker_exps->count() > 0) {
-                    $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Career History')->first();
+                    $seeker_percent        = SeekerPercentage::whereSeekerId($request->user()->id)->whereTitle('Career History')->first();
                     $seeker_percent_update = $seeker_percent->update([
                         'percentage' => 30,
                     ]);
-                    $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                    $total_percent = SeekerPercentage::whereSeekerId($request->user()->id)->sum('percentage');
                     $seeker_update = $seeker->update([
                         'percentage' => $total_percent,
                     ]);
                 }
-                $exp_functions     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-                $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-                $exp_industries    = Industry::whereNull('deleted_at')->get();
+                
                 return response()->json([
                     'status'            => 'success',
                     'experience'        => $experience,
-                    'exp_functions'     => $exp_functions,
-                    'sub_exp_functions' => $sub_exp_functions,
-                    'exp_industries'    => $exp_industries,
                     'msg'               => 'Experience Create successfully!',
-                ]);
+                ], 200);
             }
         }
     }
@@ -137,9 +152,64 @@ class SeekerExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        //
+        $validator =  Validator::make($request->all(), [
+            'is_experience'           => ['required'],
+        ]);
+        if($request->is_experience == 1) {
+            $validator =  Validator::make($request->all(), [
+                'is_experience'           => ['required'],
+                'job_title'               => ['required'],
+                'company'                 => ['required'],
+                'main_functional_area_id' => ['required'],
+                'sub_functional_area_id'  => ['required'],
+                'career_level'            => ['required'],
+                'industry_id'             => ['required'],
+                'start_date'              => ['date','required'],
+                'is_current_job'          => ['required'],
+                'country'                 => ['required'],
+                'job_responsibility'      => ['required']
+            ]);
+        }
+        
+        if($request->is_current_job == 1) {
+            $request->end_date = Null;
+        }else {
+            
+            $validator =  Validator::make($request->all(), [
+                'end_date'                => ['date','required','after_or_equal:start_date']
+            ]);
+        }
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            if ($request->is_experience == 0) {
+                $exp = SeekerExperience::whereSeekerId($request->user()->id)->delete();
+            }
+            $experience        = SeekerExperience::findOrFail($id);
+            $experience_update = $experience->update([
+                'seeker_id'               => $request->user()->id,
+                'job_title'               => $request->job_title,
+                'company'                 => $request->company,
+                'main_functional_area_id' => $request->main_functional_area_id,
+                'sub_functional_area_id'  => $request->sub_functional_area_id,
+                'career_level'            => $request->career_level,
+                'industry_id'             => $request->industry_id,
+                'start_date'              => date('Y-m-d', strtotime($request->start_date)),
+                'end_date'                => $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null,
+                'is_experience'           => $request->is_experience,
+                'is_current_job'          => $request->is_current_job,
+                'country'                 => $request->country,
+                'job_responsibility'      => $request->job_responsibility,
+            ]);
+            $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->findOrFail($id);
+            return response()->json([
+                'status'            => 'success',
+                'experience'        => $experience,
+                'msg'               => 'Experience Update successfully!',
+            ], 200);
+        }
     }
 
     /**
@@ -148,8 +218,26 @@ class SeekerExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $experience               = SeekerExperience::findOrFail($id)->delete();
+        $seeker                  = Seeker::findOrFail($request->user()->id);
+        $seeker_experiences_count = SeekerExperience::whereSeekerId($request->user()->id)->count();
+        if ($seeker_experiences_count == 0) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($request->user()->id)->whereTitle('Career History')->first();
+            $seeker_percent_update = $seeker_percent->update([
+                'percentage' => 0,
+            ]);
+            $total_percent = SeekerPercentage::whereSeekerId($request->user()->id)->sum('percentage');
+            $seeker_update = $seeker->update([
+                'percentage' => $total_percent,
+            ]);
+        }
+
+        return response()->json([
+            'status'                   => 'success',
+            'msg'                      => 'Experience deleted successfully!',
+            'seeker_experiences_count' => $seeker_experiences_count,
+        ]);
     }
 }
