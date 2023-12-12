@@ -143,7 +143,6 @@ class SeekerEducationController extends Controller
             }
             $education = SeekerEducation::findOrFail($id);
             $education_update = $education->update([
-                'seeker_id'     => $request->user()->id,
                 'degree'        => $request->degree,
                 'major_subject' => $request->major_subject,
                 'location'      => $request->location,

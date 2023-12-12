@@ -182,7 +182,6 @@ class SeekerExperienceController extends Controller
             }
             $experience        = SeekerExperience::findOrFail($id);
             $experience_update = $experience->update([
-                'seeker_id'               => $request->user()->id,
                 'job_title'               => $request->job_title,
                 'company'                 => $request->company,
                 'main_functional_area_id' => $request->main_functional_area_id,
