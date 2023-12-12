@@ -125,7 +125,20 @@
                                 <div class="row job-content mb-3">
                                     <!-- Job List Start -->
                                     
-                                    
+                                    <div class="col-lg-10 col-md-10 py-4 d-flex">
+                                        <div style="width: 100px" class="align-self-center">
+                                            @if(($jobPost->job_post_type == 'feature' || $jobPost->job_post_type == 'trending') && $jobPost->Employer->logo && $jobPost->hide_company == 0)
+                                            <img src="{{ getS3File('employer_logo',$jobPost->Employer->logo) }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                                            @else 
+                                            <img src="{{ asset('img/icon/job-post.png') }}" alt="Profile Image" class="mb-2 img-responsive center-block d-block mx-auto" style="width: 75px" id="ProfilePreview">
+                                            @endif
+                                            <div class="text-center">
+                                            @if($jobPost->job_post_type == 'feature')<span class="badge badge-pill job-post-badge" style="background: #0355D0"> Featured @elseif($jobPost->job_post_type == 'trending') <span class="badge badge-pill job-post-badge" style="background: #FB5404"> Trending</span>@endif
+                                            </div>
+                                            
+                                        </div>
+                                        
+                                    </div>
                                     
                                     <!-- Job List End -->
 
