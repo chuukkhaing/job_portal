@@ -137,7 +137,29 @@
                                             </div>
                                             
                                         </div>
-                                        
+                                        <div class="align-self-center">
+                                            <div class="mt-1 job-company">
+                                                @if($jobPost->hide_company == 0)
+                                                {{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>@endif 
+                                                @endif @auth('seeker') @if(Auth::guard('seeker')->user()->JobApply->where('job_post_id',$jobPost->id)->count() > 0)<span class="badge badge-info"> Applied </span> @endif @endauth
+                                            </div>
+                                            
+                                            <div class="mt-1 row d-flex justify-content-between">
+                                                <div class="col-8">
+                                                    <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
+                                                </div>
+                                                <div class="col-4 d-md-none d-block">
+                                                    @auth('seeker')
+                                                    <div class="text-end p-0" style="cursor: pointer">
+                                                        <i id="savejobdashboard-{{ $jobPost->id }}" onclick="saveJobDashboard({{ $jobPost->id }})" class="text-blue @if(Auth::guard('seeker')->user()->SaveJob->where('job_post_id', $jobPost->id)->count() > 0) fa-solid @else fa-regular @endif fa-heart"></i>
+                                                    </div>
+                                                    @endauth
+                                                    <div class="text-end mt-auto p-1">
+                                                        <span>{{ $jobPost->updated_at->shortRelativeDiffForHumans() }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     
                                     <!-- Job List End -->
