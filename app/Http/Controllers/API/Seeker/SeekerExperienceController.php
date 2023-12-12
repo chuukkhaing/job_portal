@@ -65,7 +65,7 @@ class SeekerExperienceController extends Controller
         }
         if($request->is_current_job == 1) {
             $request->end_date = Null;
-        }else {
+        }elseif($request->is_current_job == 0) {
             
             $validator =  Validator::make($request->all(), [
                 'end_date'                => ['date','required','after_or_equal:start_date']
