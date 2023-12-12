@@ -147,7 +147,9 @@
                                             @if($jobPost->township_id)
                                             <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                             @endif
-                                            
+                                            @if($jobPost->job_post_type == 'trending')
+                                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), $limit = 150, $end = '...') !!}</p>
+                                            @endif
                                             <div class="mt-1 row d-flex justify-content-between">
                                                 <div class="col-8">
                                                     <a href="{{ route('search-main-function', $jobPost->main_functional_area_id) }}" class="mt-1 job-post-area"># {{ $jobPost->MainFunctionalArea->name }}</a>
