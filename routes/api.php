@@ -11,6 +11,7 @@ use App\Http\Controllers\API\Seeker\SeekerLoginController;
 use App\Http\Controllers\API\Seeker\SeekerProfileController;
 use App\Http\Controllers\API\Seeker\SeekerExperienceController;
 use App\Http\Controllers\API\Seeker\SeekerEducationController;
+use App\Http\Controllers\API\Seeker\SeekerSkillController;
 
 // employer 
 use App\Http\Controllers\API\Employer\EmployerLoginController;
@@ -95,6 +96,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker education 
         Route::resource('education',SeekerEducationController::class);
+
+        // seeker skill 
+        Route::resource('skill',SeekerSkillController::class);
     });
 });
 
