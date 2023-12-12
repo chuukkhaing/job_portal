@@ -148,7 +148,7 @@
                                             <div class="mt-1 job-location">{{ $jobPost->Township->name }}</div>
                                             @endif
                                             @if($jobPost->job_post_type == 'trending')
-                                            <p class="job-post-preview">{!! $jobPost->job_requirement !!}</p>
+                                            <p class="job-post-preview">{!! \Illuminate\Support\Str::limit(strip_tags($jobPost->job_requirement), 150, $end = '...') !!}</p>
                                             @endif
                                             <div class="mt-1 row d-flex justify-content-between">
                                                 <div class="col-8">
