@@ -4,13 +4,12 @@ namespace App\Http\Controllers\API\Seeker;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Seeker\SeekerSkill;
-use App\Models\Admin\Skill;
-use App\Models\Seeker\SeekerPercentage;
+use App\Models\Seeker\SeekerLanguage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Seeker\Seeker;
+use App\Models\Seeker\SeekerPercentage;
 
-class SeekerSkillController extends Controller
+class SeekerLanguageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +18,10 @@ class SeekerSkillController extends Controller
      */
     public function index(Request $request)
     {
-        $seeker_skills = SeekerSkill::with('Skill:id,name')->whereSeekerId($request->user()->id)->select('id','skill_id')->get();
+        $languages            = SeekerLanguage::whereSeekerId($request->user()->id)->select('id','name','level')->get();
         return response()->json([
             'status' => 'success',
-            'seeker_skills'   => $seeker_skills,
+            'languages'   => $languages,
         ], 200);
     }
 
@@ -45,26 +44,21 @@ class SeekerSkillController extends Controller
     public function store(Request $request)
     {
         $validator =  Validator::make($request->all(), [
-            'skill_id'                  => ['required'],
-            'main_functional_area_id'   => ['required']
+            'name'           => ['required'],
+            'level'          => ['required']
         ]);
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         }else {
-            if ($request->skill_id) {
-                foreach ($request->skill_id as $skill_id) {
-                    $skill = SeekerSkill::create([
-                        'seeker_id'               => $request->user()->id,
-                        'main_functional_area_id' => $request->main_functional_area_id,
-                        'skill_id'                => $skill_id,
-                    ]);
-                }
-            }
-            $seeker          = Seeker::findOrFail($request->user()->id);
-            $seeker_skills   = SeekerSkill::whereSeekerId($seeker->id)->get();
-            
-            if ($seeker_skills->count() > 0) {
-                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Skills')->first();
+            $language = SeekerLanguage::create([
+                'seeker_id' => $request->user()->id,
+                'name'      => $request->name,
+                'level'     => $request->level,
+            ]);
+            $seeker           = Seeker::findOrFail($request->user()->id);
+            $seeker_languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
+            if ($seeker_languages->count() > 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Language')->first();
                 $seeker_percent_update = $seeker_percent->update([
                     'percentage' => 5,
                 ]);
@@ -75,9 +69,9 @@ class SeekerSkillController extends Controller
             }
     
             return response()->json([
-                'status'          => 'success',
-                'skills'          => $seeker_skills,
-                'msg'             => 'Skill Create successfully!',
+                'status'   => 'success',
+                'language' => $language,
+                'msg'      => 'Language Create successfully!',
             ], 200);
         }
     }
@@ -113,7 +107,25 @@ class SeekerSkillController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator =  Validator::make($request->all(), [
+            'name'           => ['required'],
+            'level'          => ['required']
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $language        = SeekerLanguage::findOrFail($id);
+            $language_update = $language->update([
+                'name'      => $request->name,
+                'level'     => $request->level,
+            ]);
+            $language        = SeekerLanguage::findOrFail($id);
+            return response()->json([
+                'status'   => 'success',
+                'language' => $language,
+                'msg'      => 'Language Update successfully!',
+            ], 200);
+        }
     }
 
     /**
@@ -124,11 +136,11 @@ class SeekerSkillController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $skill               = SeekerSkill::findOrFail($id)->delete();
-        $seeker              = Seeker::findOrFail($request->user()->id);
-        $seeker_skills_count = SeekerSkill::whereSeekerId($seeker->id)->count();
-        if ($seeker_skills_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Skills')->first();
+        $language               = SeekerLanguage::findOrFail($id)->delete();
+        $seeker                 = Seeker::findOrFail($request->user()->id);
+        $seeker_languages_count = SeekerLanguage::whereSeekerId($seeker->id)->count();
+        if ($seeker_languages_count == 0) {
+            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Language')->first();
             $seeker_percent_update = $seeker_percent->update([
                 'percentage' => 0,
             ]);
@@ -139,9 +151,9 @@ class SeekerSkillController extends Controller
         }
 
         return response()->json([
-            'status'              => 'success',
-            'msg'                 => 'skill deleted successfully!',
-            'seeker_skills_count' => $seeker_skills_count,
+            'status'                 => 'success',
+            'msg'                    => 'language deleted successfully!',
+            'seeker_languages_count' => $seeker_languages_count,
         ], 200);
     }
 }

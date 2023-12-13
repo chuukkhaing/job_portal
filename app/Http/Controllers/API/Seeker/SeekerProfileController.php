@@ -85,6 +85,7 @@ class SeekerProfileController extends Controller
         $main_functional_areas     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->select('id','name')->get();
         $sub_functional_areas = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->select('id','name','functional_area_id')->get();
         $industries           = Industry::whereNull('deleted_at')->select('id','name')->get();
+        $language_level       = array('Fluent', 'Advance', 'Conversational', 'Basic');
         return response()->json([
             'status' => 'success',
             'seeker' => $seeker,
@@ -92,7 +93,8 @@ class SeekerProfileController extends Controller
             'townships' => $townships,
             'main_functional_areas' => $main_functional_areas,
             'sub_functional_areas' => $sub_functional_areas,
-            'industries' => $industries
+            'industries' => $industries,
+            'language_level' => $language_level
         ], 200);
     }
 
