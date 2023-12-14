@@ -136,24 +136,31 @@ class SeekerLanguageController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $language               = SeekerLanguage::findOrFail($id)->delete();
-        $seeker                 = Seeker::findOrFail($request->user()->id);
-        $seeker_languages_count = SeekerLanguage::whereSeekerId($seeker->id)->count();
-        if ($seeker_languages_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Language')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 0,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
+        try {
+            $language               = SeekerLanguage::findOrFail($id)->delete();
+            $seeker                 = Seeker::findOrFail($request->user()->id);
+            $seeker_languages_count = SeekerLanguage::whereSeekerId($seeker->id)->count();
+            if ($seeker_languages_count == 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Language')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 0,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
 
-        return response()->json([
-            'status'                 => 'success',
-            'msg'                    => 'language deleted successfully!',
-            'seeker_languages_count' => $seeker_languages_count,
-        ], 200);
+            return response()->json([
+                'status'                 => 'success',
+                'msg'                    => 'language deleted successfully!',
+                'seeker_languages_count' => $seeker_languages_count,
+            ], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 }

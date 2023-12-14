@@ -145,24 +145,31 @@ class SeekerReferenceController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $reference               = SeekerReference::findOrFail($id)->delete();
-        $seeker                  = Seeker::findOrFail($request->user()->id);
-        $seeker_references_count = SeekerReference::whereSeekerId($seeker->id)->count();
-        if ($seeker_references_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Reference')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 0,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
+        try { 
+            $reference               = SeekerReference::findOrFail($id)->delete();
+            $seeker                  = Seeker::findOrFail($request->user()->id);
+            $seeker_references_count = SeekerReference::whereSeekerId($seeker->id)->count();
+            if ($seeker_references_count == 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Reference')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 0,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
 
-        return response()->json([
-            'status'                  => 'success',
-            'msg'                     => 'reference deleted successfully!',
-            'seeker_references_count' => $seeker_references_count,
-        ], 200);
+            return response()->json([
+                'status'                  => 'success',
+                'msg'                     => 'reference deleted successfully!',
+                'seeker_references_count' => $seeker_references_count,
+            ], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 }

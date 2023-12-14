@@ -27,7 +27,7 @@ class SeekerSaveJobController extends Controller
         return response()->json([
             'status' => 'success',
             'saveJobs' => $saveJobs
-        ]);
+        ], 200);
     }
 
     /**
@@ -61,7 +61,7 @@ class SeekerSaveJobController extends Controller
                 return response()->json([
                     'status' => 'remove',
                     'msg' => 'Removed Job'
-                ]);
+                ], 200);
             }else {
                 SaveJob::create([
                     'seeker_id' => $request->user()->id,
@@ -71,7 +71,7 @@ class SeekerSaveJobController extends Controller
                 return response()->json([
                     'status' => 'create',
                     'msg' => 'Saved Job'
-                ]);
+                ], 200);
             }
         }
     }

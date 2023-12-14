@@ -170,26 +170,33 @@ class SeekerCVAttachController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $cv               = SeekerAttach::findOrFail($id);
-        Storage::disk('s3')->delete('seeker/cv/' . $cv->name);
-        $cv               = SeekerAttach::findOrFail($id)->delete();
-        $seeker           = Seeker::findOrFail($request->user()->id);
-        $seeker_cvs_count = SeekerAttach::whereSeekerId($seeker->id)->count();
-        if ($seeker_cvs_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 0,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
+        try {
+            $cv               = SeekerAttach::findOrFail($id);
+            Storage::disk('s3')->delete('seeker/cv/' . $cv->name);
+            $cv               = SeekerAttach::findOrFail($id)->delete();
+            $seeker           = Seeker::findOrFail($request->user()->id);
+            $seeker_cvs_count = SeekerAttach::whereSeekerId($seeker->id)->count();
+            if ($seeker_cvs_count == 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 0,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($seeker->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
 
-        return response()->json([
-            'status'           => 'success',
-            'msg'              => 'cv deleted successfully!',
-            'seeker_cvs_count' => $seeker_cvs_count,
-        ], 200);
+            return response()->json([
+                'status'           => 'success',
+                'msg'              => 'cv deleted successfully!',
+                'seeker_cvs_count' => $seeker_cvs_count,
+            ], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\API\Seeker\SeekerReferenceController;
 use App\Http\Controllers\API\Seeker\CareerOfChoiceController;
 use App\Http\Controllers\API\Seeker\SeekerCVAttachController;
 use App\Http\Controllers\API\Seeker\SeekerSaveJobController;
+use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
 
 // employer 
 use App\Http\Controllers\API\Employer\EmployerLoginController;
@@ -123,6 +124,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
+
+        // seeker job alert
+        Route::resource('job-alert', SeekerJobAlertController::class);
     });
 });
 
