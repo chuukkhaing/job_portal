@@ -127,6 +127,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker job alert
         Route::resource('job-alert', SeekerJobAlertController::class);
+
+        // job post apply
+        Route::post('job-post-apply/{id}', [SeekerProfileController::class , 'jobPostApply']);
     });
 });
 

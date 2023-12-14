@@ -353,4 +353,25 @@ class SeekerProfileController extends Controller
             'applications' => $applications
         ]);
     }
+
+    public function jobPostApply($id, Request $request)
+    {
+        $jobpost = JobPost::findOrFail($id);
+        if ($request->user()->percentage < 80) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications.!'
+            ]);
+        } else {
+            $jobApply = JobApply::create([
+                'employer_id' => $jobpost->employer_id,
+                'job_post_id' => $id,
+                'seeker_id'   => $request->user()->id,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Job Apply Successfully!'
+            ], 200);
+        }
+    }
 }
