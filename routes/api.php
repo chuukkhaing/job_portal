@@ -82,6 +82,12 @@ Route::group(['prefix' => 'seeker'], function () {
     // seeker login 
     Route::post('/login', [SeekerLoginController::class, 'login']);
 
+    // seeker forget password 
+    Route::post('forget-password', [SeekerRegisterController::class, 'getEmail']);
+
+    // seeker reset password 
+    Route::post('reset-password', [SeekerRegisterController::class, 'storeResetPassword']);
+
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);

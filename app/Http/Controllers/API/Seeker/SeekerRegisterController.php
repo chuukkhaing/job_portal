@@ -8,9 +8,11 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Seeker\Seeker;
 use App\Mail\SeekerVerificationEmail;
+use App\Mail\SeekerResetPassword;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use URL;
 
 class SeekerRegisterController extends Controller
 {
@@ -75,5 +77,58 @@ class SeekerRegisterController extends Controller
                 'msg' => "Your email was done't exist. Please Try Again!",
             ], 200);
         }
+    }
+
+    public function getEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:seekers',
+        ]);
+        $seeker = Seeker::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
+        
+        if (isset($seeker)) {
+            $seeker_update = $seeker->update([
+                'email_verification_token' => Str::random(32),
+            ]);
+
+            $first_name = $seeker->first_name;
+            $last_name  = $seeker->last_name;
+            $reseturl   = URL::to('/') . '/seeker' . '/' . $seeker->id . '/reset-password';
+
+            \Mail::to($seeker->email)->send(new SeekerResetPassword($first_name, $last_name, $reseturl));
+
+            return response()->json([
+                'status' => 'success',
+                'seeker_id' => $seeker->id,
+                'msg' => 'Please, check email for reset link.'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'msg' => "Your email was done't exist. Please Try Again!"
+            ], 500);
+        }
+        
+    }
+
+    public function storeResetPassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'same:confirmed'],
+            'confirmed' => ['required', 'string', 'min:8', 'same:password'],
+            'seeker_id' => ['required']
+        ]);
+        $password = Hash::make($request['password']);
+
+        $seeker = Seeker::find($request->seeker_id);
+
+        $seeker->update([
+            'password' => $password,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => "Reset Password Successfully."
+        ], 200);
     }
 }
