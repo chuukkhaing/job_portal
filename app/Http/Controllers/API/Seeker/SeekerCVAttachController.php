@@ -190,6 +190,6 @@ class SeekerCVAttachController extends Controller
             'status'           => 'success',
             'msg'              => 'cv deleted successfully!',
             'seeker_cvs_count' => $seeker_cvs_count,
-        ]);
+        ], 200);
     }
 }

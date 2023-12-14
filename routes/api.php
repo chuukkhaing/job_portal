@@ -96,6 +96,9 @@ Route::group(['prefix' => 'seeker'], function () {
         Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
         Route::post('summary-ai-generate', [SeekerProfileController::class, 'summaryGenerate']);
 
+        // seeker application 
+        Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
+
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
 
