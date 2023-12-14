@@ -405,4 +405,13 @@ class SeekerProfileController extends Controller
             'msg' => 'Logout!'
         ]);
     }
+
+    public function applyJob(Request $request)
+    {
+        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'apply_jobs' => $apply_jobs
+        ], 200);
+    }
 }

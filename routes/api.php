@@ -138,6 +138,9 @@ Route::group(['prefix' => 'seeker'], function () {
         // job post apply
         Route::post('job-post-apply/{id}', [SeekerProfileController::class , 'jobPostApply']);
 
+        // applied jobs 
+        Route::get('applied-jobs' , [SeekerProfileController::class, 'applyJob']);
+
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
     });
