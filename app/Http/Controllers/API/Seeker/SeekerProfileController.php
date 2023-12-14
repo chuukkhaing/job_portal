@@ -395,4 +395,14 @@ class SeekerProfileController extends Controller
             ], 200);
         }
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Logout!'
+        ]);
+    }
 }
