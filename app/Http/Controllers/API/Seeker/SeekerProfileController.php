@@ -347,7 +347,7 @@ class SeekerProfileController extends Controller
                 $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
             }])
                     ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at');
-        }])->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->get();
+        }])->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->paginate(15);
         return response()->json([
             'status' => 'success',
             'applications' => $applications
