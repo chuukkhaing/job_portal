@@ -19,6 +19,7 @@ use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
+use OpenAI\Laravel\Facades\OpenAI;
 use Storage;
 use Auth;
 use DB;
@@ -78,7 +79,7 @@ class SeekerProfileController extends Controller
             $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
         },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact'])
                                 ->whereId($request->user()->id)
-                                ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
+                                ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone', 'summary')
                                 ->first();
         $states               = State::whereNull('deleted_at')->whereIsActive(1)->select('id','name')->get();
         $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->select('id','name','state_id')->get();
@@ -300,35 +301,39 @@ class SeekerProfileController extends Controller
         return true;
     }
 
-    public function experienceUpdate($id, Request $request)
+    public function summaryGenerate(Request $request, \OpenAI\Client $client)
     {
+        $seeker               = Seeker::findOrFail($request->user()->id)->select('first_name', 'last_name', 'gender')->first();
+        $my_exp               = '';
+        $experiences          = SeekerExperience::whereSeekerId($request->user()->id)->get();
+        foreach($experiences as $exp) {
+            $my_exp = $my_exp . ($exp->is_experience == 0 ? 'No Experience' : '') . $exp->job_title . ' at ' . $exp->company . ' from ' . $exp->start_date . ' to ' . $exp->end_date . $exp->career_level . 'my job responsibility ' . $exp->job_responsibility . ($exp->is_current_job == 1 ? 'is current job' : '');
+        }
+        $my_edu               = '';
+        $educations           = SeekerEducation::whereSeekerId($request->user()->id)->get();
+        foreach($educations as $edu) {
+            $my_edu = $my_edu . ($edu->is_current == 1 ? 'My current Education' : '') . $edu->degree . $edu->major_subject . ' at ' . $edu->school . $edu->location . ' start study from ' . $edu->from . ' to ' . $edu->to;
+        }
+        $my_skill             = '';
+        $skills               = SeekerSkill::whereSeekerId($request->user()->id)->get();
+        foreach($skills as $skill) {
+            $my_skill = $my_skill . ' my skill ' . $skill->Skill->name;
+        }
+        $my_lang              = '';
+        $languages            = SeekerLanguage::whereSeekerId($request->user()->id)->get();
+        foreach($languages as $lang) {
+            $my_lang          = $my_lang . 'I am ' . $lang->level . ' in ' .$lang->name; 
+        }
         
-        $experience        = SeekerExperience::findOrFail($id);
-        $experience_update = $experience->update([
-            'seeker_id'               => $request->seeker_id,
-            'job_title'               => $request->exp_job_title,
-            'company'                 => $request->exp_company,
-            'main_functional_area_id' => $request->exp_main_functional_area_id,
-            'sub_functional_area_id'  => $request->exp_sub_functional_area_id,
-            'career_level'            => $request->exp_career_level,
-            'industry_id'             => $request->exp_industry_id,
-            'start_date'              => date('Y-m-d', strtotime($request->exp_start_date)),
-            'end_date'                => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : null,
-            'is_experience'           => $request->is_experience,
-            'is_current_job'          => $request->is_current_job,
-            'country'                 => $request->exp_country,
-            'job_responsibility'      => $request->exp_job_responsibility,
+        $result = $client->completions()->create([
+            'prompt' => 'Write about my summary ' . $seeker . $my_exp . $my_edu . $my_skill,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
         ]);
-        $exp_functions     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $exp_industries    = Industry::whereNull('deleted_at')->get();
+
         return response()->json([
-            'status'            => 'success',
-            'experience'        => $experience,
-            'exp_functions'     => $exp_functions,
-            'sub_exp_functions' => $sub_exp_functions,
-            'exp_industries'    => $exp_industries,
-            'msg'               => 'Experience Update successfully!',
+            'status' => 'success',
+            'summary_ai' => ltrim($result->choices[0]->text)
         ]);
     }
 }

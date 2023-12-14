@@ -204,15 +204,30 @@ class ResumeController extends Controller
 
     public function summaryGenerate(Request $request, \OpenAI\Client $client)
     {
-        $seeker = Seeker::findOrFail($request->seeker_id);
-        $educations           = SeekerEducation::whereSeekerId($request->seeker_id)->get();
+        $seeker               = Seeker::findOrFail($request->seeker_id)->select('first_name', 'last_name', 'gender')->first();
+        $my_exp               = '';
         $experiences          = SeekerExperience::whereSeekerId($request->seeker_id)->get();
+        foreach($experiences as $exp) {
+            $my_exp = $my_exp . ($exp->is_experience == 0 ? 'No Experience' : '') . $exp->job_title . ' at ' . $exp->company . ' from ' . $exp->start_date . ' to ' . $exp->end_date . $exp->career_level . 'my job responsibility ' . $exp->job_responsibility . ($exp->is_current_job == 1 ? 'is current job' : '');
+        }
+        $my_edu               = '';
+        $educations           = SeekerEducation::whereSeekerId($request->seeker_id)->get();
+        foreach($educations as $edu) {
+            $my_edu = $my_edu . ($edu->is_current == 1 ? 'My current Education' : '') . $edu->degree . $edu->major_subject . ' at ' . $edu->school . $edu->location . ' start study from ' . $edu->from . ' to ' . $edu->to;
+        }
+        $my_skill             = '';
         $skills               = SeekerSkill::whereSeekerId($request->seeker_id)->get();
+        foreach($skills as $skill) {
+            $my_skill = $my_skill . ' my skill ' . $skill->Skill->name;
+        }
+        $my_lang              = '';
         $languages            = SeekerLanguage::whereSeekerId($request->seeker_id)->get();
-        $references           = SeekerReference::whereSeekerId($request->seeker_id)->get();
+        foreach($languages as $lang) {
+            $my_lang          = $my_lang . 'I am ' . $lang->level . ' in ' .$lang->name; 
+        }
         
         $result = $client->completions()->create([
-            'prompt' => 'Write about my summary ' . $seeker  . $experiences . $educations . $skills,
+            'prompt' => 'Write about my summary ' . $seeker . $my_exp . $my_edu . $my_skill,
             'model' => 'text-davinci-002',
             'max_tokens' => 250,
         ]);

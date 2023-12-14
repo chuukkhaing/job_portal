@@ -93,6 +93,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker personal information 
         Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
+        Route::post('summary-ai-generate', [SeekerProfileController::class, 'summaryGenerate']);
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
