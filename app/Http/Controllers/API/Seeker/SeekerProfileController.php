@@ -220,7 +220,7 @@ class SeekerProfileController extends Controller
             ]);
         }elseif ($request->column == 'date_of_birth') {
             $validator =  Validator::make($request->all(), [
-                'value' => ['date'],
+                'value' => ['date', 'nullable'],
             ], $messages = [
                 'date' => ['The :attribute is not a valid date.']
             ]);
