@@ -14,6 +14,7 @@ use App\Http\Controllers\API\Seeker\SeekerEducationController;
 use App\Http\Controllers\API\Seeker\SeekerSkillController;
 use App\Http\Controllers\API\Seeker\SeekerLanguageController;
 use App\Http\Controllers\API\Seeker\SeekerReferenceController;
+use App\Http\Controllers\API\Seeker\CareerOfChoiceController;
 
 // employer 
 use App\Http\Controllers\API\Employer\EmployerLoginController;
@@ -107,6 +108,9 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker reference 
         Route::resource('reference',SeekerReferenceController::class);
+
+        // career of choice 
+        Route::resource('career-of-choice',CareerOfChoiceController::class);
     });
 });
 
