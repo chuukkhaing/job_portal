@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Seeker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Seeker\JobAlert;
+use Illuminate\Support\Facades\Validator;
 
 class SeekerJobAlertController extends Controller
 {
@@ -40,29 +41,34 @@ class SeekerJobAlertController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validator =  Validator::make($request->all(), [
             'email' => 'required|email',
             'job_title' => 'required'
         ]);
-        $job_alert = JobAlert::create([
-            'seeker_id' => $request->user()->id,
-            'email'     => $request->email,
-            'job_title' => $request->job_title,
-            'job_type' => $request->job_type,
-            'industry_id' => $request->industry_id,
-            'career_level' => $request->career_level,
-            'functional_area_id' => $request->functional_area_id,
-            'experience_level' => $request->experience_level,
-            'country' => $request->country,
-            'state_id' => $request->state_id
-        ]);
-
-        if($job_alert) {
-            return response()->json([
-                'status' => 'success',
-                'job_alert' => $job_alert,
-                'msg' => 'Create Job Alert Successfully!'
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+        
+            $job_alert = JobAlert::create([
+                'seeker_id' => $request->user()->id,
+                'email'     => $request->email,
+                'job_title' => $request->job_title,
+                'job_type' => $request->job_type,
+                'industry_id' => $request->industry_id,
+                'career_level' => $request->career_level,
+                'functional_area_id' => $request->functional_area_id,
+                'experience_level' => $request->experience_level,
+                'country' => $request->country,
+                'state_id' => $request->state_id
             ]);
+
+            if($job_alert) {
+                return response()->json([
+                    'status' => 'success',
+                    'job_alert' => $job_alert,
+                    'msg' => 'Create Job Alert Successfully!'
+                ]);
+            }
         }
     }
 

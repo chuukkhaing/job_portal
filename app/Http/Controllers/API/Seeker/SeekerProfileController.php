@@ -21,8 +21,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Seeker\JobApply;
-use Storage;
-use Auth;
+use Hash;
 use DB;
 
 class SeekerProfileController extends Controller
@@ -371,6 +370,28 @@ class SeekerProfileController extends Controller
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Job Apply Successfully!'
+            ], 200);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'password'      => ['required', 'string', 'min:8', 'same:confirm-password'],
+            'confirm-password'      => ['required', 'string', 'min:8', 'same:password'],
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $seeker = Seeker::findOrFail($request->user()->id);
+            if ($request->password) {
+                $password = Hash::make($request->password);
+            } else {
+                $password = $seeker->password;
+            }
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Change Password Success.'
             ], 200);
         }
     }
