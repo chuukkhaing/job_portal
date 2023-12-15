@@ -80,7 +80,7 @@ class EmployerRegisterController extends Controller
 
             return redirect()->route('employer-verify-notice', $employer->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
         }else {
-            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+            return redirect()->back()->with('error', "Your email was don't exist. Please Try Again!");
         }
     }
 
@@ -109,7 +109,7 @@ class EmployerRegisterController extends Controller
 
             return redirect()->back()->with('info', 'Please, check email for reset link.');
         } else {
-            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+            return redirect()->back()->with('error', "Your email was don't exist. Please Try Again!");
         }
     }
 

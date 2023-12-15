@@ -51,4 +51,28 @@ class EmployerRegisterController extends Controller
             ], 200);
         }
     }
+
+    public function employerVerifyResend(Request $request)
+    {
+        $employer        = Employer::whereId($request->employer_id)->whereNull('deleted_at')->whereIsActive(0)->first();
+        if ($employer) {
+            $employer_update = $employer->update([
+                'email_verification_token' => Str::random(32),
+            ]);
+
+            \Mail::to($employer->email)->send(new EmployerVerificationEmail($employer));
+
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Successfully resend!Please check your email to activate your account.',
+                'employer_id' => $employer->id,
+                'email_verification_token' => $employer->email_verification_token
+            ], 200);
+        }else {
+            return response()->json([
+                'status' => 'success',
+                'msg' => "Your email was don't exist. Please Try Again!",
+            ], 200);
+        }
+    }
 }

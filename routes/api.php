@@ -152,6 +152,7 @@ Route::group(['prefix' => 'employer'], function () {
 
     // register 
     Route::post('/register', [EmployerRegisterController::class, 'register']);
+    Route::post('/verify-resend', [EmployerRegisterController::class, 'employerVerifyResend']);
 
     // employer login 
     Route::post('/login', [EmployerLoginController::class, 'login']);
