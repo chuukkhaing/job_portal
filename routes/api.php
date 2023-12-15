@@ -147,7 +147,7 @@ Route::group(['prefix' => 'seeker'], function () {
     });
 });
 
-// seeker 
+// employer 
 Route::group(['prefix' => 'employer'], function () {
 
     // register 
@@ -159,6 +159,9 @@ Route::group(['prefix' => 'employer'], function () {
 
     // employer forget password 
     Route::post('forget-password', [EmployerRegisterController::class, 'getEmail']);
+
+    // employer reset password 
+    Route::post('reset-password', [EmployerRegisterController::class, 'storeResetPassword']);
 
     // employer profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {

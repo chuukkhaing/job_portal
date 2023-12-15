@@ -107,4 +107,25 @@ class EmployerRegisterController extends Controller
             ], 500);
         }
     }
+
+    public function storeResetPassword(Request $request)
+    {
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'same:confirmed'],
+            'confirmed' => ['required', 'string', 'min:8', 'same:password'],
+            'employer_id' => ['required']
+        ]);
+        
+        $password = Hash::make($request['company_password']);
+
+        $employer = Employer::find($request->employer_id);
+
+        $employer->update([
+            'password' => $password,
+        ]);
+        return response()->json([
+            'status' => 'success',
+            'msg' => "Reset Password Successfully."
+        ], 200);
+    }
 }
