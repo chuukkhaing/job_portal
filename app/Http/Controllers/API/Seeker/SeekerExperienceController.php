@@ -188,7 +188,7 @@ class SeekerExperienceController extends Controller
                 'sub_functional_area_id'  => $request->sub_functional_area_id,
                 'career_level'            => $request->career_level,
                 'industry_id'             => $request->industry_id,
-                'start_date'              => date('Y-m-d', strtotime($request->start_date)),
+                'start_date'              => $request->start_date ? date('Y-m-d', strtotime($request->start_date)) : null,
                 'end_date'                => $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null,
                 'is_experience'           => $request->is_experience,
                 'is_current_job'          => $request->is_current_job,
