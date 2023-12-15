@@ -20,6 +20,7 @@ use App\Http\Controllers\API\Seeker\SeekerSaveJobController;
 use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
 
 // employer 
+use App\Http\Controllers\API\Employer\EmployerRegisterController;
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 
@@ -146,10 +147,17 @@ Route::group(['prefix' => 'seeker'], function () {
     });
 });
 
-// employer login 
-Route::post('/employer-login', [EmployerLoginController::class, 'login']);
+// seeker 
+Route::group(['prefix' => 'employer'], function () {
 
-// seeker profile 
-Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::post('/employer-profile', [EmployerProfileController::class, 'index']);
+    // register 
+    Route::post('/register', [EmployerRegisterController::class, 'register']);
+
+    // employer login 
+    Route::post('/login', [EmployerLoginController::class, 'login']);
+
+    // seeker profile 
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::post('/employer-profile', [EmployerProfileController::class, 'index']);
+    });
 });
