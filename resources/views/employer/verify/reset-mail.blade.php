@@ -7,7 +7,7 @@
 </head>
     <body>
         <div style="width: 100%;">
-            <table width="100%" border="0" cellspacing="0" cellpadding="20" style="background-image: url('https://infinitycareers.com.mm/img/background/email_reset_bg.png'); background-position: center; background-repeat: no-repeat; background-size: contain;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="20" style="background-image: url({{ asset('img/background/email_reset_bg.png') }}); background-position: center; background-repeat: no-repeat; background-size: contain;">
                 <tr>
                     <td>
                         &nbsp;
@@ -39,7 +39,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: center;">
-                        <img src="https://infinitycareers.com.mm/img/background/reset_lock.png" alt="" style="width: 300px;">
+                        <img src="{{ asset('img/background/reset_lock.png') }}" alt="" style="width: 300px;">
                         <br>
                         <a href="{{ $reseturl }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFF; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">Reset Password</a>
                     </td>
