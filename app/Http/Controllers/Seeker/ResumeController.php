@@ -227,11 +227,7 @@ class ResumeController extends Controller
         }
         
         $result = $client->completions()->create([
-<<<<<<< HEAD
-            'prompt' => 'Write about my summary ' . $seeker . $my_exp . $my_edu . $my_skill,
-=======
             'prompt' => 'Write about my summary name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
->>>>>>> version-1
             'model' => 'text-davinci-002',
             'max_tokens' => 250,
         ]);
