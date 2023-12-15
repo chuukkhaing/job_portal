@@ -157,7 +157,10 @@ Route::group(['prefix' => 'employer'], function () {
     // employer login 
     Route::post('/login', [EmployerLoginController::class, 'login']);
 
-    // seeker profile 
+    // employer forget password 
+    Route::post('forget-password', [EmployerRegisterController::class, 'getEmail']);
+
+    // employer profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/employer-profile', [EmployerProfileController::class, 'index']);
     });

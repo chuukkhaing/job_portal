@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Employer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Mail\EmployerVerificationEmail;
+use App\Mail\EmployerResetPassword;
 use App\Models\Admin\Employer;
 use Carbon\Carbon;
 use Hash;
@@ -73,6 +74,37 @@ class EmployerRegisterController extends Controller
                 'status' => 'success',
                 'msg' => "Your email was don't exist. Please Try Again!",
             ], 200);
+        }
+    }
+
+    public function getEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:employers,email',
+        ]);
+
+        $employer = Employer::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
+
+        if (isset($employer)) {
+            $employer_update = $employer->update([
+                'email_verification_token' => Str::random(32),
+            ]);
+
+            $user_name = $employer->name;
+            $reseturl  = URL::to('/') . '/employer' . '/' . $employer->id . '/reset-password';
+
+            \Mail::to($employer->email)->send(new EmployerResetPassword($user_name, $reseturl));
+
+            return response()->json([
+                'status' => 'success',
+                'employer_id' => $employer->id,
+                'msg' => 'Please, check email for reset link.'
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'msg' => "Your email was don't exist. Please Try Again!"
+            ], 500);
         }
     }
 }
