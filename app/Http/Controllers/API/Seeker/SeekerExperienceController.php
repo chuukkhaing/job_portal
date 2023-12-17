@@ -89,7 +89,7 @@ class SeekerExperienceController extends Controller
                     'sub_functional_area_id'  => $request->sub_functional_area_id,
                     'career_level'            => $request->career_level,
                     'industry_id'             => $request->industry_id,
-                    'start_date'              => date('Y-m-d', strtotime($request->start_date)),
+                    'start_date'              => $request->start_date ? date('Y-m-d', strtotime($request->start_date)) : null,
                     'end_date'                => $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null,
                     'is_experience'           => $request->is_experience,
                     'is_current_job'          => $request->is_current_job ?? 0,
@@ -188,7 +188,7 @@ class SeekerExperienceController extends Controller
                 'sub_functional_area_id'  => $request->sub_functional_area_id,
                 'career_level'            => $request->career_level,
                 'industry_id'             => $request->industry_id,
-                'start_date'              => date('Y-m-d', strtotime($request->start_date)),
+                'start_date'              => $request->start_date ? date('Y-m-d', strtotime($request->start_date)) : null,
                 'end_date'                => $request->end_date ? date('Y-m-d', strtotime($request->end_date)) : null,
                 'is_experience'           => $request->is_experience,
                 'is_current_job'          => $request->is_current_job,
@@ -212,24 +212,31 @@ class SeekerExperienceController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $experience               = SeekerExperience::findOrFail($id)->delete();
-        $seeker                  = Seeker::findOrFail($request->user()->id);
-        $seeker_experiences_count = SeekerExperience::whereSeekerId($request->user()->id)->count();
-        if ($seeker_experiences_count == 0) {
-            $seeker_percent        = SeekerPercentage::whereSeekerId($request->user()->id)->whereTitle('Career History')->first();
-            $seeker_percent_update = $seeker_percent->update([
-                'percentage' => 0,
-            ]);
-            $total_percent = SeekerPercentage::whereSeekerId($request->user()->id)->sum('percentage');
-            $seeker_update = $seeker->update([
-                'percentage' => $total_percent,
-            ]);
-        }
+        try{
+            $experience               = SeekerExperience::findOrFail($id)->delete();
+            $seeker                  = Seeker::findOrFail($request->user()->id);
+            $seeker_experiences_count = SeekerExperience::whereSeekerId($request->user()->id)->count();
+            if ($seeker_experiences_count == 0) {
+                $seeker_percent        = SeekerPercentage::whereSeekerId($request->user()->id)->whereTitle('Career History')->first();
+                $seeker_percent_update = $seeker_percent->update([
+                    'percentage' => 0,
+                ]);
+                $total_percent = SeekerPercentage::whereSeekerId($request->user()->id)->sum('percentage');
+                $seeker_update = $seeker->update([
+                    'percentage' => $total_percent,
+                ]);
+            }
 
-        return response()->json([
-            'status'                   => 'success',
-            'msg'                      => 'Experience deleted successfully!',
-            'seeker_experiences_count' => $seeker_experiences_count,
-        ]);
+            return response()->json([
+                'status'                   => 'success',
+                'msg'                      => 'Experience deleted successfully!',
+                'seeker_experiences_count' => $seeker_experiences_count,
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => $e->getMessage()
+            ], $e->getCode());
+        }
     }
 }

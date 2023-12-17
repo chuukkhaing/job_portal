@@ -14,8 +14,13 @@ use App\Http\Controllers\API\Seeker\SeekerEducationController;
 use App\Http\Controllers\API\Seeker\SeekerSkillController;
 use App\Http\Controllers\API\Seeker\SeekerLanguageController;
 use App\Http\Controllers\API\Seeker\SeekerReferenceController;
+use App\Http\Controllers\API\Seeker\CareerOfChoiceController;
+use App\Http\Controllers\API\Seeker\SeekerCVAttachController;
+use App\Http\Controllers\API\Seeker\SeekerSaveJobController;
+use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
 
 // employer 
+use App\Http\Controllers\API\Employer\EmployerRegisterController;
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 
@@ -78,10 +83,17 @@ Route::group(['prefix' => 'seeker'], function () {
     // seeker login 
     Route::post('/login', [SeekerLoginController::class, 'login']);
 
+    // seeker forget password 
+    Route::post('forget-password', [SeekerRegisterController::class, 'getEmail']);
+
+    // seeker reset password 
+    Route::post('reset-password', [SeekerRegisterController::class, 'storeResetPassword']);
+
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);
         Route::post('/profile', [SeekerProfileController::class, 'profile']);
+        Route::post('/change-password', [SeekerProfileController::class, 'changePassword']);
 
         // get skill 
         Route::post('/get-skill', [SeekerProfileController::class, 'getSkill']);
@@ -92,6 +104,10 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker personal information 
         Route::post('personal-information',[SeekerProfileController::class, 'personalInformation']);
+        Route::post('summary-ai-generate', [SeekerProfileController::class, 'summaryGenerate']);
+
+        // seeker application 
+        Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
@@ -107,13 +123,48 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker reference 
         Route::resource('reference',SeekerReferenceController::class);
+
+        // career of choice 
+        Route::resource('career-of-choice',CareerOfChoiceController::class);
+
+        // seeker cv 
+        Route::resource('seeker-cv',SeekerCVAttachController::class);
+
+        // seeker save job 
+        Route::resource('save-job', SeekerSaveJobController::class);
+
+        // seeker job alert
+        Route::resource('job-alert', SeekerJobAlertController::class);
+
+        // job post apply
+        Route::post('job-post-apply/{id}', [SeekerProfileController::class , 'jobPostApply']);
+
+        // applied jobs 
+        Route::get('applied-jobs' , [SeekerProfileController::class, 'applyJob']);
+
+        // logout 
+        Route::post('logout', [SeekerProfileController::class, 'logout']);
     });
 });
 
-// employer login 
-Route::post('/employer-login', [EmployerLoginController::class, 'login']);
+// employer 
+Route::group(['prefix' => 'employer'], function () {
 
-// seeker profile 
-Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::post('/employer-profile', [EmployerProfileController::class, 'index']);
+    // register 
+    Route::post('/register', [EmployerRegisterController::class, 'register']);
+    Route::post('/verify-resend', [EmployerRegisterController::class, 'employerVerifyResend']);
+
+    // employer login 
+    Route::post('/login', [EmployerLoginController::class, 'login']);
+
+    // employer forget password 
+    Route::post('forget-password', [EmployerRegisterController::class, 'getEmail']);
+
+    // employer reset password 
+    Route::post('reset-password', [EmployerRegisterController::class, 'storeResetPassword']);
+
+    // employer profile 
+    Route::group(['middleware' => 'auth:sanctum'], function() {
+        Route::get('/dashboard', [EmployerProfileController::class, 'dashboard']);
+    });
 });

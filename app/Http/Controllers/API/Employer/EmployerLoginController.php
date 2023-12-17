@@ -22,7 +22,7 @@ class EmployerLoginController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         } else {
-            if (\Auth::guard('employer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            if (\Auth::guard('employer')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'is_active' => 1, 'deleted_at' => Null])) {
                 if(Auth::guard('employer')->user()->is_active == 0 || isset(Auth::guard('employer')->user()->deleted_at) || Auth::guard('employer')->user()->email_verified_at == Null) {
                     Auth::guard('employer')->logout();
                     return response()->json([

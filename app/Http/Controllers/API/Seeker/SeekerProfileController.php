@@ -19,8 +19,9 @@ use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
-use Storage;
-use Auth;
+use OpenAI\Laravel\Facades\OpenAI;
+use App\Models\Seeker\JobApply;
+use Hash;
 use DB;
 
 class SeekerProfileController extends Controller
@@ -78,7 +79,7 @@ class SeekerProfileController extends Controller
             $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
         },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact'])
                                 ->whereId($request->user()->id)
-                                ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone')
+                                ->select('id', 'first_name', 'last_name', 'email', 'country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'image', 'phone', 'summary')
                                 ->first();
         $states               = State::whereNull('deleted_at')->whereIsActive(1)->select('id','name')->get();
         $townships            = Township::whereNull('deleted_at')->whereIsActive(1)->select('id','name','state_id')->get();
@@ -220,7 +221,7 @@ class SeekerProfileController extends Controller
             ]);
         }elseif ($request->column == 'date_of_birth') {
             $validator =  Validator::make($request->all(), [
-                'value' => ['date'],
+                'value' => ['date', 'nullable'],
             ], $messages = [
                 'date' => ['The :attribute is not a valid date.']
             ]);
@@ -300,35 +301,122 @@ class SeekerProfileController extends Controller
         return true;
     }
 
-    public function experienceUpdate($id, Request $request)
+    public function summaryGenerate(Request $request, \OpenAI\Client $client)
     {
+        $seeker               = Seeker::findOrFail($request->user()->id)->select('first_name', 'last_name', 'gender')->first();
+        $my_exp               = '';
+        $experiences          = SeekerExperience::whereSeekerId($request->user()->id)->get();
+        foreach($experiences as $exp) {
+            $my_exp = $my_exp . ($exp->is_experience == 0 ? 'I have No Experience' : 'My work experience' . $exp->job_title . ' at ' . $exp->company . ' from ' . date('Y', strtotime($exp->start_date)) . ' to ' . ($exp->is_current_job == 1 ? '' : date('Y', strtotime($exp->end_date)) . $exp->career_level . 'my job responsibility ' . $exp->job_responsibility . ($exp->is_current_job == 1 ? 'is my current job' : '')));
+        }
+        $my_edu               = '';
+        $educations           = SeekerEducation::whereSeekerId($request->user()->id)->get();
+        foreach($educations as $edu) {
+            $my_edu = $my_edu . ($edu->is_current == 1 ? 'My current Education' : 'My Education') . $edu->degree . $edu->major_subject . ' at ' . $edu->school . $edu->location . ' start study from ' . $edu->from . ' to ' . $edu->to;
+        }
+        $my_skill             = '';
+        $skills               = SeekerSkill::whereSeekerId($request->user()->id)->get();
+        foreach($skills as $skill) {
+            $my_skill = $my_skill . $skill->Skill->name;
+        }
+        $my_lang              = '';
+        $languages            = SeekerLanguage::whereSeekerId($request->user()->id)->get();
+        foreach($languages as $lang) {
+            $my_lang          = $my_lang . 'I am ' . $lang->level . ' in ' .$lang->name; 
+        }
         
-        $experience        = SeekerExperience::findOrFail($id);
-        $experience_update = $experience->update([
-            'seeker_id'               => $request->seeker_id,
-            'job_title'               => $request->exp_job_title,
-            'company'                 => $request->exp_company,
-            'main_functional_area_id' => $request->exp_main_functional_area_id,
-            'sub_functional_area_id'  => $request->exp_sub_functional_area_id,
-            'career_level'            => $request->exp_career_level,
-            'industry_id'             => $request->exp_industry_id,
-            'start_date'              => date('Y-m-d', strtotime($request->exp_start_date)),
-            'end_date'                => $request->exp_end_date ? date('Y-m-d', strtotime($request->exp_end_date)) : null,
-            'is_experience'           => $request->is_experience,
-            'is_current_job'          => $request->is_current_job,
-            'country'                 => $request->exp_country,
-            'job_responsibility'      => $request->exp_job_responsibility,
+        $result = $client->completions()->create([
+            'prompt' => 'Write about my summary name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
         ]);
-        $exp_functions     = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
-        $sub_exp_functions = FunctionalArea::whereNull('deleted_at')->where('functional_area_id', '!=', 0)->whereIsActive(1)->get();
-        $exp_industries    = Industry::whereNull('deleted_at')->get();
+
         return response()->json([
-            'status'            => 'success',
-            'experience'        => $experience,
-            'exp_functions'     => $exp_functions,
-            'sub_exp_functions' => $sub_exp_functions,
-            'exp_industries'    => $exp_industries,
-            'msg'               => 'Experience Update successfully!',
+            'status' => 'success',
+            'summary_ai' => ltrim($result->choices[0]->text)
         ]);
+
+        return response()->json([
+            'status' => 'success',
+            'summary_ai' => ltrim($result->choices[0]->text)
+        ]);
+    }
+
+    public function getApplication(Request $request)
+    {
+        $applications    = JobApply::with(['JobPost' => function($query) {
+            $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+            }, 'JobPostSkill' => function($skill) {
+                $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+            }])
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at');
+        }])->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->paginate(15);
+        return response()->json([
+            'status' => 'success',
+            'applications' => $applications
+        ]);
+    }
+
+    public function jobPostApply($id, Request $request)
+    {
+        $jobpost = JobPost::findOrFail($id);
+        if ($request->user()->percentage < 80) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications.!'
+            ]);
+        } else {
+            $jobApply = JobApply::create([
+                'employer_id' => $jobpost->employer_id,
+                'job_post_id' => $id,
+                'seeker_id'   => $request->user()->id,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Job Apply Successfully!'
+            ], 200);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validator =  Validator::make($request->all(), [
+            'password'      => ['required', 'string', 'min:8', 'same:confirm-password'],
+            'confirm-password'      => ['required', 'string', 'min:8', 'same:password'],
+        ]);
+        if ($validator->fails()) {
+            return response(['errors'=>$validator->messages()], 422);
+        }else {
+            $seeker = Seeker::findOrFail($request->user()->id);
+            if ($request->password) {
+                $password = Hash::make($request->password);
+            } else {
+                $password = $seeker->password;
+            }
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Change Password Success.'
+            ], 200);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Logout!'
+        ]);
+    }
+
+    public function applyJob(Request $request)
+    {
+        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'apply_jobs' => $apply_jobs
+        ], 200);
     }
 }

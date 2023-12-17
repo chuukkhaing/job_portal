@@ -82,7 +82,7 @@ class SeekerRegisterController extends Controller
 
             return redirect()->route('seeker-verify-notice', $seeker->id)->with('success', 'Successfully resend!Please check your email to activate your account.');
         }else {
-            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+            return redirect()->back()->with('error', "Your email was don't exist. Please Try Again!");
         }
     }
 
@@ -111,7 +111,7 @@ class SeekerRegisterController extends Controller
 
             return redirect()->back()->with('info', 'Please, check email for reset link.');
         } else {
-            return redirect()->back()->with('error', "Your email was done't exist. Please Try Again!");
+            return redirect()->back()->with('error', "Your email was don't exist. Please Try Again!");
         }
         
     }
