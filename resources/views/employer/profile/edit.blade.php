@@ -1224,7 +1224,7 @@
                     $('.media-image-preview').attr('src', 'https://placehold.co/280x140/#E4E3E2');
                     $("input[name='media_image_base64']").val('');
                     $(".media_image").removeClass('d-none');
-                    $(".media_image").append('<div class="col-md-3 col-4" id="media_image_'+response.data.id+'"><img src="'+document.location.origin+'/storage/employer_media/'+response.data.name+'"  class="w-100 rounded-3" id="image_upload_preview" alt="'+response.data.name+'"><a class="position-absolute top-0 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia('+response.data.id+')"><i class="fa-solid fa-trash-can"></i></a></div>')
+                    $(".media_image").append('<div class="col-md-3 col-4" id="media_image_'+response.data.id+'"><img src="'+media_image+'"  class="w-100 rounded-3" id="image_upload_preview" alt="'+response.data.name+'"><a class="position-absolute top-0 translate-middle badge rounded-pill bg-danger text-white p-2" onclick="removeMedia('+response.data.id+')"><i class="fa-solid fa-trash-can"></i></a></div>')
                 }
             })
     })
