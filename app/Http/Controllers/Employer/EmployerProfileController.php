@@ -448,12 +448,12 @@ class EmployerProfileController extends Controller
         
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->get();
-        $pendingjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->get();
-        $onlinejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('updated_at', 'desc')->get();
-        $rejectjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->get();
-        $expirejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->get();
-        $draftjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->get();
-        $jobPosts = JobPost::whereIn('employer_id', $employer_id)->orderBy('updated_at', 'desc')->get();
+        $pendingjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Pending')->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $onlinejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Online')->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $rejectjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Reject')->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $expirejobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $draftjobPosts = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Draft')->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
+        $jobPosts = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(1)->orderBy('updated_at', 'desc')->get();
 
         if($jobPosts->count() > 0) {
             return view ('employer.profile.employer-job', compact('employer', 'packages', 'packageItems', 'pendingjobPosts', 'onlinejobPosts', 'rejectjobPosts', 'expirejobPosts', 'draftjobPosts'));
