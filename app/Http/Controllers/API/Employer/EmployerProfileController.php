@@ -37,7 +37,7 @@ class EmployerProfileController extends Controller
         ], 200);
     }
 
-    public function employerPackage(Request $request)
+    public function package(Request $request)
     {
         $employer = Employer::findOrFail($request->user()->id);
         if($employer->employer_id) {

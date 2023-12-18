@@ -165,9 +165,13 @@ Route::group(['prefix' => 'employer'], function () {
 
     // employer profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
+        // dashboard 
         Route::get('dashboard', [EmployerProfileController::class, 'dashboard']);
 
         // package 
-        Route::get('employer-package', [EmployerProfileController::class, 'employerPackage']);
+        Route::get('package', [EmployerProfileController::class, 'package']);
+
+        // profile 
+        // Route::get('employer-package', [EmployerProfileController::class, 'employerPackage']);
     });
 });
