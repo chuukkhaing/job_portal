@@ -9,6 +9,9 @@ use App\Models\Employer\JobPost;
 use App\Models\Admin\Package;
 use App\Models\Admin\PackageItem;
 use App\Models\Employer\PointRecord;
+use App\Models\Admin\OwnershipType;
+use App\Models\Admin\FunctionalArea;
+use DB;
 
 class EmployerProfileController extends Controller
 {
@@ -51,6 +54,23 @@ class EmployerProfileController extends Controller
             'employer_package' => $employer_package,
             'packages' => $packages,
             'packageItems' => $packageItems
+        ], 200);
+    }
+
+    public function profile(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+        $account_info = Employer::whereId($request->user()->id)->select('email','is_active', DB::raw("(CASE WHEN (employer_id = NULL) THEN 'Admin' ELSE 'Member' End) as Access"))->first();
+        if($employer->employer_id) {
+            $employer = $employer->findOrFail($employer->employer_id);
+        }
+        $employer = Employer::with(['EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value')->first();
+        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
+        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        return response()->json([
+            'status' => 'success',
+            'account_info' => $account_info,
+            'employer' => $employer,
         ], 200);
     }
 }

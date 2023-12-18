@@ -166,7 +166,7 @@ class EmployerProfileController extends Controller
             'slug' => $slug,
             'summary' => $request->company_summary,
             'value' => $request->company_value,
-            'updated_by_admin' => $id,
+            // 'updated_by_admin' => $id,
         ]);
 
         if($employer_update) {

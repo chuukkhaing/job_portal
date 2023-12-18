@@ -172,6 +172,6 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('package', [EmployerProfileController::class, 'package']);
 
         // profile 
-        // Route::get('employer-package', [EmployerProfileController::class, 'employerPackage']);
+        Route::get('profile', [EmployerProfileController::class, 'profile']);
     });
 });
