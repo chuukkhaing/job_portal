@@ -40,48 +40,48 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // home 
-Route::get('/get-slider', [HomeController::class, 'getSlider']);
-Route::get('/get-popular-category', [HomeController::class, 'getPopularCategory']);
-Route::get('/get-top-employer', [HomeController::class, 'getTopEmployer']);
-Route::get('/get-trending-jobs', [HomeController::class, 'getTrendingJob']);
-Route::get('/get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
+Route::get('get-slider', [HomeController::class, 'getSlider']);
+Route::get('get-popular-category', [HomeController::class, 'getPopularCategory']);
+Route::get('get-top-employer', [HomeController::class, 'getTopEmployer']);
+Route::get('get-trending-jobs', [HomeController::class, 'getTrendingJob']);
+Route::get('get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
 
-Route::get('/get-states', [HomeController::class, 'getState']);
-Route::get('/get-functional-areas', [HomeController::class, 'getFunctionalArea']);
+Route::get('get-states', [HomeController::class, 'getState']);
+Route::get('get-functional-areas', [HomeController::class, 'getFunctionalArea']);
 
 // findjobs 
-Route::get('/find-jobs', [FindJobController::class, 'findJob']);
-Route::get('/get-find-job-filter-data', [FindJobController::class, 'getFindJobFilterData']);
-Route::post('/search-job', [FindJobController::class, 'searchJob']);
-Route::get('/get-job-title', [FindJobController::class, 'getJobTitle']);
+Route::get('find-jobs', [FindJobController::class, 'findJob']);
+Route::get('get-find-job-filter-data', [FindJobController::class, 'getFindJobFilterData']);
+Route::post('search-job', [FindJobController::class, 'searchJob']);
+Route::get('get-job-title', [FindJobController::class, 'getJobTitle']);
 
 // job category 
-Route::get('/get-all-category', [HomeController::class, 'getAllCategory']);
-Route::get('/get-all-employer', [HomeController::class, 'getAllEmployer']);
-Route::post('/job-post-detail', [HomeController::class, 'jobPostDetail']);
+Route::get('get-all-category', [HomeController::class, 'getAllCategory']);
+Route::get('get-all-employer', [HomeController::class, 'getAllEmployer']);
+Route::post('job-post-detail', [HomeController::class, 'jobPostDetail']);
 
 // company job 
-Route::post('/company-job', [HomeController::class, 'companyJob']);
-Route::post('/company-detail', [HomeController::class, 'companyDetail']);
-Route::post('/search-company', [HomeController::class, 'searchCompany']);
+Route::post('company-job', [HomeController::class, 'companyJob']);
+Route::post('company-detail', [HomeController::class, 'companyDetail']);
+Route::post('search-company', [HomeController::class, 'searchCompany']);
 
 // contact us 
-Route::post('/contact-us', [HomeController::class, 'contactUs']);
+Route::post('contact-us', [HomeController::class, 'contactUs']);
 
 // get township 
-Route::post('/get-township', [SeekerProfileController::class, 'getTowhship']);
+Route::post('get-township', [SeekerProfileController::class, 'getTowhship']);
 
 // get sub functional area 
-Route::post('/get-sub-functional-area', [SeekerProfileController::class, 'getSubFunctionalArea']);
+Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubFunctionalArea']);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
     // seeker register 
-    Route::post('/register', [SeekerRegisterController::class, 'register']);
-    Route::post('/verify-resend', [SeekerRegisterController::class, 'seekerVerifyResend']);
+    Route::post('register', [SeekerRegisterController::class, 'register']);
+    Route::post('verify-resend', [SeekerRegisterController::class, 'seekerVerifyResend']);
 
     // seeker login 
-    Route::post('/login', [SeekerLoginController::class, 'login']);
+    Route::post('login', [SeekerLoginController::class, 'login']);
 
     // seeker forget password 
     Route::post('forget-password', [SeekerRegisterController::class, 'getEmail']);
@@ -91,7 +91,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
-        Route::post('/dashboard', [SeekerProfileController::class, 'dashboard']);
+        Route::post('dashboard', [SeekerProfileController::class, 'dashboard']);
         Route::post('/profile', [SeekerProfileController::class, 'profile']);
         Route::post('/change-password', [SeekerProfileController::class, 'changePassword']);
 
@@ -151,11 +151,11 @@ Route::group(['prefix' => 'seeker'], function () {
 Route::group(['prefix' => 'employer'], function () {
 
     // register 
-    Route::post('/register', [EmployerRegisterController::class, 'register']);
-    Route::post('/verify-resend', [EmployerRegisterController::class, 'employerVerifyResend']);
+    Route::post('register', [EmployerRegisterController::class, 'register']);
+    Route::post('verify-resend', [EmployerRegisterController::class, 'employerVerifyResend']);
 
     // employer login 
-    Route::post('/login', [EmployerLoginController::class, 'login']);
+    Route::post('login', [EmployerLoginController::class, 'login']);
 
     // employer forget password 
     Route::post('forget-password', [EmployerRegisterController::class, 'getEmail']);
@@ -165,6 +165,9 @@ Route::group(['prefix' => 'employer'], function () {
 
     // employer profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
-        Route::get('/dashboard', [EmployerProfileController::class, 'dashboard']);
+        Route::get('dashboard', [EmployerProfileController::class, 'dashboard']);
+
+        // package 
+        Route::get('employer-package', [EmployerProfileController::class, 'employerPackage']);
     });
 });
