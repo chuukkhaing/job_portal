@@ -93,6 +93,8 @@ Route::group(['prefix' => 'seeker'], function () {
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
         Route::post('dashboard', [SeekerProfileController::class, 'dashboard']);
+        // recommend job
+        Route::post('recommend-job', [SeekerProfileController::class, 'recommendJob']);
         Route::post('/profile', [SeekerProfileController::class, 'profile']);
         Route::post('/change-password', [SeekerProfileController::class, 'changePassword']);
 
