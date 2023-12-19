@@ -134,4 +134,53 @@ class EmployerProfileController extends Controller
             'employer' => $employer
         ], 200);
     }
+
+    public function uploadLogo (Request $request)
+    {
+        $this->validate($request, [
+            'logo'  => ['required'],
+        ]);
+
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+
+        if($request->hasFile('logo')) {
+            $file    = $request->file('logo');
+            $logo = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'employer_logo/' . $logo;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+        }
+        $employer = $employer->update([
+            'logo' => $logo,
+            'updated_by' => $request->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'logo' => $logo,
+            'msg'    => 'Logo uploaded successfully.'
+        ], 200);
+    }
+
+    public function removeLogo(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        Storage::disk('s3')->delete('employer_logo/' . $employer->logo);
+        $employer = $employer->update([
+            'logo' => Null,
+            'updated_by' => $request->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Logo removed successfully.'
+        ]);
+    }
 }
