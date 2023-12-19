@@ -203,6 +203,9 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
 
+        // job post 
+        Route::post('job-post', [ManageJobController::class, 'store']);
+
         // applicant tracking 
         Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);
     });
