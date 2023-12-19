@@ -43,13 +43,17 @@ class ManageJobController extends Controller
 
     public function changeJobPostStatus(Request $request)
     {
+        $this->validate($request, [
+            'id'  => ['required'],
+            'status' => ['required']
+        ]);
         $jobPost_update = JobPost::whereId($request->id)->update([
             'is_active' => $request->status
         ]);
-        $jobPost = JobPost::findOrFail($request->id);
+        $jobPost = JobPost::whereId($request->id)->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->first();
         return response()->json([
             'status' => 'success',
-            'data' => $jobPost
-        ]);
+            'jobPost' => $jobPost
+        ], 200);
     }
 }
