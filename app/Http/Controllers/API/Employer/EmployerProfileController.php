@@ -325,4 +325,66 @@ class EmployerProfileController extends Controller
             'test_count' => $test_count
         ], 200);
     }
+
+    public function mediaStore(Request $request)
+    {
+        $this->validate($request, [
+            'type'  => ['required'],
+            'image' => ['required_if:type,Image'],
+            'video_link' => ['required_if:type,Video Link']
+        ]);
+        if($request->hasFile('image')) {
+            $file    = $request->file('image');
+            $image = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'employer_testimonial/' . $image;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+            
+        }else {
+            $image = '';
+        }
+        if ($request->image) {
+            $image = $this->storeMediaBase64($request->image);
+            $media_create = EmployerMedia::create([
+                'employer_id' => $request->user()->id,
+                'name' => $image,
+                'type' => 'Image',
+            ]);
+        }
+        if ($request->video_link) {
+            $media_create = EmployerMedia::create([
+                'employer_id' => $request->user()->id,
+                'name' => $request->video_link,
+                'type' => 'Video Link',
+            ]);
+        }
+        
+        return response()->json([
+            'status' => 'success',
+            'data' => $media_create
+        ]);
+    }
+
+    public function mediaDestroy($id, Request $request)
+    {
+
+        $media = EmployerMedia::findOrFail($id);
+        if($media->type == 'Image'){
+            File::deleteDirectory(public_path('storage/employer_media/'.'/'.$media->name));
+        }
+        $media_type = $media->type;
+        $media = $media->delete();
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $media_count = EmployerMedia::whereEmployerId($employer->id)->whereType($media_type)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Media deleted successfully!',
+            'media_count' => $media_count
+        ]);
+    }
 }
