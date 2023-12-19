@@ -186,5 +186,9 @@ Route::group(['prefix' => 'employer'], function () {
         // address 
         Route::post('address-store', [EmployerProfileController::class, 'addressStore']);
         Route::delete('address-destroy/{id}', [EmployerProfileController::class, 'addressDestroy']);
+
+        // testimonial 
+        Route::post('testimonial-store', [EmployerProfileController::class, 'testimonialStore']);
+        Route::delete('testimonial-destroy/{id}', [EmployerProfileController::class, 'testimonialDestroy']);
     });
 });

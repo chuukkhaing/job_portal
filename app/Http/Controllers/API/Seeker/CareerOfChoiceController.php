@@ -77,6 +77,7 @@ class CareerOfChoiceController extends Controller
     public function update(Request $request, $id)
     {
         $validator =  Validator::make($request->all(), [
+            'job_title'                     => ['required'],
             'main_functional_area_id'       => ['required'],
             'sub_functional_area_id'        => ['required'],
             'job_type'                      => ['required'],

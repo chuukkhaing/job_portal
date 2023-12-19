@@ -12,6 +12,7 @@ use App\Models\Employer\PointRecord;
 use App\Models\Admin\OwnershipType;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\EmployerAddress;
+use App\Models\Employer\EmployerTestimonial;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Storage;
 use Str;
@@ -254,7 +255,7 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'address' => $address,
             'msg'    => 'Address stored successfully.'
-        ]);
+        ], 200);
     }
 
     public function addressDestroy($id, Request $request)
@@ -270,6 +271,58 @@ class EmployerProfileController extends Controller
             'status' => 'success',
             'msg' => 'Address deleted successfully!',
             'address_count' => $address_count
+        ], 200);
+    }
+
+    public function testimonialStore(Request $request)
+    {
+        $this->validate($request, [
+            'name'  => ['required'],
+            'title' => ['required']
         ]);
+
+        if($request->hasFile('image')) {
+            $file    = $request->file('image');
+            $image = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'employer_testimonial/' . $image;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+            
+        }else {
+            $image = '';
+        }
+
+        $testimonial = EmployerTestimonial::create([
+            'employer_id' => $request->user()->id,
+            'name' => $request->name,
+            'title' => $request->title,
+            'remark' => $request->remark,
+            'image' => $image
+        ]);
+
+        
+        return response()->json([
+            'status' => 'success',
+            'testimonial' => $testimonial,
+        ], 200);
+    }
+
+    public function testimonialDestroy($id, Request $request)
+    {
+        $test = EmployerTestimonial::findOrFail($id);
+        Storage::disk('s3')->delete('employer_testimonial/' . $test->image);
+        $test = $test->delete();
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $test_count = EmployerTestimonial::whereEmployerId($employer->id)->count();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Testimonial deleted successfully!',
+            'test_count' => $test_count
+        ], 200);
     }
 }
