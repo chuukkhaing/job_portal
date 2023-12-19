@@ -178,5 +178,9 @@ Route::group(['prefix' => 'employer'], function () {
         // logo 
         Route::post('upload-logo', [EmployerProfileController::class, 'uploadLogo']);
         Route::post('remove-logo', [EmployerProfileController::class, 'removeLogo']);
+
+        // background 
+        Route::post('upload-background', [EmployerProfileController::class, 'uploadBackground']);
+        Route::post('remove-background', [EmployerProfileController::class, 'removeBackground']);
     });
 });

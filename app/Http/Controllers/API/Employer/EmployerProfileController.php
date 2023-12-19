@@ -181,6 +181,56 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'msg'    => 'Logo removed successfully.'
+        ], 200);
+    }
+
+    public function uploadBackground (Request $request)
+    {
+        $this->validate($request, [
+            'background'  => ['required'],
         ]);
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+
+        if($request->hasFile('background')) {
+            $file    = $request->file('background');
+            $imageName = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'employer_background/' . $imageName;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+            
+        }
+        $employer = $employer->update([
+            'background' => $imageName,
+            'updated_by' => $request->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'background' => $imageName,
+            'msg'    => 'Background uploaded successfully.'
+        ], 200);
+    }
+
+    public function removeBackground(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        Storage::disk('s3')->delete('employer_background/' . $employer->background);
+
+        $employer = $employer->update([
+            'background' => Null,
+            'updated_by' => $request->user()->id,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'msg'    => 'Background removed successfully.'
+        ], 200);
     }
 }
