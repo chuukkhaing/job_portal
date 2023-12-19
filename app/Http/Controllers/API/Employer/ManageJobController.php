@@ -41,4 +41,15 @@ class ManageJobController extends Controller
 
     }
 
+    public function changeJobPostStatus(Request $request)
+    {
+        $jobPost_update = JobPost::whereId($request->id)->update([
+            'is_active' => $request->status
+        ]);
+        $jobPost = JobPost::findOrFail($request->id);
+        return response()->json([
+            'status' => 'success',
+            'data' => $jobPost
+        ]);
+    }
 }

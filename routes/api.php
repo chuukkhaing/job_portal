@@ -198,6 +198,6 @@ Route::group(['prefix' => 'employer'], function () {
 
         // manage job 
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
-        // Route::delete('media-destroy/{id}', [ManageJobController::class, 'mediaDestroy']);
+        Route::post('job-post-status', [ManageJobController::class, 'changeJobPostStatus']);
     });
 });
