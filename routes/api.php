@@ -23,6 +23,7 @@ use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
 use App\Http\Controllers\API\Employer\EmployerRegisterController;
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
+use App\Http\Controllers\API\Employer\ManageJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -194,5 +195,9 @@ Route::group(['prefix' => 'employer'], function () {
         // media 
         Route::post('media-store', [EmployerProfileController::class, 'mediaStore']);
         Route::delete('media-destroy/{id}', [EmployerProfileController::class, 'mediaDestroy']);
+
+        // manage job 
+        Route::get('manage-job', [ManageJobController::class, 'manageJob']);
+        // Route::delete('media-destroy/{id}', [ManageJobController::class, 'mediaDestroy']);
     });
 });
