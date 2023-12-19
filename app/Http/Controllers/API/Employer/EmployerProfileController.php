@@ -13,6 +13,7 @@ use App\Models\Admin\OwnershipType;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerTestimonial;
+use App\Models\Employer\EmployerMedia;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Storage;
 use Str;
@@ -333,58 +334,51 @@ class EmployerProfileController extends Controller
             'image' => ['required_if:type,Image'],
             'video_link' => ['required_if:type,Video Link']
         ]);
-        if($request->hasFile('image')) {
-            $file    = $request->file('image');
-            $image = date('YmdHi').$file->getClientOriginalName();
-            
-            $path     = 'employer_testimonial/' . $image;
-            Storage::disk('s3')->put($path, file_get_contents($file));
-            $path = Storage::disk('s3')->url($path);
-            
-        }else {
-            $image = '';
+        if($request->type == "Image") {
+            if($request->hasFile('image')) {
+                $file    = $request->file('image');
+                $name = date('YmdHi').$file->getClientOriginalName();
+                
+                $path     = 'employer_media/' . $name;
+                Storage::disk('s3')->put($path, file_get_contents($file));
+                $path = Storage::disk('s3')->url($path);
+                
+            }
+        }elseif($request->type == "Video Link") {
+            if ($request->video_link) {
+                $name = $request->video_link;
+            }
         }
-        if ($request->image) {
-            $image = $this->storeMediaBase64($request->image);
-            $media_create = EmployerMedia::create([
-                'employer_id' => $request->user()->id,
-                'name' => $image,
-                'type' => 'Image',
-            ]);
-        }
-        if ($request->video_link) {
-            $media_create = EmployerMedia::create([
-                'employer_id' => $request->user()->id,
-                'name' => $request->video_link,
-                'type' => 'Video Link',
-            ]);
-        }
+    
+        $media_create = EmployerMedia::create([
+            'employer_id' => $request->user()->id,
+            'name' => $name,
+            'type' => $request->type,
+        ]);
         
         return response()->json([
             'status' => 'success',
-            'data' => $media_create
-        ]);
+            'media_create' => $media_create,
+            'msg' => 'Media Added successfully!',
+        ], 200);
     }
 
     public function mediaDestroy($id, Request $request)
     {
-
         $media = EmployerMedia::findOrFail($id);
-        if($media->type == 'Image'){
-            File::deleteDirectory(public_path('storage/employer_media/'.'/'.$media->name));
-        }
         $media_type = $media->type;
+        if($media->type == 'Image'){
+            Storage::disk('s3')->delete('employer_media/' . $media->name);
+        }
         $media = $media->delete();
         $employer = Employer::findOrFail($request->user()->id);
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $media_count = EmployerMedia::whereEmployerId($employer->id)->whereType($media_type)->count();
-
+        
         return response()->json([
             'status' => 'success',
-            'msg' => 'Media deleted successfully!',
-            'media_count' => $media_count
+            'msg' => 'Media deleted successfully!'
         ]);
     }
 }
