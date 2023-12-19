@@ -182,5 +182,9 @@ Route::group(['prefix' => 'employer'], function () {
         // background 
         Route::post('upload-background', [EmployerProfileController::class, 'uploadBackground']);
         Route::post('remove-background', [EmployerProfileController::class, 'removeBackground']);
+
+        // address 
+        Route::post('address-store', [EmployerProfileController::class, 'addressStore']);
+        Route::delete('address-destroy/{id}', [EmployerProfileController::class, 'addressDestroy']);
     });
 });
