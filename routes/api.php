@@ -198,6 +198,6 @@ Route::group(['prefix' => 'employer'], function () {
 
         // manage job 
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
-        Route::post('job-post-status', [ManageJobController::class, 'changeJobPostStatus']);
+        Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
     });
 });
