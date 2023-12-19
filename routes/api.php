@@ -24,6 +24,7 @@ use App\Http\Controllers\API\Employer\EmployerRegisterController;
 use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 use App\Http\Controllers\API\Employer\ManageJobController;
+use App\Http\Controllers\API\Employer\ApplicantTrackingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -201,5 +202,8 @@ Route::group(['prefix' => 'employer'], function () {
         // manage job 
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
+
+        // applicant tracking 
+        Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);
     });
 });
