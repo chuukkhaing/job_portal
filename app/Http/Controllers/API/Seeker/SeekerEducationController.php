@@ -84,7 +84,7 @@ class SeekerEducationController extends Controller
                 ]);
             }
 
-            $education           = SeekerEducation::whereSeekerId($request->user()->id)->select('id','seeker_id','degree','major_subject','location','from','to','school','is_current')->findOrFail($education_create->id);
+            $education           = SeekerEducation::whereSeekerId($request->user()->id)->select('id','seeker_id','degree','major_subject','location','from','to','school','is_current')->whereId($education_create->id)->first();
 
             return response()->json([
                 'status'    => 'success',
@@ -152,7 +152,7 @@ class SeekerEducationController extends Controller
                 'is_current'    => $request->is_current ?? 0
             ]);
 
-            $education           = SeekerEducation::whereSeekerId($request->user()->id)->select('id','seeker_id','degree','major_subject','location','from','to','school','is_current')->findOrFail($id);
+            $education           = SeekerEducation::whereSeekerId($request->user()->id)->select('id','seeker_id','degree','major_subject','location','from','to','school','is_current')->whereId($id)->first();
 
             return response()->json([
                 'status'    => 'success',

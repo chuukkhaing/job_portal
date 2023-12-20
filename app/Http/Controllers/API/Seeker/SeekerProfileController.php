@@ -341,7 +341,7 @@ class SeekerProfileController extends Controller
 
     public function summaryGenerate(Request $request, \OpenAI\Client $client)
     {
-        $seeker               = Seeker::findOrFail($request->user()->id)->select('first_name', 'last_name', 'gender')->first();
+        $seeker               = Seeker::whereId($request->user()->id)->select('first_name', 'last_name', 'gender')->first();
         $my_exp               = '';
         $experiences          = SeekerExperience::whereSeekerId($request->user()->id)->get();
         foreach($experiences as $exp) {
