@@ -79,6 +79,14 @@ class ManageJobController extends Controller
             'job_description' => 'required',
             'job_requirement' => 'required',
             'job_post_type' => 'required',
+            'trending_job_package_item_id' => ['required_if:job_post_type,trending'],
+            'trending_job_point' => ['required_if:job_post_type,trending'],
+            'feature_job_package_item_id' => ['required_if:job_post_type,feature'],
+            'feature_job_point' => ['required_if:job_post_type,feature'],
+            'anonymous_posting_package_item_id' => ['required_if:hide_company_name,1'],
+            'anonymous_posting_point' => ['required_if:hide_company_name,1'],
+            'question_package_item_id' => ['required_with:questions,answer_types'],
+            'question_point' => ['required_with:questions,answer_types'],
             'state_id' => ['required_if:country,Myanmar'],
             'total_point' => ['required'],
             'status' => ['required']
@@ -90,7 +98,10 @@ class ManageJobController extends Controller
         }
 
         if($request->total_point && $request->total_point > $employer->package_point) {
-            return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
+            return response()->json([
+                'status' => 'error',
+                'msg'    => 'Your Balance Points are not enough to Post Job.'
+            ], 200);
         }else {
             $gender = $request->gender;
 
@@ -103,9 +114,9 @@ class ManageJobController extends Controller
             $jobPost = JobPost::create([
                 'employer_id' => $request->user()->id,
                 'job_title' => $request->job_title,
-                'main_functional_area_id' => $request->main_functional_area,
-                'sub_functional_area_id' => $request->sub_functional_area,
-                'industry_id' => $request->job_post_industry,
+                'main_functional_area_id' => $request->main_functional_area_id,
+                'sub_functional_area_id' => $request->sub_functional_area_id,
+                'industry_id' => $request->industry_id,
                 'career_level' => $request->career_level,
                 'job_type' => $request->job_type,
                 'experience_level' => $request->experience_level,
@@ -113,14 +124,14 @@ class ManageJobController extends Controller
                 'gender' => $gender,
                 'currency' => $request->currency,
                 'salary_range' => $salary_range,
-                'hide_salary' => $hide_salary,
-                'hide_company' => $hide_company,
+                'hide_salary' => $hide_salary ?? 0,
+                'hide_company' => $hide_company ?? 0,
                 'no_of_candidate' => $request->no_of_candidate,
                 'recruiter_name' => $request->recruiter_name,
                 'recruiter_email' => $request->recruiter_email,
-                'country' => $request->job_post_country,
-                'state_id' => $request->job_post_state,
-                'township_id' => $request->job_post_township_id,
+                'country' => $request->country,
+                'state_id' => $request->state_id,
+                'township_id' => $request->township_id,
                 'job_description' => $request->job_description,
                 'job_requirement' => $request->job_requirement,
                 'benefit' => $request->benefit,
@@ -197,7 +208,11 @@ class ManageJobController extends Controller
             }elseif($jobPost->job_post_type == 'feature') {
                 $jobpostType = "Feature";
             }
-            return redirect()->route('manageJob')->with('success','Your '.$jobpostType. ' Job Post has been created successfully.');
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Your '.$jobpostType. ' Job Post has been created successfully.',
+                'job_post' => $jobPost
+            ], 200);
         }
     }
 
@@ -219,41 +234,38 @@ class ManageJobController extends Controller
             'job_description' => 'required',
             'job_requirement' => 'required',
             'job_post_type' => 'required',
-            'job_post_state' => ['required_if:country,Myanmar']
+            'trending_job_package_item_id' => ['required_if:job_post_type,trending'],
+            'trending_job_point' => ['required_if:job_post_type,trending'],
+            'feature_job_package_item_id' => ['required_if:job_post_type,feature'],
+            'feature_job_point' => ['required_if:job_post_type,feature'],
+            'anonymous_posting_package_item_id' => ['required_if:hide_company_name,1'],
+            'anonymous_posting_point' => ['required_if:hide_company_name,1'],
+            'question_package_item_id' => ['required_with:questions,answer_types'],
+            'question_point' => ['required_with:questions,answer_types'],
+            'state_id' => ['required_if:country,Myanmar'],
+            'total_point' => ['required'],
+            'status' => ['required']
         ]);
         if($request->total_point && $request->total_point > $request->user()->package_point) {
-            return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
+            return response()->json([
+                'status' => 'error',
+                'msg'    => 'Your Balance Points are not enough to Post Job.'
+            ], 200);
         }else {
             $jobPost = JobPost::findOrFail($id);
-            $gender = $jobPost->gender;
-            if($request->male == 'on' && $request->female == 'on') {
-                $gender = 'Male/Female';
-            }elseif($request->male == 'on' && $request->female == '') {
-                $gender = 'Male';
-            }elseif($request->male == '' && $request->female == 'on') {
-                $gender = 'Female';
-            }
-            $salary_range = $jobPost->salary_range;
-            if($request->mmk_salary) {
-                $salary_range = $request->mmk_salary;
-            }else {
-                $salary_range = $request->usd_salary;
-            }
-            if($request->hide_salary == 'on') {
-                $hide_salary = 1;
-            }else{
-                $hide_salary = 0;
-            }
-            if($request->hide_company_name == 'on') {
-                $hide_company = 1;
-            }else{
-                $hide_company = 0;
-            }
+            $gender = $request->gender ?? $jobPost->gender;
+
+            $salary_range = $request->salary_range ?? $jobPost->salary_range;
+            
+            $hide_salary = $request->hide_salary ?? $jobPost->hide_salary;
+
+            $hide_company = $request->hide_company_name ?? $jobPost->hide_company;
             $jobPost_update = $jobPost->update([
+                'employer_id' => $request->user()->id,
                 'job_title' => $request->job_title,
-                'main_functional_area_id' => $request->main_functional_area,
-                'sub_functional_area_id' => $request->sub_functional_area,
-                'industry_id' => $request->job_post_industry,
+                'main_functional_area_id' => $request->main_functional_area_id,
+                'sub_functional_area_id' => $request->sub_functional_area_id,
+                'industry_id' => $request->industry_id,
                 'career_level' => $request->career_level,
                 'job_type' => $request->job_type,
                 'experience_level' => $request->experience_level,
@@ -261,21 +273,21 @@ class ManageJobController extends Controller
                 'gender' => $gender,
                 'currency' => $request->currency,
                 'salary_range' => $salary_range,
-                'hide_salary' => $hide_salary,
-                'hide_company' => $hide_company,
+                'hide_salary' => $hide_salary ?? 0,
+                'hide_company' => $hide_company ?? 0,
                 'no_of_candidate' => $request->no_of_candidate,
                 'recruiter_name' => $request->recruiter_name,
                 'recruiter_email' => $request->recruiter_email,
-                'country' => $request->job_post_country,
-                'state_id' => $request->job_post_state,
-                'township_id' => $request->job_post_township_id,
+                'country' => $request->country,
+                'state_id' => $request->state_id,
+                'township_id' => $request->township_id,
                 'job_description' => $request->job_description,
                 'job_requirement' => $request->job_requirement,
                 'benefit' => $request->benefit,
                 'job_highlight' => $request->highlight,
                 'job_post_type' => $request->job_post_type,
-                'total_point' => $request->total_point,
                 'status' => $request->status,
+                'total_point' => $request->total_point
             ]);
             $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
             $jobPost_slug = $jobPost->update([
@@ -359,6 +371,21 @@ class ManageJobController extends Controller
         }elseif($jobPost->job_post_type == 'feature') {
             $jobpostType = "Feature";
         }
-        return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Your '.$jobpostType.' Job Post has been updated Successfully.',
+            'job_post' => $jobPost
+        ], 200);
+    }
+
+    public function show(Request $request, $id)
+    {
+        $jobPost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name', 'State:id,name', 'Township:id,name', 'JobPostSkill' => function ($jp_skill) {
+            $jp_skill->with('skill:id,name')->select('id','skill_id','job_post_id');
+        }, 'JobPostQuestion:id,question,answer'])->whereId($id)->select('id','job_title','main_functional_area_id','sub_functional_area_id','industry_id','career_level','job_type','experience_level','degree','gender','currency','salary_range','country','state_id','township_id','job_description','job_requirement','benefit','job_highlight','hide_salary','hide_company','no_of_candidate','recruiter_name','recruiter_email','job_post_type')->first();
+        return response()->json([
+            'status' => 'success',
+            'jobPost' => $jobPost
+        ], 200);
     }
 }
