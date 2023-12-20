@@ -55,7 +55,7 @@ class HomeController extends Controller
             ->join('package_items as c', 'b.package_item_id', '=', 'c.id')
             ->where('c.name', '=', 'Top Employer')
             ->where('a.slug', '!=', null)
-            ->select('a.id', 'a.logo', 'a.name', 'a.is_verified', 'a.slug')
+            ->select('a.id', 'a.logo', 'a.name', 'a.is_verified', 'a.slug', 'a.updated_at')
             ->where('a.is_active', '=', 1)
             ->where('a.deleted_at', '=', null)
             ->orderBy('a.updated_at', 'desc')

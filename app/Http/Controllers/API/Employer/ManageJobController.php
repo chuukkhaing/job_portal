@@ -79,7 +79,9 @@ class ManageJobController extends Controller
             'job_description' => 'required',
             'job_requirement' => 'required',
             'job_post_type' => 'required',
-            'job_post_state' => ['required_if:country,Myanmar']
+            'state_id' => ['required_if:country,Myanmar'],
+            'total_point' => ['required'],
+            'status' => ['required']
         ]);
 
         $employer = Employer::findOrFail($request->user()->id);
@@ -90,14 +92,8 @@ class ManageJobController extends Controller
         if($request->total_point && $request->total_point > $employer->package_point) {
             return redirect()->back()->with('warning','Your Balance Points are not enough to Post Job.');
         }else {
-            $gender = Null;
-            if($request->male == 'on' && $request->female == 'on') {
-                $gender = 'Male/Female';
-            }elseif($request->male == 'on' && $request->female == '') {
-                $gender = 'Male';
-            }elseif($request->male == '' && $request->female == 'on') {
-                $gender = 'Female';
-            }
+            $gender = $request->gender;
+
             $salary_range = Null;
             if($request->mmk_salary) {
                 $salary_range = $request->mmk_salary;
