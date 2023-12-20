@@ -79,7 +79,6 @@ class EmployerJobPostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $this->validate($request, [
             'job_title' => 'required|string',
             'job_post_industry' => 'required',
