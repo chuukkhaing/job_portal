@@ -53,7 +53,7 @@ Route::group([], function () {
         Route::post('/employer-background-remove', [EmployerProfileController::class, 'removeBackground'])->name('employer-background.remove');
 
         Route::resource('employer-job-post', EmployerJobPostController::class);
-        Route::post('employer-job-post/question', [EmployerJobPostController::class, 'jobPostQuestion'])->name('job-post.question');
+        
         Route::get('/get-skill/{id}', [EmployerJobPostController::class, 'getSkill']);
         Route::post('job-post-status', [EmployerJobPostController::class, 'changeJobPostStatus'])->name('job-post.status');
         Route::post('unlock-application', [EmployerJobPostController::class, 'unlockApplication'])->name('unlock.application');
