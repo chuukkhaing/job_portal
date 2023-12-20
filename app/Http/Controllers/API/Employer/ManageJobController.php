@@ -94,22 +94,12 @@ class ManageJobController extends Controller
         }else {
             $gender = $request->gender;
 
-            $salary_range = Null;
-            if($request->mmk_salary) {
-                $salary_range = $request->mmk_salary;
-            }else {
-                $salary_range = $request->usd_salary;
-            }
-            if($request->hide_salary == 'on') {
-                $hide_salary = 1;
-            }else{
-                $hide_salary = 0;
-            }
-            if($request->hide_company_name == 'on') {
-                $hide_company = 1;
-            }else{
-                $hide_company = 0;
-            }
+            $salary_range = $request->salary_range;
+            
+            $hide_salary = $request->hide_salary;
+
+            $hide_company = $request->hide_company_name;
+            
             $jobPost = JobPost::create([
                 'employer_id' => $request->user()->id,
                 'job_title' => $request->job_title,

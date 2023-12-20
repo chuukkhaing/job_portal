@@ -52,7 +52,11 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = Employer::findOrFail($employer->employer_id);
         }
-        $employer_package = Package::whereId($employer->package_id)->select('id','name')->get();
+        $employer_package = Package::with(['PackageWithPackageItem' => function ($packagewithitem) {
+            $packagewithitem->with(['PackageItem' => function ($packageItem) {
+                $packageItem->select('id','name','point')->where('is_active', 1)->whereNull('deleted_at');
+            }])->select('id', 'package_id', 'package_item_id');
+        }])->whereId($employer->package_id)->select('id', 'name')->whereIsActive(1)->whereNull('deleted_at')->first();
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->select('id','name','price')->get();
         $packageItems = PackageItem::whereIn('id',$employer->Package->PackageWithPackageItem->pluck('package_item_id'))->select('id', 'name', 'point')->get();
         return response()->json([
@@ -70,7 +74,13 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = $employer->findOrFail($employer->employer_id);
         }
-        $employer = Employer::with(['EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value')->first();
+        $employer = Employer::with(['Package' => function ($package) {
+            $package->with(['PackageWithPackageItem' => function ($packagewithitem) {
+                $packagewithitem->with(['PackageItem' => function ($packageItem) {
+                    $packageItem->select('id','name','point')->where('is_active', 1)->whereNull('deleted_at');
+                }])->select('id', 'package_id', 'package_item_id');
+            }])->select('id', 'name', 'is_active')->where('is_active', 1)->whereNull('deleted_at');
+        }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id')->first();
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
         $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
         $type_of_employers = config('typeOfEmployer.value');
