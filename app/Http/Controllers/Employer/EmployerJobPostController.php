@@ -474,6 +474,7 @@ class EmployerJobPostController extends Controller
                             ->where('a.id','=',$seeker->id)
                             ->select('a.*','b.name as state_name','c.name as township_name','a.image as image')
                             ->first();
+                dd($seeker);
             }
             $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
             $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
