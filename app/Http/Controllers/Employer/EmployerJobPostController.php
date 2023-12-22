@@ -493,21 +493,21 @@ class EmployerJobPostController extends Controller
                 $experiences = [];
             }
             $skill_main_functional_areas = DB::table('seeker_skills as a')
-                            ->where('a.seeker_id','=',$seeker->id)
+                            ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                             ->join('skills as b','a.skill_id','=','b.id')
                             ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                             ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
                             ->groupBy('a.main_functional_area_id')
                             ->get();
             $skills = DB::table('seeker_skills as a')
-                        ->where('a.seeker_id','=',$seeker->id)
+                        ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                         ->join('skills as b','a.skill_id','=','b.id')
                         ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                         ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
                         ->get();
-            $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
-            $references = SeekerReference::whereSeekerId($seeker->id)->get();
-            $seeker_img = getS3File('seeker/profile/'.$seeker->id ,$seeker->image);
+            $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$seeker->image);
         }
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
