@@ -136,6 +136,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
+        Route::get('save-job-list', [SeekerSaveJobController::class, 'saveJobList']);
 
         // seeker job alert
         Route::resource('job-alert', SeekerJobAlertController::class);
