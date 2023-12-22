@@ -475,14 +475,14 @@ class EmployerJobPostController extends Controller
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
             }
-            $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
+            $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
             $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
-            $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-            $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+            $educations = SeekerEducation::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $experiences = SeekerExperience::whereSeekerId($jobApply->first()->seeker_id)->first();
             if($experiences) {
                 if($experiences->is_experience == 1) {
                     $experiences = DB::table('seeker_experiences as a')
-                                ->where('a.seeker_id','=',$seeker->id)
+                                ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                                 ->join('industries as b','a.industry_id','=','b.id')
                                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                                 ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
