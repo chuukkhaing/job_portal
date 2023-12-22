@@ -74,7 +74,7 @@ class SeekerRegisterController extends Controller
         }else {
             return response()->json([
                 'status' => 'success',
-                'msg' => "Your email was done't exist. Please Try Again!",
+                'msg' => "Your email was don't exist. Please Try Again!",
             ], 200);
         }
     }
@@ -105,7 +105,7 @@ class SeekerRegisterController extends Controller
         } else {
             return response()->json([
                 'status' => 'error',
-                'msg' => "Your email was done't exist. Please Try Again!"
+                'msg' => "Your email was don't exist. Please Try Again!"
             ], 500);
         }
         

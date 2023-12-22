@@ -22,7 +22,7 @@ class SeekerLoginController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         } else {
-            if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'is_active' => 1, 'deleted_at' => Null])) {
                 if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null) {
                     Auth::guard('seeker')->logout();
                     return response()->json([

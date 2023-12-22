@@ -14,6 +14,14 @@ class SeekerSaveJobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function saveJobList(Request $request) {
+        $saveJobs   = SaveJob::whereSeekerId($request->user()->id)->select('id','job_post_id','created_at as added_at')->orderBy('created_at','desc')->get();
+        return response()->json([
+            'status' => 'success',
+            'saveJobs' => $saveJobs
+        ], 200);
+    }
+
     public function index(Request $request)
     {
         $saveJobs             = SaveJob::with(['JobPost' => function($query) {

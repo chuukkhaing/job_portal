@@ -18,6 +18,8 @@ use App\Models\Admin\State;
 use App\Models\Admin\Township;
 use App\Models\Seeker\SaveJob;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Industry;
 
 class Seeker extends Authenticatable
 {
@@ -92,5 +94,20 @@ class Seeker extends Authenticatable
     function SaveJob()
     {
         return $this->hasMany(SaveJob::class, 'seeker_id', 'id');
+    }
+
+    public function MainFunctionalArea()
+    {
+        return $this->belongsTo(FunctionalArea::class, 'main_functional_area_id', 'id');
+    }
+
+    public function SubFunctionalArea()
+    {
+        return $this->belongsTo(FunctionalArea::class, 'sub_functional_area_id', 'id');
+    }
+
+    public function Industry()
+    {
+        return $this->belongsTo(Industry::class, 'industry_id', 'id');
     }
 }

@@ -166,7 +166,7 @@ class EmployerProfileController extends Controller
             'slug' => $slug,
             'summary' => $request->company_summary,
             'value' => $request->company_value,
-            'updated_by_admin' => $id,
+            // 'updated_by_admin' => $id,
         ]);
 
         if($employer_update) {
@@ -503,10 +503,11 @@ class EmployerProfileController extends Controller
         list(, $imageBase64)      = explode(',', $imageBase64);
         $imageBase64 = base64_decode($imageBase64);
         $imageName= time().'.png';
-        $path = public_path() . "/storage/employer_media/" . $imageName;
-  
-        file_put_contents($path, $imageBase64);
-          
+        
+        $path     = 'employer_media/' . $imageName;
+        Storage::disk('s3')->put($path, $imageBase64);
+        $path = Storage::disk('s3')->url($path);
+
         return $imageName;
     }
 }
