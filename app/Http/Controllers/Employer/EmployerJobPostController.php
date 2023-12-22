@@ -471,7 +471,7 @@ class EmployerJobPostController extends Controller
                 $seeker = DB::table('seekers as a')
                             ->join('states as b', 'a.state_id', '=', 'b.id')
                             ->join('townships as c', 'a.township_id', '=', 'c.id')
-                            ->where('a.id','=',$seeker->id)
+                            ->where('a.id','=',$seeker_apply->id)
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
             }
