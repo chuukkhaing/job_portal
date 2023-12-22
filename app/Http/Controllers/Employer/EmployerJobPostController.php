@@ -466,8 +466,8 @@ class EmployerJobPostController extends Controller
         $seeker_img = '';
         $seeker_cv = '';
         if($jobApply->count() > 0){
-            $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
-            if($seeker->country == 'Myanmar') {
+            $seeker_apply = Seeker::findOrFail($jobApply->first()->seeker_id);
+            if($seeker_apply->country == 'Myanmar') {
                 $seeker = DB::table('seekers as a')
                             ->join('states as b', 'a.state_id', '=', 'b.id')
                             ->join('townships as c', 'a.township_id', '=', 'c.id')
@@ -507,7 +507,7 @@ class EmployerJobPostController extends Controller
                         ->get();
             $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
             $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
-            $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$seeker->image);
+            $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$seeker_apply->image);
         }
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
