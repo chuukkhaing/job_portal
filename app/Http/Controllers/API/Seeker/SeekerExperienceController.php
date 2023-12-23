@@ -96,7 +96,7 @@ class SeekerExperienceController extends Controller
                     'country'                 => $request->country,
                     'job_responsibility'      => $request->job_responsibility,
                 ]);
-                $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->findOrFail($experience_create->id);
+                $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->whereId($experience_create->id)->first();
 
                 $seeker_exps = SeekerExperience::whereSeekerId($request->user()->id)->get();
                 $seeker                  = Seeker::findOrFail($request->user()->id);
@@ -195,7 +195,7 @@ class SeekerExperienceController extends Controller
                 'country'                 => $request->country,
                 'job_responsibility'      => $request->job_responsibility,
             ]);
-            $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->findOrFail($id);
+            $experience = SeekerExperience::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','start_date','end_date','is_current_job','is_experience')->whereId($id)->first();
             return response()->json([
                 'status'            => 'success',
                 'experience'        => $experience,

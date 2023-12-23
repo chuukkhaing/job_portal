@@ -136,6 +136,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
+        Route::get('save-job-list', [SeekerSaveJobController::class, 'saveJobList']);
 
         // seeker job alert
         Route::resource('job-alert', SeekerJobAlertController::class);
@@ -206,6 +207,8 @@ Route::group(['prefix' => 'employer'], function () {
 
         // job post 
         Route::post('job-post', [ManageJobController::class, 'store']);
+        Route::get('job-post/{id}', [ManageJobController::class, 'show']);
+        Route::put('job-post/{id}', [ManageJobController::class, 'update']);
 
         // applicant tracking 
         Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);

@@ -173,7 +173,7 @@ class SeekerCVAttachController extends Controller
         try {
             $cv               = SeekerAttach::findOrFail($id);
             Storage::disk('s3')->delete('seeker/cv/' . $cv->name);
-            $cv               = SeekerAttach::findOrFail($id)->delete();
+            $cv               = SeekerAttach::whereId($id)->delete();
             $seeker           = Seeker::findOrFail($request->user()->id);
             $seeker_cvs_count = SeekerAttach::whereSeekerId($seeker->id)->count();
             if ($seeker_cvs_count == 0) {

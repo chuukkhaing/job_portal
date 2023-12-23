@@ -17,7 +17,7 @@ class CareerOfChoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $career_of_choice = Seeker::findOrFail($request->user()->id)->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')->first();
+        $career_of_choice = Seeker::whereId($request->user()->id)->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')->first();
         return response()->json([
             'status' => 'success',
             'career_of_choice' => $career_of_choice
@@ -99,7 +99,7 @@ class CareerOfChoiceController extends Controller
                 'preferred_salary'        => $request->preferred_salary,
                 'industry_id'             => $request->industry_id,
             ]);
-            $career_of_choice = Seeker::findOrFail($request->user()->id)->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')->first();
+            $career_of_choice = Seeker::whereId($request->user()->id)->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')->first();
             $seeker_percentage = $this->updateSeekerPercentage($career_of_choice);
             return response()->json([
                 'status' => 'success',
