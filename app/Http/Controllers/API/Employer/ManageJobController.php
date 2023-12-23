@@ -375,4 +375,13 @@ class ManageJobController extends Controller
         }
         return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
     }
+
+    public function getExperienceLevel()
+    {
+        $experience_levels = config('experienceLevel.name');
+        return response()->json([
+            'status' => 'success',
+            'experience_levels' => $experience_levels
+        ]);
+    }
 }
