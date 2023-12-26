@@ -215,6 +215,10 @@ Route::group(['prefix' => 'employer'], function () {
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
         Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
 
+        // generate AI 
+        Route::post('job-description-generate', [ManageJobController::class, 'jobDescriptionGenerate']);
+        Route::post('job-requirement-generate', [ManageJobController::class, 'jobRequirementGenerate']);
+
         // job post 
         Route::post('job-post', [ManageJobController::class, 'store']);
         Route::get('job-post/{id}', [ManageJobController::class, 'show']);
