@@ -28,6 +28,8 @@ use App\Http\Controllers\API\Employer\ApplicantTrackingController;
 use App\Http\Controllers\API\Employer\BuyPointController;
 use App\Http\Controllers\API\Employer\MemberUserController;
 
+// mobile 
+use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -151,6 +153,11 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
+    });
+
+    Route::group(['prefix' => 'mobile'], function () {
+        // seeker register 
+        Route::post('register', [SeekerMobileRegisterController::class, 'register']);
     });
 });
 
