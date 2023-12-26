@@ -208,17 +208,17 @@ class ResumeController extends Controller
         $my_exp               = '';
         $experiences          = SeekerExperience::whereSeekerId($request->seeker_id)->get();
         foreach($experiences as $exp) {
-            $my_exp = $my_exp . ($exp->is_experience == 0 ? 'I have No Experience' : 'My work experience' . $exp->job_title . ' at ' . $exp->company . ' from ' . date('Y', strtotime($exp->start_date)) . ' to ' . ($exp->is_current_job == 1 ? '' : date('Y', strtotime($exp->end_date)) . $exp->career_level . 'my job responsibility ' . $exp->job_responsibility . ($exp->is_current_job == 1 ? 'is my current job' : '')));
+            $my_exp = $my_exp . ($exp->is_experience == 0 ? 'I have No Experience.' : 'My work experiences are' . $exp->job_title . ' at ' . $exp->company . ' from ' . date('Y', strtotime($exp->start_date)) . ' to ' . ($exp->is_current_job == 1 ? '' : date('Y', strtotime($exp->end_date)) . $exp->career_level . 'my job responsibility ' . $exp->job_responsibility . ($exp->is_current_job == 1 ? 'is my current job' : '')));
         }
         $my_edu               = '';
         $educations           = SeekerEducation::whereSeekerId($request->seeker_id)->get();
         foreach($educations as $edu) {
-            $my_edu = $my_edu . ($edu->is_current == 1 ? 'My current Education' : 'My Education') . $edu->degree . $edu->major_subject . ' at ' . $edu->school . $edu->location . ' start study from ' . $edu->from . ' to ' . $edu->to;
+            $my_edu = $my_edu . ($edu->is_current == 1 ? 'My current Education ' : 'My Education is') . $edu->degree . ' in ' . $edu->major_subject . ' at ' . $edu->school . ' start study from ' . $edu->from . ' to ' . $edu->to;
         }
         $my_skill             = '';
         $skills               = SeekerSkill::whereSeekerId($request->seeker_id)->get();
         foreach($skills as $skill) {
-            $my_skill = $my_skill . $skill->Skill->name;
+            $my_skill = $my_skill . 'My Skills are' . $skill->Skill->name;
         }
         $my_lang              = '';
         $languages            = SeekerLanguage::whereSeekerId($request->seeker_id)->get();
@@ -227,9 +227,9 @@ class ResumeController extends Controller
         }
         
         $result = $client->completions()->create([
-            'prompt' => 'Write about my summary name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
+            'prompt' => 'Write about my cover letter. My name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
             'model' => 'text-davinci-002',
-            'max_tokens' => 250,
+            'max_tokens' => 250, 
         ]);
 
         return response()->json([

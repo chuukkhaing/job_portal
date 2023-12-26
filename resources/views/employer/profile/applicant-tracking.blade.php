@@ -585,9 +585,11 @@
                     if(value.seeker_id == response.seeker.id) {
                         active = 'active'
                     }
-                    
+                    var first_name = value.seeker_first_name === null ? '' : value.seeker_first_name;
+                    var last_name = value.seeker_last_name === null ? '' : value.seeker_last_name;
+
                     table.row.add([
-                        value.seeker_first_name+' '+value.seeker_last_name,
+                        first_name+' '+last_name,
                         moment(value.seeker_applied_date).format("DD/MM/YYYY"),
                     ]).node().id = 'applicant_tr'+value.seeker_id;
                     table.draw();
@@ -621,11 +623,14 @@
                     $(".download_seeker_cv").attr('href',response.seeker_cv);
                     $(".download_ic_cv").attr('href', document.location.origin+'/employer/download-ic-cv/'+response.seeker.id);
                     btnColor(value.status)
-                    
+
+                    var first_name_check = response.seeker.first_name === null ? '' : response.seeker.first_name;
+                    var last_name_check = response.seeker.last_name === null ? '' : response.seeker.last_name;
+
                     if(response.seeker.gender == 'Female') {
-                        $(".app_receive_name").text('Ms.'+response.seeker.first_name+' '+response.seeker.last_name);
+                        $(".app_receive_name").text('Ms.'+first_name_check+' '+last_name_check);
                     }else {
-                        $(".app_receive_name").text('Mr.'+response.seeker.first_name+' '+response.seeker.last_name);
+                        $(".app_receive_name").text('Mr.'+first_name_check+' '+last_name_check);
                     }
                     if(response.seeker_img){
                         $('.app_receive_pic').attr('src',response.seeker_img);

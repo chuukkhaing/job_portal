@@ -136,7 +136,6 @@ class HomeController extends Controller
         
         $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->orderBy('updated_at','desc')->paginate(10);
         $jobPost_industry = $jobPosts->groupBy('industry_id')->pluck('industry_id')->toArray();
-        
         $industries = Industry::whereNull('deleted_at')->whereIsActive(1)->get();
         $trending_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('trending')->get()->take(15);
         $feature_jobs = JobPost::whereIsActive(1)->whereStatus('Online')->orderBy('updated_at','desc')->whereJobPostType('feature')->get()->take(15);
