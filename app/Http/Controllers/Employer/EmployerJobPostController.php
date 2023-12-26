@@ -511,11 +511,7 @@ class EmployerJobPostController extends Controller
                         ->get();
             $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
             $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
-<<<<<<< HEAD
-            $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$seeker->image);
-=======
             $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$image);
->>>>>>> version-1
         }
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
