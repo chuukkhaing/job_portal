@@ -26,6 +26,7 @@ use App\Http\Controllers\API\Employer\EmployerProfileController;
 use App\Http\Controllers\API\Employer\ManageJobController;
 use App\Http\Controllers\API\Employer\ApplicantTrackingController;
 use App\Http\Controllers\API\Employer\BuyPointController;
+use App\Http\Controllers\API\Employer\MemberUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -216,5 +217,9 @@ Route::group(['prefix' => 'employer'], function () {
 
         // buy point 
         Route::resource('buy-point', BuyPointController::class);
+
+        // member user 
+        Route::resource('member', MemberUserController::class);
+
     });
 });
