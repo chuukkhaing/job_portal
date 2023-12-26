@@ -25,6 +25,10 @@ Route::group([], function () {
     Route::get('email/verify/{id}', [SeekerRegisterController::class, 'notice'])->name('seeker-verify-notice');
     Route::get('email/resend/{id}', [SeekerRegisterController::class, 'resend'])->name('seeker-resend');
     Route::get('verify/{id}', [SeekerLoginController::class, 'VerifyEmail'])->name('seeker-verify');
+
+    // seeker-mobile-verify 
+    Route::get('mobile-verify/{token}', [SeekerLoginController::class, 'VerifyMobileEmail'])->name('seeker-mobile-verify');
+
     Route::post('logout', [SeekerProfileController::class, 'logout'])->name('seeker.logout');
     Route::post('login', [SeekerLoginController::class, 'login'])->name('seeker-login');
     Route::get('forgot-password', [SeekerRegisterController::class, 'forgotPassword'])->name('seeker-forgot');

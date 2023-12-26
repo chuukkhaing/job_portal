@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Seeker\Seeker;
-use App\Mail\SeekerVerificationEmail;
+use App\Mail\SeekerMobileVerificationEmail;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -45,7 +45,7 @@ class SeekerMobileRegisterController extends Controller
                 'device_type'              => $request['device_type']
             ]);
             if ($seeker) {
-                \Mail::to($seeker->email)->send(new SeekerVerificationEmail($seeker));
+                \Mail::to($seeker->email)->send(new SeekerMobileVerificationEmail($seeker));
 
                 return response()->json([
                     'status' => 'success',
