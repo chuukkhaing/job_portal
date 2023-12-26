@@ -27,6 +27,7 @@ use App\Http\Controllers\API\Employer\ManageJobController;
 use App\Http\Controllers\API\Employer\ApplicantTrackingController;
 use App\Http\Controllers\API\Employer\BuyPointController;
 use App\Http\Controllers\API\Employer\MemberUserController;
+use App\Http\Controllers\API\Employer\PointRecordController;
 
 // mobile 
 use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
@@ -228,5 +229,7 @@ Route::group(['prefix' => 'employer'], function () {
         // member user 
         Route::resource('member', MemberUserController::class);
 
+        // point record 
+        Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
     });
 });
