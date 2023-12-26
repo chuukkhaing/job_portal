@@ -153,7 +153,11 @@ class MemberUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $member = Employer::with(['MemberPermission:id,employer_id,name'])->whereId($id)->select('id','email','is_active')->first();
+        return response()->json([
+            'status' => 'success',
+            'member' => $member
+        ], 200);
     }
 
     /**
@@ -165,7 +169,70 @@ class MemberUserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:employers,email,'.$id.',id,deleted_at,NULL,is_active,1',
+            'password' => ['nullable', 'string', 'min:8', 'same:confirm-password'],
+            'confirm-password' => ['nullable', 'string', 'min:8'],
+            'is_active' => ['required'],
+            'dashboard' => 'required_without_all:profile,manage_job,application_tracking',
+            'profile' => 'required_without_all:dashboard,manage_job,application_tracking',
+            'manage_job' => 'required_without_all:dashboard,profile,application_tracking',
+            'application_tracking' => 'required_without_all:dashboard,profile,manage_job',
+        ]);
+        $member = Employer::findOrFail($id);
+        if($id == $request->user()->id) {
+            $is_active = $member->is_active;
+        }else {
+            $is_active = $request->is_active;
+        }
+        if($request->password){ 
+            $password = Hash::make($request->password);
+        }else{
+            $password = $member->password;    
+        }
+        $member_update = $member->update([
+            'email' => $request->email,
+            'password' => $password,
+            'is_active' => $is_active,
+            'register_at' => now(),
+            'updated_by' => $request->user()->id,
+        ]);
+        $permission_delete = MemberPermission::whereEmployerId($member->id)->delete();
+        if($request->dashboard == 1) {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'dashboard'
+            ]);
+        }
+
+        if($request->profile == 1) {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'profile'
+            ]);
+        }
+
+        if($request->manage_job == 1) {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'manage_job'
+            ]);
+        }
+
+        if($request->application_tracking == 1) {
+            $permission = MemberPermission::create([
+                'employer_id' => $member->id,
+                'name' => 'application_tracking'
+            ]);
+        }
+
+        if($member_update) {
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Member Updated Successfully!',
+                'member' => $member
+            ], 200);
+        }
     }
 
     /**
@@ -174,8 +241,37 @@ class MemberUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $employer = Employer::findOrFail($id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        
+        try {
+            $employer = Employer::whereId($id)->update([
+                'deleted_at' => now(),
+                'deleted_by' => $request->user()->id
+            ]);
+            if ($employer) {
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Delete Employer Successfully!'
+                ]);
+            }
+            else {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Employer deleted failed'
+                ]);
+            }
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'status' => 'error',
+                    'msg' => 'Employer deleted failed'
+                ]);
+            } 
+        }
     }
 }
