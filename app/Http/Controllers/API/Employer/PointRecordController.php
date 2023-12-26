@@ -23,7 +23,7 @@ class PointRecordController extends Controller
         $employer_id[] = $employer->employer_id;
         $point_records = PointRecord::with(['JobPost:id,job_title','PackageItem:id,name,point','JobApply' => function($job_apply) {
             $job_apply->with(['Seeker:id,first_name,last_name'])->select('id','seeker_id');
-        }])->whereIn('employer_id', $employer_id)->whereStatus('Complete')->orderBy('created_at','desc')->select('id','job_post_id','job_apply_id','package_item_id','point','created_at as date')->get();
+        }])->whereIn('employer_id', $employer_id)->whereStatus('Complete')->orderBy('created_at','desc')->select('id','job_post_id','job_apply_id','package_item_id','point','created_at as date')->paginate(10);
         return response()->json([
             'status' => 'success',
             'point_records' => $point_records
