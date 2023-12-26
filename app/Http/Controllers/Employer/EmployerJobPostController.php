@@ -475,14 +475,17 @@ class EmployerJobPostController extends Controller
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
             }
-            $seeker_attach = SeekerAttach::whereSeekerId($seeker->id)->orderBy('updated_at','desc')->first();
-            $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
-            $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
-            $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
+            $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
+            if(isset($seeker_attach)) {
+                $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
+            }
+            
+            $educations = SeekerEducation::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $experiences = SeekerExperience::whereSeekerId($jobApply->first()->seeker_id)->first();
             if($experiences) {
                 if($experiences->is_experience == 1) {
                     $experiences = DB::table('seeker_experiences as a')
-                                ->where('a.seeker_id','=',$seeker->id)
+                                ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                                 ->join('industries as b','a.industry_id','=','b.id')
                                 ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                                 ->join('functional_areas as d','a.sub_functional_area_id','=','d.id')
@@ -493,21 +496,21 @@ class EmployerJobPostController extends Controller
                 $experiences = [];
             }
             $skill_main_functional_areas = DB::table('seeker_skills as a')
-                            ->where('a.seeker_id','=',$seeker->id)
+                            ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                             ->join('skills as b','a.skill_id','=','b.id')
                             ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                             ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
                             ->groupBy('a.main_functional_area_id')
                             ->get();
             $skills = DB::table('seeker_skills as a')
-                        ->where('a.seeker_id','=',$seeker->id)
+                        ->where('a.seeker_id','=',$jobApply->first()->seeker_id)
                         ->join('skills as b','a.skill_id','=','b.id')
                         ->join('functional_areas as c','a.main_functional_area_id','=','c.id')
                         ->select('a.*', 'b.name as skill_name', 'c.name as main_functional_area_name')
                         ->get();
-            $languages = SeekerLanguage::whereSeekerId($seeker->id)->get();
-            $references = SeekerReference::whereSeekerId($seeker->id)->get();
-            $seeker_img = getS3File('seeker/profile/'.$seeker->id ,$seeker->image);
+            $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
+            $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$seeker->image);
         }
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
