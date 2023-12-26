@@ -25,6 +25,7 @@ use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 use App\Http\Controllers\API\Employer\ManageJobController;
 use App\Http\Controllers\API\Employer\ApplicantTrackingController;
+use App\Http\Controllers\API\Employer\BuyPointController;
 
 /*
 |--------------------------------------------------------------------------
@@ -212,5 +213,8 @@ Route::group(['prefix' => 'employer'], function () {
 
         // applicant tracking 
         Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);
+
+        // buy point 
+        Route::resource('buy-point', BuyPointController::class);
     });
 });
