@@ -478,7 +478,9 @@ class EmployerJobPostController extends Controller
                 $image = $seeker->image ?? '';
             }
             $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
-            $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
+            if(isset($seeker_attach)) {
+                $seeker_cv = getS3File('seeker/cv',$seeker_attach->name);
+            }
             $educations = SeekerEducation::whereSeekerId($jobApply->first()->seeker_id)->get();
             $experiences = SeekerExperience::whereSeekerId($jobApply->first()->seeker_id)->first();
             if($experiences) {
