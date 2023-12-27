@@ -21,6 +21,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Seeker\JobApply;
+use Storage;
 use Hash;
 use DB;
 

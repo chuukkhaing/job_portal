@@ -25,6 +25,10 @@ Route::group([], function () {
     Route::get('email/verify/{id}', [SeekerRegisterController::class, 'notice'])->name('seeker-verify-notice');
     Route::get('email/resend/{id}', [SeekerRegisterController::class, 'resend'])->name('seeker-resend');
     Route::get('verify/{id}', [SeekerLoginController::class, 'VerifyEmail'])->name('seeker-verify');
+
+    // seeker-mobile-verify 
+    Route::get('mobile-verify/{token}', [SeekerLoginController::class, 'VerifyMobileEmail'])->name('seeker-mobile-verify');
+
     Route::post('logout', [SeekerProfileController::class, 'logout'])->name('seeker.logout');
     Route::post('login', [SeekerLoginController::class, 'login'])->name('seeker-login');
     Route::get('forgot-password', [SeekerRegisterController::class, 'forgotPassword'])->name('seeker-forgot');
@@ -71,7 +75,7 @@ Route::group([], function () {
 
         Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
 
-        Route::get('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
+        Route::post('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
 
         Route::get('save-job/{id}', [SaveJobController::class, 'create'])->name('save-job');
 

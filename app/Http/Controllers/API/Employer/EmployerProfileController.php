@@ -70,7 +70,7 @@ class EmployerProfileController extends Controller
     public function profile(Request $request)
     {
         $employer = Employer::findOrFail($request->user()->id);
-        $account_info = Employer::whereId($request->user()->id)->select('email','is_active', DB::raw("(CASE WHEN (employer_id != NULL) THEN 'Member' ELSE 'Admin' End) as Access"))->first();
+        $account_info = Employer::whereId($request->user()->id)->select('email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
         if($employer->employer_id) {
             $employer = $employer->findOrFail($employer->employer_id);
         }

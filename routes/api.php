@@ -25,7 +25,12 @@ use App\Http\Controllers\API\Employer\EmployerLoginController;
 use App\Http\Controllers\API\Employer\EmployerProfileController;
 use App\Http\Controllers\API\Employer\ManageJobController;
 use App\Http\Controllers\API\Employer\ApplicantTrackingController;
+use App\Http\Controllers\API\Employer\BuyPointController;
+use App\Http\Controllers\API\Employer\MemberUserController;
+use App\Http\Controllers\API\Employer\PointRecordController;
 
+// mobile 
+use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -150,6 +155,11 @@ Route::group(['prefix' => 'seeker'], function () {
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
     });
+
+    Route::group(['prefix' => 'mobile'], function () {
+        // seeker register 
+        Route::post('register', [SeekerMobileRegisterController::class, 'register']);
+    });
 });
 
 // employer 
@@ -203,6 +213,11 @@ Route::group(['prefix' => 'employer'], function () {
         // manage job 
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
+        Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
+
+        // generate AI 
+        Route::post('job-description-generate', [ManageJobController::class, 'jobDescriptionGenerate']);
+        Route::post('job-requirement-generate', [ManageJobController::class, 'jobRequirementGenerate']);
 
         // job post 
         Route::post('job-post', [ManageJobController::class, 'store']);
@@ -211,5 +226,14 @@ Route::group(['prefix' => 'employer'], function () {
 
         // applicant tracking 
         Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);
+
+        // buy point 
+        Route::resource('buy-point', BuyPointController::class);
+
+        // member user 
+        Route::resource('member', MemberUserController::class);
+
+        // point record 
+        Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
     });
 });

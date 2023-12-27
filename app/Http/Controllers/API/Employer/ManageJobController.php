@@ -9,6 +9,7 @@ use App\Models\Employer\JobPost;
 use App\Models\Employer\PointRecord;
 use App\Models\Employer\JobPostSkill;
 use App\Models\Employer\JobPostQuestion;
+use App\Models\Admin\Skill;
 use Str;
 
 class ManageJobController extends Controller
@@ -387,5 +388,53 @@ class ManageJobController extends Controller
             'status' => 'success',
             'jobPost' => $jobPost
         ], 200);
+    }
+
+    public function getExperienceLevel()
+    {
+        $experience_levels = config('experienceLevel.name');
+        return response()->json([
+            'status' => 'success',
+            'experience_levels' => $experience_levels
+        ]);
+    }
+
+    public function jobDescriptionGenerate(Request $request, \OpenAI\Client $client)
+    {
+        $this->validate($request, [
+            'job_title' => ['required']
+        ]);
+        $result = $client->completions()->create([
+            'prompt' => 'Write about job description for ' . $request->job_title . $request->experience_level . $request->career_level,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'job_description_ai' => ltrim($result->choices[0]->text)
+        ]);
+    }
+
+    public function jobRequirementGenerate(Request $request, \OpenAI\Client $client)
+    {
+        $this->validate($request, [
+            'job_title' => ['required']
+        ]);
+        $skills = '';
+        if(isset($request->skill_id)) {
+            $skills = Skill::whereIn('id', $request->skill_id)->select('name')->get();
+        }
+        
+        $result = $client->completions()->create([
+            'prompt' => 'Write about job requirement for ' . $request->job_title . $request->experience_level . 'skills = ' . $skills . $request->career_level .  $request->degree,
+            'model' => 'text-davinci-002',
+            'max_tokens' => 250,
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'job_requirement_ai' => ltrim($result->choices[0]->text)
+        ]);
     }
 }
