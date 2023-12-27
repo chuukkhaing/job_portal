@@ -28,7 +28,8 @@
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Created Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Updated Date</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
@@ -65,6 +66,11 @@
                                     </td>
                                     <td>
                                         <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($onlinejobPost->created_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
                                         {{ date('d M, Y', strtotime($onlinejobPost->updated_at)) }}
                                         </span>
                                     </td>
@@ -95,7 +101,8 @@
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Created Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Updated Date</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
@@ -130,6 +137,11 @@
                                     </td>
                                     <td>
                                         <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($pendingjobPost->created_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
                                         {{ date('d M, Y', strtotime($pendingjobPost->updated_at)) }}
                                         </span>
                                     </td>
@@ -161,7 +173,8 @@
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Created Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Updated Date</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
@@ -198,6 +211,11 @@
                                     </td>
                                     <td>
                                         <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($rejectjobPost->created_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
                                         {{ date('d M, Y', strtotime($rejectjobPost->updated_at)) }}
                                         </span>
                                     </td>
@@ -228,7 +246,8 @@
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Created Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Updated Date</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
@@ -265,6 +284,11 @@
                                     </td>
                                     <td>
                                         <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($expirejobPost->created_at)) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
                                         {{ date('d M, Y', strtotime($expirejobPost->updated_at)) }}
                                         </span>
                                     </td>
@@ -295,7 +319,8 @@
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Post Type</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Job Function</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Status</th>
-                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Created Date</th>
+                                        <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Updated Date</th>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">Action</th>
                                     </tr>
                                 </thead>
@@ -327,6 +352,11 @@
                                                 @endif
                                             @endif
                                         </div>
+                                    </td>
+                                    <td>
+                                        <span style="" class="text-black">
+                                        {{ date('d M, Y', strtotime($draftjobPost->created_at)) }}
+                                        </span>
                                     </td>
                                     <td>
                                         <span style="" class="text-black">

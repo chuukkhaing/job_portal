@@ -96,4 +96,40 @@ class SeekerLoginController extends Controller
             }
         }
     }
+
+    public function VerifyMobileEmail ($token = null)
+    {
+        if ($token == null) {
+            return redirect()->route('home')->with('error', 'Invlid token.');
+        }
+
+        $seeker = Seeker::where('email_verification_token', $token)->first();
+
+        if ($seeker == null) {
+            return redirect()->route('home')->with('error', 'Invlid token.');
+        }
+        if ($seeker->email_verified == 1) {
+            return redirect()->route('home')->with('error', 'Your account was already activated.');
+        } else {
+            $seeker_update = $seeker->update([
+                'email_verified'           => 1,
+                'email_verified_at'        => Carbon::now(),
+                'is_active'                => 1,
+                'email_verification_token' => '',
+            ]);
+            foreach (config('seekerPercentTitle')['name'] as $title) {
+                $seeker_percent = SeekerPercentage::create([
+                    'seeker_id' => $seeker->id,
+                    'title'     => $title,
+                ]);
+            }
+            Auth::guard('seeker')->login($seeker);
+            $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
+            $url = env('MOBILE_LOGIN_REDIRECT_URL').'?token_type=Bearer&access_token='.$token;
+            
+            if (Auth::guard('seeker')->user()) {
+                return redirect()->to($url);
+            }
+        }
+    }
 }
