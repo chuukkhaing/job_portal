@@ -83,7 +83,7 @@
                         </div>
                         <div class="d-felx justify-content-center">
 
-                            {{ $activejobApplicants->links() }}
+                            {{ $activejobApplicants->onEachSide(1)->links() }}
 
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                         </div>
                         <div class="d-felx justify-content-center">
 
-                            {{ $expirejobApplicants->links() }}
+                            {{ $expirejobApplicants->onEachSide(1)->links() }}
 
                         </div>
                     </div>
@@ -227,7 +227,7 @@
                         </div>
                         <div class="d-felx justify-content-center">
 
-                            {{ $inactivejobApplicants->links() }}
+                            {{ $inactivejobApplicants->onEachSide(1)->links() }}
 
                         </div>
                     </div>
