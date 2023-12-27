@@ -558,7 +558,7 @@
         $("#hire-cv-length").text(response.count.hire);
         $("#not-suitable-cv-length").text(response.count.notsuitable);
         $("#receive-job-title").text(response.jobPost.job_title);
-        
+        console.log(response);
         $(".btn-received").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"received")');
         $(".btn-viewed").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"viewed")');
         $(".btn-short-listed").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"short-listed")');
