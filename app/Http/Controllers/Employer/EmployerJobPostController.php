@@ -466,8 +466,8 @@ class EmployerJobPostController extends Controller
         $seeker_img = '';
         $seeker_cv = '';
         if($jobApply->count() > 0){
-            dd($jobApply->first()->seeker_id);
             $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
+            dd($seeker);
             $image = $seeker->image;
             if($seeker->country == 'Myanmar') {
                 $seeker = DB::table('seekers as a')
