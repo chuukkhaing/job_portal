@@ -46,12 +46,12 @@
                         @auth('seeker')
                             <button type="submit" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $jobpost->id }})">
                                 <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
-                        </button>
+                            </button>
                         @elseauth('employer')
                         @else
                             <button type="submit" class="{{ $disabled }} btn-sm btn apply-company-btn py-2 px-3" onclick="applyJob({{ $jobpost->id }})">
                                 <i class="fa-solid fa-arrow-right-long fa-rotate-by" style="--fa-rotate-angle: -45deg;"></i> <span class="">{{ $btn_text }}</span>
-                        </button>
+                            </button>
                         @endguest
                             <div>
                                 <small>Posted {{ $jobpost->updated_at->shortRelativeDiffForHumans() }}</small>
@@ -340,9 +340,7 @@
     }
 
     function applyJob(id) {
-        $(this).on('submit', function(){
-            $(this).attr('disabled','true');
-        })
+        $(this).attr('disabled','true');
     }
 
     $(document).ready(function() {
