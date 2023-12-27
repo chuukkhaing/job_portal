@@ -18,7 +18,7 @@
                     <div class="tab-pane fade show active" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -81,12 +81,16 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $activejobApplicants->links() }}
+
+                        </div>
                     </div>
                     <div class="tab-pane fade " id="nav-expire" role="tabpanel" aria-labelledby="nav-expire-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -149,12 +153,16 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $expirejobApplicants->links() }}
+
+                        </div>
                     </div>
                     <div class="tab-pane fade " id="nav-deactive" role="tabpanel" aria-labelledby="nav-deactive-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -217,7 +225,11 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $inactivejobApplicants->links() }}
+
+                        </div>
                     </div>
                     <h3 class="job-tracking-title" id="receive-job-title"></h3>
                     <div class="d-none" id="cv-list-section">
