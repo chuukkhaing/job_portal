@@ -4,6 +4,6 @@
     "namespace": "android_app",
     "package_name": "com.infinitycareers.mm",
     "sha256_cert_fingerprints":
-    ["FF:2A:CF:7B:DD:CC:F1:03:3E:E8:B2:27:7C:A2:E3:3C:DE:13:DB:AC:8E:EB:3A:B9:72:A1:0E:26:8A:F5:EC:AF"]
+    ["4B:BD:D6:04:9F:C9:81:17:63:47:8B:99:66:9C:DB:19:EA:99:12:A0:6B:DA:F5:6F:0D:21:7F:F5:88:A4:79:60"]
   }
 }]
