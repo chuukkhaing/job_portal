@@ -19,6 +19,7 @@ use App\Models\Seeker\SeekerLanguage;
 use App\Models\Seeker\SeekerPercentage;
 use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerSkill;
+use App\Models\Seeker\SeekerJobPostAnswer;
 use Auth;
 use DB;
 use File;
@@ -746,9 +747,16 @@ class SeekerProfileController extends Controller
         ]);
     }
 
-    public function jobPostApply($id)
+    public function jobPostApply(Request $request, $id)
     {
         $jobpost = JobPost::findOrFail($id);
+        if(isset($jobpost->JobPostQuestion)) {
+            $this->validate($request, [
+                'answers.*.*' => 'required'
+            ],[
+                'answers.*.*.required' => 'Need to answer all questions.'
+            ]);
+        }
         if(session('returnUrl') == "jobpost-detail") {
             session()->forget('returnUrl');
             return redirect()->route('jobpost-detail', $jobpost->slug);
@@ -761,6 +769,17 @@ class SeekerProfileController extends Controller
                     'job_post_id' => $id,
                     'seeker_id'   => Auth::guard('seeker')->user()->id,
                 ]);
+                if(isset($request->answers)) {
+                    foreach($request->answers as $key => $answer) {
+                        $answer = SeekerJobPostAnswer::create([
+                            'job_post_id'          => $id,
+                            'seeker_id'            => Auth::guard('seeker')->user()->id,
+                            'job_apply_id'         => $jobApply->id,
+                            'job_post_question_id' => $key,
+                            'answer'               => $answer[0]
+                        ]);
+                    }
+                }
                 if(session('previous_url')) {
                     $previous_url = session('previous_url');
                     session()->forget('previous_url');

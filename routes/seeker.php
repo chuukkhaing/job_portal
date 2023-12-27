@@ -75,7 +75,7 @@ Route::group([], function () {
 
         Route::post('/immediate-available/update/{id}', [SeekerProfileController::class, 'immediateAvailableUpdate'])->name('immediate-available.update');
 
-        Route::get('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
+        Route::post('/job-post-apply/{id}', [SeekerProfileController::class, 'jobPostApply'])->name('jobpost-apply');
 
         Route::get('save-job/{id}', [SaveJobController::class, 'create'])->name('save-job');
 

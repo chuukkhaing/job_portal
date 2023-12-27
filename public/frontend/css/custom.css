@@ -1188,3 +1188,22 @@ select::-ms-expand {
     background-color: #0255CF;
     font-weight: bold;
 }
+
+.cb-radio {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0.2em !important;
+    border: 2px solid #0355D0;
+    border-radius: 50%;
+    background-clip: content-box;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    width: 1.3em;
+    height: 1.3em;
+    vertical-align: middle;
+    border-radius: 0.3em;
+}
+  
+.cb-radio:checked {
+    background-color: #F95404;
+}
