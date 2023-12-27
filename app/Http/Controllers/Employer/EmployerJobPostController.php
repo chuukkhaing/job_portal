@@ -475,7 +475,6 @@ class EmployerJobPostController extends Controller
                             ->where('a.id','=',$jobApply->first()->seeker_id)
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
-                            dd($seeker);
                 $image = $seeker->image ?? '';
             }
             $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
