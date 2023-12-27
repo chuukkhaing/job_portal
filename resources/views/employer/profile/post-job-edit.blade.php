@@ -458,7 +458,7 @@
                 <button type="submit" class="btn profile-save-btn savejobpost mx-3">
                     <span>Update Job</span><i class="fa-solid fa-arrow-right-long px-2"></i>
                 </button>
-                <input type="hidden" name="status" id="job-post-status" value="Pending">
+                <input type="hidden" name="status" id="job-post-status" value="{{ $jobPost->status }}">
                 <button type="submit" class="btn btn-secondary ms-3" id="job-post-submit-draft">
                     <span>Save as Draft</span>
                 </button>

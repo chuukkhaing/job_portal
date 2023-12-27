@@ -322,6 +322,7 @@ class EmployerJobPostController extends Controller
             }else{
                 $hide_company = 0;
             }
+            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
             $jobPost_update = $jobPost->update([
                 'job_title' => $request->job_title,
                 'main_functional_area_id' => $request->main_functional_area,
@@ -349,11 +350,14 @@ class EmployerJobPostController extends Controller
                 'job_post_type' => $request->job_post_type,
                 'total_point' => $request->total_point,
                 'status' => $request->status,
-            ]);
-            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
-            $jobPost_slug = $jobPost->update([
                 'slug' => $slug
             ]);
+            
+            if(count($jobPost->getChanges()) > 0 && $request->status != 'Draft') {
+                $jobPost_status = $jobPost->update([
+                    'status' => "Pending"
+                ]);
+            }
             if($request->job_post_type == "trending") {
                 $trending_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->trending_job_package_item_id)->get();
                 if($trending_record_history->count() == 0) {
@@ -432,7 +436,13 @@ class EmployerJobPostController extends Controller
         }elseif($jobPost->job_post_type == 'feature') {
             $jobpostType = "Feature";
         }
-        return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
+        if(count($jobPost->getChanges()) > 0 && $request->status != 'Draft') {
+            return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
+        }elseif(count($jobPost->getChanges()) > 0 && $request->status == 'Draft') {
+            return redirect()->route('manageJob')->with('success','Your Job Post has been updated as Draft Successfully.');
+        }elseif(count($jobPost->getChanges()) == 0) {
+            return redirect()->route('manageJob')->with('info','There is no Changes In your Job Post.');
+        }
     }
 
     /**
