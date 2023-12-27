@@ -121,7 +121,9 @@
                             </div>
                             @if($jobpost->JobPostQuestion->count() > 0)
                             <div class="col-12 col-md-5">
-                                
+                                @error('answers.*.*')
+                                <h5 class="text-danger">{{ $message }}</h5>
+                                @enderror
                                 @foreach($jobpost->JobPostQuestion as $question)
                                 <h5>Q: {{ $question->question }}</h5>
                                 @if($question->answer == 'Multiple Choice')
@@ -137,9 +139,7 @@
                                 </div>
                                 @endif
                                 @endforeach
-                                @error('answers.*.*')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                                
                             </div>
                             @endif
                         </div>
