@@ -128,14 +128,14 @@
                                 <h5>Q: {{ $question->question }}</h5>
                                 @if($question->answer == 'Multiple Choice')
                                 <div class="py-2">
-                                    <input type="radio" id="yes_{{ $question->id }}" name="answers[{{ $question->id }}][]" class="cb-radio" value="Yes">
+                                    <input type="radio" id="yes_{{ $question->id }}" name="answers[{{ $question->id }}][]" class="cb-radio @error('answers.*.*') is-invalid @enderror" value="Yes">
                                     <label for="yes_{{ $question->id }}"> &nbsp;	Yes &nbsp;	&nbsp;	&nbsp;	&nbsp;	</label>
-                                    <input type="radio" id="no_{{ $question->id }}" name="answers[{{ $question->id }}][]" class="cb-radio" value="No">
+                                    <input type="radio" id="no_{{ $question->id }}" name="answers[{{ $question->id }}][]" class="cb-radio @error('answers.*.*') is-invalid @enderror" value="No">
                                     <label for="no_{{ $question->id }}"> &nbsp;	 No</label>
                                 </div>
                                 @else
                                 <div class="py-2">
-                                    <input type="text" name="answers[{{ $question->id }}][]" id="text_{{ $question->id }}" value="" class="form-control seeker_input" placeholder="Enter Answer">
+                                    <input type="text" name="answers[{{ $question->id }}][]" id="text_{{ $question->id }}" value="" class="form-control seeker_input @error('answers.*.*') is-invalid @enderror" placeholder="Enter Answer">
                                 </div>
                                 @endif
                                 @endforeach
