@@ -28,6 +28,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Admin\PointPackage;
 use App\Models\Admin\PointOrder;
 use App\Models\Employer\JobPostPointDetect;
+use App\Models\Seeker\SeekerJobPostAnswer;
 use Auth;
 use Str;
 use DB;
@@ -465,6 +466,7 @@ class EmployerJobPostController extends Controller
         $references = [];
         $seeker_img = '';
         $seeker_cv = '';
+        $answers = [];
         if($jobApply->count() > 0){
             $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
             $image = $seeker->image;
@@ -512,7 +514,11 @@ class EmployerJobPostController extends Controller
             $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
             $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
             $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$image);
+            if($jobPost->JobPostQuestion->count() > 0) {
+                $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($id)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($jobApply->first()->seeker_id)->get();
+            }
         }
+        
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
         foreach($packageItems as $packageItem){
@@ -555,7 +561,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_cv' => $seeker_cv,
-            'seeker_img' => $seeker_img
+            'seeker_img' => $seeker_img,
+            'answers' => $answers
         ]);
     }
 
@@ -585,6 +592,10 @@ class EmployerJobPostController extends Controller
                         ->select('a.*','b.name as state_name')
                         ->first();
             }
+        }
+        $answers = [];
+        if($jobPost->JobPostQuestion->count() > 0) {
+            $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($jobPostId)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($jobApply->first()->seeker_id)->get();
         }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
@@ -660,7 +671,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_img' => $seeker_img,
-            'seeker_cv' => $seeker_cv
+            'seeker_cv' => $seeker_cv,
+            'answers' => $answers
         ]);
     }
 
@@ -692,6 +704,10 @@ class EmployerJobPostController extends Controller
                     ->orderBy('seeker_applied_date','desc')
                     ->get();
         $seeker = Seeker::findOrFail($seekerId);
+        $answers = [];
+        if($jobPost->JobPostQuestion->count() > 0) {
+            $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($jobPostId)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($seekerId)->get();
+        }
         if($seeker->country == 'Myanmar') {
             $seeker = DB::table('seekers as a')
                         ->join('states as b', 'a.state_id', '=', 'b.id')
@@ -765,7 +781,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_img' => $seeker_img,
-            'seeker_cv' => $seeker_cv
+            'seeker_cv' => $seeker_cv,
+            'answers' => $answers
         ]);
     }
 

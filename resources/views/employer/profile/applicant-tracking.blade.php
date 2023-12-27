@@ -419,6 +419,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="mb-4 app_receive_job_post_question_box">
+                                        <h5 class="text-decoration-underline">Job Post Question and Answers</h5>
+                                        
+                                        <p class="app_receive_job_post_question">-</p>
+                                    </div>
                                     <div class="mb-4 app_receive_career_des_box">
                                         <h5 class="text-decoration-underline">Career Description</h5>
                                         
@@ -558,7 +563,7 @@
         $("#hire-cv-length").text(response.count.hire);
         $("#not-suitable-cv-length").text(response.count.notsuitable);
         $("#receive-job-title").text(response.jobPost.job_title);
-        console.log(response);
+        
         $(".btn-received").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"received")');
         $(".btn-viewed").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"viewed")');
         $(".btn-short-listed").attr('onclick','changeStatus('+response.seeker.id+','+response.jobPost.id+',"short-listed")');
@@ -665,6 +670,16 @@
                     $(".app_receive_expected_salary").text((Number(response.seeker.preferred_salary)).toLocaleString()+' MMK');
                     if(response.seeker.is_immediate_available == 1) {
                         $(".app_receive_notice_period").text("Immediate available")
+                    }
+                    if(response.answers.length > 0) {
+                        $(".app_receive_job_post_question_box").removeClass('d-none');
+                        var html = '';
+                        $(response.answers).each(function(answer_index, answer){
+                            html+= '<table><tr><td width=150px><h6>Question : </h6></td><td><h6>'+answer.job_post_question.question+'</h6></td></tr><tr><td><h6>Answer : </h6></td><td><h6>'+answer.answer+'</h6></td></tr><tr><td><h6>Question Type : </h6></td><td><h6>'+answer.job_post_question.answer+'</h6></td></tr></table><hr>';
+                        })
+                        $(".app_receive_job_post_question").html(html)
+                    }else {
+                        $(".app_receive_job_post_question_box").addClass('d-none');
                     }
                     if(response.seeker.summary) {
                         $(".app_receive_career_des_box").removeClass('d-none');
