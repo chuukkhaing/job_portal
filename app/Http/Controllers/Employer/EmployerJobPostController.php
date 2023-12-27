@@ -467,7 +467,6 @@ class EmployerJobPostController extends Controller
         $seeker_cv = '';
         if($jobApply->count() > 0){
             $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
-            dd($seeker);
             $image = $seeker->image;
             if($seeker->country == 'Myanmar') {
                 $seeker = DB::table('seekers as a')
@@ -476,6 +475,7 @@ class EmployerJobPostController extends Controller
                             ->where('a.id','=',$jobApply->first()->seeker_id)
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
+                            dd($seeker);
                 $image = $seeker->image ?? '';
             }
             $seeker_attach = SeekerAttach::whereSeekerId($jobApply->first()->seeker_id)->orderBy('updated_at','desc')->first();
