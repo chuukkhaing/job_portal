@@ -56,7 +56,20 @@ class ApplicantTrackingController extends Controller
 
     public function getApplicant($id, $status)
     {
-        $jobApply = JobApply::with(['Seeker:id,first_name,last_name,email,state_id,township_id,address_detail,nationality,nrc,id_card,date_of_birth,gender,marital_status,image,phone,preferred_salary,is_immediate_available,summary', 'SeekerJobPostAnswer'])->whereJobPostId($id)->whereStatus($status)->select('seeker_id', DB::raw('COUNT(job_applies.status) as application_count'))->get();
-        return $jobApply;
+        $jobApply = JobApply::with(['Seeker'=> function($state) {
+                        $state->with(['State:id,name', 'Township:id,name', 'SeekerEducation:id,seeker_id,degree,major_subject,location,from,to,school,is_current','SeekerExperience' => function($exp) {
+                            $exp->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','seeker_id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','is_current_job','is_experience','start_date','end_date');
+                        },'SeekerSkill' => function($skill) {
+                            $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
+                        },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
+                    }, 'SeekerJobPostAnswer' => function($qanda) {
+                        $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
+                    }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id')->get();
+        $application_count = $jobApply->count();
+        return response()->json([
+            'status' => 'success',
+            'application_count' => $application_count,
+            'jobApply' => $jobApply
+        ], 200);
     }
 }

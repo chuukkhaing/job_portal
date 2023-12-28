@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin\Employer;
 use App\Models\Seeker\Seeker;
 use App\Models\Employer\JobPost;
+use App\Models\Seeker\SeekerJobPostAnswer;
 
 class JobApply extends Model
 {
@@ -27,5 +28,10 @@ class JobApply extends Model
     function JobPost()
     {
         return $this->belongsTo(JobPost::class, 'job_post_id', 'id');
+    }
+
+    function SeekerJobPostAnswer()
+    {
+        return $this->hasMany(SeekerJobPostAnswer::class, 'job_apply_id', 'id');
     }
 }
