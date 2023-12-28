@@ -47,3 +47,6 @@ Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy'])->name('p
 Route::get('/seeker-application-create', [SeekerRegisterController::class, 'applicationCreate'])->name('application-create');
 Route::post('/seeker-application-register', [SeekerRegisterController::class, 'applicationRegister'])->name('application-register');
 Route::get('/get-township/{id}', [SeekerRegisterController::class, 'getTownship']);
+// Route::get('/.well-known/assetlinks.json', function() {
+//     return view ('assetlinks');
+// });

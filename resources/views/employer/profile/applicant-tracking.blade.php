@@ -18,7 +18,7 @@
                     <div class="tab-pane fade show active" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -81,12 +81,16 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $activejobApplicants->onEachSide(1)->links() }}
+
+                        </div>
                     </div>
                     <div class="tab-pane fade " id="nav-expire" role="tabpanel" aria-labelledby="nav-expire-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -149,12 +153,16 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $expirejobApplicants->onEachSide(1)->links() }}
+
+                        </div>
                     </div>
                     <div class="tab-pane fade " id="nav-deactive" role="tabpanel" aria-labelledby="nav-deactive-tab">
                         
                         <div class="table-responsive applicant-tracking-section">
-                            <table class="table table-hover table-borderless table-sm dataTable" width="100%" >
+                            <table class="table table-hover table-borderless table-sm " width="100%" >
                                 <thead>
                                     <tr>
                                         <th style="border-bottom: 1px solid #E5E9EB; border-top: 1px solid #E5E9EB">No.</th>
@@ -217,7 +225,11 @@
                                 
                             </table>
                         </div>
-                        
+                        <div class="d-felx justify-content-center">
+
+                            {{ $inactivejobApplicants->onEachSide(1)->links() }}
+
+                        </div>
                     </div>
                     <h3 class="job-tracking-title" id="receive-job-title"></h3>
                     <div class="d-none" id="cv-list-section">
@@ -418,6 +430,11 @@
                                                 <span class="app_receive_expected_salary fw-bold">-</span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="mb-4 app_receive_job_post_question_box">
+                                        <h5 class="text-decoration-underline">Job Post Question and Answers</h5>
+                                        
+                                        <p class="app_receive_job_post_question">-</p>
                                     </div>
                                     <div class="mb-4 app_receive_career_des_box">
                                         <h5 class="text-decoration-underline">Career Description</h5>
@@ -665,6 +682,16 @@
                     $(".app_receive_expected_salary").text((Number(response.seeker.preferred_salary)).toLocaleString()+' MMK');
                     if(response.seeker.is_immediate_available == 1) {
                         $(".app_receive_notice_period").text("Immediate available")
+                    }
+                    if(response.answers.length > 0) {
+                        $(".app_receive_job_post_question_box").removeClass('d-none');
+                        var html = '';
+                        $(response.answers).each(function(answer_index, answer){
+                            html+= '<table><tr><td width=150px><h6>Question : </h6></td><td><h6>'+answer.job_post_question.question+'</h6></td></tr><tr><td><h6>Answer : </h6></td><td><h6>'+answer.answer+'</h6></td></tr><tr><td><h6>Question Type : </h6></td><td><h6>'+answer.job_post_question.answer+'</h6></td></tr></table><hr>';
+                        })
+                        $(".app_receive_job_post_question").html(html)
+                    }else {
+                        $(".app_receive_job_post_question_box").addClass('d-none');
                     }
                     if(response.seeker.summary) {
                         $(".app_receive_career_des_box").removeClass('d-none');

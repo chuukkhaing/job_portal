@@ -28,6 +28,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Admin\PointPackage;
 use App\Models\Admin\PointOrder;
 use App\Models\Employer\JobPostPointDetect;
+use App\Models\Seeker\SeekerJobPostAnswer;
 use Auth;
 use Str;
 use DB;
@@ -321,6 +322,7 @@ class EmployerJobPostController extends Controller
             }else{
                 $hide_company = 0;
             }
+            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
             $jobPost_update = $jobPost->update([
                 'job_title' => $request->job_title,
                 'main_functional_area_id' => $request->main_functional_area,
@@ -348,11 +350,14 @@ class EmployerJobPostController extends Controller
                 'job_post_type' => $request->job_post_type,
                 'total_point' => $request->total_point,
                 'status' => $request->status,
-            ]);
-            $slug = Str::slug($jobPost->job_title, '-') . '-' . $jobPost->id;
-            $jobPost_slug = $jobPost->update([
                 'slug' => $slug
             ]);
+            
+            if(count($jobPost->getChanges()) > 0 && $request->status != 'Draft') {
+                $jobPost_status = $jobPost->update([
+                    'status' => "Pending"
+                ]);
+            }
             if($request->job_post_type == "trending") {
                 $trending_record_history = PointRecord::whereJobPostId($jobPost->id)->whereEmployerId($jobPost->employer_id)->wherePackageItemId($request->trending_job_package_item_id)->get();
                 if($trending_record_history->count() == 0) {
@@ -431,7 +436,13 @@ class EmployerJobPostController extends Controller
         }elseif($jobPost->job_post_type == 'feature') {
             $jobpostType = "Feature";
         }
-        return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
+        if(count($jobPost->getChanges()) > 0 && $request->status != 'Draft') {
+            return redirect()->route('manageJob')->with('success','Your '.$jobpostType.' Job Post has been updated Successfully.');
+        }elseif(count($jobPost->getChanges()) > 0 && $request->status == 'Draft') {
+            return redirect()->route('manageJob')->with('success','Your Job Post has been updated as Draft Successfully.');
+        }elseif(count($jobPost->getChanges()) == 0) {
+            return redirect()->route('manageJob')->with('info','There is no Changes In your Job Post.');
+        }
     }
 
     /**
@@ -465,6 +476,7 @@ class EmployerJobPostController extends Controller
         $references = [];
         $seeker_img = '';
         $seeker_cv = '';
+        $answers = [];
         if($jobApply->count() > 0){
             $seeker = Seeker::findOrFail($jobApply->first()->seeker_id);
             $image = $seeker->image;
@@ -472,7 +484,7 @@ class EmployerJobPostController extends Controller
                 $seeker = DB::table('seekers as a')
                             ->join('states as b', 'a.state_id', '=', 'b.id')
                             ->join('townships as c', 'a.township_id', '=', 'c.id')
-                            ->where('a.id','=',$seeker->id)
+                            ->where('a.id','=',$jobApply->first()->seeker_id)
                             ->select('a.*','b.name as state_name','c.name as township_name')
                             ->first();
                 $image = $seeker->image ?? '';
@@ -512,7 +524,11 @@ class EmployerJobPostController extends Controller
             $languages = SeekerLanguage::whereSeekerId($jobApply->first()->seeker_id)->get();
             $references = SeekerReference::whereSeekerId($jobApply->first()->seeker_id)->get();
             $seeker_img = getS3File('seeker/profile/'.$jobApply->first()->seeker_id ,$image);
+            if($jobPost->JobPostQuestion->count() > 0) {
+                $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($id)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($jobApply->first()->seeker_id)->get();
+            }
         }
+        
         $item_id = Null;
         $packageItems = Auth::guard('employer')->user()->Package->PackageWithPackageItem;
         foreach($packageItems as $packageItem){
@@ -555,7 +571,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_cv' => $seeker_cv,
-            'seeker_img' => $seeker_img
+            'seeker_img' => $seeker_img,
+            'answers' => $answers
         ]);
     }
 
@@ -585,6 +602,10 @@ class EmployerJobPostController extends Controller
                         ->select('a.*','b.name as state_name')
                         ->first();
             }
+        }
+        $answers = [];
+        if($jobPost->JobPostQuestion->count() > 0) {
+            $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($jobPostId)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($jobApply->first()->seeker_id)->get();
         }
         $educations = SeekerEducation::whereSeekerId($seeker->id)->get();
         $experiences = SeekerExperience::whereSeekerId($seeker->id)->first();
@@ -660,7 +681,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_img' => $seeker_img,
-            'seeker_cv' => $seeker_cv
+            'seeker_cv' => $seeker_cv,
+            'answers' => $answers
         ]);
     }
 
@@ -692,6 +714,10 @@ class EmployerJobPostController extends Controller
                     ->orderBy('seeker_applied_date','desc')
                     ->get();
         $seeker = Seeker::findOrFail($seekerId);
+        $answers = [];
+        if($jobPost->JobPostQuestion->count() > 0) {
+            $answers = SeekerJobPostAnswer::with(['JobPostQuestion:id,question,answer'])->whereJobPostId($jobPostId)->whereJobApplyId($jobApply->first()->id)->whereSeekerId($seekerId)->get();
+        }
         if($seeker->country == 'Myanmar') {
             $seeker = DB::table('seekers as a')
                         ->join('states as b', 'a.state_id', '=', 'b.id')
@@ -765,7 +791,8 @@ class EmployerJobPostController extends Controller
             'count' => $count,
             'cvunlock' => $cvunlock,
             'seeker_img' => $seeker_img,
-            'seeker_cv' => $seeker_cv
+            'seeker_cv' => $seeker_cv,
+            'answers' => $answers
         ]);
     }
 
