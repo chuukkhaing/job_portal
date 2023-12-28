@@ -352,6 +352,8 @@
     }
 
     $(document).ready(function() {
+        var loggedIn = "{{ Auth::guard('seeker')->user() ? session(['returnUrl' => '']) : session(['returnUrl' => 'jobpost-detail', 'previous_url' => url()->current()]) }}";
+        
         var url = @json($videourl);
         
         var id = url.split("?v=")[1]; //sGbxmsDFVnE

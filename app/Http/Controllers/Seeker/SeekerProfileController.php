@@ -757,6 +757,9 @@ class SeekerProfileController extends Controller
                 'answers.*.*.required' => 'Need to answer all questions.'
             ]);
         }
+        if(url()->previous() == route('jobpost-detail', $jobpost->slug)) {
+            session()->forget('returnUrl');
+        }
         if(session('returnUrl') == "jobpost-detail") {
             session()->forget('returnUrl');
             return redirect()->route('jobpost-detail', $jobpost->slug);
@@ -780,6 +783,7 @@ class SeekerProfileController extends Controller
                         ]);
                     }
                 }
+                
                 if(session('previous_url')) {
                     $previous_url = session('previous_url');
                     session()->forget('previous_url');

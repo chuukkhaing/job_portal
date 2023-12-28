@@ -86,6 +86,12 @@
 
     function applyJob(id) {
         $(this).attr('disabled','true');
+        
     }
+
+    $(document).ready(function() {
+        var loggedIn = "{{ Auth::guard('seeker')->user() ? session(['returnUrl' => '']) : session(['returnUrl' => 'jobpost-detail', 'previous_url' => url()->current()]) }}";
+
+    })
 </script>
 @endpush

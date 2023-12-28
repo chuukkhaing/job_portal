@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{{ route('jobpost-apply', $jobPost->id) }}" method="post">
+            <form action="{{ route('jobpost-apply', $jobPost->id) }}" method="get">
             @csrf
                 <div class="modal-body">
                     

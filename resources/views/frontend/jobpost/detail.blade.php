@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('content')
-<form action="{{ route('jobpost-apply', $jobpost->id) }}" method="post">
+<form action="{{ route('jobpost-apply', $jobpost->id) }}" method="get">
     @csrf
     <div class="container my-5" id="">
         <div class="card shadow" id="edit-profile-body">
@@ -341,9 +341,12 @@
 
     function applyJob(id) {
         $(this).attr('disabled','true');
+        
     }
 
     $(document).ready(function() {
+        var loggedIn = "{{ Auth::guard('seeker')->user() ? session(['returnUrl' => '']) : session(['returnUrl' => 'jobpost-detail', 'previous_url' => url()->current()]) }}";
+
         var show_success_modal = "{{ Session::get('success') }}";
         if(show_success_modal != '') {
             MSalert.principal({
