@@ -226,6 +226,7 @@ Route::group(['prefix' => 'employer'], function () {
 
         // applicant tracking 
         Route::get('applicant-tracking', [ApplicantTrackingController::class, 'index']);
+        Route::get('get-applicant/{id}/{status}', [ApplicantTrackingController::class, 'getApplicant']);
 
         // buy point 
         Route::resource('buy-point', BuyPointController::class);
