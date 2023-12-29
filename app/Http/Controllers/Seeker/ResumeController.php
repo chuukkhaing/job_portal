@@ -197,8 +197,9 @@ class ResumeController extends Controller
                         ->get();
         view()->share('seeker',$seeker);
 
-        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-        // return $pdf->stream();
+        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'))->setPaper('A4');
+        // return view('download.ic_format_cv');
+        return $pdf->stream();
         return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
     }
 

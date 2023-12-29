@@ -140,6 +140,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker cv 
         Route::resource('seeker-cv',SeekerCVAttachController::class);
+        Route::get('cv-download',[SeekerCVAttachController::class, 'cvDownload']);
 
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
