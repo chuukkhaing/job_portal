@@ -20,7 +20,14 @@
 
         @font-face {
             font-family: 'Agency FB';
-            src: url("{{ asset('fonts/agencyfb_reg.ttf') }}");
+            src: url({{ storage_path('fonts/agencyfb_reg.ttf') }});
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: 'Gill Sans';
+            src: url({{ storage_path('fonts/Gill Sans Medium.otf') }});
+            font-weight: 400;
         }
         
         .page-header {
@@ -53,18 +60,23 @@
             counter-increment: page;
             border: 2px solid #0563c1;
             border-radius: 20px;
-            padding: 30px;
         }
 
-        .page table {
-
+        .main_table td{
+            padding: 30px
         }
 
         .name {
             text-transform: uppercase;
             font-family: 'Agency FB', sans-serif;
             color: #0563C1;
-            font-size: 1.5rem;
+            font-size: 4rem;
+        }
+
+        .info {
+            font-family: 'Gill Sans', sans-serif;
+            color: #0563C1;
+            font-size: 1rem;
         }
 
         .page-counter {
@@ -76,6 +88,10 @@
         }
         .d-none {
             display: none;
+        }
+
+        .sub_table td {
+            padding: 3px
         }
         
     </style>
@@ -92,7 +108,7 @@
         <p class="footer-text">© infinitycareers.com.mm</p>
     </div>
     <div class="page">
-        <table>
+        <table class="main_table">
             <tr>
                 <td class="" style="vertical-align: top">
                     @if($seeker->image)
@@ -101,8 +117,41 @@
                     <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="150px" height="150px">
                     @endif
                 </td>
-                <td class="">
-                    <sapn class="name">{{ $seeker->first_name }} {{ $seeker->last_name }} {{ asset('fonts/agencyfb_reg.ttf') }} </sapn>
+                <td>
+                    <span class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</span>
+                    <table class="sub_table">
+                        @if(isset($seeker->address_detail))
+                        <tr>
+                            <td>
+                                <img src="{{ storage_path('img/home.png') }}" alt="" width= "23">
+                            </td>
+                            <td>
+                                <span class="info">{{ $seeker->address_detail }}</span>
+                            </td>
+                        </tr>
+                        @endif
+                        @if(isset($seeker->phone))
+                        <tr>
+                            <td>
+                                <img src="{{ storage_path('img/phone.png') }}" alt="" width= "23">
+                            </td>
+                            <td>
+                                <span class="info">{{ $seeker->phone }}</span>
+                            </td>
+                        </tr>
+                        @endif
+                        @if(isset($seeker->email))
+                        <tr>
+                            <td>
+                                <img src="{{ storage_path('img/email.png') }}" alt="" width= "23">
+                            </td>
+                            <td>
+                                <span class="info">{{ $seeker->email }}</span>
+                            </td>
+                        </tr>
+                        @endif
+                    </table>
+                    {{ $seeker->summary }}
                 </td>
             </tr>
         </table>
