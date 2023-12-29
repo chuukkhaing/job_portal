@@ -213,7 +213,18 @@ class SeekerCVAttachController extends Controller
         view()->share('seeker',$seeker);
 
         $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-        
+        $fileName =  date('YmdHi').$seeker->id.'_ic_format_cv.pdf';
+            
+        $path     = 'seeker/cv/' . $fileName;
+        Storage::disk('s3')->put($path, $pdf->output());
+        $path = Storage::disk('s3')->url($path);
+
+        $pdf = base64_encode(file_get_contents($path));
+
+        return response()->json([
+            'pdf' => $pdf,
+        ]);
+
         return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
     }
 }
