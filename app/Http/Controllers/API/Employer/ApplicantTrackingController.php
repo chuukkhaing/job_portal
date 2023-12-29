@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
+use App\Models\Employer\PointRecord;
 use DB;
 
 class ApplicantTrackingController extends Controller
@@ -101,5 +102,45 @@ class ApplicantTrackingController extends Controller
             'status' => 'success',
             'change_status_application' => $change_status_application
         ], 200);
+    }
+
+    public function unlockApplication(Request $request)
+    {
+        $point = 0;
+        $item_id = Null;
+        $employer = Employer::findOrFail($request->user()->id);
+        if(isset($employer->employer_id)) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $packageItems = $employer->Package->PackageWithPackageItem;
+        foreach($packageItems as $packageItem){
+            if($packageItem->PackageItem->name == 'Application Unlock') {
+                $point = $packageItem->PackageItem->point;
+                $item_id = $packageItem->PackageItem->id;
+            }
+        }
+        if($point > 0 && $point > $employer->package_point) {
+            return response()->json([
+                'status' => 'error',
+                'msg'    => 'Your Balance Points are not enough to Post Job.'
+            ], 200);
+        }else {
+            $cvunlock = PointRecord::whereEmployerId($request->user()->id)->whereJobPostId($request->job_post_id)->whereJobApplyId($request->job_apply_id)->wherePackageItemId($item_id)->get();
+            if($cvunlock->count() == 0) {
+                $cvunlock = PointRecord::create([
+                    'employer_id' => $request->user()->id,
+                    'job_post_id' => $request->job_post_id,
+                    'job_apply_id' => $request->job_apply_id,
+                    'package_item_id' => $item_id,
+                    'point' => $point,
+                    'status' => 'Complete'
+                ]);
+            }
+            
+            return response()->json([
+                'status' => 'success',
+                'data' => $cvunlock
+            ]);
+        }
     }
 }
