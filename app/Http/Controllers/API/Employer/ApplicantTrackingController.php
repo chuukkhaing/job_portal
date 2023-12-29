@@ -64,7 +64,7 @@ class ApplicantTrackingController extends Controller
                         },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
                     }, 'SeekerJobPostAnswer' => function($qanda) {
                         $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
-                    }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id')->get();
+                    }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id','status')->get();
         $application_count = $applications->count();
         return response()->json([
             'status' => 'success',
@@ -83,11 +83,23 @@ class ApplicantTrackingController extends Controller
                     },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
                 }, 'SeekerJobPostAnswer' => function($qanda) {
                     $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
-                }])->whereJobPostId($job_post_id)->whereSeekerId($seeker_id)->whereStatus($status)->select('id','seeker_id','job_post_id')->first();
+                }])->whereJobPostId($job_post_id)->whereSeekerId($seeker_id)->whereStatus($status)->select('id','seeker_id','job_post_id','status')->first();
         
         return response()->json([
         'status' => 'success',
         'application' => $application
+        ], 200);
+    }
+
+    public function changeStatus(Request $request)
+    {
+        $job_apply = JobApply::whereId($request->job_apply_id)->whereJobPostId($request->job_post_id)->whereSeekerId($request->seeker_id)->update([
+            'status' => $request->status
+        ]);
+        $change_status_application = JobApply::findOrFail($request->job_apply_id);
+        return response()->json([
+            'status' => 'success',
+            'change_status_application' => $change_status_application
         ], 200);
     }
 }
