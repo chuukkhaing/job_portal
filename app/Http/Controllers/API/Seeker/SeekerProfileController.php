@@ -112,7 +112,7 @@ class SeekerProfileController extends Controller
 
     public function profile(Request $request)
     {
-        $seeker               = Seeker::with(['state:id,name','township:id,name', 'SeekerEducation:id,seeker_id,degree,major_subject,location,from,to,school,is_current', 'SeekerExperience' => function($exp) {
+        $seeker               = Seeker::with(['State:id,name','Township:id,name', 'SeekerEducation:id,seeker_id,degree,major_subject,location,from,to,school,is_current', 'SeekerExperience' => function($exp) {
             $exp->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','seeker_id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','is_current_job','is_experience','start_date','end_date');
         },'SeekerSkill' => function($skill) {
             $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');

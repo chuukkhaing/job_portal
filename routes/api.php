@@ -31,6 +31,8 @@ use App\Http\Controllers\API\Employer\PointRecordController;
 
 // mobile 
 use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
+use App\Http\Controllers\API\Mobile\SeekerMobileProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -154,11 +156,16 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
+
+        Route::get('mobile-profile', [SeekerMobileProfileController::class, 'mobileProfile']);
     });
 
     Route::group(['prefix' => 'mobile'], function () {
         // seeker register 
         Route::post('register', [SeekerMobileRegisterController::class, 'register']);
+
+        // mobile profile 
+        Route::get('mobile-profile', [SeekerMobileProfileController::class, 'mobileProfile']);
     });
 });
 
