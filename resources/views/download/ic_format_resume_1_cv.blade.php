@@ -20,13 +20,13 @@
 
         @font-face {
             font-family: 'Agency FB';
-            src: url({{ storage_path('fonts/agencyfb_reg.ttf') }});
+            src: url({{ public_path('/fonts/agencyfb_reg.ttf') }});
             font-weight: 400;
         }
 
         @font-face {
             font-family: 'Gill Sans';
-            src: url({{ storage_path('fonts/Gill Sans Medium.otf') }});
+            src: url({{ public_path('/fonts/Gill Sans Medium.otf') }});
             font-weight: 400;
         }
         
@@ -136,9 +136,6 @@
         .page-counter:after {
             content: " - (" counter(page) ")";
         }
-        .d-none {
-            display: none;
-        }
 
         .sub_table td {
             padding: 3px;
@@ -192,9 +189,9 @@
             <tr>
                 <td class="" style="vertical-align: top">
                     @if($seeker->image)
-                    <img class="app_receive_pic resume_profile_img img-thumbnail border-0" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
+                    <img class="" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
                     @else
-                    <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="img-thumbnail border-0 resume_profile_img" width="150px" height="150px">
+                    <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
                     @endif
                 </td>
                 <td style="vertical-align: top">
@@ -205,7 +202,7 @@
                         @if(isset($seeker->address_detail))
                         <tr>
                             <td style="vertical-align: top">
-                                <img src="{{ storage_path('img/home.png') }}" alt="" width= "23">
+                                <img src="{{ public_path('img/pdf/home.png') }}" alt="" width= "23">
                             </td>
                             <td>
                                 <span class="info">{{ $seeker->address_detail }}</span>
@@ -215,7 +212,7 @@
                         @if(isset($seeker->phone))
                         <tr>
                             <td style="vertical-align: top">
-                                <img src="{{ storage_path('img/phone.png') }}" alt="" width= "23">
+                                <img src="{{ public_path('img/pdf/phone.png') }}" alt="" width= "23">
                             </td>
                             <td>
                                 <span class="info">{{ $seeker->phone }}</span>
@@ -225,7 +222,7 @@
                         @if(isset($seeker->email))
                         <tr>
                             <td style="vertical-align: top">
-                                <img src="{{ storage_path('img/email.png') }}" alt="" width= "23">
+                                <img src="{{ public_path('img/pdf/email.png') }}" alt="" width= "23">
                             </td>
                             <td>
                                 <span class="info">{{ $seeker->email }}</span>
@@ -261,7 +258,7 @@
                             @endif
                         </td>
                         <td style="vertical-align: top;">
-                            <img src="{{ storage_path('img/circle.png') }}" alt="" width= "13" style="padding-top: 10px">
+                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 10px">
                         </td>
                         <td  style="vertical-align: top">
                             <h2>@if(isset($experience->job_title))<span class="exp_job_title">{{ $experience->job_title }}</span> <span class="exp_company"><span style="color: #000"> | @endif @if(isset($experience->company)) </span> {{ $experience->company }}</span> @endif</h2>
@@ -296,7 +293,7 @@
                             </h3>
                         </td>
                         <td style="vertical-align: top">
-                            <img src="{{ storage_path('img/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
+                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                         </td>
                         <td style="vertical-align: top">
                             <h2>
@@ -326,7 +323,7 @@
             @foreach($seeker->SeekerSkill as $skill)
             @if(isset($skill->Skill))
             <div class="col" style="width: 40%; display: inline-block; ">
-                <img src="{{ storage_path('img/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
+                <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                 <span class="skill_name">{{ $skill->Skill->name }}</span>
             </div>
             @endif
@@ -345,7 +342,7 @@
                 @if(isset($language->name) && isset($language->level))
                 <tr>
                     <td>
-                        <img src="{{ storage_path('img/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
+                        <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                     </td>
                     <td>
                         <span class="skill_name">{{ $language->name ?? '-' }}</span>
@@ -372,7 +369,7 @@
             <table class="main_table" style="padding: 15px 0">
                 <tr>
                     <td style="vertical-align: top">
-                        <img src="{{ storage_path('img/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
+                        <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                     </td>
                     <td>
                         @if(isset($reference->name) && isset($reference->position))

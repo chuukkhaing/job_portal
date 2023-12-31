@@ -185,7 +185,7 @@ class ResumeController extends Controller
         
     }
 
-    public function icFormatCVDownload($id)
+    public function icFormatCVDownload($id, Request $request)
     {
         $seeker = Seeker::findOrFail($id);
         $skill_main_functional_areas = DB::table('seeker_skills as a')
@@ -196,11 +196,13 @@ class ResumeController extends Controller
                         ->groupBy('a.main_functional_area_id')
                         ->get();
         view()->share('seeker',$seeker);
-
-        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'))->setPaper('A4');
-        // return view('download.ic_format_cv');
-        // return $pdf->stream();
-        return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
+        if($request->currentResume == "resume_2") {
+            $pdf = PDF::loadView('download.ic_format_resume_2_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_2_cv.pdf');
+        }else {
+            $pdf = PDF::loadView('download.ic_format_resume_1_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_1_cv.pdf');
+        }
     }
 
     public function summaryGenerate(Request $request, \OpenAI\Client $client)

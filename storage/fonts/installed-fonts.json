@@ -1,8 +1,22 @@
 {
     "agency fb": {
-        "normal": "agency_fb_normal_dc0a19a049951b8e93e2e6a2285f5710"
+        "normal": "agency_fb_normal_3a6528a5c9b678942b0c4906d16a4c1d"
     },
     "gill sans": {
-        "normal": "gill_sans_normal_6dab75398161dab47cd257139c5e7c64"
+        "normal": "gill_sans_normal_2bffaaa9c2891f0545978a173771d36d"
+    },
+    "merriweather": {
+        "normal": "merriweather_normal_abef5bc3a8e9889a6f2d29e23c487b06"
+    },
+    "open sans": {
+        "normal": "\/Users\/ckk\/Desktop\/laravel\/IGS\/IC_Portal\/storage\/fonts\/open_sans_normal_8c19a72d873c6b559fb8f18015f17f6d",
+        "bold": "open_sans_bold_8c19a72d873c6b559fb8f18015f17f6d"
+    },
+    "open sans regular": {
+        "normal": "open_sans_regular_normal_d41b786555d4d30747ab60563cedfc55"
+    },
+    "merriweather bold": {
+        "normal": "\/Users\/ckk\/Desktop\/laravel\/IGS\/IC_Portal\/storage\/fonts\/merriweather_bold_normal_8c3c932449c60d212a304253c53cb338",
+        "bold": "merriweather_bold_bold_8c3c932449c60d212a304253c53cb338"
     }
 }

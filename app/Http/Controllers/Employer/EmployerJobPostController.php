@@ -698,8 +698,13 @@ class EmployerJobPostController extends Controller
                         ->get();
         view()->share('seeker',$seeker);
 
-        $pdf = PDF::loadView('download.ic_format_cv', compact('seeker','skill_main_functional_areas'));
-        return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_cv.pdf');
+        if($request->currentResume == "resume_2") {
+            $pdf = PDF::loadView('download.ic_format_resume_2_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_2_cv.pdf');
+        }else {
+            $pdf = PDF::loadView('download.ic_format_resume_1_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_1_cv.pdf');
+        }
     }
 
     public function changeStatus($jobPostId, $seekerId, $status)
