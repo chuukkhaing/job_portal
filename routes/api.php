@@ -222,6 +222,8 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
         Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
+        Route::post('buy-point-with-jobpost', [ManageJobController::class, 'buypointWithJobPost']);
+        Route::post('buy-point-with-jobpost/{id}', [ManageJobController::class, 'buypointWithJobPostUpdate']);
 
         // generate AI 
         Route::post('job-description-generate', [ManageJobController::class, 'jobDescriptionGenerate']);
