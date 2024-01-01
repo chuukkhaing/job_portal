@@ -12,14 +12,14 @@
                         <div class="card-header bg-transparent">
                             <div class="row">
                                 <div class="col-12 col-lg-6 col-xl-5 mb-2 d-flex">
-                                    @if($jobPost->Employer->logo && $jobPost->hide_comopany == 0)
+                                    @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                     <img src="{{ getS3File('employer_logo',$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="{{ $jobPost->Employer->name }}">
                                     @else
-                                    <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
+                                    <img src="{{ asset('img/icon/job-post.png') }}" class="rounded-circle shadow align-self-center me-3" style="width: 50px; height: 50px" alt="Employer Profile">
                                     @endif
                                     <div class="align-self-center">
                                         <span class="h4 fw-bold">{{ $jobPost->job_title }} @if($jobPost->no_of_candidate) ( {{ $jobPost->no_of_candidate }} - Posts ) @endif</span>
-                                        @if($jobPost->hide_comopany == 0)
+                                        @if($jobPost->hide_company == 0)
                                         <div><a class="text-muted h6" href="{{ route('company-detail',$jobPost->Employer->slug ?? '') }}">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</a></div>
                                         @endif
                                     </div>
@@ -155,7 +155,7 @@
                                             <div class="col-2">
                                                 
                                             </div>
-                                            @if($jobPost->hide_comopany == 0)
+                                            @if($jobPost->hide_company == 0)
                                             <div class="col-10">
                                                 <h4 class="fw-bold text-black">{{ $jobPost->Employer->name }} @if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif</h4>
                                             </div>
@@ -165,7 +165,7 @@
                                             <div class="header">
                                                 <div class="row">
                                                     <div class="col-2 ">
-                                                        @if($jobPost->Employer->logo && $jobPost->hide_comopany == 0)
+                                                        @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                                         <img src="{{ getS3File('employer_logo',$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="{{ $jobPost->Employer->name }}">
                                                         @else
                                                         <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-100" style="" alt="Employer Profile">
@@ -237,7 +237,7 @@
                                                             @if($jobPost->Employer->logo && $jobPost->hide_company == 0)
                                                             <img src="{{ getS3File('employer_logo',$jobPost->Employer->logo) }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="{{ $jobPost->Employer->name }}">
                                                             @else
-                                                            <img src="{{ asset('img/icon/company.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
+                                                            <img src="{{ asset('img/icon/job-post.png') }}" class="rounded-circle shadow align-self-center me-3 w-50" style="" alt="Employer Profile">
                                                             @endif
                                                         </div>
                                                         @if($jobPost->hide_company == 0)
@@ -306,7 +306,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if($jobPost->hide_comopany == 0)
+                        @if($jobPost->hide_company == 0)
                         <div class="card-footer text-center">
                             <a href="{{ route('company-jobs', $jobPost->Employer->id) }}" class="btn btn-sm text-white" style="background-color: #0355d0;">See more jobs from this company</a>
                         </div>

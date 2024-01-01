@@ -107,7 +107,7 @@ class HomeController extends Controller
 
     public function getState()
     {
-        $states = State::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->get();
+        $states = State::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->orderBy('name')->get();
         return response()->json([
             'status' => 'success',
             'states' => $states
