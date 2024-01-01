@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
 use App\Models\Admin\Package;
-use App\Models\Admin\PackageItem;
+use App\Models\Admin\PackageWithPackageItem;
 use App\Models\Employer\PointRecord;
 use App\Models\Admin\OwnershipType;
 use App\Models\Admin\FunctionalArea;
@@ -57,8 +57,8 @@ class EmployerProfileController extends Controller
                 $packageItem->select('id','name','point')->where('is_active', 1)->whereNull('deleted_at');
             }])->select('id', 'package_id', 'package_item_id');
         }])->whereId($employer->package_id)->select('id', 'name')->whereIsActive(1)->whereNull('deleted_at')->first();
-        $packages = Package::whereNull('deleted_at')->where('is_active',1)->select('id','name','price')->get();
-        $packageItems = PackageItem::select('id', 'name', 'point')->get();
+        $packages = Package::whereNull('deleted_at')->where('is_active',1)->select('id','name','price','point','number_of_days','number_of_users','is_active')->get();
+        $packageItems = PackageWithPackageItem::with(['Package:id,name','PackageItem:id,name,point,is_active'])->select('id', 'package_id', 'package_item_id')->get();
         return response()->json([
             'status' => 'success',
             'employer_package' => $employer_package,
