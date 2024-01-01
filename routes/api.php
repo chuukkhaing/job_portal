@@ -249,5 +249,8 @@ Route::group(['prefix' => 'employer'], function () {
 
         // point record 
         Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
+
+        // logout 
+        Route::post('logout', [EmployerProfileController::class, 'logout']);
     });
 });

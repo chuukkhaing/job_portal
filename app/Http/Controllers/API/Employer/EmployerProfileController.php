@@ -391,4 +391,14 @@ class EmployerProfileController extends Controller
             'msg' => 'Media deleted successfully!'
         ]);
     }
+
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'msg' => 'Logout!'
+        ]);
+    }
 }
