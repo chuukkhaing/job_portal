@@ -94,7 +94,13 @@
     
     $(document).ready(function() {
         var loggedIn = "{{ Auth::guard('seeker')->user() ? session(['returnUrl' => '']) : session(['returnUrl' => 'jobpost-detail', 'previous_url' => url()->current()]) }}";
-
+        @if(count($errors) > 0) 
+        MSalert.principal({
+            icon:'error',
+            title:'Error',
+            description: "Need to answer all questions.",
+        })
+        @endif
     })
 
 </script>

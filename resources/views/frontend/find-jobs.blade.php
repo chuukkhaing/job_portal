@@ -419,6 +419,14 @@
             })
         }
 
+        @if(count($errors) > 0) 
+        MSalert.principal({
+            icon:'error',
+            title:'Error',
+            description: "Need to answer all questions.",
+        })
+        @endif
+
         var show_info_modal = "{{ Session::get('info') }}";
         if(show_info_modal != '') {
             MSalert.principal({
