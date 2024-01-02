@@ -65,7 +65,7 @@ class ApplicantTrackingController extends Controller
                         },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
                     }, 'SeekerJobPostAnswer' => function($qanda) {
                         $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
-                    }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id','status')->get();
+                    }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id','status', 'created_at as applied_at')->get();
         $application_count = $applications->count();
         return response()->json([
             'status' => 'success',
