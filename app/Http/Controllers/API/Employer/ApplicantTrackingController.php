@@ -25,21 +25,21 @@ class ApplicantTrackingController extends Controller
         $employer_id[] = $employer->id;
         $employer_id[] = $employer->employer_id;
 
-        $activejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(1)->where('status','!=', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
+        $activejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(1)->where('status','!=', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at', 'slug')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
             $not_suit->where('status','not-suitable');
         }])->withCount([ 'JobApply as ShortedList' => function($short_list) {
             $short_list->where('status','short-listed');
         }])->withCount([ 'JobApply as Hired' => function($hire) {
             $hire->where('status','hire');
         }])->paginate(15);
-        $inactivejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(0)->where('status','!=', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
+        $inactivejobApplicants = JobPost::whereIn('employer_id', $employer_id)->whereIsActive(0)->where('status','!=', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at', 'slug')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
             $not_suit->where('status','not-suitable');
         }])->withCount([ 'JobApply as ShortedList' => function($short_list) {
             $short_list->where('status','short-listed');
         }])->withCount([ 'JobApply as Hired' => function($hire) {
             $hire->where('status','hire');
         }])->paginate(15);
-        $expirejobApplicants = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
+        $expirejobApplicants = JobPost::whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','recruiter_name as contact_name', 'created_at as posted_at', 'slug')->withCount(['JobApply as Apps'])->withCount([ 'JobApply as NotSuitable' => function($not_suit) {
             $not_suit->where('status','not-suitable');
         }])->withCount([ 'JobApply as ShortedList' => function($shot_list) {
             $shot_list->where('status','short-listed');
