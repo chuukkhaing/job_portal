@@ -87,7 +87,7 @@
             width: 40%;
             background-color: rgb(0, 99, 180);
             padding-top: 100px;
-            min-height: 88%;
+            min-height: 90%;
         }
 
         .column_two {
@@ -96,7 +96,7 @@
             padding-top: 80px;
             padding-left: 30px;
             background-color: #fff;
-            min-height: 88%;
+            min-height: 90%;
         }
 
         .row {
