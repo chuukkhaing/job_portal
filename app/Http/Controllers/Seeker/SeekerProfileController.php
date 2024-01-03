@@ -29,6 +29,7 @@ use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\JobAlert;
 use PDF;
 use Storage;
+use App\Mail\JobApplyNotiToRecruiter;
 
 class SeekerProfileController extends Controller
 {
@@ -777,6 +778,9 @@ class SeekerProfileController extends Controller
                     'job_post_id' => $id,
                     'seeker_id'   => Auth::guard('seeker')->user()->id,
                 ]);
+                if(isset($jobpost->recruiter_email)) {
+                    \Mail::to($jobpost->recruiter_email)->send(new JobApplyNotiToRecruiter($jobApply));
+                }
                 if(isset($request->answers)) {
                     foreach($request->answers as $key => $answer) {
                         $answer = SeekerJobPostAnswer::create([
