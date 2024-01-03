@@ -87,7 +87,7 @@
             width: 40%;
             background-color: rgb(0, 99, 180);
             padding-top: 100px;
-            min-height: 90%;
+            min-height: 88%;
         }
 
         .column_two {
@@ -96,7 +96,7 @@
             padding-top: 80px;
             padding-left: 30px;
             background-color: #fff;
-            min-height: 90%;
+            min-height: 88%;
         }
 
         .row {
@@ -164,7 +164,7 @@
             font-size: 0.7rem;
             font-family: 'Merriweather Bold';
         }
-        
+
     </style>
 </head>
 <body>
