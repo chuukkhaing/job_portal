@@ -66,19 +66,13 @@ class FindJobController extends Controller
                 ->whereIsActive(1)->whereStatus('Online');
         
         if ($request->function_area) {
-            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area)->orWhereIn('main_functional_area_id', $request->function_area);
+            $jobPosts = $jobPosts->whereIn('sub_functional_area_id', $request->function_area);
         }
         if ($request->location) {
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
         if ($request->job_title) {
-            $jobPosts = $jobPosts->where('job_title', 'like', '%' . $request->job_title . '%')
-                                ->orWhereHas('State', function ($query1) use ($request) {
-                                    $query1->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
-                                })
-                                ->orWhereHas('Employer', function ($query) use ($request) {
-                                    $query->where('name', 'like', '%' . $request->job_title . '%')->where('is_active', 1)->where('status','Online');
-                                });
+            $jobPosts = $jobPosts->where('job_title', 'Like', '%' . $request->job_title . '%');
         }
         if ($request->industry) {
             $jobPosts = $jobPosts->where('industry_id', $request->industry);
