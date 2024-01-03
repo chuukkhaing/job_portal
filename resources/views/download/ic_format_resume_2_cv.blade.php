@@ -164,6 +164,7 @@
             font-size: 0.7rem;
             font-family: 'Merriweather Bold';
         }
+        
     </style>
 </head>
 <body>
