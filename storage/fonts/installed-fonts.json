@@ -1,0 +1,14 @@
+{
+    "merriweather": {
+        "normal": "merriweather_normal_81c0422647f2fc7859a7463d71bbc28e"
+    },
+    "merriweather bold": {
+        "bold": "merriweather_bold_bold_f04676400d0420415f021bba5088d6f3"
+    },
+    "open sans": {
+        "bold": "open_sans_bold_32f6e235f5ed8fcf0fe98480477695fe"
+    },
+    "open sans regular": {
+        "normal": "open_sans_regular_normal_b1020babbdb8e498c3c0197c3ee5059f"
+    }
+}
