@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     public function getAllTowhship()
     {
-        $townships = Township::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->orderBy('name')->get();
+        $townships = Township::whereIsActive(1)->whereNull('deleted_at')->select('id', 'state_id', 'name')->orderBy('name')->get();
         return response()->json([
             'status' => 'success',
             'townships' => $townships
