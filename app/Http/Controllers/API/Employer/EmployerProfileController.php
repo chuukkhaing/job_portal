@@ -15,6 +15,7 @@ use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerTestimonial;
 use App\Models\Employer\EmployerMedia;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\Skill;
 use Storage;
 use Str;
 use DB;
@@ -388,6 +389,18 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Media deleted successfully!'
+        ]);
+    }
+
+    public function getSkill(Request $request)
+    {
+        $this->validate($request, [
+            'main_functional_area_id'  => ['required']
+        ]);
+        $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $skills,
         ]);
     }
 
