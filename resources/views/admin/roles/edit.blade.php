@@ -880,5 +880,97 @@
             $("#invoice-list").prop('checked',false);
         }
     });
+
+    // blog-category 
+    $("#blog-category-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-category-create").prop('checked',true);
+            $("#blog-category-edit").prop('checked',true);
+            $("#blog-category-delete").prop('checked',true);
+        }
+    });
+    $("#blog-category-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#blog-category-create").prop('checked',false);
+            $("#blog-category-edit").prop('checked',false);
+            $("#blog-category-delete").prop('checked',false);
+        }
+    });
+    $("#blog-category-create").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-category-list").prop('checked',true);
+        }
+    });
+    $("#blog-category-create").change(function() {
+        if($("#blog-category-create").is(":checked") == false && $("#blog-category-edit").is(":checked") == false && $("#blog-category-delete").is(":checked") == false) {
+            $("#blog-category-list").prop('checked',false);
+        }
+    });
+    $("#blog-category-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-category-list").prop('checked',true);
+        }
+    });
+    $("#blog-category-edit").change(function() {
+        if($("#blog-category-create").is(":checked") == false && $("#blog-category-edit").is(":checked") == false && $("#blog-category-delete").is(":checked") == false) {
+            $("#blog-category-list").prop('checked',false);
+        }
+    });
+    $("#blog-category-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-category-list").prop('checked',true);
+        }
+    });
+    $("#blog-category-delete").change(function() {
+        if($("#blog-category-create").is(":checked") == false && $("#blog-category-edit").is(":checked") == false && $("#blog-category-delete").is(":checked") == false) {
+            $("#blog-category-list").prop('checked',false);
+        }
+    });
+
+    // blog-post 
+    $("#blog-post-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-post-create").prop('checked',true);
+            $("#blog-post-edit").prop('checked',true);
+            $("#blog-post-delete").prop('checked',true);
+        }
+    });
+    $("#blog-post-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#blog-post-create").prop('checked',false);
+            $("#blog-post-edit").prop('checked',false);
+            $("#blog-post-delete").prop('checked',false);
+        }
+    });
+    $("#blog-post-create").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-post-list").prop('checked',true);
+        }
+    });
+    $("#blog-post-create").change(function() {
+        if($("#blog-post-create").is(":checked") == false && $("#blog-post-edit").is(":checked") == false && $("#blog-post-delete").is(":checked") == false) {
+            $("#blog-post-list").prop('checked',false);
+        }
+    });
+    $("#blog-post-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-post-list").prop('checked',true);
+        }
+    });
+    $("#blog-post-edit").change(function() {
+        if($("#blog-post-create").is(":checked") == false && $("#blog-post-edit").is(":checked") == false && $("#blog-post-delete").is(":checked") == false) {
+            $("#blog-post-list").prop('checked',false);
+        }
+    });
+    $("#blog-post-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#blog-post-list").prop('checked',true);
+        }
+    });
+    $("#blog-post-delete").change(function() {
+        if($("#blog-post-create").is(":checked") == false && $("#blog-post-edit").is(":checked") == false && $("#blog-post-delete").is(":checked") == false) {
+            $("#blog-post-list").prop('checked',false);
+        }
+    });
 </script>
 @endpush

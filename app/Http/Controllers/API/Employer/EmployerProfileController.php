@@ -107,7 +107,10 @@ class EmployerProfileController extends Controller
             $employer = Employer::findOrFail($employer->employer_id);
         }
 
-        if($request->hasFile('legal_docs')) {
+        if($request->legal_docs == $employer->legal_docs) {
+            $legal_docs = $employer->legal_docs;
+        }
+        elseif($request->hasFile('legal_docs')) {
             if($employer->legal_docs){
                 Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             }
@@ -117,11 +120,7 @@ class EmployerProfileController extends Controller
             $path     = 'employer_legal_docs/' . $legal_docs;
             Storage::disk('s3')->put($path, file_get_contents($file));
             $path = Storage::disk('s3')->url($path);
-        }else {
-            $legal_docs = $employer->legal_docs;
-        }
-
-        if($request->legal_docs_status == 'empty') {
+        }elseif($request->legal_docs == null) {
             Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             $legal_docs = NULL;
         }

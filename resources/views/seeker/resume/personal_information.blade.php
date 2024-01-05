@@ -210,11 +210,11 @@
     }
 
     $("#upload_profile_submit").on("click", function() {
-        croppie.result('base64').then(function(base64) {
+        croppie.result('blob').then(function(blob) {
             $("#upload_profile").modal("hide"); 
             
             var formData = new FormData();
-            formData.append("profile_image", base64ImageToBlob(base64));
+            formData.append("profile_image", blob);
             formData.append("seeker_id", {{ Auth::guard('seeker')->user()->id }})
 
             $.ajax({
@@ -225,7 +225,10 @@
                 contentType : false,
                 success     : function(response) {
                     if (response.status == "success") {
-                        $('.resume_profile_img').attr('src', base64);
+                        var urlCreator = window.URL || window.webkitURL;
+                        var imageUrl = urlCreator.createObjectURL(blob);
+                        
+                        $('.resume_profile_img').attr('src', imageUrl);
                         $('.profile-img-preview').removeClass('d-none');
                         $('.profile-remove-icon').removeClass('d-none');
                     }
@@ -234,25 +237,6 @@
             croppie.destroy();
         });
     });
-
-    function base64ImageToBlob(str) {
-        var pos = str.indexOf(';base64,');
-        var type = str.substring(5, pos);
-        var b64 = str.substr(pos + 8);
-
-        var imageContent = atob(b64);
-        
-        var buffer = new ArrayBuffer(imageContent.length);
-        var view = new Uint8Array(buffer);
-      
-        for (var n = 0; n < imageContent.length; n++) {
-          view[n] = imageContent.charCodeAt(n);
-        }
-      
-        var blob = new Blob([buffer], { type: type });
-        
-        return blob;
-    }
 
     function removeProfileImage()
     {

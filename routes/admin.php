@@ -27,6 +27,8 @@ use App\Http\Controllers\Admin\BankInfoController;
 use App\Http\Controllers\Admin\TaxController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogPostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,5 +136,11 @@ Route::group([], function(){
 
         // permission 
         Route::resource('permission', PermissionController::class);
+
+        // blog ctegory 
+        Route::resource('blog-category', BlogCategoryController::class);
+
+        // blog post 
+        Route::resource('blog-post', BlogPostController::class);
     });
 });
