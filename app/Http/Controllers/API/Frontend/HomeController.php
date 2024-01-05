@@ -8,6 +8,7 @@ use App\Models\Employer\JobPost;
 use DB;
 use Illuminate\Http\Request;
 use App\Models\Admin\State;
+use App\Models\Admin\Township;
 use App\Models\Admin\FunctionalArea;
 use App\Models\Admin\Industry;
 use App\Models\Admin\Employer;
@@ -111,6 +112,15 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success',
             'states' => $states
+        ], 200);
+    }
+
+    public function getAllTowhship()
+    {
+        $townships = Township::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->orderBy('name')->get();
+        return response()->json([
+            'status' => 'success',
+            'townships' => $townships
         ], 200);
     }
 

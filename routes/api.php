@@ -78,6 +78,7 @@ Route::post('search-company', [HomeController::class, 'searchCompany']);
 Route::post('contact-us', [HomeController::class, 'contactUs']);
 
 // get township 
+Route::get('get-all-township', [HomeController::class, 'getAllTowhship']);
 Route::post('get-township', [SeekerProfileController::class, 'getTowhship']);
 
 // get sub functional area 
