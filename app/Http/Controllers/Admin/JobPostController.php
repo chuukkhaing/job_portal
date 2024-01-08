@@ -88,63 +88,68 @@ class JobPostController extends Controller
     public function update(Request $request, $id)
     {
         $jobPost = JobPost::findOrFail($id);
-        if($request->status == 'Online') {
-            if($jobPost->total_point == 0) {
+        if($request->status != $jobPost->status) {
+            if($request->status == 'Online') {
+                if($jobPost->total_point == 0) {
+                    $update_status = $jobPost->update([
+                        'status' => $request->status,
+                        'approved_at' => date('Y-m-d', strtotime(now())),
+                        'approved_by' => Auth::user()->id,
+                    ]);
+                    Alert::success('Success', 'Job Post Updated Successfully!');
+                    return redirect()->route('job-posts.index');
+                }elseif($jobPost->total_point > 0) {
+                    if($jobPost->expired_at) {
+                        $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
+                        if($point_reduce > 0) {
+                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
+                            $update_status = $jobPost->update([
+                                'status' => $request->status,
+                                'approved_at' => date('Y-m-d', strtotime(now())),
+                                'approved_by' => Auth::user()->id,
+                            ]);
+                            $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
+                                'status' => 'Complete'
+                            ]);
+                            Alert::success('Success', 'Job Post Updated Successfully!');
+                            return redirect()->route('job-posts.index');
+                        }else {
+                            Alert::error('Failed', "Employer's points are not enough!");
+                            return redirect()->back();
+                        }
+                    }else {
+                        $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
+                        if($point_reduce > 0) {
+                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
+                            $update_status = $jobPost->update([
+                                'status' => $request->status,
+                                'approved_at' => date('Y-m-d', strtotime(now())),
+                                'approved_by' => Auth::user()->id,
+                                'expired_at' => date('Y-m-d', strtotime(now(). ' + 30 days'))
+                            ]);
+                            $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
+                                'status' => 'Complete'
+                            ]);
+                            Alert::success('Success', 'Job Post Updated Successfully!');
+                            return redirect()->route('job-posts.index');
+                        }else {
+                            Alert::error('Failed', "Employer's points are not enough!");
+                            return redirect()->back();
+                        }
+                    }
+                }
+                
+            }else {
                 $update_status = $jobPost->update([
                     'status' => $request->status,
-                    'approved_at' => date('Y-m-d', strtotime(now())),
-                    'approved_by' => Auth::user()->id,
+                    'rejected_at' => date('Y-m-d', strtotime(now())),
+                    'rejected_by' => Auth::user()->id,
                 ]);
                 Alert::success('Success', 'Job Post Updated Successfully!');
                 return redirect()->route('job-posts.index');
-            }elseif($jobPost->total_point > 0) {
-                if($jobPost->expired_at) {
-                    $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                    if($point_reduce > 0) {
-                        $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
-                        $update_status = $jobPost->update([
-                            'status' => $request->status,
-                            'approved_at' => date('Y-m-d', strtotime(now())),
-                            'approved_by' => Auth::user()->id,
-                        ]);
-                        $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
-                            'status' => 'Complete'
-                        ]);
-                        Alert::success('Success', 'Job Post Updated Successfully!');
-                        return redirect()->route('job-posts.index');
-                    }else {
-                        Alert::error('Failed', "Employer's points are not enough!");
-                        return redirect()->back();
-                    }
-                }else {
-                    $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                    if($point_reduce > 0) {
-                        $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
-                        $update_status = $jobPost->update([
-                            'status' => $request->status,
-                            'approved_at' => date('Y-m-d', strtotime(now())),
-                            'approved_by' => Auth::user()->id,
-                            'expired_at' => date('Y-m-d', strtotime(now(). ' + 30 days'))
-                        ]);
-                        $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
-                            'status' => 'Complete'
-                        ]);
-                        Alert::success('Success', 'Job Post Updated Successfully!');
-                        return redirect()->route('job-posts.index');
-                    }else {
-                        Alert::error('Failed', "Employer's points are not enough!");
-                        return redirect()->back();
-                    }
-                }
             }
-            
         }else {
-            $update_status = $jobPost->update([
-                'status' => $request->status,
-                'rejected_at' => date('Y-m-d', strtotime(now())),
-                'rejected_by' => Auth::user()->id,
-            ]);
-            Alert::success('Success', 'Job Post Updated Successfully!');
+            Alert::success('Success', 'There is no changes!');
             return redirect()->route('job-posts.index');
         }
     }

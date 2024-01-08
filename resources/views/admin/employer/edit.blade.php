@@ -32,7 +32,7 @@
                         </ul>
                     </div>
                 @endif
-                <div class="logo-upload form-group">
+                <div class="logo-upload form-group my-3">
                     <div class="logo-edit">
                         <input type="file" class="form-control employer-logo-upload" name="logo" id="employer-logo" accept="image/*" />
                         <label for="employer-logo"></label>
@@ -84,12 +84,12 @@
                     </div>
 
                     <div class="col-4 form-group">
-                        <label for="package_id">Package Effective Date <span class="text-danger">*</span></label>
+                        <label for="package_id">Package Effective Date </label>
                         <div class="datepicker date input-group" id="package_start_date">
                             @if($employer->package_start_date)
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" placeholder="Package Effective Date" required>
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="{{ date('d-m-Y', strtotime($employer->package_start_date)) }}" placeholder="Package Effective Date">
                             @else
-                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="" placeholder="Package Effective Date" required>
+                            <input type="text" name="package_start_date" id="package_start_date" class="form-control seeker_input" value="" placeholder="Package Effective Date">
                             @endif
                             <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
