@@ -59,7 +59,9 @@ class EmployerProfileController extends Controller
             }])->select('id', 'package_id', 'package_item_id');
         }])->whereId($employer->package_id)->select('id', 'name')->whereIsActive(1)->whereNull('deleted_at')->first();
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->select('id','name','price','point','number_of_days','number_of_users','is_active')->get();
-        $packageItems = PackageWithPackageItem::with(['Package:id,name','PackageItem:id,name,point,is_active'])->select('id', 'package_id', 'package_item_id')->get();
+        $packageItems = PackageWithPackageItem::with(['Package' => function($package) {
+            $package->select('id','name')->whereNull('deleted_at')->where('is_active',1);
+        },'PackageItem:id,name,point,is_active'])->select('id', 'package_id', 'package_item_id')->get();
         return response()->json([
             'status' => 'success',
             'employer_package' => $employer_package,

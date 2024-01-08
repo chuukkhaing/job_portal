@@ -30,6 +30,7 @@ use App\Models\Seeker\JobAlert;
 use PDF;
 use Storage;
 use App\Mail\JobApplyNotiToRecruiter;
+use App\Mail\JobApplyMail;
 
 class SeekerProfileController extends Controller
 {
@@ -780,6 +781,39 @@ class SeekerProfileController extends Controller
                 ]);
                 if(isset($jobpost->recruiter_email)) {
                     \Mail::to($jobpost->recruiter_email)->send(new JobApplyNotiToRecruiter($jobApply));
+                }
+                $recommended_jobs = JobPost::where('job_title', 'like', '%' . Auth::guard('seeker')->user()->job_title . '%')
+                            ->where('main_functional_area_id', Auth::guard('seeker')->user()->main_functional_area_id)
+                            ->where('sub_functional_area_id', Auth::guard('seeker')->user()->sub_functional_area_id)
+                            ->where('career_level', Auth::guard('seeker')->user()->career_level)
+                            ->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                        $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                    }, 'JobPostSkill' => function($skill) {
+                        $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                    }])
+                            ->whereIsActive(1)
+                            ->whereStatus('Online')
+                            ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                            ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                            ->orderBy('posted_at','desc')
+                            ->get()
+                            ->take(16);
+                if($recommended_jobs->count() == 0) {
+                    $recommended_jobs = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                        $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                    }, 'JobPostSkill' => function($skill) {
+                        $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                    }])
+                            ->whereIsActive(1)
+                            ->whereStatus('Online')
+                            ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                            ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                            ->orderBy('posted_at','desc')
+                            ->get()
+                            ->take(16);
+                }
+                if(isset($recommended_jobs)) {
+                    \Mail::to(Auth::guard('seeker')->user()->email)->send(new JobApplyMail($recommended_jobs, $jobApply));
                 }
                 if(isset($request->answers)) {
                     foreach($request->answers as $key => $answer) {
