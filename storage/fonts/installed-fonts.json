@@ -10,5 +10,11 @@
     },
     "open sans regular": {
         "normal": "open_sans_regular_normal_b1020babbdb8e498c3c0197c3ee5059f"
+    },
+    "agency fb": {
+        "normal": "agency_fb_normal_226c616a0455ed5b06a7a1d9981acd1b"
+    },
+    "gill sans": {
+        "normal": "gill_sans_normal_bf3cd07f5a886beff7e94672ef2462b8"
     }
 }

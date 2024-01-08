@@ -217,6 +217,8 @@ class ManageJobController extends Controller
             }elseif($jobPost->job_post_type == 'feature') {
                 $jobpostType = "Feature";
             }
+
+            $jobPost = JobPost::with('JobPostQuestion:id,employer_id,job_post_id,question,answer')->whereId($jobPost->id)->first();
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Your '.$jobpostType. ' Job Post has been created successfully.',
@@ -380,6 +382,8 @@ class ManageJobController extends Controller
         }elseif($jobPost->job_post_type == 'feature') {
             $jobpostType = "Feature";
         }
+
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($id)->first();
         return response()->json([
             'status' => 'success',
             'msg' => 'Your '.$jobpostType.' Job Post has been updated Successfully.',
@@ -391,7 +395,7 @@ class ManageJobController extends Controller
     {
         $jobPost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name', 'State:id,name', 'Township:id,name', 'JobPostSkill' => function ($jp_skill) {
             $jp_skill->with('skill:id,name')->select('id','skill_id','job_post_id');
-        }, 'JobPostQuestion:id,question,answer'])->whereId($id)->select('id','job_title','main_functional_area_id','sub_functional_area_id','industry_id','career_level','job_type','experience_level','degree','gender','currency','salary_range','country','state_id','township_id','job_description','job_requirement','benefit','job_highlight','hide_salary','hide_company','no_of_candidate','recruiter_name','recruiter_email','job_post_type')->first();
+        }, 'JobPostQuestion:id,job_post_id,question,answer'])->whereId($id)->select('id','job_title','main_functional_area_id','sub_functional_area_id','industry_id','career_level','job_type','experience_level','degree','gender','currency','salary_range','country','state_id','township_id','job_description','job_requirement','benefit','job_highlight','hide_salary','hide_company','no_of_candidate','recruiter_name','recruiter_email','job_post_type')->first();
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost
@@ -608,13 +612,13 @@ class ManageJobController extends Controller
             'invoice_id' => $invoice->id
         ]);
 
-        if($request->is_make_point_detect == 'on') {
+        if($request->is_make_point_detect == 1) {
             JobPostPointDetect::create([
                 'point_order_id' => $order->id,
                 'job_post_id' => $jobPost->id
             ]);
         }
-
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($jobPost->id)->first();
         return response()->json([
             'status' => 'success',
             'point_order' => $order,
@@ -791,13 +795,13 @@ class ManageJobController extends Controller
             'invoice_id' => $invoice->id
         ]);
 
-        if($request->is_make_point_detect == 'on') {
+        if($request->is_make_point_detect == 1) {
             JobPostPointDetect::create([
                 'point_order_id' => $order->id,
-                'job_post_id' => $request->job_post_id
+                'job_post_id' => $id
             ]);
         }
-
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($id)->first();
         return response()->json([
             'status' => 'success',
             'point_order' => $order,

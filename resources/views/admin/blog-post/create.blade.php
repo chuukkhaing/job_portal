@@ -155,9 +155,11 @@
                 $('.blog-image-remove').removeClass('d-none');
                 
                 console.log(blob)
-                // $('#imagePreview').attr('src', base64);
+                const blobUrl = URL.createObjectURL(blob) // blob is the Blob object
+                
+                $('#imagePreview').attr('src', blobUrl);
 
-                // $("input[name='image_base64']").val(base64);
+                $(".blog-image").val(blob);
                 
                 croppie.destroy();
             });

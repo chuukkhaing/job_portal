@@ -8,7 +8,9 @@ use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
 use App\Models\Employer\PointRecord;
+use App\Models\Seeker\Seeker;
 use DB;
+use PDF;
 
 class ApplicantTrackingController extends Controller
 {
@@ -145,6 +147,23 @@ class ApplicantTrackingController extends Controller
                 'status' => 'success',
                 'data' => $cvunlock
             ]);
+        }
+    }
+
+    public function cvDownload(Request $request)
+    {
+        $request->validate([
+            'seeker_id' => 'required',
+        ]);
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        view()->share('seeker',$seeker);
+
+        if($request->currentResume == "resume_2") {
+            $pdf = PDF::loadView('download.ic_format_resume_2_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_2_cv.pdf');
+        }else {
+            $pdf = PDF::loadView('download.ic_format_resume_1_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_1_cv.pdf');
         }
     }
 }
