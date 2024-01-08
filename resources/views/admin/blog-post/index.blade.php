@@ -38,7 +38,7 @@
                         <tr>
                             <td>{{ ++$key }}</td>
                             <td>{{ $post->title }}</td>
-                            <td><a href="{{ route('blog-cateogry.edit', $post->category_id) }}">{{ $post->BlogCategory->name }}</a></td>
+                            <td><a href="{{ route('blog-post.edit', $post->category_id) }}" class="text-decoration-none">{{ $post->BlogCategory->name }}</a></td>
                             <td>@if($post->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
                             <td>
                                 

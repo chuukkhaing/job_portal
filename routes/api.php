@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
+use App\Http\Controllers\API\Frontend\BlogPostController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -83,6 +84,9 @@ Route::post('get-township', [SeekerProfileController::class, 'getTowhship']);
 
 // get sub functional area 
 Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubFunctionalArea']);
+
+// blogpost 
+Route::resource('blog-post',BlogPostController::class);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {

@@ -8,7 +8,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
-            <h6 class="col font-weight-bold text-primary">Blog Post Create</h6>
+            <h6 class="col font-weight-bold text-primary">Blog Post Edit</h6>
             <div class="col">
                 <a href="{{ route('blog-post.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
@@ -20,12 +20,12 @@
             
         </div>
         <div class="card-body">
-            <form action="{{ route('blog-post.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('blog-post.update', $post->id) }}" method="post" enctype="multipart/form-data">
                 @csrf 
-                
+                @method('PUT')
                 <div class="col-4 form-group">
                     <label for="title">Blog Post Title <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="Enter Blog Post Title" value="{{ old('title') }}">
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="Enter Blog Post Title" value="{{ $post->title }}">
                     @error('title')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -35,7 +35,7 @@
                     <select name="category_id" id="category_id" class="form-control select_2 @error('category_id') is-invalid @enderror">
                         <option value=""></option>
                         @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if( old('category_id') == $category->id ) selected @endif>{{ $category->name }}</option>
+                        <option value="{{ $category->id }}" @if( $post->category_id == $category->id ) selected @endif>{{ $category->name }}</option>
                         @endforeach
                     </select>
                     @error('category_id')
@@ -48,27 +48,31 @@
                         <span>Blog Post Image 
                             <div class="image-preview">
                                 <label for="blog-image">
+                                    @if(isset($post->image))
+                                    <img src="{{ getS3File('blog',$post->image) }}" alt="" id="imagePreview" class="w-100">
+                                    @else
                                     <img src="https://via.placeholder.com/1920x600" alt="" id="imagePreview" class="w-100">
+                                    @endif
                                 </label>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger blog-image-remove d-none ">
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger blog-image-remove @if(!isset($post->image)) d-none @endif">
                                 <i class="fa-solid fa-xmark text-white"></i>
                                 </span>
                             </div>
                         </span>
                         
                         <input type="file" class="form-control blog-image invisible" name="image" id="blog-image" accept="image/*" />
-                        
+                        <input type="hidden" name="file_name" value="{{ $post->image }}">
                     </div>
                 </div>
                 <div class="col-4 form-group">
                     <label for="description" class="seeker_label">Description</label>
-                    <textarea name="description" id="description" cols="30" rows="5" class="seeker_input summernote description form-control"></textarea>
+                    <textarea name="description" id="description" cols="30" rows="5" class="seeker_input summernote description form-control">{!! $post->description !!}</textarea>
                 </div>
                 
                 <div class="col-4 form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>
-                    <input type="radio" name="is_active" id="active" class="" value="1" checked required> <label for="active"> Active</label><br>
-                    <input type="radio" name="is_active" id="in_active" class="" value="0"> <label for="in_active"> In Active</label>
+                    <input type="radio" name="is_active" id="active" class="" value="1" @if($post->is_active == 1) checked required @endif> <label for="active"> Active</label><br>
+                    <input type="radio" name="is_active" id="in_active" class="" value="0" @if($post->is_active == 0) checked required @endif> <label for="in_active"> In Active</label>
                     @error('is_active')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -165,7 +169,8 @@
                 const fileInput = document.querySelector('input[name="image"]');
 
                 fileInput.files = container.files;
-                
+
+                $('input[name="file_name"]').val(blobUrl);
                 croppie.destroy();
             });
         });
@@ -174,6 +179,7 @@
             $('#imagePreview').attr('src', 'https://via.placeholder.com/1920x600');
             $('.blog-image-remove').addClass('d-none');
             $('.blog-image').val('');
+            $('input[name="file_name"]').val('');
         })
     });
 </script>
