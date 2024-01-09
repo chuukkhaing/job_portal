@@ -18,10 +18,12 @@ use App\Models\Seeker\SeekerReference;
 use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Seeker\SeekerJobPostAnswer;
 use App\Models\Seeker\SeekerPercentage;
 use App\Mail\JobApplyNotiToRecruiter;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Seeker\JobApply;
+use App\Mail\JobApplyMail;
 use Storage;
 use Hash;
 use DB;
@@ -407,18 +409,83 @@ class SeekerProfileController extends Controller
                 'msg' => 'Please upload your CV as an attachment or update your profile to a minimum of 80% completion for us to consider your qualifications.!'
             ]);
         } else {
-            $jobApply = JobApply::create([
-                'employer_id' => $jobpost->employer_id,
-                'job_post_id' => $id,
-                'seeker_id'   => $request->user()->id,
-            ]);
-            if(isset($jobpost->recruiter_email)) {
-                \Mail::to($jobpost->recruiter_email)->send(new JobApplyNotiToRecruiter($jobApply));
+            $already_apply = JobApply::whereSeekerId($request->user()->id)->whereJobPostId($id)->count();
+            if($already_apply > 0) {
+                return response()->json([
+                    'status' => 'success',
+                    'msg' => 'Already Applied!'
+                ], 200);
+            }else {
+                if(isset($jobpost->JobPostQuestion)) {
+                    $validator =  Validator::make($request->all(), [
+                        'answers'    => ['required']
+                    ], $messages = [
+                        'answers.required' => ['Need to answer all questions.']
+                    ]);
+                    if ($validator->fails()) {
+                        return response(['errors'=>$validator->messages()], 422);
+                    }else {
+                        
+                        $jobApply = JobApply::create([
+                            'employer_id' => $jobpost->employer_id,
+                            'job_post_id' => $id,
+                            'seeker_id'   => $request->user()->id,
+                        ]);
+                        if(isset($jobpost->recruiter_email)) {
+                            \Mail::to($jobpost->recruiter_email)->send(new JobApplyNotiToRecruiter($jobApply));
+                        }
+                        $recommended_jobs = JobPost::where('job_title', 'like', '%' . $request->user()->job_title . '%')
+                                    ->where('main_functional_area_id', $request->user()->main_functional_area_id)
+                                    ->where('sub_functional_area_id', $request->user()->sub_functional_area_id)
+                                    ->where('career_level', $request->user()->career_level)
+                                    ->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                                $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                            }, 'JobPostSkill' => function($skill) {
+                                $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                            }])
+                                    ->whereIsActive(1)
+                                    ->whereStatus('Online')
+                                    ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                                    ->orderBy('posted_at','desc')
+                                    ->get()
+                                    ->take(16);
+                        if($recommended_jobs->count() == 0) {
+                            $recommended_jobs = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                                $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                            }, 'JobPostSkill' => function($skill) {
+                                $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                            }])
+                                    ->whereIsActive(1)
+                                    ->whereStatus('Online')
+                                    ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
+                                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                                    ->orderBy('posted_at','desc')
+                                    ->get()
+                                    ->take(16);
+                        }
+                        if(isset($recommended_jobs)) {
+                            \Mail::to($request->user()->email)->send(new JobApplyMail($recommended_jobs, $jobApply));
+                        }
+                        if(isset($request->answers)) {
+                            foreach($request->answers as $answer) {
+                                $answer = SeekerJobPostAnswer::create([
+                                    'job_post_id'          => $id,
+                                    'seeker_id'            => $request->user()->id,
+                                    'job_apply_id'         => $jobApply->id,
+                                    'job_post_question_id' => $answer['job_post_question_id'],
+                                    'answer'               => $answer['answer']
+                                ]);
+                            }
+                        }
+                        return response()->json([
+                            'status' => 'success',
+                            'msg' => 'Job Apply Successfully!'
+                        ], 200);
+                    }
+                }
             }
-            return response()->json([
-                'status' => 'success',
-                'msg' => 'Job Apply Successfully!'
-            ], 200);
+            
         }
     }
 
