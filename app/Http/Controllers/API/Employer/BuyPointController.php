@@ -23,7 +23,7 @@ class BuyPointController extends Controller
             $employer = Employer::findOrFail($employer->employer_id);
         }
         
-        $orders = PointOrder::with(['Employer:id,name', 'PointPackage:id,point,price','Invoice:id,file_name'])->whereNull('deleted_at')->whereEmployerId($employer->id)->select('id','employer_id','name','phone','status','point_package_id','invoice_id')->orderBy('updated_at','desc')->get();
+        $orders = PointOrder::with(['Employer:id,name', 'PointPackage:id,point,price','Invoice:id,file_name'])->whereNull('deleted_at')->whereEmployerId($employer->id)->select('id','employer_id','name','phone','status','point_package_id','invoice_id','created_at as ordered_date')->orderBy('updated_at','desc')->get();
         return response()->json([
             'status' => 'success',
             'orders' => $orders
