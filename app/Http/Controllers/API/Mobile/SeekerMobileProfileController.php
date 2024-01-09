@@ -20,7 +20,7 @@ class SeekerMobileProfileController extends Controller
             $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
         },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id','MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name'])
                     ->whereId($request->user()->id)
-                    ->select('id', 'first_name', 'last_name', 'email', 'email_verified_at as since_member_at', 'image', 'phone', 'is_immediate_available', 'percentage', 'state_id', 'number_of_profile_view','country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status','job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')
+                    ->select('id', 'first_name', 'last_name', 'email', 'email_verified_at as since_member_at', 'image', 'phone', 'is_immediate_available', 'percentage', 'state_id', 'number_of_profile_view','country', 'state_id', 'township_id', 'address_detail', 'nationality', 'nrc', 'id_card', 'date_of_birth', 'gender', 'marital_status', 'summary', 'job_title','main_functional_area_id', 'sub_functional_area_id', 'job_type', 'career_level', 'preferred_salary', 'industry_id')
                     ->withCount(['SeekerAttach as cv_list'])
                     ->first();
         

@@ -231,7 +231,7 @@ class ResumeController extends Controller
         
         $result = $client->completions()->create([
             'prompt' => 'Write about my cover letter. My name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
-            'model' => 'text-davinci-002',
+            'model' => 'gpt-3.5-turbo-instruct',
             'max_tokens' => 250, 
         ]);
 

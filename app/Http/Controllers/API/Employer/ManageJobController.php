@@ -418,7 +418,7 @@ class ManageJobController extends Controller
         ]);
         $result = $client->completions()->create([
             'prompt' => 'Write about job description for ' . $request->job_title . $request->experience_level . $request->career_level,
-            'model' => 'text-davinci-002',
+            'model' => 'gpt-3.5-turbo-instruct',
             'max_tokens' => 250,
         ]);
 
@@ -440,7 +440,7 @@ class ManageJobController extends Controller
         
         $result = $client->completions()->create([
             'prompt' => 'Write about job requirement for ' . $request->job_title . $request->experience_level . 'skills = ' . $skills . $request->career_level .  $request->degree,
-            'model' => 'text-davinci-002',
+            'model' => 'gpt-3.5-turbo-instruct',
             'max_tokens' => 250,
         ]);
 
