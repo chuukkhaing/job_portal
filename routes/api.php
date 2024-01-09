@@ -163,7 +163,11 @@ Route::group(['prefix' => 'seeker'], function () {
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
 
+        // mobile profile 
         Route::get('mobile-profile', [SeekerMobileProfileController::class, 'mobileProfile']);
+
+        // mobile personal information 
+        Route::post('mobile-personal-information', [SeekerMobileProfileController::class, 'personalInformation']);
     });
 
     Route::group(['prefix' => 'mobile'], function () {
