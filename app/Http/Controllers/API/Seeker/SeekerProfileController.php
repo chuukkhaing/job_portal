@@ -19,6 +19,7 @@ use App\Models\Seeker\SeekerSkill;
 use Illuminate\Support\Facades\Validator;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
 use App\Models\Seeker\SeekerPercentage;
+use App\Mail\JobApplyNotiToRecruiter;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Models\Seeker\JobApply;
 use Storage;
@@ -411,6 +412,9 @@ class SeekerProfileController extends Controller
                 'job_post_id' => $id,
                 'seeker_id'   => $request->user()->id,
             ]);
+            if(isset($jobpost->recruiter_email)) {
+                \Mail::to($jobpost->recruiter_email)->send(new JobApplyNotiToRecruiter($jobApply));
+            }
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Job Apply Successfully!'
