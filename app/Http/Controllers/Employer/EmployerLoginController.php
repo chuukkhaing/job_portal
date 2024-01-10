@@ -65,13 +65,17 @@ class EmployerLoginController extends Controller
     public function VerifyEmail($token = null)
     {
         if ($token == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            // return redirect()->route('home')->with('error', 'Invalid token.');
+            $url = env('MAIN_DOMAIN').'?msg=Invalid token.';
+            return redirect()->to($url);
         }
 
         $employer = Employer::where('email_verification_token', $token)->first();
 
         if ($employer == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            // return redirect()->route('home')->with('error', 'Invalid token.');
+            $url = env('MAIN_DOMAIN').'?msg=Invalid token.';
+            return redirect()->to($url);
         }
         if ($employer->email_verified == 1) {
             return redirect()->route('home')->with('error', 'Your account was already activated.');
@@ -84,8 +88,14 @@ class EmployerLoginController extends Controller
             ]);
 
             Auth::guard('employer')->login($employer);
+            // if (Auth::guard('employer')->user()) {
+            //     return redirect()->route('employer-profile.index')->with('success', 'Your account is activated.');
+            // }
+            $token = Auth::guard('employer')->user()->createToken(Auth::guard('employer')->user()->email.'-AuthToken')->plainTextToken;
+            $url = env('MAIN_DOMAIN').'?token='.$token.'type=employer';
+            
             if (Auth::guard('employer')->user()) {
-                return redirect()->route('employer-profile.index')->with('success', 'Your account is activated.');
+                return redirect()->to($url);
             }
         }
     }

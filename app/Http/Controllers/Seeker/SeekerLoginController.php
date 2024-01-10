@@ -67,16 +67,22 @@ class SeekerLoginController extends Controller
     public function VerifyEmail($token = null)
     {
         if ($token == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            // return redirect()->route('home')->with('error', 'Invalid token.');
+            $url = env('MAIN_DOMAIN').'?msg=Invalid token.';
+            return redirect()->to($url);
         }
 
         $seeker = Seeker::where('email_verification_token', $token)->first();
 
         if ($seeker == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            // return redirect()->route('home')->with('error', 'Invalid token.');
+            $url = env('MAIN_DOMAIN').'?msg=Invalid token.';
+            return redirect()->to($url);
         }
         if ($seeker->email_verified == 1) {
-            return redirect()->route('home')->with('error', 'Your account was already activated.');
+            // return redirect()->route('home')->with('error', 'Your account was already activated.');
+            $url = env('MAIN_DOMAIN').'?msg=Your account was already activated.';
+            return redirect()->to($url);
         } else {
             $seeker_update = $seeker->update([
                 'email_verified'           => 1,
@@ -91,8 +97,14 @@ class SeekerLoginController extends Controller
                 ]);
             }
             Auth::guard('seeker')->login($seeker);
+            // if (Auth::guard('seeker')->user()) {
+            //     return redirect()->route('profile.index')->with('success', 'Your account is activated.');
+            // }
+            $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
+            $url = env('MAIN_DOMAIN').'?token='.$token.'type=seeker';
+            
             if (Auth::guard('seeker')->user()) {
-                return redirect()->route('profile.index')->with('success', 'Your account is activated.');
+                return redirect()->to($url);
             }
         }
     }
@@ -100,13 +112,13 @@ class SeekerLoginController extends Controller
     public function VerifyMobileEmail ($token = null)
     {
         if ($token == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            return redirect()->route('home')->with('error', 'Invalid token.');
         }
 
         $seeker = Seeker::where('email_verification_token', $token)->first();
 
         if ($seeker == null) {
-            return redirect()->route('home')->with('error', 'Invlid token.');
+            return redirect()->route('home')->with('error', 'Invalid token.');
         }
         if ($seeker->email_verified == 1) {
             return redirect()->route('home')->with('error', 'Your account was already activated.');

@@ -81,7 +81,9 @@ class SeekerMobileProfileController extends Controller
         ]);
         $seeker_percentage = $this->updateSeekerPercentage($seeker);
         $seeker_update_percentage = $seeker->update([
-            'percentage' => (int)$seeker->percentage
+            'percentage' => (int)$seeker->percentage,
+            'state_id' => (int)$seeker->state_id,
+            'township_id' => (int)$seeker->township_id
         ]);
         return response()->json([
             'status' => 'success',
