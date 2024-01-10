@@ -101,7 +101,7 @@ class SeekerLoginController extends Controller
             //     return redirect()->route('profile.index')->with('success', 'Your account is activated.');
             // }
             $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
-            $url = env('MAIN_DOMAIN').'?token='.$token.'type=seeker';
+            $url = env('MAIN_DOMAIN').'?token='.$token.'&type=seeker';
             
             if (Auth::guard('seeker')->user()) {
                 return redirect()->to($url);

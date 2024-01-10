@@ -92,7 +92,7 @@ class EmployerLoginController extends Controller
             //     return redirect()->route('employer-profile.index')->with('success', 'Your account is activated.');
             // }
             $token = Auth::guard('employer')->user()->createToken(Auth::guard('employer')->user()->email.'-AuthToken')->plainTextToken;
-            $url = env('MAIN_DOMAIN').'?token='.$token.'type=employer';
+            $url = env('MAIN_DOMAIN').'?token='.$token.'&type=employer';
             
             if (Auth::guard('employer')->user()) {
                 return redirect()->to($url);
