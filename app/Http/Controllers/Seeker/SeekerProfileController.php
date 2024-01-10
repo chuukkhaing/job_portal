@@ -757,7 +757,7 @@ class SeekerProfileController extends Controller
     public function jobPostApply(Request $request, $id)
     {
         $jobpost = JobPost::findOrFail($id);
-        if(isset($jobpost->JobPostQuestion)) {
+        if($jobpost->JobPostQuestion->count() > 0) {
             $this->validate($request, [
                 'answers.*.*' => 'required'
             ],[
