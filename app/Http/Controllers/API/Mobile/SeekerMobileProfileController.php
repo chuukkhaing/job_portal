@@ -80,7 +80,9 @@ class SeekerMobileProfileController extends Controller
             'marital_status'          => $request->marital_status
         ]);
         $seeker_percentage = $this->updateSeekerPercentage($seeker);
-
+        $seeker_update_percentage = $seeker->update([
+            'percentage' => (int)$seeker->percentage
+        ]);
         return response()->json([
             'status' => 'success',
             'seeker' => $seeker,
