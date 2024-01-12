@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\BankInfo;
-use Alert;
+use App\Models\Admin\BlogCategory;
 use Auth;
+use Alert;
 
-class BankInfoController extends Controller
+class BlogCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,16 +17,16 @@ class BankInfoController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:bank-info-list|bank-info-create|bank-info-edit|bank-info-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:bank-info-create', ['only' => ['create','store']]);
-        $this->middleware('permission:bank-info-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:bank-info-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:blog-category-list|blog-category-create|blog-category-edit|blog-category-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:blog-category-create', ['only' => ['create','store']]);
+        $this->middleware('permission:blog-category-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:blog-category-delete', ['only' => ['destroy']]);
     }
-
+    
     public function index()
     {
-        $banks = BankInfo::whereNull('deleted_at')->orderBy('created_at','desc')->get();
-        return view ('admin.bank-info.index', compact('banks'));
+        $categories = BlogCategory::whereNull('deleted_at')->orderBy('created_at','desc')->get();
+        return view ('admin.blog-category.index', compact('categories'));
     }
 
     /**
@@ -36,7 +36,7 @@ class BankInfoController extends Controller
      */
     public function create()
     {
-        return view ('admin.bank-info.create');
+        return view ('admin.blog-category.create');
     }
 
     /**
@@ -48,21 +48,17 @@ class BankInfoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'bank_name' => 'required',
-            'account_no' => 'required',
-            'account_name' => 'required',
+            'name' => 'required',
             'is_active' => 'required',
         ]);
-        $bank = BankInfo::create([
-            'bank_name' => $request->bank_name,
-            'account_no' => $request->account_no,
-            'account_name' => $request->account_name,
+        $category = BlogCategory::create([
+            'name' => $request->name,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'New Bank Information Created Successfully!');
-        return redirect()->route('bank-info.index');
+        Alert::success('Success', 'New Blog Category Created Successfully!');
+        return redirect()->route('blog-category.index');
     }
 
     /**
@@ -84,8 +80,8 @@ class BankInfoController extends Controller
      */
     public function edit($id)
     {
-        $bank = BankInfo::findOrFail($id);
-        return view ('admin.bank-info.edit', compact('bank'));
+        $category = BlogCategory::findOrFail($id);
+        return view ('admin.blog-category.edit', compact('category'));
     }
 
     /**
@@ -97,23 +93,19 @@ class BankInfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $bank = BankInfo::findOrFail($id);
         $request->validate([
-            'bank_name' => 'required',
-            'account_no' => 'required',
-            'account_name' => 'required',
+            'name' => 'required',
             'is_active' => 'required',
         ]);
-        $bank = $bank->update([
-            'bank_name' => $request->bank_name,
-            'account_no' => $request->account_no,
-            'account_name' => $request->account_name,
+        $category = BlogCategory::findOrFail($id);
+        $category_update = $category->update([
+            'name' => $request->name,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);
 
-        Alert::success('Success', 'Bank Information Updated Successfully!');
-        return redirect()->route('bank-info.index');
+        Alert::success('Success', 'Blog Category Updated Successfully!');
+        return redirect()->route('blog-category.index');
     }
 
     /**
@@ -124,24 +116,24 @@ class BankInfoController extends Controller
      */
     public function destroy($id)
     {
-        $bank = BankInfo::findOrFail($id);
+        $category = BlogCategory::findOrFail($id);
         
         try {
-            $bank = BankInfo::whereId($id)->update([
+            $category = BlogCategory::whereId($id)->update([
                 'deleted_at' => now(),
                 'deleted_by' => Auth::user()->id
             ]);
-            if ($bank) {
-                Alert::success('Success', 'Delete Bank Information Successfully!');
-                return redirect()->route('bank-info.index');
+            if ($category) {
+                Alert::success('Success', 'Delete Blog Category Successfully!');
+                return redirect()->route('blog-category.index');
             }
             else {
-                Alert::error('Failed', 'Bank Information deleted failed');
+                Alert::error('Failed', 'Blog Category deleted failed');
                 return redirect()->back();
             }
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == 23000) {
-                Alert::error('Failed', 'Cannot delete this Bank Information');
+                Alert::error('Failed', 'Cannot delete this Blog Category');
                 return redirect()->back();
             } 
         }

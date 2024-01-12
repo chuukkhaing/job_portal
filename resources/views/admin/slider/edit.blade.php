@@ -155,11 +155,11 @@
 
         $("#upload_slider_submit").on("click", function() {
             croppie.result({
-                type: 'base64',
+                type: 'blob',
                 size: { 
                     width: 1920, height: 600 
                 }
-            }).then(function(base64) {
+            }).then(function(blob) {
 
                 $("#upload_slider").modal("hide"); 
 

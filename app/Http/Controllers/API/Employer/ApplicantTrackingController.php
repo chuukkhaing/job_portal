@@ -8,7 +8,9 @@ use App\Models\Admin\Employer;
 use App\Models\Employer\JobPost;
 use App\Models\Seeker\JobApply;
 use App\Models\Employer\PointRecord;
+use App\Models\Seeker\Seeker;
 use DB;
+use PDF;
 
 class ApplicantTrackingController extends Controller
 {
@@ -62,7 +64,9 @@ class ApplicantTrackingController extends Controller
                             $exp->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','seeker_id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','is_current_job','is_experience','start_date','end_date');
                         },'SeekerSkill' => function($skill) {
                             $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
-                        },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
+                        },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach' => function($seeker_cv) {
+                            $seeker_cv->orderBy('updated_at','desc')->select('id','name','seeker_id')->first();
+                        }])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
                     }, 'SeekerJobPostAnswer' => function($qanda) {
                         $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
                     }])->whereJobPostId($id)->whereStatus($status)->select('id','seeker_id','job_post_id','status', 'created_at as applied_at')->get();
@@ -81,7 +85,9 @@ class ApplicantTrackingController extends Controller
                         $exp->with('MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name')->select('id','seeker_id','job_title','company','main_functional_area_id','sub_functional_area_id','career_level','job_responsibility','industry_id','country','is_current_job','is_experience','start_date','end_date');
                     },'SeekerSkill' => function($skill) {
                         $skill->with('Skill:id,name')->select('id','seeker_id','skill_id');
-                    },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach:id,name,seeker_id'])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
+                    },'SeekerLanguage:id,seeker_id,name,level', 'SeekerReference:id,seeker_id,name,position,company,contact', 'SeekerAttach' => function($seeker_cv) {
+                        $seeker_cv->orderBy('updated_at','desc')->select('id','name','seeker_id')->first();
+                    }])->select('id','first_name','last_name','email','state_id','township_id','address_detail','nationality','nrc','id_card','date_of_birth','gender','marital_status','image','phone','preferred_salary','is_immediate_available','summary');
                 }, 'SeekerJobPostAnswer' => function($qanda) {
                     $qanda->with(['JobPostQuestion:id,question,answer as answer_type'])->select('id','job_post_question_id','job_apply_id','answer');
                 }])->whereJobPostId($job_post_id)->whereSeekerId($seeker_id)->whereStatus($status)->select('id','seeker_id','job_post_id','status')->first();
@@ -141,6 +147,23 @@ class ApplicantTrackingController extends Controller
                 'status' => 'success',
                 'data' => $cvunlock
             ]);
+        }
+    }
+
+    public function cvDownload(Request $request)
+    {
+        $request->validate([
+            'seeker_id' => 'required',
+        ]);
+        $seeker = Seeker::findOrFail($request->seeker_id);
+        view()->share('seeker',$seeker);
+
+        if($request->currentResume == "resume_2") {
+            $pdf = PDF::loadView('download.ic_format_resume_2_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_2_cv.pdf');
+        }else {
+            $pdf = PDF::loadView('download.ic_format_resume_1_cv', compact('seeker'));
+            return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_1_cv.pdf');
         }
     }
 }

@@ -74,7 +74,7 @@ class HomeController extends Controller
                         $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
                     }, 'JobPostSkill' => function($skill) {
                         $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                    }])
+                    }, 'JobPostQuestion:id,job_post_id,question,answer'])
                             ->whereIsActive(1)->whereStatus('Online')
                             ->orderBy('updated_at', 'desc')
                             ->whereJobPostType('trending')
@@ -93,7 +93,7 @@ class HomeController extends Controller
                                 $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
                             }, 'JobPostSkill' => function($skill) {
                                 $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                            }])
+                            }, 'JobPostQuestion:id,job_post_id,question,answer'])
                                     ->whereIsActive(1)->whereStatus('Online')
                                     ->orderBy('updated_at', 'desc')
                                     ->whereJobPostType('feature')
@@ -117,7 +117,7 @@ class HomeController extends Controller
 
     public function getAllTowhship()
     {
-        $townships = Township::whereIsActive(1)->whereNull('deleted_at')->select('id', 'name')->orderBy('name')->get();
+        $townships = Township::whereIsActive(1)->whereNull('deleted_at')->select('id', 'state_id', 'name')->orderBy('name')->get();
         return response()->json([
             'status' => 'success',
             'townships' => $townships
@@ -176,7 +176,7 @@ class HomeController extends Controller
                 $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
             }, 'JobPostSkill' => function($skill) {
                 $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-            }])
+            }, 'JobPostQuestion:id,job_post_id,question,answer'])
                     ->whereSlug($request->slug)
                     ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
                     ->first();
@@ -203,7 +203,7 @@ class HomeController extends Controller
                         $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
                     }, 'JobPostSkill' => function($skill) {
                         $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                    }])
+                    }, 'JobPostQuestion:id,job_post_id,question,answer'])
                             ->whereIsActive(1)->whereStatus('Online')
                             ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
                             ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
@@ -241,7 +241,7 @@ class HomeController extends Controller
                     $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
                 }, 'JobPostSkill' => function($skill) {
                     $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-                }])
+                }, 'JobPostQuestion:id,job_post_id,question,answer'])
                         ->whereIsActive(1)->whereStatus('Online')
                         ->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
                         ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')

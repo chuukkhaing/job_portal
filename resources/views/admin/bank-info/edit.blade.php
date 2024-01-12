@@ -38,11 +38,11 @@
                 </div>
                 <div class="form-group">
                     <label for="account_no">Account No. <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="account_no" id="account_no" placeholder="Enter Bank Name" required value="{{ $bank->account_no }}">
+                    <input type="text" class="form-control" name="account_no" id="account_no" placeholder="Enter Account No." required value="{{ $bank->account_no }}">
                 </div>
                 <div class="form-group">
                     <label for="account_name">Account Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="account_name" id="account_name" placeholder="Enter Bank Name" required value="{{ $bank->account_name }}">
+                    <input type="text" class="form-control" name="account_name" id="account_name" placeholder="Enter Account Name" required value="{{ $bank->account_name }}">
                 </div>
                 <div class="form-group">
                     <label for="is_active">Active Status <span class="text-danger">*</span></label> <br>

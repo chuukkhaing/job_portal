@@ -60,6 +60,8 @@
                                 <span class="badge text-dark bg-warning">{{ $jobPost->status }}</span>
                                 @elseif($jobPost->status == 'Expire')
                                 <span class="badge text-light bg-danger">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Draft')
+                                <span class="badge text-light bg-dark">{{ $jobPost->status }}</span>
                                 @endif
                             </td>
                             <td>

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
+use App\Http\Controllers\API\Frontend\BlogPostController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -84,6 +85,9 @@ Route::post('get-township', [SeekerProfileController::class, 'getTowhship']);
 // get sub functional area 
 Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubFunctionalArea']);
 
+// blogpost 
+Route::resource('blog-post',BlogPostController::class);
+
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
     // seeker register 
@@ -159,7 +163,11 @@ Route::group(['prefix' => 'seeker'], function () {
         // logout 
         Route::post('logout', [SeekerProfileController::class, 'logout']);
 
+        // mobile profile 
         Route::get('mobile-profile', [SeekerMobileProfileController::class, 'mobileProfile']);
+
+        // mobile personal information 
+        Route::post('mobile-personal-information', [SeekerMobileProfileController::class, 'personalInformation']);
     });
 
     Route::group(['prefix' => 'mobile'], function () {
@@ -241,6 +249,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('get-applicant-info/{job_post_id}/{seeker_id}/{status}', [ApplicantTrackingController::class, 'getApplicantInfo']);
         Route::post('change-status', [ApplicantTrackingController::class, 'changeStatus']);
         Route::post('unlock-application', [ApplicantTrackingController::class, 'unlockApplication']);
+        Route::post('cv-download', [ApplicantTrackingController::class, 'cvDownload']);
 
         // buy point 
         Route::resource('buy-point', BuyPointController::class);
@@ -250,6 +259,10 @@ Route::group(['prefix' => 'employer'], function () {
 
         // point record 
         Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
+        Route::get('get-all-used-point-history', [PointRecordController::class, 'getAllUsedPointHistory']);
+
+        // get skill 
+        Route::post('/get-skill', [EmployerProfileController::class, 'getSkill']);
 
         // logout 
         Route::post('logout', [EmployerProfileController::class, 'logout']);

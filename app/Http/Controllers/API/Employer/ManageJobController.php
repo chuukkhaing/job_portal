@@ -35,11 +35,11 @@ class ManageJobController extends Controller
         $employer_id[] = $employer->id;
         $employer_id[] = $employer->employer_id;
         
-        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->paginate(15);
-        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->paginate(15);
-        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->paginate(15);
-        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->paginate(15);
-        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'updated_at as date')->paginate(15);
+        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
+        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
+        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
+        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
+        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
         $jobPostCount = JobPost::whereIn('employer_id', $employer_id)->orderBy('updated_at', 'desc')->count();
 
         return response()->json([
@@ -217,6 +217,8 @@ class ManageJobController extends Controller
             }elseif($jobPost->job_post_type == 'feature') {
                 $jobpostType = "Feature";
             }
+
+            $jobPost = JobPost::with('JobPostQuestion:id,employer_id,job_post_id,question,answer')->whereId($jobPost->id)->first();
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Your '.$jobpostType. ' Job Post has been created successfully.',
@@ -380,6 +382,8 @@ class ManageJobController extends Controller
         }elseif($jobPost->job_post_type == 'feature') {
             $jobpostType = "Feature";
         }
+
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($id)->first();
         return response()->json([
             'status' => 'success',
             'msg' => 'Your '.$jobpostType.' Job Post has been updated Successfully.',
@@ -391,7 +395,7 @@ class ManageJobController extends Controller
     {
         $jobPost = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'Industry:id,name', 'State:id,name', 'Township:id,name', 'JobPostSkill' => function ($jp_skill) {
             $jp_skill->with('skill:id,name')->select('id','skill_id','job_post_id');
-        }, 'JobPostQuestion:id,question,answer'])->whereId($id)->select('id','job_title','main_functional_area_id','sub_functional_area_id','industry_id','career_level','job_type','experience_level','degree','gender','currency','salary_range','country','state_id','township_id','job_description','job_requirement','benefit','job_highlight','hide_salary','hide_company','no_of_candidate','recruiter_name','recruiter_email','job_post_type')->first();
+        }, 'JobPostQuestion:id,job_post_id,question,answer'])->whereId($id)->select('id','job_title','main_functional_area_id','sub_functional_area_id','industry_id','career_level','job_type','experience_level','degree','gender','currency','salary_range','country','state_id','township_id','job_description','job_requirement','benefit','job_highlight','hide_salary','hide_company','no_of_candidate','recruiter_name','recruiter_email','job_post_type')->first();
         return response()->json([
             'status' => 'success',
             'jobPost' => $jobPost
@@ -414,7 +418,7 @@ class ManageJobController extends Controller
         ]);
         $result = $client->completions()->create([
             'prompt' => 'Write about job description for ' . $request->job_title . $request->experience_level . $request->career_level,
-            'model' => 'text-davinci-002',
+            'model' => 'gpt-3.5-turbo-instruct',
             'max_tokens' => 250,
         ]);
 
@@ -436,7 +440,7 @@ class ManageJobController extends Controller
         
         $result = $client->completions()->create([
             'prompt' => 'Write about job requirement for ' . $request->job_title . $request->experience_level . 'skills = ' . $skills . $request->career_level .  $request->degree,
-            'model' => 'text-davinci-002',
+            'model' => 'gpt-3.5-turbo-instruct',
             'max_tokens' => 250,
         ]);
 
@@ -608,13 +612,13 @@ class ManageJobController extends Controller
             'invoice_id' => $invoice->id
         ]);
 
-        if($request->is_make_point_detect == 'on') {
+        if($request->is_make_point_detect == 1) {
             JobPostPointDetect::create([
                 'point_order_id' => $order->id,
                 'job_post_id' => $jobPost->id
             ]);
         }
-
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($jobPost->id)->first();
         return response()->json([
             'status' => 'success',
             'point_order' => $order,
@@ -791,13 +795,13 @@ class ManageJobController extends Controller
             'invoice_id' => $invoice->id
         ]);
 
-        if($request->is_make_point_detect == 'on') {
+        if($request->is_make_point_detect == 1) {
             JobPostPointDetect::create([
                 'point_order_id' => $order->id,
-                'job_post_id' => $request->job_post_id
+                'job_post_id' => $id
             ]);
         }
-
+        $jobPost = JobPost::with('JobPostQuestion:id,job_post_id,question,answer')->whereId($id)->first();
         return response()->json([
             'status' => 'success',
             'point_order' => $order,

@@ -64,6 +64,7 @@ class EmployerController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:employers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
+            'package_start_date' => 'required_if|package_id,1,2,3'
         ]);
 
         if($request->image_base64 != ''){
@@ -144,6 +145,12 @@ class EmployerController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:employers,email,'.$id.',id,deleted_at,NULL',
         ]);
+
+        if($request->package_id != 4) {
+            $request->validate([
+                'package_start_date' => 'required'
+            ]);
+        }
         $employer = Employer::findOrFail($id);
 
         if($request->image_base64 != ''){
@@ -152,32 +159,34 @@ class EmployerController extends Controller
             $logo = '';
         }
 
-        $package_id = $request->package_id;
+        $package = Package::findOrFail($request->package_id);
         $package_start_date = $employer->package_start_date;
         $package_end_date = $employer->package_end_date;
         $package_point = $employer->package_point;
         $purchased_point = $employer->purchased_point;
 
-        if($request->package_start_date) {
+        if($request->package_start_date != null) {
             $package_end_date = Null;
             if($request->package_id) {
-                $package = Package::findOrFail($request->package_id);
                 $package_end_date = date('Y-m-d', strtotime($request->package_start_date. ' + '.$package->number_of_days.'days'));
             }
             
             $package_start_date = date('Y-m-d', strtotime($request->package_start_date));
+        }else {
+            $package_start_date = null;
         }
 
         if($request->package_id != $employer->package_id) {
             $package_point = $employer->package_point + $package->point;
             $purchased_point = $employer->purchased_point + $package->point;
         }
+
         $slug = Str::slug($request->name, '-') . '-' . $id;
         $employer = $employer->update([
             'name' => $request->name,
             'logo' => $logo,
             'email' => $request->email,
-            'package_id' => $package_id,
+            'package_id' => $package->id,
             'package_start_date' => $package_start_date,
             'package_end_date' => $package_end_date,
             'package_point' => $package_point,

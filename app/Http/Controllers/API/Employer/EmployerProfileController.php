@@ -15,6 +15,7 @@ use App\Models\Employer\EmployerAddress;
 use App\Models\Employer\EmployerTestimonial;
 use App\Models\Employer\EmployerMedia;
 use PyaeSoneAung\MyanmarPhoneValidationRules\MyanmarPhone;
+use App\Models\Admin\Skill;
 use Storage;
 use Str;
 use DB;
@@ -58,7 +59,9 @@ class EmployerProfileController extends Controller
             }])->select('id', 'package_id', 'package_item_id');
         }])->whereId($employer->package_id)->select('id', 'name')->whereIsActive(1)->whereNull('deleted_at')->first();
         $packages = Package::whereNull('deleted_at')->where('is_active',1)->select('id','name','price','point','number_of_days','number_of_users','is_active')->get();
-        $packageItems = PackageWithPackageItem::with(['Package:id,name','PackageItem:id,name,point,is_active'])->select('id', 'package_id', 'package_item_id')->get();
+        $packageItems = PackageWithPackageItem::with(['Package' => function($package) {
+            $package->select('id','name')->whereNull('deleted_at')->where('is_active',1);
+        },'PackageItem:id,name,point,is_active'])->select('id', 'package_id', 'package_item_id')->get();
         return response()->json([
             'status' => 'success',
             'employer_package' => $employer_package,
@@ -81,14 +84,14 @@ class EmployerProfileController extends Controller
                 }])->select('id', 'package_id', 'package_item_id');
             }])->select('id', 'name', 'is_active')->where('is_active', 1)->whereNull('deleted_at');
         }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id')->first();
-        $ownershipTypes = OwnershipType::whereNull('deleted_at')->get();
-        $functional_areas = FunctionalArea::whereNull('deleted_at')->whereFunctionalAreaId(0)->whereIsActive(1)->get();
+        $ownershipTypes = OwnershipType::whereNull('deleted_at')->whereIsActive(1)->select('id','name','is_active')->get();
         $type_of_employers = config('typeOfEmployer.value');
         return response()->json([
             'status' => 'success',
             'account_info' => $account_info,
             'employer' => $employer,
-            'type_of_employers' => $type_of_employers
+            'type_of_employers' => $type_of_employers,
+            'ownershipTypes' => $ownershipTypes
         ], 200);
     }
 
@@ -107,7 +110,10 @@ class EmployerProfileController extends Controller
             $employer = Employer::findOrFail($employer->employer_id);
         }
 
-        if($request->hasFile('legal_docs')) {
+        if($request->legal_docs == $employer->legal_docs) {
+            $legal_docs = $employer->legal_docs;
+        }
+        elseif($request->hasFile('legal_docs')) {
             if($employer->legal_docs){
                 Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             }
@@ -117,11 +123,7 @@ class EmployerProfileController extends Controller
             $path     = 'employer_legal_docs/' . $legal_docs;
             Storage::disk('s3')->put($path, file_get_contents($file));
             $path = Storage::disk('s3')->url($path);
-        }else {
-            $legal_docs = $employer->legal_docs;
-        }
-
-        if($request->legal_docs_status == 'empty') {
+        }elseif($request->legal_docs == null) {
             Storage::disk('s3')->delete('employer_legal_docs/' . $employer->legal_docs);
             $legal_docs = NULL;
         }
@@ -389,6 +391,18 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'msg' => 'Media deleted successfully!'
+        ]);
+    }
+
+    public function getSkill(Request $request)
+    {
+        $this->validate($request, [
+            'main_functional_area_id'  => ['required']
+        ]);
+        $skills        = Skill::whereNull('deleted_at')->where('main_functional_area_id', $request->main_functional_area_id)->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $skills,
         ]);
     }
 

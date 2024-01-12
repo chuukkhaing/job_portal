@@ -20,15 +20,15 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-    @canany(['role-list','user-list', 'job-post-list', 'state-list', 'township-list', 'package-item-list', 'package-type-list', 'point-package-list', 'slider-list', 'seeker-employer-contact-list', 'industry-list' ,'ownership-type-list', 'main-functional-area-list', 'sub-functional-area-list', 'skill-list'])  
+    @canany(['role-list','user-list', 'job-post-list', 'state-list', 'township-list', 'package-item-list', 'package-type-list', 'point-package-list', 'slider-list', 'seeker-employer-contact-list', 'industry-list' ,'ownership-type-list', 'main-functional-area-list', 'sub-functional-area-list', 'skill-list', 'blog-category-list', 'blog-post-list'])  
     <!-- Nav Item - Manage Admin User Menu -->
-    <li class="nav-item {{ Request::is('roles*') ? 'active' : '' }} {{ Request::is('users*') ? 'active' : '' }} {{ Request::is('job-posts*') ? 'active' : '' }} {{ Request::is('state*') ? 'active' : '' }} {{ Request::is('city*') ? 'active' : '' }} {{ Request::is('package-item*') ? 'active' : '' }} {{ Request::is('package-type*') ? 'active' : '' }} {{ Request::is('point-package*') ? 'active' : '' }} {{ Request::is('point-topup*') ? 'active' : '' }} {{ Request::is('slider*') ? 'active' : '' }} {{ Request::is('feedback*') ? 'active' : '' }} {{ Request::is('industry*') ? 'active' : '' }} {{ Request::is('ownership-type*') ? 'active' : '' }} {{ Request::is('main-functional-area*') ? 'active' : '' }} {{ Request::is('sub-functional-area*') ? 'active' : '' }} {{ Request::is('skill*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('roles*') ? 'active' : '' }} {{ Request::is('users*') ? 'active' : '' }} {{ Request::is('job-posts*') ? 'active' : '' }} {{ Request::is('state*') ? 'active' : '' }} {{ Request::is('city*') ? 'active' : '' }} {{ Request::is('package-item*') ? 'active' : '' }} {{ Request::is('package-type*') ? 'active' : '' }} {{ Request::is('point-package*') ? 'active' : '' }} {{ Request::is('point-topup*') ? 'active' : '' }} {{ Request::is('slider*') ? 'active' : '' }} {{ Request::is('feedback*') ? 'active' : '' }} {{ Request::is('industry*') ? 'active' : '' }} {{ Request::is('ownership-type*') ? 'active' : '' }} {{ Request::is('main-functional-area*') ? 'active' : '' }} {{ Request::is('sub-functional-area*') ? 'active' : '' }} {{ Request::is('skill*') ? 'active' : '' }} {{ Request::is('blog-category*') ? 'active' : '' }} {{ Request::is('blog-post*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#user_manage"
             aria-expanded="true" aria-controls="user_manage">
             <i class="fa-solid fa-user-lock"></i>
             <span>Admin</span>
         </a>
-        <div id="user_manage" class="collapse {{ Request::is('roles*') ? 'show' : '' }} {{ Request::is('users*') ? 'show' : '' }} {{ Request::is('job-posts*') ? 'show' : '' }} {{ Request::is('state*') ? 'show' : '' }} {{ Request::is('city*') ? 'show' : '' }} {{ Request::is('package-item*') ? 'show' : '' }} {{ Request::is('package-type*') ? 'show' : '' }} {{ Request::is('point-package*') ? 'show' : '' }} {{ Request::is('point-topup*') ? 'show' : '' }} {{ Request::is('slider*') ? 'show' : '' }} {{ Request::is('feedback*') ? 'show' : '' }} {{ Request::is('industry*') ? 'show' : '' }} {{ Request::is('ownership-type*') ? 'show' : '' }} {{ Request::is('main-functional-area*') ? 'show' : '' }} {{ Request::is('sub-functional-area*') ? 'show' : '' }} {{ Request::is('skill*') ? 'show' : '' }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+        <div id="user_manage" class="collapse {{ Request::is('roles*') ? 'show' : '' }} {{ Request::is('users*') ? 'show' : '' }} {{ Request::is('job-posts*') ? 'show' : '' }} {{ Request::is('state*') ? 'show' : '' }} {{ Request::is('city*') ? 'show' : '' }} {{ Request::is('package-item*') ? 'show' : '' }} {{ Request::is('package-type*') ? 'show' : '' }} {{ Request::is('point-package*') ? 'show' : '' }} {{ Request::is('point-topup*') ? 'show' : '' }} {{ Request::is('slider*') ? 'show' : '' }} {{ Request::is('feedback*') ? 'show' : '' }} {{ Request::is('industry*') ? 'show' : '' }} {{ Request::is('ownership-type*') ? 'show' : '' }} {{ Request::is('main-functional-area*') ? 'show' : '' }} {{ Request::is('sub-functional-area*') ? 'show' : '' }} {{ Request::is('skill*') ? 'show' : '' }} {{ Request::is('blog-category*') ? 'show' : '' }} {{ Request::is('blog-post*') ? 'show' : '' }}" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 @can('role-list')
                 <a class="collapse-item {{ Request::is('roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">Roles</a>
@@ -99,6 +99,16 @@
                 @endcan
                 @can('seeker-employer-contact-list')
                 <a class="collapse-item {{ Request::is('feedback*') ? 'active' : '' }}" href="{{ route('feedback.index') }}">Seeker/Employer Contact</a>
+                @endcan
+
+                @canany(['slider-list', 'seeker-employer-contact-list'])
+                <hr style="margin: 0.5rem 0">
+                @endcan
+                @can('blog-category-list')
+                <a class="collapse-item {{ Request::is('blog-category*') ? 'active' : '' }}" href="{{ route('blog-category.index') }}">Blog Categories</a>
+                @endcan
+                @can('blog-post-list')
+                <a class="collapse-item {{ Request::is('blog-post*') ? 'active' : '' }}" href="{{ route('blog-post.index') }}">Blog Posts</a>
                 @endcan
             </div>
         </div>
