@@ -39,7 +39,7 @@ class HomeController extends Controller
                         ->where('b.is_active', 1)
                         ->where('a.status', 'Online')
                         ->get()->take(8);
-        $live_job_post              = JobPost::whereIsActive(1)->count();
+        $live_job_post              = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $today_job_post             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
             'status' => 'success',
@@ -140,7 +140,7 @@ class HomeController extends Controller
         $industries = Industry::select('id', 'name', 'icon', 'color_code')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
         }])->whereIsActive(1)->whereNull('deleted_at')->get();
-        $live_job   = JobPost::whereIsActive(1)->count();
+        $live_job   = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $today_job  = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
             'status' => 'success',
