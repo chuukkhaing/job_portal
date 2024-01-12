@@ -724,7 +724,7 @@
             var state_id = $(this).val();
             $.ajax({
                 type: 'GET',
-                url: '/admin/employers/get-township/'+state_id,
+                url: '/employers/get-township/'+state_id,
             }).done(function(response){
                 if(response.status == 'success') {
                     $("#township_id").empty();
@@ -755,7 +755,7 @@
                     data: {
                         'employer_id' : {{ $employer->id }}
                     },
-                    url: '/admin/employer-info-address/destory/'+id,
+                    url: '/employer-info-address/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".address-tr-"+id).empty();
@@ -870,7 +870,7 @@
                     data: {
                         'employer_id' : {{ $employer->id }}
                     },
-                    url: '/admin/employer-info-testimonial/destory/'+id,
+                    url: '/employer-info-testimonial/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".test-tr-"+id).empty();
@@ -930,7 +930,7 @@
                     data: {
                         'employer_id' : {{ $employer->id }}
                     },
-                    url: '/admin/employer-info-media/destory/'+id,
+                    url: '/employer-info-media/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $(".media-tr-"+id).empty();
@@ -1006,7 +1006,7 @@
                     data: {
                         'employer_id' : {{ $employer->id }}
                     },
-                    url: '/admin/employer-info-media/destory/'+id,
+                    url: '/employer-info-media/destory/'+id,
                 }).done(function(response){
                     if(response.status == 'success') {
                         $("#media_image_"+id).remove();

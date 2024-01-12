@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -53,7 +53,7 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/admin');
+        return redirect('/');
     }
 
     public function login(Request $request)
@@ -69,7 +69,7 @@ class LoginController extends Controller
             
             $request->session()->regenerate();
             
-            return redirect()->intended('admin/dashboard');
+            return redirect()->intended('/dashboard');
         }else {
             return back()->withErrors([
                 'email' => 'The provided credentials do not match our records.',
