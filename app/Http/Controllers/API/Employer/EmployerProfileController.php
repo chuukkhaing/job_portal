@@ -24,7 +24,7 @@ class EmployerProfileController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point'])->whereId($request->user()->id)->select('id','logo','package_point as point_balance','purchased_point')->first();
+        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point','MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id','employer_id', 'logo','package_point as point_balance','purchased_point')->first();
 
         $member_ids = Employer::whereId($request->user()->id)->first()->Member->pluck('id')->toArray();
         $employer_id = [];
@@ -73,7 +73,7 @@ class EmployerProfileController extends Controller
     public function profile(Request $request)
     {
         $employer = Employer::findOrFail($request->user()->id);
-        $account_info = Employer::whereId($request->user()->id)->select('email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
+        $account_info = Employer::with(['MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id', 'email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
         if($employer->employer_id) {
             $employer = $employer->findOrFail($employer->employer_id);
         }
@@ -143,7 +143,7 @@ class EmployerProfileController extends Controller
             'summary' => $request->summary,
             'value' => $request->value,
         ]);
-        $employer = Employer::with(['MainEmployer:id,employer_id,logo,background,name,email,industry_id,ownership_type_id,type_of_employer,summary,value,phone,no_of_offices,website,no_of_employees,slug', 'Industry:id,name', 'OwnershipType:id,name'])->whereId($employer->id)->select('id','employer_id','logo','background','name','email','industry_id','ownership_type_id','type_of_employer','summary','value','phone','no_of_offices','website','no_of_employees','slug')->first();
+        $employer = Employer::with(['MainEmployer:id,logo,background,name,email,industry_id,ownership_type_id,type_of_employer,summary,value,phone,no_of_offices,website,no_of_employees,slug', 'Industry:id,name', 'OwnershipType:id,name'])->whereId($employer->id)->select('id','employer_id','logo','background','name','email','industry_id','ownership_type_id','type_of_employer','summary','value','phone','no_of_offices','website','no_of_employees','slug')->first();
         return response()->json([
             'status' => 'success',
             'employer' => $employer
