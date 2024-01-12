@@ -48,7 +48,7 @@ class SeekerMobileProfileController extends Controller
     {
         $seeker = Seeker::findOrFail($request->user()->id);
         $image  = $seeker->image;
-        if($request->image == $seeker->image) {
+        if($request->image_name == $seeker->image) {
             $image  = $seeker->image;
         }elseif ($request->file('image')) {
             $file  = $request->file('image');
