@@ -131,6 +131,10 @@ class ApplicantTrackingController extends Controller
                 'msg'    => 'Your Balance Points are not enough to Post Job.'
             ], 200);
         }else {
+            $request->validate([
+                'job_post_id' => 'required',
+                'job_apply_id' => 'required',
+            ]);
             $cvunlock = PointRecord::whereEmployerId($request->user()->id)->whereJobPostId($request->job_post_id)->whereJobApplyId($request->job_apply_id)->wherePackageItemId($item_id)->get();
             if($cvunlock->count() == 0) {
                 $cvunlock = PointRecord::create([
