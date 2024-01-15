@@ -67,7 +67,7 @@ class BlogPostController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'image' => $imageName,
+            'image' => $imageName ?? Null,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
