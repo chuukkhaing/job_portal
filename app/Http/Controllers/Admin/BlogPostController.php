@@ -9,6 +9,7 @@ use App\Models\Admin\BlogCategory;
 use Storage;
 use Alert;
 use Auth;
+use Str;
 
 class BlogPostController extends Controller
 {
@@ -70,6 +71,11 @@ class BlogPostController extends Controller
             'image' => $imageName ?? Null,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
+        ]);
+
+        $slug = Str::slug($request->title, '-') . '-' . $post->id;
+        $post->update([
+            'slug' => $slug
         ]);
 
         Alert::success('Success', 'New Blog Post Created Successfully!');
