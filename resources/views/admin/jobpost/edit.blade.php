@@ -43,7 +43,7 @@
                                         @endif
                                         <div class="align-self-center">
                                             <span class="h4 fw-bold">{{ $jobpost->job_title }} @if($jobpost->no_of_candidate) ( {{ $jobpost->no_of_candidate }} - Posts ) @endif</span>
-                                            <div><a class="text-muted h6 text-decoration-none" href="{{ route('company-detail',$jobpost->Employer->MainEmployer->slug ?? '') }}">{{ $jobpost->Employer->MainEmployer->name }}</a></div>
+                                            <div><a class="text-muted h6 text-decoration-none" href="">{{ $jobpost->Employer->MainEmployer->name }}</a></div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6 col-lg-4 mb-2 align-self-center">
