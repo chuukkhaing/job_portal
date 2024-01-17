@@ -24,7 +24,7 @@ class EmployerProfileController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point','MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id','employer_id', 'logo','package_point as point_balance','purchased_point')->first();
+        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point','MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id','employer_id', 'logo',DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"), 'package_point as point_balance','purchased_point')->first();
 
         $member_ids = Employer::whereId($request->user()->id)->first()->Member->pluck('id')->toArray();
         $employer_id = [];
