@@ -27,11 +27,29 @@
                     <p>{!! \Illuminate\Support\Str::words(strip_tags($job_post->job_requirement), 25, $end = '...') !!}</p>
                 </div>
                 <div style="width: 15%; text-align: right; display: inline-block">
-                    @if(isset($jobApply->Employer->employer_id))
-                    <img src="{{ getS3File('employer_logo',$job_post->Employer->MainEmployer->logo) }}" alt="Profile Image" style="width: 75px;">
-                    @else
-                    <img src="{{ getS3File('employer_logo',$job_post->Employer->logo) }}" alt="Profile Image" style="width: 75px;">
-                    @endif
+                    
+                    @php 
+                    $s3 = Illuminate\Support\Facades\Storage::disk('s3');
+                    $client = $s3->getDriver()->getAdapter()->getClient();
+                    $expiry = "+10 minutes";
+                    if(isset($jobApply->Employer->employer_id)) {
+                        $command = $client->getCommand('GetObject', [
+                            'Bucket' => env('AWS_BUCKET'),
+                            'Key'    => 'employer_logo/' . $job_post->Employer->MainEmployer->logo
+                        ]);
+                    }else {
+                        $command = $client->getCommand('GetObject', [
+                            'Bucket' => env('AWS_BUCKET'),
+                            'Key'    => 'employer_logo/' . $job_post->Employer->logo
+                        ]);
+                    }
+
+                    $request = $client->createPresignedRequest($command, $expiry);
+                    $url =  (string) $request->getUri();
+                    @endphp
+                    
+                    <img src="{{ $url }}" alt="Profile Image" style="width: 75px;">
+                    
                 </div>
                 <a href="{{ route('jobpost-detail', $job_post->slug) }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">View</a>
             </a>

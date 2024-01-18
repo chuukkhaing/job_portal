@@ -33,7 +33,7 @@ class RedirectIfAuthenticated
                 return redirect('/employer/employer-profile');
             }
             if (Auth::guard($guard)->check()) {
-                return redirect('/');
+                return redirect('/dashboard');
             }
             if($next && $request) {
                 return $next($request);
