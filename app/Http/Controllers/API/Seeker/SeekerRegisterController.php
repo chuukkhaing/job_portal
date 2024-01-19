@@ -85,7 +85,7 @@ class SeekerRegisterController extends Controller
             'email' => 'required|email|exists:seekers',
         ]);
         $seeker = Seeker::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
-        
+        $inactive_seeker = Seeker::whereEmail($request->email)->whereIsActive(0)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
         if (isset($seeker)) {
             $seeker_update = $seeker->update([
                 'email_verification_token' => Str::random(32),
@@ -102,7 +102,13 @@ class SeekerRegisterController extends Controller
                 'seeker_id' => $seeker->id,
                 'msg' => 'Please, check email for reset link.'
             ], 200);
-        } else {
+        } elseif(isset($inactive_seeker)) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => "Your account wasn't activated. Please check your email!"
+            ], 500);
+        }
+        else {
             return response()->json([
                 'status' => 'error',
                 'msg' => "Your email was don't exist. Please Try Again!"
