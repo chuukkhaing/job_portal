@@ -31,7 +31,7 @@
                     @php 
                     $s3 = Illuminate\Support\Facades\Storage::disk('s3');
                     $client = $s3->getDriver()->getAdapter()->getClient();
-                    $expiry = "+10 minutes";
+                    $expiry = "+10080 minutes";
                     if(isset($jobApply->Employer->employer_id)) {
                         $command = $client->getCommand('GetObject', [
                             'Bucket' => env('AWS_BUCKET'),
