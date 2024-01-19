@@ -22,14 +22,14 @@ class SeekerLoginController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         } else {
-            if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'is_active' => 1, 'deleted_at' => Null])) {
+            if (\Auth::guard('seeker')->attempt(['email' => $request->input('email'), 'password' => $request->input('password'), 'deleted_at' => Null])) {
                 if(Auth::guard('seeker')->user()->is_active == 0 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null) {
                     Auth::guard('seeker')->logout();
                     return response()->json([
                         'status' => 'error',
-                        'msg' => 'Your account is not active.',
+                        'msg' => "Your account wasn't activated. Please check your email!",
                     ], 200);
-                }else {
+                }elseif(Auth::guard('seeker')->user()->is_active == 1 || isset(Auth::guard('seeker')->user()->deleted_at) || Auth::guard('seeker')->user()->email_verified_at == Null)  {
                     $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
             
                     return response()->json([
