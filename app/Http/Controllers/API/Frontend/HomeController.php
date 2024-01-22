@@ -161,6 +161,15 @@ class HomeController extends Controller
         ], 200);
     }
 
+    public function getEmployers()
+    {
+        $employers = Employer::select('id', 'slug')->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->get();
+        return response()->json([
+            'status' => 'success',
+            'employers' => $employers,
+        ], 200);
+    }
+
     public function jobPostDetail(Request $request)
     {
         
@@ -304,5 +313,14 @@ class HomeController extends Controller
                 'msg' => 'Thank you for your interest.'
             ], 200);
         }
+    }
+
+    public function getJobPosts()
+    {
+        $job_posts = JobPost::select('id', 'slug')->whereIsActive(1)->whereStatus('Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get();
+        return response()->json([
+            'status' => 'success',
+            'job_posts' => $job_posts,
+        ], 200);
     }
 }

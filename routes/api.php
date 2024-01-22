@@ -88,6 +88,12 @@ Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubF
 // blogpost 
 Route::resource('blog-post',BlogPostController::class);
 
+// get employer raw 
+Route::get('get-employers', [HomeController::class, 'getEmployers']);
+
+// get job post list raw 
+Route::get('get-job-posts', [HomeController::class, 'getJobPosts']);
+
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
     // seeker register 
