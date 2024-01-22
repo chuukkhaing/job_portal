@@ -15,7 +15,7 @@ class SeekerLoginController extends Controller
             'email'    => 'required|email',
             'password' => 'required|min:8',
         ], $messages = [
-            'required' => ['The :attribute is required.'],
+            'required' => 'The :attribute is required.',
             'email' => 'The :attribute must be a valid email address.',
             'min' => 'The :attribute must be at least :min.',
         ]);
