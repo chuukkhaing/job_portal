@@ -219,7 +219,7 @@ class HomeController extends Controller
                             ->orderBy('posted_at','desc')
                             ->whereIn('employer_id', $employer_id)
                             ->where('hide_company', 0)
-                            ->paginate(10);
+                            ->paginate(20);
         return response()->json([
             'status' => 'success',
             'jobPosts' => $jobPosts,
