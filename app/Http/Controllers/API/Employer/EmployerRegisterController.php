@@ -80,7 +80,7 @@ class EmployerRegisterController extends Controller
     public function getEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:employers,email',
+            'email' => 'required|email',
         ]);
 
         $employer = Employer::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
