@@ -33,8 +33,8 @@
                 <tr>
                     <td>
                         <p style="color: #0355D0; font-weight: 600; margin-left: 600px;">Hi {{ $user_name }},</p>
-                        <p style="color: #0355D0; font-weight: 600; margin-left: 600px;">Forgot your password? No worries! We're here to help you get back on track with your <br> Infinity Careers account.</p>
-                        <p style="color: #0355D0; font-weight: 600; margin-left: 600px;">To reset your password, simply click the link below:</p>
+                        <p style="color: #0355D0; font-weight: 600; margin-left: 400px;">Forgot your password? No worries! We're here to help you get back on track with your <br> Infinity Careers account.</p>
+                        <p style="color: #0355D0; font-weight: 600; margin-left: 400px;">To reset your password, simply click the link below:</p>
                     </td>
                 </tr>
                 <tr>
@@ -46,8 +46,8 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #0355D0; font-weight: 600; margin-left: 600px;">If you run into any issues or need further assistance, don't hesitate to reach out to our <br> support team at <a href="mailto:support@infinitycareers.com.mm" style="text-decoration: none">support@infinitycareers.com.mm</a>.</p>
-                        <p style="color: #0355D0; font-weight: 600; margin-left: 600px;">We're here to make your job search journey as smooth as possible.</p>
+                        <p style="color: #0355D0; font-weight: 600; margin-left: 400px;">If you run into any issues or need further assistance, don't hesitate to reach out to our <br> support team at <a href="mailto:support@infinitycareers.com.mm" style="text-decoration: none">support@infinitycareers.com.mm</a>.</p>
+                        <p style="color: #0355D0; font-weight: 600; margin-left: 400px;">We're here to make your job search journey as smooth as possible.</p>
                     </td>
                 </tr>
                 
