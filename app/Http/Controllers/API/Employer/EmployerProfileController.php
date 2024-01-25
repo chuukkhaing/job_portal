@@ -83,7 +83,7 @@ class EmployerProfileController extends Controller
                     $packageItem->select('id','name','point')->where('is_active', 1)->whereNull('deleted_at');
                 }])->select('id', 'package_id', 'package_item_id');
             }])->select('id', 'name', 'is_active')->where('is_active', 1)->whereNull('deleted_at');
-        }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id')->first();
+        }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id', 'package_start_date as package_effective_date', 'package_end_date as package_expired_date')->first();
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->whereIsActive(1)->select('id','name','is_active')->get();
         $type_of_employers = config('typeOfEmployer.value');
         return response()->json([
