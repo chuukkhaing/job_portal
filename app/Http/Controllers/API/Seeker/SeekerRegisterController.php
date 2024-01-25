@@ -82,7 +82,7 @@ class SeekerRegisterController extends Controller
     public function getEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:seekers',
+            'email' => 'required|email',
         ]);
         $seeker = Seeker::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
         $inactive_seeker = Seeker::whereEmail($request->email)->whereIsActive(0)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
