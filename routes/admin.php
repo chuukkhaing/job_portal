@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Seeker\SeekerLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::group([], function(){
     Route::get('/', [LoginController::class, 'index']);
     Auth::routes(['register' => false, 'request' => false, 'reset' => false]);
     Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::get('verify/{id}', [SeekerLoginController::class, 'VerifyEmail'])->name('seeker-verify');
 	Route::group(['middleware' => 'auth:web'], function () {
 
         // dashboard

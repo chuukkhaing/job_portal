@@ -66,6 +66,7 @@ class SeekerLoginController extends Controller
 
     public function VerifyEmail($token = null)
     {
+        dd($token);
         if ($token == null) {
             // return redirect()->route('home')->with('error', 'Invalid token.');
             $url = env('MAIN_DOMAIN').'?msg=Invalid token.';
