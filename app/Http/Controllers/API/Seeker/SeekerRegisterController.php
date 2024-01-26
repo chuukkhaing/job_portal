@@ -93,7 +93,7 @@ class SeekerRegisterController extends Controller
 
             $first_name = $seeker->first_name;
             $last_name  = $seeker->last_name;
-            $reseturl   = URL::to('/') . '/seeker' . '/' . $seeker->id . '/reset-password';
+            $reseturl  = env('MAIN_DOMAIN').'/account/change-password?type=seeker&seeker_id='.$seeker->id;
 
             \Mail::to($seeker->email)->send(new SeekerResetPassword($first_name, $last_name, $reseturl));
 

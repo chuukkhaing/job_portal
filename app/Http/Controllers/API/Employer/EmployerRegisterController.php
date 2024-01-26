@@ -91,8 +91,8 @@ class EmployerRegisterController extends Controller
             ]);
 
             $user_name = $employer->name;
-            $reseturl  = URL::to('/') . '/employer' . '/' . $employer->id . '/reset-password';
-
+            
+            $reseturl  = env('MAIN_DOMAIN').'/account/change-password?type=employer&employer_id='.$employer->id;
             \Mail::to($employer->email)->send(new EmployerResetPassword($user_name, $reseturl));
 
             return response()->json([
