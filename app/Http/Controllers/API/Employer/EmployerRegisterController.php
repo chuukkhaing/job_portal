@@ -116,7 +116,7 @@ class EmployerRegisterController extends Controller
             'employer_id' => ['required']
         ]);
         
-        $password = Hash::make($request['company_password']);
+        $password = Hash::make($request['password']);
 
         $employer = Employer::find($request->employer_id);
 
