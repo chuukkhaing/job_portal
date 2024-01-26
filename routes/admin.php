@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Seeker\SeekerLoginController;
+use App\Http\Controllers\Employer\EmployerLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::group([], function(){
     Auth::routes(['register' => false, 'request' => false, 'reset' => false]);
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::get('verify/{id}', [SeekerLoginController::class, 'VerifyEmail'])->name('seeker-verify');
+    Route::get('verify/{id}', [EmployerLoginController::class, 'VerifyEmail'])->name('employer-verify');
 	Route::group(['middleware' => 'auth:web'], function () {
 
         // dashboard
