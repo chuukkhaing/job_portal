@@ -7,7 +7,7 @@
 </head>
     <body>
         <div style="width: 100%;">
-            <table width="100%" border="0" cellspacing="0" cellpadding="20" background="{{ asset('img/background/email_bg.png') }}" style="text-align: center; background-position: center; background-repeat: no-repeat; background-size: contain;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="20" background="{{ asset('img/background/EMAIL_ACTIVATE_Recovered.jpg') }}" style="text-align: center; background-position: center; background-repeat: no-repeat; background-size: contain;">
                 <tr>
                     <td>
                         &nbsp;
@@ -23,9 +23,9 @@
                         &nbsp;
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 200px">
                     <td>
-                        <img src="{{ asset('img/background/email_top_image.png') }}" alt="" style="width: 150px; padding: 100px 0 0 30px;">
+                        
                     </td>
                 </tr>
                 <tr>
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <p style="color: #0355D0; font-weight: 600;">Thanks for choosing us!</p>
+                        <p style="color: #fff; font-weight: 600;">Thanks for choosing us!</p>
                         <a href="https://www.facebook.com/infinitycareersmyanmar2021"><img src="{{ asset('img/icon/facebook.png') }}" alt="" style="width: 25px;"></a>
                         <a href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm"><img src="{{ asset('img/icon/viber.png') }}" alt="" style="width: 25px;"></a>
                         <a href="https://t.me/+I1qnIWndCSZjNjY1"><img src="{{ asset('img/icon/telegram.png') }}" alt="" style="width: 25px;"></a>
