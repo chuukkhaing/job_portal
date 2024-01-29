@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="text-align: center; background-position: center; background-repeat: no-repeat; background-size: contain; background-image: url('{{ asset('img/background/EMAIL_ACTIVATE_Recovered.jpg') }})'">
     <div class="mail_header">
         <h3>New Job Application for {{ $jobApply->JobPost->job_title }}</h3>
     </div>

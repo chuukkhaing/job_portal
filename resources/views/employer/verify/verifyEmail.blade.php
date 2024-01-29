@@ -44,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img src="{{ asset('img/background/email_middle_image.png') }}" alt="" style="width: 150px;">
+                        <img src="{{ asset('img/background/a.png') }}" alt="" style="width: 150px;">
                     </td>
                 </tr>
                 <tr>

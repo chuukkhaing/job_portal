@@ -581,7 +581,7 @@ class SeekerProfileController extends Controller
 
     public function applyJob(Request $request)
     {
-        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id')->get();
+        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id','created_at as applied_at')->get();
         return response()->json([
             'status' => 'success',
             'apply_jobs' => $apply_jobs
