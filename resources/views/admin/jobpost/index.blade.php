@@ -42,7 +42,7 @@
                             <td>{{ ++$key }}</td>
                             <td>{{ $jobPost->job_title }}</td>
                             <td>
-                                @if($jobPost->Employer->MainEmployer)
+                                @if(isset($jobPost->Employer->MainEmployer))
                                 <a href="{{ route('employers.edit', $jobPost->Employer->employer_id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->MainEmployer->name }}</a>@if($jobPost->Employer->MainEmployer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
                                 @else
                                 <a href="{{ route('employers.edit', $jobPost->Employer->id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->name }}</a>@if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
