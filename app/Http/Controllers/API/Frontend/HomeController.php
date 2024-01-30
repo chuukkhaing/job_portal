@@ -317,7 +317,7 @@ class HomeController extends Controller
 
     public function getJobPosts()
     {
-        $job_posts = JobPost::select('id', 'slug')->whereStatus('Online')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get();
+        $job_posts = JobPost::select('id', 'slug')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get();
         return response()->json([
             'status' => 'success',
             'job_posts' => $job_posts,
