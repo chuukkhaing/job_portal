@@ -69,6 +69,8 @@ class BlogPostController extends Controller
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imageName ?? Null,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
         ]);
@@ -144,6 +146,8 @@ class BlogPostController extends Controller
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imageName,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);
