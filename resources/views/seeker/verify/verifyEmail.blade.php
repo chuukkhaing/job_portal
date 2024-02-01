@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Activation</title>
     <style>
+        .verify-template{
+            width: 700px
+        }
         .middle-image {
             height: 150px
         }
+        .activate-title {
+            padding-top: 275px;
+        }
         @media (max-width: 425px) {
             .verify-template{
-                font-size: 10px;
+                width: 600px;
+                font-size: 14px;
             }
             .middle-image {
                 height: 100px
+            }
+            .activate-title {
+                padding-top: 200px;
             }
         }
     </style>
@@ -21,7 +31,7 @@
     <body>
         <div style="width: 700px; margin: auto;" class="verify-template">
             <div style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover; ">
-                <div style="text-align: center; padding-top: 275px;">
+                <div style="text-align: center;" class="activate-title">
                     <h2 style="font-weight: 900; color: #0355D0">ACTIVATE</h2>
                     <h4>Your Infinity Careers Account</h4>
                     <div>
