@@ -16,14 +16,14 @@
         }
         @media (max-width: 425px) {
             .verify-template{
-                width: 600px;
+                width: 500px;
                 font-size: 14px;
             }
             .middle-image {
                 height: 100px
             }
             .activate-title {
-                padding-top: 200px;
+                padding-top: 250px;
             }
         }
     </style>
