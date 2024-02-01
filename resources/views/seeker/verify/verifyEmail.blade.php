@@ -6,14 +6,14 @@
     <title>Account Activation</title>
     <style>
         @media (max-width: 425px) {
-            body{
+            .verify-template{
                 font-size: 10px;
             }
         }
     </style>
 </head>
     <body>
-        <div style="width: 700px; margin: auto;">
+        <div style="width: 700px; margin: auto;" class="verify-template">
             <div style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover; ">
                 <div style="text-align: center; padding-top: 275px;">
                     <h2 style="font-weight: 900; color: #0355D0">ACTIVATE</h2>
