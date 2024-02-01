@@ -17,7 +17,7 @@
         @media (max-width: 425px) {
             .verify-template{
                 width: 450px;
-                font-size: 10px;
+                font-size: 8px;
             }
             .middle-image {
                 height: 100px
