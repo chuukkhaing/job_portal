@@ -23,13 +23,13 @@
                 height: 100px
             }
             .activate-title {
-                padding-top: 250px;
+                padding-top: 200px;
             }
         }
     </style>
 </head>
     <body>
-        <div style="width: 700px; margin: auto;" class="verify-template">
+        <div style="margin: auto;" class="verify-template">
             <div style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover; ">
                 <div style="text-align: center;" class="activate-title">
                     <h2 style="font-weight: 900; color: #0355D0">ACTIVATE</h2>
