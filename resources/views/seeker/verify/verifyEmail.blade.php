@@ -32,9 +32,11 @@
         <div style="margin: auto;" class="verify-template">
             <table style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover; ">
                 <tbody style="text-align: center;">
-                    <tr class="activate-title">
-                        <h2 style="font-weight: 900; color: #0355D0">ACTIVATE</h2>
-                        <h4>Your Infinity Careers Account</h4>
+                    <tr>
+                        <div class="activate-title">
+                            <h2 style="font-weight: 900; color: #0355D0">ACTIVATE</h2>
+                            <h4>Your Infinity Careers Account</h4>
+                        </div>
                     </tr>
                     <tr>
                         <p style="color: #0355D0; font-weight: 600;">Hi {{ $seeker->email }},</p>
@@ -42,8 +44,8 @@
                         <p style="color: #0355D0; font-weight: 600;">To start your job search journey, simply click <br> the button below to activate your account:</p>
                     </tr>
                     <tr style="margin: 20px 0;">
-                        <tr style="background-image: url({{ asset('/img/background/a.png') }}); background-size: contain; background-repeat: no-repeat; background-position: center;" class="middle-image">
-                        </tr>
+                        <div style="background-image: url({{ asset('/img/background/a.png') }}); background-size: contain; background-repeat: no-repeat; background-position: center;" class="middle-image">
+                        </div>
                     </tr>
                     <tr style="margin: 20px 0;">
                         <a href="{{ route('seeker-verify',$seeker->email_verification_token) }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">Activate</a>
