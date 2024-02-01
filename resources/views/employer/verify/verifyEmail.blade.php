@@ -12,7 +12,7 @@
             height: 150px
         }
         .activate-title {
-            padding-top: 275px;
+            padding-top: 300px;
         }
         .table {
             width: 100%;
@@ -26,7 +26,7 @@
                 height: 100px
             }
             .activate-title {
-                padding-top: 250px;
+                padding-top: 275px;
             }
         }
     </style>
