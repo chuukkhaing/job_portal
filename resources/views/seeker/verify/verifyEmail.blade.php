@@ -6,14 +6,14 @@
     <title>Account Activation</title>
     <style>
         .middle-image {
-            width: 150px
+            height: 150px
         }
         @media (max-width: 425px) {
             .verify-template{
                 font-size: 10px;
             }
             .middle-image {
-                width: 100px
+                height: 100px
             }
         }
     </style>
