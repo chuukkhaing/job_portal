@@ -24,8 +24,8 @@ class SeekerRegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'same:confirmed'],
             'confirmed' => ['required', 'string', 'min:8', 'same:password'],
         ], $messages = [
-            'required' => ['The :attribute is required.'],
-            'MyanmarPhone' => ['The :attribute must be valid myanmar phone number.'],
+            'required' => 'The :attribute is required.',
+            'MyanmarPhone' => 'The :attribute must be valid myanmar phone number.',
             'email' => 'The :attribute must be a valid email address.',
             'same' => 'The :attribute and :other must match.',
             'min' => 'The :attribute must be at least :min.',
