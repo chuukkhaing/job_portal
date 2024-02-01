@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Activation</title>
     <style>
+        .middle-image {
+            width: 150px
+        }
         @media (max-width: 425px) {
             .verify-template{
                 font-size: 10px;
             }
+            .middle-image {
+            width: 100px
+        }
         }
     </style>
 </head>
@@ -24,7 +30,7 @@
                         <p style="color: #0355D0; font-weight: 600;">To start your job search journey, simply click <br> the button below to activate your account:</p>
                     </div>
                     <div style="margin: 20px 0;">
-                        <div style="background-image: url({{ asset('/img/background/a.png') }}); background-size: contain; background-repeat: no-repeat; background-position: center; height: 150px;">
+                        <div style="background-image: url({{ asset('/img/background/a.png') }}); background-size: contain; background-repeat: no-repeat; background-position: center;" class="middle-image">
                         </div>
                     </div>
                     <div style="margin: 20px 0;">
