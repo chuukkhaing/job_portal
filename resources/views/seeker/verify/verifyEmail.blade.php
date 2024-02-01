@@ -13,8 +13,8 @@
                 font-size: 10px;
             }
             .middle-image {
-            width: 100px
-        }
+                width: 100px
+            }
         }
     </style>
 </head>
