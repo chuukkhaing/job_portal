@@ -16,10 +16,10 @@ class SiteSettingController extends Controller
      */
     function __construct()
     {
-        // $this->middleware('permission:site-setting-list|site-setting-create|site-setting-edit|site-setting-delete', ['only' => ['index','store']]);
-        // $this->middleware('permission:site-setting-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:site-setting-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:site-setting-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:site-setting|site-setting-create|site-setting-edit|site-setting-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:site-setting-create', ['only' => ['create','store']]);
+        $this->middleware('permission:site-setting-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:site-setting-delete', ['only' => ['destroy']]);
     }
     
     public function index()
