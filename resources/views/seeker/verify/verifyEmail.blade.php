@@ -7,7 +7,7 @@
     <style>
         @media (max-width: 425px) {
             body{
-                font-size: 0.5rem;
+                font-size: 10px;
             }
         }
     </style>
