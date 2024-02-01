@@ -14,9 +14,12 @@
         .activate-title {
             padding-top: 275px;
         }
+        .table {
+            width: 100%;
+        }
         @media (max-width: 425px) {
             .verify-template{
-                width: 450px;
+                width: 600px;
                 font-size: 8px;
             }
             .middle-image {
@@ -30,7 +33,7 @@
 </head>
     <body>
         <div style="margin: auto;" class="verify-template">
-            <table style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover; ">
+            <table style="background-image: url({{ asset('/img/background/EMAIL_ACTIVATE_Recovered.jpg') }}); background-position: center; background-repeat: no-repeat; background-size: cover;" class="table">
                 <tbody style="text-align: center;">
                     <tr>
                         <div class="activate-title">
