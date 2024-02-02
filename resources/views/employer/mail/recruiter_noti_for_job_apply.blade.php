@@ -9,30 +9,21 @@
             width: 700px;
             
         }
-        .middle-image {
-            height: 150px
-        }
-        tbody {
-            padding-top: 275px;
-        }
+        
         .table {
             width: 100%;
             background-image: url("{{ asset('img/background/new_jobs_Recovered.jpg') }}");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
+            padding: 200px 50px;
         }
         @media (max-width: 425px) {
             .verify-template{
                 width: 600px;
                 font-size: 10px;
             }
-            .middle-image {
-                height: 100px
-            }
-            tbody {
-                padding-top: 250px;
-            }
+            
         }
     </style>
 </head>

@@ -30,22 +30,13 @@
                     
                     @php 
                     $s3 = Illuminate\Support\Facades\Storage::disk('s3');
-                    $client = $s3->getDriver()->getAdapter()->getClient();
-                    $expiry = "+10080 minutes";
                     if(isset($jobApply->Employer->employer_id)) {
-                        $command = $client->getCommand('GetObject', [
-                            'Bucket' => env('AWS_BUCKET'),
-                            'Key'    => 'employer_logo/' . $job_post->Employer->MainEmployer->logo
-                        ]);
+                        $path = 'employer_logo/' . $job_post->Employer->MainEmployer->logo;
                     }else {
-                        $command = $client->getCommand('GetObject', [
-                            'Bucket' => env('AWS_BUCKET'),
-                            'Key'    => 'employer_logo/' . $job_post->Employer->logo
-                        ]);
+                        $path = 'employer_logo/' . $job_post->Employer->logo;
                     }
 
-                    $request = $client->createPresignedRequest($command, $expiry);
-                    $url =  (string) $request->getUri();
+                    $url = $s3->url($path);
                     @endphp
                     
                     <img src="{{ $url }}" alt="Profile Image" style="width: 75px;">

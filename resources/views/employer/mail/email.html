@@ -17,7 +17,7 @@
         }
         .table {
             width: 100%;
-            background-image: url('../../../../public/img/background/new_jobs_Recovered.jpg');
+            background-image: url('https://infinitycareers.com.mm/admin/img/background/new_jobs_Recovered.jpg');
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -40,25 +40,25 @@
         <div style="margin: auto;" class="verify-template">
             <table class="table">
                 <tbody>
-                    
                     <tr>
-                        <p style="color: #0355D0; font-weight: 600;">Dear {{ $jobApply->JobPost->recruiter_name ?? '' }},</p>
-                        <p style="color: #0355D0; font-weight: 600;">We inform you that a new job application has been submitted for the following position through Infinity Careers.</p>
-                        <p style="color: #0355D0; font-weight: 600;">
-                            Applicant Name : {{ $jobApply->Seeker->first_name }} {{ $jobApply->Seeker->last_name }}
-                            <br>
-                            Job Title : {{ $jobApply->JobPost->job_title }}
-                            <br>
-                            Application Date: {{ date('d-m-Y', strtotime($jobApply->created_at)) }}
-                        </p>
+                        <td>
+                            <p style="color: #0355D0; font-weight: 600;">Dear {{ $jobApply->JobPost->recruiter_name ?? '' }},</p>
+                            <p style="color: #0355D0; font-weight: 600;">We inform you that a new job application has been submitted for the following position through Infinity Careers.</p>
+                            <p style="color: #0355D0; font-weight: 600;">
+                                Applicant Name : {{ $jobApply->Seeker->first_name }} {{ $jobApply->Seeker->last_name }}
+                                <br>
+                                Job Title : {{ $jobApply->JobPost->job_title }}
+                                <br>
+                                Application Date: {{ date('d-m-Y', strtotime($jobApply->created_at)) }}
+                            </p>
+                        </td>
                     </tr>
-                    
-                    
                     <tr style="margin: 20px 0;">
-                        <p style="color: #0355D0; font-weight: 600;">We recommend reviewing the candidate's application at your earliest convenience.</p>
-                        <p style="color: #0355D0; font-weight: 600;">Thank you for your attention to this matter. We appreciate your dedication to finding the best talent for {{ $jobApply->Employer->name }}.</p>
+                        <td>
+                            <p style="color: #0355D0; font-weight: 600;">We recommend reviewing the candidate's application at your earliest convenience.</p>
+                            <p style="color: #0355D0; font-weight: 600;">Thank you for your attention to this matter. We appreciate your dedication to finding the best talent for {{ $jobApply->Employer->name }}.</p>
+                        </td>
                     </tr>
-                
                 </tbody>
             </table>
         </div>
