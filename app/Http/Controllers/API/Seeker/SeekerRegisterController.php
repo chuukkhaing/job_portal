@@ -91,8 +91,8 @@ class SeekerRegisterController extends Controller
                 'email_verification_token' => Str::random(32),
             ]);
 
-            $first_name = $seeker->first_name;
-            $last_name  = $seeker->last_name;
+            $first_name = $seeker->first_name ?? '';
+            $last_name  = $seeker->last_name ?? '';
             $reseturl  = env('MAIN_DOMAIN').'/account/change-password?type=seeker&seeker_id='.$seeker->id;
 
             \Mail::to($seeker->email)->send(new SeekerResetPassword($first_name, $last_name, $reseturl));
