@@ -323,4 +323,13 @@ class HomeController extends Controller
             'job_posts' => $job_posts,
         ], 200);
     }
+
+    public function getSubFunctionalArea()
+    {
+        $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->where('functional_area_id','!=',0)->select('id', 'name', 'functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'functional_areas' => $functional_areas
+        ], 200);
+    }
 }

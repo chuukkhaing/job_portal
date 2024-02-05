@@ -58,6 +58,7 @@ Route::get('get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
 
 Route::get('get-states', [HomeController::class, 'getState']);
 Route::get('get-functional-areas', [HomeController::class, 'getFunctionalArea']);
+Route::get('get-sub-functional-areas', [HomeController::class, 'getSubFunctionalArea']);
 
 // findjobs 
 Route::get('find-jobs', [FindJobController::class, 'findJob']);
