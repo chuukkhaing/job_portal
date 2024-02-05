@@ -971,5 +971,51 @@
             $("#blog-post-list").prop('checked',false);
         }
     });
+
+    // seo 
+    $("#seo-list").change(function() {
+        if($(this).is(":checked")) {
+            $("#seo-create").prop('checked',true);
+            $("#seo-edit").prop('checked',true);
+            $("#seo-delete").prop('checked',true);
+        }
+    });
+    $("#seo-list").change(function() {
+        if($(this).is(":checked") == false) {
+            $("#seo-create").prop('checked',false);
+            $("#seo-edit").prop('checked',false);
+            $("#seo-delete").prop('checked',false);
+        }
+    });
+    $("#seo-create").change(function() {
+        if($(this).is(":checked")) {
+            $("#seo-list").prop('checked',true);
+        }
+    });
+    $("#seo-create").change(function() {
+        if($("#seo-create").is(":checked") == false && $("#seo-edit").is(":checked") == false && $("#seo-delete").is(":checked") == false) {
+            $("#seo-list").prop('checked',false);
+        }
+    });
+    $("#seo-edit").change(function() {
+        if($(this).is(":checked")) {
+            $("#seo-list").prop('checked',true);
+        }
+    });
+    $("#seo-edit").change(function() {
+        if($("#seo-create").is(":checked") == false && $("#seo-edit").is(":checked") == false && $("#seo-delete").is(":checked") == false) {
+            $("#seo-list").prop('checked',false);
+        }
+    });
+    $("#seo-delete").change(function() {
+        if($(this).is(":checked")) {
+            $("#seo-list").prop('checked',true);
+        }
+    });
+    $("#seo-delete").change(function() {
+        if($("#seo-create").is(":checked") == false && $("#seo-edit").is(":checked") == false && $("#seo-delete").is(":checked") == false) {
+            $("#seo-list").prop('checked',false);
+        }
+    });
 </script>
 @endpush

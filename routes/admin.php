@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\BlogPostController;
 use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\Employer\EmployerLoginController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SEOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -151,5 +152,8 @@ Route::group([], function(){
         // site setting 
         Route::resource('site-setting', SiteSettingController::class);
         Route::get('site-setting/reset/{id}', [SiteSettingController::class, 'reset'])->name('site-setting.reset');
+
+        // seo
+        Route::resource('seo', SEOController::class);
     });
 });

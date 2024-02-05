@@ -110,6 +110,11 @@
                 @can('blog-post-list')
                 <a class="collapse-item {{ Request::is('blog-post*') ? 'active' : '' }}" href="{{ route('blog-post.index') }}">Blog Posts</a>
                 @endcan
+
+                @canany('seo-list')
+                <hr style="margin: 0.5rem 0">
+                <a class="collapse-item {{ Request::is('seo*') ? 'active' : '' }}" href="{{ route('seo.index') }}">Page SEO</a>
+                @endcan
             </div>
         </div>
     </li>
