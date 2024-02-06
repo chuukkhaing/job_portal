@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\SEO;
+use Storage;
+use Alert;
+use Auth;
 
 class SEOController extends Controller
 {
@@ -42,7 +45,9 @@ class SEOController extends Controller
             'Contact Us',
             'Sign In',
             'Sign Up',
-            
+            'About Us',
+            'Terms of Use',
+            'Privacy Policies'
         ];
         return view ('admin.seo.create', compact('pages'));
     }
@@ -55,7 +60,27 @@ class SEOController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'page' => 'required|unique:s_e_o_s,page_name',
+        ]);
+        if($request->hasFile('feature_image')) {
+            $file    = $request->file('feature_image');
+            $imageName = date('YmdHi').$file->getClientOriginalName();
+            
+            $path     = 'seo/feature_image/' . $imageName;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+            $path = Storage::disk('s3')->url($path);
+        }
+        $post = SEO::create([
+            'page_name' => $request->page,
+            'feature_image' => $imageName ?? Null,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
+            'created_by' => Auth::user()->id,
+        ]);
+
+        Alert::success('Success', 'SEO Created Successfully!');
+        return redirect()->route('seo.index');
     }
 
     /**
@@ -77,7 +102,20 @@ class SEOController extends Controller
      */
     public function edit($id)
     {
-        //
+        $seo_page = SEO::findOrFail($id);
+        $pages = [
+            'Home',
+            'Find Jobs',
+            'Job Category',
+            'Employers',
+            'Contact Us',
+            'Sign In',
+            'Sign Up',
+            'About Us',
+            'Terms of Use',
+            'Privacy Policies'
+        ];
+        return view ('admin.seo.edit', compact('pages', 'seo_page'));
     }
 
     /**
@@ -89,7 +127,34 @@ class SEOController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'page' => 'required|unique:s_e_o_s,page_name,'.$id,
+        ]);
+        $seo_page = SEO::findOrFail($id);
+        if($request->file_name == '') {
+            $imageName = null;
+        }elseif($request->file_name == $seo_page->feature_image) {
+            $imageName = $seo_page->feature_image;
+        }else {
+            if($request->hasFile('feature_image')) {
+                $file    = $request->file('feature_image');
+                $imageName = date('YmdHi').$file->getClientOriginalName();
+                
+                $path     = 'seo/feature_image/' . $imageName;
+                Storage::disk('s3')->put($path, file_get_contents($file));
+                $path = Storage::disk('s3')->url($path);
+            }
+        }
+        $post = $seo_page->update([
+            'page_name' => $request->page,
+            'feature_image' => $imageName ?? Null,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
+            'updated_by' => Auth::user()->id,
+        ]);
+
+        Alert::success('Success', 'SEO Update Successfully!');
+        return redirect()->route('seo.index');
     }
 
     /**
@@ -100,6 +165,10 @@ class SEOController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $seo_page = SEO::findOrFail($id)->delete();
+        if ($seo_page) {
+            Alert::success('Success', 'Delete SEO Successfully!');
+            return redirect()->route('seo.index');
+        }
     }
 }
