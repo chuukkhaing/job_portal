@@ -257,7 +257,7 @@ class HomeController extends Controller
                         ->orderBy('posted_at','desc')
                         ->whereIn('employer_id', $employer_id)
                         ->where('hide_company', 0)
-                        ->take(6);
+                        ->take(20);
             }, 'Industry:id,name', 'EmployerAddress' => function($address) {
                             $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id', 'address_detail');
                         }])
