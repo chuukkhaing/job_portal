@@ -73,11 +73,12 @@ class FindJobController extends Controller
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
         if ($request->job_title) {
-            $jobPosts = $jobPosts->where('job_title', 'Like', '%' . $request->job_title . '%')->orWhereHas('State', function($state) use($request) {
-                $state->where('name', 'Like', '%' . $request->job_title . '%');
+            $jobPosts = $jobPosts->whereHas('State', function($state) use($request) {
+                $state->where('name', 'Like', '%' . $request->job_title . '%')->whereIsActive(1)->whereNull('deleted_at');
             })->orWhereHas('Employer', function($employer) use($request) {
-                $employer->where('name', 'Like', '%' . $request->job_title . '%');
-            });
+                $employer->where('name', 'Like', '%' . $request->job_title . '%')->whereIsActive(1)->whereNull('deleted_at');
+            })->orWhere('job_title', 'Like', '%' . $request->job_title . '%');
+            
         }
         if ($request->industry) {
             $jobPosts = $jobPosts->where('industry_id', $request->industry);
