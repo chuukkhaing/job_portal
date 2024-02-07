@@ -8,6 +8,7 @@ use App\Models\Admin\Industry;
 use App\Models\Employer\JobPost;
 use App\Models\Admin\State;
 use App\Models\Admin\FunctionalArea;
+use App\Models\Admin\Employer;
 use DB;
 
 class FindJobController extends Controller
@@ -72,7 +73,11 @@ class FindJobController extends Controller
             $jobPosts = $jobPosts->where('state_id', $request->location);
         }
         if ($request->job_title) {
-            $jobPosts = $jobPosts->where('job_title', 'Like', '%' . $request->job_title . '%');
+            $jobPosts = $jobPosts->where('job_title', 'Like', '%' . $request->job_title . '%')->orWhereHas('State', function($state) use($request) {
+                $state->where('name', 'Like', '%' . $request->job_title . '%');
+            })->orWhereHas('Employer', function($employer) use($request) {
+                $employer->where('name', 'Like', '%' . $request->job_title . '%');
+            });
         }
         if ($request->industry) {
             $jobPosts = $jobPosts->where('industry_id', $request->industry);
@@ -102,7 +107,10 @@ class FindJobController extends Controller
 
     public function getJobTitle()
     {
-        $jobTitles = JobPost::where('is_active', 1)->where('status', 'Online')->pluck('job_title')->toArray();
+        $jobTitles = JobPost::where('is_active', 1)->where('status', 'Online')->groupBy('job_title')->pluck('job_title')->toArray();
+        $companyNames = Employer::where('is_active', 1)->whereNull('deleted_at')->whereNotNull('name')->pluck('name')->toArray();
+        $stateNames = State::where('is_active', 1)->whereNull('deleted_at')->whereNotNull('name')->pluck('name')->toArray();
+        $jobTitles = array_merge($jobTitles, $companyNames, $stateNames);
         return response()->json([
             'status' => 'success',
             'jobTitles' => $jobTitles
