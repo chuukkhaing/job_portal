@@ -34,6 +34,9 @@ use App\Http\Controllers\API\Employer\PointRecordController;
 use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
 use App\Http\Controllers\API\Mobile\SeekerMobileProfileController;
 
+// seo 
+use App\Http\Controllers\API\Frontend\SEOController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -94,6 +97,10 @@ Route::get('get-employers', [HomeController::class, 'getEmployers']);
 
 // get job post list raw 
 Route::get('get-job-posts', [HomeController::class, 'getJobPosts']);
+
+// seo 
+Route::get('/site-setting', [SEOController::class, 'siteSetting']);
+Route::get('/seo/{page}', [SEOController::class, 'pageSEO']);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
