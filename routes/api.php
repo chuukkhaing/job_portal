@@ -105,6 +105,9 @@ Route::get('/seo/{page}', [SEOController::class, 'pageSEO']);
 // manage job list 
 Route::get('manage-job-list', [ManageJobController::class, 'manageJobList']);
 
+// experience level 
+Route::get('experience-level', [HomeController::class, 'getExperienceLevel']);
+
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
     // seeker register 

@@ -332,4 +332,13 @@ class HomeController extends Controller
             'functional_areas' => $functional_areas
         ], 200);
     }
+
+    public function getExperienceLevel()
+    {
+        $experience_levels = config('experienceLevel.name');
+        return response()->json([
+            'status' => 'success',
+            'experience_levels' => $experience_levels
+        ]);
+    }
 }
