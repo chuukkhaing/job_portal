@@ -810,4 +810,26 @@ class ManageJobController extends Controller
             'jobpost' => $jobPost
         ]);
     }
+
+    public function manageJobList(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+        
+        $jobPosts = JobPost::whereIn('employer_id', $employer_id)->orderBy('created_at', 'desc')->select('id','job_title', 'status','is_active', 'slug')->get();
+
+        return response()->json([
+            'status' => 'success',
+            'jobPosts' => $jobPosts
+        ], 200);
+
+    }
 }

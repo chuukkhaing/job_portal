@@ -243,6 +243,7 @@ Route::group(['prefix' => 'employer'], function () {
 
         // manage job 
         Route::get('manage-job', [ManageJobController::class, 'manageJob']);
+        Route::get('manage-job-list', [ManageJobController::class, 'manageJobList']);
         Route::post('job-post-activation', [ManageJobController::class, 'changeJobPostStatus']);
         Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
         Route::post('buy-point-with-jobpost', [ManageJobController::class, 'buypointWithJobPost']);
