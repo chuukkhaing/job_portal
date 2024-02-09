@@ -15,9 +15,10 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $posts = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','slug','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(10);
+        $posts = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','image','slug','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(10);
         return response()->json([
             'status' => 'success',
+            'image_path' => '/blog',
             'posts' => $posts
         ], 200);
     }
