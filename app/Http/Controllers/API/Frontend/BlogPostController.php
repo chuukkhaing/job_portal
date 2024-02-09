@@ -49,9 +49,9 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $post_detail = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','slug','image','description','created_at as published_at')->findOrFail($id);
+        $post_detail = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','slug','image','description','created_at as published_at')->whereSlug($slug)->first();
         return response()->json([
             'status' => 'success',
             'image_path' => '/blog',
@@ -95,7 +95,7 @@ class BlogPostController extends Controller
 
     public function allBlogPosts()
     {
-        $posts = BlogPost::whereIsActive(1)->whereNull('deleted_at')->select('id','title')->orderBy('updated_at', 'desc')->get();
+        $posts = BlogPost::whereIsActive(1)->whereNull('deleted_at')->select('id','title', 'slug')->orderBy('updated_at', 'desc')->get();
         return response()->json([
             'status' => 'success',
             'posts' => $posts
