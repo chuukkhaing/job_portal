@@ -92,4 +92,13 @@ class BlogPostController extends Controller
     {
         //
     }
+
+    public function allBlogPosts()
+    {
+        $posts = BlogPost::whereIsActive(1)->whereNull('deleted_at')->select('id','title')->orderBy('updated_at', 'desc')->get();
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts
+        ], 200);
+    }
 }
