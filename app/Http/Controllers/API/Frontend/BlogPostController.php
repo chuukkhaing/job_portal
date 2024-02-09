@@ -51,7 +51,12 @@ class BlogPostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post_detail = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','slug','image','description','created_at as published_at')->findOrFail($id);
+        return response()->json([
+            'status' => 'success',
+            'image_path' => '/blog',
+            'post_detail' => $post_detail
+        ], 200);
     }
 
     /**

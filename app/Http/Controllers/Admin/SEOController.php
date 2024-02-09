@@ -38,16 +38,16 @@ class SEOController extends Controller
     public function create()
     {
         $pages = [
-            'Home',
-            'Find Jobs',
-            'Job Category',
-            'Employers',
-            'Contact Us',
-            'Sign In',
-            'Sign Up',
-            'About Us',
-            'Terms of Use',
-            'Privacy Policies'
+            'home',
+            'find_Jobs',
+            'job_category',
+            'employers',
+            'contact_us',
+            'sign_in',
+            'sign_up',
+            'about_us',
+            'terms_of_use',
+            'privacy_policies'
         ];
         return view ('admin.seo.create', compact('pages'));
     }
@@ -104,16 +104,16 @@ class SEOController extends Controller
     {
         $seo_page = SEO::findOrFail($id);
         $pages = [
-            'Home',
-            'Find Jobs',
-            'Job Category',
-            'Employers',
-            'Contact Us',
-            'Sign In',
-            'Sign Up',
-            'About Us',
-            'Terms of Use',
-            'Privacy Policies'
+            'home',
+            'find_Jobs',
+            'job_category',
+            'employers',
+            'contact_us',
+            'sign_in',
+            'sign_up',
+            'about_us',
+            'terms_of_use',
+            'privacy_policies'
         ];
         return view ('admin.seo.edit', compact('pages', 'seo_page'));
     }
