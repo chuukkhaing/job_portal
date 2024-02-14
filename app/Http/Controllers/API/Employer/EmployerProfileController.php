@@ -253,7 +253,7 @@ class EmployerProfileController extends Controller
     {
         $this->validate($request, [
             'country'  => ['required'],
-            'state_id' => ['required']
+            'state_id' => ['required_if:country,Myanmar']
         ]);
         $address_create = EmployerAddress::create([
             'employer_id' => $request->user()->id,
