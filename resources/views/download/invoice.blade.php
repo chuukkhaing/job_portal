@@ -151,7 +151,7 @@
                 <td><span class="ic_address">{{ $invoice->PointOrder->name }}</span></td>
             </tr>
             <tr>
-                <td><span class="ic_address">{{ $invoice->PointOrder->Employer->EmployerAddress->first()->address_detail }}</span></td>
+                <td><span class="ic_address">{{ $invoice->PointOrder->Employer->EmployerAddress->first()->address_detail ?? '-' }}</span></td>
             </tr>
             <tr>
                 <td><span class="ic_address">{{ $invoice->PointOrder->phone }}</span></td>
