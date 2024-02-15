@@ -63,7 +63,7 @@ class FindJobController extends Controller
             $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
         }, 'JobPostSkill' => function($skill) {
             $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
-        }])
+        }, 'JobPostQuestion:id,job_post_id,question,answer'])
                 ->whereIsActive(1)->whereStatus('Online');
         
         if ($request->function_area) {
