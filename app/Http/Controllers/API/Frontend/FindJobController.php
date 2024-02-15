@@ -77,7 +77,7 @@ class FindJobController extends Controller
                 $state->where('name', 'Like', '%' . $request->job_title . '%')->whereIsActive(1)->whereNull('deleted_at');
             })->orWhereHas('Employer', function($employer) use($request) {
                 $employer->where('name', 'Like', '%' . $request->job_title . '%')->whereIsActive(1)->whereNull('deleted_at');
-            })->orWhere('job_title', 'Like', '%' . $request->job_title . '%');
+            })->orWhere('job_title', 'Like', '%' . $request->job_title . '%')->whereIsActive(1)->whereStatus('Online');
             
         }
         if ($request->industry) {
@@ -97,7 +97,7 @@ class FindJobController extends Controller
             $jobPosts = $jobPosts->where('updated_at','>=',$date);
         }
         $jobPosts = $jobPosts->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')
-                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at', 'status')
                     ->orderBy('posted_at','desc')
                     ->paginate(20);
         return response()->json([
