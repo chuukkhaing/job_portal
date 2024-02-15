@@ -259,7 +259,7 @@ class ManageJobController extends Controller
             'total_point' => ['required'],
             'status' => ['required']
         ]);
-        if($request->total_point && $request->total_point > $request->user()->package_point) {
+        if($request->total_point && ($request->total_point > $request->user()->package_point || $request->total_point > $request->user()->add_on_point)) {
             return response()->json([
                 'status' => 'error',
                 'msg'    => 'Your Balance Points are not enough to Post Job.'
