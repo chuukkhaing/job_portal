@@ -1,20 +1,20 @@
 {
     "merriweather": {
-        "normal": "merriweather_normal_81c0422647f2fc7859a7463d71bbc28e"
+        "normal": "merriweather_normal_89e23f1bd301e0d5e4c682f0214dce35"
     },
     "merriweather bold": {
-        "bold": "merriweather_bold_bold_f04676400d0420415f021bba5088d6f3"
+        "bold": "merriweather_bold_bold_f5ca7f1dadf82fe4c6d333da98915eb1"
     },
     "open sans": {
-        "bold": "open_sans_bold_32f6e235f5ed8fcf0fe98480477695fe"
+        "bold": "open_sans_bold_9a6605d899dd338cce37c7e9da351555"
     },
     "open sans regular": {
-        "normal": "open_sans_regular_normal_b1020babbdb8e498c3c0197c3ee5059f"
+        "normal": "open_sans_regular_normal_134039e9bb52cd366d662780bb6289fa"
     },
     "agency fb": {
-        "normal": "agency_fb_normal_226c616a0455ed5b06a7a1d9981acd1b"
+        "normal": "agency_fb_normal_10d4482c840196acae3b176c5a278051"
     },
     "gill sans": {
-        "normal": "gill_sans_normal_bf3cd07f5a886beff7e94672ef2462b8"
+        "normal": "gill_sans_normal_fdde6d807c3609397fd262f113bcc24e"
     }
 }
