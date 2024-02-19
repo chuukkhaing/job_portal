@@ -822,4 +822,33 @@ class ManageJobController extends Controller
         ], 200);
 
     }
+
+    public function manageJobSearch(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+
+        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->get();
+        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->get();
+        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->get();
+        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->get();
+        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->get();
+
+        return response()->json([
+            'status' => 'success',
+            'pendingjobPosts' => $pendingjobPosts,
+            'onlinejobPosts' => $onlinejobPosts,
+            'rejectjobPosts' => $rejectjobPosts,
+            'expirejobPosts' => $expirejobPosts,
+            'draftjobPosts' => $draftjobPosts,
+        ], 200);
+    }
 }
