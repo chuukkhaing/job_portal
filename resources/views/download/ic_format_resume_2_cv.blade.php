@@ -143,6 +143,7 @@
             margin-left: 60px;
             margin-right: 20px;
             color: #fff;
+            padding-top: 30px
         }
         .contact {
             font-family: 'Merriweather Bold';
