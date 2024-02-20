@@ -71,7 +71,7 @@
                     
                     <tr style="margin: 20px 0;">
                         <td>
-                            <p style="color: #fff; font-weight: 600;">Thank you for choosing Infinity Careers. We're excited to support your hiring endeavors!</p>
+                            <p style="color: #fff; font-weight: 600; padding-top: 50px">Thank you for choosing Infinity Careers. We're excited to support your hiring endeavors!</p>
                             <a href="https://www.facebook.com/infinitycareersmyanmar2021"><img src="{{ asset('/img/icon/facebook.png') }}" alt="" style="width: 25px;"></a>
                             <a href="https://invite.viber.com/?g2=AQBfOlaPXsJ6208t76pHaWT%2FqlOO%2BD4G6B9nQbRfU2UrK1C4KRstKkWJGBTjsffm"><img src="{{ asset('/img/icon/viber.png') }}" alt="" style="width: 25px;"></a>
                             <a href="https://t.me/+I1qnIWndCSZjNjY1"><img src="{{ asset('/img/icon/telegram.png') }}" alt="" style="width: 25px;"></a>

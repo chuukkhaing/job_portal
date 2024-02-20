@@ -90,6 +90,10 @@
             padding: 30px;
         }
 
+        .main_table {
+            display: grid;
+        }
+
         .name {
             text-transform: uppercase;
             font-family: 'Agency FB', sans-serif;
@@ -182,15 +186,15 @@
         <p class="footer-text">© infinitycareers.com.mm</p>
     </div>
     <div class="page">
-        <div class="main_table">
-            <div class="main_table_inner" style="vertical-align: top; width: 20%; display: inline-block">
+        <div class="main_table" style="width: 100%; position: relative; margin-bottom: -50px;">
+            <div class="" style="display: inline-block; width: 20%; vertical-align: top; padding: 0; margin: 0;">
                 @if($seeker->image)
                 <img class="" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
                 @else
                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
                 @endif
             </div>
-            <div class="main_table_inner" style="width: 70%; display: inline-block; padding:100px 30px 0 30px;">
+            <div class="main_table_inner" style="width: 70%; display: inline-block; padding: 0 30px; margin: 0">
                 @if(isset($seeker->first_name ) && isset($seeker->last_name))
                 <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
                 @endif
@@ -227,13 +231,13 @@
                     @endif
                 </table>
                 @if(isset($seeker->summary))
-                {!! $seeker->summary !!}
+                <p style="padding: 0; margin: 0">{!! $seeker->summary !!}</p>
                 @endif
             </div>
         </div>
 
         <!-- Experience  -->
-        <h4 class="resume-title" style="">Experiences</h4>
+        <h4 class="resume-title" style="padding: 0; margin: 0">Experiences</h4>
         @if($seeker->SeekerExperience->count() > 0)
             @foreach($seeker->SeekerExperience as $experience)
                 @if($experience->is_experience == 0)

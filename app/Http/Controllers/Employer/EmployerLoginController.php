@@ -78,7 +78,9 @@ class EmployerLoginController extends Controller
             return redirect()->to($url);
         }
         if ($employer->email_verified == 1) {
-            return redirect()->route('home')->with('error', 'Your account was already activated.');
+            // return redirect()->route('home')->with('error', 'Your account was already activated.');
+            $url = env('MAIN_DOMAIN').'?msg=Your account was already activated.';
+            return redirect()->to($url);
         } else {
             $employer_update = $employer->update([
                 'email_verified'           => 1,
