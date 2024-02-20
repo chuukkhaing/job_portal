@@ -164,6 +164,13 @@
             font-size: 1rem;
             font-weight: 400
         }
+
+        table {
+            border-collapse: collapse;
+			width: 100%;
+			margin-top: 30px;
+			page-break-inside: auto;
+        }
     </style>
 </head>
 <body>
@@ -270,11 +277,11 @@
         @if($seeker->SeekerEducation->count() > 0)
             @foreach($seeker->SeekerEducation as $education)
                 
-                <div class="main_table">
-                    <div>
-                        <div style="vertical-align: top; width: 20%; display: inline-block;">
+                <table class="" style="line-height: 25px">
+                    <tr style="">
+                        <td style="vertical-align: top; width: 20%; ">
                             @if(isset($education->from))
-                            <h3 class="exp-date" style="padding-top: 8px">{{ date('M Y', strtotime($education->from)) }} - 
+                            <h3 class="exp-date" style="">{{ date('M Y', strtotime($education->from)) }} - 
                             @if($education->is_current == 1)
                             Present
                             @else
@@ -282,11 +289,11 @@
                             @endif
                             @endif
                             </h3>
-                        </div>
-                        <div style="vertical-align: top; width: 5%; display: inline-block; padding-top: 13px;">
+                        </td>
+                        <td style="vertical-align: top; width: 5%; padding-top: 13px">
                             <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
-                        </div>
-                        <div style="vertical-align: top; width: 65%; display: inline-block; margin-top: -25px; margin-left: 28%">
+                        </td>
+                        <td style=" width: 65%;  padding-top: 8px">
                             <h2>
                                 @if(isset($education->degree) && isset($education->major_subject))
                                 <span class="exp_job_title"> 
@@ -298,9 +305,9 @@
                                 @if(isset($education->location)) {{ $education->location }} @endif
                                 </span>
                             </h2>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                </table>
                 
             @endforeach
         @else
@@ -313,9 +320,9 @@
             <div style="padding: 30px 0;">
             @foreach($seeker->SeekerSkill as $skill)
             @if(isset($skill->Skill))
-            <div class="col" style="width: 45%; display: inline-block; ">
+            <div class="col" style="width: 45%; display: inline-block;">
                 <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style=" width: 5%; display: inline-block">
-                <span class="" style="display: inline-block; padding-top: 35px;">{{ $skill->Skill->name }}</span>
+                <span class="" style="display: inline-block; padding: 15px 0 0 0;">{{ $skill->Skill->name }}</span>
             </div>
             @endif
             @endforeach
@@ -335,9 +342,9 @@
                     <div style=" width: 5%; display: inline-block">
                         <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
                     </div>
-                    <span class="" style=" width: 25%; display: inline-block">{{ $language->name ?? '-' }}</span>
-                    <span style=" width: 5%; display: inline-block">-</span>
-                    <span class="" style=" width: 25%; display: inline-block">{{ $language->level ?? '-' }}</span>
+                    <div class="" style=" width: 25%; display: inline-block;">{{ $language->name ?? '-' }}</div>
+                    <div style=" width: 5%; display: inline-block">-</div>
+                    <div class="" style=" width: 25%; display: inline-block;">{{ $language->level ?? '-' }}</div>
                 </div>
                 @endif
                 @endforeach
@@ -353,7 +360,7 @@
             @foreach($seeker->SeekerReference as $reference)
             <table class="" style="padding: 15px 0">
                 <tr>
-                    <td style="vertical-align: top">
+                    <td style="vertical-align: top; width: 20%">
                         <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                     </td>
                     <td>
