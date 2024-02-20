@@ -245,7 +245,7 @@
                 @else
                 <div class="main_table">
                     <div>
-                        <div style="vertical-align: top; width: 20%; display: inline-block;">
+                        <div style="vertical-align: top; width: 20%; display: inline-block; padding: 0">
                             @if(isset($experience->start_date))
                             <h3 class="exp-date" style="padding-top: 8px">{{ date('M Y', strtotime($experience->start_date)) }} - 
                             @if($experience->is_current_job == 1)
