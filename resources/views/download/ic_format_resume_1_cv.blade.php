@@ -244,8 +244,8 @@
                     <p>No Experience</p>
                 @else
                 <div class="main_table">
-                    <div>
-                        <div style="vertical-align: top; width: 20%; display: inline-block; padding: 0">
+                    <div style="padding-top: 15px; width: 100%;">
+                        <div style="vertical-align: top; width: 20%; display: inline-block; ">
                             @if(isset($experience->start_date))
                             <h3 class="exp-date" style="padding-top: 8px">{{ date('M Y', strtotime($experience->start_date)) }} - 
                             @if($experience->is_current_job == 1)
@@ -259,7 +259,7 @@
                         <div style="vertical-align: top; width: 5%; display: inline-block; padding-top: 13px;">
                             <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
                         </div>
-                        <div  style="vertical-align: top; width: 65%; display: inline-block; margin-top: -35px; margin-left: 28%">
+                        <div  style="vertical-align: top; width: 65%; display: inline-block; margin-left: 28%; margin-top: -5%">
                             <h2>@if(isset($experience->job_title))<span class="exp_job_title">{{ $experience->job_title }}</span> <span class="exp_company"><span style="color: #000"> | @endif @if(isset($experience->company)) </span> {{ $experience->company }}</span> @endif</h2>
                             @if(isset($experience->job_responsibility))
                             {!! $experience->job_responsibility !!}
