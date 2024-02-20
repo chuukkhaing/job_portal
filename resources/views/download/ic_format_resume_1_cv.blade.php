@@ -64,11 +64,6 @@
             font-weight: bold
         }
 
-        .main_table_inner {
-            padding: 0;
-            margin: 0;
-        }
-
         .exp_job_title {
             text-transform: uppercase;
             font-family: 'Agency FB', sans-serif;
@@ -87,11 +82,8 @@
         .page {
             position: relative;
             counter-increment: page;
-            padding: 30px;
-        }
-
-        .main_table {
-            display: grid;
+            padding: 0px 30px;
+            top: -50px;
         }
 
         .name {
@@ -186,7 +178,7 @@
         <p class="footer-text">© infinitycareers.com.mm</p>
     </div>
     <div class="page">
-        <div class="main_table" style="width: 100%; position: relative; margin-bottom: -50px;">
+        <div>
             <div class="" style="display: inline-block; width: 20%; vertical-align: top; padding: 0; margin: 0;">
                 @if($seeker->image)
                 <img class="" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
@@ -194,7 +186,7 @@
                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
                 @endif
             </div>
-            <div class="main_table_inner" style="width: 70%; display: inline-block; padding: 0 30px; margin: 0">
+            <div class="main_table_inner" style="width: 70%; display: inline-block; padding: 0 30px; margin: 0; vertical-align: top;">
                 @if(isset($seeker->first_name ) && isset($seeker->last_name))
                 <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
                 @endif
