@@ -360,7 +360,7 @@
             @foreach($seeker->SeekerReference as $reference)
             <table class="" style="padding: 15px 0">
                 <tr>
-                    <td style="vertical-align: top; width: 20%">
+                    <td style="vertical-align: top; width: 5%">
                         <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                     </td>
                     <td>
