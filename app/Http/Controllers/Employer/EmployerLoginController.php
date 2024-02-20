@@ -13,7 +13,7 @@ class EmployerLoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/employer/employer-profile';
+    protected $redirectTo = "{{ env('MAIN_DOMAIN') }}";
 
     /**
      * Where to redirect users after login.
