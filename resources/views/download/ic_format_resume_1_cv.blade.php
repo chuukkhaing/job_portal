@@ -94,7 +94,7 @@
             text-transform: uppercase;
             font-family: 'Agency FB', sans-serif;
             color: #0563C1;
-            font-size: 4rem;
+            font-size: 3.5rem;
             padding: 0;
             margin: 0
         }
@@ -190,7 +190,7 @@
                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
                 @endif
             </div>
-            <div class="main_table_inner" style="width: 70%; display: inline-block; padding:0 30px">
+            <div class="main_table_inner" style="width: 70%; display: inline-block; padding:0 30px;">
                 @if(isset($seeker->first_name ) && isset($seeker->last_name))
                 <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
                 @endif
