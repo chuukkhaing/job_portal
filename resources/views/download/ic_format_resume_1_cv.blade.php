@@ -190,7 +190,7 @@
                 <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
                 @endif
             </div>
-            <div class="main_table_inner" style="width: 70%; display: inline-block; padding:0 30px;">
+            <div class="main_table_inner" style="width: 70%; display: inline-block; padding:100px 30px 0 30px;">
                 @if(isset($seeker->first_name ) && isset($seeker->last_name))
                 <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
                 @endif
