@@ -33,7 +33,8 @@
         body {
             border: 2px solid #0563c1;
             border-radius: 20px;
-            padding-top: 65px
+            padding-top: 10px;
+            margin: 0
         }
 
         .page-header {
@@ -82,8 +83,8 @@
         .page {
             position: relative;
             counter-increment: page;
-            padding: 0px 30px;
-            top: -50px;
+            padding: 30px 30px 5px 30px;
+            margin: 0;
         }
 
         .name {
@@ -168,7 +169,7 @@
         table {
             border-collapse: collapse;
 			width: 100%;
-			margin-top: 30px;
+			margin-top: 15px;
 			page-break-inside: auto;
         }
     </style>
