@@ -359,7 +359,7 @@
         <h4 class="resume-title" style="">References</h4>
         @if($seeker->SeekerReference->count() > 0)
             @foreach($seeker->SeekerReference as $reference)
-            <table class="main_table" style="padding: 15px 0">
+            <table class="" style="padding: 15px 0">
                 <tr>
                     <td style="vertical-align: top">
                         <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
