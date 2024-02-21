@@ -115,6 +115,7 @@ class JobPostController extends Controller
                                 'status' => $request->status,
                                 'approved_at' => date('Y-m-d', strtotime(now())),
                                 'approved_by' => Auth::user()->id,
+                                'expired_at' => date('Y-m-d', strtotime(now(). ' + 30 days'))
                             ]);
                             $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
                                 'status' => 'Complete'
