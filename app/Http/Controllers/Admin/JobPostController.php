@@ -115,7 +115,6 @@ class JobPostController extends Controller
                                 'status' => $request->status,
                                 'approved_at' => date('Y-m-d', strtotime(now())),
                                 'approved_by' => Auth::user()->id,
-                                'expired_at' => date('Y-m-d', strtotime(now(). ' + 30 days'))
                             ]);
                             $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
                                 'status' => 'Complete'
@@ -127,9 +126,17 @@ class JobPostController extends Controller
                             return redirect()->back();
                         }
                     }else {
-                        $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
+                        if($jobPost->Employer->employer_id != NULL) {
+                            $point_reduce = $jobPost->Employer->MainEmployer->package_point - $jobPost->total_point;
+                        }else {
+                            $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
+                        }
                         if($point_reduce > 0) {
-                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
+                            if($jobPost->Employer->employer_id != NULL) {
+                                $point_update = Employer::findOrFail($jobPost->Employer->MainEmployer->id)->update(['package_point' => $point_reduce]);
+                            }else {
+                                $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
+                            }
                             $update_status = $jobPost->update([
                                 'status' => $request->status,
                                 'approved_at' => date('Y-m-d', strtotime(now())),
