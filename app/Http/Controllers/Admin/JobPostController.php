@@ -106,17 +106,32 @@ class JobPostController extends Controller
                             $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
                         }
                         if($point_reduce > 0) {
-                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
-                            $update_status = $jobPost->update([
-                                'status' => $request->status,
-                                'approved_at' => date('Y-m-d', strtotime(now())),
-                                'approved_by' => Auth::user()->id,
-                            ]);
-                            $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
-                                'status' => 'Complete'
-                            ]);
-                            Alert::success('Success', 'Job Post Updated Successfully!');
-                            return redirect()->route('job-posts.index');
+                            if($jobPost->Employer->employer_id != NULL) {
+                                $point_update = Employer::findOrFail($jobPost->Employer->MainEmployer->id)->update(['package_point' => $point_reduce]);
+                                $update_status = $jobPost->update([
+                                    'status' => $request->status,
+                                    'approved_at' => date('Y-m-d', strtotime(now())),
+                                    'approved_by' => Auth::user()->id,
+                                ]);
+                                $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
+                                    'status' => 'Complete'
+                                ]);
+                                Alert::success('Success', 'Job Post Updated Successfully!');
+                                return redirect()->route('job-posts.index');
+                            }else {
+                                $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
+                                $update_status = $jobPost->update([
+                                    'status' => $request->status,
+                                    'approved_at' => date('Y-m-d', strtotime(now())),
+                                    'approved_by' => Auth::user()->id,
+                                ]);
+                                $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
+                                    'status' => 'Complete'
+                                ]);
+                                Alert::success('Success', 'Job Post Updated Successfully!');
+                                return redirect()->route('job-posts.index');
+                            }
+                            
                         }else {
                             Alert::error('Failed', "Employer's points are not enough!");
                             return redirect()->back();
