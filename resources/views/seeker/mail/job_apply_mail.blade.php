@@ -16,7 +16,7 @@
         we encourage you to keep your profile up-to-date on InfinityCareers.com.mm. A well-maintained profile increases your visibility to potential employers and enhances your job search experience.
         </p>
         <p>
-        If you're passionate about roles like [Job Title], explore similar opportunities on our platform. Your next career move could be just a click away.
+        If you're passionate about roles like {{ $jobApply->JobPost->job_title }}, explore similar opportunities on our platform. Your next career move could be just a click away.
         </p>
 
         @foreach($recommended_jobs as $job_post)
@@ -42,7 +42,7 @@
                     <img src="{{ $url }}" alt="Profile Image" style="width: 75px;">
                     
                 </div>
-                <a href="{{ env('MAIN_DOMAIN').'/job/'. $job_post->slug }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">View</a>
+                <a href="{{ env('MAIN_DOMAIN').'/job-post/'. $job_post->slug }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">View</a>
             </a>
             <hr style="margin: 20px 0;">
         </div>
