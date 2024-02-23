@@ -92,8 +92,8 @@ Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubF
 // blogpost 
 Route::resource('blog-post',BlogPostController::class);
 Route::get('get-blog-posts',[BlogPostController::class, 'allBlogPosts']);
-Route::get('get-post/{slug}',[BlogPostController::class, 'show']);
-
+Route::get('blog-post/{slug}',[BlogPostController::class, 'show']);
+Route::get('related-blog-post/{slug}', [BlogPostController::class, 'relatedBlogPost']);
 // get employer raw 
 Route::get('get-employers', [HomeController::class, 'getEmployers']);
 

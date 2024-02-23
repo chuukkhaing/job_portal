@@ -102,4 +102,15 @@ class BlogPostController extends Controller
             'posts' => $posts
         ], 200);
     }
+
+    public function relatedBlogPost($slug)
+    {
+        $blog_category = BlogPost::whereIsActive(1)->whereNull('deleted_at')->whereSlug($slug)->first();
+        $related_posts = BlogPost::with('BlogCategory:id,name')->whereCategoryId($blog_category->category_id)->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','image','slug','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(10);
+        return response()->json([
+            'status' => 'success',
+            'image_path' => '/blog',
+            'related_posts' => $related_posts
+        ], 200);
+    }
 }
