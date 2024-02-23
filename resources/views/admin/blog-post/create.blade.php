@@ -63,7 +63,13 @@
                             
                         </div>
                     </div>
-                    
+                    <div class="col-4 form-group">
+                        <label for="video_url">Video URL</label>
+                        <input type="url" name="video_url" id="video_url" class="form-control @error('video_url') is-invalid @enderror" placeholder="Enter Youtube Link" value="{{ old('video_url') }}">
+                        @error('video_url')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-4 form-group">
@@ -115,7 +121,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Crop Image And Upload</h4>
-                    <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                    <button type="button" class="close" id="image-close" data-bs-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -150,7 +156,7 @@
             getImage(event.target, croppie); 
         });
         
-        $(".close").click(function() {
+        $("#image-close").click(function() {
             croppie.destroy();
         })
         
