@@ -146,6 +146,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker application 
         Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
+        Route::post('application-search', [SeekerProfileController::class, 'applicationSearch']);
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
@@ -172,9 +173,11 @@ Route::group(['prefix' => 'seeker'], function () {
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
         Route::get('save-job-list', [SeekerSaveJobController::class, 'saveJobList']);
+        Route::post('save-job-search', [SeekerSaveJobController::class, 'saveJobSearch']);
 
         // seeker job alert
         Route::resource('job-alert', SeekerJobAlertController::class);
+        Route::post('job-alert-search', [SeekerJobAlertController::class, 'jobAlertSearch']);
 
         // job post apply
         Route::post('job-post-apply/{id}', [SeekerProfileController::class , 'jobPostApply']);
@@ -255,7 +258,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
         Route::post('buy-point-with-jobpost', [ManageJobController::class, 'buypointWithJobPost']);
         Route::post('buy-point-with-jobpost/{id}', [ManageJobController::class, 'buypointWithJobPostUpdate']);
-        Route::get('mange-job-search', [ManageJobController::class, 'manageJobSearch']);
+        Route::post('manage-job-search', [ManageJobController::class, 'manageJobSearch']);
 
         // generate AI 
         Route::post('job-description-generate', [ManageJobController::class, 'jobDescriptionGenerate']);
@@ -273,6 +276,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::post('change-status', [ApplicantTrackingController::class, 'changeStatus']);
         Route::post('unlock-application', [ApplicantTrackingController::class, 'unlockApplication']);
         Route::post('cv-download', [ApplicantTrackingController::class, 'cvDownload']);
+        Route::post('applicant-tracking-search', [ApplicantTrackingController::class, 'ApplicantTrackingSearch']);
 
         // buy point 
         Route::resource('buy-point', BuyPointController::class);

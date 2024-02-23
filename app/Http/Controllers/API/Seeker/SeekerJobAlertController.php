@@ -137,4 +137,16 @@ class SeekerJobAlertController extends Controller
             ], $e->getCode());
         }
     }
+
+    public function jobAlertSearch(Request $request)
+    {
+        $job_alerts           = JobAlert::with(['FunctionalArea:id,name', 'State:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','job_type','functional_area_id','country','state_id','created_at')->paginate(15);
+        if($request->job_title) {
+            $job_alerts           = JobAlert::with(['FunctionalArea:id,name', 'State:id,name'])->whereSeekerId($request->user()->id)->where('job_title', 'Like', '%' . $request->job_title . '%')->select('id','job_title','job_type','functional_area_id','country','state_id','created_at')->paginate(15);
+        }
+        return response()->json([
+            'status' => 'success',
+            'job_alerts' => $job_alerts
+        ], 200);
+    }
 }
