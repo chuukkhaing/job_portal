@@ -51,7 +51,7 @@
                             <span>Blog Post Image 
                                 <div class="image-preview">
                                     <label for="blog-image">
-                                        <img src="https://via.placeholder.com/400x125" alt="" id="imagePreview" class="w-100">
+                                        <img src="https://via.placeholder.com/920x400" alt="" id="imagePreview" class="w-100">
                                     </label>
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger blog-image-remove d-none ">
                                     <i class="fa-solid fa-xmark text-white"></i>
@@ -138,13 +138,13 @@
             croppie = new Croppie(el, {
                 
                 viewport: {
-                    width: 400,
-                    height: 125,
+                    width: 920,
+                    height: 400,
                     type: 'square'
                 },
                 boundary: {
-                    width: 450,
-                    height: 175,
+                    width: 970,
+                    height: 450,
                 }
             });
             getImage(event.target, croppie); 
@@ -170,7 +170,7 @@
             croppie.result({
                 type: 'blob',
                 size: { 
-                    width: 1920, height: 600 
+                    width: 920, height: 400 
                 }
             }).then(function(blob) {
                 $("#upload_blog_image").modal("hide"); 
@@ -194,7 +194,7 @@
         });
 
         $('.blog-image-remove').click(function() {
-            $('#imagePreview').attr('src', 'https://via.placeholder.com/400x125');
+            $('#imagePreview').attr('src', 'https://via.placeholder.com/920x400');
             $('.blog-image-remove').addClass('d-none');
             $('.blog-image').val('');
         })
