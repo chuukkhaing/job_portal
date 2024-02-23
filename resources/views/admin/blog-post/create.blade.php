@@ -138,13 +138,13 @@
             croppie = new Croppie(el, {
                 
                 viewport: {
-                    width: 920,
-                    height: 400,
+                    width: 400,
+                    height: 175,
                     type: 'square'
                 },
                 boundary: {
-                    width: 970,
-                    height: 450,
+                    width: 450,
+                    height: 225,
                 }
             });
             getImage(event.target, croppie); 
