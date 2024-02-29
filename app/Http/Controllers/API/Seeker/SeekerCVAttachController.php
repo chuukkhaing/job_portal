@@ -225,4 +225,13 @@ class SeekerCVAttachController extends Controller
             return $pdf->download(date('YmdHi').$seeker->id.'_ic_format_resume_1_cv.pdf');
         }
     }
+
+    public function OrgCvDownload(Request $request)
+    {
+        $seeker = Seeker::findOrFail($request->user()->id);
+        $attach = seekerAttach::whereId($request->cv_id)->whereSeekerId($seeker->id)->first();
+        
+        return Storage::disk('s3')->download('seeker/cv/'. $attach->name);
+        
+    }
 }
