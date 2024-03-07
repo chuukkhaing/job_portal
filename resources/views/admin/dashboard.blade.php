@@ -124,7 +124,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jobApply }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
+                            <i class="fas fa-file-circle-check fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
