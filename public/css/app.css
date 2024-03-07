@@ -133,6 +133,14 @@
 .employer-background-edit-icon {
     cursor: pointer;
 }
+
+.text-indigo {
+    color: var(--bs-indigo);
+}
+
+.border-left-indigo {
+    border-left: 0.25rem solid var(--bs-indigo) !important;
+}
 @charset "UTF-8"; /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors

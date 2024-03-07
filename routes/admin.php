@@ -33,6 +33,7 @@ use App\Http\Controllers\Seeker\SeekerLoginController;
 use App\Http\Controllers\Employer\EmployerLoginController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SEOController;
+use App\Http\Controllers\Admin\JobApplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -152,6 +153,10 @@ Route::group([], function(){
         // site setting 
         Route::resource('site-setting', SiteSettingController::class);
         Route::get('site-setting/reset/{id}', [SiteSettingController::class, 'reset'])->name('site-setting.reset');
+
+        // job apply 
+        Route::get('job-apply', [JobApplyController::class, 'index'])->name('job-apply.index');
+        Route::get('job-apply-seeker/{id}', [JobApplyController::class, 'jobApplySeeker'])->name('job-apply.seeker');
 
         // seo
         Route::resource('seo', SEOController::class);

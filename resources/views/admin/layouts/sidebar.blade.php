@@ -159,6 +159,24 @@
     </li>
     @endcan
 
+    <!-- Nav Item - Job Apply Menu -->
+    @canany(['job-apply', 'job-apply-seeker'])
+    <li class="nav-item {{ Request::is('bank-info*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jobApplied"
+            aria-expanded="true" aria-controls="jobApplied">
+            <i class="fa-solid fa-file-circle-check"></i>
+            <span>Applied Jobs</span>
+        </a>
+        <div id="jobApplied" class="collapse {{ Request::is('job-apply*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('job-apply')
+                <a class="collapse-item {{ Request::is('job-apply*') ? 'active' : '' }}" href="{{ route('job-apply.index') }}">Applied Jobs</a>
+                @endcan
+            </div>
+        </div>
+    </li>
+    @endcan
+
     <!-- Nav Item - Finance Menu -->
     @canany(['bank-info-list', 'commercial-tax', 'invoice-list'])
     <li class="nav-item {{ Request::is('bank-info*') ? 'active' : '' }} {{ Request::is('tax*') ? 'active' : '' }}">

@@ -541,7 +541,7 @@ class EmployerJobPostController extends Controller
         
         $received = JobApply::whereStatus('received')->whereJobPostId($id)->count();
         $viewed = JobApply::whereStatus('viewed')->whereJobPostId($id)->count();
-        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($id)->count();
+        $short-listed = JobApply::whereStatus('short-listed')->whereJobPostId($id)->count();
         $interview = JobApply::whereStatus('interview')->whereJobPostId($id)->count();
         $hire = JobApply::whereStatus('hire')->whereJobPostId($id)->count();
         $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($id)->count();
@@ -549,7 +549,7 @@ class EmployerJobPostController extends Controller
         $count = [
             'received' => $received,
             'viewed' => $viewed,
-            'shortlisted' => $shortlisted,
+            'short-listed' => $short-listed,
             'interview' => $interview,
             'hire' => $hire,
             'notsuitable' => $notsuitable,
@@ -651,7 +651,7 @@ class EmployerJobPostController extends Controller
         
         $received = JobApply::whereStatus('received')->whereJobPostId($jobPostId)->count();
         $viewed = JobApply::whereStatus('viewed')->whereJobPostId($jobPostId)->count();
-        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
+        $short-listed = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
         $interview = JobApply::whereStatus('interview')->whereJobPostId($jobPostId)->count();
         $hire = JobApply::whereStatus('hire')->whereJobPostId($jobPostId)->count();
         $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($jobPostId)->count();
@@ -659,7 +659,7 @@ class EmployerJobPostController extends Controller
         $count = [
             'received' => $received,
             'viewed' => $viewed,
-            'shortlisted' => $shortlisted,
+            'short-listed' => $short-listed,
             'interview' => $interview,
             'hire' => $hire,
             'notsuitable' => $notsuitable,
@@ -765,7 +765,7 @@ class EmployerJobPostController extends Controller
         $references = SeekerReference::whereSeekerId($seeker->id)->get();
         $received = JobApply::whereStatus('received')->whereJobPostId($jobPostId)->count();
         $viewed = JobApply::whereStatus('viewed')->whereJobPostId($jobPostId)->count();
-        $shortlisted = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
+        $short-listed = JobApply::whereStatus('short-listed')->whereJobPostId($jobPostId)->count();
         $interview = JobApply::whereStatus('interview')->whereJobPostId($jobPostId)->count();
         $hire = JobApply::whereStatus('hire')->whereJobPostId($jobPostId)->count();
         $notsuitable = JobApply::whereStatus('not-suitable')->whereJobPostId($jobPostId)->count();
@@ -774,7 +774,7 @@ class EmployerJobPostController extends Controller
         $count = [
             'received' => $received,
             'viewed' => $viewed,
-            'shortlisted' => $shortlisted,
+            'short-listed' => $short-listed,
             'interview' => $interview,
             'hire' => $hire,
             'notsuitable' => $notsuitable,

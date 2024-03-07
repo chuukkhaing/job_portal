@@ -132,3 +132,11 @@
 .employer-background-edit-icon {
     cursor: pointer;
 }
+
+.text-indigo {
+    color: var(--bs-indigo);
+}
+
+.border-left-indigo {
+    border-left: 0.25rem solid var(--bs-indigo) !important;
+}
