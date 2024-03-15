@@ -24,6 +24,7 @@ class CreateSeekersTable extends Migration
             $table->rememberToken();
             $table->longtext('device_id')->nullable();
             $table->string('device_type')->nullable();
+            $table->longtext('fcm_token')->nullable();
             $table->string('country')->nullable();
             $table->integer('state_id')->nullable();
             $table->integer('township_id')->nullable();

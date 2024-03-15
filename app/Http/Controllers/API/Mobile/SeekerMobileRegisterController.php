@@ -42,7 +42,8 @@ class SeekerMobileRegisterController extends Controller
                 'register_at'              => Carbon::now(),
                 'is_active'                => 0,
                 'device_id'                => $request['device_id'],
-                'device_type'              => $request['device_type']
+                'device_type'              => $request['device_type'],
+                'fcm_token'                => $request['fcm_token']
             ]);
             if ($seeker) {
                 \Mail::to($seeker->email)->send(new SeekerMobileVerificationEmail($seeker));

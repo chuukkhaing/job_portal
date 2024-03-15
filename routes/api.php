@@ -118,6 +118,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
     // seeker login 
     Route::post('login', [SeekerLoginController::class, 'login']);
+    Route::post('mobile-login', [SeekerLoginController::class, 'MobileLogin']);
 
     // seeker forget password 
     Route::post('forget-password', [SeekerRegisterController::class, 'getEmail']);
