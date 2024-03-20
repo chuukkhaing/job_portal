@@ -64,7 +64,7 @@ class EmployerController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:employers,email,NULL,id,deleted_at,NULL',
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
-            'package_start_date' => 'required_if|package_id,1,2,3'
+            'package_start_date' => 'required_if:package_id,1,2,3'
         ]);
 
         if($request->image_base64 != ''){
