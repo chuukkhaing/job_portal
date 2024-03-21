@@ -142,7 +142,7 @@
                                                             </p>
                                                             @endif
                                                             <h5 class="fw-bold text-dark">Specialties:</h5>
-                                                            @if($jobpost->Employer->MainEmployer->Industry->name)
+                                                            @if(isset($jobpost->Employer->MainEmployer->Industry))
                                                             <span class="mb-4 btn border seeker_image_input_label">
                                                                 {{ $jobpost->Employer->MainEmployer->Industry->name }}
                                                             </span>
@@ -161,7 +161,7 @@
                                                 <div class="px-5 py-3">
                                                     <h5 class="fw-bold text-dark">Company Details</h5>
                                                     <div class="row">
-                                                        @if($jobpost->Employer->MainEmployer->Industry->name)
+                                                        @if(isset($jobpost->Employer->MainEmployer->Industry))
                                                         <div class="col">
                                                             <h6 class="fw-bold text-dark">Industry Type</h6>
                                                             <p class="mb-4 btn border seeker_image_input_label w-100">
@@ -236,7 +236,7 @@
                                                 <div class="px-2 px-md-5 py-3">
                                                     <h5 class="fw-bold text-dark">Company Details</h5>
                                                     <div class="row">
-                                                        @if($jobpost->Employer->MainEmployer->Industry->name)
+                                                        @if(isset($jobpost->Employer->MainEmployer->Industry))
                                                         <div class="col-12 col-lg-4">
                                                             <h6 class="fw-bold text-dark">Industry Type</h6>
                                                             <p class="mb-4 btn border seeker_image_input_label w-100">
@@ -382,7 +382,7 @@
                                                             </p>
                                                             @endif
                                                             <h5 class="fw-bold text-dark">Specialties:</h5>
-                                                            @if($jobpost->Employer->Industry->name)
+                                                            @if(isset($jobpost->Employer->Industry))
                                                             <span class="mb-4 btn border seeker_image_input_label">
                                                                 {{ $jobpost->Employer->Industry->name }}
                                                             </span>
@@ -401,7 +401,7 @@
                                                 <div class="px-5 py-3">
                                                     <h5 class="fw-bold text-dark">Company Details</h5>
                                                     <div class="row">
-                                                        @if($jobpost->Employer->Industry->name)
+                                                        @if(isset($jobpost->Employer->Industry))
                                                         <div class="col">
                                                             <h6 class="fw-bold text-dark">Industry Type</h6>
                                                             <p class="mb-4 btn border seeker_image_input_label w-100">
@@ -476,7 +476,7 @@
                                                 <div class="px-2 px-md-5 py-3">
                                                     <h5 class="fw-bold text-dark">Company Details</h5>
                                                     <div class="row">
-                                                        @if($jobpost->Employer->Industry->name)
+                                                        @if(isset($jobpost->Employer->Industry))
                                                         <div class="col-12 col-lg-4">
                                                             <h6 class="fw-bold text-dark">Industry Type</h6>
                                                             <p class="mb-4 btn border seeker_image_input_label w-100">
