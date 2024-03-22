@@ -21,7 +21,8 @@
         "pyaesoneaung/myanmar-phone-validation-rules": "^1.0",
         "realrashid/sweet-alert": "^7.0",
         "spatie/laravel-permission": "^5.10",
-        "symfony/polyfill-mbstring": "^1.28"
+        "symfony/polyfill-mbstring": "^1.28",
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
