@@ -66,6 +66,7 @@
                 { data: 'job_post_status' },
                 { data: 'action' }
             ],
+            draw: 1,
             processing: true,
             serverSide: true
         });
