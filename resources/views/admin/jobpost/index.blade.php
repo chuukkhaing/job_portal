@@ -23,23 +23,15 @@
         @include('sweetalert::alert')
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="job-post-dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Job Title</th>
-                            <th>Employer Name</th>
-                            <th>Industry</th>
-                            <th>Main Functional Area</th>
-                            <th>Activation</th>
-                            <th>Job Post Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
+                <div class="row">
+                    <div class="col text-end py-2">
+                        <label for="search_job_post" class="d-inline-block">Search:</label>
+                        <input type="text" name="search_job_post" id="search_job_post" class="form-control form-control-sm d-inline-block col-2" value="{{ $_GET['search'] ?? '' }}">
+                    </div>
+                </div>
+                <div class="data-fetch">
+                @include('admin.jobpost.table')
+                </div>
             </div>
         </div>
     </div>
@@ -48,28 +40,27 @@
 <!-- /.container-fluid -->
 @endsection
 @push('script')
-
 <script>
     $(function() {
-        new DataTable('#job-post-dataTable', {
-            ajax: {
-                url: "{{ route('job-posts.index') }}",
-                type: 'GET'
-            },
-            columns: [
-                { data: 'DT_RowIndex' },
-                { data: 'job_title' },
-                { data: 'employer_name' },
-                { data: 'industry' },
-                { data: 'main_functional_area' },
-                { data: 'activation' },
-                { data: 'job_post_status' },
-                { data: 'action' }
-            ],
-            draw: 1,
-            processing: true,
-            serverSide: true
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
+        
+        $('#search_job_post').on('keyup', function() {
+            $value = $(this).val();
+            $.ajax({
+                type : 'GET',
+                url : '{{ route("job-posts.index") }}',
+                data: {
+                    'search' : $value
+                },
+                success:function(data){
+                    $('.data-fetch').empty().html(data);
+                }
+            });
+        })
     })
 </script>
 @endpush
