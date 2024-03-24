@@ -38,14 +38,34 @@ class JobPostController extends Controller
                             $employer->where('name', 'Like', '%'. $request->search .'%');
                         })->orWhereHas('Industry', function($industry) use($request) {
                             $industry->where('name','Like','%'. $request->search . '%');
-                        })->orWhere('job_title','Like','%'. $request->search .'%')->paginate(10);
+                        })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                            $functional_area->where('name','Like','%'. $request->search . '%');
+                        })->orWhere('job_title','Like','%'. $request->search .'%')
+                        ->orWhere('status', $request->search)
+                        ->when($request->search == 'active', function ($active) {
+                            return $active->orWhere('is_active',1);
+                        })
+                        ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                            return $active->orWhere('is_active',0);
+                        })
+                        ->paginate(10);
                 if($request->has('status')) {
                     $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')
                             ->whereHas('Employer', function($employer) use($request) {
                                 $employer->where('name', 'Like', '%'. $request->search .'%');
                             })->orWhereHas('Industry', function($industry) use($request) {
                                 $industry->where('name','Like','%'. $request->search . '%');
-                            })->orWhere('job_title','Like','%'. $request->search .'%')->paginate(10);
+                            })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                                $functional_area->where('name','Like','%'. $request->search . '%');
+                            })->orWhere('job_title','Like','%'. $request->search .'%')
+                            ->orWhere('status', $request->search)
+                            ->when($request->search == 'active', function ($active) {
+                                return $active->orWhere('is_active',1);
+                            })
+                            ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                                return $active->orWhere('is_active',0);
+                            })
+                            ->paginate(10);
                 }
                 return view('admin.jobpost.table', compact('data'));
         }
@@ -55,14 +75,34 @@ class JobPostController extends Controller
                         $employer->where('name', 'Like', '%'. $request->search .'%');
                     })->orWhereHas('Industry', function($industry) use($request) {
                         $industry->where('name','Like','%'. $request->search . '%');
-                    })->orWhere('job_title','Like','%'. $request->search .'%')->paginate(10);
+                    })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                        $functional_area->where('name','Like','%'. $request->search . '%');
+                    })->orWhere('job_title','Like','%'. $request->search .'%')
+                    ->orWhere('status', $request->search)
+                    ->when($request->search == 'active', function ($active) {
+                        return $active->orWhere('is_active',1);
+                    })
+                    ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                        return $active->orWhere('is_active',0);
+                    })
+                    ->paginate(10);
             if($request->has('status')) {
                 $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')
                         ->whereHas('Employer', function($employer) use($request) {
                             $employer->where('name', 'Like', '%'. $request->search .'%');
                         })->orWhereHas('Industry', function($industry) use($request) {
                             $industry->where('name','Like','%'. $request->search . '%');
-                        })->orWhere('job_title','Like','%'. $request->search .'%')->paginate(10);
+                        })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                            $functional_area->where('name','Like','%'. $request->search . '%');
+                        })->orWhere('job_title','Like','%'. $request->search .'%')
+                        ->orWhere('status', $request->search)
+                        ->when($request->search == 'active', function ($active) {
+                            return $active->orWhere('is_active',1);
+                        })
+                        ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                            return $active->orWhere('is_active',0);
+                        })
+                        ->paginate(10);
             }
             return view('admin.jobpost.index',compact('data'));
         }
