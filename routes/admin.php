@@ -106,6 +106,7 @@ Route::group([], function(){
         Route::resource('feedback', FeedbackController::class);
 
         // jobpost 
+        Route::get('job-posts/search', [JobPostController::class, 'search'])->name('job-posts.search');
         Route::resource('job-posts', JobPostController::class);
         
         // profile 

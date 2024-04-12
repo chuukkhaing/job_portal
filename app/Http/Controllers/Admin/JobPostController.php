@@ -36,11 +36,88 @@ class JobPostController extends Controller
 
     public function index(Request $request)
     {
-        $jobPosts = JobPost::orderBy('updated_at', 'desc')->get();
+        
+        $data = JobPost::orderBy('updated_at', 'desc')->paginate(10);
         if($request->has('status')) {
-            $jobPosts = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')->get();
+            $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')->paginate(10);
         }
-        return view ('admin.jobpost.index', compact('jobPosts'));
+        if ($request->ajax()) {
+                $data = JobPost::orderBy('updated_at', 'desc')
+                        ->whereHas('Employer', function($employer) use($request) {
+                            $employer->where('name', 'Like', '%'. $request->search .'%');
+                        })->orWhereHas('Industry', function($industry) use($request) {
+                            $industry->where('name','Like','%'. $request->search . '%');
+                        })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                            $functional_area->where('name','Like','%'. $request->search . '%');
+                        })->orWhere('job_title','Like','%'. $request->search .'%')
+                        ->orWhere('status', $request->search)
+                        ->when($request->search == 'active', function ($active) {
+                            return $active->orWhere('is_active',1);
+                        })
+                        ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                            return $active->orWhere('is_active',0);
+                        })
+                        ->paginate(10);
+                if($request->has('status')) {
+                    $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')
+                            ->whereHas('Employer', function($employer) use($request) {
+                                $employer->where('name', 'Like', '%'. $request->search .'%');
+                            })->orWhereHas('Industry', function($industry) use($request) {
+                                $industry->where('name','Like','%'. $request->search . '%');
+                            })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                                $functional_area->where('name','Like','%'. $request->search . '%');
+                            })->orWhere('job_title','Like','%'. $request->search .'%')
+                            ->orWhere('status', $request->search)
+                            ->when($request->search == 'active', function ($active) {
+                                return $active->orWhere('is_active',1);
+                            })
+                            ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                                return $active->orWhere('is_active',0);
+                            })
+                            ->paginate(10);
+                }
+                return view('admin.jobpost.table', compact('data'));
+        }
+        if ($request->search) {
+            $data = JobPost::orderBy('updated_at', 'desc')
+                    ->whereHas('Employer', function($employer) use($request) {
+                        $employer->where('name', 'Like', '%'. $request->search .'%');
+                    })->orWhereHas('Industry', function($industry) use($request) {
+                        $industry->where('name','Like','%'. $request->search . '%');
+                    })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                        $functional_area->where('name','Like','%'. $request->search . '%');
+                    })->orWhere('job_title','Like','%'. $request->search .'%')
+                    ->orWhere('status', $request->search)
+                    ->when($request->search == 'active', function ($active) {
+                        return $active->orWhere('is_active',1);
+                    })
+                    ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                        return $active->orWhere('is_active',0);
+                    })
+                    ->paginate(10);
+            if($request->has('status')) {
+                $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')
+                        ->whereHas('Employer', function($employer) use($request) {
+                            $employer->where('name', 'Like', '%'. $request->search .'%');
+                        })->orWhereHas('Industry', function($industry) use($request) {
+                            $industry->where('name','Like','%'. $request->search . '%');
+                        })->orWhereHas('MainFunctionalArea', function($functional_area) use($request) {
+                            $functional_area->where('name','Like','%'. $request->search . '%');
+                        })->orWhere('job_title','Like','%'. $request->search .'%')
+                        ->orWhere('status', $request->search)
+                        ->when($request->search == 'active', function ($active) {
+                            return $active->orWhere('is_active',1);
+                        })
+                        ->when($request->search == 'inactive' || $request->search == 'in-active', function ($active) {
+                            return $active->orWhere('is_active',0);
+                        })
+                        ->paginate(10);
+            }
+            return view('admin.jobpost.index',compact('data'));
+        }
+            return view('admin.jobpost.index',compact('data'));
+        // return view ('admin.jobpost.index')->withJobPosts($dummyDetails);
+        
     }
 
     /**
@@ -250,5 +327,74 @@ class JobPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output = "";
+            $dummyDetails = JobPost::orderBy('updated_at', 'desc')->where('job_title','Like','%'. $request->search .'%')->paginate(10);
+            if($request->has('status')) {
+                $dummyDetails = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')->where('job_title','Like','%'. $request->search .'%')->paginate(10);
+            }
+            if($dummyDetails)
+            {
+                foreach ($dummyDetails as $key => $row) {
+                    if(isset($row->Employer->MainEmployer)) {
+                        $employer = '<a href="'.route("employers.edit", $row->Employer->employer_id).'" class="text-decoration-none text-black">'. $row->Employer->MainEmployer->name.'</a>';
+                        $verify = '';
+                        if($row->Employer->MainEmployer->is_verified == 1) {
+                            $verify = '<i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>';
+                        }
+                        $employer_name = $employer . $verify;
+                    }elseif(isset($row->Employer)) {
+                        $employer = '<a href="'.route("employers.edit", $row->Employer->id).'" class="text-decoration-none text-black">'. $row->Employer->name.'</a>';
+                        $verify = '';
+                        if($row->Employer->is_verified == 1) {
+                            $verify = '<i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i>';
+                        }
+                        $employer_name = $employer . $verify;
+                    }
+                    $industry = $row->Industry ? $row->Industry->name : '';
+                    $main_functional_area = $row->MainFunctionalArea ? $row->MainFunctionalArea->name : '';
+                    $activation = $row->is_active == 1 ? '<span class="badge text-light bg-success">Active</span>' : '<span class="badge text-light bg-danger">In-Active</span>';
+                    if($row->status == 'Pending') {
+                        $status = '<span class="badge text-light bg-secondary">'.$row->status.'</span>';
+                    }
+                    elseif($row->status == 'Online') {
+                        $status = '<span class="badge text-light bg-success">'. $row->status .'</span>';
+                    }
+                    elseif($row->status == 'Reject') {
+                        $status = '<span class="badge text-dark bg-warning">'. $row->status .'</span>';
+                    }
+                    elseif($row->status == 'Expire') {
+                        $status = '<span class="badge text-light bg-danger">'. $row->status .'</span>';
+                    }
+                    elseif($row->status == 'Draft') {
+                        $status = '<span class="badge text-light bg-dark">'. $row->status .'</span>';
+                    }
+                    $action = '<a href="'. route("job-posts.edit", $row->id) .'" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>';
+                    $output.='<tr>'.
+                    '<td>'. $key+1 .'</td>'.
+                    '<td>'.$row->job_title.'</td>'.
+                    '<td>'.$employer_name.'</td>'.
+                    '<td>'.$industry.'</td>'.
+                    '<td>'.$main_functional_area.'</td>'.
+                    '<td>'.$activation.'</td>'.
+                    '<td>'.$status.'</td>'.
+                    '<td>'.$action.'</td>'.
+                    '</tr>';
+                }
+                $paginate = 'There is no item to show.';
+                if($dummyDetails->count() > 0) {
+                    $paginate = '{{ '.$dummyDetails->links().' }}';
+                }
+            return Response()->json([
+                'output' => $output,
+                'paginate' => $paginate
+            ]);
+            }
+        }
     }
 }
