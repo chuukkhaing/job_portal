@@ -69,13 +69,13 @@ class SeekerCVAttachController extends Controller
             Storage::disk('s3')->put($path, $pdf->output());
             $path = Storage::disk('s3')->url($path);
             
-            $attach = seekerAttach::create([
+            $attach = SeekerAttach::create([
                 'seeker_id' => $request->user()->id,
                 'name'      => $fileName,
             ]);
 
             $seeker         = Seeker::findOrFail($request->user()->id);
-            $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
+            $seeker_attachs = SeekerAttach::whereSeekerId($seeker->id)->get();
             if ($seeker_attachs->count() > 0) {
                 $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
                 $seeker_percent_update = $seeker_percent->update([
@@ -106,13 +106,13 @@ class SeekerCVAttachController extends Controller
                 $path     = 'seeker/cv/' . $cv;
                 Storage::disk('s3')->put($path, file_get_contents($file));
                 $path = Storage::disk('s3')->url($path);
-                $attach = seekerAttach::create([
+                $attach = SeekerAttach::create([
                     'seeker_id' => $request->user()->id,
                     'name'      => $cv,
                 ]);
         
                 $seeker         = Seeker::findOrFail($request->user()->id);
-                $seeker_attachs = seekerAttach::whereSeekerId($seeker->id)->get();
+                $seeker_attachs = SeekerAttach::whereSeekerId($seeker->id)->get();
                 if ($seeker_attachs->count() > 0) {
                     $seeker_percent        = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->first();
                     $seeker_percent_update = $seeker_percent->update([

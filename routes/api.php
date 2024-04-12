@@ -19,6 +19,7 @@ use App\Http\Controllers\API\Seeker\CareerOfChoiceController;
 use App\Http\Controllers\API\Seeker\SeekerCVAttachController;
 use App\Http\Controllers\API\Seeker\SeekerSaveJobController;
 use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
+use App\Http\Controllers\API\Seeker\SeekerNotificationController;
 
 // employer 
 use App\Http\Controllers\API\Employer\EmployerRegisterController;
@@ -195,6 +196,10 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // mobile personal information 
         Route::post('mobile-personal-information', [SeekerMobileProfileController::class, 'personalInformation']);
+
+        // notification 
+        Route::get('notifications', [SeekerNotificationController::class, 'getNotification']);
+        Route::get('read-noti', [SeekerNotificationController::class, 'readNoti']);
     });
 
     Route::group(['prefix' => 'mobile'], function () {
@@ -288,7 +293,6 @@ Route::group(['prefix' => 'employer'], function () {
 
         // point record 
         Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
-        Route::post('used-point-search', [PointRecordController::class, 'usedPointSearch']);
         Route::get('get-all-used-point-history', [PointRecordController::class, 'getAllUsedPointHistory']);
 
         // get skill 

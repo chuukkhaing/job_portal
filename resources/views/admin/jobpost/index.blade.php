@@ -23,7 +23,7 @@
         @include('sweetalert::alert')
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="job-post-dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -37,7 +37,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        @foreach($jobPosts as $key => $jobPost)
+                        <tr>
+                            <td>{{ ++$key }}</td>
+                            <td>{{ $jobPost->job_title }}</td>
+                            <td>
+                                @if(isset($jobPost->Employer->MainEmployer))
+                                <a href="{{ route('employers.edit', $jobPost->Employer->employer_id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->MainEmployer->name }}</a>@if($jobPost->Employer->MainEmployer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
+                                @else
+                                <a href="{{ route('employers.edit', $jobPost->Employer->id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->name }}</a>@if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
+                                @endif
+                            </td>
+                            <td>{{ $jobPost->Industry ? $jobPost->Industry->name : '' }}</td>
+                            <td>{{ $jobPost->MainFunctionalArea ? $jobPost->MainFunctionalArea->name : '' }}</td>
+                            <td>@if($jobPost->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
+                            <td>
+                                @if($jobPost->status == 'Pending')
+                                <span class="badge text-light bg-secondary">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Online')
+                                <span class="badge text-light bg-success">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Reject')
+                                <span class="badge text-dark bg-warning">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Expire')
+                                <span class="badge text-light bg-danger">{{ $jobPost->status }}</span>
+                                @elseif($jobPost->status == 'Draft')
+                                <span class="badge text-light bg-dark">{{ $jobPost->status }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @can('job-post-edit')
+                                <a href="{{ route('job-posts.edit', $jobPost->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                @endcan
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -47,29 +80,3 @@
 </div>
 <!-- /.container-fluid -->
 @endsection
-@push('script')
-
-<script>
-    $(function() {
-        new DataTable('#job-post-dataTable', {
-            ajax: {
-                url: "{{ route('job-posts.index') }}",
-                type: 'GET'
-            },
-            columns: [
-                { data: 'DT_RowIndex' },
-                { data: 'job_title' },
-                { data: 'employer_name' },
-                { data: 'industry' },
-                { data: 'main_functional_area' },
-                { data: 'activation' },
-                { data: 'job_post_status' },
-                { data: 'action' }
-            ],
-            draw: 1,
-            processing: true,
-            serverSide: true
-        });
-    })
-</script>
-@endpush
