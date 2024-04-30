@@ -57,8 +57,9 @@ class SeekerEducationController extends Controller
         if ($validator->fails()) {
             return response(['errors'=>$validator->messages()], 422);
         }else {
+            $to = $request->to;
             if($request->is_current == 1) {
-                $request->to = null;
+                $to = null;
             }
             $education_create = SeekerEducation::create([
                 'seeker_id'     => $request->user()->id,
@@ -66,7 +67,7 @@ class SeekerEducationController extends Controller
                 'major_subject' => $request->major_subject,
                 'location'      => $request->location,
                 'from'          => $request->from,
-                'to'            => $request->to ? date('Y-m-d', strtotime($request->to)) : null,
+                'to'            => $to ? date('Y-m-d', strtotime($request->to)) : null,
                 'school'        => $request->school,
                 'is_current'    => $request->is_current ?? 0
             ]);
