@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Seeker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Seeker\Seeker;
 use Auth;
 
 class SeekerLoginController extends Controller

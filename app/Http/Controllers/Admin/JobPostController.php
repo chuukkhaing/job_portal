@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Employer\JobPost;
 use App\Models\Employer\PointRecord;
 use App\Models\Admin\Employer;
-use DataTables;
+use App\Models\Seeker\JobAlert;
+use App\Models\Seeker\Seeker;
+use Kreait\Laravel\Firebase\Facades\Firebase;    
+use Kreait\Firebase\Messaging\CloudMessage;
+use App\Notifications\JobAlertNotification;
+use Illuminate\Support\Facades\Notification;
 use Alert;
 use Auth;
 
@@ -18,16 +23,20 @@ class JobPostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $notification;
+
     function __construct()
     {
         $this->middleware('permission:job-post-list|job-post-create|job-post-edit|job-post-delete', ['only' => ['index','store']]);
         $this->middleware('permission:job-post-create', ['only' => ['create','store']]);
         $this->middleware('permission:job-post-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:job-post-delete', ['only' => ['destroy']]);
+        $this->notification = Firebase::messaging();
     }
 
     public function index(Request $request)
     {
+        
         $data = JobPost::orderBy('updated_at', 'desc')->paginate(10);
         if($request->has('status')) {
             $data = JobPost::whereStatus($request->status)->orderBy('updated_at', 'desc')->paginate(10);
@@ -173,21 +182,52 @@ class JobPostController extends Controller
                         'approved_at' => date('Y-m-d', strtotime(now())),
                         'approved_by' => Auth::user()->id,
                     ]);
+
+                    $jobAlerts = JobAlert::where('job_title', 'Like', '%' . $jobPost->job_title . '%')->get();
+                    if($jobAlerts->count() > 0) {
+                        foreach($jobAlerts as $job_alert) {
+                            $title = 'Infinity Careers Job Alert';
+                            $msg = json_encode([
+                                'title' => $title,
+                                'body' => 'Your Job Alert for '. $jobPost->job_title,
+                                'job_post_slug' => $jobPost->slug,
+                                'imageUrl' => null
+                            ]);
+                            try {
+                                if(isset($job_alert->Seeker->fcm_token)) {
+                                    $seeker = $job_alert->Seeker;
+                                    $FcmToken = $job_alert->Seeker->fcm_token;
+                                    
+                                    $body = json_encode([
+                                        'job_post_slug' => $jobPost->slug,
+                                        'imageUrl' => null
+                                    ]);
+
+                                    $message = CloudMessage::fromArray([
+                                        'token' => $FcmToken,
+                                        'notification' => [
+                                            'title' => $title,
+                                            'body' => 'Your Job Alert for '. $jobPost->job_title
+                                            ],
+                                        'data' => [
+                                            'body' => $body
+                                            ]
+                                    ]);
+                                    $this->notification->send($message);
+                                }
+                            } catch (\Exception $e) {
+                                $e->getMessage();
+                            }
+                            Notification::send($job_alert->Seeker, new JobAlertNotification($msg, $job_alert, $jobPost));
+                        }
+                    }
                     Alert::success('Success', 'Job Post Updated Successfully!');
                     return redirect()->route('job-posts.index');
                 }elseif($jobPost->total_point > 0) {
                     if($jobPost->expired_at) {
-                        if($jobPost->Employer->employer_id != NULL) {
-                            $point_reduce = $jobPost->Employer->MainEmployer->package_point - $jobPost->total_point;
-                        }else {
-                            $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                        }
+                        $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
                         if($point_reduce > 0) {
-                            if($jobPost->Employer->employer_id != NULL) {
-                                $point_update = Employer::findOrFail($jobPost->Employer->MainEmployer->id)->update(['package_point' => $point_reduce]);
-                            }else {
-                                $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
-                            }
+                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
                             $update_status = $jobPost->update([
                                 'status' => $request->status,
                                 'approved_at' => date('Y-m-d', strtotime(now())),
@@ -196,6 +236,45 @@ class JobPostController extends Controller
                             $point_record = PointRecord::whereJobPostId($jobPost->id)->update([
                                 'status' => 'Complete'
                             ]);
+
+                            $jobAlerts = JobAlert::where('job_title', 'Like', '%' . $jobPost->job_title . '%')->get();
+                            if($jobAlerts->count() > 0) {
+                                foreach($jobAlerts as $job_alert) {
+                                    $title = 'Infinity Careers Job Alert';
+                                    $msg = json_encode([
+                                        'title' => $title,
+                                        'body' => 'Your Job Alert for '. $jobPost->job_title,
+                                        'job_post_slug' => $jobPost->slug,
+                                        'imageUrl' => null
+                                    ]);
+                                    try {
+                                        if(isset($job_alert->Seeker->fcm_token)) {
+                                            $seeker = $job_alert->Seeker;
+                                            $FcmToken = $job_alert->Seeker->fcm_token;
+                                            
+                                            $body = json_encode([
+                                                'job_post_slug' => $jobPost->slug,
+                                                'imageUrl' => null
+                                            ]);
+
+                                            $message = CloudMessage::fromArray([
+                                                'token' => $FcmToken,
+                                                'notification' => [
+                                                    'title' => $title,
+                                                    'body' => 'Your Job Alert for '. $jobPost->job_title
+                                                    ],
+                                                'data' => [
+                                                    'body' => $body
+                                                    ]
+                                            ]);
+                                            $this->notification->send($message);
+                                        }
+                                    } catch (\Exception $e) {
+                                        $e->getMessage();
+                                    }
+                                    Notification::send($job_alert->Seeker, new JobAlertNotification($msg, $job_alert, $jobPost));
+                                }
+                            }
                             Alert::success('Success', 'Job Post Updated Successfully!');
                             return redirect()->route('job-posts.index');
                         }else {
@@ -203,17 +282,9 @@ class JobPostController extends Controller
                             return redirect()->back();
                         }
                     }else {
-                        if($jobPost->Employer->employer_id != NULL) {
-                            $point_reduce = $jobPost->Employer->MainEmployer->package_point - $jobPost->total_point;
-                        }else {
-                            $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                        }
+                        $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
                         if($point_reduce > 0) {
-                            if($jobPost->Employer->employer_id != NULL) {
-                                $point_update = Employer::findOrFail($jobPost->Employer->MainEmployer->id)->update(['package_point' => $point_reduce]);
-                            }else {
-                                $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
-                            }
+                            $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
                             $update_status = $jobPost->update([
                                 'status' => $request->status,
                                 'approved_at' => date('Y-m-d', strtotime(now())),

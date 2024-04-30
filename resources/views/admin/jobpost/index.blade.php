@@ -23,6 +23,7 @@
         @include('sweetalert::alert')
         <div class="card-body">
             <div class="table-responsive">
+                
                 <div class="row">
                     <div class="col text-end py-2">
                         <label for="search_job_post" class="d-inline-block">Search:</label>

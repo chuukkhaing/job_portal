@@ -138,7 +138,6 @@ class SeekerLoginController extends Controller
             Auth::guard('seeker')->login($seeker);
             $token = Auth::guard('seeker')->user()->createToken(Auth::guard('seeker')->user()->email.'-AuthToken')->plainTextToken;
             $url = env('MOBILE_LOGIN_REDIRECT_URL').'?token_type=Bearer&access_token='.$token;
-            
             if (Auth::guard('seeker')->user()) {
                 return redirect()->to($url);
             }
