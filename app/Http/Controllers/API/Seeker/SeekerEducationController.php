@@ -59,7 +59,7 @@ class SeekerEducationController extends Controller
         }else {
             $to = $request->to;
             if($request->is_current == 1) {
-                $to = null;
+                $to = date('Y-m-d', strtotime($request->to));
             }
             $education_create = SeekerEducation::create([
                 'seeker_id'     => $request->user()->id,
