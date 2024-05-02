@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Frontend\BlogPostController;
+use App\Http\Controllers\API\Frontend\VersionControlController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -110,6 +111,9 @@ Route::get('manage-job-list', [ManageJobController::class, 'manageJobList']);
 
 // experience level 
 Route::get('experience-level', [HomeController::class, 'getExperienceLevel']);
+
+// version control 
+Route::get('version-control', [VersionControlController::class, 'index']);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
