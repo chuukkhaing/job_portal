@@ -591,6 +591,9 @@ class SeekerProfileController extends Controller
             } else {
                 $password = $seeker->password;
             }
+            $seeker->update([
+                'password' => $password
+            ]);
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Change Password Success.'
