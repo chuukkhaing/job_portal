@@ -148,7 +148,7 @@ class SeekerEducationController extends Controller
                 'major_subject' => $request->major_subject,
                 'location'      => $request->location,
                 'from'          => $request->from,
-                'to'            => $request->to ? date('Y-m-d', strtotime($request->to)) : null,
+                'to'            => $request->to ?? null,
                 'school'        => $request->school,
                 'is_current'    => $request->is_current ?? 0
             ]);

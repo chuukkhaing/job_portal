@@ -34,6 +34,7 @@ use App\Http\Controllers\Employer\EmployerLoginController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\SEOController;
 use App\Http\Controllers\Admin\JobApplyController;
+use App\Http\Controllers\Admin\OnlineBookingTimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -161,5 +162,8 @@ Route::group([], function(){
 
         // seo
         Route::resource('seo', SEOController::class);
+
+        // online booking time 
+        Route::resource('online-booking-time', OnlineBookingTimeController::class);
     });
 });
