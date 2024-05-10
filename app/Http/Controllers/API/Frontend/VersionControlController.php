@@ -10,9 +10,11 @@ class VersionControlController extends Controller
     public function index()
     {
         $msg = [
-            'version' => '1.0.0',
+            'version' => '1.2.0',
             'is_force' => 0,
-            'benefit' => '',
+            'benefit' => [
+                'update-version-control'
+            ],
             'created_at' => date('Y-m-d H:i:s')
         ];
         return response()->json([

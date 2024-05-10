@@ -154,7 +154,7 @@ class HomeController extends Controller
     {
         $employers = Employer::select('id', 'logo', 'name', 'is_verified', 'slug')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
-        }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
+        }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->get();
         return response()->json([
             'status' => 'success',
             'employers' => $employers,

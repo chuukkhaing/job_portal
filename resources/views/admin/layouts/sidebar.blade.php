@@ -200,6 +200,20 @@
         </div>
     </li>
     @endcan
+
+    <li class="nav-item {{ Request::is('bank-info*') ? 'active' : '' }} {{ Request::is('tax*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking_schedule"
+            aria-expanded="true" aria-controls="booking_schedule">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Booking Schedule</span>
+        </a>
+        <div id="booking_schedule" class="collapse {{ Request::is('invoice*') ? 'show' : '' }} {{ Request::is('bank-info*') ? 'show' : '' }} {{ Request::is('tax*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('online-booking-time*') ? 'active' : '' }}" href="{{ route('online-booking-time.index') }}">Online Booking Time</a>
+            </div>
+        </div>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
