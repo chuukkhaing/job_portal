@@ -282,11 +282,11 @@
                     <tr style="">
                         <td style="vertical-align: top; width: 20%; ">
                             @if(isset($education->from))
-                            <h3 class="exp-date" style="">{{ date('M Y', strtotime($education->from)) }} - 
+                            <h3 class="exp-date" style="">{{ date('Y', strtotime($education->from)) }} - 
                             @if($education->is_current == 1)
                             Present
                             @else
-                            {{ date('M Y', strtotime($education->to)) }}
+                            {{ date('Y', strtotime($education->to)) }}
                             @endif
                             @endif
                             </h3>

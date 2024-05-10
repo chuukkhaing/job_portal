@@ -295,11 +295,11 @@
                                     {{ $education->school }}
                                     @endif
                                     @if(isset($education->from))
-                                    ( {{ date('M Y', strtotime($education->from)) }} - 
+                                    ( {{ date('Y', strtotime($education->from)) }} - 
                                     @if($education->is_current == 1)
                                     Present
                                     @else
-                                    {{ date('M Y', strtotime($education->to)) }}
+                                    {{ date('Y', strtotime($education->to)) }}
                                     @endif
                                     )
                                     @endif
