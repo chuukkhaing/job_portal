@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin\OnlineBookingTime;
+use App\Models\Admin\InPersonBookingTime;
 use Alert;
 use Auth;
 
-class OnlineBookingTimeController extends Controller
+class InPersonBookingTimeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,8 @@ class OnlineBookingTimeController extends Controller
      */
     public function index()
     {
-        $times = OnlineBookingTime::get();
-        return view('admin.booking.online.default', compact('times'));
+        $times = InPersonBookingTime::get();
+        return view('admin.booking.inperson.default', compact('times'));
     }
 
     /**
@@ -39,7 +39,7 @@ class OnlineBookingTimeController extends Controller
      */
     public function store(Request $request)
     {
-        $times = OnlineBookingTime::get();
+        $times = InPersonBookingTime::get();
         foreach($times as $time) {
             if($time->id == $request->input($time->id)) {
                 $time->update([
@@ -53,8 +53,8 @@ class OnlineBookingTimeController extends Controller
                 ]);
             }
         }
-        Alert::success('Success', 'Online Booking Time Set Successfully!');
-        return redirect()->route('online-booking-time.index');
+        Alert::success('Success', 'In-person Booking Time Set Successfully!');
+        return redirect()->route('inperson-booking-time.index');
     }
 
     /**

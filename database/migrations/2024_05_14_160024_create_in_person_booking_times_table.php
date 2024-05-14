@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOnlineBookingTimesTable extends Migration
+class CreateInPersonBookingTimesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOnlineBookingTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('online_booking_times', function (Blueprint $table) {
+        Schema::create('in_person_booking_times', function (Blueprint $table) {
             $table->id();
             $table->time('time');
             $table->boolean('is_active')->default(1);
@@ -29,6 +29,6 @@ class CreateOnlineBookingTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('online_booking_times');
+        Schema::dropIfExists('in_person_booking_times');
     }
 }

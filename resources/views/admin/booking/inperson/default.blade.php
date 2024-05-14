@@ -85,17 +85,17 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Online Booking Default Time</h1>
+    <h1 class="h3 mb-2 text-gray-800">In-Person Booking Default Time</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="row card-header py-3 m-0">
-            <h6 class="col font-weight-bold text-primary">Online Booking Default Time</h6>
+            <h6 class="col font-weight-bold text-primary">In-Person Booking Default Time</h6>
             
         </div>
         @include('sweetalert::alert')
         <div class="card-body">
             <div class="main-container col-xl-8 col-12">
-                <form action="{{ route('online-booking-time.store') }}" method="post">
+                <form action="{{ route('inperson-booking-time.store') }}" method="post">
                     @csrf
                     <div class="radio-buttons row">
                         @foreach($times as $time)
