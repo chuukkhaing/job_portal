@@ -29,18 +29,24 @@ class CloseInPersonBookingTimeController extends Controller
             'date' => 'required|date',
             'time_id' => 'required',
         ]);
-        foreach($request->time_id as $time)
-        {
-            InPersonBooking::create([
-                'date' => date('Y-m-d', strtotime($request->date)),
-                'in_person_booking_time_id' => $time,
-                'remark' => $request->remark,
-                'is_available' => false,
-                'is_admin' => true,
-                'created_by' => Auth::user()->id,
-            ]);
+        $check_booking = InPersonBooking::where('date', date('Y-m-d',strtotime($request->date)))->whereIn('in_person_booking_time_id',$request->time_id)->get();
+        if($check_booking->count() > 0) {
+            Alert::error('Error', 'Fail!');
+            return redirect()->route('unavailable-inperson-booking-time.index');
+        }else {
+            foreach($request->time_id as $time)
+            {
+                InPersonBooking::create([
+                    'date' => date('Y-m-d', strtotime($request->date)),
+                    'in_person_booking_time_id' => $time,
+                    'remark' => $request->remark,
+                    'is_available' => false,
+                    'is_admin' => true,
+                    'created_by' => Auth::user()->id,
+                ]);
+            }
+            Alert::success('Success', 'In-Person Booking Unavailable Time Set Successfully!');
+            return redirect()->route('unavailable-inperson-booking-time.index');
         }
-        Alert::success('Success', 'In-Person Booking Unavailable Time Set Successfully!');
-        return redirect()->route('unavailable-inperson-booking-time.index');
     }
 }

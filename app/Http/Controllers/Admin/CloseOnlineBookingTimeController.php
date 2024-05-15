@@ -29,18 +29,24 @@ class CloseOnlineBookingTimeController extends Controller
             'date' => 'required|date',
             'time_id' => 'required',
         ]);
-        foreach($request->time_id as $time)
-        {
-            OnlineBooking::create([
-                'date' => date('Y-m-d', strtotime($request->date)),
-                'online_booking_time_id' => $time,
-                'remark' => $request->remark,
-                'is_available' => false,
-                'is_admin' => true,
-                'created_by' => Auth::user()->id,
-            ]);
+        $check_booking = OnlineBooking::where('date', date('Y-m-d',strtotime($request->date)))->whereIn('online_booking_time_id',$request->time_id)->get();
+        if($check_booking->count() > 0) {
+            Alert::error('Error', 'Fail!');
+            return redirect()->route('unavailable-online-booking-time.index');
+        }else {
+            foreach($request->time_id as $time)
+            {
+                OnlineBooking::create([
+                    'date' => date('Y-m-d', strtotime($request->date)),
+                    'online_booking_time_id' => $time,
+                    'remark' => $request->remark,
+                    'is_available' => false,
+                    'is_admin' => true,
+                    'created_by' => Auth::user()->id,
+                ]);
+            }
+            Alert::success('Success', 'Online Booking Unavailable Time Set Successfully!');
+            return redirect()->route('unavailable-online-booking-time.index');
         }
-        Alert::success('Success', 'Online Booking Unavailable Time Set Successfully!');
-        return redirect()->route('unavailable-online-booking-time.index');
     }
 }
