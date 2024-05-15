@@ -38,6 +38,8 @@ use App\Http\Controllers\Admin\OnlineBookingTimeController;
 use App\Http\Controllers\Admin\InPersonBookingTimeController;
 use App\Http\Controllers\Admin\CloseOnlineBookingTimeController;
 use App\Http\Controllers\Admin\CloseInPersonBookingTimeController;
+use App\Http\Controllers\Admin\OnlineBookingController;
+use App\Http\Controllers\Admin\InPersonBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,8 +171,14 @@ Route::group([], function(){
         // online booking time 
         Route::resource('online-booking-time', OnlineBookingTimeController::class);
 
+        // online booking 
+        Route::resource('online-booking', OnlineBookingController::class);
+
         // inperson booking time 
         Route::resource('inperson-booking-time', InPersonBookingTimeController::class);
+
+        // inperson booking 
+        Route::resource('inperson-booking', InPersonBookingController::class);
 
         // close online booking time 
         Route::resource('unavailable-online-booking-time', CloseOnlineBookingTimeController::class);
