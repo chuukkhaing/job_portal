@@ -201,16 +201,18 @@
     </li>
     @endcan
 
-    <li class="nav-item {{ Request::is('online-booking-time*') ? 'active' : '' }} {{ Request::is('inperson-booking-time*') ? 'active' : '' }}">
+    <li class="nav-item {{ Request::is('online-booking-time*') ? 'active' : '' }} {{ Request::is('inperson-booking-time*') ? 'active' : '' }} {{ Request::is('unavailable-online-booking-time*') ? 'active' : '' }} {{ Request::is('unavailable-inperson-booking-time*') ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking_schedule"
             aria-expanded="true" aria-controls="booking_schedule">
             <i class="fa-solid fa-calendar-days"></i>
             <span>Booking Schedule</span>
         </a>
-        <div id="booking_schedule" class="collapse {{ Request::is('online-booking-time*') ? 'show' : '' }} {{ Request::is('inperson-booking-time*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div id="booking_schedule" class="collapse {{ Request::is('online-booking-time*') ? 'show' : '' }} {{ Request::is('inperson-booking-time*') ? 'show' : '' }} {{ Request::is('unavailable-online-booking-time*') ? 'show' : '' }} {{ Request::is('unavailable-inperson-booking-time*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('online-booking-time*') ? 'active' : '' }}" href="{{ route('online-booking-time.index') }}">Online Booking Time</a>
+                <a class="collapse-item {{ Request::is('unavailable-online-booking-time*') ? 'active' : '' }}" href="{{ route('unavailable-online-booking-time.index') }}">Unavailable Online <br> Booking Time</a>
                 <a class="collapse-item {{ Request::is('inperson-booking-time*') ? 'active' : '' }}" href="{{ route('inperson-booking-time.index') }}">In-Person Booking Time</a>
+                <a class="collapse-item {{ Request::is('unavailable-inperson-booking-time*') ? 'active' : '' }}" href="{{ route('unavailable-inperson-booking-time.index') }}">Unavailable In-Person <br> Booking Time</a>
             </div>
         </div>
         

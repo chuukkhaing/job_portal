@@ -36,6 +36,8 @@ use App\Http\Controllers\Admin\SEOController;
 use App\Http\Controllers\Admin\JobApplyController;
 use App\Http\Controllers\Admin\OnlineBookingTimeController;
 use App\Http\Controllers\Admin\InPersonBookingTimeController;
+use App\Http\Controllers\Admin\CloseOnlineBookingTimeController;
+use App\Http\Controllers\Admin\CloseInPersonBookingTimeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -169,5 +171,11 @@ Route::group([], function(){
 
         // inperson booking time 
         Route::resource('inperson-booking-time', InPersonBookingTimeController::class);
+
+        // close online booking time 
+        Route::resource('unavailable-online-booking-time', CloseOnlineBookingTimeController::class);
+
+        // close inperson booking time 
+        Route::resource('unavailable-inperson-booking-time', CloseInPersonBookingTimeController::class);
     });
 });

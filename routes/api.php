@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Frontend\BlogPostController;
 use App\Http\Controllers\API\Frontend\VersionControlController;
+use App\Http\Controllers\API\Frontend\OnlineBookingController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -114,6 +115,10 @@ Route::get('experience-level', [HomeController::class, 'getExperienceLevel']);
 
 // version control 
 Route::get('version-control', [VersionControlController::class, 'index']);
+
+// online booking 
+Route::post('online-booking-get-close-time-by-date', [OnlineBookingController::class, 'getCloseTimeByDate']);
+Route::resource('online-booking', OnlineBookingController::class);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {

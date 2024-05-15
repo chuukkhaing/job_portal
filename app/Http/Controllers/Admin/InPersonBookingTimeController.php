@@ -18,7 +18,7 @@ class InPersonBookingTimeController extends Controller
     public function index()
     {
         $times = InPersonBookingTime::get();
-        return view('admin.booking.inperson.default', compact('times'));
+        return view('admin.booking-schedule.inperson.default', compact('times'));
     }
 
     /**

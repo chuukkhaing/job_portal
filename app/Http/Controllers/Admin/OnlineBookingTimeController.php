@@ -18,7 +18,7 @@ class OnlineBookingTimeController extends Controller
     public function index()
     {
         $times = OnlineBookingTime::get();
-        return view('admin.booking.online.default', compact('times'));
+        return view('admin.booking-schedule.online.default', compact('times'));
     }
 
     /**
