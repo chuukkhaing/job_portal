@@ -46,20 +46,28 @@ class OnlineBookingController extends Controller
             'date' => 'required|date',
             'time_id' => 'required',
         ]);
-        OnlineBooking::create([
-            'date' => date('Y-m-d', strtotime($request->date)),
-            'online_booking_time_id' => $request->time_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'company_name' => $request->company_name,
-            'phone' => $request->phone,
-            'remark' => $request->description,
-            'is_available' => false,
-        ]);
-        return response()->json([
-            'status' => 'success',
-            'msg' => 'Online Booking Successfully send!'
-        ], 200);
+        $check_booking = OnlineBooking::where('date', date('Y-m-d',strtotime($request->date)))->where('online_booking_time_id',$request->time_id)->get();
+        if($check_booking->count() > 0) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Unavailable to book this time!'
+            ], 200);
+        }else {
+            OnlineBooking::create([
+                'date' => date('Y-m-d', strtotime($request->date)),
+                'online_booking_time_id' => $request->time_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'company_name' => $request->company_name,
+                'phone' => $request->phone,
+                'remark' => $request->description,
+                'is_available' => false,
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'msg' => 'Online Booking Successfully send!'
+            ], 200);
+        }
     }
 
     /**
