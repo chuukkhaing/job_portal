@@ -15,6 +15,10 @@ class CreateInPersonBookingsTable extends Migration
     {
         Schema::create('in_person_bookings', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
+            $table->string('company_name')->nullable();
+            $table->longtext('address')->nullable();
+            $table->string('phone')->nullable();
             $table->date('date');
             $table->foreignId('in_person_booking_time_id')->nullable()->constrained('in_person_booking_times');
             $table->longtext('remark')->nullable();

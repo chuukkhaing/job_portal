@@ -7,6 +7,7 @@ use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Frontend\BlogPostController;
 use App\Http\Controllers\API\Frontend\VersionControlController;
 use App\Http\Controllers\API\Frontend\OnlineBookingController;
+use App\Http\Controllers\API\Frontend\InPersonBookingController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -119,6 +120,10 @@ Route::get('version-control', [VersionControlController::class, 'index']);
 // online booking 
 Route::post('online-booking-get-close-time-by-date', [OnlineBookingController::class, 'getCloseTimeByDate']);
 Route::resource('online-booking', OnlineBookingController::class);
+
+// inperson booking 
+Route::post('inperson-booking-get-close-time-by-date', [InPersonBookingController::class, 'getCloseTimeByDate']);
+Route::resource('inperson-booking', InPersonBookingController::class);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
