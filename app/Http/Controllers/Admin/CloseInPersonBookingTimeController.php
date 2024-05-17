@@ -42,6 +42,7 @@ class CloseInPersonBookingTimeController extends Controller
                     'remark' => $request->remark,
                     'is_available' => false,
                     'is_admin' => true,
+                    'status' => 'Close',
                     'created_by' => Auth::user()->id,
                 ]);
             }
