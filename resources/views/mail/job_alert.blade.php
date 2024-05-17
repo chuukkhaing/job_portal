@@ -12,7 +12,7 @@
                     <p>Exciting news – we've found the jobs that matches your preferences!</p>
                     <p>At <a href="https://infinitycareers.com.mm">InfinityCareers.com.mm</a>, we're dedicated to helping you discover the perfect career opportunities, and we believe these jobs could be.</p>
                     <div style="width: 700px; margin: 20px 10px">
-                        <a style="text-decoration: none" href="{{ route('jobpost-detail', $jobPost->slug) }}">
+                        <a style="text-decoration: none" href="{{ env('MAIN_DOMAIN').'/job-post/'. $jobPost->slug }}">
                             <h3 style="margin: 0;">{{ $jobPost->job_title }}</h3>
                             <div style="width: 80%; position: relative; display: inline-block; vertical-align: top;">
                                 <p>{!! \Illuminate\Support\Str::words(strip_tags($jobPost->job_requirement), 25, $end = '...') !!}</p>
@@ -42,7 +42,7 @@
                                 <img src="{{ $url }}" alt="Profile Image" style="width: 75px;">
                                 
                             </div>
-                            <a href="{{ route('jobpost-detail', $jobPost->slug) }}" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">View</a>
+                            <a href="{{ env('MAIN_DOMAIN').'/job-post/'. $jobPost->slug }" style="text-decoration: none; padding: 10px 50px; background: #0355D0; color: #FFD200; border-radius: 50px; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2); font-weight: bold;">View</a>
                         </a>
                         <hr style="margin: 20px 0;">
                     </div>
