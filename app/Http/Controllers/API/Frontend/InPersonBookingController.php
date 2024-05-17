@@ -62,6 +62,7 @@ class InPersonBookingController extends Controller
                 'phone' => $request->phone,
                 'remark' => $request->description,
                 'is_available' => false,
+                'status' => 'Waiting'
             ]);
             return response()->json([
                 'status' => 'success',

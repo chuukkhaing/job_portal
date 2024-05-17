@@ -45,6 +45,7 @@ class OnlineBookingController extends Controller
             'description' => 'required',
             'date' => 'required|date',
             'time_id' => 'required',
+            'status' => 'Waiting'
         ]);
         $check_booking = OnlineBooking::where('date', date('Y-m-d',strtotime($request->date)))->where('online_booking_time_id',$request->time_id)->get();
         if($check_booking->count() > 0) {
@@ -62,6 +63,7 @@ class OnlineBookingController extends Controller
                 'phone' => $request->phone,
                 'remark' => $request->description,
                 'is_available' => false,
+                'status' => 'Waiting'
             ]);
             return response()->json([
                 'status' => 'success',
