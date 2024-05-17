@@ -25,6 +25,7 @@
                             <th>Address</th>
                             <th>Phone</th>
                             <th>description</th>
+                            <th>Status</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Remark</th>
@@ -40,6 +41,7 @@
                             <td>{{ $booking->address }}</td>
                             <td><a href="tel:+{{ $booking->phone }}">{{ $booking->phone }}</a></td>
                             <td>{{ $booking->remark ?? '-' }}</td>
+                            <td>{{ $booking->status }}</td>
                             <td>{{ date('Y-m-d', strtotime($booking->date)) }}</td>
                             <td>{{ $booking->InPersonBookingTime->time }}</td>
                             <td>{{ $booking->remark }}</td>

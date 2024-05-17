@@ -219,12 +219,12 @@
     </li>
 
     <li class="nav-item {{ Request::is('online-booking*') ? 'active' : '' }} {{ Request::is('inperson-booking*') ? 'active' : '' }} ">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking_schedule"
-            aria-expanded="true" aria-controls="booking_schedule">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking"
+            aria-expanded="true" aria-controls="booking">
             <i class="fa-solid fa-clock"></i>
-            <span>Booking Schedule</span>
+            <span>Booking</span>
         </a>
-        <div id="booking_schedule" class="collapse {{ Request::is('online-booking*') ? 'show' : '' }} {{ Request::is('inperson-booking*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+        <div id="booking" class="collapse {{ Request::is('online-booking*') ? 'show' : '' }} {{ Request::is('inperson-booking*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ Request::is('online-booking*') ? 'active' : '' }}" href="{{ route('online-booking.index') }}">Online Booking</a>
                 <a class="collapse-item {{ Request::is('inperson-booking*') ? 'active' : '' }}" href="{{ route('inperson-booking.index') }}">In-Person Booking</a>

@@ -22,6 +22,7 @@ class CreateOnlineBookingsTable extends Migration
             $table->date('date');
             $table->foreignId('online_booking_time_id')->nullable()->constrained('online_booking_times');
             $table->longtext('remark')->nullable();
+            $table->string('status');
             $table->boolean('is_available');
             $table->boolean('is_admin');
             $table->integer('created_by')->default(0);
