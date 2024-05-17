@@ -11,7 +11,7 @@
             <h6 class="col font-weight-bold text-primary">Online Booking Unavailable Time</h6>
             
             <div class="col">
-                <a href="{{ route('unavailable-online-booking-time.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('close-online-booking-time.create') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-plus"></i>
                     </span>
@@ -42,9 +42,9 @@
                             <td>{{ $onlineBooking->remark }}</td>
                             {{--<td>
                                 
-                                <a href="{{ route('unavailable-online-booking-time.edit', $onlineBooking->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="{{ route('close-online-booking-time.edit', $onlineBooking->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
                                 
-                                <form method="POST" action="{{ route('unavailable-online-booking-time.destroy', $onlineBooking->id) }}" class="d-inline">
+                                <form method="POST" action="{{ route('close-online-booking-time.destroy', $onlineBooking->id) }}" class="d-inline">
                                     @csrf 
                                     @method('DELETE') 
                                         <button class="btn btn-danger btn-circle btn-sm delete-confirm text-light" type="submit"><i class="fas fa-trash"></i></button>

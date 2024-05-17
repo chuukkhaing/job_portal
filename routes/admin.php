@@ -172,18 +172,18 @@ Route::group([], function(){
         Route::resource('online-booking-time', OnlineBookingTimeController::class);
 
         // online booking 
-        Route::resource('online-booking', OnlineBookingController::class);
+        Route::resource('onlinebooking', OnlineBookingController::class);
 
         // inperson booking time 
         Route::resource('inperson-booking-time', InPersonBookingTimeController::class);
 
         // inperson booking 
-        Route::resource('inperson-booking', InPersonBookingController::class);
+        Route::resource('inpersonbooking', InPersonBookingController::class);
 
         // close online booking time 
-        Route::resource('unavailable-online-booking-time', CloseOnlineBookingTimeController::class);
+        Route::resource('close-online-booking-time', CloseOnlineBookingTimeController::class);
 
         // close inperson booking time 
-        Route::resource('unavailable-inperson-booking-time', CloseInPersonBookingTimeController::class);
+        Route::resource('close-inperson-booking-time', CloseInPersonBookingTimeController::class);
     });
 });

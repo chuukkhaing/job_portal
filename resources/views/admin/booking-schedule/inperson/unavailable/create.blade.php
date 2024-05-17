@@ -10,7 +10,7 @@
         <div class="row card-header py-3 m-0">
             <h6 class="col font-weight-bold text-primary">In-Person Booking Unavailable Time Create</h6>
             <div class="col">
-                <a href="{{ route('unavailable-inperson-booking-time.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
+                <a href="{{ route('close-inperson-booking-time.index') }}" class="btn btn-primary btn-icon-split btn-sm float-right">
                     <span class="icon text-white-50">
                         <i class="fas fa-reply"></i>
                     </span>
@@ -20,7 +20,7 @@
             
         </div>
         <div class="card-body">
-            <form action="{{ route('unavailable-inperson-booking-time.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('close-inperson-booking-time.store') }}" method="post" enctype="multipart/form-data">
                 @csrf 
                 
                 <div class="row">
