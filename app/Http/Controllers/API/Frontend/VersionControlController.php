@@ -10,7 +10,7 @@ class VersionControlController extends Controller
     public function index()
     {
         $msg = [
-            'version' => '1.2.0',
+            'version' => '1.0.0',
             'is_force' => 0,
             'benefit' => [
                 'update-version-control'
