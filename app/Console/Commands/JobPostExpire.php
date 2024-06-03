@@ -39,9 +39,9 @@ class JobPostExpire extends Command
      */
     public function handle()
     {
-        $expire_jobposts = JobPost::whereDate('expired_at','<',now())->get();
+        $expire_jobposts = JobPost::whereDate('expired_at','<',now().'+7 day')->get();
         foreach($expire_jobposts as $jobpost) {
-            \Mail::to('chuukkhaing96@gmail.com')->send(new JobPostExpireMail($jobpost));
+            \Mail::to($jobpost->Employer->mail)->send(new JobPostExpireMail($jobpost));
         }
         return 0;
     }
