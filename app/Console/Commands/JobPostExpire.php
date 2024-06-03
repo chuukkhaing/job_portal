@@ -42,7 +42,10 @@ class JobPostExpire extends Command
         $expire_jobposts = JobPost::whereDate('expired_at','<',date('Y-m-d', strtotime(now().'+7 day')))->where('status','!=','Expire')->get();
         foreach($expire_jobposts as $jobpost) {
             \Mail::to($jobpost->Employer->mail)->send(new JobPostExpireMail($jobpost));
-            $this->info($jobpost->status);
+            $jobpost->update([
+                'status' => 'Expire'
+            ]);
+            $this->info($jobpost->Employer->email . ' send successfully');
         }
     }
 }
