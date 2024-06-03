@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Job (Job Post Title) will expire in next 7 Days</title>
+    <title>Your Job ({{ $job_post->job_title }}) will expire in next 7 Days</title>
     <style>
         .verify-template{
             width: 700px;
@@ -12,7 +12,7 @@
         
         .table {
             width: 100%;
-            background-image: url("http://127.0.0.1:8000/img/background/job_post_expire.jpg");
+            background-image: url("{{ asset('/img/background/job_post_expire.jpg') }}");
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -37,30 +37,30 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td>Your Job Post, (Job Post Title), will Expiring Soon on <a href="https://www.inifinitycareers.com.mm">InfinityCareers.com.mm</a></td>
+                        <td>Your Job Post, ({{ $job_post->job_title }}), will Expiring Soon on <a href="https://www.inifinitycareers.com.mm">InfinityCareers.com.mm</a></td>
                     </tr>        
                     
                     
                     <tr>
-                        <td style="padding: 100px 0px 0px 0px;">Dear [Employer Nmae],</td>
+                        <td style="padding: 100px 0px 0px 0px;">Dear {{ $job_post->MainEmployer ? $job_post->MainEmployer->name : $job_post->Employer->name }},</td>
                     </tr>
                     <tr>
                         <td style="padding: 0px 0px 100px 0px;">This is a friendly reminder that your job posting will expire after one week.</td>
                     </tr>
                     <tr>
-                        <td>Job Title:[Job Title]</td>
+                        <td>Job Title:{{ $job_post->job_title }}</td>
                     </tr>
                     <tr>
-                        <td>Posted Date:[Posted Date]</td>
+                        <td>Posted Date:{{ date('d-M-Y', strtotime($job_post->approved_at)) }}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 0px 100px 0px;">Expiration Date:[Expiration Date]</td>
+                        <td style="padding: 0px 0px 100px 0px;">Expiration Date:{{ date('d-M-Y', strtotime($job_post->expired_at)) }}</td>
                     </tr>
                     <tr>
                         <td style="text-align: center;">To view or manage your job posting, please click the link</td>
                     </tr>
                     <tr>
-                        <td style="padding: 20px 0px 60px 0px; text-align: center;"><a href="" style="font-weight: bold;
+                        <td style="padding: 20px 0px 60px 0px; text-align: center;"><a href="{{ env('MAIN_DOMAIN').'/account/employer/manage-job' }}" style="font-weight: bold;
                             background: #0067DC;
                             color: #fff;
                             padding: 10px 15px;
