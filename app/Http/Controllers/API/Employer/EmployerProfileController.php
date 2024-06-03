@@ -412,7 +412,7 @@ class EmployerProfileController extends Controller
         if($employer->employer_id) {
             $employer = $employer->findOrFail($employer->employer_id);
         }
-        $address = EmployerAddress::with('state:id,name', 'township:id,name')->where('id',$employer->id)->select('id','employer_id','country','state_id','township_id','address_detail')->get();
+        $address = EmployerAddress::with('state:id,name', 'township:id,name')->where('employer_id',$employer->id)->select('id','employer_id','country','state_id','township_id','address_detail')->get();
         return response()->json([
             'status' => 'success',
             'data'   => $address
