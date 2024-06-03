@@ -262,6 +262,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::post('remove-background', [EmployerProfileController::class, 'removeBackground']);
 
         // address 
+        Route::get('get-address', [EmployerProfileController::class, 'getEmployerAddress']);
         Route::post('address-store', [EmployerProfileController::class, 'addressStore']);
         Route::delete('address-destroy/{id}', [EmployerProfileController::class, 'addressDestroy']);
 

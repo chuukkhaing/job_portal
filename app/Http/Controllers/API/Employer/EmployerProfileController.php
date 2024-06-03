@@ -406,6 +406,25 @@ class EmployerProfileController extends Controller
         ]);
     }
 
+    public function getEmployerAddress(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+
+        $member_ids = Employer::whereId($request->user()->id)->first()->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+        $address = EmployerAddress::with('state:id,name', 'township:id,name')->whereIn('id',$employer_id)->select('id','employer_id','country','state_id','township_id','address_detail')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $address,
+        ]);
+    }
+
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
