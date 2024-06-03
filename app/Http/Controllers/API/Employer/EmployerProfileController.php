@@ -422,6 +422,7 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'data'   => $address,
+            'employer_id' => $employer_id
         ]);
     }
 
