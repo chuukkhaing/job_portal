@@ -45,7 +45,7 @@
                         <td style="padding: 100px 0px 0px 0px;">Dear {{ $job_post->MainEmployer ? $job_post->MainEmployer->name : $job_post->Employer->name }},</td>
                     </tr>
                     <tr>
-                        <td style="padding: 0px 0px 100px 0px;">This is a friendly reminder that your job posting will expire after one week.</td>
+                        <td style="padding: 0px 0px 100px 0px;">This is a friendly info that your job posting will expire after one week.</td>
                     </tr>
                     <tr>
                         <td>Job Title:{{ $job_post->job_title }}</td>
