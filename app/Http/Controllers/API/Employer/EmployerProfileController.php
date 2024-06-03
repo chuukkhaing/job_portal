@@ -75,7 +75,7 @@ class EmployerProfileController extends Controller
         $employer = Employer::findOrFail($request->user()->id);
         $account_info = Employer::with(['MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id', 'email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
         if($employer->employer_id) {
-            $employer = $employer->findOrFail($employer->employer_id);
+            $employer = Employer::findOrFail($employer->employer_id);
         }
         $employer = Employer::with(['Package' => function ($package) {
             $package->with(['PackageWithPackageItem' => function ($packagewithitem) {
@@ -410,7 +410,7 @@ class EmployerProfileController extends Controller
     {
         $employer = Employer::findOrFail($request->user()->id);
         if($employer->employer_id) {
-            $employer = $employer->findOrFail($employer->employer_id);
+            $employer = Employer::findOrFail($employer->employer_id);
         }
         $address = EmployerAddress::with('state:id,name', 'township:id,name')->where('employer_id',$employer->id)->select('id','employer_id','country','state_id','township_id','address_detail')->get();
         return response()->json([
