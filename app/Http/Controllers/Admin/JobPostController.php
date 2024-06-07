@@ -283,7 +283,7 @@ class JobPostController extends Controller
                         }
                     }else {
                         $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                        if($point_reduce > 0) {
+                        if($point_reduce >= 0) {
                             $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
                             $update_status = $jobPost->update([
                                 'status' => $request->status,
