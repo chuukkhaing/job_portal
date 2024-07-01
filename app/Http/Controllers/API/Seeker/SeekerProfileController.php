@@ -619,4 +619,68 @@ class SeekerProfileController extends Controller
             'apply_jobs' => $apply_jobs
         ], 200);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $this->validate($request, [
+            // 'phone'         => ['required', new MyanmarPhone],
+            // 'first_name'    => ['required', 'string', 'max:255'],
+            // 'last_name'     => ['required', 'string', 'max:255'],
+            // 'email'         => ['required', 'string', 'email', 'max:255', 'unique:seekers,email,' . $id],
+            // 'password'      => ['nullable', 'string', 'min:8', 'same:confirm-password'],
+            // 'date_of_birth' => ['required'],
+            // 'gender'        => ['required'],
+        ]);
+
+        $seeker = Seeker::findOrFail($request->user()->id);
+        $image  = $seeker->image;
+        
+        if ($request->file('profile_image')) {
+            $file  = $request->file('profile_image');
+            $image = date('YmdHi') . $file->getClientOriginalName();
+            
+            $path     = 'seeker/profile/'. $request->user()->id . '/' . $image;
+            Storage::disk('s3')->put($path, file_get_contents($file));
+        }
+        $date_of_birth = $request->date_of_birth ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
+
+        if ($request->password) {
+            $password = Hash::make($request->password);
+        } else {
+            $password = $seeker->password;
+        }
+
+        $seeker->update([
+            'first_name'              => $request->first_name,
+            'last_name'               => $request->last_name,
+            'email'                   => $request->email,
+            'password'                => $password,
+            'phone'                   => $request->phone,
+            'image'                   => $image,
+            'country'                 => $request->country,
+            'state_id'                => $request->state_id,
+            'township_id'             => $request->township_id,
+            'address_detail'          => $request->address_detail,
+            'nationality'             => $request->nationality,
+            'nrc'                     => $request->nrc,
+            'id_card'                 => $request->id_card,
+            'date_of_birth'           => $date_of_birth,
+            'gender'                  => $request->gender,
+            'marital_status'          => $request->marital_status,
+            'job_title'               => $request->job_title,
+            'main_functional_area_id' => $request->main_functional_area_id,
+            'sub_functional_area_id'  => $request->sub_functional_area_id,
+            'job_type'                => $request->job_type,
+            'career_level'            => $request->career_level,
+            'preferred_salary'        => $request->preferred_salary,
+            'industry_id'             => $request->industry_id,
+        ]);
+        $seeker_percentage = $this->updateSeekerPercentage($seeker);
+
+        return response()->json([
+            'status' => 'success',
+            'seeker' => $seeker,
+            'msg' => 'Profile Edit Successfully.'
+        ], 200);
+    }
 }

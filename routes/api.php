@@ -164,6 +164,9 @@ Route::group(['prefix' => 'seeker'], function () {
         Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
         Route::post('application-search', [SeekerProfileController::class, 'applicationSearch']);
 
+        // uat 
+        Route::post('profile-update', [SeekerProfileController::class, 'updateProfile']);
+
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
 
