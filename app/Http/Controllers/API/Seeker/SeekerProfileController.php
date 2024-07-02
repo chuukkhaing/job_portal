@@ -653,8 +653,6 @@ class SeekerProfileController extends Controller
         $seeker->update([
             'first_name'              => $request->first_name,
             'last_name'               => $request->last_name,
-            'email'                   => $request->email,
-            'password'                => $password,
             'phone'                   => $request->phone,
             'image'                   => $image,
             'country'                 => $request->country,
