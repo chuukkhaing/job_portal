@@ -622,17 +622,19 @@ class SeekerProfileController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $this->validate($request, [
-            // 'phone'         => ['required', new MyanmarPhone],
-            // 'first_name'    => ['required', 'string', 'max:255'],
-            // 'last_name'     => ['required', 'string', 'max:255'],
-            // 'email'         => ['required', 'string', 'email', 'max:255', 'unique:seekers,email,' . $id],
-            // 'password'      => ['nullable', 'string', 'min:8', 'same:confirm-password'],
-            // 'date_of_birth' => ['required'],
-            // 'gender'        => ['required'],
+        $seeker_info = Seeker::with(['SeekerExperience','SeekerEducation', 'SeekerLanguage', 'SeekerReference', 'SeekerSkill'])->whereId($request->user()->id)->get();
+        $seeker = Seeker::findOrFail($request->user()->id);
+
+        // reset seeker percentage 
+        $reset_percentage = SeekerPercentage::whereSeekerId($seeker->id)->update([
+            'percentage' => 0
         ]);
 
-        $seeker = Seeker::findOrFail($request->user()->id);
+        // update cv sync percentage 
+        $update_cv_sync_percentage = SeekerPercentage::whereSeekerId($seeker->id)->whereTitle('Resume Attachment')->update([
+            'percentage' => 80
+        ]);
+
         $image  = $seeker->image;
         
         if ($request->file('profile_image')) {
@@ -643,12 +645,6 @@ class SeekerProfileController extends Controller
             Storage::disk('s3')->put($path, file_get_contents($file));
         }
         $date_of_birth = $request->date_of_birth ? date('Y-m-d', strtotime($request->date_of_birth)) : null;
-
-        if ($request->password) {
-            $password = Hash::make($request->password);
-        } else {
-            $password = $seeker->password;
-        }
 
         $seeker->update([
             'first_name'              => $request->first_name,
@@ -672,13 +668,122 @@ class SeekerProfileController extends Controller
             'career_level'            => $request->career_level,
             'preferred_salary'        => $request->preferred_salary,
             'industry_id'             => $request->industry_id,
+            'summary'                 => $request->summary,
+            'percentage'              => 80
         ]);
-        $seeker_percentage = $this->updateSeekerPercentage($seeker);
+
+        // reset seeker experiences 
+        $reset_seeker_experiences = SeekerExperience::whereSeekerId($seeker->id)->delete();
+
+        // add seeker experiences 
+        if(isset($request->experiences)) {
+            foreach($request->experiences as $experience) {
+                $end_date = Null;
+                $start_date = NUll;
+                if(isset($experience['end_date'])) {
+                    $end_date = $experience['end_date'] ? date('Y-m-d', strtotime($experience['end_date'])) : null;
+                }
+                
+                if(isset($experience['is_current_job']) && $experience['is_current_job'] == 1) {
+                    $end_date = Null;
+                }
+
+                if(isset($experience['start_date'])) {
+                    $start_date = $experience['start_date'] ? date('Y-m-d', strtotime($experience['start_date'])) : null;
+                }
+                
+                $experience_create = SeekerExperience::create([
+                    'seeker_id'               => $seeker->id,
+                    'job_title'               => $experience['job_title'] ?? null,
+                    'company'                 => $experience['company'] ?? null,
+                    'main_functional_area_id' => $experience['main_functional_area_id'] ?? null,
+                    'sub_functional_area_id'  => $experience['sub_functional_area_id'] ?? null,
+                    'career_level'            => $experience['career_level'] ?? null,
+                    'industry_id'             => $experience['industry_id'] ?? null,
+                    'start_date'              => $start_date,
+                    'end_date'                => $end_date,
+                    'is_experience'           => $experience['is_experience'] ?? null,
+                    'is_current_job'          => $experience['is_current_job'] ?? 0,
+                    'country'                 => $experience['country'] ?? null,
+                    'job_responsibility'      => $experience['job_responsibility'] ?? null,
+                ]);
+            }
+        }
+
+        // reset seeker educations 
+        $reset_seeker_educations = SeekerEducation::whereSeekerId($seeker->id)->delete();
+
+        // add seeker educations 
+        if(isset($request->educations)) {
+            foreach($request->educations as $education) {
+                $to = Null;
+                if(isset($education['to'])) {
+                    $to = $education['to'];
+                }
+                if(isset($education['is_current']) && $education['is_current'] == 1) {
+                    $to = null;
+                }
+                $education_create = SeekerEducation::create([
+                    'seeker_id'     => $seeker->id,
+                    'degree'        => $education['degree'] ?? null,
+                    'major_subject' => $education['major_subject'] ?? null,
+                    'location'      => $education['location'] ?? null,
+                    'from'          => $education['from'] ?? null,
+                    'to'            => $to ?? null,
+                    'school'        => $education['school'] ?? null,
+                    'is_current'    => $education['is_current'] ?? 0
+                ]);
+            }
+        }
+
+        // reset seeker languages 
+        $reset_seeker_languages = SeekerLanguage::whereSeekerId($seeker->id)->delete();
+
+        // add seeker languages 
+        if(isset($request->languages)) {
+            foreach($request->languages as $language) {
+                $language = SeekerLanguage::create([
+                    'seeker_id' => $seeker->id,
+                    'name'      => $language['name'] ?? null,
+                    'level'     => $language['level'] ?? null,
+                ]);
+            }
+        }
+
+        // reset seeker references 
+        $reset_seeker_references = SeekerReference::whereSeekerId($seeker->id)->delete();
+
+        // add seeker references 
+        if(isset($request->references)) {
+            foreach($request->references as $reference) {
+                $reference = SeekerReference::create([
+                    'seeker_id' => $seeker->id,
+                    'name'      => $reference['name'] ?? null,
+                    'position'  => $reference['position'] ?? null,
+                    'company'   => $reference['company'] ?? null,
+                    'contact'   => $reference['contact'] ?? null,
+                ]);
+            }
+        }
+
+        // reset seeker skills 
+        $reset_seeker_skills = SeekerSkill::whereSeekerId($seeker->id)->delete();
+
+        // add seeker skills 
+        if(isset($request->skills)) {
+            foreach ($request->skills as $skill) {
+                $skill = SeekerSkill::create([
+                    'seeker_id'               => $seeker->id,
+                    'main_functional_area_id' => $skill['main_functional_area_id'] ?? null,
+                    'skill_id'                => $skill['skill_id'] ?? null,
+                ]);
+            }
+        }
 
         return response()->json([
             'status' => 'success',
-            'seeker' => $seeker,
-            'msg' => 'Profile Edit Successfully.'
+            'seeker' => $seeker_info,
+            'msg' => 'Sync CV Successfully!'
         ], 200);
     }
 }
