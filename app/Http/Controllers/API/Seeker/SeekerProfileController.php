@@ -786,4 +786,13 @@ class SeekerProfileController extends Controller
             'msg' => 'Sync CV Successfully!'
         ], 200);
     }
+
+    public function getSkillOnly()
+    {
+        $skills        = Skill::whereNull('deleted_at')->whereIsActive(1)->select('id','name','main_functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $skills,
+        ]);
+    }
 }

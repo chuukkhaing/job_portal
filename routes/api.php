@@ -140,6 +140,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
     // seeker reset password 
     Route::post('reset-password', [SeekerRegisterController::class, 'storeResetPassword']);
+    Route::get('get-skills', [SeekerProfileController::class, 'getSkillOnly']);
 
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
