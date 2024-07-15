@@ -224,9 +224,9 @@ class JobPostController extends Controller
                     Alert::success('Success', 'Job Post Updated Successfully!');
                     return redirect()->route('job-posts.index');
                 }elseif($jobPost->total_point > 0) {
-                    if($jobPost->expired_at) {
+                    if(isset($jobPost->expired_at)) {
                         $point_reduce = $jobPost->Employer->package_point - $jobPost->total_point;
-                        if($point_reduce > 0) {
+                        if($point_reduce > 0 || $point_reduce == 0) {
                             $point_update = Employer::findOrFail($jobPost->employer_id)->update(['package_point' => $point_reduce]);
                             $update_status = $jobPost->update([
                                 'status' => $request->status,
