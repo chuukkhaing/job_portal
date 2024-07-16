@@ -140,6 +140,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
     // seeker reset password 
     Route::post('reset-password', [SeekerRegisterController::class, 'storeResetPassword']);
+    Route::get('get-skills', [SeekerProfileController::class, 'getSkillOnly']);
 
     // seeker profile 
     Route::group(['middleware' => 'auth:sanctum'], function() {
@@ -163,6 +164,9 @@ Route::group(['prefix' => 'seeker'], function () {
         // seeker application 
         Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
         Route::post('application-search', [SeekerProfileController::class, 'applicationSearch']);
+
+        // uat 
+        Route::post('profile-update', [SeekerProfileController::class, 'updateProfile']);
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
