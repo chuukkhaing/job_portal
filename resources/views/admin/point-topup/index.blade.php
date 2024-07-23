@@ -22,6 +22,7 @@
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Point Package</th>
+                            <th>Ordered Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -34,6 +35,7 @@
                             <td>{{ $order->name }}</td>
                             <td><a href="tel:+{{ $order->phone }}" class="text-decoration-none text-black">{{ $order->phone }}</a></td>
                             <td>{{ $order->PointPackage->point }} Points - {{ $order->PointPackage->price }} MMK</td>
+                            <td>{{ date('Y-m-d', strtotime($order->created_at)) }}</td>
                             <td>
                                 @if($order->status == 'Pending')
                                 <span class="badge text-dark bg-warning">{{ $order->status }}</span>
