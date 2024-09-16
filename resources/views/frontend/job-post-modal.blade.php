@@ -90,7 +90,7 @@
                                             <h5 class="fw-bold text-black">Qualification :</h5>
                                             <div class="mb-4 fz14 fw-bold">{{ $jobPost->degree }}</div>
                                             <h5 class="fw-bold text-black">Job Specializations :</h5>
-                                            <div class="mb-4 fz14 fw-bold">{{ $jobPost->MainFunctionalArea->name }} , {{ $jobPost->SubFunctionalArea->name }}</div>
+                                            <div class="mb-4 fz14 fw-bold">{{ optional($jobPost->MainFunctionalArea)->name }} , {{ optional($jobPost->SubFunctionalArea)->name }}</div>
                                             @if($jobPost->job_description)
                                             <h5 class="fw-bold text-black">Job Description</h5>
                                             <div class="mb-4">

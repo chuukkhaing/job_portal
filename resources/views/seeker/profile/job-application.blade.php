@@ -33,8 +33,8 @@
                                 <td class="fw-bold"><a data-bs-toggle="modal" class="jobpostModal" data-bs-target="#JobPostModal{{$jobApplyBySeeker->JobPost->id}}" class="text-black">{{ $jobApplyBySeeker->JobPost->job_title }}</a></td>
                                 <td class="text-blue">@if($jobApplyBySeeker->JobPost->hide_company == 0){{ $jobApplyBySeeker->JobPost->Employer->name }} @if($jobApplyBySeeker->JobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif @else - @endif</td>
                                 <td>
-                                    {{ $jobApplyBySeeker->JobPost->MainFunctionalArea->name }} , 
-                                    {{ $jobApplyBySeeker->JobPost->SubFunctionalArea->name }}
+                                    {{ optional($jobApplyBySeeker->JobPost->MainFunctionalArea)->name }} , 
+                                    {{ optional($jobApplyBySeeker->JobPost->SubFunctionalArea)->name }}
                                 </td>
                                 <td>
                                     {{ $jobApplyBySeeker->JobPost->Township ? $jobApplyBySeeker->JobPost->Township->name : '' }} {{ $jobApplyBySeeker->JobPost->Township ? ',' : '' }} 
