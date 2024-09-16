@@ -80,7 +80,7 @@ class EmployerRegisterController extends Controller
     public function getEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:employers,email',
+            'email' => 'required|email',
         ]);
 
         $employer = Employer::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
@@ -91,8 +91,8 @@ class EmployerRegisterController extends Controller
             ]);
 
             $user_name = $employer->name;
-            $reseturl  = URL::to('/') . '/employer' . '/' . $employer->id . '/reset-password';
-
+            
+            $reseturl  = env('MAIN_DOMAIN').'/account/change-password?type=employer&employer_id='.$employer->id;
             \Mail::to($employer->email)->send(new EmployerResetPassword($user_name, $reseturl));
 
             return response()->json([
@@ -116,7 +116,7 @@ class EmployerRegisterController extends Controller
             'employer_id' => ['required']
         ]);
         
-        $password = Hash::make($request['company_password']);
+        $password = Hash::make($request['password']);
 
         $employer = Employer::find($request->employer_id);
 

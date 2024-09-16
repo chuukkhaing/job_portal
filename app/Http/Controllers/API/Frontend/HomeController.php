@@ -39,7 +39,7 @@ class HomeController extends Controller
                         ->where('b.is_active', 1)
                         ->where('a.status', 'Online')
                         ->get()->take(8);
-        $live_job_post              = JobPost::whereIsActive(1)->count();
+        $live_job_post              = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $today_job_post             = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
             'status' => 'success',
@@ -140,7 +140,7 @@ class HomeController extends Controller
         $industries = Industry::select('id', 'name', 'icon', 'color_code')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
         }])->whereIsActive(1)->whereNull('deleted_at')->get();
-        $live_job   = JobPost::whereIsActive(1)->count();
+        $live_job   = JobPost::whereIsActive(1)->whereStatus('Online')->count();
         $today_job  = JobPost::whereIsActive(1)->whereDate('updated_at','=', date('Y-m-d', strtotime(now())))->count();
         return response()->json([
             'status' => 'success',
@@ -154,7 +154,16 @@ class HomeController extends Controller
     {
         $employers = Employer::select('id', 'logo', 'name', 'is_verified', 'slug')->withCount(['JobPost' => function ($query) {
             $query->where('is_active',1)->where('status','Online');
-        }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->paginate(20);
+        }])->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->get();
+        return response()->json([
+            'status' => 'success',
+            'employers' => $employers,
+        ], 200);
+    }
+
+    public function getEmployers()
+    {
+        $employers = Employer::select('id', 'slug')->whereIsActive(1)->whereNull('employer_id')->whereNull('deleted_at')->orderBy(DB::raw('FIELD(package_id, 1, 2, 3, 4)'))->get();
         return response()->json([
             'status' => 'success',
             'employers' => $employers,
@@ -178,7 +187,7 @@ class HomeController extends Controller
                 $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
             }, 'JobPostQuestion:id,job_post_id,question,answer'])
                     ->whereSlug($request->slug)
-                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at')
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'is_active', 'updated_at as posted_at')
                     ->first();
             return response()->json([
                 'status' => 'success',
@@ -210,7 +219,7 @@ class HomeController extends Controller
                             ->orderBy('posted_at','desc')
                             ->whereIn('employer_id', $employer_id)
                             ->where('hide_company', 0)
-                            ->paginate(10);
+                            ->paginate(20);
         return response()->json([
             'status' => 'success',
             'jobPosts' => $jobPosts,
@@ -248,7 +257,7 @@ class HomeController extends Controller
                         ->orderBy('posted_at','desc')
                         ->whereIn('employer_id', $employer_id)
                         ->where('hide_company', 0)
-                        ->take(6);
+                        ->take(20);
             }, 'Industry:id,name', 'EmployerAddress' => function($address) {
                             $address->with(['State:id,name', 'Township:id,name'])->select('id', 'employer_id', 'country', 'state_id', 'township_id', 'address_detail');
                         }])
@@ -304,5 +313,32 @@ class HomeController extends Controller
                 'msg' => 'Thank you for your interest.'
             ], 200);
         }
+    }
+
+    public function getJobPosts()
+    {
+        $job_posts = JobPost::select('id', 'slug')->orderBy(DB::raw('FIELD(job_post_type, "feature", "trending")'),'desc')->get();
+        return response()->json([
+            'status' => 'success',
+            'job_posts' => $job_posts,
+        ], 200);
+    }
+
+    public function getSubFunctionalArea()
+    {
+        $functional_areas = FunctionalArea::whereIsActive(1)->whereNull('deleted_at')->where('functional_area_id','!=',0)->select('id', 'name', 'functional_area_id')->get();
+        return response()->json([
+            'status' => 'success',
+            'functional_areas' => $functional_areas
+        ], 200);
+    }
+
+    public function getExperienceLevel()
+    {
+        $experience_levels = config('experienceLevel.name');
+        return response()->json([
+            'status' => 'success',
+            'experience_levels' => $experience_levels
+        ]);
     }
 }

@@ -45,8 +45,8 @@
                             <td>{{ $employer->Package->name ?? '' }}</td>
                             <td>{{ $employer->package_start_date }}</td>
                             <td>
-                                @if($employer->Member->count() > 0)
-                                <a data-bs-toggle="modal" data-bs-target="#memberModal{{ $employer->id }}" class="text-blue text-decoration-none" style="cursor:pointer">{{ $employer->Member->count()}}</a>
+                                @if($employer->Member->where('is_active', 1)->where('deleted_at', '=', Null)->count() > 0)
+                                <a data-bs-toggle="modal" data-bs-target="#memberModal{{ $employer->id }}" class="text-blue text-decoration-none" style="cursor:pointer">{{ $employer->Member->where('is_active', 1)->where('deleted_at', '=', Null)->count() }}</a>
                                 @else
                                 -
                                 @endif
@@ -66,7 +66,7 @@
                                 @endcan
                             </td>
                         </tr>
-                        @if($employer->Member->count() > 0)
+                        @if($employer->Member->where('is_active', 1)->where('deleted_at', '=', Null)->count() > 0)
                         <div class="modal fade" id="memberModal{{ $employer->id }}" tabindex="-1" aria-labelledby="memberModal{{ $employer->id }}Label" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -86,7 +86,7 @@
                                                 <span class="fw-bold">Status</span>
                                             </div>
                                         </div>
-                                        @foreach($employer->Member as $member)
+                                        @foreach($employer->Member->where('is_active', 1)->where('deleted_at', '=', Null) as $member)
                                         <div class="row">
                                             <div class="col-5 py-2 border-bottom border-right">
                                                 {{ $member->email }}

@@ -9,6 +9,7 @@ use App\Models\Admin\BlogCategory;
 use Storage;
 use Alert;
 use Auth;
+use Str;
 
 class BlogPostController extends Controller
 {
@@ -67,9 +68,17 @@ class BlogPostController extends Controller
             'title' => $request->title,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'image' => $imageName,
+            'image' => $imageName ?? Null,
+            'video_url' => $request->video_url,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->is_active,
             'created_by' => Auth::user()->id,
+        ]);
+
+        $slug = Str::slug($request->title, '-') . '-' . $post->id;
+        $post->update([
+            'slug' => $slug
         ]);
 
         Alert::success('Success', 'New Blog Post Created Successfully!');
@@ -138,6 +147,9 @@ class BlogPostController extends Controller
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image' => $imageName,
+            'video_url' => $request->video_url,
+            'seo_keyword' => $request->seo_keyword,
+            'seo_description' => $request->seo_description,
             'is_active' => $request->is_active,
             'updated_by' => Auth::user()->id,
         ]);

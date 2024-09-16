@@ -570,7 +570,7 @@
     {
         $("#receive-cv-length").text(response.count.received);
         $("#view-cv-length").text(response.count.viewed);
-        $("#short-listed-cv-length").text(response.count.shortlisted);
+        $("#short-listed-cv-length").text(response.count.short-listed);
         $("#interview-cv-length").text(response.count.interview);
         $("#hire-cv-length").text(response.count.hire);
         $("#not-suitable-cv-length").text(response.count.notsuitable);

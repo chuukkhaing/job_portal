@@ -23,56 +23,16 @@
         @include('sweetalert::alert')
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Job Title</th>
-                            <th>Employer Name</th>
-                            <th>Industry</th>
-                            <th>Main Functional Area</th>
-                            <th>Activation</th>
-                            <th>Job Post Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($jobPosts as $key => $jobPost)
-                        <tr>
-                            <td>{{ ++$key }}</td>
-                            <td>{{ $jobPost->job_title }}</td>
-                            <td>
-                                @if($jobPost->Employer->MainEmployer)
-                                <a href="{{ route('employers.edit', $jobPost->Employer->employer_id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->MainEmployer->name }}</a>@if($jobPost->Employer->MainEmployer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
-                                @else
-                                <a href="{{ route('employers.edit', $jobPost->Employer->id) }}" class="text-decoration-none text-black">{{ $jobPost->Employer->name }}</a>@if($jobPost->Employer->is_verified == 1) <i class="fa-solid fa-circle-check fs-6 px-2" style="color: #0355D0"></i> @endif
-                                @endif
-                            </td>
-                            <td>{{ $jobPost->Industry ? $jobPost->Industry->name : '' }}</td>
-                            <td>{{ $jobPost->MainFunctionalArea ? $jobPost->MainFunctionalArea->name : '' }}</td>
-                            <td>@if($jobPost->is_active == 1)<span class="badge text-light bg-success">Active</span>@else <span class="badge text-light bg-danger">In-Active</span> @endif </td>
-                            <td>
-                                @if($jobPost->status == 'Pending')
-                                <span class="badge text-light bg-secondary">{{ $jobPost->status }}</span>
-                                @elseif($jobPost->status == 'Online')
-                                <span class="badge text-light bg-success">{{ $jobPost->status }}</span>
-                                @elseif($jobPost->status == 'Reject')
-                                <span class="badge text-dark bg-warning">{{ $jobPost->status }}</span>
-                                @elseif($jobPost->status == 'Expire')
-                                <span class="badge text-light bg-danger">{{ $jobPost->status }}</span>
-                                @elseif($jobPost->status == 'Draft')
-                                <span class="badge text-light bg-dark">{{ $jobPost->status }}</span>
-                                @endif
-                            </td>
-                            <td>
-                                @can('job-post-edit')
-                                <a href="{{ route('job-posts.edit', $jobPost->id) }}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit"></i></a>
-                                @endcan
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                
+                <div class="row">
+                    <div class="col text-end py-2">
+                        <label for="search_job_post" class="d-inline-block">Search:</label>
+                        <input type="text" name="search_job_post" id="search_job_post" class="form-control form-control-sm d-inline-block col-2" value="{{ $_GET['search'] ?? '' }}">
+                    </div>
+                </div>
+                <div class="data-fetch">
+                @include('admin.jobpost.table')
+                </div>
             </div>
         </div>
     </div>
@@ -80,3 +40,28 @@
 </div>
 <!-- /.container-fluid -->
 @endsection
+@push('script')
+<script>
+    $(function() {
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $('#search_job_post').on('keyup', function() {
+            $value = $(this).val();
+            $.ajax({
+                type : 'GET',
+                url : '{{ route("job-posts.index") }}',
+                data: {
+                    'search' : $value
+                },
+                success:function(data){
+                    $('.data-fetch').empty().html(data);
+                }
+            });
+        })
+    })
+</script>
+@endpush

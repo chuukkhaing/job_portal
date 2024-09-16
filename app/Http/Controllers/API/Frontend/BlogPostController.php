@@ -15,9 +15,10 @@ class BlogPostController extends Controller
      */
     public function index()
     {
-        $posts = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(10);
+        $posts = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','image', 'video_url','slug','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(10);
         return response()->json([
             'status' => 'success',
+            'image_path' => '/blog',
             'posts' => $posts
         ], 200);
     }
@@ -49,9 +50,14 @@ class BlogPostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $post_detail = BlogPost::with('BlogCategory:id,name')->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','slug','image', 'video_url','description','created_at as published_at')->whereSlug($slug)->first();
+        return response()->json([
+            'status' => 'success',
+            'image_path' => '/blog',
+            'post_detail' => $post_detail
+        ], 200);
     }
 
     /**
@@ -86,5 +92,25 @@ class BlogPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function allBlogPosts()
+    {
+        $posts = BlogPost::whereIsActive(1)->whereNull('deleted_at')->select('id','title', 'slug')->orderBy('updated_at', 'desc')->get();
+        return response()->json([
+            'status' => 'success',
+            'posts' => $posts
+        ], 200);
+    }
+
+    public function relatedBlogPost($slug)
+    {
+        $blog_category = BlogPost::whereIsActive(1)->whereNull('deleted_at')->whereSlug($slug)->first();
+        $related_posts = BlogPost::with('BlogCategory:id,name')->where('id','!=', $blog_category->id)->whereCategoryId($blog_category->category_id)->whereIsActive(1)->whereNull('deleted_at')->select('id','category_id','title','image', 'video_url','slug','description','created_at as published_at')->orderBy('updated_at', 'desc')->paginate(4);
+        return response()->json([
+            'status' => 'success',
+            'image_path' => '/blog',
+            'related_posts' => $related_posts
+        ], 200);
     }
 }

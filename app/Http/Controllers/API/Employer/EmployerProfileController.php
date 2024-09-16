@@ -24,7 +24,7 @@ class EmployerProfileController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point'])->whereId($request->user()->id)->select('id','logo','package_point as point_balance','purchased_point')->first();
+        $employer = Employer::with(['MainEmployer:id,package_point as point_balance,purchased_point','MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id','employer_id', 'logo',DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"), 'package_point as point_balance','purchased_point')->first();
 
         $member_ids = Employer::whereId($request->user()->id)->first()->Member->pluck('id')->toArray();
         $employer_id = [];
@@ -73,9 +73,9 @@ class EmployerProfileController extends Controller
     public function profile(Request $request)
     {
         $employer = Employer::findOrFail($request->user()->id);
-        $account_info = Employer::whereId($request->user()->id)->select('email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
+        $account_info = Employer::with(['MemberPermission:id,employer_id,name'])->whereId($request->user()->id)->select('id', 'email','is_active', DB::raw("(CASE WHEN (employer_id != 'NULL') THEN 'Member' ELSE 'Admin' End) as Access"))->first();
         if($employer->employer_id) {
-            $employer = $employer->findOrFail($employer->employer_id);
+            $employer = Employer::findOrFail($employer->employer_id);
         }
         $employer = Employer::with(['Package' => function ($package) {
             $package->with(['PackageWithPackageItem' => function ($packagewithitem) {
@@ -83,7 +83,7 @@ class EmployerProfileController extends Controller
                     $packageItem->select('id','name','point')->where('is_active', 1)->whereNull('deleted_at');
                 }])->select('id', 'package_id', 'package_item_id');
             }])->select('id', 'name', 'is_active')->where('is_active', 1)->whereNull('deleted_at');
-        }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id')->first();
+        }, 'EmployerAddress:id,employer_id,country,state_id,township_id,address_detail', 'EmployerTestimonial:id,employer_id,name,title,remark,image','EmployerMedia:id,employer_id,name,type'])->whereId($employer->id)->select('id','logo','background','name','industry_id','ownership_type_id','type_of_employer','phone','website','no_of_offices','no_of_employees','legal_docs','summary','value', 'package_id', 'package_start_date as package_effective_date', 'package_end_date as package_expired_date')->first();
         $ownershipTypes = OwnershipType::whereNull('deleted_at')->whereIsActive(1)->select('id','name','is_active')->get();
         $type_of_employers = config('typeOfEmployer.value');
         return response()->json([
@@ -143,7 +143,7 @@ class EmployerProfileController extends Controller
             'summary' => $request->summary,
             'value' => $request->value,
         ]);
-        $employer = Employer::with(['MainEmployer:id,employer_id,logo,background,name,email,industry_id,ownership_type_id,type_of_employer,summary,value,phone,no_of_offices,website,no_of_employees,slug', 'Industry:id,name', 'OwnershipType:id,name'])->whereId($employer->id)->select('id','employer_id','logo','background','name','email','industry_id','ownership_type_id','type_of_employer','summary','value','phone','no_of_offices','website','no_of_employees','slug')->first();
+        $employer = Employer::with(['MainEmployer:id,logo,background,name,email,industry_id,ownership_type_id,type_of_employer,summary,value,phone,no_of_offices,website,no_of_employees,slug', 'Industry:id,name', 'OwnershipType:id,name'])->whereId($employer->id)->select('id','employer_id','logo','background','name','email','industry_id','ownership_type_id','type_of_employer','summary','value','phone','no_of_offices','website','no_of_employees','slug')->first();
         return response()->json([
             'status' => 'success',
             'employer' => $employer
@@ -253,7 +253,7 @@ class EmployerProfileController extends Controller
     {
         $this->validate($request, [
             'country'  => ['required'],
-            'state_id' => ['required']
+            'state_id' => ['required_if:country,Myanmar']
         ]);
         $address_create = EmployerAddress::create([
             'employer_id' => $request->user()->id,
@@ -403,6 +403,19 @@ class EmployerProfileController extends Controller
         return response()->json([
             'status' => 'success',
             'data'   => $skills,
+        ]);
+    }
+
+    public function getEmployerAddress(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+        if($employer->employer_id) {
+            $employer = Employer::findOrFail($employer->employer_id);
+        }
+        $address = EmployerAddress::with('state:id,name', 'township:id,name')->where('employer_id',$employer->id)->select('id','employer_id','country','state_id','township_id','address_detail')->get();
+        return response()->json([
+            'status' => 'success',
+            'data'   => $address
         ]);
     }
 

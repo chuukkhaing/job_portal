@@ -102,7 +102,8 @@ class PointOrderController extends Controller
                 $employer = $order->Employer;
                 $employer_update = $employer->update([
                     'add_on_point' => $employer->add_on_point + $point,
-                    'purchased_point' => $employer->purchased_point + $point
+                    'purchased_point' => $employer->purchased_point + $point,
+                    'package_point' => $employer->package_point + $point
                 ]);
                 $invoice = Invoice::where('point_order_id', $id)->first();
                 $invoice->update([

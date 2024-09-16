@@ -79,16 +79,16 @@
 
         <!-- Pending Point Order -->
         <a href="{{ route('point-topup.index', ['status' => 'Pending']) }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2 dashboard-card">
+            <div class="card border-left-dark shadow h-100 py-2 dashboard-card">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            <div class="text-xs font-weight-bold text-dark text-uppercase mb-1">
                                 Pending Point Order</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pointorderpending }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                            <i class="fas fa-cart-shopping fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -97,22 +97,39 @@
 
         <!-- Point Order -->
         <a href="{{ route('point-topup.index') }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2 dashboard-card">
+            <div class="card border-left-warning shadow h-100 py-2 dashboard-card">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Point Order</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $pointOrder }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-user-tie fa-2x text-gray-300"></i>
+                            <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </a>
 
+        <!-- Job Apply Count -->
+        <a href="{{ route('job-apply.index') }}" class="text-decoration-none col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-indigo shadow h-100 py-2 dashboard-card">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-indigo text-uppercase mb-1">
+                            Job Apply Count</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jobApply }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-circle-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6">

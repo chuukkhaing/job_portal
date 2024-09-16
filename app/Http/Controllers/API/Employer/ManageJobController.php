@@ -35,16 +35,14 @@ class ManageJobController extends Controller
         $employer_id[] = $employer->id;
         $employer_id[] = $employer->employer_id;
         
-        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
-        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
-        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
-        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
-        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('updated_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'updated_at as date')->paginate(15);
-        $jobPostCount = JobPost::whereIn('employer_id', $employer_id)->orderBy('updated_at', 'desc')->count();
+        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
 
         return response()->json([
             'status' => 'success',
-            'jobPostCount' => $jobPostCount,
             'pendingjobPosts' => $pendingjobPosts,
             'onlinejobPosts' => $onlinejobPosts,
             'rejectjobPosts' => $rejectjobPosts,
@@ -88,6 +86,7 @@ class ManageJobController extends Controller
             'job_description' => 'required',
             'job_requirement' => 'required',
             'job_post_type' => 'required',
+            'salary_range' => 'required',
             'trending_job_package_item_id' => ['required_if:job_post_type,trending'],
             'trending_job_point' => ['required_if:job_post_type,trending'],
             'feature_job_package_item_id' => ['required_if:job_post_type,feature'],
@@ -242,6 +241,7 @@ class ManageJobController extends Controller
             'recruiter_name' => 'required',
             'country' => 'required',
             'skills' => 'required',
+            'salary_range' => 'required',
             'job_description' => 'required',
             'job_requirement' => 'required',
             'job_post_type' => 'required',
@@ -257,7 +257,7 @@ class ManageJobController extends Controller
             'total_point' => ['required'],
             'status' => ['required']
         ]);
-        if($request->total_point && $request->total_point > $request->user()->package_point) {
+        if($request->total_point && ($request->total_point > $request->user()->package_point)) {
             return response()->json([
                 'status' => 'error',
                 'msg'    => 'Your Balance Points are not enough to Post Job.'
@@ -807,5 +807,54 @@ class ManageJobController extends Controller
             'point_order' => $order,
             'jobpost' => $jobPost
         ]);
+    }
+
+    public function manageJobList()
+    {
+        
+        $jobPosts = JobPost::select('id')->get();
+
+        return response()->json([
+            'status' => 'success',
+            'jobPosts' => $jobPosts
+        ], 200);
+
+    }
+
+    public function manageJobSearch(Request $request)
+    {
+        $employer = Employer::findOrFail($request->user()->id);
+
+        $member_ids = $employer->Member->pluck('id')->toArray();
+        $employer_id = [];
+        foreach($member_ids as $member_id) {
+            $employer_id[] = $member_id;
+        }
+        
+        $employer_id[] = $employer->id;
+        $employer_id[] = $employer->employer_id;
+        
+        $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+
+        if ($request->job_title) {
+            $pendingjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Pending')->where('job_title', 'Like', '%' . $request->job_title . '%')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+            $onlinejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Online')->where('job_title', 'Like', '%' . $request->job_title . '%')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+            $rejectjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Reject')->where('job_title', 'Like', '%' . $request->job_title . '%')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+            $expirejobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Expire')->where('job_title', 'Like', '%' . $request->job_title . '%')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+            $draftjobPosts = JobPost::with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name'])->whereIn('employer_id', $employer_id)->where('status', 'Draft')->where('job_title', 'Like', '%' . $request->job_title . '%')->orderBy('created_at', 'desc')->select('id','job_title','job_post_type','main_functional_area_id', 'sub_functional_area_id', 'status','is_active', 'slug', 'created_at as created_date', 'updated_at as updated_at')->paginate(25);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'pendingjobPosts' => $pendingjobPosts,
+            'onlinejobPosts' => $onlinejobPosts,
+            'rejectjobPosts' => $rejectjobPosts,
+            'expirejobPosts' => $expirejobPosts,
+            'draftjobPosts' => $draftjobPosts,
+        ], 200);
     }
 }

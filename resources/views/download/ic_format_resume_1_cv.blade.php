@@ -33,6 +33,8 @@
         body {
             border: 2px solid #0563c1;
             border-radius: 20px;
+            padding-top: 10px;
+            margin: 0
         }
 
         .page-header {
@@ -81,23 +83,15 @@
         .page {
             position: relative;
             counter-increment: page;
-            padding: 30px;
-        }
-
-        .main_table td{
-            padding: 0 30px 0 0;
-            margin: 0
-        }
-
-        .main_table {
-            margin: 0
+            padding: 30px 30px 5px 30px;
+            margin: 0;
         }
 
         .name {
             text-transform: uppercase;
             font-family: 'Agency FB', sans-serif;
             color: #0563C1;
-            font-size: 4rem;
+            font-size: 3.5rem;
             padding: 0;
             margin: 0
         }
@@ -171,6 +165,13 @@
             font-size: 1rem;
             font-weight: 400
         }
+
+        table {
+            border-collapse: collapse;
+			width: 100%;
+			margin-top: 15px;
+			page-break-inside: auto;
+        }
     </style>
 </head>
 <body>
@@ -185,68 +186,66 @@
         <p class="footer-text">© infinitycareers.com.mm</p>
     </div>
     <div class="page">
-        <table class="main_table">
-            <tr>
-                <td class="" style="vertical-align: top">
-                    @if($seeker->image)
-                    <img class="" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
-                    @else
-                    <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
+        <div>
+            <div class="" style="display: inline-block; width: 20%; vertical-align: top; padding: 0; margin: 0;">
+                @if($seeker->image)
+                <img class="" src="{{ getS3File('seeker/profile/'.$seeker->id ,$seeker->image) }}" alt="profile_pic" width="150px" height="150px">
+                @else
+                <img src="https://placehold.jp/200x200.png" alt="Profile Image" class="" width="150px" height="150px">
+                @endif
+            </div>
+            <div class="main_table_inner" style="width: 70%; display: inline-block; padding: 0 30px; margin: 0; vertical-align: top;">
+                @if(isset($seeker->first_name ) && isset($seeker->last_name))
+                <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
+                @endif
+                <table class="sub_table">
+                    @if(isset($seeker->address_detail))
+                    <tr>
+                        <td style="vertical-align: top">
+                            <img src="{{ public_path('img/pdf/home.png') }}" alt="" width= "23">
+                        </td>
+                        <td>
+                            <span class="info">{{ $seeker->address_detail }}</span>
+                        </td>
+                    </tr>
                     @endif
-                </td>
-                <td style="vertical-align: top">
-                    @if(isset($seeker->first_name ) && isset($seeker->last_name))
-                    <h1 class="name">{{ $seeker->first_name }} {{ $seeker->last_name }}</h1>
+                    @if(isset($seeker->phone))
+                    <tr>
+                        <td style="vertical-align: top">
+                            <img src="{{ public_path('img/pdf/phone.png') }}" alt="" width= "23">
+                        </td>
+                        <td>
+                            <span class="info">{{ $seeker->phone }}</span>
+                        </td>
+                    </tr>
                     @endif
-                    <table class="sub_table">
-                        @if(isset($seeker->address_detail))
-                        <tr>
-                            <td style="vertical-align: top">
-                                <img src="{{ public_path('img/pdf/home.png') }}" alt="" width= "23">
-                            </td>
-                            <td>
-                                <span class="info">{{ $seeker->address_detail }}</span>
-                            </td>
-                        </tr>
-                        @endif
-                        @if(isset($seeker->phone))
-                        <tr>
-                            <td style="vertical-align: top">
-                                <img src="{{ public_path('img/pdf/phone.png') }}" alt="" width= "23">
-                            </td>
-                            <td>
-                                <span class="info">{{ $seeker->phone }}</span>
-                            </td>
-                        </tr>
-                        @endif
-                        @if(isset($seeker->email))
-                        <tr>
-                            <td style="vertical-align: top">
-                                <img src="{{ public_path('img/pdf/email.png') }}" alt="" width= "23">
-                            </td>
-                            <td>
-                                <span class="info">{{ $seeker->email }}</span>
-                            </td>
-                        </tr>
-                        @endif
-                    </table>
-                    @if(isset($seeker->summary))
-                    {!! $seeker->summary !!}
+                    @if(isset($seeker->email))
+                    <tr>
+                        <td style="vertical-align: top">
+                            <img src="{{ public_path('img/pdf/email.png') }}" alt="" width= "23">
+                        </td>
+                        <td>
+                            <span class="info">{{ $seeker->email }}</span>
+                        </td>
+                    </tr>
                     @endif
-                </td>
-            </tr>
-        </table>
+                </table>
+                @if(isset($seeker->summary))
+                <p style="padding: 0; margin: 0">{!! $seeker->summary !!}</p>
+                @endif
+            </div>
+        </div>
 
         <!-- Experience  -->
-        <h4 class="resume-title">Experiences</h4>
+        <h4 class="resume-title" style="padding: 0; margin: 0">Experiences</h4>
         @if($seeker->SeekerExperience->count() > 0)
             @foreach($seeker->SeekerExperience as $experience)
                 @if($experience->is_experience == 0)
                     <p>No Experience</p>
                 @else
-                <table class="main_table">
-                    <tr>
-                        <td style="vertical-align: top">
+                <div class="main_table">
+                    <div style="padding-top: 15px; width: 100%;">
+                        <div style="vertical-align: top; width: 20%; display: inline-block; ">
                             @if(isset($experience->start_date))
                             <h3 class="exp-date" style="padding-top: 8px">{{ date('M Y', strtotime($experience->start_date)) }} - 
                             @if($experience->is_current_job == 1)
@@ -256,18 +255,18 @@
                             @endif
                             </h3>
                             @endif
-                        </td>
-                        <td style="vertical-align: top;">
-                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 10px">
-                        </td>
-                        <td  style="vertical-align: top">
+                        </div>
+                        <div style="vertical-align: top; width: 5%; display: inline-block; padding-top: 13px;">
+                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
+                        </div>
+                        <div  style="vertical-align: top; width: 65%; display: inline-block; margin-left: 28%; margin-top: -5%">
                             <h2>@if(isset($experience->job_title))<span class="exp_job_title">{{ $experience->job_title }}</span> <span class="exp_company"><span style="color: #000"> | @endif @if(isset($experience->company)) </span> {{ $experience->company }}</span> @endif</h2>
                             @if(isset($experience->job_responsibility))
                             {!! $experience->job_responsibility !!}
                             @endif
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                </div>
                 @endif
             @endforeach
         @else
@@ -275,27 +274,27 @@
         @endif
 
         <!-- Education  -->
-        <h4 class="resume-title">Education</h4>
+        <h4 class="resume-title" style="">Education</h4>
         @if($seeker->SeekerEducation->count() > 0)
             @foreach($seeker->SeekerEducation as $education)
                 
-                <table class="main_table">
-                    <tr>
-                        <td style="vertical-align: top">
+                <table class="" style="line-height: 25px">
+                    <tr style="">
+                        <td style="vertical-align: top; width: 20%; ">
                             @if(isset($education->from))
-                            <h3 class="exp-date" style="padding-top: 8px">{{ date('M Y', strtotime($education->from)) }} - 
+                            <h3 class="exp-date" style="">{{ $education->from }} - 
                             @if($education->is_current == 1)
                             Present
                             @else
-                            {{ date('M Y', strtotime($education->to)) }}
+                            {{ $education->to }}
                             @endif
                             @endif
                             </h3>
                         </td>
-                        <td style="vertical-align: top">
-                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
+                        <td style="vertical-align: top; width: 5%; padding-top: 13px">
+                            <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
                         </td>
-                        <td style="vertical-align: top">
+                        <td style=" width: 65%;  padding-top: 8px">
                             <h2>
                                 @if(isset($education->degree) && isset($education->major_subject))
                                 <span class="exp_job_title"> 
@@ -317,14 +316,14 @@
         @endif
 
         <!-- Skill  -->
-        <h4 class="resume-title">Skills</h4>
+        <h4 class="resume-title" style="">Skills</h4>
         @if($seeker->SeekerSkill->count() > 0)
             <div style="padding: 30px 0;">
             @foreach($seeker->SeekerSkill as $skill)
             @if(isset($skill->Skill))
-            <div class="col" style="width: 40%; display: inline-block; ">
-                <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
-                <span class="skill_name">{{ $skill->Skill->name }}</span>
+            <div class="col" style="width: 45%; display: inline-block;">
+                <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style=" width: 5%; display: inline-block">
+                <span class="" style="display: inline-block; padding: 15px 0 0 0;">{{ $skill->Skill->name }}</span>
             </div>
             @endif
             @endforeach
@@ -334,41 +333,35 @@
         @endif
         
         <!-- Language -->
-        <h4 class="resume-title">Languages</h4>
+        <h4 class="resume-title" style="">Languages</h4>
         @if($seeker->SeekerLanguage->count() > 0)
             
-            <table class="main_table" style="padding: 20px 0">
+            <div class="main_table" style="padding: 20px 0">
                 @foreach($seeker->SeekerLanguage as $language)
                 @if(isset($language->name) && isset($language->level))
-                <tr>
-                    <td>
-                        <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
-                    </td>
-                    <td>
-                        <span class="skill_name">{{ $language->name ?? '-' }}</span>
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        <span class="skill_name">{{ $language->level ?? '-' }}</span>
-                    </td>
-                </tr>
+                <div class="col">
+                    <div style=" width: 5%; display: inline-block">
+                        <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13">
+                    </div>
+                    <div class="" style=" width: 25%; display: inline-block;">{{ $language->name ?? '-' }}</div>
+                    <div style=" width: 5%; display: inline-block">-</div>
+                    <div class="" style=" width: 25%; display: inline-block;">{{ $language->level ?? '-' }}</div>
+                </div>
                 @endif
                 @endforeach
-            </table>
+            </div>
             
         @else
         <p>-</p>
         @endif
 
         <!-- Reference -->
-        <h4 class="resume-title">References</h4>
+        <h4 class="resume-title" style="">References</h4>
         @if($seeker->SeekerReference->count() > 0)
             @foreach($seeker->SeekerReference as $reference)
-            <table class="main_table" style="padding: 15px 0">
+            <table class="" style="padding: 15px 0">
                 <tr>
-                    <td style="vertical-align: top">
+                    <td style="vertical-align: top; width: 5%">
                         <img src="{{ public_path('img/pdf/circle.png') }}" alt="" width= "13" style="padding-top: 13px">
                     </td>
                     <td>

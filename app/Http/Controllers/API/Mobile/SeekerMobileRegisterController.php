@@ -24,8 +24,8 @@ class SeekerMobileRegisterController extends Controller
             'device_id' => ['required'],
             'device_type' => ['required']
         ], $messages = [
-            'required' => ['The :attribute is required.'],
-            'MyanmarPhone' => ['The :attribute must be valid myanmar phone number.'],
+            'required' => 'The :attribute is required.',
+            'MyanmarPhone' => 'The :attribute must be valid myanmar phone number.',
             'email' => 'The :attribute must be a valid email address.',
             'same' => 'The :attribute and :other must match.',
             'min' => 'The :attribute must be at least :min.',
@@ -42,7 +42,8 @@ class SeekerMobileRegisterController extends Controller
                 'register_at'              => Carbon::now(),
                 'is_active'                => 0,
                 'device_id'                => $request['device_id'],
-                'device_type'              => $request['device_type']
+                'device_type'              => $request['device_type'],
+                'fcm_token'                => $request['fcm_token']
             ]);
             if ($seeker) {
                 \Mail::to($seeker->email)->send(new SeekerMobileVerificationEmail($seeker));

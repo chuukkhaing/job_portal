@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\FindJobController;
 use App\Http\Controllers\API\Frontend\BlogPostController;
+use App\Http\Controllers\API\Frontend\VersionControlController;
+use App\Http\Controllers\API\Frontend\OnlineBookingController;
+use App\Http\Controllers\API\Frontend\InPersonBookingController;
 
 // seeker
 use App\Http\Controllers\API\Seeker\SeekerRegisterController;
@@ -19,6 +22,7 @@ use App\Http\Controllers\API\Seeker\CareerOfChoiceController;
 use App\Http\Controllers\API\Seeker\SeekerCVAttachController;
 use App\Http\Controllers\API\Seeker\SeekerSaveJobController;
 use App\Http\Controllers\API\Seeker\SeekerJobAlertController;
+use App\Http\Controllers\API\Seeker\SeekerNotificationController;
 
 // employer 
 use App\Http\Controllers\API\Employer\EmployerRegisterController;
@@ -33,6 +37,9 @@ use App\Http\Controllers\API\Employer\PointRecordController;
 // mobile 
 use App\Http\Controllers\API\Mobile\SeekerMobileRegisterController;
 use App\Http\Controllers\API\Mobile\SeekerMobileProfileController;
+
+// seo 
+use App\Http\Controllers\API\Frontend\SEOController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +65,7 @@ Route::get('get-featured-jobs', [HomeController::class, 'getFeaturedJob']);
 
 Route::get('get-states', [HomeController::class, 'getState']);
 Route::get('get-functional-areas', [HomeController::class, 'getFunctionalArea']);
+Route::get('get-sub-functional-areas', [HomeController::class, 'getSubFunctionalArea']);
 
 // findjobs 
 Route::get('find-jobs', [FindJobController::class, 'findJob']);
@@ -87,6 +95,35 @@ Route::post('get-sub-functional-area', [SeekerProfileController::class, 'getSubF
 
 // blogpost 
 Route::resource('blog-post',BlogPostController::class);
+Route::get('get-blog-posts',[BlogPostController::class, 'allBlogPosts']);
+Route::get('blog-post/{slug}',[BlogPostController::class, 'show']);
+Route::get('related-blog-post/{slug}', [BlogPostController::class, 'relatedBlogPost']);
+// get employer raw 
+Route::get('get-employers', [HomeController::class, 'getEmployers']);
+
+// get job post list raw 
+Route::get('get-job-posts', [HomeController::class, 'getJobPosts']);
+
+// seo 
+Route::get('/site-setting', [SEOController::class, 'siteSetting']);
+Route::get('/seo/{page}', [SEOController::class, 'pageSEO']);
+
+// manage job list 
+Route::get('manage-job-list', [ManageJobController::class, 'manageJobList']);
+
+// experience level 
+Route::get('experience-level', [HomeController::class, 'getExperienceLevel']);
+
+// version control 
+Route::get('version-control', [VersionControlController::class, 'index']);
+
+// online booking 
+Route::post('online-booking-get-close-time-by-date', [OnlineBookingController::class, 'getCloseTimeByDate']);
+Route::resource('online-booking', OnlineBookingController::class);
+
+// inperson booking 
+Route::post('inperson-booking-get-close-time-by-date', [InPersonBookingController::class, 'getCloseTimeByDate']);
+Route::resource('inperson-booking', InPersonBookingController::class);
 
 // seeker 
 Route::group(['prefix' => 'seeker'], function () {
@@ -96,6 +133,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
     // seeker login 
     Route::post('login', [SeekerLoginController::class, 'login']);
+    Route::post('mobile-login', [SeekerLoginController::class, 'MobileLogin']);
 
     // seeker forget password 
     Route::post('forget-password', [SeekerRegisterController::class, 'getEmail']);
@@ -124,6 +162,7 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // seeker application 
         Route::get('get-application', [SeekerProfileController::class, 'getApplication']);
+        Route::post('application-search', [SeekerProfileController::class, 'applicationSearch']);
 
         // seeker career history 
         Route::resource('career-history',SeekerExperienceController::class);
@@ -146,13 +185,16 @@ Route::group(['prefix' => 'seeker'], function () {
         // seeker cv 
         Route::resource('seeker-cv',SeekerCVAttachController::class);
         Route::get('cv-download',[SeekerCVAttachController::class, 'cvDownload']);
+        Route::get('org-cv-download',[SeekerCVAttachController::class, 'OrgCvDownload']);
 
         // seeker save job 
         Route::resource('save-job', SeekerSaveJobController::class);
         Route::get('save-job-list', [SeekerSaveJobController::class, 'saveJobList']);
+        Route::post('save-job-search', [SeekerSaveJobController::class, 'saveJobSearch']);
 
         // seeker job alert
         Route::resource('job-alert', SeekerJobAlertController::class);
+        Route::post('job-alert-search', [SeekerJobAlertController::class, 'jobAlertSearch']);
 
         // job post apply
         Route::post('job-post-apply/{id}', [SeekerProfileController::class , 'jobPostApply']);
@@ -168,6 +210,10 @@ Route::group(['prefix' => 'seeker'], function () {
 
         // mobile personal information 
         Route::post('mobile-personal-information', [SeekerMobileProfileController::class, 'personalInformation']);
+
+        // notification 
+        Route::get('notifications', [SeekerNotificationController::class, 'getNotification']);
+        Route::get('read-noti', [SeekerNotificationController::class, 'readNoti']);
     });
 
     Route::group(['prefix' => 'mobile'], function () {
@@ -216,6 +262,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::post('remove-background', [EmployerProfileController::class, 'removeBackground']);
 
         // address 
+        Route::get('get-address', [EmployerProfileController::class, 'getEmployerAddress']);
         Route::post('address-store', [EmployerProfileController::class, 'addressStore']);
         Route::delete('address-destroy/{id}', [EmployerProfileController::class, 'addressDestroy']);
 
@@ -233,6 +280,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::get('get-experience-level', [ManageJobController::class, 'getExperienceLevel']);
         Route::post('buy-point-with-jobpost', [ManageJobController::class, 'buypointWithJobPost']);
         Route::post('buy-point-with-jobpost/{id}', [ManageJobController::class, 'buypointWithJobPostUpdate']);
+        Route::post('manage-job-search', [ManageJobController::class, 'manageJobSearch']);
 
         // generate AI 
         Route::post('job-description-generate', [ManageJobController::class, 'jobDescriptionGenerate']);
@@ -250,6 +298,7 @@ Route::group(['prefix' => 'employer'], function () {
         Route::post('change-status', [ApplicantTrackingController::class, 'changeStatus']);
         Route::post('unlock-application', [ApplicantTrackingController::class, 'unlockApplication']);
         Route::post('cv-download', [ApplicantTrackingController::class, 'cvDownload']);
+        Route::post('applicant-tracking-search', [ApplicantTrackingController::class, 'ApplicantTrackingSearch']);
 
         // buy point 
         Route::resource('buy-point', BuyPointController::class);
@@ -260,6 +309,7 @@ Route::group(['prefix' => 'employer'], function () {
         // point record 
         Route::get('used-point-history', [PointRecordController::class, 'usedPointHistory']);
         Route::get('get-all-used-point-history', [PointRecordController::class, 'getAllUsedPointHistory']);
+        Route::post('used-point-search', [PointRecordController::class, 'usedPointSearch']);
 
         // get skill 
         Route::post('/get-skill', [EmployerProfileController::class, 'getSkill']);

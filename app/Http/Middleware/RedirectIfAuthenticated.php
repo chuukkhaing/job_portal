@@ -24,17 +24,17 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             
             if ($guard == "admin" && Auth::guard($guard)->check()) {
-                return redirect('/admin');
+                return redirect('/dashboard');
             }
-            if ($guard == "seeker" && Auth::guard($guard)->check()) {
-                return redirect('/seeker/profile');
-            }
-            if ($guard == "employer" && Auth::guard($guard)->check()) {
-                return redirect('/employer/employer-profile');
-            }
-            if (Auth::guard($guard)->check()) {
-                return redirect('/');
-            }
+            // if ($guard == "seeker" && Auth::guard($guard)->check()) {
+            //     return redirect('/seeker/profile');
+            // }
+            // if ($guard == "employer" && Auth::guard($guard)->check()) {
+            //     return redirect('/employer/employer-profile');
+            // }
+            // if (Auth::guard($guard)->check()) {
+            //     return redirect('/dashboard');
+            // }
             if($next && $request) {
                 return $next($request);
             }

@@ -54,12 +54,12 @@ class SeekerJobAlertController extends Controller
                 'email'     => $request->email,
                 'job_title' => $request->job_title,
                 'job_type' => $request->job_type,
-                'industry_id' => $request->industry_id,
+                'industry_id' => (int)$request->industry_id,
                 'career_level' => $request->career_level,
-                'functional_area_id' => $request->functional_area_id,
+                'functional_area_id' => (int)$request->functional_area_id,
                 'experience_level' => $request->experience_level,
                 'country' => $request->country,
-                'state_id' => $request->state_id
+                'state_id' => (int)$request->state_id
             ]);
 
             if($job_alert) {
@@ -136,5 +136,17 @@ class SeekerJobAlertController extends Controller
                 'msg' => $e->getMessage()
             ], $e->getCode());
         }
+    }
+
+    public function jobAlertSearch(Request $request)
+    {
+        $job_alerts           = JobAlert::with(['FunctionalArea:id,name', 'State:id,name'])->whereSeekerId($request->user()->id)->select('id','job_title','job_type','functional_area_id','country','state_id','created_at')->paginate(15);
+        if($request->job_title) {
+            $job_alerts           = JobAlert::with(['FunctionalArea:id,name', 'State:id,name'])->whereSeekerId($request->user()->id)->where('job_title', 'Like', '%' . $request->job_title . '%')->select('id','job_title','job_type','functional_area_id','country','state_id','created_at')->paginate(15);
+        }
+        return response()->json([
+            'status' => 'success',
+            'job_alerts' => $job_alerts
+        ], 200);
     }
 }

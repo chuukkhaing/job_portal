@@ -370,7 +370,7 @@ class SeekerProfileController extends Controller
         $result = $client->completions()->create([
             'prompt' => 'Write about my summary name : ' . $seeker->first_name . $seeker->last_name . '.' . $my_exp . '.' . $my_edu. '.' . $my_skill,
             'model' => 'gpt-3.5-turbo-instruct',
-            'max_tokens' => 250,
+            'max_tokens' => 400,
         ]);
 
         return response()->json([
@@ -394,6 +394,35 @@ class SeekerProfileController extends Controller
             }, 'JobPostQuestion:id,job_post_id,question,answer'])
                     ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at');
         }])->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->paginate(15);
+        return response()->json([
+            'status' => 'success',
+            'applications' => $applications
+        ]);
+    }
+
+    public function applicationSearch(Request $request)
+    {
+        $applications    = JobApply::with(['JobPost' => function($query) {
+            $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+            }, 'JobPostSkill' => function($skill) {
+                $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+            }, 'JobPostQuestion:id,job_post_id,question,answer'])
+                    ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at');
+        }])->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->paginate(15);
+
+        if($request->job_title) {
+            $applications    = JobApply::with(['JobPost' => function($query) use ($request) {
+                $query->with(['MainFunctionalArea:id,name', 'SubFunctionalArea:id,name', 'State:id,name', 'Township:id,name', 'Employer' => function ($query) {
+                    $query->with('Industry:id,name')->with('MainEmployer:id,logo,name,is_verified,slug,industry_id,summary,value,no_of_offices,website,no_of_employees')->select('id', 'logo', 'employer_id', 'name', 'industry_id', 'summary', 'value', 'no_of_offices', 'website', 'no_of_employees', 'slug', 'is_verified');
+                }, 'JobPostSkill' => function($skill) {
+                    $skill->with('Skill:id,name')->select('skill_id', 'job_post_id');
+                }, 'JobPostQuestion:id,job_post_id,question,answer'])
+                        ->select('id', 'employer_id', 'slug', 'job_title', 'main_functional_area_id', 'sub_functional_area_id', 'industry_id', 'career_level', 'job_type', 'experience_level', 'degree', 'gender', 'currency', 'salary_range', 'country', 'state_id', 'township_id', 'job_description', 'job_requirement', 'benefit', 'job_highlight', 'hide_salary', 'hide_company', 'no_of_candidate', 'job_post_type', 'updated_at as posted_at');
+            }])->whereHas('JobPost', function($job_post) use ($request) {
+                $job_post->where('job_title', 'Like', '%' . $request->job_title . '%');
+            })->whereSeekerId($request->user()->id)->select('id','employer_id','job_post_id','created_at as applied_at')->orderBy('created_at','desc')->paginate(15);
+        }
         return response()->json([
             'status' => 'success',
             'applications' => $applications
@@ -562,6 +591,9 @@ class SeekerProfileController extends Controller
             } else {
                 $password = $seeker->password;
             }
+            $seeker->update([
+                'password' => $password
+            ]);
             return response()->json([
                 'status' => 'success',
                 'msg' => 'Change Password Success.'
@@ -581,7 +613,7 @@ class SeekerProfileController extends Controller
 
     public function applyJob(Request $request)
     {
-        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id')->get();
+        $apply_jobs = JobApply::whereSeekerId($request->user()->id)->select('id','job_post_id','created_at as applied_at')->get();
         return response()->json([
             'status' => 'success',
             'apply_jobs' => $apply_jobs

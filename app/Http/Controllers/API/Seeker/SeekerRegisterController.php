@@ -24,8 +24,8 @@ class SeekerRegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'same:confirmed'],
             'confirmed' => ['required', 'string', 'min:8', 'same:password'],
         ], $messages = [
-            'required' => ['The :attribute is required.'],
-            'MyanmarPhone' => ['The :attribute must be valid myanmar phone number.'],
+            'required' => 'The :attribute is required.',
+            'MyanmarPhone' => 'The :attribute must be valid myanmar phone number.',
             'email' => 'The :attribute must be a valid email address.',
             'same' => 'The :attribute and :other must match.',
             'min' => 'The :attribute must be at least :min.',
@@ -82,18 +82,18 @@ class SeekerRegisterController extends Controller
     public function getEmail(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:seekers',
+            'email' => 'required|email',
         ]);
         $seeker = Seeker::whereEmail($request->email)->whereIsActive(1)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
-        
+        $inactive_seeker = Seeker::whereEmail($request->email)->whereIsActive(0)->whereNotNull('email_verified_at')->whereNull('deleted_at')->first();
         if (isset($seeker)) {
             $seeker_update = $seeker->update([
                 'email_verification_token' => Str::random(32),
             ]);
 
-            $first_name = $seeker->first_name;
-            $last_name  = $seeker->last_name;
-            $reseturl   = URL::to('/') . '/seeker' . '/' . $seeker->id . '/reset-password';
+            $first_name = $seeker->first_name ?? '';
+            $last_name  = $seeker->last_name ?? '';
+            $reseturl  = env('MAIN_DOMAIN').'/account/change-password?type=seeker&seeker_id='.$seeker->id;
 
             \Mail::to($seeker->email)->send(new SeekerResetPassword($first_name, $last_name, $reseturl));
 
@@ -102,7 +102,13 @@ class SeekerRegisterController extends Controller
                 'seeker_id' => $seeker->id,
                 'msg' => 'Please, check email for reset link.'
             ], 200);
-        } else {
+        } elseif(isset($inactive_seeker)) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => "Your account wasn't activated. Please check your email!"
+            ], 500);
+        }
+        else {
             return response()->json([
                 'status' => 'error',
                 'msg' => "Your email was don't exist. Please Try Again!"

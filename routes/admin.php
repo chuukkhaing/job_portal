@@ -29,6 +29,17 @@ use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Seeker\SeekerLoginController;
+use App\Http\Controllers\Employer\EmployerLoginController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SEOController;
+use App\Http\Controllers\Admin\JobApplyController;
+use App\Http\Controllers\Admin\OnlineBookingTimeController;
+use App\Http\Controllers\Admin\InPersonBookingTimeController;
+use App\Http\Controllers\Admin\CloseOnlineBookingTimeController;
+use App\Http\Controllers\Admin\CloseInPersonBookingTimeController;
+use App\Http\Controllers\Admin\OnlineBookingController;
+use App\Http\Controllers\Admin\InPersonBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +58,8 @@ Route::group([], function(){
     Route::get('/', [LoginController::class, 'index']);
     Auth::routes(['register' => false, 'request' => false, 'reset' => false]);
     Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::get('verify/{id}', [SeekerLoginController::class, 'VerifyEmail'])->name('seeker-verify');
+    Route::get('verify/{id}', [EmployerLoginController::class, 'VerifyEmail'])->name('employer-verify');
 	Route::group(['middleware' => 'auth:web'], function () {
 
         // dashboard
@@ -99,6 +112,7 @@ Route::group([], function(){
         Route::resource('feedback', FeedbackController::class);
 
         // jobpost 
+        Route::get('job-posts/search', [JobPostController::class, 'search'])->name('job-posts.search');
         Route::resource('job-posts', JobPostController::class);
         
         // profile 
@@ -142,5 +156,34 @@ Route::group([], function(){
 
         // blog post 
         Route::resource('blog-post', BlogPostController::class);
+
+        // site setting 
+        Route::resource('site-setting', SiteSettingController::class);
+        Route::get('site-setting/reset/{id}', [SiteSettingController::class, 'reset'])->name('site-setting.reset');
+
+        // job apply 
+        Route::get('job-apply', [JobApplyController::class, 'index'])->name('job-apply.index');
+        Route::get('job-apply-seeker/{id}', [JobApplyController::class, 'jobApplySeeker'])->name('job-apply.seeker');
+
+        // seo
+        Route::resource('seo', SEOController::class);
+
+        // online booking time 
+        Route::resource('online-booking-time', OnlineBookingTimeController::class);
+
+        // online booking 
+        Route::resource('onlinebooking', OnlineBookingController::class);
+
+        // inperson booking time 
+        Route::resource('inperson-booking-time', InPersonBookingTimeController::class);
+
+        // inperson booking 
+        Route::resource('inpersonbooking', InPersonBookingController::class);
+
+        // close online booking time 
+        Route::resource('close-online-booking-time', CloseOnlineBookingTimeController::class);
+
+        // close inperson booking time 
+        Route::resource('close-inperson-booking-time', CloseInPersonBookingTimeController::class);
     });
 });

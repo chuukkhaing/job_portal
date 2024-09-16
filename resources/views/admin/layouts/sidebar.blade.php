@@ -110,6 +110,11 @@
                 @can('blog-post-list')
                 <a class="collapse-item {{ Request::is('blog-post*') ? 'active' : '' }}" href="{{ route('blog-post.index') }}">Blog Posts</a>
                 @endcan
+
+                @canany('seo-list')
+                <hr style="margin: 0.5rem 0">
+                <a class="collapse-item {{ Request::is('seo*') ? 'active' : '' }}" href="{{ route('seo.index') }}">Page SEO</a>
+                @endcan
             </div>
         </div>
     </li>
@@ -154,6 +159,24 @@
     </li>
     @endcan
 
+    <!-- Nav Item - Job Apply Menu -->
+    @canany(['job-apply', 'job-apply-seeker'])
+    <li class="nav-item {{ Request::is('bank-info*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#jobApplied"
+            aria-expanded="true" aria-controls="jobApplied">
+            <i class="fa-solid fa-file-circle-check"></i>
+            <span>Applied Jobs</span>
+        </a>
+        <div id="jobApplied" class="collapse {{ Request::is('job-apply*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                @can('job-apply')
+                <a class="collapse-item {{ Request::is('job-apply*') ? 'active' : '' }}" href="{{ route('job-apply.index') }}">Applied Jobs</a>
+                @endcan
+            </div>
+        </div>
+    </li>
+    @endcan
+
     <!-- Nav Item - Finance Menu -->
     @canany(['bank-info-list', 'commercial-tax', 'invoice-list'])
     <li class="nav-item {{ Request::is('bank-info*') ? 'active' : '' }} {{ Request::is('tax*') ? 'active' : '' }}">
@@ -177,6 +200,39 @@
         </div>
     </li>
     @endcan
+
+    <li class="nav-item {{ Request::is('online-booking-time*') ? 'active' : '' }} {{ Request::is('inperson-booking-time*') ? 'active' : '' }} {{ Request::is('close-online-booking-time*') ? 'active' : '' }} {{ Request::is('close-inperson-booking-time*') ? 'active' : '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking_schedule"
+            aria-expanded="true" aria-controls="booking_schedule">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>Booking Schedule</span>
+        </a>
+        <div id="booking_schedule" class="collapse {{ Request::is('online-booking-time*') ? 'show' : '' }} {{ Request::is('inperson-booking-time*') ? 'show' : '' }} {{ Request::is('close-online-booking-time*') ? 'show' : '' }} {{ Request::is('close-inperson-booking-time*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('online-booking-time*') ? 'active' : '' }}" href="{{ route('online-booking-time.index') }}">Online Booking Time</a>
+                <a class="collapse-item {{ Request::is('close-online-booking-time*') ? 'active' : '' }}" href="{{ route('close-online-booking-time.index') }}">Unavailable Online <br> Booking Time</a>
+                <a class="collapse-item {{ Request::is('inperson-booking-time*') ? 'active' : '' }}" href="{{ route('inperson-booking-time.index') }}">In-Person Booking Time</a>
+                <a class="collapse-item {{ Request::is('close-inperson-booking-time*') ? 'active' : '' }}" href="{{ route('close-inperson-booking-time.index') }}">Unavailable In-Person <br> Booking Time</a>
+            </div>
+        </div>
+        
+    </li>
+
+    <li class="nav-item {{ Request::is('onlinebooking*') ? 'active' : '' }} {{ Request::is('inpersonbooking*') ? 'active' : '' }} ">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#booking"
+            aria-expanded="true" aria-controls="booking">
+            <i class="fa-solid fa-clock"></i>
+            <span>Booking</span>
+        </a>
+        <div id="booking" class="collapse {{ Request::is('onlinebooking*') ? 'show' : '' }} {{ Request::is('inpersonbooking*') ? 'show' : '' }}" aria-labelledby="headingFour" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('onlinebooking*') ? 'active' : '' }}" href="{{ route('onlinebooking.index') }}">Online Booking</a>
+                <a class="collapse-item {{ Request::is('inpersonbooking*') ? 'active' : '' }}" href="{{ route('inpersonbooking.index') }}">In-Person Booking</a>
+            </div>
+        </div>
+        
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
